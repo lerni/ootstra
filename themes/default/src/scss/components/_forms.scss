@@ -1,0 +1,282 @@
+form {
+	&#Form_Form {
+		padding: 0px 0 50px 0;
+		width: 100%;
+	}
+	.userform-fields,
+	fieldset {
+		border: 0;
+		margin: 0;
+		padding: 0;
+        .field {
+            float: left;
+            display: block;
+            width: 100%;
+            margin: 0 0 #{$lh}em 0;
+            label {
+                color: $lauftext-color;
+                margin-bottom: #{$lh/4}em;
+                font-size: $lauftext-size;
+                &.left {
+                    display: block;
+                }
+                &.right {}
+                &.required {
+                    display: none !important;
+                }
+            }
+            .middleColumn {
+            	float: left;
+                width:100% !important;
+                background: none;
+                input.text,
+                textarea,
+                .textajaxuniquetext,
+                select {
+                    width: 100%;
+                    max-width: 700px;
+                    padding: 6px 5px;
+                    font-size: $lauftext-size;
+                    background-color: $gray-lighter;
+                    border: 1px solid $gray-lighter;
+                    color: $lauftext-color;
+                    @include normal; // dropdown needs this
+                }
+                input.text:focus,
+                textarea:focus,
+                .textajaxuniquetext:focus,
+                select:focus {
+                    outline: none;
+                }
+                input[disabled], form textarea[disabled] {
+                    background-color: #f7f7f7;
+                    border: 1px solid #dad9d9;
+                }
+                textarea {
+                    resize: vertical;
+                }
+                .checkbox, .radio {
+                    input {
+                        float: left;
+                        width: 13px;
+                        height: 13px;
+                        margin-right: 6px;
+                        margin-top: 6px;
+                        padding: 0;
+                    }
+                    & label.right {
+                        float: left;
+                    }
+                }
+			}
+			&.dropdown .middleColumn select  {
+				@include dropdown;
+			}
+			&.hide {
+				display: none;
+			}
+        }
+	}
+	.message {
+		background-color: #fef4ba;
+		padding: 5px 10px;
+		border: 1px solid #e8c805;
+		border-radius: 3px;
+	}
+	.good {
+		background-color: #ecf9d0;
+		border-color: #8fbe00;
+	}
+	.bad, .required {
+		background-color: lighten($red, 45%) !important;
+		border-color: $red !important;
+		color: $lauftext-color !important;
+	}
+
+	body &.userform .left {
+		@include normal;
+	}
+}
+
+.Actions {
+	margin-bottom: 20px;
+	a.btn,
+	button,
+	input[type="submit"],
+	.Actions .action {
+		background: $link-color;
+		color: $white;
+		display: inline-block;
+		border-radius: 4px;
+		padding: 6px 15px;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		text-transform: uppercase;
+		border: none;
+		font-size: $lauftext-size;
+		margin-right: 10px;
+		float: left;
+	}
+	a.btn:hover,
+	button:hover,
+	input[type="submit"]:hover,
+	.Actions .action:hover {
+		background: darken($link-color, 5%);
+		color: $white;
+	}
+	a.btn {
+		line-height: 18px;
+		margin-bottom: 10px;
+	}
+	a.btn:after {
+		content: '\2192';
+		padding-left: 10px;
+	}
+	input.action[class] {
+		width: auto;
+	}
+
+	.Actions:after {
+		color: #B94A48;
+		content: "* Pflichtfeld";
+		display: inline-block;
+		font-weight: normal;
+		margin-top: 9px;
+	}
+	#MemberLoginForm_LoginForm .Actions:after {
+		display: none;
+	}
+}
+
+
+	#Remember {
+		min-height: 20px;
+	}
+	#ForgotPassword {
+		clear: left;
+	}
+	#MemberLoginForm_LostPasswordForm .Actions:after {
+		display: none;
+	}
+
+.FormHeading {
+	clear: both;
+	padding-top: 15px;
+}
+.Actions input.resetformaction {
+	float: left;
+	background-color: #888;
+}
+.Actions input.resetformaction:hover {
+	background-color: #aaa;
+}
+
+
+.checkbox label.right {
+	font-size: $lauftext-size;
+	color: $lauftext-color;
+    float: left;
+}
+form .requiredField label.left:after {
+	color: $lauftext-color;
+	content: "*";
+	font-size: $lauftext-size;
+	font-weight: normal;
+	padding-left: 3px;
+}
+
+/* Radio / Checkbox */
+form .checkboxset ul,
+form .optionset ul {
+	margin: 0;
+}
+	form .checkboxset li,
+	form .optionset li {
+		margin-bottom: 5px;
+		list-style-type: none;
+	}
+	form div.checkbox:after {
+		content: ".";
+		display: block;
+		height: 0;
+		clear: both;
+		visibility: hidden;
+	}
+	form .checkbox .checkbox {
+		float:left;
+		margin:.2em .3em 0 0;
+	}
+
+span.message {
+	margin: 10px 0;
+	display: block;
+	max-width: 390px;
+	clear: left;
+}
+div.holder-required {
+	background-color: #f9d0d0;
+	border: 1px solid #cf0000;
+	padding: 10px;
+	margin-left: -11px;
+}
+form input.holder-required {
+	border: 1px solid #cf0000;
+}
+
+input:invalid,
+textarea:invalid {
+}
+.no-boxshadow input:invalid,
+.no-boxshadow textarea:invalid {
+	background-color: #f0dddd
+}
+.ss-uploadfield-item-info button{
+	margin-top: 4px !important;
+	float: left;
+}
+form .file {
+    color: $lauftext-color;
+}
+
+@media only screen and (max-width: 700px) {
+	.header form .middleColumn {
+		float: none;
+		width: 100% !important;
+	}
+	form label.left,
+	#MemberLoginForm_LoginForm label {
+		margin-bottom: 8px
+	}
+}
+
+@media only screen and (max-width: 900px) {
+	form {
+		max-width: 100%;
+	}
+}
+
+@media only screen and (min-width: 700px) {
+
+}
+[type="submit"],
+.action:not(.action-detail),
+.action.new-link,
+.btn,
+.btn-large {
+	font-size: $lauftext-size;
+	text-decoration: none;
+	color: $white;
+	background-color: $link-color;
+	text-align: center;
+	transition: .2s ease-out;
+	cursor: pointer;
+	border-radius: .2em;
+	margin-bottom: #{$lh}em;
+	border-color: $link-color;
+	display: inline-block;
+	padding: .3em 1em .4em;
+	&:hover {
+		border-color: $link-color;
+		background-color: $link-color;
+	}
+}

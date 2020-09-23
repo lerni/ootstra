@@ -1,0 +1,40 @@
+.element.elementgallery {
+	ul.gallery {
+		list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		width: calc(100% + #{$lh}em);
+		margin: 0 -#{$lh/2}em;
+		padding: 0;
+		padding-top: #{$lh}em;
+		text-align: center;
+		&.left {
+			justify-content: flex-start;
+		}
+		&.center {
+			justify-content: center;
+		}
+		&.right {
+			justify-content: right;
+		}
+		li {
+			flex: 0 0 auto;
+			padding-left: 0;
+			margin: 0 #{$lh/2}em #{$lh}em #{$lh/2}em;
+			a {
+				display: table;
+				width: 100%;
+				float: left;
+				img {
+					float: left;
+					margin-bottom: 0;
+					width: 100%;
+					&:hover {
+						opacity: .9;
+					}
+				}
+			}
+		}
+	}
+}

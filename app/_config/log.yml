@@ -1,0 +1,67 @@
+---
+Name: dev-errors
+Only:
+  environment: dev
+---
+SilverStripe\Core\Injector\Injector:
+  Psr\Log\LoggerInterface.errorhandler:
+    calls:
+      pushMyDisplayErrorHandler: [ pushHandler, [ '%$DisplayErrorHandler' ]]
+  DisplayErrorHandler:
+    class: SilverStripe\Logging\HTTPOutputHandler
+    constructor:
+      - 'notice'
+    properties:
+      Formatter: %$SilverStripe\Logging\DetailedErrorFormatter
+      CLIFormatter: %$SilverStripe\Logging\DetailedErrorFormatter
+
+---
+Name: live-errors
+Except:
+  environment: dev
+---
+SilverStripe\Core\Injector\Injector:
+  # Default logger implementation for general purpose use
+  Psr\Log\LoggerInterface:
+    calls:
+      # Save system logs to file
+      pushFileLogHandler: [ pushHandler, [ '%$LogFileHandler' ]]
+      MailHandler: [ pushHandler, [ '%$MailHandler' ] ]
+
+  # Core error handler for system use
+  Psr\Log\LoggerInterface.errorhandler:
+    calls:
+      # Save errors to file
+      pushFileLogHandler: [ pushHandler, [ '%$LogFileHandler' ]]
+      # Format and display errors in the browser/CLI
+      pushMyDisplayErrorHandler: [ pushHandler, [ '%$DisplayErrorHandler' ]]
+
+  # Custom handler to log to a file
+  LogFileHandler:
+    class: Monolog\Handler\StreamHandler
+    constructor:
+      - '../silverstripe.log'
+      - 'notice'
+    properties:
+      Formatter: %$Monolog\Formatter\HtmlFormatter
+      ContentType: text/html
+
+  # Handler for displaying errors in the browser or CLI
+  DisplayErrorHandler:
+    class: SilverStripe\Logging\HTTPOutputHandler
+    constructor:
+      - 'error'
+    properties:
+      Formatter: %$SilverStripe\Logging\DebugViewFriendlyErrorFormatter
+      # Formatter: %$SilverStripe\Logging\DetailedErrorFormatter
+
+  MailHandler:
+    class: Monolog\Handler\NativeMailerHandler
+    constructor:
+      - '`SS_ERROR_EMAIL`'
+      - '[Error] on project.tld'
+      - '`SS_ERROR_EMAIL`'
+      - 'error'
+    properties:
+      ContentType: text/html
+      Formatter: %$Monolog\Formatter\HtmlFormatter

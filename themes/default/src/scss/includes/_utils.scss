@@ -1,0 +1,96 @@
+/* Utility Classes
+---------------------------------------------------------------------------------- */
+
+/* Occasionally handly class for forcing stuff to hide
+---------------------------------------------------------------------------------- */
+.h,
+%h {
+	// scss-lint:disable ImportantRule
+	display: none !important;
+}
+
+/* Visually hide things, but leave them accessible to screenreaders
+---------------------------------------------------------------------------------- */
+.h-hide-visually,
+%h-hide-visually {
+	position: absolute;
+	overflow: hidden;
+	width: 1px; height: 1px;
+	margin: -1px;
+	padding: 0;
+	border: 0;
+	clip: rect(0 0 0 0);
+	clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
+	white-space: nowrap;
+}
+
+/* Clearfix - Assign class to element to self clear children
+---------------------------------------------------------------------------------- */
+.group,
+%group {
+	zoom: 1; // IE 6/7
+
+	&:before,
+	&:after {
+		display: table;
+		content: '';
+	}
+
+	&:after {
+		clear: both;
+	}
+}
+
+/* Utility class for replacing text with a background-image
+---------------------------------------------------------------------------------- */
+.replace,
+%replace {
+	display: block;
+	overflow: hidden;
+	white-space: nowrap;
+	text-indent: 150%;
+}
+
+%back {
+	&:before {
+		display: inline-block;
+		content: "";
+		width: .9em;
+		height: 1em;
+		background-size: auto 50%;
+		background-repeat: no-repeat;
+		background-position: bottom 30% right 0;
+		background-image: svg-load('../images/svg/arrow.svg', fill=#{$link-color});
+		transform: rotate(180deg);
+		margin-right: .3em;
+		vertical-align: -.1em;
+		transition: all;
+		transition-duration: .12s;
+	}
+	&:hover {
+		&:after {
+			width: 2em;
+		}
+	}
+}
+%forth {
+	&:after {
+		display: inline-block;
+		content: "";
+		width: .9em;
+		height: 1em;
+		background-size: auto 50%;
+		background-repeat: no-repeat;
+		background-position: bottom 30% right 0;
+		background-image: svg-load('../images/svg/arrow.svg', fill=#{$link-color});
+		margin-left: .3em;
+		vertical-align: -.1em;
+		transition: all;
+		transition-duration: .12s;
+	}
+	&:hover {
+		&:after {
+			width: 2em;
+		}
+	}
+}

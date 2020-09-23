@@ -1,0 +1,100 @@
+{
+    "name": "kraftausdruck/silverstripe-recipe",
+    "type": "silverstripe-recipe",
+    "description": "kraftausdruck.ch SilverStripe CMS recipe",
+    "license": "BSD-3-Clause",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/lerni/silverstripe-elemental-virtual"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/lerni/silverstripe-sitetreeimporter"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/lerni/silverstripe-canonical"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/lerni/silverstripe-webp-image"
+        }
+    ],
+    "require": {
+        "php": ">= 7.0, <7.4",
+        "silverstripe/recipe-plugin": "^1",
+        "silverstripe/recipe-core": "^4.6.0",
+        "silverstripe/cms": "^4.6.0",
+        "silverstripe/asset-admin": "^1.6.0",
+        "bigfork/htmleditorsrcset": "^2",
+        "bigfork/silverstripe-fail-whale": "^0",
+        "kinglozzer/metatitle": "^2",
+        "symbiote/silverstripe-gridfieldextensions": "^3",
+        "wilr/silverstripe-googlesitemaps": "^2",
+        "jonom/silverstripe-betternavigator": "^5",
+        "jonom/focuspoint": "^3",
+        "silverstripe/userforms": "^5",
+        "silverstripe/blog": "^3",
+        "axllent/silverstripe-email-obfuscator": "^2",
+        "jonom/silverstripe-text-target-length": "^2",
+        "lerni/silverstripe-googleanalytics": "dev-master as 1.0",
+        "gorriecoe/silverstripe-robots": "^1",
+        "jonom/silverstripe-share-care": "^4",
+        "dorsetdigital/silverstripe-canonical": "dev-master as 1.0",
+        "silverstripe/sharedraftcontent": "^2",
+        "dnadesign/silverstripe-elemental": "^4",
+        "dnadesign/silverstripe-elemental-userforms": "^3",
+        "dnadesign/silverstripe-elemental-virtual": "dev-master as 1.0",
+        "bummzack/sortablefile": "^2.1",
+        "undefinedoffset/silverstripe-nocaptcha": "^2.0",
+        "lerni/silverstripe-webmanifest": "dev-master",
+        "spatie/schema-org": "^2.9",
+        "heyday/silverstripe-colorpalette": "dev-master",
+        "betterbrief/silverstripe-googlemapfield": "^2.2.1",
+        "giggsey/libphonenumber-for-php": "^8.10",
+        "kinglozzer/htmleditorstylinghook": "^2.0",
+        "jeroendesloovere/vcard": "^1.7",
+        "silverstripe/selectupload": "dev-master",
+        "gorriecoe/silverstripe-link": "^1.3",
+        "nomidi/silverstripe-webp-image": "dev-master as 1.0",
+        "lerni/klaro-cookie-consent": "dev-master"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5",
+        "silverstripe/sspak": "dev-master",
+        "deployer/deployer": "^6"
+    },
+    "extra": {
+        "expose": [
+            "app/css",
+            "app/fonts",
+            "app/thirdparty",
+            "themes/default/dist"
+        ],
+        "project-files-installed": [
+            ".htaccess",
+            "app/.htaccess",
+            "app/_config.php",
+            "app/_config/mimevalidator.yml",
+            "app/_config/mysite.yml",
+            "app/src/Page.php",
+            "app/src/PageController.php"
+        ],
+        "public-files-installed": [
+            ".htaccess",
+            "index.php",
+            "install-frameworkmissing.html",
+            "install.php",
+            "web.config"
+        ],
+        "resources-dir": "_resources"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/src"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

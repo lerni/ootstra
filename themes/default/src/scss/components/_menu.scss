@@ -1,0 +1,270 @@
+#header nav {
+	flex: 1 0 auto;
+	display: flex;
+	flex-direction: column;
+	ul {
+		display: flex;
+		justify-content: flex-start;
+		margin: auto 0 auto 0;
+		padding: 0;
+		list-style: none;
+		@include breakpoint($Lneg) {
+			display: none;
+		}
+		li {
+			margin-right: auto;
+			a {
+				min-width: 100%;
+				padding: .4em #{$lh}em .3em;
+				text-decoration: none;
+				display: inline-block;
+				outline: none;
+				white-space: nowrap;
+				color: $lauftext-color;
+				position: relative;
+				z-index: 1;
+			}
+			&.pseudohover,
+			&:hover,
+			&.current,
+			&.section {
+				>a {
+					color: $link-color;
+				}
+			}
+		}
+	}
+	ul.menu1 {
+		margin: auto 0 0 0;
+		>li {
+			position: relative;
+			// bottom padding and negative margin for hoverstate
+			padding-bottom: 33px;
+			margin-bottom: -33px;
+			&.pseudohover,
+			&:hover {
+				// this is used to cover box-shadow on the upper part, that overlaps with header
+				&:after {
+					content: "";
+					position: absolute;
+					left: -#{$lh}em;
+					right: -#{$lh*5}em;
+					top: 0;
+					bottom: 0;
+					background-color: $white;
+					pointer-events: none;
+					z-index: -1;
+				}
+			}
+
+			&.has-children {
+				.menu2 {
+					visibility: hidden;
+					position: absolute;
+					top: calc(100% - #{$lh}em);
+					padding: 0 0 #{$lh/2}em 0;
+					display: block;
+					transition-timing-function: ease-out;
+					min-width: 100%;
+					// background for subnavi
+					&:after {
+						content: "";
+						position: absolute;
+						z-index: -2;
+						top: 0;
+						left: 0;
+						right: 0;
+						bottom: 0;
+						background-color: $white;
+						box-shadow: 0 0 1em rgba($black, .1);
+					}
+					li {
+						// width: 100%;
+						display: block;
+						a {
+							opacity: 0;
+							display: block;
+							float: left;
+							height: 0;
+							overflow-y: hidden;
+							will-change: height opacity;
+							transition: height opacity;
+							transition: height 100ms linear, opacity 100ms linear;
+						}
+					}
+				}
+
+				>a {
+					background-size: .5em 1em;
+					background-repeat: no-repeat;
+					background-position: right .6em bottom 26%;
+					background-image: svg-load('../images/svg/arrow-down.svg', stroke=#{$lauftext-color});
+				}
+
+				&.current,
+				&.section {
+					>a {
+						background-image: svg-load('../images/svg/arrow-down.svg', stroke=#{$link-color});
+					}
+				}
+				&:hover,
+				&.pseudohover {
+					.menu2 {
+	// display: block;
+						visibility: visible;
+						li {
+							a {
+								opacity: 1;
+								height: calc(#{$lh}em + .7em);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	.menu-button {
+		display: none;
+		position: relative;
+		z-index: 9900;
+		align-self: flex-start;
+		margin: auto 0 auto auto;
+		width: 100px;
+		justify-content: flex-start;
+		cursor: pointer;
+		@include breakpoint($Lneg) {
+			display: flex;
+		}
+		@include breakpoint($Sneg) {
+			width: 30px;
+		}
+		.txt {
+			margin-right: #{$lh*.5}em;
+			color: $lauftext-color;
+			line-height: 1;
+			@include breakpoint($Sneg) {
+				display: none;
+			}
+		}
+		.burger-icon {
+			span {
+				background-color: $lauftext-color;
+			}
+			@include print {
+				display: none;
+				&:before,
+				&:after {
+					display: none;
+				}
+			}
+			@include breakpoint($Lneg) {
+				display: block;
+				&:before,
+				&:after {
+					display: block;
+				}
+			}
+			// values need to be passed in px
+			@include burger(28px, 3px, 5px, $lauftext-color, 2px);
+			background-color: transparent !important;
+		}
+	}
+}
+
+body.mobile-nav--active {
+	#header {
+		position: fixed;
+		z-index: 100;
+		overflow-x: hidden;
+		overflow-y: auto;
+		height: auto;
+		top: 0;
+		bottom: 0;
+		.inner {
+			flex-direction: column;
+			padding-left: 0;
+			padding-right: #{$lh}em;
+			.column {
+				&.nav {
+					flex: 1 0 auto;
+					order: 2;
+					@include breakpoint($Sneg) {
+						order: 1;
+					}
+					ul.menu1 {
+						display: flex;
+						flex-direction: column;
+						justify-content: flex-start;
+						align-items: flex-start;
+						width: 100%;
+						margin: 6vh auto auto;
+						>li {
+							width: 100%;
+							padding-bottom: 0;
+							margin: 0 0 #{$lh/2}em 0;
+							a {
+								text-align: left;
+								font-size: 1.3em;
+							}
+							.menu2 {
+								position: inherit;
+								left: auto;
+								top: auto;
+								height: auto;
+								background-color: transparent;
+								padding-top: 0;
+								box-shadow: none;
+								padding: #{$lh/3*2}em 0;
+								visibility: visible;
+								display: table;
+								&:after {
+									display: none;
+								}
+								li {
+									a {
+										height: auto;
+										opacity: 1;
+										padding-left: #{$lh/3*5}em;
+									}
+								}
+							}
+						}
+					}
+					.menu-button {
+						position: absolute;
+						top: 30px;
+						right: #{$lh}em;
+						outline: none;
+						@include breakpoint($Sneg) {
+							bottom: 30px;
+							top: auto;
+						}
+						.burger-icon {
+							@include burger-to-cross;
+						}
+					}
+				}
+				&.logo {
+					order: 1;
+					flex: 0 0 100%;
+					height: $headerheight--small;
+					flex: 0 0 $headerheight--small;
+					margin: auto auto auto 0;
+					@include breakpoint($Sneg) {
+						&:before {
+							content: "";
+							width: 1000%;
+							height: $headerheight--small;
+							box-shadow: 0 0 1em rgba($black, .1);
+							position: absolute;
+							bottom: 0;
+							left: -200%;
+						}
+
+					}
+
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,235 @@
+---
+Name: app
+After:
+  - 'framework'
+  - 'mysharecare'
+  - 'blogconfig'
+---
+SilverStripe\Assets\File:
+  extensions:
+    - App\Extensions\FileExtension
+
+# SilverStripe\AssetAdmin\Forms\FileFormFactory:
+SilverStripe\AssetAdmin\Forms\ImageFormFactory:
+  extensions:
+    - App\Extensions\FormFileExtension
+
+SilverStripe\Core\Manifest\ModuleManifest:
+  project: app
+
+SilverStripe\View\SSViewer:
+  global_key: '$CurrentReadingMode, $Locale'
+  rewrite_hash_links: false
+
+SilverStripe\Assets\Upload:
+  overwriteWarning: true
+  replaceFile: true
+
+SilverStripe\View\Requirements:
+  write_js_to_body: true
+  force_js_to_bottom: true
+
+SilverStripe\ORM\FieldType\DBField:
+  extensions:
+    - App\Extensions\FieldExtension
+
+SilverStripe\ORM\FieldType\DBText:
+  extensions:
+    - App\Extensions\TabTableExtension
+
+SilverStripe\Admin\LeftAndMain:
+  extra_requirements_css:
+    - app/css/cms.css
+
+SilverStripe\Forms\HTMLEditor\TinyMCEConfig:
+  editor_css:
+    - 'themes/default/dist/css/editor.css'
+
+SilverStripe\Blog\Model\Blog:
+  extensions:
+    - App\Extensions\BlogExtension
+
+SilverStripe\Blog\Model\BlogPost:
+  show_in_sitetree: true
+  default_sort: 'Sort ASC, PublishDate DESC'
+  extensions:
+    - App\Extensions\BlogPostExtension
+    - DNADesign\Elemental\Extensions\ElementalPageExtension
+  allowed_elements:
+    - DNADesign\Elemental\Models\ElementContent
+    - DNADesign\ElementalUserForms\Model\ElementForm
+    - DNADesign\ElementalVirtual\Model\ElementVirtual
+    - App\Elements\ElementHero
+    - App\Elements\ElementMaps
+    - App\Elements\ElementPerso
+    - App\Elements\ElementPersoCFA
+    - App\Elements\ElementJobs
+    - App\Elements\ElementContentSection
+    - App\Elements\ElementCounter
+    - App\Elements\ElementLogo
+    - App\Elements\ElementGallery
+    - App\Elements\ElementTeaser
+    - App\Elements\ElementFeedTeaser
+    - App\Elements\ElementTextImage
+
+App\Model\ElementPage:
+  icon: '_resources/themes/default/dist/images/svg/icon-elements.svg'
+  extensions:
+    - DNADesign\Elemental\Extensions\ElementalPageExtension
+  allowed_elements:
+    - DNADesign\Elemental\Models\ElementContent
+    - DNADesign\ElementalUserForms\Model\ElementForm
+    - DNADesign\ElementalVirtual\Model\ElementVirtual
+    - App\Elements\ElementHero
+    - App\Elements\ElementMaps
+    - App\Elements\ElementPerso
+    - App\Elements\ElementPersoCFA
+    - App\Elements\ElementJobs
+    - App\Elements\ElementContentSection
+    - App\Elements\ElementCounter
+    - App\Elements\ElementLogo
+    - App\Elements\ElementGallery
+    - App\Elements\ElementTeaser
+    - App\Elements\ElementFeedTeaser
+    - App\Elements\ElementTextImage
+
+DNADesign\Elemental\Models\BaseElement:
+  extensions:
+    - App\Extensions\ElementExtension
+
+DNADesign\Elemental\Models\ElementContent:
+  extensions:
+    - App\Extensions\ElementContentExtension
+
+DNADesign\ElementalUserForms\Model\ElementForm:
+  extensions:
+    - App\Extensions\ElementalUserFormsExtension
+
+DNADesign\ElementalVirtual\Model\ElementVirtual:
+  extensions:
+    - App\Extensions\ElementaVirtualExtension
+
+SilverStripe\Control\Email\Email:
+  admin_email: ''
+
+SilverStripe\i18n\i18n:
+  default_locale: de_CH
+  date_format: 'dd.MM.yyyy'
+  time_format: 'HH:mm'
+
+SilverStripe\CMS\Model\SiteTree:
+  extensions:
+    - App\Extensions\HeritageExtension
+    - DorsetDigital\SilverStripeCanonical\SiteTreeCanonicalExtension
+  meta_generator: ''
+
+SilverStripe\SiteConfig\SiteConfig:
+  extensions:
+    - App\Extensions\SiteConfigExtension
+
+SilverStripe\Security\Member:
+  extensions:
+    - App\Extensions\MemberExtension
+
+SilverStripe\UserForms\Model\Recipient\EmailRecipient:
+  allow_unbound_recipient_fields: true
+
+SilverStripe\SpamProtection\Extension\FormSpamProtectionExtension:
+  default_spam_protector: UndefinedOffset\NoCaptcha\Forms\NocaptchaProtector
+
+UndefinedOffset\NoCaptcha\Forms\NocaptchaField:
+  site_key: "" #Your site key (required)
+  secret_key: "" #Your secret key (required)
+  verify_ssl: true #Allows you to disable php-curl's SSL peer verification by setting this to false (optional, defaults to true)
+  default_theme: "light" #Default theme color (optional, light or dark, defaults to light)
+  default_type: "invisible" #Default captcha type (optional, image or audio, defaults to image)
+  default_size: "normal" #Default size (optional, normal, compact or invisible, defaults to normal)
+  default_badge: "bottomleft" #Default badge position (bottomright, bottomleft or inline, defaults to bottomright)
+  proxy_server: "" #Your proxy server address (optional)
+  proxy_auth: "" #Your proxy server authentication information (optional)
+
+SilverStripe\Core\Injector\Injector:
+  Intervention\Image\ImageManager:
+    constructor:
+      - driver: imagick
+
+SilverStripe\Assets\InterventionBackend:
+  quality: 84
+
+gorriecoe\Robots\Robots:
+  disallowed_urls: []
+  sitemap: '/sitemap.xml'
+  disallow_unsearchable: true
+
+App\Controller\ElementalPersoController:
+  expose_vcards: false
+
+# Kraftausdruck\InstagramFeed\Control\InstaAuthController:
+#  credentials:
+#   appId: '802342500286970'
+#   appSecret: '43f19c4f62b4f9d3f229c1a2e93eebb5'
+#  redirectUri: 'https://bibsu.lodev/_instaauth/'
+---
+Name: mywebmanifestconfig
+After: webmanifestconfig
+---
+Kraftausdruck\Webmanifest\Webmanifest:
+  fields:
+    name: 'SiteConfig'
+    description: 'SiteConfig'
+    background_color: 'SiteConfig'
+    theme_color: 'SiteConfig'
+---
+Name: mysharecare
+After: 'opengraphextensions'
+---
+JonoM\ShareCare\ShareCare:
+  enable_facebook_cache_clear: false
+Page:
+  extensions:
+    - JonoM\ShareCare\ShareCareFields
+    - App\Extensions\ShareCareFieldsExtension
+
+---
+Name: myopengraphsettings
+After: '#opengraphsettings'
+---
+TractorCow\OpenGraph\OpenGraph:
+  default_locale: 'de_DE'
+  application_id: ''
+  admin_id: ''
+
+---
+Name: mygooglemapfield
+---
+BetterBrief\GoogleMapField:
+ default_options:
+   api_key: 'AIzaSyDfMPOhAOv8_iw0ZtOW-QSB8w1PfRhW6do'
+
+---
+Only:
+  environment: 'test'
+---
+gorriecoe\Robots\Robots:
+  disallowed_urls:
+    - '*'
+  sitemap: ''
+  disallow_unsearchable: true
+
+---
+Only:
+  environment: 'dev'
+---
+SilverStripe\Control\Email\Email:
+  admin_email: 'le@kraftausdruck.ch'
+  send_all_emails_to: 'le@kraftausdruck.ch'
+
+SilverStripe\View\SSViewer:
+  source_file_comments: false
+
+---
+Only:
+  environment: 'live'
+---
+SilverStripe\Dev\DevelopmentAdmin:
+  deny_non_cli: true

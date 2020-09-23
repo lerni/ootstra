@@ -1,0 +1,6 @@
+---
+Name: silverstripe-sitetreeimporter
+---
+SilverStripe\Control\Director:
+  rules:
+    'SiteTreeImporter': 'SilverStripe\Importer\SiteTreeImporter'

@@ -1,0 +1,39 @@
+/* For CMS HtmlEditorField
+---------------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@200;400&display=swap');
+
+// @font-face {
+//     font-family: "icons";
+//     src:url("/_resources/themes/default/dist/webfonts/icons.eot");
+//     src:url("/_resources/themes/default/dist/webfonts/icons.eot?#iefix") format("embedded-opentype"),
+//         url("/_resources/themes/default/dist/webfonts/icons.woff") format("woff"),
+//         url("/_resources/themes/default/dist/webfonts/icons.woff2") format("woff2"),
+//         url("/_resources/themes/default/dist/webfonts/icons.ttf") format("truetype");
+//     font-weight: normal;
+//     font-style: normal;
+// }
+@import 'includes/variables';
+@import 'includes/mixins';
+@import 'includes/typography';
+
+body.mce-content-body {
+	@include smoothFonts;
+	@include normal;
+	font-family: $font-family;
+    color: $lauftext-color;
+	font-size: $lauftext-size;
+    line-height: $lh;
+	&.typography {
+		max-width: $inner-width--reduced;
+	}
+}
+
+body.global-alert {
+	background-color: $blue;
+	>* {
+		color: $white;
+	}
+	a {
+		color: $red;
+	}
+}

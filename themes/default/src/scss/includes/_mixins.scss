@@ -1,0 +1,104 @@
+/* Mixins
+---------------------------------------------------------------------------------- */
+
+/* Media queries
+---------------------------------------------------------------------------------- */
+@mixin respond($width, $minMax: 'min') {
+	@if(type-of($width) == 'string') {
+		$width: unquote($width);
+	}
+
+	@media screen and (#{$minMax}-width: $width) {
+		@content;
+	}
+}
+
+/* High-DPI displays
+---------------------------------------------------------------------------------- */
+@mixin retina($density: 1.5) {
+	// Otherwise, all the pixels
+	@media
+		only screen and (-webkit-min-device-pixel-ratio: #{$density}),
+		only screen and (   min--moz-device-pixel-ratio: #{$density}),
+		only screen and (     -o-min-device-pixel-ratio: #{($density * 10)}/10),
+		only screen and (        min-device-pixel-ratio: #{$density}),
+		only screen and (                min-resolution: ($density * 96dpi)),
+		only screen and (                min-resolution: #{$density}dppx) {
+			@content;
+	}
+}
+
+@mixin bold {
+	font-weight: 400;
+}
+@mixin normal {
+	font-weight: 200;
+}
+/* Strip 'px', 'rem' etc units from a number
+---------------------------------------------------------------------------------- */
+@function strip-units($number) {
+	@return $number / ($number * 0 + 1);
+}
+
+@mixin iconfontsettings {
+	font-family: "icons";
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	speak: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+@mixin smoothFonts {
+	-webkit-text-size-adjust: none;
+	text-size-adjust: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-ms-text-size-adjust: 100%; /* 2 */
+}
+
+@mixin dropdown() {
+	outline: none;
+	appearance: none;
+	border-radius: 0;
+	background-repeat: no-repeat;
+	background-position: top .7em right .7em;
+	background-image: svg-load('../images/svg/arrow-down.svg', stroke=#{$lauftext-color}, stroke-width=30);
+	background-size: .8em  .45em;
+	&:-moz-focusring {
+		text-shadow: 0 0 0 #000;
+	}
+	&::-ms-expand {
+		display: none;
+	}
+	option {
+		@include normal
+	}
+}
+
+@mixin print {
+	@media print {
+		@content;
+	}
+}
+
+@mixin ie11 {
+	@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+		@content;
+	}
+}
+
+@mixin iconfontsettings {
+	font-family: "icons";
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	speak: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-display: swap;
+}

@@ -1,0 +1,225 @@
+.element.elementteaser,
+.element.elementfeedteaser {
+    .teasers {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: calc(100% + #{$lh}em);
+        margin-left: -#{$lh/2}em;
+        margin-right: -#{$lh/2}em;
+        .teaser {
+            color: $lauftext-color;
+            margin: 0 #{$lh/2}em #{$lh*2}em #{$lh/2}em;
+            flex: 0 0 calc(#{percentage(1/3)} - #{$lh}em);
+            position: relative;
+            figure {
+                width: 100%;
+                margin: 0;
+                overflow: hidden;
+                img {
+                    width: 100%;
+                    float: left;
+                    margin-bottom: 0;
+                    transform: scale(1);
+                    will-change: transform;
+                    transition: transform 140ms ease-out;
+                }
+            }
+            .txt {
+                position: absolute;
+                z-index: 1;
+                h4 {
+                    @include normal;
+                    font-size: 1.25em
+                }
+                p {
+                    margin: #{$lh}em 0;
+                }
+            }
+        }
+        // just hover if it's really a link
+        a.teaser {
+            .pseudolink:hover {
+                &:after {
+                }
+            }
+        }
+        &.third {
+            .teaser {
+                // flex: 0 0 calc(#{percentage(1/3)} - #{$lh}em); // default
+                display: flex;
+                flex-direction: column;
+                @include breakpoint($Lneg) {
+                    flex: 0 0 calc(#{percentage(1/2)} - #{$lh*1/2}em);
+                    margin-right: #{$lh}em;
+                }
+                @include breakpoint($Mneg) {
+                    flex: 0 0 100%;
+                    margin-right: 0;
+                }
+                figure {
+                    flex: 0 0 auto;
+                    margin-bottom: #{$lh}em;
+                }
+                .txt {
+                    position: inherit;
+                    flex: 0 0 auto;
+                    @include breakpoint($Mneg) {
+                        padding: #{$lh*1.5}em #{$lh/2}em 0 #{$lh*2}em;
+                    }
+                }
+                .pseudolink {
+                    @include breakpoint($Mneg) {
+                        padding-left: #{$lh*2}rem;
+                    }
+                }
+            }
+            a.teaser:hover {
+                figure {
+                    img {
+                        transform: scale(1.02);
+                    }
+                }
+            }
+        }
+        &.halve {
+            .teaser {
+                flex: 0 0 calc(#{percentage(1/2)} - #{$lh}em);
+                max-width: 480px;
+                margin: #{$lh*2}em #{$lh/2}em;
+                &:nth-of-type(2n) {
+                    margin-right: 0;
+                }
+                @include breakpoint($XLneg) {
+                    flex: 0 0 100%;
+                    margin-right: 0;
+                    margin-left: 0;
+                }
+                .txt {
+                    background-color: $white;
+                    padding: #{$lh*1.5}em #{$lh/2}em #{$lh}em #{$lh*2}em;
+                    max-width: calc(100% - #{$lh*2}em);
+                    min-width: 360px;
+                    right: 0;
+                    bottom: 0;
+                    will-change: padding;
+                    transition: padding 320ms;
+                    p,
+                    .pseudolink {
+                        float: left;
+                        width: 100%;
+                    }
+                    p {
+                        margin: #{$lh}em 0;
+                    }
+                    .accordion {
+                        max-height: 0;
+                        overflow: hidden;
+                        will-change: max-height;
+                        transition: max-height 320ms ease-out;
+                    }
+                }
+                @include breakpoint($Mneg) {
+                    .txt {
+                        position: inherit;
+                        left: auto;
+                        bottom: auto;
+                        max-width: 100%;
+                        padding-left: #{$lh}em;
+                        padding-bottom: 0 !important;
+                        .accordion {
+                            max-height: none;
+                        }
+                    }
+                }
+                &:hover {
+                    .txt {
+                        padding-bottom: #{$lh/2}em;
+                        .accordion {
+                            max-height: 300px;
+                            overflow: show;
+                        }
+                    }
+                }
+                &.left {
+                    .txt {
+                        left: 0;
+                        right: auto;
+                    }
+                }
+            }
+        }
+        &.full {
+            display: block;
+            width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+            .teaser {
+                display: block;
+                margin: #{$lh*2}em 0;
+                .txt {
+                    position: absolute;
+                    display: block;
+                    background-color: $white;
+                    padding: #{$lh*1.5}em #{$lh*2}em #{$lh*1.5}em;
+                    right: 0;
+                    bottom: 0;
+                    will-change: padding-bottom;
+                    transition: padding 320ms;
+                    max-width: 500px;
+                    min-width: 360px;
+                    @include breakpoint($Mneg) {
+                        min-width: 0;
+                    }
+                    p,
+                    .pseudolink {
+                        float: left;
+                        width: 100%;
+                    }
+                    p {
+                        margin: #{$lh}em 0;
+                    }
+                    .accordion {
+                        max-height: 0;
+                        overflow: hidden;
+                        will-change: max-height;
+                        transition: max-height 320ms ease-out;
+                    }
+                }
+                &.text-overlay-left {
+                    .txt {
+                        left: 0;
+                        right: auto;
+                    }
+                }
+                @include breakpoint($Mneg) {
+                    .txt {
+                        position: inherit;
+                        left: auto;
+                        bottom: auto;
+                        max-width: 100%;
+                        padding-left: #{$lh}em;
+                        padding-bottom: 0 !important;
+                        .accordion {
+                            max-height: none;
+                        }
+                    }
+                }
+                &:hover {
+                    .txt {
+                        .accordion {
+                            max-height: 300px;
+                            overflow: show;
+                        }
+                    }
+                }
+                &.left {
+                    .txt {
+                        left: 0;
+                        right: auto;
+                    }
+                }
+            }
+        }
+    }
+}

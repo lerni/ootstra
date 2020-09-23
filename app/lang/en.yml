@@ -1,0 +1,7 @@
+en:
+  Page:
+    More: 'Read more'
+  App\Models\Teaser:
+    MORE: 'Read more'
+  Kraftausdruck\KlaroCookie:
+    MODALLINK: 'Cookies'

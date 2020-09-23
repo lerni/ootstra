@@ -1,0 +1,89 @@
+/* CMS tweaks
+-------------------------------------------------------------------------------- */
+@font-face {
+	font-family: "icons";
+	src:url("/_resources/app/fonts/icons.woff2") format("woff2"),
+	url("/_resources/app/fonts/icons.woff") format("woff"),
+	url("/_resources/app/fonts/icons.ttf") format("truetype");
+	font-weight: normal;
+	font-style: normal;
+}
+
+[action*="SocialLinks/item"] #Form_ItemEditForm_Icon_Holder ul.chosen-results li,
+[action*="SocialLinks/item"] #Form_ItemEditForm_Icon_chosen a span {
+	line-height: 1.4;
+	font-size:18px;
+	font-family: "icons" !important;
+	font-style: light !important;
+	font-weight: light !important;
+	font-variant: light !important;
+	text-transform: none !important;
+	speak: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+[action*="SocialLinks/item"] #Form_ItemEditForm_Icon_chosen a span {
+	vertical-align: -6px;
+	display: inline;
+}
+
+.cms-edit-form .form-group.htmleditor.stacked .form__field-holder,
+.form--inline .form-group.htmleditor.stacked .form__field-holder,
+.ss-insert-link .form__fieldgroup .form-group.htmleditor.stacked .form__field-holder {
+	max-width:none !important;
+}
+
+
+#Form_AddForm_PageType .disabled {
+	display: none !important;
+}
+
+.icon.icon-16 {
+	background-size: 16px auto;
+}
+
+.checkboxleft {
+	padding-left: 0 !important;
+}
+
+.checkboxleft label {
+	font-weight: bold !important;
+}
+
+fieldset.grid {
+	margin-bottom: 2rem;
+}
+
+.grid-field__title {
+	font-weight: 500;
+}
+
+/* Title-Level Field in Elements */
+#Form_ItemEditForm_TitleLevelTitle {
+	display:flex;
+	width: 100%;
+}
+#Form_ItemEditForm_TitleLevel_Holder {
+	flex: 0 0 110px;
+	margin-right: 1em;
+}
+#Form_ItemEditForm_Title_Holder {
+	flex: 1 1 auto;
+}
+
+.valSilverStripe_UserForms_Model_UserDefinedForm {
+	display:none;
+}
+
+/* Blog summary - https://github.com/silverstripe/silverstripe-blog/issues/485 */
+.custom-summary .ui-accordion-content .form-group--no-label {
+	margin: 0;
+	width: 100%;
+}
+.custom-summary .ui-accordion-content .form-group--no-label .form__field-holder--no-label {
+	margin-left: 0;
+	padding-left: 0;
+	padding-right: 0;
+	flex: 0 0 100%;
+	max-width: 100%;
+}

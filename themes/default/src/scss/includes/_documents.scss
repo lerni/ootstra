@@ -1,0 +1,84 @@
+ul.doc {
+	margin: 0 0 #{$lh}em 0;
+	padding: 0;
+	width: 100%;
+	li {
+		display: block;
+		width: 100%;
+		list-style: none;
+		padding: #{$lh*.35}em 0;
+		margin: 0;
+		border-bottom: 1px solid $gray-light;
+		&.first {
+			border-top: 1px solid $gray-light;
+		}
+	}
+}
+
+a.download {
+	color: $lauftext-color;
+	display: inline-block;
+	width: 100%;
+	line-height: #{$lh*1.4}em;
+	height: #{$lh*1.4}em;
+	padding-left: #{$lh*1.7}em;
+	background-repeat: no-repeat;
+	background-size: #{$lh*1.4}em #{$lh*1.4}em;
+	background-image: url(../images/svg/default.svg);
+	&:hover {
+		filter: brightness(90%);
+		color: darken($lauftext-color, 6%);
+	}
+	&[href$=".pdf"],
+	&[href$=".PDF"],
+	&.pdf {
+		background-image: url(../images/svg/pdf.svg);
+	}
+	&[href$=".docx"],
+	&[href$=".docX"],
+	&[href$=".DOCX"],
+	&[href$=".doc"],
+	&[href$=".DOC"],
+	&.doc {
+		background-image: url(../images/svg/doc.svg);
+	}
+	&[href$=".xlsx"],
+	&[href$=".XLSX"],
+	&[href$=".xls"],
+	&[href$=".XLS"],
+	&.xls {
+		background-image: url(../images/svg/xls.svg);
+	}
+	&[href$=".jpg"],
+	&[href$=".JPG"],
+	&[href$=".JPNG"],
+	&[href$=".jpng"],
+	&[href$=".png"],
+	&[href$=".PNG"],
+	&[href$=".gif"],
+	&[href$=".GIF"],
+	&.jpg {
+		background-image: url(../images/svg/jpg.svg);
+	}
+	&[href$=".ppt"],
+	&[href$=".pptx"],
+	&[href$=".PPT"],
+	&[href$=".PPTX"],
+	&[href$=".pps"],
+	&[href$=".ppsx"],
+	&[href$=".PPS"],
+	&[href$=".PPSX"],
+	&[href$=".XLS"],
+	&.pps {
+		background-image: url(../images/svg/ppt.svg);
+	}
+	&[href$=".gz"],
+	&[href$=".GZ"],
+	&[href$=".gzip"],
+	&[href$=".GZIP"],
+	&[href$=".zip"],
+	&[href$=".ZIP"],
+	&.archive {
+		background-image: url(../images/svg/zip.svg);
+	}
+}

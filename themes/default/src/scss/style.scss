@@ -1,0 +1,942 @@
+@import '~breakpoint-sass/stylesheets/breakpoint';
+@import 'includes/variables';
+@import 'includes/typography';
+@import 'includes/mixins';
+@import 'includes/defaults';
+@import 'includes/utils';
+
+@import 'includes/jquery.fancybox.min.css';
+@import 'includes/swiper.css';
+
+
+// Many styles
+@import 'components/*';
+
+/* Layout
+---------------------------------------------------------------------------------- */
+
+html, body {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	@include print {
+		height: 99%;
+		page-break-after: auto;
+	}
+}
+
+html {
+	overflow-x: hidden;
+	overflow-y: scroll;
+	letter-spacing: .04em;
+}
+
+body {
+	font-size: #{$lauftext-size};
+	font-family: $font-family;
+	font-display: auto;
+	line-height: $lh;
+	color: $lauftext-color;
+	@include smoothFonts;
+	@include normal;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	background-color: $white;
+	@include breakpoint($Lneg) {
+		font-size: #{$lauftext-size*.9};
+	}
+	@include breakpoint($Sneg) {
+		font-size: #{$lauftext-size*.8};
+	}
+}
+
+// #BetterNavigator {
+// 	display:none !important;
+// }
+
+#header {
+	display: flex;
+	flex: 0 0 $headerheight;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 200;
+	width: 100%;
+	height: $headerheight;
+	will-change: height;
+	transition: height .2s ease-out;
+	box-shadow: none;
+	@include breakpoint($Sneg) {
+		top: auto;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		height: $headerheight--small; // same amount on lower footer
+		background-color: $white;
+		box-shadow: 0 0 .8em rgba($black, .3);
+		transform: translateY(0) !important;
+	}
+	.inner {
+		display:flex;
+		// max-width: calc(#{$inner-width + 200px});
+		.column {
+			justify-content: flex-end;
+			flex-direction: column;
+			&.logo {
+				flex: 0 0 400px;
+				a {
+					svg,
+					img {
+						height: 100%;
+						margin: 0 auto 0 0;
+					}
+				}
+			}
+			&.nav {
+				// this things are living in _menu.scss
+			}
+		}
+	}
+	&.headroom {
+		&.headroom--top {
+			// shuldn't do anything here to prevent fouc
+		}
+		&.headroom--not-top {
+			background-color: rgba($white, .97);
+			box-shadow: 0 0 .7em rgba($black, .3);
+			// @include small-header();
+
+
+			nav ul.menu1 > li,
+			nav ul.service-nav > li {
+				a {
+					color: $lauftext-color;
+					text-shadow: 0 0 0 transparent;
+				}
+				&.current,
+				&.section {
+					>a {
+						color: $blue;
+					}
+				}
+			}
+			nav ul.menu1 > li,
+			nav ul.service-nav > li {
+				// shadow on top would overlay on white header. to prevent/cover this optically, we overlay bellow on top
+				.menu2 {
+					&:before {
+						pointer-events: none;
+						content: "";
+						width: calc(100% + 1em);
+						width: 100%;
+						height: 1em;
+						position: absolute;
+						top: -.5em;
+						left: 0em;
+						background-color: $white;
+					}
+				}
+			}
+			.burger-icon, .burger-icon::before, .burger-icon::after {
+
+			}
+			&:after {
+				opacity: 0;
+			}
+		}
+		.mobile-nav--active & {
+
+		}
+	}
+}
+
+main.typography {
+	width:100%;
+	flex: 1;
+	@include ie11 {
+		flex: 1 0 auto;
+	}
+}
+
+.inner {
+	width:100%;
+	max-width: $inner-width;
+	margin: 0 auto;
+	padding-left: #{$lh*1}em;
+	padding-right: #{$lh*1}em;
+	@include breakpoint($Mneg) {
+		padding-left: #{$lh/2}em;
+		padding-right: #{$lh/2}em;
+	}
+}
+
+.breadcrumbs {
+	padding-bottom: #{$lh/2}em;
+	text-align: center;
+	@include bold;
+	a, span, .delimiter {
+		font-size: .9em;
+	}
+	a {
+		@include normal;
+		color: $lauftext-color;
+	}
+	.delimiter {
+		display: inline-block;
+		width: 1em;
+		height: 1em;
+		margin: 0 .2em;
+		background-repeat: no-repeat;
+		background-image: svg-load('../images/svg/delimiter.svg');
+		background-position: bottom center;
+		background-size: .3em;
+	}
+}
+
+.typography p.cats {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin-bottom: 0;
+	font-size: .9em;
+	>span,
+	>a {
+		display: inline-block;
+		margin: 0 #{$lh/2}em #{$lh/2}em 0;
+		padding: .3em 1.2em .2em;
+		border-width: 2px;
+		border-style: solid;
+		border-color: $link-color;
+		color: $link-color;
+		&:last-child {
+			margin-right: 0;
+		}
+		&.current {
+			color: $white;
+			background-color: $link-color;
+		}
+		&:not(.current) {
+			background-color: transparent;
+		}
+	}
+	>a.all:not(.current) {
+		border-color: transparent;
+		padding-left: 0;
+		padding-right: 1em;
+		&:before {
+			display: inline-block;
+			content: "";
+			width: .9em;
+			height: 1em;
+			background-size: 100% auto;
+			background-repeat: no-repeat;
+			background-position: center center;
+			background-image: svg-load('../images/svg/arrow.svg', fill=#{$link-color});
+			transform: rotate(180deg);
+			margin-right: .5em;
+			vertical-align: -.1em;
+		}
+	}
+}
+
+.element {
+	// display: table;
+	clear: both;
+	position: relative;
+	width: 100%;
+	$min-spacing: 0;
+	$max-spacing: 6;
+	&.background-gray-lighter {
+		background-color: $gray-lighter;
+	}
+	&.elementjobs.show,
+	&.elementform,
+	&.elementcontent,
+	&.elementcontentsection {
+		.inner {
+			>* {
+				max-width: $inner-width--reduced;
+				margin-left: 0;
+				margin-right: auto;
+			}
+		}
+	}
+	&.elementcontent {
+		.typography {
+			>*:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+	&.elementhero {
+		display: block; // swiper.js shouldn't life in a display: table element otherwise layout breaks
+		// with DefaultHero the image is not wrapped with swiper divs
+		margin-top: $headerheight;
+
+		figure {
+			height: 100%;
+			width: 100%;
+			margin: 0;
+			position: relative;
+			img {
+				height: 100%;
+				width: 100%;
+				display: table; // testing to have image tihght in container
+				object-fit: cover;
+				max-width: none;
+				margin-bottom: 0;
+				max-height: 500px;
+				@include breakpoint($Mneg) {
+					height: 180px;
+				}
+			}
+		}
+		.txt {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			.inner {
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-end;
+				align-items: flex-end;
+				.spacer {
+					margin: 0;
+					width: 100%;
+					max-width: $inner-width--reduced;
+					display: flex;
+					flex-direction: column;
+				}
+				p, h1, h2, h3 {
+					font-size: 1.5em;
+					text-shadow: 0 0 .7em rgba($lauftext-color, .5);
+					color: $white;
+				}
+				h1, h2, h3 {
+					// @include medium;
+					margin: 0;
+				}
+				p {
+					@include normal;
+					margin-bottom: 0;
+					padding: #{$lh*.5}em 0;
+				}
+			}
+			&.upper-left .inner {
+				padding-top: #{$lh}em;
+				justify-content: flex-start;
+				align-items: flex-start;
+				.spacer {
+					margin: 0 auto auto 0;
+				}
+				p, h1, h2, h3 {
+					text-align: left;
+				}
+			}
+			&.upper-right .inner {
+				padding-top: #{$lh}em;
+				justify-content: flex-end;
+				align-items: flex-start;
+				.spacer {
+					margin: 0 0 auto auto;
+				}
+				p, h1, h2, h3 {
+					text-align: right;
+				}
+			}
+			&.lower-left .inner {
+				justify-content: flex-start;
+				align-items: flex-start;
+				.spacer {
+					margin: auto auto 0 0;
+				}
+				p, h1, h2, h3 {
+					text-align: left;
+				}
+			}
+			&.lower-center .inner {
+				justify-content: center;
+				align-items: flex-end;
+				.spacer {
+					margin: auto auto 0 auto;
+				}
+				p, h1, h2, h3 {
+					text-align: center;
+				}
+			}
+			&.lower-right .inner {
+				justify-content: flex-end;
+				align-items: flex-end;
+				.spacer {
+					margin: auto 0 0 auto;
+				}
+				p, h1, h2, h3 {
+					text-align: right;
+				}
+			}
+			&.center .inner {
+				justify-content: center;
+				align-items: center;
+				.spacer {
+					margin: auto;
+				}
+				p, h1, h2, h3 {
+					text-align: center;
+				}
+			}
+			@include breakpoint($Lneg) {
+				position: inherit;
+				.spacer {
+					padding: #{$lh/2}em 0 0 0;
+					position: relative;
+					&:after {
+						content: "";
+						position: absolute;
+						left: -#{$lh}em;
+						right: -#{$lh}em;
+						top: 0;
+						bottom: 0;
+						pointer-events: none;
+						background-color: $gray-light;
+						z-index: 0;
+					}
+					p, h1, h2, h3 {
+						font-size: 1em;
+						text-shadow: none;
+						color: $lauftext-color;
+						position: relative;
+						z-index: 1;
+					}
+				}
+			}
+		}
+		.swiper-container.hero {
+			overflow: hidden;
+			&.medium figure img {
+				max-height: 700px;
+				@include breakpoint($Mneg) {
+					height: 260px;
+				}
+			}
+			&.fullscreen {
+				height: calc(100vh - var(--vh-offset));
+				figure img {
+					max-height: none;
+				}
+			}
+			.swiper-wrapper {
+				height: 100%;
+				.swiper-slide {
+					height: 100%;
+				}
+			}
+		}
+
+		.swiper-container.do-not-crop.medium {
+			figure {
+				img {
+					max-height: initial;
+					object-fit: initial;
+				}
+			}
+		}
+
+		// .headroom--top &.fullscreen:first-of-type .scroll {
+		@keyframes bounce {
+			0%, 20%, 50%, 80%, 100% {
+				transform: translateY(0);
+				opacity: 6;
+			}
+			40% {
+				transform: translateY(-20px);
+				opacity: .6;
+			}
+			60% {
+				transform: translateY(-10px);
+				opacity: .8;
+			}
+		}
+		.scroll {
+			display:none;
+			will-change: transform, opacity;
+			transition: transform, opacity;
+			transition-duration: 160ms;
+			background-repeat: no-repeat;
+			background-image: svg-load('../images/svg/mouse.svg');
+			background-position: bottom center;
+			background-size: 100%;
+			width: 1.5em;
+			height: 3.4em;
+			position: absolute;
+			bottom: 2%;
+			left: calc(50% - 1.25em);
+			z-index: 100;
+			cursor: pointer;
+		}
+
+		#header:not(.headroom--unpinned) + & .swiper-container.fullscreen .scroll {
+			display: block;
+			animation: bounce 1.6s ease-in-out infinite;
+		}
+
+		&.default {
+			display: table;
+		}
+		&.breadcrumbs {
+			padding-bottom: #{$lh/2}em;
+			margin-bottom: 0;
+		}
+		&.global-alert {
+			padding-bottom: 0 !important;
+		}
+	}
+	&.elementmaps {
+		p.gm-style-pbt {
+			font-size: initial;
+		}
+		img {
+			max-width: none;
+			margin-bottom: initial; // checbox-placing otherwise clashes with typography img
+		}
+		#map_canvas {
+			box-sizing: unset;
+			height: 0;
+			width: 100%;
+			padding-bottom: 45%;
+			@include breakpoint($Lneg) {
+				padding-bottom: 60%;
+			}
+			@include breakpoint($Mneg) {
+				padding-bottom: 100%;
+			}
+		}
+	}
+	&.elementtextimage .inner {
+		display: flex;
+		padding-top: 0;
+		padding-bottom: 0;
+		@include breakpoint($Mneg) {
+			flex-wrap: wrap;
+			padding-left: 0;
+			padding-right: 0;
+		}
+		.txt {
+			flex: 0 0 #{percentage(1/3)};
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			padding: 5% 0;
+			position: relative;
+			z-index: 1;
+			@include ie11 {
+				max-width: calc(#{percentage(1/3)});
+			}
+
+			@include breakpoint($Mneg) {
+				flex: 0 0 100%;
+				padding: 0;
+				order: 1;
+				@include ie11 {
+					max-width: 100%;
+				}
+			}
+			.relativizer {
+				position: relative;
+				margin: auto 0 auto auto;
+			}
+			.inner-txt {
+				position: relative;
+				width: 150%;
+				background-color: rgba($white, .86);
+				padding: #{$lh}em;
+				@include breakpoint($Mplus) {
+					box-shadow: #{$lh/2}em 0 #{$lh}em rgba($black, .1);
+				}
+				@include breakpoint($Mneg) {
+					padding: #{$lh}em;
+					width: 100%;
+					box-shadow: none;
+				}
+				h1, h2 {
+					text-align: left;
+					font-size: 1.41em;
+				}
+				>*:last-child {
+					margin-bottom: 0;
+				}
+			}
+		}
+		figure {
+			flex: 0 0 calc(#{percentage(2/3)} - #{$lh}em);
+			position: relative;
+			margin: 0;
+			margin-left: #{$lh}em;
+			position: relative;
+			z-index: 0;
+			@include ie11 {
+				max-width: calc(#{percentage(2/3)} - #{$lh}em);
+				width: 100%;
+			}
+			@include breakpoint($Mneg) {
+				flex: 0 0 100%;
+				margin-left: 0;
+				margin-right: 0;
+				order: 0;
+				max-height: 60vw;
+				@include ie11 {
+					max-width: 100%;
+				}
+			}
+			img {
+				width: 100%;
+				margin-bottom: 0;
+ 				position: absolute;
+				@include breakpoint($Mneg) {
+					position: inherit;
+				}
+			}
+			&.image-cover img {
+				height: 100%;
+				object-fit: cover;
+			}
+		}
+		.txt.Image {
+			order: 1;
+			.inner-txt {
+				margin: auto auto auto 0;
+				@include breakpoint($Mplus) {
+					margin-left: -50%;
+					box-shadow: -#{$lh/2}em 0 #{$lh}em rgba($black, .1);
+				}
+			}
+		}
+		figure.Image {
+			order: 0;
+			margin-left: 0;
+			margin-right: #{$lh}em;
+		}
+	}
+	&.elementperso {
+		// this things are living in _perso.scss
+	}
+	&.elementcontentsection {
+		.content-part {
+			article {
+				header {
+					padding: #{$lh/2}em 0;
+					cursor: pointer;
+					position: relative;
+					padding-right: #{$lh*3}em;
+					@include breakpoint($Lneg) {
+						flex: 0 0 100%;
+					}
+					h3.flip {
+						margin-bottom: 0;
+						&:after {
+							content: "";
+							display: block;
+							width: #{$lh*2.2}em;
+							height: #{$lh*1.2}em;
+							position: absolute;
+							right: 0;
+							top: #{$lh*.5}em;
+							background-repeat: no-repeat;
+							background-image: svg-load('../images/svg/arrow-down.svg', fill=#{$lauftext-color});
+							background-position: center center;
+							background-size: 50%;
+							transform-origin: 50% 50%;
+						}
+					}
+				}
+				>div.flip {
+					padding:#{$lh/2}em 0;
+					>p:last-child {
+						margin-bottom: 0;
+					}
+				}
+				&.open {
+					header {
+						h3.flip {
+							&:after {
+								transform: rotate(180deg);
+							}
+						}
+					}
+				}
+			}
+			article.flip + article.flip {
+				border-top: 1px solid $gray-light;
+			}
+		}
+	}
+	&.elementlogo {
+		ul.logos {
+			padding: #{$lh}em 0 0;
+			margin: 0;
+			list-style: none;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			width: calc(100% + #{$lh/2}em);
+			margin-left: -#{$lh/4}em;
+			margin-right: -#{$lh/4}em;
+			&.greyscale li.logo figure img {
+				filter: grayscale(100%);
+				transition-property: filter;
+				transition-duration: .2s;
+			}
+			li.logo {
+				flex: 0 0 233px;
+				min-height: 120px;
+				margin: #{$lh/4}em;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				padding: 0;
+				justify-content: center;
+				align-items: center;
+				border: 1px solid $gray-light;
+				background-color: rgba($gray-light,0);
+				transition-property: background-color;
+				transition-duration: .3s;
+				figure {
+					display: inline-table;
+					max-width: 180px;
+					max-height: 80px;
+					img {
+						float: left;
+						margin: 0;
+					}
+				}
+				&.has-link:hover {
+					border-color: darken($gray-light, 10%);
+					background-color: rgba($gray-light,.1);
+					img {
+						filter: grayscale(0%);
+						transition-property: background-color;
+						transition-duration: .2s;
+					}
+				}
+			}
+		}
+	}
+	&.elementjobs {
+		.jobs {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			width: calc(100% - #{$lh}em);
+			a {
+				flex: 0 0 calc(#{percentage(1/3)} - #{$lh}em);
+				display: flex;
+				flex-direction: column;
+				margin: #{$lh}em #{$lh/2}em;
+				figure {
+					flex: 0 0 auto;
+					margin: 0;
+					img {
+						width: 100%;
+						float: left;
+						margin-bottom: 0;
+					}
+				}
+				.txt {
+					flex: 1 0 auto;
+					margin: #{$lh/2}em 0 auto 0;
+				}
+			}
+		}
+	}
+	@for $i from $max-spacing through $min-spacing {
+		&.spacing-bottom-#{$i} {
+			padding-bottom: #{$lh*$i}em;
+		}
+		$i1: $i + 1;
+	}
+	@for $i from $max-spacing through $min-spacing {
+		&.spacing-top-#{$i} {
+			padding-top: #{$lh*$i}em;
+		}
+		$i1: $i + 1;
+	}
+}
+
+
+/* SEARCH RESULTS STYLES
+------------------------------------------------ */
+
+ul#SearchResults {
+	margin: 0px;
+	padding: 0px;
+	a {
+		text-decoration: none;
+	}
+	li {
+		list-style: none;
+		padding: 16px 0 20px 0;
+		font-size: 1em;
+		margin: 0;
+		border-bottom: 1px solid $gray-light;
+		&:first-child {
+			padding-top: 0;
+		}
+	}
+}
+
+
+
+
+@media print {
+	footer, //  .upper .inner .sitemap,
+	.overlay,
+	.service-nav {
+		display: none;
+	}
+	.header-pic .inner img {
+		left: 0;
+	}
+	.inner {
+		max-width: 100%;
+	}
+}
+@page {
+	size: 297mm 210mm;
+	margin: 15mm;
+}
+
+// todo - unify/cleanup styles
+// this is use in ElementPage_job
+// classes are same as in backend
+// how does userform handle such things?
+.alert {
+	border: 1px solid;
+	padding: #{$lh/2}em;
+	border-radius: #{$lh/4}em;
+	margin-bottom: #{$lh/2}em;
+	&.alert-warning {
+		background-color: rgba($red, .1);
+		border-color: rgba($red, 1);
+	}
+}
+
+.pseudolink {
+	display: inline-block;
+	color: #{$link-color};
+	@extend %forth;
+}
+
+.parent-link.back {
+	display: inline-block;
+	color: #{$link-color};
+	@extend %back;
+}
+
+.global-alert:not(.elementhero) {
+	background-color: $blue;
+	padding: #{$lh/2}em 0;
+	margin-bottom: #{$lh}em;
+	.inner >* {
+		color: $white;
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
+
+.social-icons {
+	margin: auto 0 0;
+	a {
+		@include iconfontsettings;
+		color: $lauftext-color;
+		font-size: 1em;
+		display: inline-block;
+		transition: transform .05s linear;
+		&[data-social-short="l"] {
+			font-size: 1.7em;
+			vertical-align: -.05em;
+		}
+		&:not(:last-of-type) {
+			margin-right: #{$lh/2}em;
+		}
+		&:hover {
+			color: $lauftext-color;
+			transform: scale(1.1);
+		}
+	}
+}
+
+// !klaro
+html .klaro {
+
+	.cookie-modal,
+	.cookie-notice {
+		a {
+			color: lighten($link-color, 70%);
+		}
+		.cm-btn {
+			cursor: pointer;
+			font-size: 14px
+		}
+	}
+
+	.cookie-notice {
+		// modal link
+		.cm-link {
+			display: block;
+			margin-top: .6em;
+		}
+		p.cn-ok {
+			display: flex;
+			flex-wrap: wrap;
+		}
+		// decline
+		.cm-btn.cn-decline {
+			background-color: $gray;
+			order: 1;
+		}
+		// accept all
+		.cm-btn.cm-btn-success {
+			background-color: $link-color;
+			order: 0;
+		}
+		.cm-learn-more {
+			order: 2;
+			flex: 0 0 100%;
+		}
+	}
+
+	.cookie-modal {
+		.cm-app-title {
+			font-size: 14px;
+		}
+		// slider-switches
+		.cm-app-input:checked+.cm-app-label .slider {
+			background-color: $link-color;
+		}
+		// disable/required switch
+		.cm-app-input.required:checked+.cm-app-label .slider {
+			background-color: darken($link-color, 10%);
+			&::before {
+				background-color: darken($white, 16%);
+			}
+		}
+		// accept all
+		.cm-btn.cm-btn-accept-all {
+			background-color: $link-color;
+		}
+		// save selection, decline
+		.cm-btn.cm-btn-accept,
+		.cm-btn.cm-btn-decline {
+			background-color: $gray;
+		}
+		// klaro link
+		.cm-modal .cm-footer .cm-powered-by {
+			display: none;
+		}
+	}
+}

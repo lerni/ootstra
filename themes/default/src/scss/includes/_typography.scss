@@ -1,0 +1,308 @@
+/* Styles for HtmlEditorFields
+---------------------------------------------------------------------------------- */
+
+@import '~breakpoint-sass/stylesheets/breakpoint';
+@import 'mixins';
+@import 'includes/documents';
+@import 'includes/utils';
+
+/* Typography
+---------------------------------------------------------------------------------- */
+/* The following is used by both style.scss (front-end) and editor.scss (CMS)
+---------------------------------------------------------------------------------- */
+.typography {
+	@include normal;
+	strong {
+		@include bold;
+	}
+
+	em {
+		font-style: italic;
+	}
+
+	// * PARAGRAPHS
+	// -------------------------------------------- */
+	p {
+		font-size: 1em;
+		margin: 0 0 #{$lh}em 0;
+	}
+
+	// * horizontal rule
+	// -------------------------------------------- */
+	hr {
+		border:0;
+		border-bottom: 1px solid $gray-light;
+		clear: both;
+		height: 0;
+		padding: calc(#{$lh/2}em - 1px) 0 0 0;
+		margin: 0 0 #{$lh/2}em 0;
+	}
+
+	// * LINKS
+	// -------------------------------------------- */
+
+	a:not([class]) {
+		text-decoration: none;
+		color: $link-color;
+		&:hover {
+			color: $current-color;
+		}
+	}
+
+	// * LIST STYLES
+	// -------------------------------------------- */
+	ol,
+	ul {
+		// margin-left & -right may be affected by $inner-width--reduced
+		margin: 0 0 #{$lh}em 0;
+		padding: 0 0 0 #{$lh/3*2}em;
+		li {
+			line-height: $lh;
+			padding: 0 0 0 #{$lh/2}em;
+			font-size: 1em;
+		}
+		ul {
+			li {
+				// font-size:.85rem;
+			}
+		}
+	}
+
+	ul {
+		list-style-type: disc;
+	}
+
+	ol {
+		list-style-type: decimal;
+	}
+
+	dl {
+		display:flex;
+		width: 100%;
+		margin: 0 auto #{$lh/2}em auto;
+		@include breakpoint($Lneg) {
+			flex-wrap: wrap;
+		}
+		dt {
+			flex: 0 0 auto;
+			@include bold;
+			@include breakpoint($Lplus) {
+				min-width: 400px;
+			}
+			@include breakpoint($Mneg) {
+				flex-basis: 100%;
+			}
+		}
+		dd {
+			flex: 1 1 calc(100% - 400px);
+			margin-left: #{$lh/2}em;
+			@include breakpoint($Mneg) {
+				flex: 0 0 100%;
+
+			}
+		}
+	}
+
+	p + ul,
+	p + ol {
+		margin-top: -#{$lh/2}em;
+	}
+	// * HEADER STYLES
+	// -------------------------------------------- */
+
+	h1,
+	h2,
+	h3,
+	h4 {
+		margin: 0 0 #{$lh/2}em 0;
+		color: $blue;
+		@include bold;
+	}
+	h1 {
+		font-size:1.6em;
+	}
+	h2 {
+		font-size:1.41em;
+	}
+	h3 {
+		font-size:1em;
+	}
+	h4 {
+		font-size:1em;
+		margin-bottom:0;
+	}
+
+	// * PRE STYLES
+	// -------------------------------------------- */
+	pre {
+		font-family: "Courier New", Courier, monospace;
+		display: block;
+		font-size:1.1em;
+		padding: #{$lh*.5}em;
+	}
+
+	// * TABLE STYLING
+	// -------------------------------------------- */
+	table {
+		width:100%;
+		margin: 0 0 #{$lh}em 0;
+		border-collapse: collapse;
+		tr {
+			td {
+				font-size:.8em;
+				padding: .1em .2em .2em;
+				vertical-align:top;
+				border-top: 1px solid $gray-light;
+				border-bottom: 1px solid $gray-light;
+			}
+			&:last-of-type {
+				td {
+					border-bottom:none;
+				}
+			}
+			&:first-of-type {
+				td {
+					border-top:none;
+				}
+			}
+		}
+	}
+
+	// * WYSIWYG EDITOR ALIGNMENT CLASSES
+	// -------------------------------------------- */
+	.text-left {
+		text-align: left;
+	}
+	.text-center {
+		text-align: center;
+	}
+	.text-right {
+		text-align: right;
+	}
+
+	// * IMAGES
+	// -------------------------------------------- */
+	img {
+		border: none;
+		max-width: 100%;
+		height: auto;
+		margin-bottom: #{$lh/2}em;
+		&.right {
+			text-align: right;
+			margin-left: #{$lh/2}em;
+		}
+		&.left {
+			text-align: left;
+			margin-right: #{$lh/2}em;
+		}
+		&.leftAlone {
+			margin-right: 100%;
+			display: table;
+		}
+		&.rightAlone {
+			margin-left: 100%;
+			display: table;
+		}
+		&.center {
+			float: none;
+			margin-left: auto;
+			margin-right: auto;
+			display: table;
+		}
+	}
+	div.embed {
+		width:auto !important;
+		margin-bottom: #{$lh}em;
+		>p {
+			// video caption
+			padding: #{$lh/2}em;
+			background-color: $gray-lighter;
+			font-size: .8em;
+			display: table;
+			width: 100%;
+		}
+	}
+	.split-2 {
+		margin-bottom:#{$lh}em;
+		p {
+			margin-bottom: 0;
+		}
+		@include breakpoint($Mplus) {
+			column-count: 2;
+			column-gap: #{$lh*2}em;
+		}
+	}
+
+	blockquote {
+		margin-bottom: #{$lh}em;
+		margin-left: #{$lh*1}em;
+		border:0;
+		padding:0;
+		p {
+			&:before,
+			&:after {
+				display: inline-block;
+				background-repeat: no-repeat;
+				background-size: 0.68376em .8em;
+				background-position: center center;
+				width:0.68376em;
+				height:1em;
+				content:"";
+				vertical-align: -.2em;
+			}
+			&:before {
+				width: #{$lh*1}em;
+				margin-left: #{-$lh*1}em;
+				background-image: svg-load('../images/svg/quote-before.svg', fill=#{$lauftext-color});
+			}
+			&:after {
+				margin-left:.2em;
+				background-image: svg-load('../images/svg/quote-after.svg', fill=#{$lauftext-color});
+			}
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	.button {
+		@extend %forth;
+		display: inline-block;
+		color: #{$link-color};
+		&:hover {
+			&:after {
+				margin-left: 1em;
+			}
+		}
+	}
+	.marker {
+		&:before {
+			content: "";
+			display: inline-block;
+			width: 1.6em;
+			height: #{$lh*2}em;
+			$color: $link-color;
+			background-repeat: no-repeat;
+			background-size: 1.4em auto;
+			background-position: center bottom;
+			background-image: svg-load('../images/svg/marker.svg');
+		}
+	}
+	.boxed {
+		background-color: $gray-lighter;
+		padding: #{$lh*1}em #{$lh*2}em #{$lh*1.1}em #{$lh*2}em;
+		margin: 0 0 #{$lh}em 0;
+		@include breakpoint($Mneg) {
+			padding: #{$lh}em #{$lh/2}em;
+		}
+		>*:last-child {
+			margin-bottom: 0;
+		}
+	}
+	.small {
+		font-size: .8em;
+	}
+	.large {
+		font-size: 1.3em;
+	}
+}

@@ -1,0 +1,54 @@
+*,
+*:after,
+*:before {
+	box-sizing: border-box;
+}
+
+.clear{
+	clear:both;
+}
+
+table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+
+// links with no href wouldn't -> onclick like cookie-consent
+a {
+	cursor: pointer;
+}
+
+a img {
+	border:none;
+}
+
+a:visited,
+a:focus,
+a, a img {
+	text-decoration:none;
+}
+
+a[href^=tel],
+a[href^="x-apple-data-detectors:"] {
+	color:inherit;
+	text-decoration: inherit;
+}
+
+@page {
+	size: A4;
+	margin: 1cm;
+	width:$inner-width
+}
+@media print {
+	html, body {
+		width: 210mm;
+		height: 297mm;
+		max-width:100% !important;
+		min-height:0;
+
+	}
+	body {
+		color: #000;
+		background: #fff;
+	}
+}

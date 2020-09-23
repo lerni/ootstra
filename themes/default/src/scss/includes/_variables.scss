@@ -1,0 +1,51 @@
+$blue: rgb(26, 41, 90);
+$red: rgb(227,54,102);
+$gold: rgb(227,168,9);
+$gray: rgb(80,80,80);
+$gray-light: rgb(232,232,232);
+$gray-lighter: rgb(246, 246, 246);
+$white: rgb(255,255,255);
+$black: rgb(39, 39, 39);
+
+$link-color: $red;
+
+$lauftext-color: $black;
+$lauftext-size: 20px;
+$line-height: 1.41;
+$lh: $line-height;
+
+$current-color: darken($red, 8%);
+$badcolor: $gold;
+
+// $ServiceNavHeight1:48px;
+// $ServiceNavHeight2:60px;
+
+$font-family: 'IBM Plex Sans', sans-serif;
+
+$headerheight: 76px;
+$headerheight--small: 50px;
+
+$inner-width: 1280px;
+$inner-width--reduced: 940px;
+
+// Breakpoint variables
+// ====================================================================
+$XS: 320px;
+$S: 480px;
+$M: 640px;
+$L: 980px;
+$XL: $inner-width;
+$XXL: 1600px;
+
+$XSplus: $XS;
+$XSneg: (0 $XS - 1);
+$Splus: $S;
+$Sneg: (0 $S - 1);
+$Mplus: $M;
+$Mneg: (0 $M - 1);
+$Lplus: $L;
+$Lneg: (0 $L - 1);
+$XLplus: $XL;
+$XLneg: (0 $XL - 1);
+$XXLplus: $XXL;
+$XXLneg: (0 $XXL - 1);

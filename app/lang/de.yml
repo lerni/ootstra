@@ -1,0 +1,65 @@
+de:
+  SilverStripe\UserForms\Model\EditableFormField:
+    FIELDISREQUIRED: '{name} muss ausgefüllt werden'
+  Page:
+    More: 'Weiterlesen'
+    TELEPHONE: 'Tel.'
+    MENU: 'Menu'
+    ShareCareNotNeeded: 'Ein "Share Bild" sollte nur erfasst werden, wenn es vom 1. Slide des Heros abweicht!<br/>Die "Share Beschreibung" sollte nur erfasst werden, wenn sie von der Metadescription abweicht, resp. im Falle eines BlogPosts von der Zusammenfassung!'
+  JonoM\ShareCare\ShareCare:
+    TabName: 'Feed & Share'
+  App\Models\Teaser:
+    MORE: 'Mehr&nbsp;erfahren'
+  DNADesign\Elemental\Forms\TextCheckboxGroupField:
+    TitleLabel: 'Titel'
+  SilverStripe\Forms\GridField\GridField:
+    PlaceHolderWithLabels: 'Suche {name} % für Alle'
+  DNADesign\Elemental\Models\ElementContent:
+    BlockType: 'Text'
+  SilverStripe\Blog\Model\Blog:
+    Allcategories: 'Alle Kategorien'
+    MORE: 'Weiterlesen'
+  App\Elements\ElementMaps:
+    BlockType: 'Map'
+    ZoomDescription: 'Zoomstufe passt sich an, um alle Marker zu zeigen. Hier kann ein Minimalwert konfiguriert werden.'
+  App\Elements\ElementContentSection:
+    BlockType: 'Accordion'
+  App\Elements\ElementCounter:
+    BlockType: 'Counter'
+  App\Elements\ElementFeedTeaser:
+    BlockType: 'Teaser (feed)'
+  App\Elements\ElementGallery:
+    BlockType: 'Gallery'
+  App\Elements\ElementHero:
+    BlockType: 'Hero'
+  App\Elements\ElementJobs:
+    BlockType: 'Jobs'
+    primary: 'Primärers JobElement (linked)'
+    NotFound: 'Der Job wurde nicht gefunden.'
+    MORE: 'Zum Stelleninserat'
+  App\Elements\ElementLogo:
+    BlockType: 'Logos (Partner)'
+  App\Elements\ElementPerso:
+    BlockType: 'Team'
+    MORE: 'Curriculum Vitae'
+  App\Elements\ElementPersoCFA:
+    BlockType: 'Contact (CFA)'
+  App\Elements\ElementTeaser:
+    BlockType: 'Teaser'
+  App\Elements\ElementTextImage:
+    BlockType: 'Text Image'
+  SilverStripe\SiteConfig\SiteConfig:
+    SITENAMEDEFAULT: 'Name Webseite'
+    TABMAIN: Main
+    SITETAGLINE: 'Claim / Beschreibung'
+    TAGLINEDEFAULT: 'Claim / Beschreibung'
+  App\Model\ElementPage:
+    DESCRIPTION: 'Erlaubt modulare Inhaltskomposition mit Elementen'
+    HeroNeeded: 'Wenn kein "Hero" als oberstes Element vorhanden ist, wird <a href="/admin/settings/">default HeadeImage</a> verwendet.'
+  SilverStripe\CMS\Controllers\CMSMain:
+    SaveFirst: 'Bitte Element erst speichern, danach können Sub-Elemente erfasst werden.'
+  App\Models\JobPosting:
+    expired: 'abgelaufen'
+    expiredAlert: 'Das Inserat ist abgelaufen oder "Gültig bis" fehlt.'
+  App\Admin\JobsAdmin:
+    ElementJobsNeeded: 'Stelleninserate werden per "Job Element" angezeigt.'

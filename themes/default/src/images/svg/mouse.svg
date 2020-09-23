@@ -1,0 +1,15 @@
+
+<svg width="276px" height="662px" viewBox="0 0 276 662" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="mouse" transform="translate(6.000000, 6.000000)" stroke="#fff">
+            <polyline id="Line-2" stroke-width="12" stroke-linecap="round" points="36.5 570.5 135.5 648.339844 234.5 570.5"></polyline>
+            <!-- <line x1="132.5" y1="114.5" x2="132.5" y2="156.5" id="Line" stroke-width="44" stroke-linecap="round"></line> -->
+            <!-- <g id="Group" stroke-width="12">
+                <path d="M264,132 C264,59.098413 204.901587,0 132,0 C59.098413,0 0,59.098413 0,132" id="Oval"></path>
+                <path d="M264,481 C264,408.098413 204.901587,349 132,349 C59.098413,349 0,408.098413 0,481" id="Oval" transform="translate(132.000000, 415.000000) rotate(-180.000000) translate(-132.000000, -415.000000) "></path>
+                <line x1="0.5" y1="135.5" x2="0.5" y2="349.5" id="Line-3" stroke-linecap="square"></line>
+                <line x1="264" y1="136" x2="264" y2="350" id="Line-3-Copy" stroke-linecap="square"></line>
+            </g> -->
+        </g>
+    </g>
+</svg>

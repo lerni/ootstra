@@ -1,0 +1,104 @@
+<?php
+
+use SilverStripe\Forms\HTMLEditor\TinyMCEConfig;
+use SilverStripe\i18n\i18n;
+use SilverStripe\Admin\CMSMenu;
+use SilverStripe\ORM\Search\FulltextSearchable;
+use SilverStripe\CMS\Controllers\CMSPagesController;
+use Wilr\GoogleSitemaps\GoogleSitemap;
+
+// Set the site locale
+i18n::set_locale('en_US');
+
+// TinyMCE Config
+
+// styleselect
+$styles = [
+    [
+        // Wrap selected content in a div with class of .split-2
+        'title' => '2 Spalten (auto-flow)',
+        'attributes' => ['class' => 'split-2'],
+        'block' => 'div',
+        'wrapper' => 1
+    ],
+    [
+        // Wrap selected content in a div with class of .boxed
+        'title' => 'Box',
+        'attributes' => ['class' => 'boxed'],
+        'block' => 'div',
+        'wrapper' => 1
+    ],
+    [
+        // add .download to a a
+        'title' => 'Download-Link',
+        'attributes' => ['class' => 'download'],
+        'selector' => 'a'
+    ],
+    [
+        // add .button to a a
+        'title' => 'Button-Link',
+        'attributes' => ['class' => 'button'],
+        'selector' => 'a'
+    ],
+    [
+        // Wrap selected content in a div with class of .small
+        'title' => 'small',
+        'attributes' => ['class' => 'small'],
+        'block' => 'div',
+        'wrapper' => 1
+    ],
+    [
+        // Wrap selected content in a div with class of .large
+        'title' => 'large',
+        'attributes' => ['class' => 'large'],
+        'block' => 'div',
+        'wrapper' => 1
+    ]
+];
+
+$EditorConfig = TinyMCEConfig::get('cms');
+
+$EditorConfig->enablePlugins([
+    'contextmenu' => null,
+    'image' => null,
+    'anchor' => null,
+    'sslink',
+    'sslinkinternal',
+    'definitionlists' => '/_resources/app/thirdparty/tinymce-definitionlist-master/definitionlist/plugin.js'
+]);
+$EditorConfig->disablePlugins(['importcss']);
+
+$editorOptions = [
+    'style_formats' => $styles,
+    //	'content_css' => 'app/style/editor.css',
+    'block_formats' => 'Paragraph=p;Heading 1=h1;Heading 2=h2;Heading 3=h3; Heading 4=h4',
+    'paste_remove_spans' => true,
+    'paste_as_text' => true,
+    'paste_text_sticky_default' => true,
+    'paste_text_sticky' => true,
+    'statusbar' => true
+];
+$EditorConfig->setOptions($editorOptions);
+
+$EditorConfig->setButtonsForLine(1, array('formatselect styleselect pastetext ssmedia ssembed | bold bullist numlist ToggleDefinitionList ToggleDefinitionItem | alignleft aligncenter alignright alignjustify | sslink unlink | charmap hr code removeformat blockquote | outdent indent | undo redo'));
+$EditorConfig->setButtonsForLine(2, '');
+
+// $SimpleCfg = TinyMCEConfig::get('inlite');
+// $SimpleCfg->disablePlugins(['importcss']);
+// $SimpleCfg->enablePlugins(['sslinkanchor','sslink','sslinkexternal','sslinkemail','sslinkinternal']);
+// $SimpleCfg->setButtonsForLine(1, array('formatselect pastetext ssmedia ssembed | bold bullist numlist ToggleDefinitionList ToggleDefinitionItem | alignleft aligncenter alignright alignjustify | sslink unlink | charmap hr code removeformat | outdent indent | undo redo'));
+// $SimpleCfg->setButtonsForLine(2,'');
+// $SimpleCfg->setOptions($editorOptions);
+
+
+CMSMenu::remove_menu_item('SilverStripe-Reports-ReportAdmin');
+CMSMenu::remove_menu_item('SilverStripe-CampaignAdmin-CampaignAdmin');
+CMSMenu::remove_menu_item('SilverStripe-Admin-SecurityAdmin');
+CMSMenu::remove_menu_item('SilverStripe-VersionedAdmin-ArchiveAdmin');
+// CMSMenu::remove_menu_item('SilverStripe-SiteConfig-SiteConfigLeftAndMain');
+
+CMSPagesController::config()->help_links = [];
+
+// FulltextSearchable::enable();
+
+GoogleSitemap::register_dataobjects(['App\Models\JobPosting'], 'weekly', '1');

@@ -1,0 +1,17 @@
+## ignorance is bliss
+
+**/.DS_Store
+**/.AppleDouble
+**/.LSOverride
+**/*.map
+/*.log
+/.env
+/.idea/
+/.vscode/
+/deploy/config.php
+/public/.well-known/
+/public/assets/
+/public/_resources/
+/silverstripe-cache/
+/vendor/
+/app/todo**
