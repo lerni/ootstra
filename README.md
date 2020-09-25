@@ -30,10 +30,8 @@ Other features:
 ## VCS, source repo
 
 ```bash
-    git clone git@bitbucket.org:ORG/PROJECT.git "PROJECT"
+    git clone git@github.com:lerni/ootstra.git "PROJECT"
 ```
-
-https://bitbucket.org/kraftausdruck/PROJECT
 
 ## PHP, composer
 

@@ -24,19 +24,14 @@ SilverStripe\Core\Injector\Injector:
   # Default logger implementation for general purpose use
   Psr\Log\LoggerInterface:
     calls:
-      # Save system logs to file
       pushFileLogHandler: [ pushHandler, [ '%$LogFileHandler' ]]
-      MailHandler: [ pushHandler, [ '%$MailHandler' ] ]
 
-  # Core error handler for system use
+ # Core error handler for system use
   Psr\Log\LoggerInterface.errorhandler:
     calls:
-      # Save errors to file
       pushFileLogHandler: [ pushHandler, [ '%$LogFileHandler' ]]
-      # Format and display errors in the browser/CLI
-      pushMyDisplayErrorHandler: [ pushHandler, [ '%$DisplayErrorHandler' ]]
+      pushMailHandler: [ pushHandler, [ '%$MailHandler' ]]
 
-  # Custom handler to log to a file
   LogFileHandler:
     class: Monolog\Handler\StreamHandler
     constructor:
@@ -45,15 +40,6 @@ SilverStripe\Core\Injector\Injector:
     properties:
       Formatter: %$Monolog\Formatter\HtmlFormatter
       ContentType: text/html
-
-  # Handler for displaying errors in the browser or CLI
-  DisplayErrorHandler:
-    class: SilverStripe\Logging\HTTPOutputHandler
-    constructor:
-      - 'error'
-    properties:
-      Formatter: %$SilverStripe\Logging\DebugViewFriendlyErrorFormatter
-      # Formatter: %$SilverStripe\Logging\DetailedErrorFormatter
 
   MailHandler:
     class: Monolog\Handler\NativeMailerHandler
@@ -65,3 +51,10 @@ SilverStripe\Core\Injector\Injector:
     properties:
       ContentType: text/html
       Formatter: %$Monolog\Formatter\HtmlFormatter
+
+  # Configuration for the "friendly" error formatter
+  SilverStripe\Logging\DebugViewFriendlyErrorFormatter:
+    class: SilverStripe\Logging\DebugViewFriendlyErrorFormatter
+    properties:
+      Title: "There has been an error"
+      Body: "The website server has not been able to respond to your request"
