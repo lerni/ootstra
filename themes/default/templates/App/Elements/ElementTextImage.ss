@@ -10,10 +10,10 @@
 	<figure class="{$ElementLayout}<% if $ImageCover %> image-cover<% end_if %>">
 		<% if $ImageID %>
 			<% with $Image %>
-				<img alt="$Title"
-					style="object-position: {$ScaleMaxWidth(700).PercentageX}% {$ScaleMaxWidth(700).PercentageY}%;"
-					src="$ScaleMaxWidth(700).URL"
-					srcset="$ScaleMaxWidth(700).URL 1x, $ScaleMaxWidth(1400).URL 2x" />
+				<img alt="$Title" width="{$ScaleMaxWidth(800).Width()}" height="{$ScaleMaxWidth(800).Height()}"
+					style="object-position: {$ScaleMaxWidth(800).PercentageX}% {$ScaleMaxWidth(800).PercentageY}%;"
+					src="$ScaleMaxWidth(800).URL"
+					srcset="$ScaleMaxWidth(800).URL 1x, $ScaleMaxWidth(1600).URL 2x" />
 			<% end_with %>
 		<% end_if %>
 	</figure>

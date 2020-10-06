@@ -2,6 +2,14 @@ var map;
 // var center = new google.maps.LatLng($Lat, $Lng);
 var marker_bounds;
 
+// var icon = {
+//   url: '/_resources/themes/default/dist/images/marker.png',
+// 	size: new google.maps.Size(300,110),
+// 	origin: new google.maps.Point(0, 0),
+// 	anchor: new google.maps.Point(75, 65),
+// 	scaledSize: new google.maps.Size(150,55)
+// };
+
 function init(){
 	var mapOptions = {
 		Zoom: $Zoom,
@@ -11,7 +19,7 @@ function init(){
 		mapTypeControlOptions: {
 			position: google.maps.ControlPosition.RIGHT_TOP
 		},
-		mapTypeId: google.maps.MapTypeId.$MapType,
+		mapTypeId: "$MapType",
 		zoomControl: true,
 		zoomControlOptions: {
 			position: google.maps.ControlPosition.LEFT_TOP

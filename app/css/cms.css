@@ -2,7 +2,7 @@
 -------------------------------------------------------------------------------- */
 @font-face {
 	font-family: "icons";
-	src:url("/_resources/app/fonts/icons.woff2") format("woff2"),
+	src: url("/_resources/app/fonts/icons.woff2") format("woff2"),
 	url("/_resources/app/fonts/icons.woff") format("woff"),
 	url("/_resources/app/fonts/icons.ttf") format("truetype");
 	font-weight: normal;
@@ -12,7 +12,7 @@
 [action*="SocialLinks/item"] #Form_ItemEditForm_Icon_Holder ul.chosen-results li,
 [action*="SocialLinks/item"] #Form_ItemEditForm_Icon_chosen a span {
 	line-height: 1.4;
-	font-size:18px;
+	font-size: 18px;
 	font-family: "icons" !important;
 	font-style: light !important;
 	font-weight: light !important;
@@ -71,9 +71,15 @@ fieldset.grid {
 	flex: 1 1 auto;
 }
 
+/* no UserformPage creation - keem theme in ElementPages */
 .valSilverStripe_UserForms_Model_UserDefinedForm {
-	display:none;
+	display: none;
 }
+
+/* no Blog Page creation */
+/* .valSilverStripe_Blog_Model_Blog {
+	display: none;
+} */
 
 /* Blog summary - https://github.com/silverstripe/silverstripe-blog/issues/485 */
 .custom-summary .ui-accordion-content .form-group--no-label {

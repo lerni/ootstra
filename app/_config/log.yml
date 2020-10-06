@@ -12,8 +12,8 @@ SilverStripe\Core\Injector\Injector:
     constructor:
       - 'notice'
     properties:
-      Formatter: %$SilverStripe\Logging\DetailedErrorFormatter
-      CLIFormatter: %$SilverStripe\Logging\DetailedErrorFormatter
+      Formatter: '%$SilverStripe\Logging\DetailedErrorFormatter'
+      CLIFormatter: '%$SilverStripe\Logging\DetailedErrorFormatter'
 
 ---
 Name: live-errors
@@ -37,9 +37,6 @@ SilverStripe\Core\Injector\Injector:
     constructor:
       - '../silverstripe.log'
       - 'notice'
-    properties:
-      Formatter: %$Monolog\Formatter\HtmlFormatter
-      ContentType: text/html
 
   MailHandler:
     class: Monolog\Handler\NativeMailerHandler
@@ -50,7 +47,7 @@ SilverStripe\Core\Injector\Injector:
       - 'error'
     properties:
       ContentType: text/html
-      Formatter: %$Monolog\Formatter\HtmlFormatter
+      Formatter: '%$SilverStripe\Logging\DetailedErrorFormatter'
 
   # Configuration for the "friendly" error formatter
   SilverStripe\Logging\DebugViewFriendlyErrorFormatter:

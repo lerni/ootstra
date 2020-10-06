@@ -5,7 +5,11 @@
 				<% if $SlideImage %>
 					<div class="swiper-slide {$TextAlignment}">
 						<% if $Up.Up.Size == "small" %>
-							<figure <% if $LinkID %>class="linked"<% end_if %>><img sizes="100vw" <% if not $First %>class="swiper-lazy"<% end_if %> alt="$SlideImage.Title"
+							<figure <% if $LinkID %>class="linked"<% end_if %>><img sizes="100vw"
+								height="$SlideImage.FocusFillMax(1440,360).Height()"
+								width="$SlideImage.FocusFillMax(1440,360).Width()"
+								<% if not $First %>class="swiper-lazy"<% end_if %>
+								alt="$SlideImage.Title"
 								style="object-position: {$SlideImage.FocusFillMax(2600,650).PercentageX}% {$SlideImage.FocusFillMax(2600,650).PercentageY}%;"
 								<% if not $First %>data-<% end_if %>src="$SlideImage.FocusFillMax(1440,360).URL"
 								<% if not $First %>data-<% end_if %>srcset="
@@ -24,8 +28,12 @@
 									$SlideImage.FocusFillMax(2600,650).URL 2600w<% end_if %>" />
 							</figure>
 						<% else_if $Up.Up.Size == "medium" %>
-							<figure <% if $LinkID %>class="linked"<% end_if %>><img sizes="100vw" <% if not $First %>class="swiper-lazy"<% end_if %> alt="$SlideImage.Title"
-							        style="object-position: {$SlideImage.FocusFillMax(2600,993).PercentageX}% {$SlideImage.FocusFillMax(2600,993).PercentageY}%;"
+							<figure <% if $LinkID %>class="linked"<% end_if %>><img sizes="100vw"
+								height="$SlideImage.FocusFillMax(1440,550).Height()"
+								width="$SlideImage.FocusFillMax(1440,550).Width()"
+								<% if not $First %>class="swiper-lazy"<% end_if %>
+								alt="$SlideImage.Title"
+								style="object-position: {$SlideImage.FocusFillMax(2600,993).PercentageX}% {$SlideImage.FocusFillMax(2600,993).PercentageY}%;"
 								<% if not $First %>data-<% end_if %>src="$SlideImage.FocusFillMax(1440,550).URL"
 								<% if not $First %>data-<% end_if %>srcset="
 									$SlideImage.FocusFillMax(480,183).URL 480w,

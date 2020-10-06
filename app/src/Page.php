@@ -10,7 +10,6 @@ namespace {
     use SilverStripe\ORM\ArrayList;
     use SilverStripe\Control\Director;
     use SilverStripe\CMS\Model\SiteTree;
-    use SilverStripe\Core\Config\Config;
     use SilverStripe\Security\Permission;
     use SilverStripe\SiteConfig\SiteConfig;
     use TractorCow\Fluent\State\FluentState;

@@ -5,7 +5,7 @@
 			<div class="teasers third">
 				<% loop $Items %>
 					<a href="$Link" class="teaser">
-						<% if $OGImage %><figure><img src="$OGImage.FocusFillMax(340,170).URL" srcset="$OGImage.FocusFillMax(340,170).URL 1x, $OGImage.FocusFillMax(680,340).URL 2x" alt="$Title" /></figure><% end_if %>
+						<% if $OGImage %><figure><img width="$OGImage.FocusFillMax(340,170).Width()" height="$OGImage.FocusFillMax(340,170).Height()" src="$OGImage.FocusFillMax(340,170).URL" srcset="$OGImage.FocusFillMax(340,170).URL 1x, $OGImage.FocusFillMax(680,340).URL 2x" alt="$Title" /></figure><% end_if %>
 						<div class="txt">
 							<% if $OGTitle %><h4>$OGTitle</h4><% end_if %>
 							<% if $OGDescription %><p>$OGDescription.Summary(20)</p><% end_if %>
@@ -19,7 +19,7 @@
 			<div class="teasers halve">
 				<% loop $Items %>
 					<a href="$Link" class="teaser">
-						<% if $OGImage %><figure><img src="$OGImage.FocusFillMax(480,400).URL" srcset="$OGImage.FocusFillMax(480,400).URL 1x, $OGImage.FocusFillMax(960,800).URL 2x" alt="$Title" /></figure><% end_if %>
+						<% if $OGImage %><figure><img width="$OGImage.FocusFillMax(480,400).Width()" height="$OGImage.FocusFillMax(480,400).Height()" src="$OGImage.FocusFillMax(480,400).URL" srcset="$OGImage.FocusFillMax(480,400).URL 1x, $OGImage.FocusFillMax(960,800).URL 2x" alt="$Title" /></figure><% end_if %>
 						<div class="txt">
 							<% if $OGTitle %><h4>$OGTitle</h4><% end_if %>
 							<div class="accordion">
@@ -35,7 +35,7 @@
 			<div class="teasers full">
 				<% loop $Items %>
 					<a href="$Link" class="teaser">
-						<% if $OGImage %><figure><img src="$OGImage.FocusFillMax(1400,600).URL" srcset="$OGImage.FocusFillMax(1400,600).URL 1x, $OGImage.FocusFillMax(2800,1200).URL 2x" alt="$Title" /></figure><% end_if %>
+						<% if $OGImage %><figure><img width="$OGImage.FocusFillMax(1400,600).Width()" height="$OGImage.FocusFillMax(1400,600).Height()" src="$OGImage.FocusFillMax(1400,600).URL" srcset="$OGImage.FocusFillMax(1400,600).URL 1x, $OGImage.FocusFillMax(2800,1200).URL 2x" alt="$Title" /></figure><% end_if %>
 						<div class="txt">
 							<% if $OGTitle %><h4>$OGTitle</h4><% end_if %>
 							<div class="accordion">

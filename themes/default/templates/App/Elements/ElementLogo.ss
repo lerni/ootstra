@@ -7,7 +7,7 @@
 					<li class="logo<% if $Link %> has-link<% end_if %>">
 						<% if $Link %><a href="$Link" target="_blank" rel="noopener"><% end_if %>
 						<figure>
-							<img src="$LogoImage.ScaleMaxHeight(80).URL" srcset="$LogoImage.ScaleMaxHeight(80).URL 1x, $LogoImage.ScaleMaxHeight(160).URL 2x" alt="<% if $Title %>$Title<% else %>$LogoImage.Title<% end_if %>" />
+							<img height="$LogoImage.ScaleMaxHeight(80).Height()" width="$LogoImage.ScaleMaxHeight(80).Width()" src="$LogoImage.ScaleMaxHeight(80).URL" srcset="$LogoImage.ScaleMaxHeight(80).URL 1x, $LogoImage.ScaleMaxHeight(160).URL 2x" alt="<% if $Title %>$Title<% else %>$LogoImage.Title<% end_if %>" />
 						</figure>
 						<% if $Link %></a><% end_if %>
 					</li>

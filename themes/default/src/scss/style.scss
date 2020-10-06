@@ -548,6 +548,7 @@ main.typography {
 			.relativizer {
 				position: relative;
 				margin: auto 0 auto auto;
+				width: 100%;
 			}
 			.inner-txt {
 				position: relative;
@@ -587,7 +588,7 @@ main.typography {
 				margin-left: 0;
 				margin-right: 0;
 				order: 0;
-				max-height: 60vw;
+				// max-height: 60vw;
 				@include ie11 {
 					max-width: 100%;
 				}
@@ -595,7 +596,7 @@ main.typography {
 			img {
 				width: 100%;
 				margin-bottom: 0;
- 				position: absolute;
+ 				display: table;
 				@include breakpoint($Mneg) {
 					position: inherit;
 				}
@@ -857,7 +858,7 @@ ul#SearchResults {
 		display: inline-block;
 		transition: transform .05s linear;
 		&[data-social-short="l"] {
-			font-size: 1.7em;
+			font-size: 1.2em;
 			vertical-align: -.05em;
 		}
 		&:not(:last-of-type) {

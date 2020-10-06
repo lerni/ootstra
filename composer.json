@@ -6,15 +6,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/lerni/silverstripe-elemental-virtual"
-        },
-        {
-            "type": "vcs",
             "url": "https://github.com/lerni/silverstripe-sitetreeimporter"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/lerni/silverstripe-canonical"
         },
         {
             "type": "vcs",
