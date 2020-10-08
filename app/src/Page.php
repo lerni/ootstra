@@ -119,6 +119,9 @@ namespace {
 
         public function DefaultMetaDescription()
         {
+            if ($this->MetaDescription) {
+                $metaDescription = $this->MetaDescription;
+            }
             if ($this->ClassName == 'SilverStripe\Blog\Model\BlogPost') {
                 if ($this->Summary) {
                     $metaDescription = strip_tags($this->Summary);

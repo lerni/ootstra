@@ -43,7 +43,9 @@ Other features:
 ### Running on local dev-env
 
 Point your vhost document root of your local dev-env to `/project/public`. Database, credentials etc. are provided per environment Variables. See also:
+
 https://www.silverstripe.org/learn/lessons/v4/up-and-running-setting-up-a-local-silverstripe-dev-environment-1
+
 https://docs.silverstripe.org/en/4/getting_started/environment_management/#core-environment-variables
 
 Example `.env`-file in webroot for local develompment could look like:
@@ -87,7 +89,7 @@ This project uses [Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([web
 
 # Hosting & Deployment
 
-You need to [add your public key on the remote server](https://www.google.com/search?q=add+public+key+to+server) in ~/.ssh/authorized_keys. You can use [ssh-copy-id](https://www.ssh.com/ssh/copy-id) on nix-based systems. Deployment is based on [Deployer](https://deployer.org/) - a php based cli-tool. It uses symlinks to the current release. It's easy to use, offers zero downtime deployments and rollback. `/assets`, `.env`, `silverstripe.log` are shared ressources this means, they are also symlinked into each release-folder.
+You need to [add your public key on the remote server](https://www.google.com/search?q=add+public+key+to+server) in ~/.ssh/authorized_keys. You can use [ssh-copy-id](https://www.ssh.com/ssh/copy-id) on nix-based systems. Deployment is based on [Deployer](https://deployer.org/) - a php based cli-tool. It uses symlinks to the current release. It's easy to use, offers zero downtime deployments and rollback. `/assets`, `.env`, `silverstripe.log` are shared ressources, this means they are also symlinked into each release-folder.
 
 ```
 ~/public_html/0live        or ~/public_html/0stage
