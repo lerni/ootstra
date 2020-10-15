@@ -30,13 +30,13 @@
 %group {
 	zoom: 1; // IE 6/7
 
-	&:before,
-	&:after {
+	&::before,
+	&::after {
 		display: table;
 		content: '';
 	}
 
-	&:after {
+	&::after {
 		clear: both;
 	}
 }
@@ -52,7 +52,7 @@
 }
 
 %back {
-	&:before {
+	&::before {
 		display: inline-block;
 		content: "";
 		width: .9em;
@@ -68,13 +68,13 @@
 		transition-duration: .12s;
 	}
 	&:hover {
-		&:after {
+		&::after {
 			width: 2em;
 		}
 	}
 }
 %forth {
-	&:after {
+	&::after {
 		display: inline-block;
 		content: "";
 		width: .9em;
@@ -89,7 +89,7 @@
 		transition-duration: .12s;
 	}
 	&:hover {
-		&:after {
+		&::after {
 			width: 2em;
 		}
 	}

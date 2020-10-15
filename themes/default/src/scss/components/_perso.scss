@@ -103,7 +103,7 @@
                     opacity: 1;
                 }
                 & .txt {
-                    >span:hover:after {
+                    >span:hover::after {
                         padding-left: 4em;
                     }
                 }
@@ -246,7 +246,7 @@
             }
 
             // background with an overflowing pseudo
-            &:after {
+            &::after {
                 overflow-y: visible;
                 overflow-x: initial;
                 content: "";

@@ -1,4 +1,4 @@
-<% if $ClassName == 'App\Elements\ElementHero' && $Page.hasHero() || $ClassName == 'App\Model\ElementPage' %>
+<% if $ClassName == 'App\Elements\ElementHero' && $Page.hasHero() || $ClassName == 'App\Models\ElementPage' %>
     <% with $Page %>
         <nav class="breadcrumbs">
             <div class="inner">{$Breadcrumbs}</div>

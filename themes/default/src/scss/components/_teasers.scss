@@ -40,7 +40,7 @@
         // just hover if it's really a link
         a.teaser {
             .pseudolink:hover {
-                &:after {
+                &::after {
                 }
             }
         }

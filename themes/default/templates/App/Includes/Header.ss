@@ -2,7 +2,7 @@
 	<div class="inner">
 		<div class="column logo">
 			<a href="{$MyBaseURLForLocale}" aria-label="$SiteConfig.Title (home)">
-				<img src="$resourceURL('themes/default/dist/images/svg/logo.svg')" alt="$SiteConfig.Title" />
+				<img width="342" height="68" src="$resourceURL('themes/default/dist/images/svg/logo.svg')" alt="$SiteConfig.Title" />
 			</a>
 		</div>
 		<nav class="column nav">

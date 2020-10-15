@@ -121,12 +121,9 @@ body {
 						color: $blue;
 					}
 				}
-			}
-			nav ul.menu1 > li,
-			nav ul.service-nav > li {
 				// shadow on top would overlay on white header. to prevent/cover this optically, we overlay bellow on top
 				.menu2 {
-					&:before {
+					&::before {
 						pointer-events: none;
 						content: "";
 						width: calc(100% + 1em);
@@ -142,7 +139,7 @@ body {
 			.burger-icon, .burger-icon::before, .burger-icon::after {
 
 			}
-			&:after {
+			&::after {
 				opacity: 0;
 			}
 		}
@@ -225,7 +222,7 @@ main.typography {
 		border-color: transparent;
 		padding-left: 0;
 		padding-right: 1em;
-		&:before {
+		&::before {
 			display: inline-block;
 			content: "";
 			width: .9em;
@@ -394,7 +391,7 @@ main.typography {
 				.spacer {
 					padding: #{$lh/2}em 0 0 0;
 					position: relative;
-					&:after {
+					&::after {
 						content: "";
 						position: absolute;
 						left: -#{$lh}em;
@@ -638,7 +635,7 @@ main.typography {
 					}
 					h3.flip {
 						margin-bottom: 0;
-						&:after {
+						&::after {
 							content: "";
 							display: block;
 							width: #{$lh*2.2}em;
@@ -663,7 +660,7 @@ main.typography {
 				&.open {
 					header {
 						h3.flip {
-							&:after {
+							&::after {
 								transform: rotate(180deg);
 							}
 						}

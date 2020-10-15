@@ -43,7 +43,7 @@ class ElementPage extends Page
         $fields = parent::getCMSFields();
 
         if (!$this->hasHero()) {
-            $message = _t('App\Model\ElementPage.HeroNeeded', 'Wenn kein "Hero" als oberstes Element vorhanden ist, wird <a href="/admin/settings/">default HeadeImage</a> verwendet.');
+            $message = _t('App\Models\ElementPage.HeroNeeded', 'Wenn kein "Hero" als oberstes Element vorhanden ist, wird <a href="/admin/settings/">default HeadeImage</a> verwendet.');
             $fields->unshift(
                 LiteralField::create(
                     'HeroNeeded',

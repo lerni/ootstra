@@ -239,8 +239,8 @@
 		border:0;
 		padding:0;
 		p {
-			&:before,
-			&:after {
+			&::before,
+			&::after {
 				display: inline-block;
 				background-repeat: no-repeat;
 				background-size: 0.68376em .8em;
@@ -250,12 +250,12 @@
 				content:"";
 				vertical-align: -.2em;
 			}
-			&:before {
+			&::before {
 				width: #{$lh*1}em;
 				margin-left: #{-$lh*1}em;
 				background-image: svg-load('../images/svg/quote-before.svg', fill=#{$lauftext-color});
 			}
-			&:after {
+			&::after {
 				margin-left:.2em;
 				background-image: svg-load('../images/svg/quote-after.svg', fill=#{$lauftext-color});
 			}
@@ -270,13 +270,13 @@
 		display: inline-block;
 		color: #{$link-color};
 		&:hover {
-			&:after {
+			&::after {
 				margin-left: 1em;
 			}
 		}
 	}
 	.marker {
-		&:before {
+		&::before {
 			content: "";
 			display: inline-block;
 			width: 1.6em;

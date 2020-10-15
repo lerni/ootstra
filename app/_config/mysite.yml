@@ -72,7 +72,7 @@ SilverStripe\Blog\Model\BlogPost:
     - App\Elements\ElementFeedTeaser
     - App\Elements\ElementTextImage
 
-App\Model\ElementPage:
+App\Models\ElementPage:
   icon: '_resources/themes/default/dist/images/svg/icon-elements.svg'
   extensions:
     - DNADesign\Elemental\Extensions\ElementalPageExtension
@@ -185,6 +185,7 @@ After: 'opengraphextensions'
 ---
 JonoM\ShareCare\ShareCare:
   enable_facebook_cache_clear: false
+  twitter_card: false
 Page:
   extensions:
     - JonoM\ShareCare\ShareCareFields

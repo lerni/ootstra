@@ -44,7 +44,7 @@
 			&.pseudohover,
 			&:hover {
 				// this is used to cover box-shadow on the upper part, that overlaps with header
-				&:after {
+				&::after {
 					content: "";
 					position: absolute;
 					left: -#{$lh}em;
@@ -67,7 +67,7 @@
 					transition-timing-function: ease-out;
 					min-width: 100%;
 					// background for subnavi
-					&:after {
+					&::after {
 						content: "";
 						position: absolute;
 						z-index: -2;
@@ -152,15 +152,15 @@
 			}
 			@include print {
 				display: none;
-				&:before,
-				&:after {
+				&::before,
+				&::after {
 					display: none;
 				}
 			}
 			@include breakpoint($Lneg) {
 				display: block;
-				&:before,
-				&:after {
+				&::before,
+				&::after {
 					display: block;
 				}
 			}
@@ -217,7 +217,7 @@ body.mobile-nav--active {
 								padding: #{$lh/3*2}em 0;
 								visibility: visible;
 								display: table;
-								&:after {
+								&::after {
 									display: none;
 								}
 								li {
@@ -251,7 +251,7 @@ body.mobile-nav--active {
 					flex: 0 0 $headerheight--small;
 					margin: auto auto auto 0;
 					@include breakpoint($Sneg) {
-						&:before {
+						&::before {
 							content: "";
 							width: 1000%;
 							height: $headerheight--small;

@@ -102,3 +102,5 @@ CMSPagesController::config()->help_links = [];
 // FulltextSearchable::enable();
 
 GoogleSitemap::register_dataobjects(['App\Models\JobPosting'], 'weekly', '1');
+
+// SilverStripe\ORM\DB::query("SET SESSION sql_mode='REAL_AS_FLOAT,PIPES_AS_CONCAT,ANSI_QUOTES,IGNORE_SPACE';");

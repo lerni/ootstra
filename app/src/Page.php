@@ -424,5 +424,15 @@ namespace {
         {
             return date("Y");
         }
+
+        // link without parameter
+        public function LinkNoParam()
+        {
+            if (Controller::has_curr()) {
+                $req = Controller::curr()->getRequest();
+                $url = $req->getURL(FALSE);
+                return $url;
+            }
+        }
     }
 }

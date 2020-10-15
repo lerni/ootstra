@@ -128,7 +128,7 @@ form {
 		line-height: 18px;
 		margin-bottom: 10px;
 	}
-	a.btn:after {
+	a.btn::after {
 		content: '\2192';
 		padding-left: 10px;
 	}
@@ -136,14 +136,14 @@ form {
 		width: auto;
 	}
 
-	.Actions:after {
+	.Actions::after {
 		color: #B94A48;
 		content: "* Pflichtfeld";
 		display: inline-block;
 		font-weight: normal;
 		margin-top: 9px;
 	}
-	#MemberLoginForm_LoginForm .Actions:after {
+	#MemberLoginForm_LoginForm .Actions::after {
 		display: none;
 	}
 }
@@ -155,7 +155,7 @@ form {
 	#ForgotPassword {
 		clear: left;
 	}
-	#MemberLoginForm_LostPasswordForm .Actions:after {
+	#MemberLoginForm_LostPasswordForm .Actions::after {
 		display: none;
 	}
 
@@ -177,7 +177,7 @@ form {
 	color: $lauftext-color;
     float: left;
 }
-form .requiredField label.left:after {
+form .requiredField label.left::after {
 	color: $lauftext-color;
 	content: "*";
 	font-size: $lauftext-size;
@@ -195,7 +195,7 @@ form .optionset ul {
 		margin-bottom: 5px;
 		list-style-type: none;
 	}
-	form div.checkbox:after {
+	form div.checkbox::after {
 		content: ".";
 		display: block;
 		height: 0;

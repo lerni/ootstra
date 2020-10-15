@@ -52,7 +52,7 @@ de:
     TABMAIN: Main
     SITETAGLINE: 'Claim / Beschreibung'
     TAGLINEDEFAULT: 'Claim / Beschreibung'
-  App\Model\ElementPage:
+  App\Models\ElementPage:
     DESCRIPTION: 'Erlaubt modulare Inhaltskomposition mit Elementen'
     HeroNeeded: 'Wenn kein "Hero" als oberstes Element vorhanden ist, wird <a href="/admin/settings/">default HeadeImage</a> verwendet.'
   SilverStripe\CMS\Controllers\CMSMain:
@@ -64,4 +64,4 @@ de:
     ElementJobsNeeded: 'Stelleninserate werden per "Job Element" angezeigt.'
   JonoM\ShareCare\ShareCareFields:
     CMSMessage: 'Die Vorschau wird automatisch aus dem Inhalt generiert. Diese generierten Werte können hier manuell überschrieben werden.<br>
-    <strong>Generell sollte nur etwas erfasst werden, wenn der Inhalt vom Defaultwerte (kursiv) abweicht. Defaultwert für das Bild ist das 1. Slide vom Hero, die "Share Beschreibung" basiert auf der Metadescription, resp. im Falle eines BlogPosts auf der Zusammenfassung und verwendet als "Fallback" die globale MetaDescription von "Einstellungen/SiteConfig".</strong>'
+    <strong>Generell sollte nur etwas erfasst werden, wenn der Inhalt vom Defaultwerte (kursiv) abweicht. Defaultwert für das Bild ist das 1. Slide vom Hero resp. ein Icon als "Fallback", die "Share Beschreibung" basiert auf der Metadescription, resp. im Falle eines BlogPosts auf der Zusammenfassung und verwendet als "Fallback" die globale MetaDescription von "Einstellungen/SiteConfig".</strong>'

@@ -1,4 +1,4 @@
-<article class="element elementhero default spacing-bottom-2<% if $Top.ClassName == 'App\Model\ElementPage' && $Top.ParentID != 0 %> breadcrumbs<% end_if %>">
+<article class="element elementhero default spacing-bottom-2<% if $Top.ClassName == 'App\Models\ElementPage' && $Top.ParentID != 0 %> breadcrumbs<% end_if %>">
 	<figure>
 		<% if $SiteConfig.DefaultHeaderImageID %>
 			<% with $SiteConfig.DefaultHeaderImage %>

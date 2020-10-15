@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Model\PersoPage;
 use App\Models\Location;
-use App\Model\ElementPage;
+use App\Models\ElementPage;
 use Spatie\SchemaOrg\Schema;
 use App\Elements\ElementJobs;
 use SilverStripe\Assets\File;
