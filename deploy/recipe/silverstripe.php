@@ -55,7 +55,8 @@ task('silverstripe:installtools', function () {
     $hasComposer = run("if [ -e ~/bin/composer.phar ]; then echo 'true'; fi");
     if ('true' != $hasComposer) {
         // run('curl https://getcomposer.org/composer.phar --create-dirs -o ~/bin/composer.phar');
-        run('curl https://getcomposer.org/composer-stable.phar --create-dirs -o ~/bin/composer.phar');
+        // run('curl https://getcomposer.org/composer-stable.phar --create-dirs -o ~/bin/composer.phar');
+        run('curl https://getcomposer.org/composer-1.phar --create-dirs -o ~/bin/composer.phar');
         run('chmod +x ~/bin/composer.phar');
     }
 });

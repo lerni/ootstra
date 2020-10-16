@@ -50,6 +50,7 @@
 	line-height: 1;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	font-display: swap;
 }
 
 @mixin smoothFonts {
@@ -91,14 +92,19 @@
 	}
 }
 
-@mixin iconfontsettings {
-	font-family: "icons";
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	speak: none;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	font-display: swap;
+
+@mixin small-header() {
+	height: $headerheight--small;
+	.inner {
+		.column {
+			&.logo {
+				padding-right: 105px;
+			}
+			&.nav {
+				ul.menu1 {
+					margin-bottom: .2em;
+				}
+			}
+		}
+	}
 }

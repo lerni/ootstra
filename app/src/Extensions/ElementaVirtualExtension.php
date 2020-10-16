@@ -10,6 +10,7 @@ class ElementaVirtualExtension extends Extension
 
     public function updateCMSFields(FieldList $fields)
     {
-        $fields->removeByName("Settings");
+        $fields->removeByName('Settings');
+        $fields->removeByName('TitleLevel');
     }
 }
