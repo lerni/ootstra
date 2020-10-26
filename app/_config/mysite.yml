@@ -190,6 +190,9 @@ Page:
   extensions:
     - JonoM\ShareCare\ShareCareFields
     - App\Extensions\ShareCareFieldsExtension
+  Childrenexcluded:
+    default:
+      - 'SilverStripe\Blog\Model\BlogPost'
 
 ---
 Name: myopengraphsettings

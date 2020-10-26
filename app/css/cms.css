@@ -30,7 +30,7 @@
 .cms-edit-form .form-group.htmleditor.stacked .form__field-holder,
 .form--inline .form-group.htmleditor.stacked .form__field-holder,
 .ss-insert-link .form__fieldgroup .form-group.htmleditor.stacked .form__field-holder {
-	max-width:none !important;
+	max-width: none !important;
 }
 
 
@@ -71,7 +71,7 @@ fieldset.grid {
 	flex: 1 1 auto;
 }
 
-/* no UserformPage creation - keem theme in ElementPages */
+/* no UserformPage creation -> ElementPages */
 .valSilverStripe_UserForms_Model_UserDefinedForm {
 	display: none;
 }

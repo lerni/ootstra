@@ -1,7 +1,7 @@
 {
     "name": "lerni/ootstra",
     "type": "silverstripe-recipe",
-    "description": "kraftausdruck.ch SilverStripe CMS recipe",
+    "description": "kraftausdruck.ch Silverstripe CMS recipe",
     "license": "BSD-3-Clause",
     "repositories": [
         {
@@ -68,6 +68,7 @@
             ".htaccess",
             "app/.htaccess",
             "app/_config.php",
+            "app/_config/database.yml",
             "app/_config/mimevalidator.yml",
             "app/_config/mysite.yml",
             "app/src/Page.php",

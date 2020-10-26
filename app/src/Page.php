@@ -119,13 +119,13 @@ namespace {
 
         public function DefaultMetaDescription()
         {
-            if ($this->MetaDescription) {
-                $metaDescription = $this->MetaDescription;
-            }
             if ($this->ClassName == 'SilverStripe\Blog\Model\BlogPost') {
                 if ($this->Summary) {
                     $metaDescription = strip_tags($this->Summary);
                 }
+            }
+            if ($this->MetaDescription) {
+                $metaDescription = $this->MetaDescription;
             }
             if (!isset($metaDescription)) {
                 $metaDescription = $this->SiteConfig->MetaDescription;
@@ -254,9 +254,26 @@ namespace {
             }
         }
 
-        public function Childrenexcluded()
+        public function Childrenexcluded($set = '')
         {
-            return $this->Children()->exclude("ClassName", 'SilverStripe\Blog\Model\BlogPost');
+
+            $conf = $this->config()->get('Childrenexcluded');
+
+            if ($set != '') {
+                if (array_key_exists($set, $conf)) {
+                    $exclude = $conf["$set"];
+                }
+            } elseif (is_array($conf) && array_key_exists('default', $conf)) {
+                $exclude = $conf['default'];
+            }
+
+            $children = $this->Children();
+
+            if (isset($exclude) && is_array($exclude)) {
+                $children = $children->exclude('ClassName', $exclude);
+            }
+
+            return $children;
         }
 
         public function MyBaseURLForLocale()
@@ -325,68 +342,68 @@ namespace {
                 ->url($siteConfig->CanonicalDomain)
                 ->logo(rtrim(Director::absoluteBaseURL(), '/') . ModuleResourceLoader::resourceURL('public/icon-512.png'));
 
-                if ($siteConfig->Locations()->Count()) {
+            if ($siteConfig->Locations()->Count()) {
 
-                    $locations = [];
-                    $i = 0;
-                    foreach ($siteConfig->Locations() as $location) {
+                $locations = [];
+                $i = 0;
+                foreach ($siteConfig->Locations() as $location) {
 
-                        $country = strtoupper($location->Country);
+                    $country = strtoupper($location->Country);
 
-                        $PushLocation = Schema::postalAddress()
-                            ->email($location->EMail)
-                            ->streetAddress($location->Address)
-                            ->postalCode($location->PostalCode)
-                            ->addressLocality($location->Town)
-                            ->postOfficeBoxNumber($location->PostOfficeBoxNumber)
-                            ->telephone($location->Telephone)
-                            ->addressRegion($location->AddressRegion)
-                            ->addressCountry(Schema::Country()
-                                ->name($country));
+                    $PushLocation = Schema::postalAddress()
+                        ->email($location->EMail)
+                        ->streetAddress($location->Address)
+                        ->postalCode($location->PostalCode)
+                        ->addressLocality($location->Town)
+                        ->postOfficeBoxNumber($location->PostOfficeBoxNumber)
+                        ->telephone($location->Telephone)
+                        ->addressRegion($location->AddressRegion)
+                        ->addressCountry(Schema::Country()
+                            ->name($country));
 
 
-                        $locations[$i] = Schema::LocalBusiness()
-                            ->name($location->Title)
-                            ->address($PushLocation);
+                    $locations[$i] = Schema::LocalBusiness()
+                        ->name($location->Title)
+                        ->address($PushLocation);
 
-                        if ($location->OpeningHours) {
-                            // remove empty newlines
-                            $ohString = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $location->OpeningHours);
-                            $openingHoursLines = explode(PHP_EOL, $ohString);
-                            $locations[$i]->openingHours($openingHoursLines);
-                        }
-
-                        if ($location->GeoPoint()->exists()) {
-                            $PushGeo = Schema::geoCoordinates()
-                                ->latitude($location->GeoPoint()->Latitude)
-                                ->longitude($location->GeoPoint()->Longitude);
-
-                            // default has map lat/lng based - 'll be overriden if $location->PointURL exists
-                            $locations[$i]->hasMap($location->GeoPoint()->GMapLatLngLink());
-                            $locations[$i]->geo($PushGeo);
-                        }
-
-                        if ($location->PointURL) {
-                            $locations[$i]->hasMap($location->PointURL);
-                        }
-
-                        if ($siteConfig->DefaultHeaderImage()->exists()) {
-                            $locations[$i]->image(rtrim(Director::absoluteBaseURL(), '/') . $siteConfig->DefaultHeaderImage()->Link());
-                        }
-
-                        $i++;
+                    if ($location->OpeningHours) {
+                        // remove empty newlines
+                        $ohString = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $location->OpeningHours);
+                        $openingHoursLines = explode(PHP_EOL, $ohString);
+                        $locations[$i]->openingHours($openingHoursLines);
                     }
 
-                    $schemaOrganisation->location($locations);
-                }
-                if ($siteConfig->SocialLinks()->filter('sameAs', 1)->Count()) {
-                    $sameAsLinks = $siteConfig->SocialLinks()->filter('sameAs', 1)->Column('Url');
-                    $schemaOrganisation->sameAs($sameAsLinks);
+                    if ($location->GeoPoint()->exists()) {
+                        $PushGeo = Schema::geoCoordinates()
+                            ->latitude($location->GeoPoint()->Latitude)
+                            ->longitude($location->GeoPoint()->Longitude);
+
+                        // default has map lat/lng based - 'll be overriden if $location->PointURL exists
+                        $locations[$i]->hasMap($location->GeoPoint()->GMapLatLngLink());
+                        $locations[$i]->geo($PushGeo);
+                    }
+
+                    if ($location->PointURL) {
+                        $locations[$i]->hasMap($location->PointURL);
+                    }
+
+                    if ($siteConfig->DefaultHeaderImage()->exists()) {
+                        $locations[$i]->image(rtrim(Director::absoluteBaseURL(), '/') . $siteConfig->DefaultHeaderImage()->Link());
+                    }
+
+                    $i++;
                 }
 
-                if ($siteConfig->DefaultHeaderImage()->exists()) {
-                    $schemaOrganisation->image(rtrim(Director::absoluteBaseURL(), '/') . $siteConfig->DefaultHeaderImage()->Link());
-                }
+                $schemaOrganisation->location($locations);
+            }
+            if ($siteConfig->SocialLinks()->filter('sameAs', 1)->Count()) {
+                $sameAsLinks = $siteConfig->SocialLinks()->filter('sameAs', 1)->Column('Url');
+                $schemaOrganisation->sameAs($sameAsLinks);
+            }
+
+            if ($siteConfig->DefaultHeaderImage()->exists()) {
+                $schemaOrganisation->image(rtrim(Director::absoluteBaseURL(), '/') . $siteConfig->DefaultHeaderImage()->Link());
+            }
 
             return $schemaOrganisation->toScript();
         }

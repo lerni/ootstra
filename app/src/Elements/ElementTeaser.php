@@ -32,9 +32,7 @@ class ElementTeaser extends BaseElement
     ];
 
     private static $field_labels = [
-        'Value' => 'Wert',
         'Title' => 'Titel',
-        'Text' => 'Text'
     ];
 
     private static $table_name = 'ElementTeaser';
