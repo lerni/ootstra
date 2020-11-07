@@ -93,3 +93,12 @@ fieldset.grid {
 	flex: 0 0 100%;
 	max-width: 100%;
 }
+
+
+#Form_ItemEditForm_Title_Holder .form__field-update-url::after {
+	content: 'update URL';
+}
+/* prevent description being shown inline */
+#Form_ItemEditForm_Title_Holder .form__field-description {
+	width: 100%;
+}

@@ -4,7 +4,7 @@
 		<article class="element elementhero spacing-bottom-2">
 			<figure>
 				<% with $HeaderImage %><img sizes="100vw" alt="$Title"
-					style="object-position: {$SlideImage.FocusFillMax(2600,650).PercentageX}% {$SlideImage.FocusFillMax(2600,650).PercentageY}%;"
+					style="object-position: {$FocusFillMax(2600,650).PercentageX}% {$FocusFillMax(2600,650).PercentageY}%;"
 					src="$FocusFillMax(1440,360).URL"
 					srcset="$FocusFillMax(480,120).URL 480w,
 						$FocusFillMax(640,160).URL 640w,

@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace Kraftausdruck\Models;
 
-use App\Model\PersoPage;
 use App\Models\Location;
 use App\Models\ElementPage;
 use Spatie\SchemaOrg\Schema;
-use App\Elements\ElementJobs;
+use Kraftausdruck\Elements\ElementJobs;
 use SilverStripe\Assets\File;
 use SilverStripe\Assets\Image;
 use SilverStripe\ORM\DataObject;
@@ -19,7 +18,9 @@ use SilverStripe\Versioned\Versioned;
 use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\ORM\FieldType\DBHTMLText;
 use SilverStripe\View\Parsers\URLSegmentFilter;
+use SilverStripe\CMS\Forms\SiteTreeURLSegmentField;
 use SilverStripe\Core\Manifest\ModuleResourceLoader;
+use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 
 class JobPosting extends DataObject
 {
@@ -27,25 +28,25 @@ class JobPosting extends DataObject
         'Sort' => 'Int',
         'Active' => 'Boolean',
         'Title' => 'Varchar',
-        'OccupationalCategory' => 'Varchar',
+        'URLSegment' => 'Varchar',
+//      'OccupationalCategory' => 'Varchar',
         'Description' => 'HTMLText',
-        'Industry' => 'HTMLText',
+        'Industry' => 'Varchar',
         'EmploymentType' => "Enum('full-time, part-time, contract, temporary, seasonal, internship','full-time')",
-        'WorkHours' => 'Varchar',
-        'Skills' => 'Text',
-        'Qualifications' => 'Text',
-        'EducationRequirements' => 'Text',
-        'Responsibilities' => 'Text',
-        'ExperienceRequirements' => 'Text',
-        'JobBenefits' => 'Text',
+//      'WorkHours' => 'Varchar',
+//      'Skills' => 'Text',
+//      'Qualifications' => 'Text',
+//      'EducationRequirements' => 'Text',
+//      'Responsibilities' => 'Text',
+//      'ExperienceRequirements' => 'Text',
+//      'JobBenefits' => 'Text',
         'DatePosted' => 'Date',
         'ValidThrough' => 'Date'
     ];
 
     private static $has_one = [
         'HeaderImage' => Image::class,
-        'Inserat' => File::class,
-        'Ansprechperson' => Perso::class,
+        'Inserat' => File::class
     ];
 
     private static $many_many = [
@@ -55,6 +56,10 @@ class JobPosting extends DataObject
     private static $owns = [
         'HeaderImage',
         'Inserat'
+    ];
+
+    private static $indexes = [
+        'URLSegment' => true
     ];
 
     private static $table_name = 'JobPosting';
@@ -68,6 +73,13 @@ class JobPosting extends DataObject
     {
         $this->DatePosted = date('Y-m-d');
         $this->ValidThrough = date('Y-m-d', strtotime('now + 1 year'));
+        if (JobDefaults::get()->count())
+        {
+            $defaults = JobDefaults::get()->first();
+//            $this->Idustrie = $defaults->Idustrie;
+//             $this->WorkHours = $defaults->WorkHours;
+            $this->HeaderImage = $defaults->HeaderImage;
+        }
         parent::populateDefaults();
     }
 
@@ -76,19 +88,19 @@ class JobPosting extends DataObject
     ];
 
     private static $field_labels = [
-        'Active' => 'Aktiv',
+        'Active' => 'Aktiv/Veröffentlicht',
         'Title' => 'Titel',
-        'OccupationalCategory' => 'Berufsgruppe',
+        // 'OccupationalCategory' => 'Berufsgruppe',
         'Description' => 'Text sichtbar (Ansicht Website)',
         'Industry' => 'Industrie',
         'EmploymentType' => 'Art der Anstellung',
-        'WorkHours' => 'Arbeitszeit pro Woche',
-        'Skills' => 'Fähigkeiten',
-        'Qualifications' => 'Qualifikationen',
-        'EducationRequirements' => 'Anforderung Ausbildung',
-        'Responsibilities' => 'Verantwortung',
-        'ExperienceRequirements' => 'Anforderungen Erfahrung',
-        'JobBenefits' => 'Vorteile (wir bieten...)',
+        // 'WorkHours' => 'Arbeitszeit pro Woche',
+        // 'Skills' => 'Fähigkeiten',
+        // 'Qualifications' => 'Qualifikationen',
+        // 'EducationRequirements' => 'Anforderung Ausbildung',
+        // 'Responsibilities' => 'Verantwortung',
+        // 'ExperienceRequirements' => 'Anforderungen Erfahrung',
+        // 'JobBenefits' => 'Vorteile (wir bieten...)',
         'DatePosted' => 'Veröffentlichungsdatum',
         'ValidThrough' => 'Gültig bis'
     ];
@@ -112,10 +124,17 @@ class JobPosting extends DataObject
         $fields = parent::getCMSFields();
         $fields->removeByName('Sort');
 
-        $fields->addFieldToTab('Root.Main', LiteralField::create('Link', '<p><a href="' . $this->AbsoluteLink() . '" target="_blank">' . $this->AbsoluteLink() . '</a></p>'), 'Title');
+        if ($page = $this->Parent()) {
+            $fields->insertAfter(
+                SiteTreeURLSegmentField::create('URLSegment')
+                    ->setURLPrefix($this->Parent()->getPage()->Link() . 'job/')
+                    ->setDefaultURL($this->generateURLSegment()),
+                'Title'
+            );
+        }
 
         if ($this->LastFor() == false) {
-            $message = _t('App\Models\JobPosting.expiredAlert', 'false');
+            $message = _t('Kraftausdruck\Models\JobPosting.expiredAlert', 'false');
             $fields->unshift(
                 LiteralField::create(
                     'Past',
@@ -128,39 +147,36 @@ class JobPosting extends DataObject
         }
 
         if ($TitleField = $fields->dataFieldByName('Title')) {
-            $TitleField->setDescription('z.B. Projektleiter 100% (m/w)');
+            $TitleField->setDescription( _t('Kraftausdruck\Models\JobPosting.TitleCMSDesc', 'z.B. Projektleiter 100% (m/w/d)'));
         }
 
         if ($WorkHoursField = $fields->dataFieldByName('WorkHours')) {
-            $WorkHoursField->setDescription('z.B. 42 Stunden pro Woche');
+            $WorkHoursField->setDescription(_t('Kraftausdruck\Models\JobPosting.WorkHoursDesc', 'z.B. 42 Stunden pro Woche'));
         }
 
         if ($SkillsField = $fields->dataFieldByName('Skills')) {
-            $SkillsField->setDescription('z.B. Englischkenntnisse Kommunikationsfähigkeiten');
+            $SkillsField->setDescription(_t('Kraftausdruck\Models\JobPosting.SkillsDesc', 'z.B. Englischkenntnisse Kommunikationsfähigkeiten'));
         }
 
         if ($QualificationsField = $fields->dataFieldByName('Qualifications')) {
-            $QualificationsField->setDescription('Zertifikate z.B. CCNA LPI NBW<br/>');
+            $QualificationsField->setDescription(_t('Kraftausdruck\Models\JobPosting.QualificationsDesc', 'Zertifikate z.B. CCNA LPI NBW'));
         }
 
         if ($EducationRequirementsField = $fields->dataFieldByName('EducationRequirements')) {
-            $EducationRequirementsField->setDescription('z.B. Lehre Hochschule HF/FH ETH UNI');
+            $EducationRequirementsField->setDescription(_t('Kraftausdruck\Models\JobPosting.EducationRequirementsDesc', 'z.B. Lehre Hochschule HF/FH ETH UNI'));
         }
 
         if ($JobBenefitsField = $fields->dataFieldByName('JobBenefits')) {
-            $JobBenefitsField->setDescription('z.B. 5 Wochen Ferien, flexible Arbeitszeiten<br/>');
+            $JobBenefitsField->setDescription(_t('Kraftausdruck\Models\JobPosting.JobBenefitsDesc', 'z.B. 5 Wochen Ferien, flexible Arbeitszeiten'));
         }
 
         if ($ExperienceRequirementsField = $fields->dataFieldByName('ExperienceRequirements')) {
-            $ExperienceRequirementsField->setDescription('z.B. Führungserfahrung<br/>');
+            $ExperienceRequirementsField->setDescription(_t('Kraftausdruck\Models\JobPosting.ExperienceRequirementsDesc', 'z.B. Führungserfahrung'));
         }
 
         if ($TextEditorField = $fields->dataFieldByName('Description')) {
-            $fields->removeByName('Description');
-            $fields->addFieldToTab('Root.Text', $TextEditorField);
-            $TextEditorField->setRows(50);
+            $TextEditorField->setRows(30);
             $TextEditorField->addExtraClass('stacked');
-            $TextEditorField->setAttribute('data-mce-body-class', 'jobposting');
         }
 
         if ($JobLocationsField = $fields->dataFieldByName('JobLocations')) {
@@ -174,14 +190,15 @@ class JobPosting extends DataObject
         }
 
         if ($uploadField = $fields->dataFieldByName('HeaderImage')) {
-            $uploadField->setFolderName('Jobs');
-            $uploadField->setDescription('1:2.1');
+            $uploadField->setFolderName('jobs');
+            $uploadField->setDescription(_t('Kraftausdruck\Models\JobPosting.HeaderImageDesc', '1:2.62 // 2600x993px'));
+            $fields->insertAfter('Active', $uploadField, true);
         }
 
         if ($InseratuploadField = $fields->dataFieldByName('Inserat')) {
             $InseratuploadField->allowedExtensions = array('PDF');
-            $InseratuploadField->setFolderName('Jobs');
-            $InseratuploadField->setDescription('PDF');
+            $InseratuploadField->setFolderName('jobs');
+            $InseratuploadField->setDescription(_t('Kraftausdruck\Models\JobPosting.InseratDesc', 'PDF'));
         }
 
         return $fields;
@@ -198,14 +215,14 @@ class JobPosting extends DataObject
             ->description($this->Description)
             ->url($this->AbsoluteLink())
             ->employmentType($this->EmploymentType)
-            ->workHours($this->WorkHours)
-            ->skills($this->TextAsArray($this->Skills))
-            ->qualifications($this->TextAsArray($this->Qualifications))
-            ->educationRequirements($this->TextAsArray($this->EducationRequirements))
-            ->jobBenefits($this->TextAsArray($this->JobBenefits))
-            ->responsibilities($this->TextAsArray($this->Responsibilities))
+//          ->workHours($this->WorkHours)
+//          ->skills($this->TextAsArray($this->Skills))
+//          ->qualifications($this->TextAsArray($this->Qualifications))
+//          ->educationRequirements($this->TextAsArray($this->EducationRequirements))
+//          ->jobBenefits($this->TextAsArray($this->JobBenefits))
+//          ->responsibilities($this->TextAsArray($this->Responsibilities))
             ->industry($this->Industry)
-            ->occupationalCategory($this->OccupationalCategory)
+//          ->occupationalCategory($this->OccupationalCategory)
             ->datePosted($this->DatePosted)
             ->validThrough($this->ValidThrough)
 
@@ -246,25 +263,32 @@ class JobPosting extends DataObject
             $schema->jobLocation($locations);
         }
 
-        $schema->setProperty('@id', $this->Slug());
+        $schema->setProperty('@id', $this->AbsoluteLink());
 
         return $schema->toScript();
     }
 
     public function Parent()
     {
-        $e = ElementJobs::get()->filter(['Primary' => 1])->first();
-        if (!$e) {
-            $e = ElementJobs::get()->first();
+        if(ElementJobs::get()->count()) {
+            $e = ElementJobs::get()->filter(['Primary' => 1])->first();
+            if (!$e) {
+                $e = ElementJobs::get()->first();
+            }
+            return $e;
         }
-        return $e;
     }
 
-    public function Slug()
+    public function generateURLSegment()
     {
-        $filter = new URLSegmentFilter();
-        $anchor = $filter->filter($this->Title);
-        if ($this->ID && JobPosting::get()->filter('Title', $this->Title)->count() > 1) {
+        $anchor = $this->URLSegment;
+
+        if ($anchor == '') {
+            $filter = new URLSegmentFilter();
+            $anchor = $filter->filter($this->Title);
+        }
+
+        if ($this->ID && $this->ClassName::get()->filter(['URLSegment' => $this->URLSegment])->exclude('ID', $this->ID)->count() > 0) {
             $anchor .= '-' . $this->ID;
         }
         return $anchor;
@@ -283,9 +307,27 @@ class JobPosting extends DataObject
                 $base,
                 $siteURL,
                 '/job/',
-                $this->ID
+                $this->URLSegment
             );
         }
+    }
+
+    public function onAfterWrite()
+    {
+        if (!$this->URLSegment) {
+            $this->URLSegment = $this->ID;
+            $this->write();
+        }
+        if ($this->ClassName::get()
+            ->filter(['URLSegment' => $this->URLSegment])
+            ->exclude(['ID' => $this->ID])
+            ->count())
+        {
+            $this->URLSegment .= '-' . $this->ID;
+            $this->write();
+        }
+
+        parent::onAfterWrite();
     }
 
     public function canView($member = null)
@@ -319,8 +361,8 @@ class JobPosting extends DataObject
 
     public function ExplicitLiveParentLink()
     {
-        $id = $this->Parent()->Page->ID;
-        $link = Versioned::get_by_stage('ElementPage', 'Live')->filter('ID', $id)->first()->link();
+        $id = $this->Parent()->getPage()->ID;
+        $link = Versioned::get_by_stage(ElementPage::class, 'Live')->filter('ID', $id)->first()->Link();
         return $link;
     }
 
@@ -346,7 +388,7 @@ class JobPosting extends DataObject
         $datediff = $this->LastFor();
         if ($datediff == false && $this->ValidThrough) {
             $html = DBHTMLText::create();
-            $html->setValue('<span style="color: red;">' . _t('App\Models\JobPosting.expired', 'false') . '</span>');
+            $html->setValue('<span style="color: red;">' . _t('Kraftausdruck\Models\JobPosting.expired', 'false') . '</span>');
             $datediff = $html;
         }
         return $datediff;
@@ -356,5 +398,12 @@ class JobPosting extends DataObject
     public function getGooglePriority()
     {
         return 1;
+    }
+
+
+    // Feedteaser
+    public function link()
+    {
+        return $this->AbsoluteLink();
     }
 }

@@ -55,7 +55,7 @@ class Point extends DataObject
     }
 
     // todo api-key is needed so we should return a default thumb if no API-key
-    public function    getThunbnail()
+    public function getThunbnail()
     {
         $url =  'https://maps.googleapis.com/maps/api/staticmap?center=' . $this->Latitude . ',' . $this->Longitude . '&zoom=16&size=140x140&maptype=hybrid&markers=color:red%7C' . $this->Latitude . ',' . $this->Longitude;
         $gmapDefaultConfig = Config::inst()->get(GoogleMapField::class, 'default_options');

@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Page;
 use PageController;
-use SilverStripe\Control\Controller;
 use SilverStripe\Control\Director;
+use SilverStripe\Control\Controller;
 use SilverStripe\Forms\LiteralField;
+use SilverStripe\SiteConfig\SiteConfig;
 use App\Controller\ElementPageController;
 
 class ElementPage extends Page
@@ -25,7 +26,12 @@ class ElementPage extends Page
     {
         if (Controller::curr()->urlParams['Action'] == 'job') {
             $c = Controller::curr();
-            $base = Director::absoluteBaseURL();
+            $siteConfig = SiteConfig::current_site_config();
+            if ($siteConfig->CanonicalDomain) {
+                $base = trim($siteConfig->CanonicalDomain, '/');
+            } else {
+                $base = Director::absoluteBaseURL();
+            }
             $siteURL = $c->Link();
             $action = $c->urlParams['Action'];
             $id = $c->urlParams['ID'];

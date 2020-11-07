@@ -1,0 +1,3 @@
+en:
+  Kraftausdruck\Models\JobPosting:
+    defaultNoVacancies: 'Thank you for your interest. We have no job openings at present.'

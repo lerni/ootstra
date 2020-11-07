@@ -8,6 +8,8 @@ After:
 SilverStripe\Assets\File:
   extensions:
     - App\Extensions\FileExtension
+    # needs GHOSTSCRIPT_PATH="/usr/local/bin/gs"
+    # - App\Extensions\PdfThumbnailerExtension
 
 # SilverStripe\AssetAdmin\Forms\FileFormFactory:
 SilverStripe\AssetAdmin\Forms\ImageFormFactory:
@@ -41,6 +43,10 @@ SilverStripe\Admin\LeftAndMain:
   extra_requirements_css:
     - app/css/cms.css
 
+Childrenexcluded:
+  default:
+    - 'SilverStripe\Blog\Model\BlogPost'
+
 SilverStripe\Forms\HTMLEditor\TinyMCEConfig:
   editor_css:
     - 'themes/default/dist/css/editor.css'
@@ -63,7 +69,7 @@ SilverStripe\Blog\Model\BlogPost:
     - App\Elements\ElementMaps
     - App\Elements\ElementPerso
     - App\Elements\ElementPersoCFA
-    - App\Elements\ElementJobs
+    - Kraftausdruck\Elements\ElementJobs
     - App\Elements\ElementContentSection
     - App\Elements\ElementCounter
     - App\Elements\ElementLogo
@@ -84,7 +90,7 @@ App\Models\ElementPage:
     - App\Elements\ElementMaps
     - App\Elements\ElementPerso
     - App\Elements\ElementPersoCFA
-    - App\Elements\ElementJobs
+    - Kraftausdruck\Elements\ElementJobs
     - App\Elements\ElementContentSection
     - App\Elements\ElementCounter
     - App\Elements\ElementLogo
@@ -166,9 +172,9 @@ App\Controller\ElementalPersoController:
 
 # Kraftausdruck\InstagramFeed\Control\InstaAuthController:
 #  credentials:
-#   appId: '802342500286970'
-#   appSecret: '43f19c4f62b4f9d3f229c1a2e93eebb5'
-#  redirectUri: 'https://bibsu.lodev/_instaauth/'
+#   appId: '802342570286960'
+#   appSecret: '43f192df62b4f9d3f274c1a2e93eebb5'
+##  redirectUri: 'https://domain.tld/_instaauth/'
 ---
 Name: mywebmanifestconfig
 After: webmanifestconfig
@@ -190,10 +196,6 @@ Page:
   extensions:
     - JonoM\ShareCare\ShareCareFields
     - App\Extensions\ShareCareFieldsExtension
-  Childrenexcluded:
-    default:
-      - 'SilverStripe\Blog\Model\BlogPost'
-
 ---
 Name: myopengraphsettings
 After: '#opengraphsettings'

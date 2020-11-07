@@ -2,6 +2,7 @@
 
 namespace {
 
+    use Kraftausdruck\Models\JobPosting;
     use Spatie\SchemaOrg\Schema;
     use App\Elements\ElementHero;
     use SilverStripe\Core\ClassInfo;
@@ -19,7 +20,6 @@ namespace {
     use SilverStripe\Core\Manifest\ModuleResourceLoader;
     use SilverStripe\Forms\GridField\GridFieldDeleteAction;
     use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
-    use DNADesign\Elemental\Extensions\ElementalPageExtension;
     use SilverStripe\Blog\Admin\GridFieldCategorisationConfig;
     use SilverStripe\Blog\Model\BlogPost;
     use SilverStripe\Control\Controller;
@@ -188,6 +188,26 @@ namespace {
             return $r;
         }
 
+        public function getDefaultOGTitle()
+        {
+
+            $title_return = $this->owner->getTitle();
+
+            // JobPosting
+            if (Controller::has_curr()) {
+                $req = Controller::curr()->getRequest();
+                if ($req->param('Action') == 'job' && $req->param('ID')) {
+                    $URLSegment = $req->param('ID');
+                    $job = JobPosting::get()->filter('URLSegment', $URLSegment)->first();;
+                    if ($job->Description) {
+                        $title_return = trim($job->Title);
+                    }
+                }
+            }
+
+            return $title_return;
+        }
+
         public function getDefaultOGDescription()
         {
             $descreturn = '';
@@ -207,6 +227,19 @@ namespace {
                     $descreturn = $description;
                 }
             }
+
+            // JobPosting
+            if (Controller::has_curr()) {
+                $req = Controller::curr()->getRequest();
+                if ($req->param('Action') == 'job' && $req->param('ID')) {
+                    $URLSegment = $req->param('ID');
+                    $job = JobPosting::get()->filter('URLSegment', $URLSegment)->first();;
+                    if ($job->Description) {
+                        $descreturn = trim($job->obj('Description')->Summary(20, 5));
+                    }
+                }
+            }
+
             if (!$descreturn) {
                 // Fall back to Content
                 if ($this->Content) {
@@ -230,18 +263,21 @@ namespace {
                 if ($EH = $this->ElementalArea()->Elements()->filter('ClassName', ElementHero::class)->first()) {
                     if ($EH->Slides()->Count()) {
                         if ($SI = $EH->Slides()->Sort('SortOrder ASC')->first()) {
-                            if ($SI->SlideImageID)
+                            if ($SI->SlideImage->exists())
                                 $i = $SI->SlideImage;
                         }
                     }
                 }
             }
 
-            if ($this->ClassName == Blog::class) {
-                if ($this->Slides()->Count()) {
-                    if ($SI = $this->Slides()->Sort('SortOrder ASC')->first()) {
-                        if ($SI->SlideImageID)
-                            $i = $SI->SlideImage;
+            // JobPosting
+            if (Controller::has_curr()) {
+                $req = Controller::curr()->getRequest();
+                if ($req->param('Action') == 'job' && $req->param('ID')) {
+                    $URLSegment = $req->param('ID');
+                    $job = JobPosting::get()->filter('URLSegment', $URLSegment)->first();;
+                    if ($job->HeaderImage->exists()) {
+                        $i = $job->HeaderImage();
                     }
                 }
             }

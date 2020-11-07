@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Admin;
+namespace Kraftausdruck\Admin;
 
-use App\Models\Location;
-use App\Models\JobPosting;
+use Kraftausdruck\Models\JobPosting;
+use Kraftausdruck\Models\JobDefaults;
+use App\Models\Point;
 use SilverStripe\Admin\ModelAdmin;
+use SilverStripe\Control\Director;
 use SilverStripe\Forms\LiteralField;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 
@@ -14,12 +16,11 @@ class JobsAdmin extends ModelAdmin
 
     private static $managed_models = [
         JobPosting::class,
-        Location::class
+        JobDefaults::class,
+        // Point::class
     ];
 
-    // private static $menu_icon = 'mysite/images/svg/businessman.svg';
-    // app/images/svg/businessman.svg
-    private static $menu_icon_class = 'font-icon-page-multiple';
+    private static $menu_icon_class = 'font-icon-torso';
 
     private static $url_segment = 'jobs';
     private static $menu_title = 'Jobs';
@@ -29,7 +30,10 @@ class JobsAdmin extends ModelAdmin
         $form = parent::getEditForm($id, $fields);
         if ($this->modelClass == JobPosting::class) {
 
-            $message = _t('App\Admin\JobsAdmin.ElementJobsNeeded', 'false');
+            $message = _t('Kraftausdruck\Admin\JobsAdmin.ElementJobsNeeded',
+                'none',
+                ['BaseURL' => Director::absoluteBaseURL()]
+            );
             $form->Fields()->unshift(
                 LiteralField::create(
                     'HeroNeeded',

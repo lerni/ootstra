@@ -1,11 +1,12 @@
 <?php
 
-use SilverStripe\Forms\HTMLEditor\TinyMCEConfig;
 use SilverStripe\i18n\i18n;
 use SilverStripe\Admin\CMSMenu;
-use SilverStripe\ORM\Search\FulltextSearchable;
-use SilverStripe\CMS\Controllers\CMSPagesController;
 use Wilr\GoogleSitemaps\GoogleSitemap;
+use SilverStripe\ORM\Search\FulltextSearchable;
+use SilverStripe\View\Parsers\URLSegmentFilter;
+use SilverStripe\Forms\HTMLEditor\TinyMCEConfig;
+use SilverStripe\CMS\Controllers\CMSPagesController;
 
 // Set the site locale
 i18n::set_locale('en_US');
@@ -101,6 +102,17 @@ CMSPagesController::config()->help_links = [];
 
 // FulltextSearchable::enable();
 
-GoogleSitemap::register_dataobjects(['App\Models\JobPosting'], 'weekly', '1');
-
 // SilverStripe\ORM\DB::query("SET SESSION sql_mode='REAL_AS_FLOAT,PIPES_AS_CONCAT,ANSI_QUOTES,IGNORE_SPACE';");
+
+
+URLSegmentFilter::config()->default_replacements = [
+    '/&amp;/u' => '-und-',
+    '/&/u' => '-und-',
+    '/\s|\+/u' => '-', // remove whitespace/plus
+    '/[_.]+/u' => '-', // underscores and dots to dashes
+    '/[^A-Za-z0-9\-]+/u' => '', // remove non-ASCII chars, only allow alphanumeric and dashes
+    '/[\/\?=#:]+/u' => '-', // remove forward slashes, question marks, equal signs, hashes and colons in case multibyte is allowed (and non-ASCII chars aren't removed)
+    '/[\-]{2,}/u' => '-', // remove duplicate dashes
+    '/^[\-]+/u' => '', // Remove all leading dashes
+    '/[\-]+$/u' => '' // Remove all trailing dashes
+];

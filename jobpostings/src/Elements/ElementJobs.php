@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Elements;
+namespace Kraftausdruck\Elements;
 
-use App\Models\JobPosting;
+use Kraftausdruck\Models\JobPosting;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Forms\LiteralField;
 
@@ -10,7 +10,8 @@ class ElementJobs extends BaseElement
 {
 
     private static $db = [
-        'Primary' => 'Boolean'
+        'Primary' => 'Boolean',
+        'NoVacancies' => 'HTMLText'
     ];
 
     private static $defaults = [
@@ -45,7 +46,12 @@ class ElementJobs extends BaseElement
                 );
             }
             $fields->addFieldToTab('Root.Settings', $PrimaryField);
-            $PrimaryField->setTitle(_t('App\Elements\ElementJobs.primary', 'false'));
+            $PrimaryField->setTitle(_t('Kraftausdruck\Elements\ElementJobs.primary', 'false'));
+        }
+
+        if ($TextEditor = $fields->dataFieldByName('NoVacancies')) {
+            $TextEditor->setRows(10);
+            $TextEditor->addExtraClass('stacked');
         }
 
         return $fields;
@@ -62,11 +68,12 @@ class ElementJobs extends BaseElement
     // first one should be primary unless selected differently
     public function populateDefaults()
     {
-        if ($jobs = $this->ClassName::get()->count()) {
-            return false;
-        } else {
-            return false;
+        $this->NoVacancies = '<p>' . _t('Kraftausdruck\Elements\ElementJobs.defaultNoVacancies', 'Besten Dank für Ihr Interesse. Zur Zeit gibt es keine offenen Stellen.') . '</p>';
+        $this->Primary = 1;
+        if ($jobElements = $this->ClassName::get()->filter('Primary', 1)->count()) {
+            $this->Primary = 0;
         }
+        parent::populateDefaults();
     }
 
     public function getType()

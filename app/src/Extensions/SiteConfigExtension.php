@@ -140,7 +140,7 @@ class SiteConfigExtension extends Extension
         $fields->addFieldToTab('Root.Main', $LocationGridField);
         $fields->addFieldToTab(
             'Root.Main',
-            LiteralField::create('SortImpact', '<p>Die "Location" an 1. Stelle wird im Footer und für "Schema-Daten" wie z.B. LocalBusiness verwendet!</p>')
+            LiteralField::create('SortImpact', '<p>'. _t("SilverStripe\SiteConfig\SiteConfig.SortImpact", "false") .'</p>')
         );
 
 

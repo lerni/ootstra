@@ -1,0 +1,21 @@
+de:
+  Kraftausdruck\Models\JobPosting:
+    expired: 'abgelaufen'
+    expiredAlert: 'Das Inserat ist abgelaufen oder "Gültig bis" fehlt.'
+    defaultNoVacancies: 'Besten Dank für Ihr Interesse. Zur Zeit gibt es keine offenen Stellen.'
+    TitleCMSDesc: 'z.B. Projektleiter 100% (m/w/d)'
+    WorkHoursDesc: 'z.B. 42 Stunden pro Woche'
+    SkillsDesc: 'z.B. Englischkenntnisse Kommunikationsfähigkeiten'
+    QualificationsDesc: 'Zertifikate z.B. CCNA LPI NBW'
+    EducationRequirementsDesc: 'z.B. Lehre Hochschule HF/FH ETH UNI'
+    JobBenefitsDesc: 'z.B. 5 Wochen Ferien, flexible Arbeitszeiten'
+    ExperienceRequirementsDesc: 'z.B. Führungserfahrung'
+    HeaderImageDesc: '1:2.62 // 2600x993px'
+    InseratDesc: 'PDF'
+  Kraftausdruck\Admin\JobsAdmin:
+    ElementJobsNeeded: 'Stelleninserate werden per "Job Element" angezeigt.<br/><a target="_blank" href="https://www.google.com/ping?sitemap={BaseURL}sitemap.xml/sitemap/Kraftausdruck-Models-JobPosting/1">Ping Google for Jobs</a>'
+  Kraftausdruck\Elements\ElementJobs:
+    BlockType: 'Jobs'
+    primary: 'Primärers JobElement (linked)'
+    NotFound: 'Der Job wurde nicht gefunden.'
+    MORE: 'Zum Stelleninserat'

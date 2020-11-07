@@ -44,6 +44,6 @@
     "headroom.js": "^0.10.4",
     "jquery": "^3.5.1",
     "svg4everybody": "^2.1.9",
-    "swiper": "^5.4.5"
+    "swiper": "^6"
   }
 }

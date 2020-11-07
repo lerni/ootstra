@@ -55,8 +55,8 @@ task('silverstripe:installtools', function () {
     $hasComposer = run("if [ -e ~/bin/composer.phar ]; then echo 'true'; fi");
     if ('true' != $hasComposer) {
         // run('curl https://getcomposer.org/composer.phar --create-dirs -o ~/bin/composer.phar');
-        // run('curl https://getcomposer.org/composer-stable.phar --create-dirs -o ~/bin/composer.phar');
-        run('curl https://getcomposer.org/composer-1.phar --create-dirs -o ~/bin/composer.phar');
+        run('curl https://getcomposer.org/composer-stable.phar --create-dirs -o ~/bin/composer.phar');
+        // run('curl https://getcomposer.org/composer-1.phar --create-dirs -o ~/bin/composer.phar');
         run('chmod +x ~/bin/composer.phar');
     }
 });
@@ -199,7 +199,6 @@ task('silverstripe:remote_dump', function ($prefix = 'auto') {
     } else {
         $filename = 'auto-' . $filename;
     }
-
 
     // delete older dumps
     run('rm -f $(ls -1t {{deploy_path}}/dumps/auto-' . get('application') . '-' . $stage . '* | tail -n +' . get('keep_releases') . ')');

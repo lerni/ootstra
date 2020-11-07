@@ -1,5 +1,5 @@
 <% if $Items %>
-<% if not $isFullWidth %><div class="inner"><% end_if %>
+	<% if not $isFullWidth %><div class="inner"><% end_if %>
 	<% include App/Includes/ElementTitle %>
 	<div class="jobs teasers">
 		<% loop $Items %>
@@ -15,7 +15,7 @@
 	</div>
 	<% if not $isFullWidth %></div><% end_if %>
 <% else %>
-	<div class="inner nojobs">
-		<p><strong>Aktuell sind alle Positionen besetzt. Wir sind jedoch stets daran interessiert, engagierte Berufsleute kennen zu lernen. Sind Sie interessiert für uns zu arbeiten? Dann freuen wir uns über eine Initiativbewerbung!</strong></p>
+	<div class="inner no-vacancies">
+		{$NoVacancies}
 	</div>
 <% end_if %>
