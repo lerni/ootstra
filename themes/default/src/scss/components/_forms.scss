@@ -8,11 +8,76 @@ form {
 		border: 0;
 		margin: 0;
 		padding: 0;
+		// userform groups
+		fieldset.userformsgroup {
+			padding: 0;
+			border: none;
+			border-radius: 0;
+			margin-bottom: 0;
+			legend {
+				display: none;
+			}
+			>.middleColumn>div {
+				margin-bottom: #{$lh}em;
+				padding-bottom: #{$lh}em;
+			}
+			>.middleColumn {
+				&>div:first-child {
+					&::before {
+						// position: absolute;
+						content: "";
+						display: block;
+						width: calc(200% + #{$lh}em);
+						height: 0;
+						border-top: 1px solid $link-color;
+						margin-top: -#{$lh}em;
+						margin-bottom: #{$lh}em;
+					}
+				}
+				&>div:first-child {
+					// since we add 1px height (border) with the ::before element flow would be screwed
+					margin-bottom: -1px;
+				}
+			}
+		}
         .field {
             float: left;
             display: block;
             width: 100%;
-            margin: 0 0 #{$lh}em 0;
+			margin: 0 0 #{$lh}em 0;
+			&.half-width {
+				width: calc(50% - #{$lh}em);
+				margin-right: #{$lh}em;
+				@include breakpoint($Mneg) {
+					width: 100%;
+					margin-right: 0;
+				}
+			}
+			&.checkboxset.quarter-width-checkbox {
+				.middleColumn {
+					display: flex;
+					flex-wrap: wrap;
+					>div {
+						flex: 0 0 calc(#{percentage(1/4)} - #{$lh/2}em);
+						margin: 0 #{$lh/2}em #{$lh/2}em 0;
+					}
+				}
+				@include breakpoint($Mneg) {
+					.middleColumn {
+						>div {
+							flex: 0 0 calc(#{percentage(1/2)} - #{$lh/2}em);
+						}
+					}
+				}
+				@include breakpoint($Sneg) {
+					.middleColumn {
+						>div {
+							flex: 0 0 100%;
+							margin: 0 0 #{$lh/2}em 0;
+						}
+					}
+				}
+			}
             label {
                 color: $lauftext-color;
                 margin-bottom: #{$lh/4}em;
@@ -75,7 +140,7 @@ form {
 			&.hide {
 				display: none;
 			}
-        }
+		}
 	}
 	.message {
 		background-color: #fef4ba;

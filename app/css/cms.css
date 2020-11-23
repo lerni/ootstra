@@ -94,7 +94,6 @@ fieldset.grid {
 	max-width: 100%;
 }
 
-
 #Form_ItemEditForm_Title_Holder .form__field-update-url::after {
 	content: 'update URL';
 }

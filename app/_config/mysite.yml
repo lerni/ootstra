@@ -122,6 +122,7 @@ SilverStripe\i18n\i18n:
   default_locale: de_CH
   date_format: 'dd.MM.yyyy'
   time_format: 'HH:mm'
+  missing_default_warning: false
 
 SilverStripe\CMS\Model\SiteTree:
   extensions:
@@ -172,8 +173,8 @@ App\Controller\ElementalPersoController:
 
 # Kraftausdruck\InstagramFeed\Control\InstaAuthController:
 #  credentials:
-#   appId: '802342570286960'
-#   appSecret: '43f192df62b4f9d3f274c1a2e93eebb5'
+#   appId: ''
+#   appSecret: ''
 ##  redirectUri: 'https://domain.tld/_instaauth/'
 ---
 Name: mywebmanifestconfig
@@ -210,7 +211,7 @@ Name: mygooglemapfield
 ---
 BetterBrief\GoogleMapField:
  default_options:
-   api_key: 'AIzaSyDfMPOhAOv8_iw0ZtOW-QSB8w1PfRhW6do'
+   api_key: 'AIzaSyDy8LLqUlGjK7JxcpyDs0yIU36xFYRcA-o'
 
 ---
 Only:

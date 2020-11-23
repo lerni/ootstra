@@ -222,7 +222,7 @@ namespace {
 
             // In case of BlogPost use Summary it set
             if ($this->ClassName == 'SilverStripe\Blog\Model\BlogPost' && $this->Summary) {
-                $description = trim($this->obj('Summary')->Summary(20, 5));
+                $description = trim($this->obj('Summary')->Summary(20));
                 if (!empty($description)) {
                     $descreturn = $description;
                 }
@@ -290,17 +290,17 @@ namespace {
             }
         }
 
-        public function Childrenexcluded($set = '')
+        public function Childrenexcluded($set = 'default')
         {
 
             $conf = $this->config()->get('Childrenexcluded');
 
-            if ($set != '') {
-                if (array_key_exists($set, $conf)) {
+            if(is_array($conf)) {
+                if ($set != '' & array_key_exists($set, $conf)) {
                     $exclude = $conf["$set"];
+                } elseif (array_key_exists('default', $conf)) {
+                    $exclude = $conf['default'];
                 }
-            } elseif (is_array($conf) && array_key_exists('default', $conf)) {
-                $exclude = $conf['default'];
             }
 
             $children = $this->Children();

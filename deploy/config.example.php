@@ -10,7 +10,7 @@ define('DEP_SERVER_USER', 'USER');
 define('DEP_SERVER', 'IP.IP.IP.IP');
 
 // PHP Version/Path
-define('DEP_PHP_PATH', '/usr/local/bin/php73');
+define('DEP_PHP_PATH', '/usr/local/bin/php74');
 
 // PHP TIMEZONE
 define('DEP_TIMEZONE', 'Europe/Zurich');

@@ -14,10 +14,10 @@
         }
     ],
     "require": {
-        "php": ">= 7.0, <7.4",
+        "php": ">= 7.0, <8",
         "silverstripe/recipe-plugin": "^1",
-        "silverstripe/recipe-core": "^4.6.0",
-        "silverstripe/cms": "^4.6.0",
+        "silverstripe/recipe-core": "^4",
+        "silverstripe/cms": "^4",
         "silverstripe/asset-admin": "^1.6.0",
         "bigfork/htmleditorsrcset": "^2",
         "bigfork/silverstripe-fail-whale": "^0",

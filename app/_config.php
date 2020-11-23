@@ -104,7 +104,6 @@ CMSPagesController::config()->help_links = [];
 
 // SilverStripe\ORM\DB::query("SET SESSION sql_mode='REAL_AS_FLOAT,PIPES_AS_CONCAT,ANSI_QUOTES,IGNORE_SPACE';");
 
-
 URLSegmentFilter::config()->default_replacements = [
     '/&amp;/u' => '-und-',
     '/&/u' => '-und-',

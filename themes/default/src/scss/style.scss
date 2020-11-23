@@ -80,7 +80,7 @@ body {
 		transform: translateY(0) !important;
 	}
 	.inner {
-		display:flex;
+		display: flex;
 		// max-width: calc(#{$inner-width + 200px});
 		.column {
 			justify-content: flex-end;
@@ -854,28 +854,30 @@ html .klaro {
 	}
 
 	.cookie-notice {
-		// modal link
-		.cm-link {
-			display: block;
-			margin-top: .6em;
-		}
-		p.cn-ok {
+		.cn-ok {
 			display: flex;
 			flex-wrap: wrap;
-		}
-		// decline
-		.cm-btn.cn-decline {
-			background-color: $gray;
-			order: 1;
-		}
-		// accept all
-		.cm-btn.cm-btn-success {
-			background-color: $link-color;
-			order: 0;
-		}
-		.cm-learn-more {
-			order: 2;
-			flex: 0 0 100%;
+			justify-content: flex-start !important;
+				.cn-buttons {
+				order: 1;
+				// decline
+				.cm-btn.cn-decline {
+					background-color: $gray;
+					order: 1;
+				}
+				// accept all
+				.cm-btn.cm-btn-success {
+					background-color: $link-color;
+					order: 0;
+				}
+			}
+			// modal link
+			.cn-learn-more {
+				display: block;
+				margin-top: .6em;
+				order: 2;
+				flex: 0 0 100%;
+			}
 		}
 	}
 
@@ -883,17 +885,22 @@ html .klaro {
 		.cm-app-title {
 			font-size: 14px;
 		}
+		// switch disabled
+		.cm-list-label .slider {
+			background-color: $gray-light;
+		}
 		// slider-switches
-		.cm-app-input:checked+.cm-app-label .slider {
+		.cm-list-input:checked + .cm-list-label .slider {
 			background-color: $link-color;
 		}
-		// disable/required switch
-		.cm-app-input.required:checked+.cm-app-label .slider {
+		// required switch enabled
+		.cm-list-input.required:checked + .cm-list-label .slider {
 			background-color: darken($link-color, 10%);
 			&::before {
 				background-color: darken($white, 16%);
 			}
 		}
+
 		// accept all
 		.cm-btn.cm-btn-accept-all {
 			background-color: $link-color;

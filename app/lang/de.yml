@@ -1,6 +1,4 @@
 de:
-  SilverStripe\UserForms\Model\EditableFormField:
-    FIELDISREQUIRED: '{name} muss ausgefüllt werden'
   Page:
     More: 'Weiterlesen'
     TELEPHONE: 'Tel.'
