@@ -1,3 +1,7 @@
+# Status - WIP
+**This project was published as part of a lightning talk at virtual StripeCon 2020. Unfortunately it wasn't ready at the time of the conference so it's Work in Progress. As much as I like it to be finished product - so far its not. Time will tell how things progress.**
+
+
 # Setup, Requirements & install
 
 This project is inspired from [Bigfork’s quickstart recipe](https://github.com/bigfork/silverstripe-recipe) for [Silverstripe](https://www.silverstripe.org/). It's an opinionated set of tools for a ready to run, build & deploy CMS instance in a minimal amount of time. To get it up and running you'll need [GIT](https://git-scm.com/), some kinda local xAMP-setup (apache mysql php), [composer](https://getcomposer.org/download/), [NPM](https://nodejs.org/) and a server with [SSH](https://de.wikipedia.org/wiki/Secure_Shell) & [GIT](https://git-scm.com/). It utililizes [dnadesign/silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) for a block/element based CMS experience and commes with the following set of elements:
@@ -51,13 +55,17 @@ https://docs.silverstripe.org/en/4/getting_started/environment_management/#core-
 Example `.env`-file in webroot for local develompment could look like:
 
 ```
+# For a complete list of core environment variables see
+# https://docs.silverstripe.org/en/4/getting_started/environment_management/#core-environment-variables
+
 # Environment dev/stage/live
 SS_ENVIRONMENT_TYPE="dev"
 
 # SS_DEFAULT_ADMIN_USERNAME=""
 # SS_DEFAULT_ADMIN_PASSWORD=""
 
-# SS_ERROR_EMAIL=""
+SS_ERROR_EMAIL=""
+SS_ADMIN_EMAIL=""
 
 ## Database {#database}
 # SS_DATABASE_NAME=""
@@ -66,6 +74,8 @@ SS_DATABASE_CLASS="MySQLDatabase"
 SS_DATABASE_USERNAME=""
 SS_DATABASE_PASSWORD=""
 SS_DATABASE_SERVER="127.0.0.1"
+
+GHOSTSCRIPT_PATH="/usr/local/bin/gs"
 ```
 
 For your PHP-CLI-Setup, it might be helpfull, to set `sys_temp_dir = "/tmp"` in `php.ini` for `sspak`.
@@ -136,7 +146,7 @@ curl -sS https://silverstripe.github.io/sspak/install | php -- /usr/local/bin
 
 ## Configuration
 
-Edit `deploy/config.php` and set the application name and git repository URL.
+Rename `config.example.php` to `deploy/config.php` and configure things to your needs.
 
 ## Deploying a site
 

@@ -46,9 +46,13 @@ class Department extends DataObject
 
     private static $searchable_fields = ['Title'];
 
-    private static $field_labels = [
-        'Title' => 'Titel'
-    ];
+    public function fieldLabels($includerelations = true)
+    {
+        $labels = parent::fieldLabels($includerelations);
+        $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Titel');
+
+        return $labels;
+    }
 
     private static $table_name = 'Department';
 

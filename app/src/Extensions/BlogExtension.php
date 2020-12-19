@@ -60,8 +60,8 @@ class BlogExtension extends DataExtension
             $fields->addFieldToTab('Root.Main', $gridField, 'Content');
 
             $sizes = singleton(Blog::class)->dbObject('Size')->enumValues();
-            $SizeField = DropdownField::create('Size', 'Grösse/Höhe Header', $sizes);
-            $SizeField->setDescription('"fullscreen" erfordert "volle Breite"!');
+            $SizeField = DropdownField::create('Size', _t('App\Elements\ElementHero.SIZE', 'Grösse/Höhe Header'), $sizes);
+            $SizeField->setDescription(_t('App\Elements\ElementHero.SizeDescription', '"fullscreen" erfordert "volle Breite"!'));
             $fields->addFieldToTab('Root.Main', $SizeField, 'Content', true);
         } else {
             $fields->addFieldToTab("Root.Main", LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));

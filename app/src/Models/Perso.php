@@ -53,13 +53,17 @@ class Perso extends DataObject
         'Lastname'
     ];
 
-    private static $field_labels = [
-        'Firstname' => 'Vorname',
-        'Lastname' => 'Nachname',
-        'EMail' => 'E-Mail',
-        'Telephone' => 'Telefon',
-        'Motivation' => 'Text'
-    ];
+    public function fieldLabels($includerelations = true)
+    {
+        $labels = parent::fieldLabels($includerelations);
+        $labels['Firstname'] = _t(__CLASS__ . '.FIRSTNAME', 'Vorname');
+        $labels['Lastname'] = _t(__CLASS__ . '.LASTNAME', 'Nachname');
+        $labels['EMail'] = _t(__CLASS__ . '.EMAIL', 'E-Mail');
+        $labels['Telephone'] = _t(__CLASS__ . '.TELEPHONE', 'Telefon');
+        $labels['Motivation'] = _t(__CLASS__ . '.MOTIVATION', 'Text');
+
+        return $labels;
+    }
 
     private static $translate = [
         'Position',

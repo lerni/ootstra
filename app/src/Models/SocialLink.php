@@ -39,7 +39,13 @@ class SocialLink extends DataObject
         'Title'
     ];
 
-    private static $field_names = ['Text' => 'Text'];
+    public function fieldLabels($includerelations = true)
+    {
+        $labels = parent::fieldLabels($includerelations);
+        $labels['Text'] = _t(__CLASS__ . '.TEXT', 'Text');
+
+        return $labels;
+    }
 
     private static $translate = [
         'Url'

@@ -87,6 +87,6 @@ class ElementLogo extends BaseElement
 
     public function getType()
     {
-        return _t(__CLASS__ . '.BlockType', 'false');
+        return _t(__CLASS__ . '.BlockType', 'Logos (Partner)');
     }
 }

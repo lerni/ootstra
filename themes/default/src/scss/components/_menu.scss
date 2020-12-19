@@ -24,12 +24,12 @@
 				position: relative;
 				z-index: 1;
 			}
-			&.pseudohover,
+			&:focus-within,
 			&:hover,
 			&.current,
 			&.section {
 				>a {
-					color: $link-color;
+					color: $current-color;
 				}
 			}
 		}
@@ -41,7 +41,7 @@
 			// bottom padding and negative margin for hoverstate
 			padding-bottom: 33px;
 			margin-bottom: -33px;
-			&.pseudohover,
+			&:focus-within,
 			&:hover {
 				// this is used to cover box-shadow on the upper part, that overlaps with header
 				&::after {
@@ -108,7 +108,7 @@
 					}
 				}
 				&:hover,
-				&.pseudohover {
+				&:focus-within {
 					.menu2 {
 	// display: block;
 						visibility: visible;

@@ -29,16 +29,16 @@ html {
 	overflow-x: hidden;
 	overflow-y: scroll;
 	letter-spacing: .04em;
-}
-
-body {
 	font-size: #{$lauftext-size};
 	font-family: $font-family;
 	font-display: auto;
 	line-height: $lh;
 	color: $lauftext-color;
-	@include smoothFonts;
 	@include normal;
+	@include smoothFonts;
+}
+
+body {
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
@@ -86,12 +86,13 @@ body {
 			justify-content: flex-end;
 			flex-direction: column;
 			&.logo {
-				flex: 0 0 400px;
+				flex: 0 0 220px;
 				a {
 					svg,
 					img {
 						height: 100%;
-						margin: 0 auto 0 0;
+						max-width: 185px;
+						margin: auto auto 0 auto;
 					}
 				}
 			}

@@ -70,12 +70,12 @@ class SiteConfigExtension extends Extension
     {
         $fields->removeByName('Tagline');
 
-        $fields->renameField('Title', 'Title / Name');
+        $fields->renameField('Title', _t('SilverStripe\SiteConfig\SiteConfig.TITLE', 'Title / Name'));
 
         $fields->addFieldToTab('Root.Main', HeaderField::create('MetaData', 'Meta Daten'));
-        $fields->addFieldToTab('Root.Main', $MetaDescriptionField = TextAreaField::create('MetaDescription', 'Meta Description'));
+        $fields->addFieldToTab('Root.Main', $MetaDescriptionField = TextAreaField::create('MetaDescription', _t('SilverStripe\SiteConfig\SiteConfig.METADESCRIPTION', 'Meta Description')));
         $MetaDescriptionField->setTargetLength(160, 100, 160);
-        $MetaDescriptionField->setDescription('Defaultwert, falls auf Seitenebene keine Beschreibung erfasst ist.');
+        $MetaDescriptionField->setDescription(_t('SilverStripe\SiteConfig\SiteConfig.MetaDescriptionDescription', 'Defaultwert, falls auf Seitenebene keine Beschreibung erfasst ist.'));
 
         $fields->addFieldsToTab('Root.Main', $GlobalAlertField = HTMLEditorField::create('GlobalAlert'));
         $GlobalAlertField->setRows(14);
@@ -86,7 +86,7 @@ class SiteConfigExtension extends Extension
             'Root.Main',
             $SlideBildField = UploadField::create(
                 $name = 'DefaultHeaderImage',
-                $title = 'Wird angezeigt, falls kein Hero in ElementPage'
+                $title = _t('SilverStripe\SiteConfig\SiteConfig.DEFAULTHEADERIMAGE', 'Wird angezeigt, falls kein Hero in ElementPage')
             )
         );
         $SlideBildField->setFolderName('Slides');
@@ -103,7 +103,8 @@ class SiteConfigExtension extends Extension
             new GridFieldOrderableRows('SortOrder')
         );
 
-        $gridField = new GridField('ServiceNavigationItems', 'Service Navigation', $this->owner->ServiceNavigationItems(), $ServiceNavigationGridFieldConfig);
+        $gridField = new GridField('ServiceNavigationItems', _t('SilverStripe\SiteConfig\SiteConfig.SERVICENAVIGATIONITEMS', 'Service Navigation'), $this->owner->ServiceNavigationItems(), $ServiceNavigationGridFieldConfig);
+
         $fields->addFieldToTab('Root.Main', $gridField);
 
 
@@ -117,7 +118,8 @@ class SiteConfigExtension extends Extension
             new GridFieldOrderableRows('SortOrder')
         );
 
-        $gridField = new GridField('TermsNavigationItems', 'Terms (AGB, Rechtliches, Impressum)', $this->owner->TermsNavigationItems(), $TermsNavigationGridFieldConfig);
+        $gridField = new GridField('TermsNavigationItems', _t('SilverStripe\SiteConfig\SiteConfig.TERMSNAVIGATIONITEMS', 'Terms (AGB, Rechtliches, Impressum)'), $this->owner->TermsNavigationItems(), $TermsNavigationGridFieldConfig);
+
         $fields->addFieldToTab('Root.Main', $gridField);
 
 
@@ -140,7 +142,7 @@ class SiteConfigExtension extends Extension
         $fields->addFieldToTab('Root.Main', $LocationGridField);
         $fields->addFieldToTab(
             'Root.Main',
-            LiteralField::create('SortImpact', '<p>'. _t("SilverStripe\SiteConfig\SiteConfig.SortImpact", "false") .'</p>')
+            LiteralField::create('SortImpact', '<p>'. _t('SilverStripe\SiteConfig\SiteConfig.SortImpact', 'Die "Location" an 1. Stelle wird im Footer angezeigt. Für "Schema-Daten" wie LocalBusiness werden alle verwendet.') .'</p>')
         );
 
 

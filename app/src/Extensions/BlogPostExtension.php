@@ -16,7 +16,8 @@ class BlogPostExtension extends DataExtension
     private static $db = [
         'EventDate' => 'DBDatetime',
         'EventDateEnd' => 'DBDatetime',
-        'Location' => 'Varchar'
+        'Location' => 'Varchar',
+        'AlternativTextEventDate' => 'Varchar'
     ];
 
     private static $has_one = [];
@@ -32,41 +33,30 @@ class BlogPostExtension extends DataExtension
         $SummaryField->fieldByName('Summary')->setRows(10);
         $SummaryField->setAttribute('data-mce-body-class', $this->owner->ClassName);
 
-        $EventDateField = DatetimeField::create("EventDate", "Datum");
+        $EventDateField = DatetimeField::create('EventDate', 'Datum');
         $EventDateField->setHTML5(true);
-        $EventDateField->setDescription("Termin & Zeit z.B. 01.01.2020, 19:00<br /><strong>Um ein Datum zu erfassen, ist die Angabe einer Uhrzeit zwingend -> 00:00</strong>");
+        $EventDateField->setDescription(_t('SilverStripe\Blog\Model\BlogPost.EventDateDescription', 'Termin & Zeit z.B. 01.01.2020, 19:00<br /><strong>Um ein Datum zu erfassen, ist die Angabe einer Uhrzeit zwingend -> 00:00</strong>'));
         $fields->addFieldToTab('Root.Termin', $EventDateField);
 
         $EventDateEndField = DatetimeField::create("EventDateEnd", "End-Datum");
         //$EventDateField->setHTML5(true);
         $fields->insertAfter($EventDateEndField, 'EventDate');
 
-        $fields->insertBefore(HeaderField::create("PastEvents", 'Beiträge mit der Kategorie "Termine" werden nur angezeigt, wenn End- und Datum in der Zukunft liegt.'), "EventDate");
+        // $fields->insertBefore(HeaderField::create('PastEvents', _t('SilverStripe\Blog\Model\BlogPost.PastEventsHeaderField', 'Beiträge mit der Kategorie "Termine" werden nur angezeigt, wenn End- und Datum in der Zukunft liegt.')), 'EventDate');
 
-        $LocationField = TextField::create("Location", "Veranstaltungsort");
+        $LocationField = TextField::create('Location', _t('SilverStripe\Blog\Model\BlogPost.LOCATION', 'Veranstaltungsort'));
         $fields->insertAfter($LocationField, 'EventDateEnd');
 
         if ($CategoriesField = $fields->dataFieldByName('Categories')) {
             $CategoriesField->setShouldLazyLoad(false);
         }
-    }
 
-    public function BlogThumbnail()
-    {
-        $this->getHeaderImage()->CMSThumbnail();
-    }
+        $AlternativTextEventDateField = TextField::create('AlternativTextEventDate', _t('SilverStripe\Blog\Model\BlogPost.ALTERNATIVTEXTEVENTDATE', 'Alternative Text Datum'));
+        $AlternativTextEventDateField->setDescription(_t('SilverStripe\Blog\Model\BlogPost.AlternativTextEventDateDescription', 'Falls kein exaktes Datum resp. Zeitspanne. z.B. 14.10.2020 bis 4.11.2020, jeden Mittwoch, 16 Uhr'));
+        $fields->insertAfter($AlternativTextEventDateField, 'EventDateEnd');
 
-    public function getHeaderImage()
-    {
-        if ($this->owner->hasExtension(ElementalPageExtension::class)) {
-            if ($EH = $this->owner->ElementalArea()->Elements()->filter('ClassName', ElementHero::class)->First()) {
-                if ($SL = $EH->Slides()->Count()) {
-                    if ($SI = $EH->Slides()->First()->SlideImageID) {
-                        $i = $EH->Slides()->First()->SlideImage;
-                        return $i;
-                    }
-                }
-            }
+        if ($PublishDateField = $fields->fieldByName('Root.PostOptions.PublishDate')) {
+            $PublishDateField->setDescription(_t('SilverStripe\Blog\Model\BlogPost.PublishDateDescription', 'geplante Veröffentlichung'));
         }
     }
 
@@ -81,4 +71,16 @@ class BlogPostExtension extends DataExtension
         }
         return false;
     }
+
+    public function PrevNext($Mode = 'next')
+	{
+		$list = $this->owner->Parent()->getBlogPosts();
+
+		if($Mode == 'next'){
+			return $list->filter(["Sort:GreaterThan" => $this->owner->Sort])->sort("Sort ASC")->limit(1)->first();
+		}
+		if($Mode == 'prev'){
+			return $list->filter(["Sort:LessThan" => $this->owner->Sort])->sort("Sort DESC")->limit(1)->first();
+		}
+	}
 }

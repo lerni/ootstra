@@ -39,6 +39,7 @@ class Teaser extends DataObject
         'Image.CMSThumbnail' => 'Thumbnail',
         'Title' => 'Titel'
     ];
+
     private static $searchable_fields = [
         'Title',
         'Text'

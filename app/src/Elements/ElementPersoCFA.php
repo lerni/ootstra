@@ -41,10 +41,6 @@ class ElementPersoCFA extends BaseElement
 
     private static $table_name = 'ElementPersoCFA';
 
-    private static $field_labels = [
-        'CountMax' => 'Anzahl (default 3)'
-    ];
-
     private static $defaults = [
         'CountMax' => 3
     ];
@@ -58,6 +54,13 @@ class ElementPersoCFA extends BaseElement
     private static $singular_name = 'Ansprechpartner';
 
     private static $plural_name = 'Ansprechpartner';
+
+    public function fieldLabels($includerelations = true)
+    {
+        $labels = parent::fieldLabels($includerelations);
+        $labels['CountMax'] = _t(__CLASS__ . '.COUNTMAX', 'Anzahl (default 3)');
+        return $labels;
+    }
 
     function getCMSFields()
     {
@@ -110,6 +113,6 @@ class ElementPersoCFA extends BaseElement
 
     public function getType()
     {
-        return _t(__CLASS__ . '.BlockType', 'false');
+        return _t(__CLASS__ . '.BlockType', 'Contact (CFA)');
     }
 }

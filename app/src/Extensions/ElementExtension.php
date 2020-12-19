@@ -35,20 +35,20 @@ class ElementExtension extends DataExtension
         $fields->removeByName('ExtraClass');
         $fields->removeByName('Root_Settings_ExtraClass');
         if ($AvailableField = $fields->dataFieldByName('AvailableGlobally')) {
-            $AvailableField->setTitle('klonen mit virtuellem Element ermöglichen');
+            $AvailableField->setTitle(_t('DNADesign\Elemental\Models\BaseElement.AVAILABLEGLOBALLY', 'klonen mit virtuellem Element ermöglichen'));
         }
         if ($SpacingTopField = $fields->dataFieldByName('SpacingTop')) {
-            $SpacingTopField->setDescription('Anzahl Zeilen Lauftext (1 - 6)');
-            $SpacingTopField->setTitle('Spacing top');
+            $SpacingTopField->setTitle(_t('DNADesign\Elemental\Models\BaseElement.SPACINGTOP', 'Spacing top'));
+            $SpacingTopField->setDescription(_t('DNADesign\Elemental\Models\BaseElement.SpacingDescription', 'Anzahl Zeilen Lauftext (1 - 6)'));
             $fields->addFieldToTab('Root.Settings', $SpacingTopField);
         }
         if ($SpacingBottomField = $fields->dataFieldByName('SpacingBottom')) {
-            $SpacingBottomField->setDescription('Anzahl Zeilen Lauftext (1 - 6)');
-            $SpacingBottomField->setTitle('Spacing bottom');
+            $SpacingBottomField->setTitle(_t('DNADesign\Elemental\Models\BaseElement.SPACINGBOTTOM', 'Spacing bottom'));
+            $SpacingBottomField->setDescription(_t('DNADesign\Elemental\Models\BaseElement.SpacingDescription', 'none'));
             $fields->addFieldToTab('Root.Settings', $SpacingBottomField);
         }
         if ($FullWidthBox = $fields->dataFieldByName('isFullWidth')) {
-            $FullWidthBox->setTitle('in voller Breite zeigen');
+            $FullWidthBox->setTitle(_t('DNADesign\Elemental\Models\BaseElement.ISFULLWIDTH', 'in voller Breite zeigen'));
             $fields->addFieldToTab('Root.Settings', $FullWidthBox);
         }
 
@@ -58,7 +58,7 @@ class ElementExtension extends DataExtension
 
             $TitleLevelField = $fields->dataFieldByName('TitleLevel');
             $fields->removeByName('TitleLevel');
-            $TitleLevelField->setTitle('H1, H2, H3');
+            $TitleLevelField->setTitle(_t('DNADesign\Elemental\Models\BaseElement.TITLELEVEL', 'H1, H2, H3'));
 
             $TitleFieldGroup = new CompositeField(
                 $TitleLevelField,
@@ -79,7 +79,7 @@ class ElementExtension extends DataExtension
                     $anchorlink = $this->owner->Parent()->getOwnerPage()->AbsoluteLink() . '#' . $desc;
                     $ElementAnchorLinkField->setDescription($anchorlink);
                 } else {
-                    $ElementAnchorLinkField->setDescription('kein gültiger Anker');
+                    $ElementAnchorLinkField->setDescription(_t('DNADesign\Elemental\Models\BaseElement.AnchorLinkDescription', 'kein gültiger Anker'));
                 }
                 $fields->addFieldToTab('Root.Settings', $ElementAnchorLinkField);
             }
@@ -89,7 +89,7 @@ class ElementExtension extends DataExtension
             'Root.Settings',
             new ColorPaletteField(
                 'BackgroundColor',
-                'Element Hintergrundfarbe',
+                _t('DNADesign\Elemental\Models\BaseElement.BACKGROUNDCOLOR', 'Element Hintergrundfarbe'),
                 array(
                     'white' => 'rgb(255,255,255)',
                     'gray-lighter' => 'rgb(246, 246, 246)'

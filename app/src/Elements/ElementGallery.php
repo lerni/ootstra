@@ -13,7 +13,7 @@ use SilverStripe\View\Parsers\URLSegmentFilter;
 class ElementGallery extends BaseElement
 {
     private static $db = [
-        'CropGalleryTumbsByWidth' => 'Boolean',
+        'CropGalleryTumbsByWidth' => 'Boolean', // todo gahh typo
         'Layout' => 'Enum("left,center,right", "center")'
     ];
 
@@ -40,9 +40,13 @@ class ElementGallery extends BaseElement
 
     private static $description = 'Gallery Element';
 
-    private static $field_labels = [
-        'CropGalleryTumbsByWidth' => 'keep aspectratio for thumbnails'
-    ];
+    public function fieldLabels($includerelations = true)
+    {
+        $labels = parent::fieldLabels($includerelations);
+        $labels['CropGalleryTumbsByWidth'] = _t(__CLASS__ . '.CROPGALLERYTUMBSBYWIDTH', 'keep aspectratio for thumbnails');
+
+        return $labels;
+    }
 
     private static $inline_editable = false;
 
@@ -54,7 +58,7 @@ class ElementGallery extends BaseElement
 
         $fields->removeByName('GalleryFolder');
 
-        $fields->addFieldToTab('Root.Main', HeaderField::create('oneOrTheOther', 'Choose a folder (all images contained) OR upload/choose/sort directly'));
+        $fields->addFieldToTab('Root.Main', HeaderField::create('OneOrTheOther', _t(__CLASS__ . '.OneOrTheOther', 'Choose a folder (all images contained) OR upload/choose/sort directly')));
 
         $FolderField = FolderDropdownField::create(
             'GalleryFolderID',
@@ -75,7 +79,7 @@ class ElementGallery extends BaseElement
         $Subfolder = $filter->filter($this->Title);
         $uploadField->setFolderName('Gallery/' . $Subfolder);
         $uploadField->setSortColumn('SortOrder');
-        $uploadField->setDescription('Breite getrimmt auf 1200px');
+        $uploadField->setDescription(_t(__CLASS__ . '.GalleryImagesDescription', 'Breite getrimmt auf 1224px'));
 
         return $fields;
     }
@@ -102,5 +106,10 @@ class ElementGallery extends BaseElement
     public function getType()
     {
         return _t(__CLASS__ . '.BlockType', 'false');
+    }
+
+    public function FancyGroupRand()
+    {
+        return(rand(1,9999));
     }
 }

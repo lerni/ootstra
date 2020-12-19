@@ -25,6 +25,16 @@ class CountItem extends DataObject
         'Text' => 'Text'
     ];
 
+    public function fieldLabels($includerelations = true)
+    {
+        $labels = parent::fieldLabels($includerelations);
+        $labels['Value'] = _t(__CLASS__ . '.VALUE', 'Wert');
+        $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Titel');
+        $labels['Text'] = _t(__CLASS__ . '.TEXT', 'Text');
+
+        return $labels;
+    }
+
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();

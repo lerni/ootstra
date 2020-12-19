@@ -24,6 +24,7 @@ namespace {
     use SilverStripe\Blog\Model\BlogPost;
     use SilverStripe\Control\Controller;
     use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
+    use DNADesign\Elemental\Extensions\ElementalPageExtension;
 
     class Page extends SiteTree
     {
@@ -263,8 +264,19 @@ namespace {
                 if ($EH = $this->ElementalArea()->Elements()->filter('ClassName', ElementHero::class)->first()) {
                     if ($EH->Slides()->Count()) {
                         if ($SI = $EH->Slides()->Sort('SortOrder ASC')->first()) {
-                            if ($SI->SlideImage->exists())
+                            if ($SI->SlideImage->exists()) {
                                 $i = $SI->SlideImage;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if ($this->ClassName == Blog::class) {
+                if ($this->Slides()->Count()) {
+                    if ($SI = $this->Slides()->Sort('SortOrder ASC')->first()) {
+                        if ($SI->SlideImageID) {
+                            $i = $SI->SlideImage;
                         }
                     }
                 }

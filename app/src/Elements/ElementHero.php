@@ -39,15 +39,20 @@ class ElementHero extends BaseElement
 
     private static $icon = 'font-icon-block-carousel';
 
-    private static $field_labels = [
-        'Size' => 'Grösse/Höhe Header'
-    ];
-
     private static $defaults = [
         'isFullWidth' => 1
     ];
 
     private static $description = 'Hero Element';
+
+    public function fieldLabels($includerelations = true)
+    {
+        $labels = parent::fieldLabels($includerelations);
+        $labels['Size'] = _t(__CLASS__ . '.SIZE', 'Grösse/Höhe Header');
+        $labels['DoNotCrop'] = _t(__CLASS__ . '.DONOTCROP', 'Höhe nicht begrenzen');
+
+        return $labels;
+    }
 
     public function getCMSFields()
     {
@@ -59,7 +64,7 @@ class ElementHero extends BaseElement
 
         if ($SizeField = $fields->dataFieldByName('Size')) {
             $fields->addFieldToTab('Root.Settings', $SizeField, 'isFullWidth');
-            $SizeField->setDescription('"fullscreen" erfordert "volle Breite"!');
+            $SizeField->setDescription(_t(__CLASS__ . '.SizeDescription', '"fullscreen" erfordert "volle Breite"!'));
         }
 
         // hack arround unsaved relations
@@ -81,9 +86,7 @@ class ElementHero extends BaseElement
         }
 
         if ($DoNotCropField = $fields->dataFieldByName('DoNotCrop')) {
-            // $DoNotCropField->setRightTitle('DoNotCrop');
-            $DoNotCropField->setTitle('Höhe nicht begrenzen');
-            $DoNotCropField->setDescription('Keine maximale Höhe in Grösse "medium"');
+            $DoNotCropField->setDescription(_t(__CLASS__ . '.DoNotCropDescription', 'Keine maximale Höhe in Grösse "medium"'));
             $fields->addFieldToTab('Root.Settings', $DoNotCropField);
         }
 
@@ -102,6 +105,6 @@ class ElementHero extends BaseElement
 
     public function getType()
     {
-        return _t(__CLASS__ . '.BlockType', 'false');
+        return _t(__CLASS__ . '.BlockType', 'Hero');
     }
 }

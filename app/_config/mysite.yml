@@ -158,10 +158,10 @@ UndefinedOffset\NoCaptcha\Forms\NocaptchaField:
 SilverStripe\Core\Injector\Injector:
   Intervention\Image\ImageManager:
     constructor:
-      - driver: imagick
-
-SilverStripe\Assets\InterventionBackend:
-  quality: 84
+      - { driver: imagick }
+  SilverStripe\Assets\Image_Backend:
+    properties:
+      Quality: 84
 
 gorriecoe\Robots\Robots:
   disallowed_urls: []
@@ -206,12 +206,12 @@ TractorCow\OpenGraph\OpenGraph:
   application_id: ''
   admin_id: ''
 
----
-Name: mygooglemapfield
----
-BetterBrief\GoogleMapField:
- default_options:
-   api_key: 'AIzaSyDy8LLqUlGjK7JxcpyDs0yIU36xFYRcA-o'
+# ---
+# Name: mygooglemapfield
+# ---
+# BetterBrief\GoogleMapField:
+#  default_options:
+#    api_key: ''
 
 ---
 Only:
@@ -228,8 +228,8 @@ Only:
   environment: 'dev'
 ---
 SilverStripe\Control\Email\Email:
-  admin_email: 'le@kraftausdruck.ch'
-  send_all_emails_to: 'le@kraftausdruck.ch'
+  admin_email: '`SS_ADMIN_EMAIL`'
+  send_all_emails_to: '`SS_ADMIN_EMAIL`'
 
 SilverStripe\View\SSViewer:
   source_file_comments: false

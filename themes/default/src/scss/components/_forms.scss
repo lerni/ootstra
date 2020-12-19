@@ -40,10 +40,17 @@ form {
 				}
 			}
 		}
+		.field {
+			margin: 0 0 #{$lh/2}em 0;
+		}
+		.field.userformsstep {
+			margin: 0 0 0 #{$lh}em;
+		}
         .field {
             float: left;
             display: block;
-            width: 100%;
+			width: 100%;
+			max-width: calc(100% - #{$lh}em);
 			margin: 0 0 #{$lh}em 0;
 			&.half-width {
 				width: calc(50% - #{$lh}em);
@@ -83,7 +90,9 @@ form {
                 margin-bottom: #{$lh/4}em;
                 font-size: $lauftext-size;
                 &.left {
-                    display: block;
+					display: block;
+					font-weight: normal;
+					font-size: .8em;
                 }
                 &.right {}
                 &.required {
@@ -99,7 +108,6 @@ form {
                 .textajaxuniquetext,
                 select {
                     width: 100%;
-                    max-width: 700px;
                     padding: 6px 5px;
                     font-size: $lauftext-size;
                     background-color: $gray-lighter;
@@ -136,6 +144,8 @@ form {
 			}
 			&.dropdown .middleColumn select  {
 				@include dropdown;
+				font-size: .8em;
+				line-height: 1.5;
 			}
 			&.hide {
 				display: none;
@@ -143,9 +153,9 @@ form {
 		}
 	}
 	.message {
-		background-color: #fef4ba;
+		background-color: rgba($link-color, .1);
 		padding: 5px 10px;
-		border: 1px solid #e8c805;
+		border: 1px solid rgba($link-color, 1);
 		border-radius: 3px;
 	}
 	.good {
@@ -165,6 +175,7 @@ form {
 
 .Actions {
 	margin-bottom: 20px;
+	display: flex;
 	a.btn,
 	button,
 	input[type="submit"],
@@ -172,15 +183,12 @@ form {
 		background: $link-color;
 		color: $white;
 		display: inline-block;
-		border-radius: 4px;
-		padding: 6px 15px;
-		margin-top: 10px;
-		margin-bottom: 10px;
-		text-transform: uppercase;
+		border-radius: .5em;
+		padding: .7em 1.41em .6em;
 		border: none;
+		@include bold;
 		font-size: $lauftext-size;
-		margin-right: 10px;
-		float: left;
+		margin: 10px auto;
 	}
 	a.btn:hover,
 	button:hover,
@@ -245,7 +253,6 @@ form {
 form .requiredField label.left::after {
 	color: $lauftext-color;
 	content: "*";
-	font-size: $lauftext-size;
 	font-weight: normal;
 	padding-left: 3px;
 }

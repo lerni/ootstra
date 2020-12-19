@@ -19,12 +19,6 @@ class ElementTextImage extends BaseElement
     private static $has_many = [];
     private static $many_many = [];
 
-    private static $field_labels = [
-        'HTML' => 'Text',
-        'Image' => 'Bild',
-        'ElementLayout' => 'Anordnung links...'
-    ];
-
     private static $owns = [
         'Image'
     ];
@@ -34,6 +28,15 @@ class ElementTextImage extends BaseElement
     private static $title = 'TextImage Element';
 
     private static $inline_editable = false;
+
+    public function fieldLabels($includerelations = true)
+    {
+        $labels = parent::fieldLabels($includerelations);
+        $labels['HTML'] = _t(__CLASS__ . '.HTML', 'Text');
+        $labels['Image'] = _t(__CLASS__ . '.IMAGE', 'Bild');
+        $labels['ElementLayout'] = _t(__CLASS__ . '.ELEMENTLAYOUT', 'Anordnung links...');
+        return $labels;
+    }
 
     function getCMSFields()
     {
@@ -67,6 +70,6 @@ class ElementTextImage extends BaseElement
 
     public function getType()
     {
-        return _t(__CLASS__ . '.BlockType', 'false');
+        return _t(__CLASS__ . '.BlockType', 'Text Image');
     }
 }

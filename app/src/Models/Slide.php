@@ -39,11 +39,15 @@ class Slide extends DataObject
         'TextTitle'
     ];
 
-    private static $field_labels = [
-        'Title' => 'Titel',
-        'TextTitle' => 'Claim auf Bild',
-        'TextAlignment' => 'Anordnung Text'
-    ];
+    public function fieldLabels($includerelations = true)
+    {
+        $labels = parent::fieldLabels($includerelations);
+        $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Titel');
+        $labels['TextTitle'] = _t(__CLASS__ . '.TEXTTITLE', 'Claim auf Bild');
+        $labels['TextAlignment'] = _t(__CLASS__ . '.TEXTALIGNMENT', 'Anordnung Text');
+
+        return $labels;
+    }
 
     public function getCMSFields()
     {
@@ -55,7 +59,7 @@ class Slide extends DataObject
 
         if ($SlideBildField = $fields->dataFieldByName('SlideImage')) {
             $SlideBildField->setFolderName('Slides');
-            $SlideBildField->setDescription('small 1:4 // medium 1:2.6182 // fullscreen 8:5 / 5:8 / 4:3 depending on client screensize (use focuspoint!)');
+            $SlideBildField->setDescription('small 4:1 // medium 16:9 // fullscreen 8:5 / 5:8 / 4:3 depending on client screensize (use focuspoint!)');
         }
 
         return $fields;

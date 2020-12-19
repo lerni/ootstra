@@ -9,7 +9,7 @@
 					<% if $Title %><h4>$Title</h4><% end_if %>
 					<%-- <p><% loop $JobLocations %>$AddressLocality<% if not $Last %>, <% end_if %><% end_loop %></p> --%>
 				</div>
-				<p class="forth"><%t App\Elements\ElementJobs.MORE 'none' %></p>
+				<p class="forth"><%t App\Elements\ElementJobs.MORE "Stelleninserat" %></p>
 			</a>
 		<% end_loop %>
 	</div>

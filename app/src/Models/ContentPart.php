@@ -21,9 +21,13 @@ class ContentPart extends DataObject
         'Text.Summary' => 'Text'
     ];
 
-    private static $field_labels = [
-        'Title' => 'Titel'
-    ];
+    public function fieldLabels($includerelations = true)
+    {
+        $labels = parent::fieldLabels($includerelations);
+        $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Titel');
+
+        return $labels;
+    }
 
     private static $table_name = 'ContentPart';
 

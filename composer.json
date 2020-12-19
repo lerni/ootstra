@@ -33,7 +33,7 @@
         "lerni/silverstripe-googleanalytics": "dev-master as 1.0",
         "gorriecoe/silverstripe-robots": "^1",
         "jonom/silverstripe-share-care": "^4",
-        "dorsetdigital/silverstripe-canonical": "dev-master as 1.0",
+        "dorsetdigital/silverstripe-canonical": "^1",
         "silverstripe/sharedraftcontent": "^2",
         "dnadesign/silverstripe-elemental": "^4",
         "dnadesign/silverstripe-elemental-userforms": "^3",

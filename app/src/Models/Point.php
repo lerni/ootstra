@@ -28,10 +28,14 @@ class Point extends DataObject
         'Title' => 'Titel'
     ];
 
-    private static $field_labels = [
-        'Title' => 'Titel',
-        'PointURL' => 'Link auf Marker'
-    ];
+    public function fieldLabels($includerelations = true)
+    {
+        $labels = parent::fieldLabels($includerelations);
+        $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Titel');
+        $labels['PointURL'] = _t(__CLASS__ . '.POINTURL', 'Link auf Marker');
+
+        return $labels;
+    }
 
     private static $searchable_fields = [
         'Title'

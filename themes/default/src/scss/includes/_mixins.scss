@@ -67,8 +67,8 @@
 	border-radius: 0;
 	background-repeat: no-repeat;
 	background-position: top .7em right .7em;
-	background-image: svg-load('../images/svg/arrow-down.svg', stroke=#{$lauftext-color}, stroke-width=30);
-	background-size: .8em  .45em;
+	background-image: svg-load('../images/svg/arrow-down.svg', stroke=#{$lauftext-color}, stroke-width=20);
+	background-size: 1.2em  .6em;
 	&:-moz-focusring {
 		text-shadow: 0 0 0 #000;
 	}
