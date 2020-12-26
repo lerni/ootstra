@@ -26,7 +26,7 @@ SilverStripe\Core\Injector\Injector:
     calls:
       pushFileLogHandler: [ pushHandler, [ '%$LogFileHandler' ]]
 
- # Core error handler for system use
+  # Core error handler for system use
   Psr\Log\LoggerInterface.errorhandler:
     calls:
       pushFileLogHandler: [ pushHandler, [ '%$LogFileHandler' ]]
@@ -42,7 +42,7 @@ SilverStripe\Core\Injector\Injector:
     class: Monolog\Handler\NativeMailerHandler
     constructor:
       - '`SS_ERROR_EMAIL`'
-      - '[Error] on project.tld'
+      - '[Error] on `SS_BASE_URL`'
       - '`SS_ERROR_EMAIL`'
       - 'error'
     properties:

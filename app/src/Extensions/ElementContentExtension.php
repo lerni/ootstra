@@ -3,9 +3,9 @@
 namespace App\Extensions;
 
 use SilverStripe\Forms\FieldList;
-use SilverStripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 
-class ElementContentExtension extends DataExtension
+class ElementContentExtension extends Extension
 {
 
     private static $db = [];

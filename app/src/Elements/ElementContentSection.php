@@ -69,7 +69,7 @@ class ElementContentSection extends BaseElement
             $GridField = new GridField('ContentParts', 'Content Parts', $this->ContentParts(), $ContentPartsGridFieldConfig);
             $fields->addFieldToTab('Root.Main', $GridField);
         } else {
-            $fields->addFieldToTab("Root.Main", LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
+            $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
         }
 
         return $fields;

@@ -82,7 +82,7 @@ class ElementHero extends BaseElement
             $gridField = new GridField('Slides', 'Slides', $this->owner->Slides(), $SlideGridFieldConfig);
             $fields->addFieldToTab('Root.Main', $gridField);
         } else {
-            $fields->addFieldToTab("Root.Main", LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
+            $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
         }
 
         if ($DoNotCropField = $fields->dataFieldByName('DoNotCrop')) {

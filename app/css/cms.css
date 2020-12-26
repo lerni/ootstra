@@ -82,16 +82,18 @@ fieldset.grid {
 } */
 
 /* Blog summary - https://github.com/silverstripe/silverstripe-blog/issues/485 */
-.custom-summary .ui-accordion-content .form-group--no-label {
-	margin: 0;
-	width: 100%;
-}
-.custom-summary .ui-accordion-content .form-group--no-label .form__field-holder--no-label {
+.custom-summary .ui-accordion-content .field {
 	margin-left: 0;
+}
+.custom-summary .ui-accordion-content .field:last-of-type::after {
+	display: none;
+}
+.custom-summary .ui-accordion-content .field .form__field-holder {
+	margin-left: 0;
+	max-width: calc(100% - 2px);
+	flex: initial;
 	padding-left: 0;
 	padding-right: 0;
-	flex: 0 0 100%;
-	max-width: 100%;
 }
 
 #Form_ItemEditForm_Title_Holder .form__field-update-url::after {

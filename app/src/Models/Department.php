@@ -112,7 +112,7 @@ class Department extends DataObject
         $this->URLSegment = $filter->filter($this->Title);
     }
 
-    public function    PersoString()
+    public function PersoString()
     {
         if ($this->Persos()->count()) {
             $dep = $this->Persos()->Sort('SortOrder ASC')->map()->toArray();

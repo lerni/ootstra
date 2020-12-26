@@ -37,16 +37,6 @@ class Location extends DataObject
     private static $singular_name = 'Location';
     private static $plural_name = 'Locations';
 
-    private static $field_labels = [
-        'Address' => 'Adresse',
-        'PostOfficeBoxNumber' => 'Postfach',
-        'PostalCode' => 'PLZ',
-        'Town' => 'Ort',
-        'AddressRegion' => 'Kanton',
-        'Telephone' => 'Telefon',
-        'EMail' => 'E-Mail',
-        'GeoPoint' => 'Koordinaten'
-    ];
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);

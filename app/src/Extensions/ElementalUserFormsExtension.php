@@ -3,13 +3,13 @@
 namespace App\Extensions;
 
 use SilverStripe\Forms\FieldList;
-use SilverStripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 
-class ElementalUserFormsExtension extends DataExtension
+class ElementalUserFormsExtension extends Extension
 {
 
     public function updateCMSFields(FieldList $fields)
     {
-        $fields->removeByName("isFullWidth");
+        $fields->removeByName('isFullWidth');
     }
 }

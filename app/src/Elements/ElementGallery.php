@@ -103,13 +103,13 @@ class ElementGallery extends BaseElement
     //     return $blockSchema;
     // }
 
-    public function getType()
-    {
-        return _t(__CLASS__ . '.BlockType', 'false');
-    }
-
     public function FancyGroupRand()
     {
         return(rand(1,9999));
+    }
+
+    public function getType()
+    {
+        return _t(__CLASS__ . '.BlockType', 'Gallery');
     }
 }

@@ -64,7 +64,7 @@ class BlogExtension extends DataExtension
             $SizeField->setDescription(_t('App\Elements\ElementHero.SizeDescription', '"fullscreen" erfordert "volle Breite"!'));
             $fields->addFieldToTab('Root.Main', $SizeField, 'Content', true);
         } else {
-            $fields->addFieldToTab("Root.Main", LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
+            $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
         }
     }
 }

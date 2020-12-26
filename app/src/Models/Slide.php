@@ -11,7 +11,7 @@ class Slide extends DataObject
 {
     private static $db = [
         'Title' => 'Varchar',
-        'TextTitle' => 'Text',
+        'Text' => 'Text',
         'TextAlignment' => 'Enum("center,upper-left,upper-right,lower-left,lower-right,lower-center","center")'
     ];
     private static $has_one = [
@@ -31,7 +31,7 @@ class Slide extends DataObject
     private static $summary_fields = [
         'SlideImage.CMSThumbnail' => 'Thumbnail',
         'Title' => 'Titel',
-        'TextTitle' => 'Claim auf Bild'
+        'Text' => 'Claim auf Bild'
     ];
 
     private static $searchable_fields = [
@@ -43,7 +43,7 @@ class Slide extends DataObject
     {
         $labels = parent::fieldLabels($includerelations);
         $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Titel');
-        $labels['TextTitle'] = _t(__CLASS__ . '.TEXTTITLE', 'Claim auf Bild');
+        $labels['Text'] = _t(__CLASS__ . '.TEXT', 'Claim auf Bild');
         $labels['TextAlignment'] = _t(__CLASS__ . '.TEXTALIGNMENT', 'Anordnung Text');
 
         return $labels;
@@ -59,7 +59,7 @@ class Slide extends DataObject
 
         if ($SlideBildField = $fields->dataFieldByName('SlideImage')) {
             $SlideBildField->setFolderName('Slides');
-            $SlideBildField->setDescription('small 4:1 // medium 16:9 // fullscreen 8:5 / 5:8 / 4:3 depending on client screensize (use focuspoint!)');
+            $SlideBildField->setDescription(_t(__CLASS__ . '.SlideImageDescription', 'small 4:1 // medium 16:9 // fullscreen 8:5 / 5:8 / 4:3 depending on client screensize (use focuspoint!)'));
         }
 
         return $fields;

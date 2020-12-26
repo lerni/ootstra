@@ -2,10 +2,10 @@
 
 namespace App\Extensions;
 
-use SilverStripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 use SilverStripe\ORM\SS_List;
 
-class HeritageExtension extends DataExtension
+class HeritageExtension extends Extension
 {
     public function Heritage($componentName)
     {

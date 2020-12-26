@@ -77,9 +77,4 @@ class ElementPage extends Page
             }
         }
     }
-
-    public function getControllerName()
-    {
-        return ElementPageController::class;
-    }
 }

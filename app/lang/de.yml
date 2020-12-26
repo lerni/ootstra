@@ -3,10 +3,12 @@ de:
     More: 'Weiterlesen'
     TELEPHONE: 'Tel.'
     MENU: 'Menu'
+    OGDescriptionCustomDescription: 'Defaultwert ist Meta-Description oder Summary bei einem Blog-Post'
   JonoM\ShareCare\ShareCare:
     TabName: 'Feed & Share'
   App\Models\Teaser:
     MORE: 'Mehr&nbsp;erfahren'
+    ImageDescription: 'min. 600x600px'
   DNADesign\Elemental\Forms\TextCheckboxGroupField:
     TitleLabel: 'Titel'
   SilverStripe\Forms\GridField\GridField:
@@ -56,6 +58,7 @@ de:
     HTML: 'Text'
     IMAGE: 'Bild'
     ELEMENTLAYOUT: 'Anordnung links...'
+    ImageDescription: 'min. 1400x1800px'
   SilverStripe\SiteConfig\SiteConfig:
     SITENAMEDEFAULT: 'Name Webseite'
     TABMAIN: Main
@@ -67,6 +70,7 @@ de:
     MetaDescriptionDescription: 'Defaultwert, falls auf Seitenebene keine Beschreibung erfasst ist.'
     TITLE: 'Title / Name'
     DEFAULTHEADERIMAGE: 'Wird angezeigt, falls kein Hero in ElementPage'
+    DefaultHeaderImageDescription: '2600x993px' # same as slide
   App\Models\ElementPage:
     DESCRIPTION: 'Erlaubt modulare Inhaltskomposition mit Elementen'
     HeroNeeded: 'Wenn kein "Hero" als oberstes Element vorhanden ist, wird <a href="/admin/settings/">default HeadeImage</a> verwendet.'
@@ -83,9 +87,13 @@ de:
     POINTURL: 'Link auf Marker'
   App\Models\Logo:
     TITLE: 'Titel'
+    LogoImageDescription: 'min. 120px hoch'
+  App\Models\Marke:
+    LogoDescription: 'freigestellt PNG<br />min. 130px breit'
   App\Models\Slide:
     TITLE: 'Titel'
-    TEXTTITLE: 'Claim auf Bild'
+    TEXT: 'Claim auf Bild'
+    SlideImageDescription: 'small 4:1 // medium 16:9 // fullscreen 8:5 / 5:8 / 4:3 depending on client screensize (use focuspoint!)'
     TEXTALIGNMENT: 'Anordnung Text'
   App\Models\Perso:
     FIRSTNAME: 'Vorname'
@@ -93,6 +101,8 @@ de:
     EMAIL: 'E-Mail'
     TELEPHONE: 'Telefon'
     MOTIVATION: 'Text'
+    PortraitDescription: 'min. 576x766px'
+    TelephoneDescription: '+41 43 000 00 00'
   App\Models\Location:
     ADDRESS: 'Adresse'
     POSTOFFICEBOXNUMBER: 'Postfach'

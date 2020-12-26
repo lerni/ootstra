@@ -90,7 +90,7 @@ class SiteConfigExtension extends Extension
             )
         );
         $SlideBildField->setFolderName('Slides');
-        $SlideBildField->setDescription('2600x993px');
+        $SlideBildField->setDescription(_t('SilverStripe\SiteConfig\SiteConfig.DefaultHeaderImageDescription', '2600x993px'));
 
         $ServiceNavigationGridFieldConfig = GridFieldConfig_Base::create(20);
         $ServiceNavigationGridFieldConfig->addComponents(

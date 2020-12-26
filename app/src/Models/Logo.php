@@ -47,7 +47,7 @@ class Logo extends DataObject
 
         if ($uploadField = $fields->dataFieldByName('LogoImage')) {
             $uploadField->setFolderName('Logos');
-            $uploadField->setDescription('min. 120px hoch');
+            $uploadField->setDescription(_t(__CLASS__ . '.LogoImageDescription', 'min. 120px hoch'));
         }
 
         return $fields;

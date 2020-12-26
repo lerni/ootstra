@@ -77,7 +77,7 @@ class Perso extends DataObject
         $fields->replaceField('EMail', EmailField::create('EMail', 'E-Mail'));
 
         if ($TelephoneField = $fields->dataFieldByName('Telephone')) {
-            $TelephoneField->setDescription('+41 43 000 00 00');
+            $TelephoneField->setDescription(_t(__CLASS__ . '.TelephoneDescription', '+41 43 000 00 00'));
         }
 
         if ($MotivationField = $fields->dataFieldByName('Motivation')) {
@@ -87,7 +87,7 @@ class Perso extends DataObject
 
         if ($MAuploadField = $fields->dataFieldByName('Portrait')) {
             $MAuploadField->setFolderName('Portraits');
-            $MAuploadField->setDescription('min. 576x766px');
+            $MAuploadField->setDescription(_t(__CLASS__ . '.PortraitDescription', 'min. 576x766px'));
         }
         // $fields->insertAfter($MAuploadField, 'Title');
         $fields->insertBefore($MAuploadField, 'Motivation');

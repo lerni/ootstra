@@ -15,13 +15,15 @@ task('silverstripe:create_dotenv', function () {
 
     $stage = Context::get()->getHost()->getConfig()->get('stage');
     $errorEmail = ask('Please enter error E-Mail', '');
+    $adminEmail = ask('Please enter error E-Mail', '');
     $dbServer = ask('Please enter the database server', '127.0.0.1');
     $dbUser = ask('Please enter the database username', DEP_SERVER_USER . '_' . $stage);
     $dbName = ask('Please enter the database name', DEP_SERVER_USER . '_' . substr($stage, 0, 8));
     $dbPass = str_replace("'", "\\'", askHiddenResponse('Please enter the database password'));
     $type = in_array($stage, ['test', 'stage', 'staging']) ? 'test' : 'live';
-    $CmsDefaultUser = ask('Please enter a CMS default username', 'admin');
-    $CmsDefaultPass = str_replace("'", "\\'", askHiddenResponse('Please enter the CMS password'));
+    $baseURL = ask('Please enter baseURL', 'https://www.domain.tld/');
+    $cmsDefaultUser = ask('Please enter a CMS default username', 'admin');
+    $cmsDefaultPass = str_replace("'", "\\'", askHiddenResponse('Please enter the CMS password'));
 
     $contents = <<<ENV
 SS_DATABASE_CLASS='MySQLDatabase'
@@ -30,9 +32,12 @@ SS_DATABASE_PASSWORD='{$dbPass}'
 SS_DATABASE_SERVER='{$dbServer}'
 SS_DATABASE_NAME='{$dbName}'
 SS_ENVIRONMENT_TYPE='{$type}'
-SS_DEFAULT_ADMIN_USERNAME='{$CmsDefaultUser}'
-SS_DEFAULT_ADMIN_PASSWORD='{$CmsDefaultPass}'
+SS_DEFAULT_ADMIN_USERNAME='{$cmsDefaultUser}'
+SS_DEFAULT_ADMIN_PASSWORD='{$cmsDefaultPass}'
 SS_ERROR_EMAIL='{$errorEmail}'
+SS_ADMIN_EMAIL='{$adminEmail}'
+GHOSTSCRIPT_PATH='/usr/bin/gs'
+SS_BASE_URL='{$baseURL}'
 
 ENV;
 
@@ -54,9 +59,8 @@ task('silverstripe:installtools', function () {
     }
     $hasComposer = run("if [ -e ~/bin/composer.phar ]; then echo 'true'; fi");
     if ('true' != $hasComposer) {
-        // run('curl https://getcomposer.org/composer.phar --create-dirs -o ~/bin/composer.phar');
-        run('curl https://getcomposer.org/composer-stable.phar --create-dirs -o ~/bin/composer.phar');
         // run('curl https://getcomposer.org/composer-1.phar --create-dirs -o ~/bin/composer.phar');
+        run('curl https://getcomposer.org/composer-stable.phar --create-dirs -o ~/bin/composer.phar');
         run('chmod +x ~/bin/composer.phar');
     }
 });

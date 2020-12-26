@@ -39,26 +39,22 @@ class SocialLink extends DataObject
         'Title'
     ];
 
-    public function fieldLabels($includerelations = true)
-    {
-        $labels = parent::fieldLabels($includerelations);
-        $labels['Text'] = _t(__CLASS__ . '.TEXT', 'Text');
-
-        return $labels;
-    }
-
     private static $translate = [
         'Url'
-    ];
-
-    private static $field_labels = [
-        'Title' => 'Titel',
-        'sameAs' => '"sameAs" in schema verwenden'
     ];
 
     private static $defaults = [
         'sameAs' => 1
     ];
+
+    public function fieldLabels($includerelations = true)
+    {
+        $labels = parent::fieldLabels($includerelations);
+        $labels['Text'] = _t(__CLASS__ . '.TEXT', 'Text');
+        $labels['sameAs'] = _t(__CLASS__ . '.sameAs', '"sameAs" in schema verwenden');
+
+        return $labels;
+    }
 
     public function getCMSFields()
     {

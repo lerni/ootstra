@@ -49,7 +49,7 @@ class ElementTextImage extends BaseElement
 
         if ($uploadField = $fields->dataFieldByName('Image')) {
             $uploadField->setFolderName('TextImageElement');
-            $uploadField->setDescription('min. 1400x1800px');
+            $uploadField->setDescription(_t(__CLASS__ . '.ImageDescription', 'min. 1400x1800px'));
         }
 
         if ($CoverField = $fields->dataFieldByName('ImageCover')) {

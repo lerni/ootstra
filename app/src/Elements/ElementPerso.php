@@ -77,7 +77,7 @@ class ElementPerso extends BaseElement
             );
             $DepGFConfig->addComponent(new GridFieldOrderableRows('Sort'));
         } else {
-            $fields->addFieldToTab("Root.Main", LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
+            $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
         }
 
         $GFDep = new GridField('Departments', 'Abteilungen', $this->Departments(), $DepGFConfig);

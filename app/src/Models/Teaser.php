@@ -52,7 +52,7 @@ class Teaser extends DataObject
 
         if ($uploadField = $fields->dataFieldByName('Image')) {
             $uploadField->setFolderName('Teasers');
-            $uploadField->setDescription('min. 600x600px');
+            $uploadField->setDescription(_t(__CLASS__ . '.ImageDescription', 'min. 600x600px'));
         }
 
         if ($teaserActionField = $fields->dataFieldByName('Action')) {

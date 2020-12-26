@@ -4,9 +4,9 @@ namespace App\Extensions;
 
 use DNADesign\Elemental\Models\ElementalArea;
 use SilverStripe\View\SSViewer;
-use SilverStripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 
-class ElementalPageExtension extends DataExtension
+class ElementalPageExtension extends Extension
 {
     // this is a tewaked version of ElementalPageExtension::getElementsForSearch
     public function getElementsForSummary()

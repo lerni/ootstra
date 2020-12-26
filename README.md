@@ -1,6 +1,5 @@
 # Status - WIP
-**This project was published as part of a lightning talk at virtual StripeCon 2020. Unfortunately it wasn't ready at the time of the conference so it's Work in Progress. As much as I like it to be finished product - so far its not. Time will tell how things progress.**
-
+**This project was published as part of a lightning talk at virtual StripeCon 2020. Unfortunately it wasn't ready at the time of the conference so it's work in progress. As much as I like it to be finished product - so far its not. Time will tell how things progress.**
 
 # Setup, Requirements & install
 

@@ -33,22 +33,22 @@
 								width="$SlideImage.FocusFillMax(1440,550).Width()"
 								<% if not $First %>class="swiper-lazy"<% end_if %>
 								alt="$SlideImage.Title"
-								style="object-position: {$SlideImage.FocusFillMax(2600,993).PercentageX}% {$SlideImage.FocusFillMax(2600,993).PercentageY}%;"
-								<% if not $First %>data-<% end_if %>src="$SlideImage.FocusFillMax(1440,550).URL"
+								style="object-position: {$SlideImage.FocusFillMax(1440,810).PercentageX}% {$SlideImage.FocusFillMax(1440,810).PercentageY}%;"
+								<% if not $First %>data-<% end_if %>src="$SlideImage.FocusFillMax(1440,810).URL"
 								<% if not $First %>data-<% end_if %>srcset="
-									$SlideImage.FocusFillMax(480,183).URL 480w,
-									$SlideImage.FocusFillMax(640,244).URL 640w,
-									$SlideImage.FocusFillMax(720,275).URL 720w,
-									$SlideImage.FocusFillMax(800,306).URL 800w,
-									$SlideImage.FocusFillMax(1000,382).URL 1000w,
-									$SlideImage.FocusFillMax(1200,458).URL 1200w,
-									$SlideImage.FocusFillMax(1440,550).URL 1440w<% if $Up.Up.isFullWidth %>,
-									$SlideImage.FocusFillMax(1600,611).URL 1600w,
-									$SlideImage.FocusFillMax(1800,687).URL 1800w,
-									$SlideImage.FocusFillMax(2000,764).URL 2000w,
-									$SlideImage.FocusFillMax(2200,840).URL 2200w,
-									$SlideImage.FocusFillMax(2400,917).URL 2400w,
-									$SlideImage.FocusFillMax(2600,993).URL 2600w<% end_if %>" />
+									$SlideImage.FocusFillMax(480,270).URL 480w,
+									$SlideImage.FocusFillMax(640,360).URL 640w,
+									$SlideImage.FocusFillMax(720,405).URL 720w,
+									$SlideImage.FocusFillMax(800,450).URL 800w,
+									$SlideImage.FocusFillMax(1000,563).URL 1000w,
+									$SlideImage.FocusFillMax(1200,675).URL 1200w,
+									$SlideImage.FocusFillMax(1440,810).URL 1440w<% if $Up.Up.isFullWidth %>,
+									$SlideImage.FocusFillMax(1600,900).URL 1600w,
+									$SlideImage.FocusFillMax(1800,1013).URL 1800w,
+									$SlideImage.FocusFillMax(2000,1125).URL 2000w,
+									$SlideImage.FocusFillMax(2200,1238).URL 2200w,
+									$SlideImage.FocusFillMax(2400,1350).URL 2400w,
+									$SlideImage.FocusFillMax(2600,1463).URL 2600w<% end_if %>" />
 							</figure>
 						<% else_if $Up.Up.Size == "fullscreen" %>
 							<figure><picture>
@@ -112,11 +112,11 @@
 								}
 							</style>
 						<% end_if %>
-						<% if $TextTitle || $LinkID %>
+						<% if $Text || $LinkID %>
 							<% if $LinkID %><a href="$Link.Link" class="txt {$TextAlignment}"><% else %><div class="txt {$TextAlignment}"><% end_if %>
-								<% if $TextTitle %><div class="inner">
+								<% if $Text %><div class="inner">
 									<div class="spacer">
-										<p>$TextTitle</p>
+										<p>$Text</p>
 									</div>
 								</div><% end_if %>
 							<% if $LinkID %></a><% else %></div><% end_if %>

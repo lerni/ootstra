@@ -14,7 +14,7 @@
         }
     ],
     "require": {
-        "php": ">= 7.0, <8",
+        "php": "^7.1 || ^8",
         "silverstripe/recipe-plugin": "^1",
         "silverstripe/recipe-core": "^4",
         "silverstripe/cms": "^4",

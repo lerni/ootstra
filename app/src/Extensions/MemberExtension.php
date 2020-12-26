@@ -3,10 +3,10 @@
 namespace App\Extensions;
 
 use SilverStripe\Forms\FieldList;
-use SilverStripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 use SilverStripe\Security\Permission;
 
-class MemberExtension extends DataExtension
+class MemberExtension extends Extension
 {
     public function updateCMSFields(FieldList $fields)
     {

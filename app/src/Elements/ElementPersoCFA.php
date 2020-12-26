@@ -83,7 +83,7 @@ class ElementPersoCFA extends BaseElement
             $GFPerso = new GridField('Persos', 'Personen', $this->Persos(), $PersoGFConfig);
             $fields->addFieldToTab('Root.Main', $GFPerso);
         } else {
-            $fields->addFieldToTab("Root.Main", LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
+            $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
         }
         return $fields;
     }
