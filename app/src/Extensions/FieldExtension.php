@@ -38,7 +38,10 @@ class FieldExtension extends Extension
         if ($this->owner->value) {
             $lines = explode(PHP_EOL, $this->owner->value);
             foreach ($lines as $l) {
-                $r->push(ArrayData::create(['Item' => $l]));
+                // todo strip empty lines b4
+                if ($l != "") {
+                    $r->push(ArrayData::create(['Item' => $l]));
+                }
             }
         }
         return $r;

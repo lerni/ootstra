@@ -36,7 +36,7 @@ class Slide extends DataObject
 
     private static $searchable_fields = [
         'Title',
-        'TextTitle'
+        'Text'
     ];
 
     public function fieldLabels($includerelations = true)

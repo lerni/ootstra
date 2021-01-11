@@ -119,17 +119,17 @@
 		@include bold;
 	}
 	h1 {
-		font-size:1.6em;
+		font-size: 1.6em;
 	}
 	h2 {
-		font-size:1.41em;
+		font-size: 1.41em;
 	}
 	h3 {
-		font-size:1em;
+		font-size: 1em;
 	}
 	h4 {
-		font-size:1em;
-		margin-bottom:0;
+		font-size: 1em;
+		margin-bottom: 0;
 	}
 
 	// * PRE STYLES
@@ -137,32 +137,32 @@
 	pre {
 		font-family: "Courier New", Courier, monospace;
 		display: block;
-		font-size:1.1em;
+		font-size: 1.1em;
 		padding: #{$lh*.5}em;
 	}
 
 	// * TABLE STYLING
 	// -------------------------------------------- */
 	table {
-		width:100%;
+		width: 100%;
 		margin: 0 0 #{$lh}em 0;
 		border-collapse: collapse;
 		tr {
 			td {
-				font-size:.8em;
+				font-size: .8em;
 				padding: .1em .2em .2em;
-				vertical-align:top;
+				vertical-align: top;
 				border-top: 1px solid $gray-light;
 				border-bottom: 1px solid $gray-light;
 			}
 			&:last-of-type {
 				td {
-					border-bottom:none;
+					border-bottom: none;
 				}
 			}
 			&:first-of-type {
 				td {
-					border-top:none;
+					border-top: none;
 				}
 			}
 		}
@@ -211,7 +211,7 @@
 		}
 	}
 	div.embed {
-		width:auto !important;
+		width: auto !important;
 		margin-bottom: #{$lh}em;
 		>p {
 			// video caption
@@ -236,8 +236,8 @@
 	blockquote {
 		margin-bottom: #{$lh}em;
 		margin-left: #{$lh*1}em;
-		border:0;
-		padding:0;
+		border: 0;
+		padding: 0;
 		p {
 			&::before,
 			&::after {
@@ -245,8 +245,8 @@
 				background-repeat: no-repeat;
 				background-size: 0.68376em .8em;
 				background-position: center center;
-				width:0.68376em;
-				height:1em;
+				width: 0.68376em;
+				height: 1em;
 				content:"";
 				vertical-align: -.2em;
 			}
@@ -256,7 +256,7 @@
 				background-image: svg-load('../images/svg/quote-before.svg', fill=#{$lauftext-color});
 			}
 			&::after {
-				margin-left:.2em;
+				margin-left: .2em;
 				background-image: svg-load('../images/svg/quote-after.svg', fill=#{$lauftext-color});
 			}
 			&:last-child {

@@ -15,7 +15,7 @@ namespace {
             parent::init();
             Requirements::block('//code.jquery.com/jquery-3.4.1.min.js');
             Requirements::set_force_js_to_bottom(true);
-            Requirements::javascript(ModuleResourceLoader::resourceURL('themes/default/dist/js/app.js'));
+            Requirements::javascript(ModuleResourceLoader::resourceURL('themes/default/dist/js/app.js'), 'all',['defer' => true, 'async' => true]);
             // UserDefinedFormController would interfere and falsely output noindex
             if (!$this->data()->ShowInSearch && array_key_exists('ShowInSearch', $this->record)) {
                 Requirements::insertHeadTags('<meta name="robots" content="noindex">');

@@ -84,6 +84,11 @@ $EditorConfig->setOptions($editorOptions);
 $EditorConfig->setButtonsForLine(1, array('formatselect styleselect pastetext ssmedia ssembed | bold bullist numlist ToggleDefinitionList ToggleDefinitionItem | alignleft aligncenter alignright alignjustify | sslink unlink | charmap hr code removeformat blockquote | outdent indent | undo redo'));
 $EditorConfig->setButtonsForLine(2, '');
 
+// $EditorConfig->setOption(
+//     'extended_valid_elements',
+//     'div[data-capture-embed]' // 'div[*]'
+// );
+
 // $SimpleCfg = TinyMCEConfig::get('inlite');
 // $SimpleCfg->disablePlugins(['importcss']);
 // $SimpleCfg->enablePlugins(['sslinkanchor','sslink','sslinkexternal','sslinkemail','sslinkinternal']);

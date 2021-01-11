@@ -3,7 +3,6 @@
 namespace {
 
     use Kraftausdruck\Models\JobPosting;
-    use Spatie\SchemaOrg\Schema;
     use App\Elements\ElementHero;
     use SilverStripe\Core\ClassInfo;
     use SilverStripe\Blog\Model\Blog;
@@ -12,7 +11,6 @@ namespace {
     use SilverStripe\Control\Director;
     use SilverStripe\CMS\Model\SiteTree;
     use SilverStripe\Security\Permission;
-    use SilverStripe\SiteConfig\SiteConfig;
     use TractorCow\Fluent\State\FluentState;
     use SilverStripe\Blog\Model\BlogCategory;
     use SilverStripe\Forms\GridField\GridField;
@@ -375,106 +373,6 @@ namespace {
                 $r->push($Cat);
             }
             return $r;
-        }
-
-        public function LocalBusinessSchema()
-        {
-
-            $siteConfig = SiteConfig::current_site_config();
-
-            $schemaOrganisation = Schema::organization();
-
-            $schemaOrganisation
-                ->name($siteConfig->Title)
-                ->description($siteConfig->MetaDescription)
-                ->url($siteConfig->CanonicalDomain)
-                ->logo(rtrim(Director::absoluteBaseURL(), '/') . ModuleResourceLoader::resourceURL('public/icon-512.png'));
-
-            if ($siteConfig->Locations()->Count()) {
-
-                $locations = [];
-                $i = 0;
-                foreach ($siteConfig->Locations() as $location) {
-
-                    $country = strtoupper($location->Country);
-
-                    $PushLocation = Schema::postalAddress()
-                        ->email($location->EMail)
-                        ->streetAddress($location->Address)
-                        ->postalCode($location->PostalCode)
-                        ->addressLocality($location->Town)
-                        ->postOfficeBoxNumber($location->PostOfficeBoxNumber)
-                        ->telephone($location->Telephone)
-                        ->addressRegion($location->AddressRegion)
-                        ->addressCountry(Schema::Country()
-                            ->name($country));
-
-
-                    $locations[$i] = Schema::LocalBusiness()
-                        ->name($location->Title)
-                        ->address($PushLocation);
-
-                    if ($location->OpeningHours) {
-                        // remove empty newlines
-                        $ohString = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $location->OpeningHours);
-                        $openingHoursLines = explode(PHP_EOL, $ohString);
-                        $locations[$i]->openingHours($openingHoursLines);
-                    }
-
-                    if ($location->GeoPoint()->exists()) {
-                        $PushGeo = Schema::geoCoordinates()
-                            ->latitude($location->GeoPoint()->Latitude)
-                            ->longitude($location->GeoPoint()->Longitude);
-
-                        // default has map lat/lng based - 'll be overriden if $location->PointURL exists
-                        $locations[$i]->hasMap($location->GeoPoint()->GMapLatLngLink());
-                        $locations[$i]->geo($PushGeo);
-                    }
-
-                    if ($location->PointURL) {
-                        $locations[$i]->hasMap($location->PointURL);
-                    }
-
-                    if ($siteConfig->DefaultHeaderImage()->exists()) {
-                        $locations[$i]->image(rtrim(Director::absoluteBaseURL(), '/') . $siteConfig->DefaultHeaderImage()->Link());
-                    }
-
-                    $i++;
-                }
-
-                $schemaOrganisation->location($locations);
-            }
-            if ($siteConfig->SocialLinks()->filter('sameAs', 1)->Count()) {
-                $sameAsLinks = $siteConfig->SocialLinks()->filter('sameAs', 1)->Column('Url');
-                $schemaOrganisation->sameAs($sameAsLinks);
-            }
-
-            if ($siteConfig->DefaultHeaderImage()->exists()) {
-                $schemaOrganisation->image(rtrim(Director::absoluteBaseURL(), '/') . $siteConfig->DefaultHeaderImage()->Link());
-            }
-
-            return $schemaOrganisation->toScript();
-        }
-
-        public function BreadcrumbListSchema()
-        {
-            $pageObjs = [];
-            $i = 0;
-            $breadcrumbs = $this->getBreadcrumbItems();
-            $bCount = $this->getBreadcrumbItems()->count();
-            foreach ($breadcrumbs as $item) {
-
-                $pageObjs[$i] = Schema::listItem()
-                    ->position((int)$i + 1)
-                    ->name($item->Title)
-                    ->setProperty('@id', Director::absoluteBaseURL() . ltrim($item->Link(), '/'));
-                $i++;
-            }
-
-            $breadcrumbList = Schema::breadcrumbList()
-                ->itemListElement($pageObjs);
-
-            return $breadcrumbList->toScript();
         }
 
         public function IsHome()

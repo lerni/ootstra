@@ -223,7 +223,8 @@ main.typography {
 	&.elementjobs.show,
 	&.elementform,
 	&.elementcontent,
-	&.elementcontentsection {
+	&.elementcontentsection,
+	.page & {
 		.inner {
 			>* {
 				max-width: $inner-width--reduced;
@@ -526,8 +527,6 @@ main.typography {
 				padding: #{$lh}em;
 				@include breakpoint($Mplus) {
 					box-shadow: #{$lh/2}em 0 #{$lh}em rgba($black, .1);
-				}
-				@include breakpoint($Mneg) {
 					padding: #{$lh}em;
 					width: 100%;
 					box-shadow: none;
