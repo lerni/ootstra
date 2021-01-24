@@ -7,7 +7,6 @@ use SilverStripe\Core\Extension;
 
 class ShareCareFieldsExtension extends Extension
 {
-
     public function updateCMSFields(FieldList $fields)
     {
         if ($uploadField = $fields->dataFieldByName('OGImageCustom')) {

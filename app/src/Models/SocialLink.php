@@ -9,19 +9,19 @@ class SocialLink extends DataObject
     private static $db = [
         'Title' => 'Varchar',
         'Url' => 'Varchar',
-        'Icon' => 'Enum("f,F,b,i,I,n,N,x,X,t,T,y,Y,p,m,l,L,g")',
+        'Icon' => 'Enum("f,d,e,i,h,n,k,x,r,t,o,y,q,p,m,l,s")',
         'sameAs' => 'Boolean'
     ];
 
-    // Facebook			f,F,b
-    // Insta			i,I
-    // LinkedIn			n,N
-    // Xing				X,X
-    // Twitter			t,T
-    // Youtube			y,Y
-    // phone			p
+    // Facebook			f,d,e
+    // Insta 			i,h
+    // LinkedIn			n,k
+    // Xing				x,r
+    // Twitter			t,o
+    // Youtube 			y,q
+    // phone 			p
     // mail				m
-    // marker lat/lng	l,L
+    // marker lat/lng	l,s
 
     private static $has_one = [];
 

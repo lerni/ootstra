@@ -28,6 +28,6 @@
 <body class="{$ClassName.ShortName.LowerCase}">
 	{$Layout}
 	<% include App/Includes/Footer %>
-	<% if $IsHome %>$LocalBusinessSchema.RAW<% end_if %>
+	<% if $isHomePage %>$LocalBusinessSchema.RAW<% end_if %>
 </body>
 </html>

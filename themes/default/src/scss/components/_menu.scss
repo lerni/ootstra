@@ -176,7 +176,7 @@ body.mobile-nav--active {
 		position: fixed;
 		z-index: 100;
 		overflow-x: hidden;
-		overflow-y: auto;
+		overflow-y: scroll; // keeping scrollbar visible
 		height: auto;
 		top: 0;
 		bottom: 0;

@@ -18,6 +18,8 @@ class ElementPage extends Page
 
     private static $owns = [];
 
+    private static $controller_name  = ElementPageController::class;
+
     private static $table_name = 'ElementPage';
 
     private static $description = 'Allows modular content composition with elements.';
@@ -76,10 +78,5 @@ class ElementPage extends Page
                 }
             }
         }
-    }
-
-    public function getControllerName()
-    {
-        return ElementPageController::class;
     }
 }

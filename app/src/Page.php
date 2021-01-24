@@ -2,6 +2,7 @@
 
 namespace {
 
+    use JonoM\ShareCare\ShareCareFields;
     use Kraftausdruck\Models\JobPosting;
     use App\Elements\ElementHero;
     use SilverStripe\Core\ClassInfo;
@@ -41,6 +42,8 @@ namespace {
 
         private static $table_name = 'Page';
 
+        private static $controller_name  = PageController::class;
+
         public function getCMSFields()
         {
             $this->beforeUpdateCMSFields(function (FieldList $fields) {
@@ -64,13 +67,13 @@ namespace {
                 if ($MetaTitleField = $MetaToggle->fieldByName('MetaTitle')) {
                     $MetaTitleField->setTargetLength(60, 50, 60);
                     $MetaTitleField->setAttribute('placeholder', $this->DefaultMetaTitle());
-                    $MetaTitleField->setRightTitle('Wird als Titel im Browsertab und für Suchmaschinen Resultate verwendet. Wichtig für SEO!');
+                    $MetaTitleField->setRightTitle(_t('\Page.MetaTitleRightTitle', 'Wird als Titel im Browsertab und für Suchmaschinen Resultate verwendet. Wichtig für SEO!'));
                 }
 
                 if ($MetaDescriptionField = $MetaToggle->fieldByName('MetaDescription')) {
                     $MetaDescriptionField->setTargetLength(160, 100, 160);
                     $MetaDescriptionField->setAttribute('placeholder', $this->DefaultMetaDescription);
-                    $MetaDescriptionField->setRightTitle('Wird in Suchmaschinen-Ergebnissen verwendet, wenn Länge passt und Relevanz gegeben ist; beeinflusst die SEO-Position kaum. Ansprechende Meta-Descripton (besonders die ersten ~55 Zeichen -> Sitelinks) beeinflussen die Klickrate jedoch stark.');
+                    $MetaDescriptionField->setRightTitle(_t('\Page.MetaDescriptionRightTitle', 'Wird in Suchmaschinen-Ergebnissen verwendet, wenn Länge passt und Relevanz gegeben ist; beeinflusst die SEO-Position kaum. Ansprechende Meta-Descripton (besonders die ersten ~55 Zeichen -> Sitelinks) beeinflussen die Klickrate jedoch stark.'));
                 }
 
                 $fields->removeByName('Metadata');
@@ -139,40 +142,6 @@ namespace {
         //
         //        return parent::getSettingsFields();
         //    }
-
-        // /**
-        //  * Returns the controller class name for this page type. If a matching subclass of
-        //  * PageController exists, use that. Otherwise default to the base namespaced controller.
-        //  *
-        //  * This is required as SiteTree::getControllerName() doesn't traverse sideways across
-        //  * namespaces (i.e from \Model to \Control) when looking for a controller.
-        //  *
-        //  * @return string
-        //  */
-        // public function getControllerName()
-        // {
-        //     $current = static::class;
-        //     $ancestry = ClassInfo::ancestry($current);
-        //     $controller = null;
-        //     while ($class = array_pop($ancestry)) {
-        //         if ($class === self::class) {
-        //             break;
-        //         }
-        //         if (class_exists($candidate = sprintf('%sController', $class))) {
-        //             $controller = $candidate;
-        //             break;
-        //         }
-        //         $candidate = sprintf('%sController', str_replace('\\Model\\', '\\Control\\', $class));
-        //         if (class_exists($candidate)) {
-        //             $controller = $candidate;
-        //             break;
-        //         }
-        //     }
-        //     if ($controller) {
-        //         return $controller;
-        //     }
-        //     return PageController::class;
-        // }
 
         // we use this in template & WYSIWYGs for css classes
         // similar function is on ElementExtension
@@ -292,6 +261,13 @@ namespace {
                 }
             }
 
+            // OGImageCustom
+            if ($this->hasExtension(ShareCareFields::class)) {
+                if ($this->OGImageCustom->exists()) {
+                    $i = $this->OGImageCustom;
+                }
+            }
+
             if ($i != null) {
                 return $i->FocusFillMax(1200, 630);
             } elseif (file_exists(BASE_PATH . '/public/icon-512.png')) {
@@ -373,13 +349,6 @@ namespace {
                 $r->push($Cat);
             }
             return $r;
-        }
-
-        public function IsHome()
-        {
-            if ($this->URLSegment == RootURLController::get_homepage_link()) {
-                return true;
-            }
         }
 
         // current year for copyright in footer

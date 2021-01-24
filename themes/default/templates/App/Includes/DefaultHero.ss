@@ -3,8 +3,8 @@
 		<% if $SiteConfig.DefaultHeaderImageID %>
 			<% with $SiteConfig.DefaultHeaderImage %>
 				<img sizes="100vw" alt="$Title"
-					height="$SlideImage.FocusFillMax(1440,360).Height()"
-					width="$SlideImage.FocusFillMax(1440,360).Width()"
+					height="$FocusFillMax(1440,360).Height()"
+					width="$FocusFillMax(1440,360).Width()"
 					style="object-position: {$FocusFillMax(2600,650).PercentageX}% {$FocusFillMax(2600,650).PercentageY}%;"
 					src="$FocusFillMax(1440,360).URL"
 					srcset="$FocusFillMax(480,120).URL 480w,

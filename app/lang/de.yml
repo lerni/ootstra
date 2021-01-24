@@ -4,6 +4,8 @@ de:
     TELEPHONE: 'Tel.'
     MENU: 'Menu'
     OGDescriptionCustomDescription: 'Defaultwert ist Meta-Description oder Summary bei einem Blog-Post'
+    MetaTitleRightTitle: 'Wird als Titel im Browsertab und für Suchmaschinen Resultate verwendet. Wichtig für SEO!'
+    MetaDescriptionRightTitle: 'Wird in Suchmaschinen-Ergebnissen verwendet, wenn Länge passt und Relevanz gegeben ist; beeinflusst die SEO-Position kaum. Ansprechende Meta-Descripton (besonders die ersten ~55 Zeichen -> Sitelinks) beeinflussen die Klickrate jedoch stark.'
   JonoM\ShareCare\ShareCare:
     TabName: 'Feed & Share'
   App\Models\Teaser:
@@ -115,7 +117,7 @@ de:
   SilverStripe\CMS\Controllers\CMSMain:
     SaveFirst: 'Bitte Element erst speichern, danach können Sub-Elemente erfasst werden.'
   JonoM\ShareCare\ShareCareFields:
-    CMSMessage: 'Die Vorschau wird automatisch aus dem Inhalt generiert. Diese generierten Werte können hier manuell überschrieben werden.<br>
+    CMSMessage: 'Die Vorschau wird automatisch aus dem Inhalt generiert. Die generierten Werte können hier manuell überschrieben werden.<br>
     <strong>Generell sollte nur etwas erfasst werden, wenn der Inhalt vom Defaultwerte (kursiv) abweicht. Defaultwert für das Bild ist das 1. Slide vom Hero resp. ein Icon als "Fallback", die "Share Beschreibung" basiert auf der Metadescription, resp. im Falle eines BlogPosts auf der Zusammenfassung und verwendet als "Fallback" die globale MetaDescription von "Einstellungen/SiteConfig".</strong>'
   SilverStripe\UserForms\Model\EditableFormField:
     FIELDISREQUIRED: '{name} muss ausgefüllt werden'
