@@ -15,13 +15,12 @@ task('silverstripe:create_dotenv', function () {
 
     $stage = Context::get()->getHost()->getConfig()->get('stage');
     $errorEmail = ask('Please enter error E-Mail', '');
-    $adminEmail = ask('Please enter error E-Mail', '');
+    $adminEmail = ask('Please enter admin E-Mail', '');
     $dbServer = ask('Please enter the database server', '127.0.0.1');
     $dbUser = ask('Please enter the database username', DEP_SERVER_USER . '_' . $stage);
     $dbName = ask('Please enter the database name', DEP_SERVER_USER . '_' . substr($stage, 0, 8));
     $dbPass = str_replace("'", "\\'", askHiddenResponse('Please enter the database password'));
     $type = in_array($stage, ['test', 'stage', 'staging']) ? 'test' : 'live';
-    $baseURL = ask('Please enter baseURL', 'https://www.domain.tld/');
     $cmsDefaultUser = ask('Please enter a CMS default username', 'admin');
     $cmsDefaultPass = str_replace("'", "\\'", askHiddenResponse('Please enter the CMS password'));
 
@@ -37,7 +36,6 @@ SS_DEFAULT_ADMIN_PASSWORD='{$cmsDefaultPass}'
 SS_ERROR_EMAIL='{$errorEmail}'
 SS_ADMIN_EMAIL='{$adminEmail}'
 GHOSTSCRIPT_PATH='/usr/bin/gs'
-SS_BASE_URL='{$baseURL}'
 
 ENV;
 

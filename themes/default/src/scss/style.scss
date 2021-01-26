@@ -67,6 +67,7 @@ body {
 	height: $headerheight;
 	will-change: transform;
 	transition: transform .2s ease-out;
+	transform: translateY(0%);
 	box-shadow: none;
 	background-color: rgba($white, .97);
 	@include breakpoint($Sneg) {
@@ -389,9 +390,6 @@ main.typography {
 			overflow: hidden;
 			&.medium figure img {
 				max-height: 700px;
-				@include breakpoint($Mneg) {
-					height: 260px;
-				}
 			}
 			&.fullscreen {
 				height: calc(100vh - var(--vh-offset));

@@ -32,6 +32,7 @@ SilverStripe\Core\Injector\Injector:
       pushFileLogHandler: [ pushHandler, [ '%$LogFileHandler' ]]
       pushMailHandler: [ pushHandler, [ '%$MailHandler' ]]
 
+  # Custom handler to log to a file
   LogFileHandler:
     class: Monolog\Handler\StreamHandler
     constructor:
@@ -42,7 +43,7 @@ SilverStripe\Core\Injector\Injector:
     class: Monolog\Handler\NativeMailerHandler
     constructor:
       - '`SS_ERROR_EMAIL`'
-      - '[Error] on `SS_BASE_URL`'
+      - '[Error] `SS_ENVIRONMENT_TYPE`'
       - '`SS_ERROR_EMAIL`'
       - 'error'
     properties:

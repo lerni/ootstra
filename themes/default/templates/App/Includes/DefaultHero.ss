@@ -15,10 +15,7 @@
 						$FocusFillMax(1200,300).URL 1200w,
 						$FocusFillMax(1440,360).URL 1440w,
 						$FocusFillMax(1600,400).URL 1600w,
-						$FocusFillMax(1800,450).URL 1800w,
 						$FocusFillMax(2000,500).URL 2000w,
-						$FocusFillMax(2200,550).URL 2200w,
-						$FocusFillMax(2400,600).URL 2400w,
 						$FocusFillMax(2600,650).URL 2600w" />
 			<% end_with %>
 		<% end_if %>

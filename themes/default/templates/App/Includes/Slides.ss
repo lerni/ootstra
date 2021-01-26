@@ -21,10 +21,7 @@
 									$SlideImage.FocusFillMax(1200,300).URL 1200w,
 									$SlideImage.FocusFillMax(1440,360).URL 1440w<% if $Up.Up.isFullWidth %>,
 									$SlideImage.FocusFillMax(1600,400).URL 1600w,
-									$SlideImage.FocusFillMax(1800,450).URL 1800w,
 									$SlideImage.FocusFillMax(2000,500).URL 2000w,
-									$SlideImage.FocusFillMax(2200,550).URL 2200w,
-									$SlideImage.FocusFillMax(2400,600).URL 2400w,
 									$SlideImage.FocusFillMax(2600,650).URL 2600w<% end_if %>" />
 							</figure>
 						<% else_if $Up.Up.Size == "medium" %>
@@ -44,10 +41,7 @@
 									$SlideImage.FocusFillMax(1200,675).URL 1200w,
 									$SlideImage.FocusFillMax(1440,810).URL 1440w<% if $Up.Up.isFullWidth %>,
 									$SlideImage.FocusFillMax(1600,900).URL 1600w,
-									$SlideImage.FocusFillMax(1800,1013).URL 1800w,
 									$SlideImage.FocusFillMax(2000,1125).URL 2000w,
-									$SlideImage.FocusFillMax(2200,1238).URL 2200w,
-									$SlideImage.FocusFillMax(2400,1350).URL 2400w,
 									$SlideImage.FocusFillMax(2600,1463).URL 2600w<% end_if %>" />
 							</figure>
 						<% else_if $Up.Up.Size == "fullscreen" %>
@@ -61,10 +55,7 @@
 									$SlideImage.FocusFillMax(1200,750).URL 1200w,
 									$SlideImage.FocusFillMax(1440,900).URL 1440w,
 									$SlideImage.FocusFillMax(1600,1000).URL 1600w,
-									$SlideImage.FocusFillMax(1800,1125).URL 1800w,
 									$SlideImage.FocusFillMax(2000,1250).URL 2000w,
-									$SlideImage.FocusFillMax(2200,1375).URL 2200w,
-									$SlideImage.FocusFillMax(2400,1500).URL 2400w,
 									$SlideImage.FocusFillMax(2600,1625).URL 2600w
 							">
 								<%-- 5:8 is portrait --%>
@@ -87,10 +78,7 @@
 									$SlideImage.FocusFillMax(1200,900).URL 1200w,
 									$SlideImage.FocusFillMax(1400,1050).URL 1400w,
 									$SlideImage.FocusFillMax(1600,1200).URL 1600w,
-									$SlideImage.FocusFillMax(1800,1350).URL 1800w,
 									$SlideImage.FocusFillMax(2000,1500).URL 2000w,
-									$SlideImage.FocusFillMax(2200,1650).URL 2200w,
-									$SlideImage.FocusFillMax(2400,1800).URL 2400w,
 									$SlideImage.FocusFillMax(2600,1950).URL 2600w
 							">
 								<img src="$SlideImage.FocusFillMax(1400,1050).URL" alt="$Beschreibung" id="hero-image-{$ID}">
