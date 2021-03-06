@@ -48,9 +48,9 @@ class ElementGallery extends BaseElement
         return $labels;
     }
 
-    private static $inline_editable = false;
+    private static $icon = 'font-icon-block-file';
 
-    private static $icon = 'font-icon-p-gallery';
+    private static $inline_editable = false;
 
     public function getCMSFields()
     {
@@ -58,7 +58,7 @@ class ElementGallery extends BaseElement
 
         $fields->removeByName('GalleryFolder');
 
-        $fields->addFieldToTab('Root.Main', HeaderField::create('OneOrTheOther', _t(__CLASS__ . '.OneOrTheOther', 'Choose a folder (all images contained) OR upload/choose/sort directly')));
+        $fields->addFieldToTab('Root.Main', HeaderField::create('OneOrTheOther', _t(__CLASS__ . '.OneOrTheOther', 'Choose a folder (all images contained) or upload, choose & sort directly here')));
 
         $FolderField = FolderDropdownField::create(
             'GalleryFolderID',
@@ -79,6 +79,8 @@ class ElementGallery extends BaseElement
         $Subfolder = $filter->filter($this->Title);
         $uploadField->setFolderName('Gallery/' . $Subfolder);
         $uploadField->setSortColumn('SortOrder');
+        $size = 8 * 1024 * 1024;
+        $uploadField->getValidator()->setAllowedMaxFileSize($size);
         $uploadField->setDescription(_t(__CLASS__ . '.GalleryImagesDescription', 'Breite getrimmt auf 1224px'));
 
         return $fields;

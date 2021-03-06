@@ -71,9 +71,11 @@ namespace {
                 }
 
                 if ($MetaDescriptionField = $MetaToggle->fieldByName('MetaDescription')) {
-                    $MetaDescriptionField->setTargetLength(160, 100, 160);
-                    $MetaDescriptionField->setAttribute('placeholder', $this->DefaultMetaDescription);
-                    $MetaDescriptionField->setRightTitle(_t('\Page.MetaDescriptionRightTitle', 'Wird in Suchmaschinen-Ergebnissen verwendet, wenn Länge passt und Relevanz gegeben ist; beeinflusst die SEO-Position kaum. Ansprechende Meta-Descripton (besonders die ersten ~55 Zeichen -> Sitelinks) beeinflussen die Klickrate jedoch stark.'));
+                    if (!$MetaDescriptionField->isReadonly()) {
+                        $MetaDescriptionField->setTargetLength(160, 100, 160);
+                        $MetaDescriptionField->setAttribute('placeholder', $this->DefaultMetaDescription);
+                        $MetaDescriptionField->setRightTitle(_t('\Page.MetaDescriptionRightTitle', 'Wird in Suchmaschinen-Ergebnissen verwendet, wenn Länge passt und Relevanz gegeben ist; beeinflusst die SEO-Position kaum. Ansprechende Meta-Descripton (besonders die ersten ~55 Zeichen -> Sitelinks) beeinflussen die Klickrate jedoch stark.'));
+                    }
                 }
 
                 $fields->removeByName('Metadata');
@@ -166,8 +168,8 @@ namespace {
                 $req = Controller::curr()->getRequest();
                 if ($req->param('Action') == 'job' && $req->param('ID')) {
                     $URLSegment = $req->param('ID');
-                    $job = JobPosting::get()->filter('URLSegment', $URLSegment)->first();;
-                    if ($job->Description) {
+                    $job = JobPosting::get()->filter('URLSegment', $URLSegment)->first();
+                    if ($job && $job->Title) {
                         $title_return = trim($job->Title);
                     }
                 }
@@ -201,8 +203,8 @@ namespace {
                 $req = Controller::curr()->getRequest();
                 if ($req->param('Action') == 'job' && $req->param('ID')) {
                     $URLSegment = $req->param('ID');
-                    $job = JobPosting::get()->filter('URLSegment', $URLSegment)->first();;
-                    if ($job->Description) {
+                    $job = JobPosting::get()->filter('URLSegment', $URLSegment)->first();
+                    if ($job && $job->Description) {
                         $descreturn = trim($job->obj('Description')->Summary(20, 5));
                     }
                 }
@@ -223,7 +225,8 @@ namespace {
             return $descreturn;
         }
 
-        public function getDefaultOGImage()
+        // $origin = 1 -> not resized
+        public function getDefaultOGImage($origin=0)
         {
             $i = null;
 
@@ -255,7 +258,7 @@ namespace {
                 if ($req->param('Action') == 'job' && $req->param('ID')) {
                     $URLSegment = $req->param('ID');
                     $job = JobPosting::get()->filter('URLSegment', $URLSegment)->first();;
-                    if ($job->HeaderImage->exists()) {
+                    if ($job && $job->HeaderImage->exists()) {
                         $i = $job->HeaderImage();
                     }
                 }
@@ -269,7 +272,11 @@ namespace {
             }
 
             if ($i != null) {
-                return $i->FocusFillMax(1200, 630);
+                if (!$origin) {
+                    return $i->FocusFillMax(1200, 630);
+                } else {
+                    return $i;
+                }
             } elseif (file_exists(BASE_PATH . '/public/icon-512.png')) {
                 // Fallback to website's touch-icon
                 return rtrim(Director::absoluteBaseURL(), '/') . ModuleResourceLoader::resourceURL('public/icon-512.png');
@@ -319,6 +326,10 @@ namespace {
                         return true;
                     }
                 }
+            } elseif($this->ClassName == 'SilverStripe\CMS\Model\VirtualPage') {
+                if ($this->CopyContentFrom()->ElementalArea()->Elements()->Count() && $this->CopyContentFrom()->ElementalArea()->Elements()->first()->ClassName == 'App\Elements\ElementHero') {
+                    return true;
+                }
             }
         }
 
@@ -365,6 +376,12 @@ namespace {
                 $url = $req->getURL(FALSE);
                 return $url;
             }
+        }
+
+        public function getHomePage()
+        {
+            $defaultHomepage = RootURLController::config()->get('default_homepage_link');
+            return SiteTree::get()->filter('URLSegment', $defaultHomepage)->first();
         }
     }
 }

@@ -3,13 +3,13 @@ $(document).ready(function() {
 	// burger
 	var menuButton = document.getElementById('menuButton');
 	menuButton.addEventListener('click', function (event) {
-		$('body').toggleClass('mobile-nav--active');
+		$('html').toggleClass('mobile-nav--active');
 		event.preventDefault();
 	});
 
 	// just open and do not navigate on collapsed navi-items
 	$('.menu1').on('click', '>li.has-children:not(.expanded) > a', function(event) {
-		if ($('body').hasClass('mobile-nav--active')) {
+		if ($('html').hasClass('mobile-nav--active')) {
 			event.preventDefault();
 			event.stopPropagation();
 			$(this).parent().find("ul.mobile-menu2").toggleClass('expanded');
@@ -25,15 +25,15 @@ $(document).ready(function() {
 
 	// if we navigate, we fade-out .menu1 a bit to indicate action
 	$('.menu1').on('click', '>li:not(".has-children") > a, >li.expanded > a, .mobile-menu2 li > a', function(event) {
-		if ($('body').hasClass('mobile-nav--active')) {
+		if ($('html').hasClass('mobile-nav--active')) {
 			// event.stopPropagation();
-			$('body').fadeTo("fast", 0.6);
+			$('html').fadeTo("fast", 0.6);
 		}
 	});
 
-	$('body').on('click touch', '#overlaynav', function(event) {
-		if ($('body').hasClass('mobile-nav--active')) {
-			$('body').toggleClass('mobile-nav--active');
+	$('html').on('click touch', '#overlaynav', function(event) {
+		if ($('html').hasClass('mobile-nav--active')) {
+			$('html').toggleClass('mobile-nav--active');
 		}
 	});
 });

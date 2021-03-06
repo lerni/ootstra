@@ -22,6 +22,7 @@ class ElementPerso extends BaseElement
     ];
 
     private static $has_one = [];
+
     private static $has_many = [];
 
     private static $many_many = [
@@ -38,15 +39,11 @@ class ElementPerso extends BaseElement
         'Departments'
     ];
 
-    private static $inline_editable = false;
-
     private static $table_name = 'ElementPerso';
 
     private static $field_labels = [];
 
     private static $description = 'Perso Element';
-
-    private static $icon = 'font-icon-menu-security';
 
     private static $controller_class = ElementPersoController::class;
 
@@ -55,6 +52,10 @@ class ElementPerso extends BaseElement
     private static $singular_name = 'Personal';
 
     private static $plural_name = 'Personal';
+
+    private static $icon = 'font-icon-block-group';
+
+    private static $inline_editable = false;
 
     function getCMSFields()
     {

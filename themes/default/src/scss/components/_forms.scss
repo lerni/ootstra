@@ -88,7 +88,6 @@ form {
             label {
                 color: $lauftext-color;
                 margin-bottom: #{$lh/4}em;
-                font-size: $lauftext-size;
                 &.left {
 					display: block;
 					font-weight: normal;
@@ -109,7 +108,6 @@ form {
                 select {
                     width: 100%;
                     padding: 6px 5px;
-                    font-size: $lauftext-size;
                     background-color: $gray-lighter;
                     border: 1px solid $gray-lighter;
                     color: $lauftext-color;
@@ -151,6 +149,9 @@ form {
 				display: none;
 			}
 		}
+		fieldset.field {
+			max-width: 100%;
+		}
 	}
 	.message {
 		background-color: rgba($link-color, .1);
@@ -187,7 +188,6 @@ form {
 		padding: .7em 1.41em .6em;
 		border: none;
 		@include bold;
-		font-size: $lauftext-size;
 		margin: 10px auto;
 	}
 	a.btn:hover,
@@ -246,7 +246,6 @@ form {
 
 
 .checkbox label.right {
-	font-size: $lauftext-size;
 	color: $lauftext-color;
     float: left;
 }

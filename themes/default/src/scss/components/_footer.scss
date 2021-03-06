@@ -51,12 +51,6 @@ body > footer {
 			span, a {
 				display: block;
 				margin-right: #{$lh/2}em;
-				&.inline {
-					display: inline-block;
-					&:not(:last-of-type) {
-						margin-right: .2em;
-					}
-				}
             }
             a {
                 margin-top: #{$lh}em;

@@ -27,6 +27,8 @@ class ElementTextImage extends BaseElement
 
     private static $title = 'TextImage Element';
 
+    private static $icon = 'font-icon-block-layout-8';
+
     private static $inline_editable = false;
 
     public function fieldLabels($includerelations = true)
@@ -49,6 +51,8 @@ class ElementTextImage extends BaseElement
 
         if ($uploadField = $fields->dataFieldByName('Image')) {
             $uploadField->setFolderName('TextImageElement');
+            $size = 5 * 1024 * 1024;
+            $uploadField->getValidator()->setAllowedMaxFileSize($size);
             $uploadField->setDescription(_t(__CLASS__ . '.ImageDescription', 'min. 1400x1800px'));
         }
 

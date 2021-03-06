@@ -3,17 +3,8 @@ window.Swiper = require('swiper');
 var heroSwiper = new Swiper.default ('.swiper-container.hero', {
 	spaceBetween: 0,
 	direction: 'horizontal',
-	slidesPerView:'auto',
 	CSSWidthAndHeight: true,
-	lazy: true,
-	effect: 'fade',
-	preloadImages: false,
-	loadOnTransitionStart: true,
 	speed: 3000,
-	lazy: {
-		loadPrevNext: true,
-		elementClass: 'swiper-lazy'
-	},
 	autoplay: {
 		delay: 6000,
 		crossFade: true,

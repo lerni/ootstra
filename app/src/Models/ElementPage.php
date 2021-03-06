@@ -66,20 +66,6 @@ class ElementPage extends Page
         return $fields;
     }
 
-    public function hasHero()
-    {
-        if ($this->hasExtension('DNADesign\Elemental\Extensions\ElementalPageExtension')) {
-            if ($this->ElementalArea()->Elements()->Count() && $this->ElementalArea()->Elements()->First()->ClassName == 'App\Elements\ElementHero') {
-                return true;
-            }
-            if ($this->ElementalArea()->Elements()->Count() && $this->ElementalArea()->Elements()->First()->ClassName == 'DNADesign\ElementalVirtual\Model\ElementVirtual') {
-                if ($this->ElementalArea()->Elements()->First()->LinkedElement()->ClassName == 'App\Elements\ElementHero') {
-                    return true;
-                }
-            }
-        }
-    }
-
     // overwriting this form GoogleSitemapSiteTreeExtension,
     // since we do not want to get related pics in automatically
     public function ImagesForSitemap()

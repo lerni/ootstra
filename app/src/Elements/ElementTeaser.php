@@ -19,8 +19,11 @@ class ElementTeaser extends BaseElement
     private static $db = [
         'Layout' => 'Enum("third,halve,full", "third")'
     ];
+
     private static $has_one = [];
+
     private static $has_many = [];
+
     private static $many_many = [
         'Teasers' => Teaser::class
     ];
@@ -39,7 +42,7 @@ class ElementTeaser extends BaseElement
 
     private static $title = 'Teaser Element';
 
-    private static $icon = 'font-icon-thumbnails';
+    private static $icon = 'font-icon-block-layout-2';
 
     private static $inline_editable = false;
 

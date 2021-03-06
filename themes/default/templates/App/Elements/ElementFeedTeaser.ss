@@ -5,7 +5,7 @@
 			<div class="teasers third">
 				<% loop $Items %>
 					<a href="$Link" class="teaser">
-						<% if $getDefaultOGImage %><figure><img width="$getDefaultOGImage.FocusFillMax(340,170).Width()" height="$getDefaultOGImage.FocusFillMax(340,170).Height()" src="$getDefaultOGImage.FocusFillMax(340,170).URL" srcset="$getDefaultOGImage.FocusFillMax(340,170).URL 1x, $getDefaultOGImage.FocusFillMax(680,340).URL 2x" alt="$Title" /></figure><% end_if %>
+						<% if $getDefaultOGImage %><figure><img width="$getDefaultOGImage(1).FocusFillMax(340,170).Width()" height="$getDefaultOGImage(1).FocusFillMax(340,170).Height()" src="$getDefaultOGImage(1).FocusFillMax(340,170).URL" srcset="$getDefaultOGImage(1).FocusFillMax(340,170).URL 1x, $getDefaultOGImage(1).FocusFillMax(680,340).URL 2x" alt="$Title" /></figure><% end_if %>
 						<div class="txt">
 							<% if $OGTitle %><h4>$OGTitle</h4><% end_if %>
 							<% if $OGDescription %><p>$OGDescription.Summary(20)</p><% end_if %>
@@ -19,7 +19,7 @@
 			<div class="teasers halve">
 				<% loop $Items %>
 					<a href="$Link" class="teaser">
-						<% if $getDefaultOGImage %><figure><img width="$getDefaultOGImage.FocusFillMax(480,400).Width()" height="$getDefaultOGImage.FocusFillMax(480,400).Height()" src="$getDefaultOGImage.FocusFillMax(480,400).URL" srcset="$getDefaultOGImage.FocusFillMax(480,400).URL 1x, $getDefaultOGImage.FocusFillMax(960,800).URL 2x" alt="$Title" /></figure><% end_if %>
+						<% if $getDefaultOGImage %><figure><img width="$getDefaultOGImage(1).FocusFillMax(480,400).Width()" height="$getDefaultOGImage(1).FocusFillMax(480,400).Height()" src="$getDefaultOGImage(1).FocusFillMax(480,400).URL" srcset="$getDefaultOGImage(1).FocusFillMax(480,400).URL 1x, $getDefaultOGImage(1).FocusFillMax(960,800).URL 2x" alt="$Title" /></figure><% end_if %>
 						<div class="txt">
 							<% if $OGTitle %><h4>$OGTitle</h4><% end_if %>
 							<div class="accordion">
@@ -35,7 +35,7 @@
 			<div class="teasers full">
 				<% loop $Items %>
 					<a href="$Link" class="teaser">
-						<% if $getDefaultOGImage %><figure><img width="$getDefaultOGImage.FocusFillMax(1400,600).Width()" height="$getDefaultOGImage.FocusFillMax(1400,600).Height()" src="$getDefaultOGImage.FocusFillMax(1400,600).URL" srcset="$getDefaultOGImage.FocusFillMax(1400,600).URL 1x, $getDefaultOGImage.FocusFillMax(2800,1200).URL 2x" alt="$Title" /></figure><% end_if %>
+						<% if $getDefaultOGImage %><figure><img width="$getDefaultOGImage(1).FocusFillMax(1400,600).Width()" height="$getDefaultOGImage(1).FocusFillMax(1400,600).Height()" src="$getDefaultOGImage(1).FocusFillMax(1400,600).URL" srcset="$getDefaultOGImage(1).FocusFillMax(1400,600).URL 1x, $getDefaultOGImage(1).FocusFillMax(2800,1200).URL 2x" alt="$Title" /></figure><% end_if %>
 						<div class="txt">
 							<% if $OGTitle %><h4>$OGTitle</h4><% end_if %>
 							<div class="accordion">

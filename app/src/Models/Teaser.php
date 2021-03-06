@@ -52,11 +52,13 @@ class Teaser extends DataObject
 
         if ($uploadField = $fields->dataFieldByName('Image')) {
             $uploadField->setFolderName('Teasers');
+            $size = 5 * 1024 * 1024;
+            $uploadField->getValidator()->setAllowedMaxFileSize($size);
             $uploadField->setDescription(_t(__CLASS__ . '.ImageDescription', 'min. 600x600px'));
         }
 
         if ($teaserActionField = $fields->dataFieldByName('Action')) {
-            $teaserActionField->setDescription('Default: "' . _t('App\Models\Teaser.MORE', 'Mehr erfahren') . '"');
+            $teaserActionField->setAttribute('placeholder', _t('App\Models\Teaser.MORE', 'Mehr erfahren'));
         }
 
         // text left or right is available just for fullwidth layout

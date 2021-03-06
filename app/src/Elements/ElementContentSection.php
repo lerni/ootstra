@@ -20,9 +20,11 @@ class ElementContentSection extends BaseElement
     private static $db = [
         'HTML' => 'HTMLText'
     ];
+
     private static $many_many = [
         'ContentParts' => ContentPart::class
     ];
+
     private static $many_many_extraFields = [
         'ContentParts' => [
             'SortOrder' => 'Int'
@@ -35,7 +37,7 @@ class ElementContentSection extends BaseElement
 
     private static $table_name = 'ElementContentSection';
 
-    private static $icon = 'font-icon-menu';
+    private static $icon = 'font-icon-block-table-data';
 
     private static $inline_editable = false;
 

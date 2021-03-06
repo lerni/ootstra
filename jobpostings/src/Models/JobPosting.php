@@ -196,7 +196,7 @@ class JobPosting extends DataObject
         }
 
         if ($InseratuploadField = $fields->dataFieldByName('Inserat')) {
-            $InseratuploadField->allowedExtensions = array('PDF');
+            $InseratuploadField->allowedExtensions = array('PDF', 'pdf');
             $InseratuploadField->setFolderName('jobs');
             $InseratuploadField->setDescription(_t('Kraftausdruck\Models\JobPosting.InseratDesc', 'PDF'));
         }

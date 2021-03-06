@@ -58,7 +58,7 @@
 		padding: 0 0 0 #{$lh/3*2}em;
 		li {
 			line-height: $lh;
-			padding: 0 0 0 #{$lh/2}em;
+			padding: 0 0 #{$lh/2}em #{$lh/2}em;
 			font-size: 1em;
 		}
 		ul {
@@ -103,10 +103,6 @@
 		}
 	}
 
-	p + ul,
-	p + ol {
-		margin-top: -#{$lh/2}em;
-	}
 	// * HEADER STYLES
 	// -------------------------------------------- */
 

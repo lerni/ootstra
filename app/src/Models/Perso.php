@@ -87,6 +87,8 @@ class Perso extends DataObject
 
         if ($MAuploadField = $fields->dataFieldByName('Portrait')) {
             $MAuploadField->setFolderName('Portraits');
+            $size = 5 * 1024 * 1024;
+            $MAuploadField->getValidator()->setAllowedMaxFileSize($size);
             $MAuploadField->setDescription(_t(__CLASS__ . '.PortraitDescription', 'min. 576x766px'));
         }
         // $fields->insertAfter($MAuploadField, 'Title');

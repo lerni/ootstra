@@ -20,6 +20,7 @@ class ElementCounter extends BaseElement
     private static $many_many = [
         'CountItems' => CountItem::class
     ];
+
     private static $many_many_extraFields = [
         'CountItems' => [
             'SortOrder' => 'Int'
@@ -32,7 +33,7 @@ class ElementCounter extends BaseElement
 
     private static $description = 'Counter Element';
 
-    private static $icon = 'font-icon-pulse';
+    private static $icon = 'font-icon-block-reports';
 
     private static $inline_editable = false;
 

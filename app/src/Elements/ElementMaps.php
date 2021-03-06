@@ -43,7 +43,7 @@ class ElementMaps extends BaseElement
         'AvailableGlobally' => 0
     ];
 
-    private static $icon = 'font-icon-globe-1';
+    private static $icon = 'font-icon-block-globe';
 
     private static $table_name = 'ElementMaps';
 

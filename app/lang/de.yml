@@ -8,9 +8,6 @@ de:
     MetaDescriptionRightTitle: 'Wird in Suchmaschinen-Ergebnissen verwendet, wenn Länge passt und Relevanz gegeben ist; beeinflusst die SEO-Position kaum. Ansprechende Meta-Descripton (besonders die ersten ~55 Zeichen -> Sitelinks) beeinflussen die Klickrate jedoch stark.'
   JonoM\ShareCare\ShareCare:
     TabName: 'Feed & Share'
-  App\Models\Teaser:
-    MORE: 'Mehr&nbsp;erfahren'
-    ImageDescription: 'min. 600x600px'
   DNADesign\Elemental\Forms\TextCheckboxGroupField:
     TitleLabel: 'Titel'
   SilverStripe\Forms\GridField\GridField:
@@ -38,7 +35,7 @@ de:
   App\Elements\ElementGallery:
     BlockType: 'Gallery'
     CROPGALLERYTUMBSBYWIDTH: 'keep aspectratio for thumbnails'
-    OneOrTheOther: 'Choose a folder (all images contained) OR upload/choose/sort directly'
+    OneOrTheOther: 'Ordner wählen (alle enthaltenen Bilder) oder hier direkt wählen & sortieren'
     GalleryImagesDescription: 'Breite getrimmt auf 1224px'
   App\Elements\ElementHero:
     BlockType: 'Hero'
@@ -55,6 +52,9 @@ de:
     COUNTMAX: 'Anzahl (default 3)'
   App\Elements\ElementTeaser:
     BlockType: 'Teaser'
+  App\Models\Teaser:
+    MORE: 'Mehr erfahren'
+    ImageDescription: 'min. 600x600px'
   App\Elements\ElementTextImage:
     BlockType: 'Text Image'
     HTML: 'Text'

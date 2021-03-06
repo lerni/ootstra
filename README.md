@@ -98,7 +98,7 @@ This project uses [Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([web
 
 # Hosting & Deployment
 
-You need to [add your public key on the remote server](https://www.google.com/search?q=add+public+key+to+server) in ~/.ssh/authorized_keys. You can use [ssh-copy-id](https://www.ssh.com/ssh/copy-id) on nix-based systems. Deployment is based on [Deployer](https://deployer.org/) - a php based cli-tool. It uses symlinks to the current release. It's easy to use, offers zero downtime deployments and rollback. `/assets`, `.env`, `silverstripe.log` are shared ressources, this means they are also symlinked into each release-folder.
+You need to [add your public key on the remote server](https://www.google.com/search?q=add+public+key+to+server) in ~/.ssh/authorized_keys. You can use [ssh-copy-id](https://www.ssh.com/ssh/copy-id) on nix-based systems. Deployment is based on [Deployer](https://deployer.org/) - a php based cli-tool. It uses symlinks to the current release. It's easy to use, offers zero downtime deployments and rollback. `/assets`, `.env` are shared ressources, this means they are also symlinked into each release-folder.
 
 ```
 ~/public_html/0live        or ~/public_html/0stage
@@ -125,7 +125,6 @@ You need to [add your public key on the remote server](https://www.google.com/se
 |--shared
    |--public/assets
    |--.env
-   |--silverstripe.log
 
 ```
 

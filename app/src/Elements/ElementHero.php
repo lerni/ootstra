@@ -21,29 +21,32 @@ class ElementHero extends BaseElement
         'Size' => 'Enum("small,medium,fullscreen","small")',
         'DoNotCrop' => 'Boolean'
     ];
+
     private static $many_many = [
         'Slides' => Slide::class
     ];
+
     private static $many_many_extraFields = [
         'Slides' => [
             'SortOrder' => 'Int'
         ]
     ];
+
     private static $owns = [
         'Slides'
     ];
 
     private static $table_name = 'ElementHero';
 
-    private static $inline_editable = false;
-
-    private static $icon = 'font-icon-block-carousel';
-
     private static $defaults = [
         'isFullWidth' => 1
     ];
 
     private static $description = 'Hero Element';
+
+    private static $icon = 'font-icon-block-carousel';
+
+    private static $inline_editable = false;
 
     public function fieldLabels($includerelations = true)
     {

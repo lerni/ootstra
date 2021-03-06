@@ -55,6 +55,10 @@ task('silverstripe:installtools', function () {
     if ('true' != $hasSspak) {
         run('curl -sS https://silverstripe.github.io/sspak/install | php -- ~/bin');
     }
+    $hasSsbak = run("if [ -e ~/bin/ssbak ]; then echo 'true'; fi");
+    if ('true' != $hasSsbak) {
+        run('curl -L https://github.com/axllent/ssbak/releases/latest/download/ssbak_linux_amd64.tar.gz --create-dirs -o ~/bin/ssbak.tar.gz && tar -xf ~/bin/ssbak.tar.gz && rm ~/bin/ssbak.tar.gz');
+    }
     $hasComposer = run("if [ -e ~/bin/composer.phar ]; then echo 'true'; fi");
     if ('true' != $hasComposer) {
         // run('curl https://getcomposer.org/composer-1.phar --create-dirs -o ~/bin/composer.phar');
@@ -117,11 +121,11 @@ task('silverstripe:upload_assets', function () {
     $local = sys_get_temp_dir() . '/' . $filename;
 
     // Dump assets from local copy and upload
-    runLocally("./vendor/bin/sspak save --assets . $local");
+    runLocally("{{ssXak_local_path}} save --assets . $local");
     upload($local, "{{deploy_path}}/dumps/");
 
     // Deploy assets
-    run("cd {{release_path}} && ~/bin/sspak load --assets {{deploy_path}}/dumps/{$filename}");
+    run("cd {{release_path}} && {{ssXak_path}} load --assets {{deploy_path}}/dumps/{$filename}");
 
     // Tidy up
     runLocally("rm $local");
@@ -137,11 +141,11 @@ task('silverstripe:upload_database', function () {
     $local = sys_get_temp_dir() . '/' . $filename;
 
     // Dump database from local copy and upload
-    runLocally("./vendor/bin/sspak save --db . $local");
+    runLocally("{{ssXak_local_path}} save --db . $local");
     upload($local, "{{deploy_path}}/dumps/");
 
     // Deploy database
-    run("cd {{release_path}} && ~/bin/sspak load --db {{deploy_path}}/dumps/{$filename}");
+    run("cd {{release_path}} && {{ssXak_path}} load --db {{deploy_path}}/dumps/{$filename}");
 
     // Tidy up
     runLocally("rm $local");
@@ -156,11 +160,11 @@ task('silverstripe:download_assets', function () {
     $local = sys_get_temp_dir() . '/' . $filename;
 
     // Dump assets from remote copy and download
-    run("cd {{release_path}} && ~/bin/sspak save --assets . {{deploy_path}}/dumps/{$filename}");
+    run("cd {{release_path}} && {{ssXak_path}} save --assets . {{deploy_path}}/dumps/{$filename}");
     download("{{deploy_path}}/dumps/{$filename}", $local);
 
     // Import assets
-    runLocally("./vendor/bin/sspak load --assets {$local}");
+    runLocally("{{ssXak_local_path}} load --assets {$local}");
 
     // Tidy up
     runLocally("rm $local");
@@ -175,11 +179,11 @@ task('silverstripe:download_database', function () {
     $local = sys_get_temp_dir() . '/' . $filename;
 
     // Dump database from remote copy and download
-    run("cd {{release_path}} && ~/bin/sspak save --db . {{deploy_path}}/dumps/{$filename}");
+    run("cd {{release_path}} && {{ssXak_path}} save --db . {{deploy_path}}/dumps/{$filename}");
     download("{{deploy_path}}/dumps/{$filename}", $local);
 
     // Import database
-    runLocally("./vendor/bin/sspak load --db {$local}");
+    runLocally("{{ssXak_local_path}} load --db {$local}");
 
     // Tidy up
     runLocally("rm $local");
@@ -193,22 +197,23 @@ task('silverstripe:remote_dump', function ($prefix = 'auto') {
     $stage = Context::get()->getHost()->getConfig()->get('stage');
 
     $releaseNo = basename(get('release_path'));
+    if($releaseNo) {
+        $filename = 'auto-' . get('application') . '-' . $stage . '-' . $releaseNo . '-db-' . date('Y-m-d-H-i-s') . '.sql.gz';
+        $filename = get('application') . '-' . $stage . '-' . $releaseNo . '-db-' . date('Y-m-d-H-i-s') . '.sql.gz';
+        if ($prefix) {
+            $filename = $prefix . '-' . $filename;
+        } else {
+            $filename = 'auto-' . $filename;
+        }
 
-    $filename = 'auto-' . get('application') . '-' . $stage . '-' . $releaseNo . '-db-' . date('Y-m-d-H-i-s') . '.sql.gz';
-    $filename = get('application') . '-' . $stage . '-' . $releaseNo . '-db-' . date('Y-m-d-H-i-s') . '.sql.gz';
-    if ($prefix) {
-        $filename = $prefix . '-' . $filename;
-    } else {
-        $filename = 'auto-' . $filename;
+        // delete older dumps
+        run('rm -f $(ls -1t {{deploy_path}}/dumps/auto-' . get('application') . '-' . $stage . '* | tail -n +' . get('keep_releases') . ')');
+
+        // Dump database remote DB
+        run("cd {{release_path}} && {{ssXak_path}} save --db . {{deploy_path}}/dumps/{$filename}");
+
+        $dumpsdirsize = run('du -h {{deploy_path}}/dumps');
+        writeln('dumps directory: ' . $dumpsdirsize);
     }
-
-    // delete older dumps
-    run('rm -f $(ls -1t {{deploy_path}}/dumps/auto-' . get('application') . '-' . $stage . '* | tail -n +' . get('keep_releases') . ')');
-
-    // Dump database remote DB
-    run("cd {{release_path}} && ~/bin/sspak save --db . {{deploy_path}}/dumps/{$filename}");
-
-    $dumpsdirsize = run('du -h {{deploy_path}}/dumps');
-    writeln('dumps directory: ' . $dumpsdirsize);
 });
 before('silverstripe:remote_dump', 'silverstripe:create_dump_dir');

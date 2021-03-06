@@ -34,9 +34,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "browserslist": [
-    "last 1 version",
-    "ie 10",
-    ">1%"
+    "defaults"
   ],
   "dependencies": {
     "@fancyapps/fancybox": "^3.5.7",

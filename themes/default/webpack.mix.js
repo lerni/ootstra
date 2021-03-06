@@ -74,7 +74,7 @@ const parent = path.basename(path.join(sitepath, '../'));
 if (parent === 'webroot') {
   mix.browserSync({
     files: ['dist/**/*'],// , 'templates/**/*'
-    proxy: `https://${path.basename(sitepath)}.lodev`
+    proxy: `http://${path.basename(sitepath)}.lodev`
   });
 }
 

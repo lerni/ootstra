@@ -88,13 +88,16 @@ set('writable_dirs', [
 ]);
 set('allow_anonymous_stats', false);
 
+set('ssXak_local_path', '/usr/local/bin/ssbak');
+set('ssXak_path', '~/bin/ssbak');
+
 // Hosts
 set('default_stage', 'stage');
 
 set('bin/composer', '~/bin/composer.phar');
 set('composer_options', 'install --no-dev --verbose --prefer-dist --optimize-autoloader --no-interaction');
 set('http_user', DEP_SERVER_USER);
-set('default_timeout', 1200); // default is 300 - sspak sometimes needs more. With this we at least see the truncated (size-limit) error :(
+set('default_timeout', 6000); // default is 300 - sspak sometimes needs more. With this we at least see the truncated (size-limit) error :(
 
 // Production aliases
 foreach (['production', 'prod', 'live'] as $alias) {

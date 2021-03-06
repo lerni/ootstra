@@ -21,7 +21,6 @@
 			src:url("$resourceURL('app/fonts/icons.woff2')") format('woff2'),
 			url("$resourceURL('app/fonts/icons.woff')") format('woff');
 			font-style: normal;
-			font-display: block;
 		}
 	</style>
 </head>

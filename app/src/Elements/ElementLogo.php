@@ -41,9 +41,9 @@ class ElementLogo extends BaseElement
 
     private static $field_labels = [];
 
-    private static $inline_editable = false;
+    private static $icon = 'font-icon-block-layout-2';
 
-    private static $icon = 'font-icon-thumbnails';
+    private static $inline_editable = false;
 
     function getCMSFields()
     {

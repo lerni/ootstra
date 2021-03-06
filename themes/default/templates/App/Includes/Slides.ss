@@ -8,14 +8,13 @@
 							<figure <% if $LinkID %>class="linked"<% end_if %>><img sizes="100vw"
 								height="$SlideImage.FocusFillMax(1440,360).Height()"
 								width="$SlideImage.FocusFillMax(1440,360).Width()"
-								<% if not $First %>class="swiper-lazy"<% end_if %>
+								<% if not $First %>loading="lazy" <% end_if %>
 								alt="$SlideImage.Title"
 								style="object-position: {$SlideImage.FocusFillMax(2600,650).PercentageX}% {$SlideImage.FocusFillMax(2600,650).PercentageY}%;"
 								<% if not $First %>data-<% end_if %>src="$SlideImage.FocusFillMax(1440,360).URL"
 								<% if not $First %>data-<% end_if %>srcset="
 									$SlideImage.FocusFillMax(480,120).URL 480w,
 									$SlideImage.FocusFillMax(640,160).URL 640w,
-									$SlideImage.FocusFillMax(720,180).URL 720w,
 									$SlideImage.FocusFillMax(800,200).URL 800w,
 									$SlideImage.FocusFillMax(1000,250).URL 1000w,
 									$SlideImage.FocusFillMax(1200,300).URL 1200w,
@@ -28,14 +27,12 @@
 							<figure <% if $LinkID %>class="linked"<% end_if %>><img sizes="100vw"
 								height="$SlideImage.FocusFillMax(1440,550).Height()"
 								width="$SlideImage.FocusFillMax(1440,550).Width()"
-								<% if not $First %>class="swiper-lazy"<% end_if %>
+								<% if not $First %>loading="lazy" <% end_if %>
 								alt="$SlideImage.Title"
 								style="object-position: {$SlideImage.FocusFillMax(1440,810).PercentageX}% {$SlideImage.FocusFillMax(1440,810).PercentageY}%;"
-								<% if not $First %>data-<% end_if %>src="$SlideImage.FocusFillMax(1440,810).URL"
-								<% if not $First %>data-<% end_if %>srcset="
-									$SlideImage.FocusFillMax(480,270).URL 480w,
+								src="$SlideImage.FocusFillMax(1440,810).URL"
+								srcset="$SlideImage.FocusFillMax(480,270).URL 480w,
 									$SlideImage.FocusFillMax(640,360).URL 640w,
-									$SlideImage.FocusFillMax(720,405).URL 720w,
 									$SlideImage.FocusFillMax(800,450).URL 800w,
 									$SlideImage.FocusFillMax(1000,563).URL 1000w,
 									$SlideImage.FocusFillMax(1200,675).URL 1200w,
@@ -49,7 +46,6 @@
 								<%-- 8:5 is like macbook pro display--%>
 								<source media="(min-width: 640px) and (min-aspect-ratio: 8/5)"
 										srcset="$SlideImage.FocusFillMax(640,400).URL 640w,
-									$SlideImage.FocusFillMax(720,450).URL 720w,
 									$SlideImage.FocusFillMax(800,500).URL 800w,
 									$SlideImage.FocusFillMax(1000,625).URL 1000w,
 									$SlideImage.FocusFillMax(1200,750).URL 1200w,

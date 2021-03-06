@@ -37,8 +37,6 @@ class ElementPersoCFA extends BaseElement
         'Persos'
     ];
 
-    private static $inline_editable = false;
-
     private static $table_name = 'ElementPersoCFA';
 
     private static $defaults = [
@@ -47,13 +45,15 @@ class ElementPersoCFA extends BaseElement
 
     private static $description = 'Call for Contact Perso Element';
 
-    private static $icon = 'font-icon-menu-security';
-
     private static $title = 'Ansprechpartner';
 
     private static $singular_name = 'Ansprechpartner';
 
     private static $plural_name = 'Ansprechpartner';
+
+    private static $icon = 'font-icon-block-user';
+
+    private static $inline_editable = false;
 
     public function fieldLabels($includerelations = true)
     {

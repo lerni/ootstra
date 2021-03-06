@@ -84,13 +84,15 @@ class SiteConfigExtension extends Extension
 
         $fields->addFieldToTab(
             'Root.Main',
-            $SlideBildField = UploadField::create(
+            $DefaultHeaderImageField = UploadField::create(
                 $name = 'DefaultHeaderImage',
                 $title = _t('SilverStripe\SiteConfig\SiteConfig.DEFAULTHEADERIMAGE', 'Wird angezeigt, falls kein Hero in ElementPage')
             )
         );
-        $SlideBildField->setFolderName('Slides');
-        $SlideBildField->setDescription(_t('SilverStripe\SiteConfig\SiteConfig.DefaultHeaderImageDescription', '2600x993px'));
+        $DefaultHeaderImageField->setFolderName('Slides');
+        $size = 5 * 1024 * 1024;
+        $DefaultHeaderImageField->getValidator()->setAllowedMaxFileSize($size);
+        $DefaultHeaderImageField->setDescription(_t('SilverStripe\SiteConfig\SiteConfig.DefaultHeaderImageDescription', '2600x993px'));
 
         $ServiceNavigationGridFieldConfig = GridFieldConfig_Base::create(20);
         $ServiceNavigationGridFieldConfig->addComponents(

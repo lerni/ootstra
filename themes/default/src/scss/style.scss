@@ -212,10 +212,11 @@ main.typography {
 }
 
 .element {
-	// display: table;
-	clear: both;
 	position: relative;
 	width: 100%;
+	max-width: $inner-width--extended;
+	margin-left: auto;
+	margin-right: auto;
 	$min-spacing: 0;
 	$max-spacing: 6;
 	&.background-gray-lighter {
@@ -524,7 +525,6 @@ main.typography {
 				background-color: rgba($white, .86);
 				padding: #{$lh}em;
 				@include breakpoint($Mplus) {
-					box-shadow: #{$lh/2}em 0 #{$lh}em rgba($black, .1);
 					padding: #{$lh}em;
 					width: 100%;
 					box-shadow: none;
@@ -543,7 +543,6 @@ main.typography {
 			position: relative;
 			margin: 0;
 			margin-left: #{$lh}em;
-			position: relative;
 			z-index: 0;
 			@include ie11 {
 				max-width: calc(#{percentage(2/3)} - #{$lh}em);

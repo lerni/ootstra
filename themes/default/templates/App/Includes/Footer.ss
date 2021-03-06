@@ -17,8 +17,7 @@
 				<% with $SiteConfig.Locations.First() %>
 					<span>$Title</span>
 					<span>$Address</span>
-					<span class="inline">$PostalCode</span>
-					<span class="inline">$Town</span>
+					<span>$PostalCode $Town</span>
 					<% if $Telephone %><a href="tel:{$Telephone.TelEnc}"><%t Page.TELEPHONE "T" %>&nbsp;$Telephone</a><% end_if %>
 					<% if $EMail %><a href="mailto:{$EMail}">$EMail</a><% end_if %>
 				<% end_with %>

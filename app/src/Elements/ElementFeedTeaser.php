@@ -25,8 +25,11 @@ class ElementFeedTeaser extends BaseElement
         'FirstLinkAction' => 'Varchar',
         'CountMax' => 'Int'
     ];
+
     private static $has_one = [];
+
     private static $has_many = [];
+
     private static $many_many = [
         'FeedTeaserParents' => SiteTree::class,
         'Categories' => BlogCategory::class
@@ -46,7 +49,7 @@ class ElementFeedTeaser extends BaseElement
 
     private static $title = 'Feed Teaser Element';
 
-    private static $icon = 'font-icon-thumbnails';
+    private static $icon = 'font-icon-block-layout-2';
 
     private static $inline_editable = false;
 

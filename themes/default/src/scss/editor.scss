@@ -26,6 +26,11 @@ body.mce-content-body {
 	&.typography {
 		max-width: $inner-width--reduced;
 	}
+	div.embed {
+		.placeholder {
+			width: 100% !important;
+		}
+	}
 }
 
 body.global-alert {
