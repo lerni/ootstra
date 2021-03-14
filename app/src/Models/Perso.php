@@ -53,6 +53,11 @@ class Perso extends DataObject
         'Lastname'
     ];
 
+    private static $translate = [
+        'Position',
+        'Motivation'
+    ];
+
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
@@ -64,11 +69,6 @@ class Perso extends DataObject
 
         return $labels;
     }
-
-    private static $translate = [
-        'Position',
-        'Motivation'
-    ];
 
     public function getCMSFields()
     {
@@ -83,6 +83,7 @@ class Perso extends DataObject
         if ($MotivationField = $fields->dataFieldByName('Motivation')) {
             $MotivationField->addExtraClass('stacked');
             $MotivationField->setAttribute('data-mce-body-class', 'persoeditor');
+            $MotivationField->setRows(10);
         }
 
         if ($MAuploadField = $fields->dataFieldByName('Portrait')) {

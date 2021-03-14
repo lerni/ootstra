@@ -57,7 +57,7 @@ task('silverstripe:installtools', function () {
     }
     $hasSsbak = run("if [ -e ~/bin/ssbak ]; then echo 'true'; fi");
     if ('true' != $hasSsbak) {
-        run('curl -L https://github.com/axllent/ssbak/releases/latest/download/ssbak_linux_amd64.tar.gz --create-dirs -o ~/bin/ssbak.tar.gz && tar -xf ~/bin/ssbak.tar.gz && rm ~/bin/ssbak.tar.gz');
+        run('curl -L https://github.com/axllent/ssbak/releases/latest/download/ssbak_linux_amd64.tar.gz --create-dirs -o ~/bin/ssbak.tar.gz && tar -xf ~/bin/ssbak.tar.gz -C ~/bin/ && rm ~/bin/ssbak.tar.gz');
     }
     $hasComposer = run("if [ -e ~/bin/composer.phar ]; then echo 'true'; fi");
     if ('true' != $hasComposer) {

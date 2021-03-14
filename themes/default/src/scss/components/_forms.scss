@@ -15,7 +15,8 @@ form {
 			border-radius: 0;
 			margin-bottom: 0;
 			legend {
-				display: none;
+				@include bold;
+				padding: #{$lh/2}em 0;
 			}
 			>.middleColumn>div {
 				margin-bottom: #{$lh}em;
@@ -39,9 +40,6 @@ form {
 					margin-bottom: -1px;
 				}
 			}
-		}
-		.field {
-			margin: 0 0 #{$lh/2}em 0;
 		}
 		.field.userformsstep {
 			margin: 0 0 0 #{$lh}em;
@@ -148,6 +146,58 @@ form {
 			&.hide {
 				display: none;
 			}
+			&.userformsoptionset {
+				$size: 16;
+				.middleColumn div {
+					position: relative;
+					label {
+						padding-left: 1.3em;
+						font-size: .8em;
+					}
+					input[type=radio] {
+						position: absolute;
+						visibility: hidden;
+						&:checked ~ .radio-check {
+							border: #{$size/5}px solid $link-color;
+						}
+						&:checked ~ .radio-check::before {
+							background-color: $link-color;
+						}
+						&:checked ~ label {
+							color: $link-color;
+						}
+					}
+					.radio-check {
+						pointer-events: none;
+						display: block;
+						position: absolute;
+						border: #{$size/5}px solid $lauftext-color;
+						border-radius: 100%;
+						height: #{$size}px;
+						width: #{$size}px;
+						top: #{$size/3}px;
+						left: 0;
+						z-index: 5;
+						transition: border .25s linear;
+						border: #{$size/5}px solid $lauftext-color;
+						&::before {
+							display: block;
+							position: absolute;
+							content: '';
+							border-radius: 100%;
+							height: #{$size/2}px;
+							width: #{$size/2}px;
+							top: #{$size/20}px;
+							left: #{$size/20}px;
+							margin: auto;
+							transition: background-color 0.25s linear;
+						}
+					}
+				}
+			}
+			.right-title {
+				font-size: .8em;
+			}
 		}
 		fieldset.field {
 			max-width: 100%;
@@ -168,9 +218,9 @@ form {
 		border-color: $red !important;
 		color: $lauftext-color !important;
 	}
-
 	body &.userform .left {
 		@include normal;
+		font-size: .8em;
 	}
 }
 
@@ -246,6 +296,7 @@ form {
 
 
 .checkbox label.right {
+	font-size: 1em;
 	color: $lauftext-color;
     float: left;
 }
@@ -279,9 +330,9 @@ form .optionset ul {
 	}
 
 span.message {
+	font-size: .8em;
 	margin: 10px 0;
 	display: block;
-	max-width: 390px;
 	clear: left;
 }
 div.holder-required {
@@ -334,7 +385,7 @@ form .file {
 .action.new-link,
 .btn,
 .btn-large {
-	font-size: $lauftext-size;
+	font-size: 1em;
 	text-decoration: none;
 	color: $white;
 	background-color: $link-color;
@@ -347,7 +398,6 @@ form .file {
 	display: inline-block;
 	padding: .3em 1em .4em;
 	&:hover {
-		border-color: $link-color;
 		background-color: $link-color;
 	}
 }

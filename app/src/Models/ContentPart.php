@@ -3,13 +3,17 @@
 namespace App\Models;
 
 use SilverStripe\ORM\DataObject;
+use SilverStripe\Forms\CompositeField;
 use App\Elements\ElementContentSection;
+use DNADesign\Elemental\Forms\TextCheckboxGroupField;
 
 class ContentPart extends DataObject
 {
     private static $db = [
         'Title' => 'Varchar',
-        'Text' => 'HTMLText'
+        'Text' => 'HTMLText',
+        'ShowTitle'  => 'Boolean',
+        'TitleLevel' => 'Enum("1,2,3","2")'
     ];
 
     private static $casting = [
@@ -21,6 +25,8 @@ class ContentPart extends DataObject
         'Text.Summary' => 'Text'
     ];
 
+    private static $table_name = 'ContentPart';
+
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
@@ -29,8 +35,6 @@ class ContentPart extends DataObject
         return $labels;
     }
 
-    private static $table_name = 'ContentPart';
-
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();
@@ -38,6 +42,35 @@ class ContentPart extends DataObject
         if ($TextEditorField = $fields->dataFieldByName('Text')) {
             $TextEditorField->setRows(30);
             $TextEditorField->addExtraClass('stacked');
+        }
+
+        // Add a combined field for "Title" and "Displayed" checkbox in a Bootstrap input group
+        $fields->removeByName('ShowTitle');
+        $fields->replaceField(
+            'Title',
+            TextCheckboxGroupField::create()
+                ->setName('Title')
+        );
+
+        $TitleField = $fields->dataFieldByName('Title');
+        if ($TitleField) {
+            $fields->removeByName('Title');
+
+            $TitleLevelField = $fields->dataFieldByName('TitleLevel');
+            $fields->removeByName('TitleLevel');
+            $TitleLevelField->setTitle(_t('DNADesign\Elemental\Models\BaseElement.TITLELEVEL', 'H1, H2, H3'));
+
+            $TitleFieldGroup = new CompositeField(
+                $TitleLevelField,
+                $TitleField
+            );
+
+            $TitleFieldGroup->replaceField(
+                'Title',
+                TextCheckboxGroupField::create()
+                    ->setName('Title')
+            );
+            $fields->addFieldToTab('Root.Main', $TitleFieldGroup, true);
         }
 
         return $fields;

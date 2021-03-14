@@ -3,17 +3,22 @@
 namespace App\Models;
 
 use SilverStripe\Assets\Image;
-use SilverStripe\CMS\Model\SiteTree;
-use SilverStripe\Forms\TreeDropdownField;
 use SilverStripe\ORM\DataObject;
+use SilverStripe\CMS\Model\SiteTree;
+use SilverStripe\Forms\CompositeField;
+use SilverStripe\Forms\TreeDropdownField;
+use DNADesign\Elemental\Forms\TextCheckboxGroupField;
 
 class Slide extends DataObject
 {
     private static $db = [
         'Title' => 'Varchar',
         'Text' => 'Text',
-        'TextAlignment' => 'Enum("center,upper-left,upper-right,lower-left,lower-right,lower-center","center")'
+        'TextAlignment' => 'Enum("center,upper-left,upper-right,lower-left,lower-right,lower-center","center")',
+        'ShowTitle'  => 'Boolean',
+        'TitleLevel' => 'Enum("1,2,3","2")'
     ];
+
     private static $has_one = [
         'SlideImage' => Image::class,
         'Link' => SiteTree::class
@@ -53,6 +58,35 @@ class Slide extends DataObject
     {
 
         $fields = parent::getCMSFields();
+
+        // Add a combined field for "Title" and "Displayed" checkbox in a Bootstrap input group
+        $fields->removeByName('ShowTitle');
+        $fields->replaceField(
+            'Title',
+            TextCheckboxGroupField::create()
+                ->setName('Title')
+        );
+
+        $TitleField = $fields->dataFieldByName('Title');
+        if ($TitleField) {
+            $fields->removeByName('Title');
+
+            $TitleLevelField = $fields->dataFieldByName('TitleLevel');
+            $fields->removeByName('TitleLevel');
+            $TitleLevelField->setTitle(_t('DNADesign\Elemental\Models\BaseElement.TITLELEVEL', 'H1, H2, H3'));
+
+            $TitleFieldGroup = new CompositeField(
+                $TitleLevelField,
+                $TitleField
+            );
+
+            $TitleFieldGroup->replaceField(
+                'Title',
+                TextCheckboxGroupField::create()
+                    ->setName('Title')
+            );
+            $fields->addFieldToTab('Root.Main', $TitleFieldGroup, true);
+        }
 
         $RelatedPage = TreeDropdownField::create('LinkID', 'Link', SiteTree::class);
         $fields->replaceField('LinkID', $RelatedPage);

@@ -28,6 +28,10 @@ class Point extends DataObject
         'Title' => 'Titel'
     ];
 
+    private static $searchable_fields = [
+        'Title'
+    ];
+
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
@@ -36,10 +40,6 @@ class Point extends DataObject
 
         return $labels;
     }
-
-    private static $searchable_fields = [
-        'Title'
-    ];
 
     public function getCMSFields()
     {

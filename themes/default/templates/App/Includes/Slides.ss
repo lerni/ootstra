@@ -100,6 +100,7 @@
 							<% if $LinkID %><a href="$Link.Link" class="txt {$TextAlignment}"><% else %><div class="txt {$TextAlignment}"><% end_if %>
 								<% if $Text %><div class="inner">
 									<div class="spacer">
+										<% if $ShowTitle %><h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %>>$Title</h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %>><% end_if %>
 										<p>$Text</p>
 									</div>
 								</div><% end_if %>

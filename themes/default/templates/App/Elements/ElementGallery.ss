@@ -1,7 +1,7 @@
 <% if not $isFullWidth %><div class="inner"><% end_if %>
 <% include App/Includes/ElementTitle %>
 <% if $Items %>
-	<% if $CropGalleryTumbsByWidth %>
+	<% if $CropGalleryThumbsByWidth %>
 		<ul class="gallery {$Layout}">
 			<% loop $Items %>
 				<li>

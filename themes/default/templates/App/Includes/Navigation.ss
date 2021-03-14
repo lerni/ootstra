@@ -2,7 +2,7 @@
 	<ul class="menu1">
 		<% loop $Menu(1) %>
 			<li class="$LinkingMode<% if $Childrenexcluded %> has-children<% end_if %>">
-				<a href="$Link">$MenuTitle.XML</a>
+				<a href="$Link">$MenuTitle</a>
 				<% if $Childrenexcluded %>
 					<ul class="menu2">
 						<% loop $Childrenexcluded %>

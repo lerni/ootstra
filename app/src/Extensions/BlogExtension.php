@@ -67,4 +67,9 @@ class BlogExtension extends DataExtension
             $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
         }
     }
+
+    // public function canCreate($member)
+    // {
+    //     return false;
+    // }
 }

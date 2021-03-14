@@ -23,10 +23,14 @@ class Logo extends DataObject
     ];
 
     private static $summary_fields = [
-        'LogoImage.CMSThumbnail' => 'Thumbnail',
+        'LogoImage.PreviewThumbnail' => 'Thumbnail',
         'Title' => 'Titel',
         'Link' => 'Link'
     ];
+
+    private static $table_name = 'Logo';
+
+    private static $default_sort = 'Title ASC';
 
     public function fieldLabels($includerelations = true)
     {
@@ -35,10 +39,6 @@ class Logo extends DataObject
 
         return $labels;
     }
-
-    private static $table_name = 'Logo';
-
-    private static $default_sort = 'Title ASC';
 
     public function getCMSFields()
     {

@@ -15,7 +15,7 @@ class JobPostingControllerExtension extends Extension
     public function job()
     {
         $URLSegment = $this->owner->getRequest()->param('ID');
-        $job = JobPosting::get()->filter('URLSegment', $URLSegment)->first();;
+        $job = JobPosting::get()->filter('URLSegment', $URLSegment)->first();
 
         if ($job && $job->Active == 1) {
 

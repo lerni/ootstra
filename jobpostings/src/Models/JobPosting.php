@@ -5,16 +5,17 @@ namespace Kraftausdruck\Models;
 use App\Models\Location;
 use App\Models\ElementPage;
 use Spatie\SchemaOrg\Schema;
-use Kraftausdruck\Elements\ElementJobs;
 use SilverStripe\Assets\File;
 use SilverStripe\Assets\Image;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Control\Director;
 use SilverStripe\Security\Security;
+use SilverStripe\View\Requirements;
 use SilverStripe\Control\Controller;
 use SilverStripe\Forms\ListboxField;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Versioned\Versioned;
+use Kraftausdruck\Elements\ElementJobs;
 use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\ORM\FieldType\DBHTMLText;
 use SilverStripe\View\Parsers\URLSegmentFilter;
@@ -125,6 +126,7 @@ class JobPosting extends DataObject
         $fields->removeByName('Sort');
 
         if ($page = $this->Parent()) {
+            Requirements::add_i18n_javascript('silverstripe/cms: client/lang', false, true);
             $fields->insertAfter(
                 SiteTreeURLSegmentField::create('URLSegment')
                     ->setURLPrefix($this->Parent()->getPage()->Link() . 'job/')
@@ -202,6 +204,16 @@ class JobPosting extends DataObject
         }
 
         return $fields;
+    }
+
+    // ValidThrough is not required but if set one year should be enough
+    public function validate()
+    {
+        $result = parent::validate();
+        if($this->ValidThrough > date('Y-m-d',strtotime('now + 1 year'))) {
+            $result->addError('Das JobPosting sollte höchstens ein Jahr gültig sein.');
+        }
+        return $result;
     }
 
     public function JobPostingSchema()

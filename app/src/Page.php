@@ -2,9 +2,10 @@
 
 namespace {
 
+    use App\Elements\ElementHero;
+    use App\Elements\ElementGallery;
     use JonoM\ShareCare\ShareCareFields;
     use Kraftausdruck\Models\JobPosting;
-    use App\Elements\ElementHero;
     use SilverStripe\Core\ClassInfo;
     use SilverStripe\Blog\Model\Blog;
     use SilverStripe\Forms\FieldList;
@@ -54,7 +55,7 @@ namespace {
                 }
 
                 if ($TextEditor = $fields->dataFieldByName('Content')) {
-                    $TextEditor->setRows(40);
+                    $TextEditor->setRows(30);
                     $TextEditor->addExtraClass('stacked');
                     $TextEditor->setAttribute('data-mce-body-class', $this->ShortClassName());
                 }
@@ -257,7 +258,7 @@ namespace {
                 $req = Controller::curr()->getRequest();
                 if ($req->param('Action') == 'job' && $req->param('ID')) {
                     $URLSegment = $req->param('ID');
-                    $job = JobPosting::get()->filter('URLSegment', $URLSegment)->first();;
+                    $job = JobPosting::get()->filter('URLSegment', $URLSegment)->first();
                     if ($job && $job->HeaderImage->exists()) {
                         $i = $job->HeaderImage();
                     }
@@ -326,11 +327,50 @@ namespace {
                         return true;
                     }
                 }
-            } elseif($this->ClassName == 'SilverStripe\CMS\Model\VirtualPage') {
+            } elseif($this->ClassName == 'SilverStripe\CMS\Model\VirtualPage' && $this->CopyContentFrom()->hasExtension('DNADesign\Elemental\Extensions\ElementalPageExtension')) {
                 if ($this->CopyContentFrom()->ElementalArea()->Elements()->Count() && $this->CopyContentFrom()->ElementalArea()->Elements()->first()->ClassName == 'App\Elements\ElementHero') {
                     return true;
                 }
             }
+        }
+
+        // overwriting this form GoogleSitemapSiteTreeExtension,
+        // since we do not want to get related pics in automatically
+        public function ImagesForSitemap()
+        {
+            $list = new ArrayList();
+
+            if ($this->hasExtension(ElementalPageExtension::class)) {
+                // Images from Heros
+                if ($elementHeros = $this->ElementalArea()->Elements()->filter('ClassName', ElementHero::class)) {
+                    foreach ($elementHeros as $hero) {
+                        if ($hero->Slides()->count()) {
+                            if ($slides = $hero->Slides()->Sort('SortOrder ASC')) {
+                                foreach ($slides as $slide) {
+                                    if ($slide->SlideImage->exists()) {
+                                        $list->push($slide->SlideImage);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                // Images from ElementGallery
+                if ($elementGallery = $this->ElementalArea()->Elements()->filter('ClassName', ElementGallery::class)) {
+                    foreach ($elementGallery as $gallery) {
+                        if ($gallery->Items()->count()) {
+                            if ($images = $gallery->Items()) {
+                                foreach ($images as $image) {
+                                    if ($image->exists()) {
+                                        $list->push($image);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return $list;
         }
 
         public function CategoriesWithState()

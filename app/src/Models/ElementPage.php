@@ -65,43 +65,4 @@ class ElementPage extends Page
 
         return $fields;
     }
-
-    // overwriting this form GoogleSitemapSiteTreeExtension,
-    // since we do not want to get related pics in automatically
-    public function ImagesForSitemap()
-    {
-        $list = new ArrayList();
-
-        if ($this->hasExtension(ElementalPageExtension::class)) {
-            // Images from Heros
-            if ($elementHeros = $this->ElementalArea()->Elements()->filter('ClassName', ElementHero::class)) {
-                foreach ($elementHeros as $hero) {
-                    if ($hero->Slides()->count()) {
-                        if ($slides = $hero->Slides()->Sort('SortOrder ASC')) {
-                            foreach ($slides as $slide) {
-                                if ($slide->SlideImage->exists()) {
-                                    $list->push($slide->SlideImage);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            // Images from ElementGallery
-            if ($elementGallery = $this->ElementalArea()->Elements()->filter('ClassName', ElementGallery::class)) {
-                foreach ($elementGallery as $gallery) {
-                    if ($gallery->Items()->count()) {
-                        if ($images = $gallery->Items()) {
-                            foreach ($images as $image) {
-                                if ($image->exists()) {
-                                    $list->push($image);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return $list;
-    }
 }

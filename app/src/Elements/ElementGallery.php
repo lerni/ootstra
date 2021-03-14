@@ -13,7 +13,7 @@ use SilverStripe\View\Parsers\URLSegmentFilter;
 class ElementGallery extends BaseElement
 {
     private static $db = [
-        'CropGalleryTumbsByWidth' => 'Boolean', // todo gahh typo
+        'CropGalleryThumbsByWidth' => 'Boolean',
         'Layout' => 'Enum("left,center,right", "center")'
     ];
 
@@ -40,17 +40,17 @@ class ElementGallery extends BaseElement
 
     private static $description = 'Gallery Element';
 
-    public function fieldLabels($includerelations = true)
-    {
-        $labels = parent::fieldLabels($includerelations);
-        $labels['CropGalleryTumbsByWidth'] = _t(__CLASS__ . '.CROPGALLERYTUMBSBYWIDTH', 'keep aspectratio for thumbnails');
-
-        return $labels;
-    }
-
     private static $icon = 'font-icon-block-file';
 
     private static $inline_editable = false;
+
+    public function fieldLabels($includerelations = true)
+    {
+        $labels = parent::fieldLabels($includerelations);
+        $labels['CropGalleryThumbsByWidth'] = _t(__CLASS__ . '.CROPGALLERYTHUMBSBYWIDTH', 'keep aspectratio for thumbnails');
+
+        return $labels;
+    }
 
     public function getCMSFields()
     {
@@ -79,7 +79,7 @@ class ElementGallery extends BaseElement
         $Subfolder = $filter->filter($this->Title);
         $uploadField->setFolderName('Gallery/' . $Subfolder);
         $uploadField->setSortColumn('SortOrder');
-        $size = 8 * 1024 * 1024;
+        $size = 5 * 1024 * 1024;
         $uploadField->getValidator()->setAllowedMaxFileSize($size);
         $uploadField->setDescription(_t(__CLASS__ . '.GalleryImagesDescription', 'Breite getrimmt auf 1224px'));
 

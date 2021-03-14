@@ -19,12 +19,6 @@ class CountItem extends DataObject
 
     private static $table_name = 'CountItem';
 
-    private static $field_labels = [
-        'Value' => 'Wert',
-        'Title' => 'Titel',
-        'Text' => 'Text'
-    ];
-
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);

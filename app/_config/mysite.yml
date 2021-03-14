@@ -5,6 +5,9 @@ After:
   - 'mysharecare'
   - 'blogconfig'
 ---
+SilverStripe\Assets\InterventionBackend:
+  flush_enabled: false
+
 SilverStripe\Assets\File:
   extensions:
     - App\Extensions\FileExtension

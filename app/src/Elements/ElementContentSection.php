@@ -18,7 +18,8 @@ use SwiftDevLabs\DuplicateDataObject\Forms\GridField\GridFieldDuplicateAction;
 class ElementContentSection extends BaseElement
 {
     private static $db = [
-        'HTML' => 'HTMLText'
+        'HTML' => 'HTMLText',
+        'Layout' => 'Enum("Accordion,Textblocks","Accordion")'
     ];
 
     private static $many_many = [
@@ -46,6 +47,10 @@ class ElementContentSection extends BaseElement
         $fields = parent::getCMSFields();
 
         $fields->removeByName('isFullWidth');
+
+        if ($LayoutField = $fields->dataFieldByName('Layout')) {
+            $fields->insertBefore($LayoutField, 'HTML');
+        }
 
         if ($TextEditorField = $fields->dataFieldByName('HTML')) {
             $TextEditorField->setRows(16);

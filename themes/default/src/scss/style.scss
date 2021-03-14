@@ -26,8 +26,8 @@ html, body {
 }
 
 html {
-	overflow-x: hidden;
-	overflow-y: scroll;
+	// overflow-x: hidden;
+	// overflow-y: scroll;
 	letter-spacing: .04em;
 	font-size: #{$lauftext-size};
 	font-family: $font-family;
@@ -65,7 +65,7 @@ body {
 	z-index: 200;
 	width: 100%;
 	height: $headerheight;
-	will-change: transform;
+	will-change: transform, height;
 	transition: transform .2s ease-out;
 	transform: translateY(0%);
 	box-shadow: none;
@@ -125,6 +125,13 @@ body {
 main.typography {
 	width:100%;
 	flex: 1;
+	border-top: $headerheight solid transparent;
+	@include breakpoint($XLneg) {
+		border-top-width: $headerheight--small;
+	}
+	@include breakpoint($Sneg) {
+		border-top-width: $headerheight--smaller;
+	}
 	@include ie11 {
 		flex: 1 0 auto;
 	}
@@ -245,8 +252,6 @@ main.typography {
 	&.elementhero {
 		display: block; // swiper.js shouldn't life in a display: table element otherwise layout breaks
 		// with DefaultHero the image is not wrapped with swiper divs
-		margin-top: $headerheight;
-
 		figure {
 			height: 100%;
 			width: 100%;
@@ -591,7 +596,9 @@ main.typography {
 		// this things are living in _perso.scss
 	}
 	&.elementcontentsection {
-		.content-part {
+		.content-part.accordion {
+			border-top: 1px solid $gray-light;
+			border-bottom: 1px solid $gray-light;
 			article {
 				header {
 					padding: #{$lh/2}em 0;
@@ -601,21 +608,26 @@ main.typography {
 					@include breakpoint($Lneg) {
 						flex: 0 0 100%;
 					}
+					h1.flip,
+					h2.flip,
 					h3.flip {
 						margin-bottom: 0;
 						&::after {
 							content: "";
 							display: block;
-							width: #{$lh*2.2}em;
-							height: #{$lh*1.2}em;
+							width: #{$lh*1.8}rem;
+							height: #{$lh*1.8}rem;
 							position: absolute;
 							right: 0;
-							top: #{$lh*.5}em;
+							top: .3em;
 							background-repeat: no-repeat;
-							background-image: svg-load('../images/svg/arrow-down.svg', fill=#{$lauftext-color});
-							background-position: center center;
-							background-size: 50%;
+							background-image: svg-load('../images/svg/forth.svg', fill=#{$lauftext-color});
+							// background-image: svg-load('../images/svg/arrow-down.svg', fill=#{$lauftext-color});
+							background-position: 50% 50%;
+							background-size: .4rem .8rem;
 							transform-origin: 50% 50%;
+							transition: .1s transform ease-in-out;
+							transform: rotate(90deg);
 						}
 					}
 				}
@@ -629,7 +641,7 @@ main.typography {
 					header {
 						h3.flip {
 							&::after {
-								transform: rotate(180deg);
+								transform: rotate(-90deg);
 							}
 						}
 					}
@@ -637,6 +649,16 @@ main.typography {
 			}
 			article.flip + article.flip {
 				border-top: 1px solid $gray-light;
+			}
+		}
+		.content-part.text-blocks {
+			display: grid;
+			max-width: initial;
+			grid-gap: #{$lh}em;
+			// grid-template-columns: 1fr 1fr;
+			grid-template-columns: 1fr 1fr;
+			@include breakpoint($Lneg) {
+				grid-template-columns: 1fr;
 			}
 		}
 	}
@@ -910,6 +932,25 @@ html .klaro {
 		// klaro link
 		.cm-modal .cm-footer .cm-powered-by {
 			display: none;
+		}
+	}
+}
+
+.metaoverviewpage {
+	.gallery {
+		list-style: none;
+		margin: 0;
+		display: flex;
+		flex-wrap: wrap;
+		padding: #{$lh}em 0 0 0;
+		li {
+			margin: 0 #{$lh}em #{$lh}em 0;
+			flex: 0 0 200px;
+			text-align: center;
+			font-size: .7em;
+			img {
+				margin-bottom: 0;
+			}
 		}
 	}
 }

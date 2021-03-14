@@ -46,6 +46,8 @@ class Department extends DataObject
 
     private static $searchable_fields = ['Title'];
 
+    private static $table_name = 'Department';
+
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
@@ -53,8 +55,6 @@ class Department extends DataObject
 
         return $labels;
     }
-
-    private static $table_name = 'Department';
 
     public function getCMSFields()
     {

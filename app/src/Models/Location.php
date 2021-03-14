@@ -37,21 +37,6 @@ class Location extends DataObject
     private static $singular_name = 'Location';
     private static $plural_name = 'Locations';
 
-    public function fieldLabels($includerelations = true)
-    {
-        $labels = parent::fieldLabels($includerelations);
-        $labels['Address'] = _t(__CLASS__ . '.ADDRESS', 'Adresse');
-        $labels['PostOfficeBoxNumber'] = _t(__CLASS__ . '.POSTOFFICEBOXNUMBER', 'Postfach');
-        $labels['PostalCode'] = _t(__CLASS__ . '.POSTALCODE', 'PLZ');
-        $labels['Town'] = _t(__CLASS__ . '.TOWN', 'Ort');
-        $labels['AddressRegion'] = _t(__CLASS__ . '.ADDRESSREGION', 'Kanton');
-        $labels['Telephone'] = _t(__CLASS__ . '.TELEPHONE', 'Telefon');
-        $labels['EMail'] = _t(__CLASS__ . '.EMAIL', 'E-Mail');
-        $labels['GeoPoint'] = _t(__CLASS__ . '.GEOPOINT', 'Koordinaten');
-
-        return $labels;
-    }
-
     private static $summary_fields = [
         'Title' => 'Titel',
         'Address' => 'Adresse',
@@ -67,6 +52,21 @@ class Location extends DataObject
     private static $translate = [
         'Title'
     ];
+
+    public function fieldLabels($includerelations = true)
+    {
+        $labels = parent::fieldLabels($includerelations);
+        $labels['Address'] = _t(__CLASS__ . '.ADDRESS', 'Adresse');
+        $labels['PostOfficeBoxNumber'] = _t(__CLASS__ . '.POSTOFFICEBOXNUMBER', 'Postfach');
+        $labels['PostalCode'] = _t(__CLASS__ . '.POSTALCODE', 'PLZ');
+        $labels['Town'] = _t(__CLASS__ . '.TOWN', 'Ort');
+        $labels['AddressRegion'] = _t(__CLASS__ . '.ADDRESSREGION', 'Kanton');
+        $labels['Telephone'] = _t(__CLASS__ . '.TELEPHONE', 'Telefon');
+        $labels['EMail'] = _t(__CLASS__ . '.EMAIL', 'E-Mail');
+        $labels['GeoPoint'] = _t(__CLASS__ . '.GEOPOINT', 'Koordinaten');
+
+        return $labels;
+    }
 
     public function getCMSFields()
     {

@@ -115,10 +115,21 @@ fieldset.grid {
 	margin-left: initial;
 }
 
+/* thumbnail preview marke used if GF on ProductPage */
+.col-LogoImage-PreviewThumbnail img,
+.col-Logo-PreviewThumbnail img {
+	max-width: 100px;
+}
+
 #Form_ItemEditForm_Title_Holder .form__field-update-url::after {
 	content: 'update URL';
 }
 /* prevent description being shown inline */
 #Form_ItemEditForm_Title_Holder .form__field-description {
 	width: 100%;
+}
+
+/* elemental create new elements */
+.popover.show {
+    min-width: 360px;
 }

@@ -43,8 +43,6 @@ class ElementMaps extends BaseElement
         'AvailableGlobally' => 0
     ];
 
-    private static $icon = 'font-icon-block-globe';
-
     private static $table_name = 'ElementMaps';
 
     private static $title = 'Map';
@@ -56,6 +54,8 @@ class ElementMaps extends BaseElement
     private static $plural_name = 'Maps';
 
     private static $controller_class = ElementMapsController::class;
+
+    private static $icon = 'font-icon-block-globe';
 
     private static $inline_editable = false;
 
