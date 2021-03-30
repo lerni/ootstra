@@ -11,6 +11,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/lerni/silverstripe-webp-image"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/tractorcow/silverstripe-focuspoint"
         }
     ],
     "require": {
@@ -25,7 +29,7 @@
         "symbiote/silverstripe-gridfieldextensions": "^3",
         "wilr/silverstripe-googlesitemaps": "^2",
         "jonom/silverstripe-betternavigator": "^5",
-        "jonom/focuspoint": "^3",
+        "jonom/focuspoint": "dev-fix/performance as 4.0.0",
         "silverstripe/userforms": "^5",
         "silverstripe/blog": "^3",
         "axllent/silverstripe-email-obfuscator": "^2",
@@ -37,7 +41,7 @@
         "silverstripe/sharedraftcontent": "^2",
         "dnadesign/silverstripe-elemental": "^4",
         "dnadesign/silverstripe-elemental-userforms": "^3",
-        "dnadesign/silverstripe-elemental-virtual": "dev-master as 1.0",
+        "dnadesign/silverstripe-elemental-virtual": "^1",
         "bummzack/sortablefile": "^2.1",
         "silverstripe/redirectedurls": "^2.0",
         "undefinedoffset/silverstripe-nocaptcha": "^2.0",
@@ -55,7 +59,6 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^5",
-        "silverstripe/sspak": "dev-master",
         "deployer/deployer": "^6"
     },
     "extra": {

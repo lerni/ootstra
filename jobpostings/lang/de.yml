@@ -12,6 +12,7 @@ de:
     ExperienceRequirementsDesc: 'z.B. Führungserfahrung'
     HeaderImageDesc: '1:2.62 // 2600x993px'
     InseratDesc: 'PDF'
+    NoJobElement: 'Momentan fehlt ein Job-Element! Fügen Sie ein JobElement im Seitenbaum ein und vergeben Sie danach hier eine URL.'
   Kraftausdruck\Admin\JobsAdmin:
     ElementJobsNeeded: 'Stelleninserate werden per "Job Element" angezeigt.<br/><a target="_blank" href="https://www.google.com/ping?sitemap={BaseURL}sitemap.xml/sitemap/Kraftausdruck-Models-JobPosting/1">Ping Google for Jobs</a>'
   Kraftausdruck\Elements\ElementJobs:

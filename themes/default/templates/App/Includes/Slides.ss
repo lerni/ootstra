@@ -11,8 +11,8 @@
 								<% if not $First %>loading="lazy" <% end_if %>
 								alt="$SlideImage.Title"
 								style="object-position: {$SlideImage.FocusFillMax(2600,650).PercentageX}% {$SlideImage.FocusFillMax(2600,650).PercentageY}%;"
-								<% if not $First %>data-<% end_if %>src="$SlideImage.FocusFillMax(1440,360).URL"
-								<% if not $First %>data-<% end_if %>srcset="
+								src="$SlideImage.FocusFillMax(1440,360).URL"
+								srcset="
 									$SlideImage.FocusFillMax(480,120).URL 480w,
 									$SlideImage.FocusFillMax(640,160).URL 640w,
 									$SlideImage.FocusFillMax(800,200).URL 800w,

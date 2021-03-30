@@ -114,13 +114,19 @@ DNADesign\Elemental\Models\ElementContent:
   extensions:
     - App\Extensions\ElementContentExtension
 
-DNADesign\ElementalUserForms\Model\ElementForm:
-  extensions:
-    - App\Extensions\ElementalUserFormsExtension
-
 DNADesign\ElementalVirtual\Model\ElementVirtual:
   extensions:
-    - App\Extensions\ElementaVirtualExtension
+    - App\Extensions\ElementVirtualExtension
+
+DNADesign\ElementalUserForms\Model\ElementForm:
+  block_default_userforms_js: true
+  block_default_userforms_css: true
+  extensions:
+    - App\Extensions\ElementUserFormsExtension
+
+SilverStripe\UserForms\Model\UserDefinedForm:
+  block_default_userforms_js: true
+  block_default_userforms_css: true
 
 SilverStripe\Control\Email\Email:
   admin_email: ''
@@ -219,7 +225,11 @@ TractorCow\OpenGraph\OpenGraph:
 # BetterBrief\GoogleMapField:
 #  default_options:
 #    api_key: ''
-
+#   map:
+#     zoom: 14
+#   default_field_values:
+#     Latitude: 47
+#     Longitude: 8
 ---
 Only:
   environment: 'test'

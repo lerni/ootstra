@@ -72,7 +72,10 @@ fieldset.grid {
 }
 
 /* no UserformPage creation -> ElementPages */
-.valSilverStripe_UserForms_Model_UserDefinedForm {
+.valSilverStripe_UserForms_Model_UserDefinedForm,
+/* .valSilverStripe_Blog_Model_BlogPost,
+.valSilverStripe_Blog_Model_Blog  */
+{
 	display: none;
 }
 
@@ -115,15 +118,17 @@ fieldset.grid {
 	margin-left: initial;
 }
 
+/* prevent description being shown inline */
+#Form_ItemEditForm_Title_Holder .form__field-description {
+	width: 100%;
+}
+
 /* thumbnail preview marke used if GF on ProductPage */
 .col-LogoImage-PreviewThumbnail img,
 .col-Logo-PreviewThumbnail img {
 	max-width: 100px;
 }
 
-#Form_ItemEditForm_Title_Holder .form__field-update-url::after {
-	content: 'update URL';
-}
 /* prevent description being shown inline */
 #Form_ItemEditForm_Title_Holder .form__field-description {
 	width: 100%;

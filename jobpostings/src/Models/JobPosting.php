@@ -130,9 +130,15 @@ class JobPosting extends DataObject
             $fields->insertAfter(
                 SiteTreeURLSegmentField::create('URLSegment')
                     ->setURLPrefix($this->Parent()->getPage()->Link() . 'job/')
+                    ->setURLSuffix('?stage=Stage')
                     ->setDefaultURL($this->generateURLSegment()),
                 'Title'
             );
+        } else {
+            $message = _t('Kraftausdruck\Models\JobPosting.NoJobElement', 'A job element is currently missing! Insert a JobElement in the page tree and then assign a URL here.');
+            $fields->replaceField('URLSegment', LiteralField::create(
+                'NoParent', '<p class="alert alert-warning">'. $message .'</p>'
+            ));
         }
 
         if ($this->LastFor() == false) {

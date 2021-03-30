@@ -224,8 +224,6 @@ main.typography {
 	max-width: $inner-width--extended;
 	margin-left: auto;
 	margin-right: auto;
-	$min-spacing: 0;
-	$max-spacing: 6;
 	&.background-gray-lighter {
 		background-color: $gray-lighter;
 	}
@@ -740,6 +738,8 @@ main.typography {
 			}
 		}
 	}
+	$min-spacing: 0;
+	$max-spacing: 6;
 	@for $i from $max-spacing through $min-spacing {
 		&.spacing-bottom-#{$i} {
 			padding-bottom: #{$lh*$i}em;

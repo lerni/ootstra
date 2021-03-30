@@ -13,7 +13,7 @@ namespace {
         protected function init()
         {
             parent::init();
-            Requirements::block('//code.jquery.com/jquery-3.4.1.min.js');
+            Requirements::block('silverstripe/userforms:client/dist/js/jquery.min.js');
             Requirements::set_force_js_to_bottom(true);
             Requirements::javascript(ModuleResourceLoader::resourceURL('themes/default/dist/js/app.js'), 'all',['defer' => true, 'async' => true]);
             // UserDefinedFormController would interfere and falsely output noindex

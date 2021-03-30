@@ -77,8 +77,6 @@ SS_DATABASE_SERVER="127.0.0.1"
 GHOSTSCRIPT_PATH="/usr/local/bin/gs"
 ```
 
-For your PHP-CLI-Setup, it might be helpfull, to set `sys_temp_dir = "/tmp"` in `php.ini` for `sspak`.
-
 ## npm
 
 ```bash
@@ -136,11 +134,8 @@ mv deployer.phar /usr/local/bin/dep
 chmod +x /usr/local/bin/dep
 ```
 
-To transfer assets and databases [sspak](https://github.com/silverstripe/sspak/) is used. It's also included as dev-requirement in `composer.json`. Again you also can install it globally like:
+To transfer assets and database [ssbak](https://github.com/axllent/ssbak) is used over [sspak](https://github.com/silverstripe/sspak/). Run deployer task like `dep silverstripe:installtools live` to install it on a remote linux servers in `~/bin`. You can set `ssXak_local_path` and `ssXak_path` in `deployer.php`.
 
-```bash
-curl -sS https://silverstripe.github.io/sspak/install | php -- /usr/local/bin
-```
 
 ## Configuration
 
