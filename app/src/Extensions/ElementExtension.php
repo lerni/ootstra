@@ -101,7 +101,7 @@ class ElementExtension extends DataExtension
     // second element after ElementHero
     public function AfterHero()
     {
-        if ($firstTwo = BaseElement::get()->filter(['ParentID' => $this->owner->ParentID])->sort('Sort ASC')->limit(2)) {
+        if ($this->owner->isInDB() && $firstTwo = BaseElement::get()->filter(['ParentID' => $this->owner->ParentID])->sort('Sort ASC')->limit(2)) {
             if ($firstTwo->first()->ClassName == ElementHero::class) {
                 if ($firstTwo->count() == 2 && $firstTwo->last()->ID == $this->owner->ID) {
                     return true;

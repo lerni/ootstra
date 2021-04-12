@@ -59,7 +59,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^5",
-        "deployer/deployer": "^6"
+        "deployer/deployer": "^6",
+        "silverstripe/sitetreeimporter": "dev-master"
     },
     "extra": {
         "expose": [

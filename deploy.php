@@ -97,7 +97,7 @@ set('default_stage', 'stage');
 set('bin/composer', '~/bin/composer.phar');
 set('composer_options', 'install --no-dev --verbose --prefer-dist --optimize-autoloader --no-interaction');
 set('http_user', DEP_SERVER_USER);
-set('default_timeout', 6000); // default is 300 - sspak sometimes needs more. With this we at least see the truncated (size-limit) error :(
+set('default_timeout', 6000); // default is 300 - ssbak may needs more
 
 // Production aliases
 foreach (['production', 'prod', 'live'] as $alias) {

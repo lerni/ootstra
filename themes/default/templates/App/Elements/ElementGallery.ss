@@ -1,15 +1,14 @@
 <% if not $isFullWidth %><div class="inner"><% end_if %>
 <% include App/Includes/ElementTitle %>
 <% if $Items %>
-	<% if $CropGalleryThumbsByWidth %>
-		<ul class="gallery {$Layout}">
+	<ul class="gallery {$Layout}">
+		<% if $CropGalleryThumbsByWidth %>
 			<% loop $Items %>
 				<li>
 					<a href="$ScaleMaxWidth(1224).URL"
 						data-type="image"
 						data-caption="$Caption"
 						data-fancybox="group{$Top.FancyGroupRand}"
-						data-fancybox="gallery"
 						data-srcset="$ScaleMaxWidth(1224).URL 1224w,
 							$ScaleMaxWidth(900).URL 900w,
 							$ScaleMaxWidth(600).URL 600w"
@@ -19,16 +18,13 @@
 					</a>
 				</li>
 			<% end_loop %>
-		</ul>
-	<% else %>
-		<ul class="gallery {$Layout}">
+		<% else %>
 			<% loop $Items %>
 				<li>
 					<a href="$ScaleMaxWidth(1224).URL"
 						data-type="image"
 						data-caption="$Caption"
 						data-fancybox="group{$Top.FancyGroupRand}"
-						data-fancybox="gallery"
 						data-srcset="$ScaleMaxWidth(1224).URL 1224w,
 							$ScaleMaxWidth(900).URL 900w,
 							$ScaleMaxWidth(600).URL 600w"
@@ -38,7 +34,7 @@
 					</a>
 				</li>
 			<% end_loop %>
-		</ul>
-	<% end_if %>
+		<% end_if %>
+	</ul>
 <% end_if %>
 <% if not $isFullWidth %></div><% end_if %>

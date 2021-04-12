@@ -58,6 +58,14 @@ form {
 					margin-right: 0;
 				}
 			}
+			&.auto-width {
+				width: auto;
+				margin-right: .3em;
+				@include breakpoint($Sneg) {
+					margin-right: 0;
+					width: 100%;
+				}
+			}
 			&.checkboxset.quarter-width-checkbox {
 				.middleColumn {
 					display: flex;
@@ -137,6 +145,22 @@ form {
                         float: left;
                     }
                 }
+				[type="date"] {
+					box-sizing: content-box;
+					@include normal;
+					appearance: none;
+					height: 1.15em;
+					&:datetime-edit {
+						padding: 0;
+						padding: 0;
+					}
+					&:calendar-picker-indicator {
+						color: $black;
+					}
+				}
+				.g-recaptcha {
+					margin-top: #{$lh/2}em;
+				}
 			}
 			&.dropdown .middleColumn select  {
 				@include dropdown;
@@ -326,7 +350,7 @@ form .optionset ul {
 	}
 	form .checkbox .checkbox {
 		float:left;
-		margin:.2em .3em 0 0;
+		margin: .2em .3em 0 0;
 	}
 
 span.message {

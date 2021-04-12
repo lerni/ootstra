@@ -33,7 +33,7 @@ class JobPosting extends DataObject
 //      'OccupationalCategory' => 'Varchar',
         'Description' => 'HTMLText',
         'Industry' => 'Varchar',
-        'EmploymentType' => "Enum('full-time, part-time, contract, temporary, seasonal, internship','full-time')",
+        'EmploymentType' => "Enum('full-time, part-time, contract, temporary, seasonal, internship, apprenticeship', 'full-time')",
 //      'WorkHours' => 'Varchar',
 //      'Skills' => 'Text',
 //      'Qualifications' => 'Text',
@@ -130,7 +130,7 @@ class JobPosting extends DataObject
             $fields->insertAfter(
                 SiteTreeURLSegmentField::create('URLSegment')
                     ->setURLPrefix($this->Parent()->getPage()->Link() . 'job/')
-                    ->setURLSuffix('?stage=Stage')
+                    ->setURLSuffix('?stage=Live')
                     ->setDefaultURL($this->generateURLSegment()),
                 'Title'
             );

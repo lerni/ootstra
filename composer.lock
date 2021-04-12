@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "14c0830dce84e829f074526b15029c3b",
+    "content-hash": "fe8fe1d0ce2716338acc335ae8721851",
     "packages": [
         {
             "name": "axllent/silverstripe-email-obfuscator",
@@ -873,16 +873,16 @@
         },
         {
             "name": "embed/embed",
-            "version": "v3.4.13",
+            "version": "v3.4.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oscarotero/Embed.git",
-                "reference": "99f6d95aebd94251573e4f4febf14bc6aba28697"
+                "reference": "5028323230da075d6f515448fe62dfb179b9bde8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oscarotero/Embed/zipball/99f6d95aebd94251573e4f4febf14bc6aba28697",
-                "reference": "99f6d95aebd94251573e4f4febf14bc6aba28697",
+                "url": "https://api.github.com/repos/oscarotero/Embed/zipball/5028323230da075d6f515448fe62dfb179b9bde8",
+                "reference": "5028323230da075d6f515448fe62dfb179b9bde8",
                 "shasum": ""
             },
             "require": {
@@ -926,22 +926,22 @@
             "support": {
                 "email": "oom@oscarotero.com",
                 "issues": "https://github.com/oscarotero/Embed/issues",
-                "source": "https://github.com/oscarotero/Embed/tree/v3.4.13"
+                "source": "https://github.com/oscarotero/Embed/tree/v3.4.15"
             },
-            "time": "2020-12-24T09:42:20+00:00"
+            "time": "2021-04-02T10:59:24+00:00"
         },
         {
             "name": "giggsey/libphonenumber-for-php",
-            "version": "8.12.20",
+            "version": "8.12.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/giggsey/libphonenumber-for-php.git",
-                "reference": "743585979ef96f2be123518c0a58083cf678bd47"
+                "reference": "272b8123ba7f1b7975620c6389e7206281b4a3ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/743585979ef96f2be123518c0a58083cf678bd47",
-                "reference": "743585979ef96f2be123518c0a58083cf678bd47",
+                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/272b8123ba7f1b7975620c6389e7206281b4a3ce",
+                "reference": "272b8123ba7f1b7975620c6389e7206281b4a3ce",
                 "shasum": ""
             },
             "require": {
@@ -1001,7 +1001,7 @@
                 "issues": "https://github.com/giggsey/libphonenumber-for-php/issues",
                 "source": "https://github.com/giggsey/libphonenumber-for-php"
             },
-            "time": "2021-03-17T11:05:55+00:00"
+            "time": "2021-04-06T08:37:32+00:00"
         },
         {
             "name": "giggsey/locale",
@@ -7591,6 +7591,41 @@
             "time": "2016-10-03T07:35:21+00:00"
         },
         {
+            "name": "silverstripe/sitetreeimporter",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lerni/silverstripe-sitetreeimporter.git",
+                "reference": "f278c04d499390f59fe5810e67eff9d79c6a99ec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lerni/silverstripe-sitetreeimporter/zipball/f278c04d499390f59fe5810e67eff9d79c6a99ec",
+                "reference": "f278c04d499390f59fe5810e67eff9d79c6a99ec",
+                "shasum": ""
+            },
+            "require": {
+                "silverstripe/cms": "^4"
+            },
+            "default-branch": true,
+            "type": "silverstripe-vendormodule",
+            "authors": [
+                {
+                    "name": "Sam Minnée",
+                    "email": "sam@silverstripe.com"
+                }
+            ],
+            "description": "Imports indented plaintext files into a SilverStripe sitetree",
+            "keywords": [
+                "import",
+                "silverstripe"
+            ],
+            "support": {
+                "source": "https://github.com/lerni/silverstripe-sitetreeimporter/tree/master"
+            },
+            "time": "2021-04-12T14:07:03+00:00"
+        },
+        {
             "name": "symfony/console",
             "version": "v5.2.6",
             "source": {
@@ -8163,7 +8198,8 @@
         "heyday/silverstripe-colorpalette": 20,
         "silverstripe/selectupload": 20,
         "nomidi/silverstripe-webp-image": 20,
-        "lerni/klaro-cookie-consent": 20
+        "lerni/klaro-cookie-consent": 20,
+        "silverstripe/sitetreeimporter": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
