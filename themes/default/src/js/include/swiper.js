@@ -1,24 +1,31 @@
 window.Swiper = require('swiper');
-// https://github.com/nolimits4web/swiper/issues/273
-var heroSwiper = new Swiper.default ('.swiper-container.hero', {
-	spaceBetween: 0,
-	direction: 'horizontal',
-	CSSWidthAndHeight: true,
-	speed: 3000,
-	autoplay: {
-		delay: 6000,
-		crossFade: true,
-		disableOnInteraction: false,
-	},
-	keyboard: {
-		enabled: true,
-		onlyInViewport: false
-  }
-  // ,
-  // navigation: {
-  //   nextEl: '.swiper-button-next',
-  //   prevEl: '.swiper-button-prev',
-  // }
+var heroSwiper = document.querySelectorAll('.swiper-container.hero');
+Array.prototype.forEach.call(heroSwiper, function (slider) {
+  sliderID = slider.getAttribute('id');
+  sliderPrev = '#hero-swiper-prev' + slider.getAttribute('data-id');
+  sliderNext = '#hero-swiper-next' + slider.getAttribute('data-id');
+  sliderPagination = '#hero-swiper-pagination' + slider.getAttribute('data-id');
+
+  var articleSwiper = new Swiper.default ('#'+sliderID, {
+    spaceBetween: 0,
+    direction: 'horizontal',
+    CSSWidthAndHeight: true,
+    speed: 2000,
+    height: 'auto',
+    autoplay: {
+      delay: 4500,
+      disableOnInteraction: true,
+    },
+    navigation: {
+      nextEl: sliderNext,
+      prevEl: sliderPrev
+    },
+    pagination: {
+      el: sliderPagination,
+      type: 'bullets',
+      clickable: true
+    }
+  });
 });
 
 // scroll animation on arrow home

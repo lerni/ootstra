@@ -1,5 +1,5 @@
 <% if $Slides %>
-	<div class="swiper-container hero {$Size}<% if $DoNotCrop %> do-not-crop<% end_if %>">
+	<div class="swiper-container hero {$Size}<% if $DoNotCrop %> do-not-crop<% end_if %>" data-id="{$ID}" id="hero-swiper-{$ID}">
 		<div class="swiper-wrapper hero">
 			<% loop $Slides.Sort('SortOrder') %>
 				<% if $SlideImage %>
@@ -10,7 +10,7 @@
 								width="$SlideImage.FocusFillMax(1440,360).Width()"
 								<% if not $First %>loading="lazy" <% end_if %>
 								alt="$SlideImage.Title"
-								style="object-position: {$SlideImage.FocusFillMax(2600,650).PercentageX}% {$SlideImage.FocusFillMax(2600,650).PercentageY}%;"
+								style="object-position: {$SlideImage.FocusFillMax(1440,360).PercentageX}% {$SlideImage.FocusFillMax(1440,360).PercentageY}%;"
 								src="$SlideImage.FocusFillMax(1440,360).URL"
 								srcset="
 									$SlideImage.FocusFillMax(480,120).URL 480w,
@@ -25,8 +25,8 @@
 							</figure>
 						<% else_if $Up.Up.Size == "medium" %>
 							<figure <% if $LinkID %>class="linked"<% end_if %>><img sizes="100vw"
-								height="$SlideImage.FocusFillMax(1440,550).Height()"
-								width="$SlideImage.FocusFillMax(1440,550).Width()"
+								height="$SlideImage.FocusFillMax(1440,810).Height()"
+								width="$SlideImage.FocusFillMax(1440,810).Width()"
 								<% if not $First %>loading="lazy" <% end_if %>
 								alt="$SlideImage.Title"
 								style="object-position: {$SlideImage.FocusFillMax(1440,810).PercentageX}% {$SlideImage.FocusFillMax(1440,810).PercentageY}%;"
@@ -112,6 +112,9 @@
 		</div>
 	</div>
 	<% if $Slides.Count > 1 %>
-		<div class="swiper-pagination hero"></div><%-- <div class="swiper-button-prev"></div>  <div class="swiper-button-next"></div> --%>
+		<div class="swiper-pagination hero" id="hero-swiper-pagination{$ID}"></div>
+		<div class="swiper-button-prev hero" id="hero-swiper-prev{$ID}"></div>
+		<div class="swiper-button-next hero" id="hero-swiper-next{$ID}"></div>
+
 	<% end_if %>
 <% end_if %>

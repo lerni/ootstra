@@ -98,13 +98,14 @@
 					background-size: .5em 1em;
 					background-repeat: no-repeat;
 					background-position: right .6em bottom 26%;
-					background-image: svg-load('../images/svg/arrow-down.svg', stroke=#{$lauftext-color});
+					background-image: svg-load('../images/svg/arrow-down.svg', stroke="#{$lauftext-color}", stroke-width="20");
 				}
 
+				&:hover,
 				&.current,
 				&.section {
 					>a {
-						background-image: svg-load('../images/svg/arrow-down.svg', stroke=#{$link-color});
+						background-image: svg-load('../images/svg/arrow-down.svg', stroke="#{$current-color}", stroke-width="20");
 					}
 				}
 				&:hover,

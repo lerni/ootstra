@@ -421,6 +421,7 @@ form .file {
 	border-color: $link-color;
 	display: inline-block;
 	padding: .3em 1em .4em;
+	-webkit-appearance: none;
 	&:hover {
 		background-color: $link-color;
 	}

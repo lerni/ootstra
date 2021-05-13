@@ -134,7 +134,27 @@ fieldset.grid {
 	width: 100%;
 }
 
-/* elemental create new elements */
-.popover.show {
-    min-width: 360px;
+/*
+EmbedField
+https://github.com/nathancox/silverstripe-embedfield/pull/10
+-----------------------------------------------------------------------------*/
+
+html .field.embed .form__field-holder {
+	border: none;
+	background: none;
+	padding: initial;
+	width: initial;
+}
+
+html .field.embed .embed-thumbnail {
+	width: 113px;
+	min-height: 79px;
+}
+
+html .field.embed .fieldholder-small {
+    margin-left: 130px;
+}
+
+html .field.embed button.action {
+    margin-top: 16px;
 }
