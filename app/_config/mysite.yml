@@ -119,16 +119,19 @@ DNADesign\ElementalVirtual\Model\ElementVirtual:
     - App\Extensions\ElementVirtualExtension
 
 DNADesign\ElementalUserForms\Model\ElementForm:
-  block_default_userforms_js: true
+  # block_default_userforms_js: true
   block_default_userforms_css: true
   # extensions:
   #   - App\Extensions\ElementUserFormsExtension
 
 SilverStripe\UserForms\Model\UserDefinedForm:
-  block_default_userforms_js: true
+  # block_default_userforms_js: true
   block_default_userforms_css: true
   extensions:
     - App\Extensions\UserFormsExtension
+
+SilverStripe\UserForms\Model\Recipient\EmailRecipient:
+  allow_unbound_recipient_fields: true
 
 SilverStripe\Control\Email\Email:
   admin_email: ''
@@ -152,9 +155,6 @@ SilverStripe\SiteConfig\SiteConfig:
 SilverStripe\Security\Member:
   extensions:
     - App\Extensions\MemberExtension
-
-SilverStripe\UserForms\Model\Recipient\EmailRecipient:
-  allow_unbound_recipient_fields: true
 
 SilverStripe\SpamProtection\Extension\FormSpamProtectionExtension:
   default_spam_protector: UndefinedOffset\NoCaptcha\Forms\NocaptchaProtector

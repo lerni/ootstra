@@ -12,6 +12,7 @@ SilverStripe\Core\Injector\Injector:
     properties:
       ResolutionFileIDHelpers:
         - '%$SilverStripe\Assets\FilenameParsing\HashFileIDHelper'
+        - '%$SilverStripe\Assets\FilenameParsing\NaturalFileIDHelper'
       DefaultFileIDHelper: '%$SilverStripe\Assets\FilenameParsing\NaturalFileIDHelper'
       VersionedStage: Live
   # Define protected resolution strategy

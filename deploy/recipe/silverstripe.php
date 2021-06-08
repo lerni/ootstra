@@ -70,6 +70,7 @@ task('silverstripe:installtools', function () {
 
 // copy paste from "deployer/recipe/deploy/vendors.php" but with php/bin
 // {{bin/composer}} should include {{php/bin}} but doesn't if you set both separytely
+// other solution would be: https://stackoverflow.com/a/65850204/1938738
 desc('Installing vendors');
 task('deploy:vendors', function () {
     if (!commandExist('unzip')) {
@@ -106,6 +107,13 @@ desc('Run dev/build');
 task('silverstripe:dev_build', function () {
     run('cd {{release_path}} && {{bin/php}} ./vendor/silverstripe/framework/cli-script.php dev/build flush');
     // run("php {{release_path}}/vendor/bin/sake dev/build flush");
+});
+
+
+desc('Running Task Hydrate the focuspoint extension image size cache');
+task('silverstripe:focu_hydrate', function () {
+//     run('cd {{release_path}} && {{bin/php}} ./vendor/silverstripe/framework/cli-script.php dev/tasks/HydrateFocusPointTask "flush=1"');
+    run('cd {{release_path}} && ./vendor/bin/sake dev/tasks/HydrateFocusPointTask "flush=1"');
 });
 
 

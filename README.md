@@ -43,9 +43,14 @@ Other features:
     composer install
 ```
 
-### Running on local dev-env
+### Running local dev-env
 
-Point your vhost document root of your local dev-env to `/project/public`. Database, credentials etc. are provided per environment Variables. See also:
+This project comes with a Dockerfile for Apache/PHP/MySQL. For this you need to install [docker](https://www.docker.com/) and than run the commands bellow in your project:
+
+ - `docker build --tag silverstripe:imagick .`
+ - `docker-compose up`
+
+It than should be available on [http://localhost:8080/](http://localhost:8080/). With docker no `.env` file is needed. Default login is `admin` & `password`. With anything else, point your vhost document root of your dev-env to `/project/public`. Database, credentials etc. are provided per environment Variables. See also:
 
 https://www.silverstripe.org/learn/lessons/v4/up-and-running-setting-up-a-local-silverstripe-dev-environment-1
 
@@ -168,6 +173,15 @@ dep deploy live --tag=1.0.1
 ```
 
 ### Uploading/downloading database & assets manually
+sspak is a php cli tool for managing SilverStipe database & assets for back-up, restoration, or transfer between environments. It's handy to get a copy of the production data for your dev-env and is also used in the deployment-process for backup purpose.
+https://github.com/silverstripe/sspak
+To get assets and a DB-Dump from the server you can run:
+```
+    ./vendor/bin/sspak save USER@SERVER.TLD:/home/bibsu/public_html/0live/current ./SOMENAME.tar.gz
+```
+```
+docker-compose exec -T database mysql DBNAME < database.sql
+```
 
 ```
 # Upload assets

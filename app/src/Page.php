@@ -43,7 +43,8 @@ namespace {
 
         private static $table_name = 'Page';
 
-        private static $controller_name  = PageController::class;
+        // $controller_name 'll make blog fail - so don't!
+        // private static $controller_name  = PageController::class;
 
         public function getCMSFields()
         {
@@ -162,7 +163,7 @@ namespace {
         public function getDefaultOGTitle()
         {
 
-            $title_return = $this->owner->getTitle();
+            $title_return = $this->getTitle();
 
             // JobPosting
             if (Controller::has_curr()) {
@@ -376,12 +377,12 @@ namespace {
         public function CategoriesWithState()
         {
             // $Categories = BlogCategory::get();
-            if ($this->owner->ClassName == BlogPost::class) {
-                $Categories = $this->owner->Parent()->Categories();
-                $currentCategories = $this->owner->Categories()->Column('ID');
-            } elseif ($this->owner->ClassName == Blog::class) {
-                $Categories = $this->owner->Categories();
-                if (Controller::curr()->getCurrentCategory()) {
+            if ($this->ClassName == BlogPost::class) {
+                $Categories = $this->Parent()->Categories();
+                $currentCategories = $this->Categories()->Column('ID');
+            } elseif ($this->ClassName == Blog::class) {
+                $Categories = $this->Categories();
+                if (is_a(Controller::curr(), BlogPostController::class) && Controller::curr()->getCurrentCategory()) {
                     $currentCategories['0'] = Controller::curr()->getCurrentCategory()->ID;
                 } else {
                     $currentCategories = [];

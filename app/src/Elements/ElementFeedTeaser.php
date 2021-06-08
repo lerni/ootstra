@@ -69,7 +69,7 @@ class ElementFeedTeaser extends BaseElement
         $fields->removeByName('Categories');
 
         $fields->addFieldToTab('Root.Main', LiteralField::create('How', '
-            <h2>'. _t(__CLASS__ . '.HowTitle', 'Höhe nicht begrenzen') .'</h2>
+            <h2>'. _t(__CLASS__ . '.HowTitle', 'Was wird angezeigt?') .'</h2>
             <p>'. _t(__CLASS__ . '.HowText', 'Es werden Unterseiten (Kinder) der gewählten Seiten (Eltern/Holders) z.B. News mit den gewählten Kategorien angeteasert. Bild & Text kann auf jeweiligen Seiten im Tab "Feeds & Share" gewählt werden.') .'<br/><br/></p>
         '));
 

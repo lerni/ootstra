@@ -219,8 +219,16 @@ class JobPosting extends DataObject
         if($this->ValidThrough > date('Y-m-d',strtotime('now + 1 year'))) {
             $result->addError('Das JobPosting sollte höchstens ein Jahr gültig sein.');
         }
+        if(!$this->URLSegment) {
+            $result->addError('URL-Segment wird benötigt');
+        }
+        if(!$this->JobLocations) {
+            $result->addError('JobLocations wird benötigt');
+        }
+
         return $result;
     }
+
 
     public function JobPostingSchema()
     {
