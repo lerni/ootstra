@@ -47,7 +47,7 @@ Other features:
 
 This project comes with a Dockerfile for Apache/PHP/MySQL. For this you need to install [docker](https://www.docker.com/) and than run the commands bellow in your project:
 
- - `docker build --tag silverstripe:imagick .`
+ - `docker build --tag silverstripe:refined .`
  - `docker-compose up`
 
 It than should be available on [http://localhost:8080/](http://localhost:8080/). With docker no `.env` file is needed. Default login is `admin` & `password`. With anything else, point your vhost document root of your dev-env to `/project/public`. Database, credentials etc. are provided per environment Variables. See also:
@@ -177,8 +177,9 @@ sspak is a php cli tool for managing SilverStipe database & assets for back-up, 
 https://github.com/silverstripe/sspak
 To get assets and a DB-Dump from the server you can run:
 ```
-    ./vendor/bin/sspak save USER@SERVER.TLD:/home/bibsu/public_html/0live/current ./SOMENAME.tar.gz
+./vendor/bin/sspak save USER@SERVER.TLD:/home/bibsu/public_html/0live/current ./SOMENAME.tar.gz
 ```
+
 ```
 docker-compose exec -T database mysql DBNAME < database.sql
 ```

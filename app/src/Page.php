@@ -376,19 +376,18 @@ namespace {
 
         public function CategoriesWithState()
         {
-            // $Categories = BlogCategory::get();
+
+            $Categories = [];
+            $currentCategories = [];
+
             if ($this->ClassName == BlogPost::class) {
                 $Categories = $this->Parent()->Categories();
                 $currentCategories = $this->Categories()->Column('ID');
             } elseif ($this->ClassName == Blog::class) {
                 $Categories = $this->Categories();
-                if (is_a(Controller::curr(), BlogPostController::class) && Controller::curr()->getCurrentCategory()) {
+                if (method_exists(Controller::curr(), 'getCurrentCategory') && Controller::curr()->getCurrentCategory()) {
                     $currentCategories['0'] = Controller::curr()->getCurrentCategory()->ID;
-                } else {
-                    $currentCategories = [];
                 }
-            } else {
-                $Categories = [];
             }
 
             $r = ArrayList::create();

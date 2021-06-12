@@ -3,8 +3,8 @@
 namespace Kraftausdruck\Elements;
 
 use Kraftausdruck\Models\JobPosting;
-use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Forms\LiteralField;
+use DNADesign\Elemental\Models\BaseElement;
 
 class ElementJobs extends BaseElement
 {
@@ -53,6 +53,16 @@ class ElementJobs extends BaseElement
             $TextEditor->setRows(10);
             $TextEditor->addExtraClass('stacked');
         }
+        $message = _t('Kraftausdruck\Admin\ElementJobs.EditJobsHint', '<a href="/admin/jobs">Create & edit</a> job-postings via jobs.');
+        $fields->unshift(
+            LiteralField::create(
+                'EditJobs',
+                sprintf(
+                    '<p class="alert alert-info">%s</p>',
+                    $message
+                )
+            )
+        );
 
         return $fields;
     }

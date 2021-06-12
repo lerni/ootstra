@@ -2,11 +2,10 @@ version: "3.8"
 services:
   silverstripe:
     # image: brettt89/silverstripe-web:7.4-apache
-    image: silverstripe:imagick
+    image: silverstripe:refined
     ports:
       - 8080:80
     volumes:
-      #  - ./public:/var/www/html
       - .:/var/www/html
     depends_on:
        - database
@@ -15,7 +14,7 @@ services:
        - SS_TRUSTED_PROXY_IPS=*
        - SS_ENVIRONMENT_TYPE=dev
        - SS_DATABASE_SERVER=database
-       - SS_DATABASE_NAME=SS_bibsu
+       - SS_DATABASE_NAME=database
        - SS_DATABASE_USERNAME=root
        - SS_DATABASE_PASSWORD=
        - SS_DEFAULT_ADMIN_USERNAME=admin
