@@ -50,7 +50,7 @@ This project comes with a Dockerfile for Apache/PHP/MySQL. For this you need to 
  - `docker build --tag silverstripe:refined .`
  - `docker-compose up`
 
-It than should be available on [http://localhost:8080/](http://localhost:8080/). With docker no `.env` file is needed. Default login is `admin` & `password`. With anything else, point your vhost document root of your dev-env to `/project/public`. Database, credentials etc. are provided per environment Variables. See also:
+It than should be available on [http://localhost:8080/](http://localhost:8080/). With docker no `.env` file is needed. Default login is `admin` & `password`. With other webserver setups, point your vhost document root to `/project/public`. Database, credentials etc. are provided per environment Variables. See also:
 
 https://www.silverstripe.org/learn/lessons/v4/up-and-running-setting-up-a-local-silverstripe-dev-environment-1
 

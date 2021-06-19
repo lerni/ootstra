@@ -1,4 +1,14 @@
-window.Swiper = require('swiper');
+import {
+  Swiper,
+  Navigation,
+  Pagination,
+  // Scrollbar,
+  // EffectCoverflow
+} from 'swiper';
+
+Swiper.use([Navigation, Pagination]);
+
+
 var heroSwiper = document.querySelectorAll('.swiper-container.hero');
 Array.prototype.forEach.call(heroSwiper, function (slider) {
   sliderID = slider.getAttribute('id');

@@ -1,3 +1,4 @@
+<% cached 'ElementFeedTeaser', $ID, $LastEdited, $List('SilverStripe\CMS\Model\SiteTree').max('LastEdited'), $List('SilverStripe\CMS\Model\SiteTree').count() %>
 <% if not $isFullWidth %><div class="inner"><% end_if %>
 	<% include App/Includes/ElementTitle %>
 	<% if $Items %>
@@ -52,3 +53,4 @@
 		<a class="pseudolink button" href="$FeedTeaserParents().First().Link()">$FirstLinkAction</a>
 	<% end_if %>
 <% if not $isFullWidth %></div><% end_if %>
+<% end_cached %>

@@ -233,7 +233,7 @@ main.typography {
 	&.elementcontentsection,
 	.page & {
 		.inner {
-			>* {
+			>*:not(.full) {
 				max-width: $inner-width--reduced;
 				margin-left: 0;
 				margin-right: auto;

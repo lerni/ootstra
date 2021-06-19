@@ -1,5 +1,5 @@
 const mix = require('laravel-mix');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CSSMQPacker = require('mqpacker');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
@@ -43,30 +43,30 @@ mix.webpackConfig({
 
 // Update babel loader to ensure code imported from node_modules is transpiled
 // See https://github.com/JeffreyWay/laravel-mix/issues/1906#issuecomment-455241790
-mix.webpackConfig({
-  module: {
-    rules: [
-      {
-        test: /\.jsx?$/,
-        exclude: /(bower_components)/,
-        use: [{
-          loader: 'babel-loader',
-          options: Config.babel()
-        }]
-      }
-    ]
-  }
-});
+// mix.webpackConfig({
+//   module: {
+//     rules: [
+//       {
+//         test: /\.jsx?$/,
+//         exclude: /(bower_components)/,
+//         use: [{
+//           loader: 'babel-loader',
+//           options: Config.babel()
+//         }]
+//       }
+//     ]
+//   }
+// });
 
 // SVG sprite generation
-mix.webpackConfig({
-  plugins: [
-    new SVGSpritemapPlugin('src/images/icons/**/*.svg', {
-      output: { filename: 'dist/images/icons.svg' },
-      sprite: { prefix: 'icon-' }
-    })
-  ]
-});
+// mix.webpackConfig({
+//   plugins: [
+//     new SVGSpritemapPlugin('src/images/icons/**/*.svg', {
+//       output: { filename: 'dist/images/icons.svg' },
+//       sprite: { prefix: 'icon-' }
+//     })
+//   ]
+// });
 
 // Configure browsersync
 const sitepath = path.join(__dirname, '/../../');
@@ -82,7 +82,8 @@ if (parent === 'webroot') {
 // Remove stale assets from folders which are blindly copied
 mix.webpackConfig({
   plugins: [
-    new CleanWebpackPlugin({
+    new CleanWebpackPlugin(
+    {
       cleanOnceBeforeBuildPatterns: [
         'dist/images/**/*',
         '!dist/images/.gitkeep',
@@ -96,28 +97,48 @@ mix.webpackConfig({
 });
 
 // Setup task to copy + compress images
+// Setup task to copy + compress images
 mix.webpackConfig({
   plugins: [
-    new CopyWebpackPlugin([{
-      from: 'src/images',
-      to: 'dist/images',
-      ignore: ['*.DS_Store', 'icons/.gitkeep', 'icons/**/*.svg']
-    }]),
-    new ImageminPlugin({
-      test: (path) => {
-        // Don't re-compress sprite
-        if (path === 'dist/images/icons.svg') {
-          return false;
-        }
-
-        const regex = new RegExp(/\.(jpe?g|png|gif|svg)$/i);
-        return regex.test(path);
-      },
-      plugins: [
-        imageminMozjpeg({ quality: 80 }),
-        imageminPngquant(),
-        imageminSvgo({ plugins: [{ removeViewBox: false }] })
-      ]
-    })
+    new CopyWebpackPlugin(
+      {
+        patterns: [
+          {
+            from: 'src/images', to: 'dist/images',
+            globOptions: {
+              dot: true,
+              gitignore: true,
+              ignore: ['*.DS_Store', 'icons/.gitkeep', 'icons/**/*.svg']
+            },
+          }
+        ]
+      }
+    ),
+    new ImageminPlugin(
+      {
+        test: (path) => {
+          // Don't re-compress sprite
+          if (path === 'dist/images/icons.svg') {
+            return false;
+          }
+          const regex = new RegExp(/\.(jpe?g|png|gif|svg)$/i);
+          return regex.test(path);
+        },
+        plugins: [
+          new ImageminPlugin({
+            disable: process.env.NODE_ENV !== 'production', // Disable during development
+            mozjpeg: {
+              quality: 80
+            },
+            pngquant: {
+              quality: '95-100'
+            },
+            svgo: {
+              plugins: [{ removeViewBox: false }]
+            }
+          })
+        ]
+      }
+    )
   ]
 });
