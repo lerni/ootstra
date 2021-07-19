@@ -1,5 +1,5 @@
 <a href="$Link" class="post-summary">
-	<% if $getOGImage() %><figure>
+	<% if $getDefaultOGImage(1).ID %><figure>
 		<img height="$getDefaultOGImage(1).FocusFillMax(340,170).Height()" width="$getDefaultOGImage(1).FocusFillMax(340,170).Height()" src="$getDefaultOGImage(1).FocusFillMax(340,170).URL" srcset="$getDefaultOGImage(1).FocusFillMax(340,170).URL 1x, $getDefaultOGImage(1).FocusFillMax(680,340).URL 2x" alt="$Title" />
 	</figure><% end_if %>
 	<div class="txt">

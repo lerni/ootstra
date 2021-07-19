@@ -1,5 +1,5 @@
-<% require css("themes/default/node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css") %>
-<% require javascript("themes/default/node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js") %>
+<% require css("themes/default/thirdparty/fancybox/jquery.fancybox.min.css") %>
+<% require javascript("themes/default/thirdparty/fancybox/jquery.fancybox.min.js") %>
 <% if not $isFullWidth %><div class="inner"><% end_if %>
 <% include App/Includes/ElementTitle %>
 <% if $Items %>

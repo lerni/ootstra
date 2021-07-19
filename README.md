@@ -162,9 +162,11 @@ or
 
 The first time you deploy to a given stage you’ll be asked to provide database credentials used to populate `.env`.
 
-### Deploy a branch/tag
-
+### Deploy a branch/tag/revison
 ```
+# Deploy the dev branch to staging
+dep deploy --revision=ca5fcd330910234f63bf7d5417ab6835e5a57b81
+
 # Deploy the dev branch to staging
 dep deploy --branch=dev
 
@@ -173,7 +175,7 @@ dep deploy live --tag=1.0.1
 ```
 
 ### Uploading/downloading database & assets manually
-sspak is a php cli tool for managing SilverStipe database & assets for back-up, restoration, or transfer between environments. It's handy to get a copy of the production data for your dev-env and is also used in the deployment-process for backup purpose.
+ssbak is a cli tool for managing Silverstipe database & assets for back-up, restoration, or transfer between environments. It's also used in the deployment-process for backup purpose.
 https://github.com/silverstripe/sspak
 To get assets and a DB-Dump from the server you can run:
 ```

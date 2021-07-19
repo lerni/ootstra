@@ -13,7 +13,8 @@ class ContentPart extends DataObject
         'Title' => 'Varchar',
         'Text' => 'HTMLText',
         'ShowTitle'  => 'Boolean',
-        'TitleLevel' => 'Enum("1,2,3","2")'
+        'TitleLevel' => 'Enum("1,2,3","2")',
+        'FAQSchema' => 'Boolean'
     ];
 
     private static $casting = [
@@ -22,7 +23,8 @@ class ContentPart extends DataObject
 
     private static $summary_fields = [
         'Title' => 'Title',
-        'Text.Summary' => 'Text'
+        'Text.Summary' => 'Text',
+        'FAQSchema' => 'FAQ'
     ];
 
     private static $table_name = 'ContentPart';

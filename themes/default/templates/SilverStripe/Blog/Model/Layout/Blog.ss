@@ -1,10 +1,13 @@
 <% include App/Includes/Header %>
 <main class="typography" id="main">
 	<% if $Slides %>
-		<article class="element elementhero spacing-bottom-2"><% include App/Includes/Slides %></article>
+		<article class="element elementhero spacing-bottom-2<% if $SiteConfig.GlobalAlert %>> global-alert<% end_if %>"><% include App/Includes/Slides %></article>
 	<% else %>
 		<% include App/Includes/DefaultHero Page=$Me %>
 	<% end_if %>
+	<% if $SiteConfig.GlobalAlert %><article class="global-alert">
+		<div class="inner">$SiteConfig.GlobalAlert</div>
+	</article><% end_if %>
 	<% if $Content %><article class="element elementcontent">
 		<div class="typography inner">$Content</div>
 	</article><% end_if %>

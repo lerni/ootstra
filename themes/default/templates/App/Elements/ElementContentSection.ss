@@ -27,3 +27,4 @@
 	<% end_if %>
 <% end_if %>
 </div>
+<% if $FAQParts %>$FAQSchema.RAW<% end_if %>

@@ -8,6 +8,7 @@
 		<title>$DefaultMetaTitle</title>
 	<% end_if %>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<% if not $MetaDescription %>
 		<% if $DefaultMetaDescription %><meta name="Description" content="$DefaultMetaDescription" /><% end_if %>

@@ -3,16 +3,17 @@
 namespace App\Elements;
 
 use App\Models\ContentPart;
-use SilverStripe\Forms\GridField\GridField;
-use SilverStripe\Forms\GridField\GridFieldAddNewButton;
+use Spatie\SchemaOrg\Schema;
+use SilverStripe\Forms\LiteralField;
 use DNADesign\Elemental\Models\BaseElement;
-use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
-use SilverStripe\Forms\GridField\GridFieldDeleteAction;
+use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
 use SilverStripe\Forms\GridField\GridFieldEditButton;
-use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 use SilverStripe\Forms\GridField\GridFieldConfig_Base;
-use SilverStripe\Forms\LiteralField;
+use SilverStripe\Forms\GridField\GridFieldAddNewButton;
+use SilverStripe\Forms\GridField\GridFieldDeleteAction;
+use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
+use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 use SwiftDevLabs\DuplicateDataObject\Forms\GridField\GridFieldDuplicateAction;
 
 class ElementContentSection extends BaseElement
@@ -80,6 +81,39 @@ class ElementContentSection extends BaseElement
         }
 
         return $fields;
+    }
+
+    public function getFAQParts()
+    {
+        return $this->ContentParts()->filter(['FAQSchema' => 1]);
+
+    }
+
+    public function FAQSchema()
+    {
+
+        $FAQParts = $this->getFAQParts();
+
+        $schemaFAQ = Schema::fAQPage();
+
+        if ($FAQParts->Count()) {
+
+            $faqs = [];
+            $i = 0;
+            foreach ($FAQParts as $faq) {
+
+                $PushFAQ = Schema::question()
+                    ->name($faq->Title)
+                    ->acceptedAnswer(Schema::Answer()
+                        ->text($faq->Text)
+                );
+
+                $faqs[$i] = $PushFAQ;
+                $i++;
+            }
+
+            return $schemaFAQ->mainEntity($faqs)->toScript();
+        }
     }
 
     public function getType()

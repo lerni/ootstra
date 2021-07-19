@@ -77,7 +77,7 @@ class JobPosting extends DataObject
         if (JobDefaults::get()->count())
         {
             $defaults = JobDefaults::get()->first();
-//            $this->Idustrie = $defaults->Idustrie;
+            $this->Industry = $defaults->Industry;
 //             $this->WorkHours = $defaults->WorkHours;
             $this->HeaderImage = $defaults->HeaderImage;
         }
@@ -222,7 +222,7 @@ class JobPosting extends DataObject
         if(!$this->URLSegment) {
             $result->addError('URL-Segment wird benötigt');
         }
-        if(!$this->JobLocations) {
+        if(!$this->JobLocations()->count() && $this->isInDB()) {
             $result->addError('JobLocations wird benötigt');
         }
 

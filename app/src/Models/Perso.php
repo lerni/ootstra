@@ -123,4 +123,9 @@ class Perso extends DataObject
         }
         return $Anchor;
     }
+
+    public function canView($member = null)
+    {
+        return true;
+    }
 }

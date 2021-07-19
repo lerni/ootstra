@@ -16,6 +16,7 @@
 	<% if not $isFullWidth %></div><% end_if %>
 <% else %>
 	<div class="inner no-vacancies">
+		<% include App/Includes/ElementTitle %>
 		{$NoVacancies}
 	</div>
 <% end_if %>

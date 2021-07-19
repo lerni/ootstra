@@ -9,7 +9,7 @@ use SilverStripe\ORM\DataObject;
 class JobDefaults extends DataObject
 {
     private static $db = [
-        'Idustrie' => 'Varchar',
+        'Industry' => 'Varchar',
 //         'OccupationalCategory' => 'Varchar',
 //         'WorkHours' => 'Varchar'
     ];

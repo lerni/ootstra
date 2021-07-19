@@ -36,6 +36,10 @@ html {
 	color: $lauftext-color;
 	@include normal;
 	@include smoothFonts;
+	&.mobile-nav--active {
+		overflow: hidden;
+		height: -webkit-fill-available;
+	}
 }
 
 body {
@@ -115,9 +119,6 @@ body {
 		}
 		&.headroom--unpinned {
 			transform: translateY(-100%);
-		}
-		.mobile-nav--active & {
-
 		}
 	}
 }
@@ -233,7 +234,7 @@ main.typography {
 	&.elementcontentsection,
 	.page & {
 		.inner {
-			>*:not(.full) {
+			>*:not(.embed) {
 				max-width: $inner-width--reduced;
 				margin-left: 0;
 				margin-right: auto;
