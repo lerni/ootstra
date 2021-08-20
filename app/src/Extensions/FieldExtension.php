@@ -2,13 +2,14 @@
 
 namespace App\Extensions;
 
+use DOMDocument;
 use SilverStripe\i18n\i18n;
+use SilverStripe\ORM\ArrayList;
 use SilverStripe\Core\Extension;
+use SilverStripe\View\ArrayData;
 use libphonenumber\PhoneNumberUtil;
 use libphonenumber\PhoneNumberFormat;
 use libphonenumber\NumberParseException;
-use SilverStripe\ORM\ArrayList;
-use SilverStripe\View\ArrayData;
 use SilverStripe\View\Parsers\URLSegmentFilter;
 
 class FieldExtension extends Extension

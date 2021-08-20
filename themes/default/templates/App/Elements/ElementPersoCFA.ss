@@ -16,7 +16,7 @@
 					<% end_if %>
 					<a href="mailto:{$EMail}"></a>
 				</p>
-				<a class="pseudolink" href="{$list('App\Elements\ElementPerso').First.Page.Link}#{$Anchor}"><%t App\Elements\ElementPerso.MORE "none" %></a>
+				<a class="pseudolink" href="{$list('App\Elements\ElementPerso').First.Page.Link}#{$Anchor}"><%t App\Elements\ElementPerso.MORE "Curriculum Vitae" %></a>
 			</div>
 		</div>
 	<% end_loop %>

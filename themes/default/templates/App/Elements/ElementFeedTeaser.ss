@@ -15,7 +15,7 @@
 								<p>$OGDescription.Summary(40)</p>
 							<% end_if %>
 						</div>
-						<span class="pseudolink"><%t App\Models\Teaser.MORE "none" %></span>
+						<span class="pseudolink"><%t App\Models\Teaser.MORE "Learn more" %></span>
 					</a>
 				<% end_loop %>
 			</div>
@@ -32,7 +32,7 @@
 							<% else_if $OGDescription %>
 								<p>$OGDescription.Summary(60)</p>
 							<% end_if %>
-							<span class="pseudolink"><%t App\Models\Teaser.MORE "none" %></span>
+							<span class="pseudolink"><%t App\Models\Teaser.MORE "Learn more" %></span>
 						</div>
 					</a>
 				<% end_loop %>
@@ -46,7 +46,7 @@
 						<div class="txt">
 							<% if $OGTitle %><h4>$OGTitle</h4><% end_if %>
 							<% if $OGDescription %><p>$OGDescription</p><% end_if %>
-							<span class="pseudolink"><%t App\Models\Teaser.MORE "none" %></span>
+							<span class="pseudolink"><%t App\Models\Teaser.MORE "Learn more" %></span>
 						</div>
 					</a>
 				<% end_loop %>

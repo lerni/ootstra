@@ -1,4 +1,4 @@
-<div id="$Anchor" class="expandable__cell perso is-collapsed">
+<div id="$Anchor" class="expandable__cell perso is--collapsed">
 	<div class="item--basic">
 		<% if $Portrait %>
 			<img height="$Portrait.FocusFillMax(305,400).Height()" width="$Portrait.FocusFillMax(305,400).Width()" src="$Portrait.FocusFillMax(305,400).URL" srcset="$Portrait.FocusFillMax(305,400).URL 1x, $Portrait.FocusFillMax(610,800).URL 2x" alt="{$Firstname} {$Lastname}" />
@@ -12,7 +12,7 @@
 					<span class="position">$Position</span>
 				<% end_if %>
 			</p>
-			<span class="pseudolink"><%t App\Elements\ElementPerso.MORE "none" %></span>
+			<span class="pseudolink"><%t App\Elements\ElementPerso.MORE "Curriculum Vitae" %></span>
 		</div>
 		<div class="arrow--up"></div>
 	</div>

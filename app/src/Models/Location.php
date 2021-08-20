@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Point;
+use SilverStripe\i18n\i18n;
 use BetterBrief\GoogleMapField;
+use SilverStripe\ORM\DataObject;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Forms\DropdownField;
-use SilverStripe\i18n\i18n;
-use SilverStripe\ORM\DataObject;
 use SilverStripe\SiteConfig\SiteConfig;
 
 class Location extends DataObject
@@ -29,6 +30,7 @@ class Location extends DataObject
         'SiteConfig' => SiteConfig::class,
         'GeoPoint' => Point::class
     ];
+
     private static $belongs_many_many = [];
 
     private static $table_name = 'Location';

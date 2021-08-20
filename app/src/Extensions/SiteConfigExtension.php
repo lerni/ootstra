@@ -4,15 +4,18 @@ namespace App\Extensions;
 
 use App\Models\Location;
 use App\Models\SocialLink;
-use gorriecoe\Link\Models\Link;
 use SilverStripe\Assets\Image;
+use gorriecoe\Link\Models\Link;
 use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\HeaderField;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Forms\LiteralField;
+use SilverStripe\Forms\TextareaField;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\AssetAdmin\Forms\UploadField;
+use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
 use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\GridField\GridFieldConfig_Base;
@@ -21,13 +24,13 @@ use SilverStripe\Forms\GridField\GridFieldDeleteAction;
 use SilverStripe\Forms\GridField\GridFieldFilterHeader;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
-use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
-use SilverStripe\Forms\TextareaField;
 
 class SiteConfigExtension extends Extension
 {
     private static $db = [
         'MetaDescription' => 'Varchar',
+        'legalName' => 'Varchar',
+        'foundingDate' => 'Varchar',
         'GlobalAlert' => 'HTMLText'
     ];
 
@@ -62,7 +65,6 @@ class SiteConfigExtension extends Extension
 
     private static $translate = [
         'Title',
-        'Tagline',
         'MetaDescription'
     ];
 
@@ -71,6 +73,9 @@ class SiteConfigExtension extends Extension
         $fields->removeByName('Tagline');
 
         $fields->renameField('Title', _t('SilverStripe\SiteConfig\SiteConfig.TITLE', 'Title / Name'));
+
+        $fields->addFieldToTab('Root.Main', $legalNameField = TextField::create('legalName', _t('SilverStripe\SiteConfig\SiteConfig.LEGALNAME', 'Offizieller Name')));
+        $fields->addFieldToTab('Root.Main', $foundingDateField = TextField::create('foundingDate', _t('SilverStripe\SiteConfig\SiteConfig.FOUNDINGDATE', 'Gründungsdatum')));
 
         $fields->addFieldToTab('Root.Main', HeaderField::create('MetaData', 'Meta Daten'));
         $fields->addFieldToTab('Root.Main', $MetaDescriptionField = TextAreaField::create('MetaDescription', _t('SilverStripe\SiteConfig\SiteConfig.METADESCRIPTION', 'Meta Description')));
@@ -125,12 +130,6 @@ class SiteConfigExtension extends Extension
         $fields->addFieldToTab('Root.Main', $gridField);
 
 
-        $SocialConf = GridFieldConfig_Base::create(20);
-        $SocialConf->removeComponentsByType([
-            GridFieldFilterHeader::class
-        ]);
-
-
         $LocationConf = GridFieldConfig_Base::create(20);
         $LocationConf->addComponents(
             new GridFieldEditButton(),
@@ -149,6 +148,9 @@ class SiteConfigExtension extends Extension
 
 
         $SocialConf = GridFieldConfig_Base::create(20);
+        $SocialConf->removeComponentsByType([
+            GridFieldFilterHeader::class
+        ]);
         $SocialConf->addComponents(
             new GridFieldEditButton(),
             new GridFieldDeleteAction(false),

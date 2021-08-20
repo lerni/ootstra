@@ -91,8 +91,8 @@
                 }
             }
 
-            &.is-collapsed {
-                cursor:pointer;
+            &.is--collapsed {
+                cursor: pointer;
                 .item--basic {
                     overflow: hidden;
                     height: 0px;
@@ -109,7 +109,7 @@
                 }
             }
 
-            &.is-expanded {
+            &.is--expanded {
                 z-index: 1;
                 .arrow--up {
                     opacity: 1;

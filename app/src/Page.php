@@ -49,7 +49,7 @@ namespace {
         public function getCMSFields()
         {
             $this->beforeUpdateCMSFields(function (FieldList $fields) {
-                $fields->removeByName('ExtraMeta');
+                $fields->removeByName(['ExtraMeta']);
 
                 if (!Permission::check('ADMIN') && $this->IsHome()) {
                     $fields->removeByName('URLSegment');
@@ -228,7 +228,7 @@ namespace {
         }
 
         // $origin = 1 -> not resized
-        public function getDefaultOGImage($origin=0)
+        public function getDefaultOGImage($origin = 0)
         {
             $i = null;
 
@@ -288,10 +288,10 @@ namespace {
         public function Childrenexcluded($set = 'default')
         {
 
-            $conf = $this->config()->get('Childrenexcluded');
+            $conf = $this->config()->get('childrenexcluded');
 
-            if(is_array($conf)) {
-                if ($set != '' & array_key_exists($set, $conf)) {
+            if (is_array($conf)) {
+                if ($set != '' && array_key_exists($set, $conf)) {
                     $exclude = $conf["$set"];
                 } elseif (array_key_exists('default', $conf)) {
                     $exclude = $conf['default'];
@@ -328,7 +328,7 @@ namespace {
                         return true;
                     }
                 }
-            } elseif($this->ClassName == 'SilverStripe\CMS\Model\VirtualPage' && $this->CopyContentFrom()->hasExtension('DNADesign\Elemental\Extensions\ElementalPageExtension')) {
+            } elseif ($this->ClassName == 'SilverStripe\CMS\Model\VirtualPage' && $this->CopyContentFrom()->hasExtension('DNADesign\Elemental\Extensions\ElementalPageExtension')) {
                 if ($this->CopyContentFrom()->ElementalArea()->Elements()->Count() && $this->CopyContentFrom()->ElementalArea()->Elements()->first()->ClassName == 'App\Elements\ElementHero') {
                     return true;
                 }

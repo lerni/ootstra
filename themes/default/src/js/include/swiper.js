@@ -11,12 +11,12 @@ Swiper.use([Navigation, Pagination]);
 
 var heroSwiper = document.querySelectorAll('.swiper-container.hero');
 Array.prototype.forEach.call(heroSwiper, function (slider) {
-  sliderID = slider.getAttribute('id');
-  sliderPrev = '#hero-swiper-prev' + slider.getAttribute('data-id');
-  sliderNext = '#hero-swiper-next' + slider.getAttribute('data-id');
-  sliderPagination = '#hero-swiper-pagination' + slider.getAttribute('data-id');
+  var sliderID = slider.getAttribute('id');
+  var sliderPrev = '#hero-swiper-prev' + slider.getAttribute('data-id');
+  var sliderNext = '#hero-swiper-next' + slider.getAttribute('data-id');
+  var sliderPagination = '#hero-swiper-pagination' + slider.getAttribute('data-id');
 
-  var articleSwiper = new Swiper.default ('#'+sliderID, {
+  var articleSwiper = new Swiper ('#'+sliderID, {
     spaceBetween: 0,
     direction: 'horizontal',
     CSSWidthAndHeight: true,

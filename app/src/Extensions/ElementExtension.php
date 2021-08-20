@@ -32,8 +32,11 @@ class ElementExtension extends DataExtension
 
     public function updateCMSFields(FieldList $fields)
     {
-        $fields->removeByName('ExtraClass');
-        $fields->removeByName('Root_Settings_ExtraClass');
+        $fields->removeByName([
+            'ExtraClass',
+            'Root_Settings_ExtraClass'
+        ]);
+
         if ($AvailableField = $fields->dataFieldByName('AvailableGlobally')) {
             $AvailableField->setTitle(_t('DNADesign\Elemental\Models\BaseElement.AVAILABLEGLOBALLY', 'klonen mit virtuellem Element ermöglichen'));
         }

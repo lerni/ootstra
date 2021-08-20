@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{$ContentLocale}" class="nojs">
+<html lang="{$ContentLocale}">
 <head>
 	$MetaTags(false)
 	<% if $MetaTitle %>
@@ -29,5 +29,6 @@
 	{$Layout}
 	<% include App/Includes/Footer %>
 	<% if $isHomePage %>$LocalBusinessSchema.RAW<% end_if %>
+	$BreadcrumbListSchema.RAW
 </body>
 </html>

@@ -8,16 +8,19 @@ use Spatie\SchemaOrg\Schema;
 use SilverStripe\Assets\File;
 use SilverStripe\Assets\Image;
 use SilverStripe\ORM\DataObject;
+use SilverStripe\Forms\TextField;
 use SilverStripe\Control\Director;
 use SilverStripe\Security\Security;
 use SilverStripe\View\Requirements;
 use SilverStripe\Control\Controller;
 use SilverStripe\Forms\ListboxField;
 use SilverStripe\Forms\LiteralField;
+use SilverStripe\Forms\TextareaField;
 use SilverStripe\Versioned\Versioned;
 use Kraftausdruck\Elements\ElementJobs;
 use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\ORM\FieldType\DBHTMLText;
+use SilverStripe\Forms\ToggleCompositeField;
 use SilverStripe\View\Parsers\URLSegmentFilter;
 use SilverStripe\CMS\Forms\SiteTreeURLSegmentField;
 use SilverStripe\Core\Manifest\ModuleResourceLoader;
@@ -29,6 +32,8 @@ class JobPosting extends DataObject
         'Sort' => 'Int',
         'Active' => 'Boolean',
         'Title' => 'Varchar',
+        'MetaTitle' => 'Varchar',
+        'MetaDescription' => 'Text',
         'URLSegment' => 'Varchar',
 //      'OccupationalCategory' => 'Varchar',
         'Description' => 'HTMLText',
@@ -124,6 +129,27 @@ class JobPosting extends DataObject
 
         $fields = parent::getCMSFields();
         $fields->removeByName('Sort');
+
+        $MetaToggle = ToggleCompositeField::create(
+            'Metadata',
+            _t(__CLASS__.'.MetadataToggle', 'Metadata'),
+            [
+                $MetaTitleField = new TextField('MetaTitle'),
+                $MetaDescriptionField = new TextareaField('MetaDescription')
+            ]
+        )->setHeadingLevel(4);
+
+        $MetaTitleField->setTargetLength(60, 50, 60);
+        $MetaTitleField->setAttribute('placeholder', $this->DefaultMetaTitle());
+
+        $MetaDescriptionField->setTargetLength(160, 100, 160);
+        $MetaDescriptionField->setAttribute('placeholder', $this->DefaultMetaDescription());
+
+
+        $fields->insertAfter(
+            $MetaToggle,
+            'Title'
+        );
 
         if ($page = $this->Parent()) {
             Requirements::add_i18n_javascript('silverstripe/cms: client/lang', false, true);
@@ -294,6 +320,24 @@ class JobPosting extends DataObject
         return $schema->toScript();
     }
 
+    public function DefaultMetaTitle()
+    {
+        if (!$this->MetaTitle) {
+            $locations = [];
+            $locations = $this->JobLocations()->Column('Town');
+            $locations = implode(', ', $locations);
+            return $this->Title . ', ' . $locations;
+        }
+    }
+
+    // todo: get it from getPage() of primary
+    public function DefaultMetaDescription()
+    {
+        if ($this->MetaDescription) {
+            return $this->MetaDescription;
+        }
+    }
+
     public function Parent()
     {
         if(ElementJobs::get()->count()) {
@@ -341,7 +385,7 @@ class JobPosting extends DataObject
     public function onAfterWrite()
     {
         if (!$this->URLSegment) {
-            $this->URLSegment = $this->ID;
+            $this->URLSegment = $this->ID; // todo: just use Title?
             $this->write();
         }
         if ($this->ClassName::get()

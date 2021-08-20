@@ -46,10 +46,6 @@ SilverStripe\Admin\LeftAndMain:
   extra_requirements_css:
     - app/css/cms.css
 
-Childrenexcluded:
-  default:
-    - 'SilverStripe\Blog\Model\BlogPost'
-
 SilverStripe\Forms\HTMLEditor\TinyMCEConfig:
   editor_css:
     - 'themes/default/dist/css/editor.css'
@@ -57,6 +53,9 @@ SilverStripe\Forms\HTMLEditor\TinyMCEConfig:
 Page:
   extensions:
     - App\Extensions\PageSchemaExtension
+  childrenexcluded:
+    default:
+      - SilverStripe\Blog\Model\BlogPost
 
 SilverStripe\Blog\Model\Blog:
   extensions:
@@ -183,7 +182,7 @@ gorriecoe\Robots\Robots:
   sitemap: '/sitemap.xml'
   disallow_unsearchable: true
 
-App\Controller\ElementalPersoController:
+App\Controller\ElementPersoController:
   expose_vcards: false
 
 # Kraftausdruck\InstagramFeed\Control\InstaAuthController:
@@ -225,8 +224,8 @@ TractorCow\OpenGraph\OpenGraph:
 # Name: mygooglemapfield
 # ---
 # BetterBrief\GoogleMapField:
-#  default_options:
-#    api_key: ''
+#   default_options:
+#     api_key: ''
 #   map:
 #     zoom: 14
 #   default_field_values:

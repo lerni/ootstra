@@ -26,6 +26,12 @@ class JobPostingControllerExtension extends Extension
                 $locations = $job->JobLocations()->Column('Town');
                 $locations = implode(', ', $locations);
                 $r['MetaTitle'] = $job->Title . ', ' . $locations;
+                if($job->MetaTitle) {
+                    $r['MetaTitle'] = $job->MetaTitle;
+                }
+                if($job->MetaDescription) {
+                    $r['MetaDescription'] = $job->MetaDescription;
+                }
             }
 
             return $r;

@@ -46,7 +46,7 @@ class ElementPersoController extends ElementController
             $vcard->addName($perso->Lastname, $perso->Firstname);
             $vcard->addCompany(SiteConfig::current_site_config()->Title);
             $vcard->addJobtitle($perso->Position);
-            $vcard->addEmail($perso->Email);
+            $vcard->addEmail($perso->EMail);
             $vcard->addPhoneNumber($perso->Telephone, 'PREF;WORK');
 
             if ($location = SiteConfig::current_site_config()->Locations()->First()) {

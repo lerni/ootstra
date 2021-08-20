@@ -35,6 +35,7 @@ class SocialLink extends DataObject
         'Title' => 'Titel',
         'Url' => 'Url'
     ];
+
     private static $searchable_fields = [
         'Title'
     ];
@@ -50,7 +51,7 @@ class SocialLink extends DataObject
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['Text'] = _t(__CLASS__ . '.TEXT', 'Text');
+        $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Titel');
         $labels['sameAs'] = _t(__CLASS__ . '.sameAs', '"sameAs" in schema verwenden');
 
         return $labels;

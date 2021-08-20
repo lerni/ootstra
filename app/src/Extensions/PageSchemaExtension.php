@@ -21,6 +21,8 @@ class PageSchemaExtension extends Extension
 
         $schemaOrganisation
             ->name($siteConfig->Title)
+            ->legalName($siteConfig->legalName)
+            ->foundingDate($siteConfig->foundingDate)
             ->description($siteConfig->MetaDescription)
             ->url($siteConfig->CanonicalDomain)
             ->logo(rtrim(Director::absoluteBaseURL(), '/') . ModuleResourceLoader::resourceURL('public/icon-512.png'));
