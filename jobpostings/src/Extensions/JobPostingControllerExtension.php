@@ -21,17 +21,14 @@ class JobPostingControllerExtension extends Extension
 
             $r['Job'] = $job;
 
-            if ($job->JobLocations()->Count()) {
-                $locations = [];
-                $locations = $job->JobLocations()->Column('Town');
-                $locations = implode(', ', $locations);
-                $r['MetaTitle'] = $job->Title . ', ' . $locations;
-                if($job->MetaTitle) {
-                    $r['MetaTitle'] = $job->MetaTitle;
-                }
-                if($job->MetaDescription) {
-                    $r['MetaDescription'] = $job->MetaDescription;
-                }
+            if($job->MetaTitle) {
+                $r['MetaTitle'] = $job->MetaTitle;
+            } else {
+                $r['MetaTitle'] = $job->DefaultMetaTitle();
+            }
+            // todo: add Default...()
+            if($job->MetaDescription) {
+                $r['MetaDescription'] = $job->MetaDescription;
             }
 
             return $r;

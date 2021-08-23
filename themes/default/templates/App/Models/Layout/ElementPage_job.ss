@@ -1,12 +1,12 @@
 <% include App/Includes/Header %>
 <main class="typography">
-	<% with $Job %>
+	<% if $Job.HeaderImage %>
 		<article class="element elementhero spacing-bottom-2">
 			<figure>
 				<% with $HeaderImage %><img sizes="100vw" alt="$Title"
 					height="$FocusFillMax(1440,360).Height()"
 					width="$FocusFillMax(1440,360).Width()"
-					style="object-position: {$FocusFillMax(2600,650).PercentageX}% {$FocusFillMax(2600,650).PercentageY}%;"
+					style="object-position: {$FocusFillMax(1440,360).PercentageX}% {$FocusFillMax(1440,360).PercentageY}%;"
 					src="$FocusFillMax(1440,360).URL"
 					srcset="$FocusFillMax(480,120).URL 480w,
 						$FocusFillMax(640,160).URL 640w,
@@ -21,10 +21,14 @@
 				<% end_with %>
 			</figure>
 		</article>
+	<% else %>
+		<% include App/Includes/DefaultHero Page=$Me %>
+	<% end_if %>
+	<% with $Job %>
 		<article <% if $ElementAnchor %>id="$ElementAnchor"<% end_if %> class="element elementjobs show spacing-bottom-2">
 			<div class="inner">
 				<% if not $LastFor %>
-					<div class="alert alert-warning"><%t App\Models\JobPosting.expired "false" %></div>
+					<div class="alert alert-warning"><%t Kraftausdruck\Models\JobPosting.expired %></div>
 				<% end_if %>
 				$Description
 				<% if $InseratID %><a class="download" href="$Inserat.Link">$Inserat.Title</a><% end_if %>

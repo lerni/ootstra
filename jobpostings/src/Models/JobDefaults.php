@@ -22,6 +22,6 @@ class JobDefaults extends DataObject
 
     private static $table_name = 'JobDefaults';
 
-    private static $plural_name = 'Defaults';
+    private static $plural_name = 'Job Defaults';
 
 }

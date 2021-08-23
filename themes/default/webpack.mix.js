@@ -93,7 +93,10 @@ mix.webpackConfig({
       cleanStaleWebpackAssets: false,
       verbose: false
     })
-  ]
+  ],
+  stats: {
+    children: true,
+  }
 });
 
 // Setup task to copy + compress images

@@ -83,8 +83,10 @@ class JobPosting extends DataObject
         {
             $defaults = JobDefaults::get()->first();
             $this->Industry = $defaults->Industry;
-//             $this->WorkHours = $defaults->WorkHours;
-            $this->HeaderImage = $defaults->HeaderImage;
+            // $this->WorkHours = $defaults->WorkHours;
+            if ($defaults->HeaderImageID) {
+                $this->HeaderImage = $defaults->HeaderImage;
+            }
         }
         parent::populateDefaults();
     }
@@ -128,7 +130,12 @@ class JobPosting extends DataObject
     {
 
         $fields = parent::getCMSFields();
-        $fields->removeByName('Sort');
+
+        $fields->removeByName([
+            'Sort',
+            'MetaTitle',
+            'MetaDescription'
+        ]);
 
         $MetaToggle = ToggleCompositeField::create(
             'Metadata',
@@ -231,7 +238,7 @@ class JobPosting extends DataObject
 
         if ($InseratuploadField = $fields->dataFieldByName('Inserat')) {
             $InseratuploadField->allowedExtensions = array('PDF', 'pdf');
-            $InseratuploadField->setFolderName('jobs');
+            $InseratuploadField->setFolderName('Jobs');
             $InseratuploadField->setDescription(_t('Kraftausdruck\Models\JobPosting.InseratDesc', 'PDF'));
         }
 
