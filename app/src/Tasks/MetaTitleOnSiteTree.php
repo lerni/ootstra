@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Dev\Tasks;
+namespace App\Tasks;
 
 use \Page;
 use SilverStripe\Dev\Debug;

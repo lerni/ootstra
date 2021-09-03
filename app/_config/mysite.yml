@@ -49,6 +49,8 @@ SilverStripe\Admin\LeftAndMain:
 SilverStripe\Forms\HTMLEditor\TinyMCEConfig:
   editor_css:
     - 'themes/default/dist/css/editor.css'
+  image_size_presets:
+    - width: 1223
 
 Page:
   extensions:
@@ -216,7 +218,7 @@ Name: myopengraphsettings
 After: '#opengraphsettings'
 ---
 TractorCow\OpenGraph\OpenGraph:
-  default_locale: 'de_DE'
+  default_locale: 'de_DE'  # OpenGraph accepts just a limited subset of possible locales - de_CH for example is not supported
   application_id: ''
   admin_id: ''
 

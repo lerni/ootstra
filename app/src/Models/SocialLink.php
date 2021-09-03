@@ -9,7 +9,7 @@ class SocialLink extends DataObject
     private static $db = [
         'Title' => 'Varchar',
         'Url' => 'Varchar',
-        'Icon' => 'Enum("f,d,e,i,h,n,k,x,r,t,o,y,q,p,m,l,s")',
+        // 'Icon' => 'Enum("f,d,e,i,h,n,k,x,r,t,o,y,q,p,m,l,s")',
         'sameAs' => 'Boolean'
     ];
 
@@ -51,7 +51,7 @@ class SocialLink extends DataObject
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Titel');
+        $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Title');
         $labels['sameAs'] = _t(__CLASS__ . '.sameAs', '"sameAs" in schema verwenden');
 
         return $labels;
@@ -61,8 +61,9 @@ class SocialLink extends DataObject
     {
         $fields = parent::getCMSFields();
 
-        if ($IconField = $fields->dataFieldByName('Icon')) {
-            $IconField->setEmptyString('---');
+        if ($TitleField = $fields->dataFieldByName('Title')) {
+            $feathericonURL = 'https://feathericons.com/';
+            $TitleField->setDescription(_t(__CLASS__ . '.TitleDescription', 'Just use names from <a href="{link}" target="_blank">{link}</a>!', [ 'link' => $feathericonURL ]));
         }
 
         return $fields;

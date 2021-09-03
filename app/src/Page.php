@@ -75,7 +75,7 @@ namespace {
                 if ($MetaDescriptionField = $MetaToggle->fieldByName('MetaDescription')) {
                     if (!$MetaDescriptionField->isReadonly()) {
                         $MetaDescriptionField->setTargetLength(160, 100, 160);
-                        $MetaDescriptionField->setAttribute('placeholder', $this->DefaultMetaDescription);
+                        $MetaDescriptionField->setAttribute('placeholder', $this->DefaultMetaDescription());
                         $MetaDescriptionField->setRightTitle(_t('\Page.MetaDescriptionRightTitle', 'Wird in Suchmaschinen-Ergebnissen verwendet, wenn Länge passt und Relevanz gegeben ist; beeinflusst die SEO-Position kaum. Ansprechende Meta-Descripton (besonders die ersten ~55 Zeichen -> Sitelinks) beeinflussen die Klickrate jedoch stark.'));
                     }
                 }
@@ -279,7 +279,7 @@ namespace {
                 } else {
                     return $i;
                 }
-            } elseif (file_exists(BASE_PATH . '/public/icon-512.png')) {
+            } elseif (file_exists(BASE_PATH . '/public/icon-512.png') && !$origin) {
                 // Fallback to website's touch-icon
                 return rtrim(Director::absoluteBaseURL(), '/') . ModuleResourceLoader::resourceURL('public/icon-512.png');
             }

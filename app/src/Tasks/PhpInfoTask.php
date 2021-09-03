@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Dev\Tasks;
+namespace App\Tasks;
 
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Core\Environment;
