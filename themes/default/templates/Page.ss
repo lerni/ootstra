@@ -14,6 +14,7 @@
 		<% if $DefaultMetaDescription %><meta name="Description" content="$DefaultMetaDescription" /><% end_if %>
 	<% end_if %>
 	<% include App/Includes/Favicon %>
+	<script src="$resourceURL('/_resources/themes/default/thirdparty/instant-page.js')" type="module"></script>
 	<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@200;400&display=swap" rel="stylesheet">
 	<% require themedCSS('dist/css/style') %>
 	<style type="text/css">

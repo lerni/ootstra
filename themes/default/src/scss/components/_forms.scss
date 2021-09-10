@@ -1,3 +1,7 @@
+@use "sass:math";
+
+$labelfontsize: .9em;
+
 form {
 	&#Form_Form {
 		padding: 0px 0 50px 0;
@@ -16,7 +20,7 @@ form {
 			margin-bottom: 0;
 			legend {
 				@include bold;
-				padding: #{$lh/2}em 0;
+				padding: #{math.div($lh, 2)}em 0;
 			}
 			>.middleColumn>div {
 				margin-bottom: #{$lh}em;
@@ -71,14 +75,14 @@ form {
 					display: flex;
 					flex-wrap: wrap;
 					>div {
-						flex: 0 0 calc(#{percentage(1/4)} - #{$lh/2}em);
-						margin: 0 #{$lh/2}em #{$lh/2}em 0;
+						flex: 0 0 calc(#{percentage(math.div(1, 4))} - #{math.div($lh, 2)}em);
+						margin: 0 #{math.div($lh, 2)}em #{math.div($lh, 2)}em 0;
 					}
 				}
 				@include breakpoint($Mneg) {
 					.middleColumn {
 						>div {
-							flex: 0 0 calc(#{percentage(1/2)} - #{$lh/2}em);
+							flex: 0 0 calc(percentage(math.div(1, 2)) - #{math.div($lh, 2)}em);
 						}
 					}
 				}
@@ -86,18 +90,18 @@ form {
 					.middleColumn {
 						>div {
 							flex: 0 0 100%;
-							margin: 0 0 #{$lh/2}em 0;
+							margin: 0 0 #{math.div($lh, 2)}em 0;
 						}
 					}
 				}
 			}
             label {
                 color: $lauftext-color;
-                margin-bottom: #{$lh/4}em;
+                margin-bottom: #{math.div($lh, 4)}em;
                 &.left {
 					display: block;
 					font-weight: normal;
-					font-size: .8em;
+					font-size: $labelfontsize;
                 }
                 &.right {}
                 &.required {
@@ -159,30 +163,30 @@ form {
 					}
 				}
 				.g-recaptcha {
-					margin-top: #{$lh/2}em;
+					margin-top: #{math.div($lh, 2)}em;
 				}
 			}
 			&.dropdown .middleColumn select  {
 				@include dropdown;
-				font-size: .8em;
+				font-size: $labelfontsize;
 				line-height: 1.5;
 			}
 			&.hide {
 				display: none;
 			}
 			&.userformsoptionset {
-				$size: 16;
+				$size: 18;
 				.middleColumn div {
 					position: relative;
 					label {
-						padding-left: 1.3em;
-						font-size: .8em;
+						padding-left: #{$size*1.3}px;
+						font-size: $labelfontsize;
 					}
 					input[type=radio] {
 						position: absolute;
 						visibility: hidden;
 						&:checked ~ .radio-check {
-							border: #{$size/5}px solid $link-color;
+							border: #{math.div($size, 5)}px solid $link-color;
 						}
 						&:checked ~ .radio-check::before {
 							background-color: $link-color;
@@ -195,24 +199,23 @@ form {
 						pointer-events: none;
 						display: block;
 						position: absolute;
-						border: #{$size/5}px solid $lauftext-color;
 						border-radius: 100%;
 						height: #{$size}px;
 						width: #{$size}px;
-						top: #{$size/3}px;
+						top: #{math.div($size, 5)}px;
 						left: 0;
 						z-index: 5;
 						transition: border .25s linear;
-						border: #{$size/5}px solid $lauftext-color;
+						border: #{math.div($size, 5)}px solid $lauftext-color;
 						&::before {
 							display: block;
 							position: absolute;
 							content: '';
 							border-radius: 100%;
-							height: #{$size/2}px;
-							width: #{$size/2}px;
-							top: #{$size/20}px;
-							left: #{$size/20}px;
+							height: #{math.div($size, 2)}px;
+							width: #{math.div($size, 2)}px;
+							top: #{math.div($size, 20)}px;
+							left: #{math.div($size, 20)}px;
 							margin: auto;
 							transition: background-color 0.25s linear;
 						}
@@ -220,7 +223,7 @@ form {
 				}
 			}
 			.right-title {
-				font-size: .8em;
+				font-size: $labelfontsize;
 			}
 		}
 		fieldset.field {
@@ -244,12 +247,12 @@ form {
 	}
 	body &.userform .left {
 		@include normal;
-		font-size: .8em;
+		font-size: $labelfontsize;
 	}
 }
 
 .Actions {
-	margin-bottom: 20px;
+	margin-bottom: #{$lh}em;
 	display: flex;
 	a.btn,
 	button,
@@ -262,7 +265,6 @@ form {
 		padding: .7em 1.41em .6em;
 		border: none;
 		@include bold;
-		margin: 10px auto;
 	}
 	a.btn:hover,
 	button:hover,
@@ -354,7 +356,7 @@ form .optionset ul {
 	}
 
 span.message {
-	font-size: .8em;
+	font-size: $labelfontsize;
 	margin: 10px 0;
 	display: block;
 	clear: left;
@@ -417,7 +419,6 @@ form .file {
 	transition: .2s ease-out;
 	cursor: pointer;
 	border-radius: .2em;
-	margin-bottom: #{$lh}em;
 	border-color: $link-color;
 	display: inline-block;
 	padding: .3em 1em .4em;

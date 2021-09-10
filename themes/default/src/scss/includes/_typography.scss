@@ -1,10 +1,10 @@
 /* Styles for HtmlEditorFields
 ---------------------------------------------------------------------------------- */
-
+@use "sass:math";
 @import '~breakpoint-sass/stylesheets/breakpoint';
 @import 'mixins';
-@import 'includes/documents';
-@import 'includes/utils';
+// @import 'documents';
+@import 'utils';
 
 /* Typography
 ---------------------------------------------------------------------------------- */
@@ -34,8 +34,8 @@
 		border-bottom: 1px solid $gray-light;
 		clear: both;
 		height: 0;
-		padding: calc(#{$lh/2}em - 1px) 0 0 0;
-		margin: 0 0 #{$lh/2}em 0;
+		padding: calc(#{math.div($lh, 2)}em - 1px) 0 0 0;
+		margin: 0 0 #{math.div($lh, 2)}em 0;
 	}
 
 	// * LINKS
@@ -45,7 +45,7 @@
 		text-decoration: none;
 		color: $link-color;
 		&:hover {
-			color: $current-color;
+			// color: $current-color;
 		}
 	}
 
@@ -55,10 +55,10 @@
 	ul {
 		// margin-left & -right may be affected by $inner-width--reduced
 		margin: 0 0 #{$lh}em 0;
-		padding: 0 0 0 #{$lh/3*2}em;
+		padding: 0 0 0 #{$lh*.666}em;
 		li {
 			line-height: $lh;
-			padding: 0 0 #{$lh/2}em #{$lh/2}em;
+			padding: 0 0 #{math.div($lh, 2)}em #{math.div($lh, 2)}em;
 			font-size: 1em;
 		}
 		ul {
@@ -79,7 +79,7 @@
 	dl {
 		display:flex;
 		width: 100%;
-		margin: 0 auto #{$lh/2}em auto;
+		margin: 0 auto #{math.div($lh, 2)}em auto;
 		@include breakpoint($Lneg) {
 			flex-wrap: wrap;
 		}
@@ -95,7 +95,7 @@
 		}
 		dd {
 			flex: 1 1 calc(100% - 400px);
-			margin-left: #{$lh/2}em;
+			margin-left: #{math.div($lh, 2)}em;
 			@include breakpoint($Mneg) {
 				flex: 0 0 100%;
 
@@ -110,9 +110,12 @@
 	h2,
 	h3,
 	h4 {
-		margin: 0 0 #{$lh/2}em 0;
+		margin: 0 0 #{math.div($lh, 2)}em 0;
 		color: $blue;
 		@include bold;
+		&:first-child {
+			line-height: 1;
+		}
 	}
 	h1 {
 		font-size: 1.6em;
@@ -178,18 +181,22 @@
 
 	// * IMAGES
 	// -------------------------------------------- */
+	.captionImage {
+		max-width: 100%;;
+	}
+
 	img {
 		border: none;
 		max-width: 100%;
 		height: auto;
-		margin-bottom: #{$lh/2}em;
+		margin-bottom: #{math.div($lh, 2)}em;
 		&.right {
 			text-align: right;
-			margin-left: #{$lh/2}em;
+			margin-left: #{math.div($lh, 2)}em;
 		}
 		&.left {
 			text-align: left;
-			margin-right: #{$lh/2}em;
+			margin-right: #{math.div($lh, 2)}em;
 		}
 		&.leftAlone {
 			margin-right: 100%;
@@ -211,7 +218,7 @@
 		margin-bottom: #{$lh}em;
 		>p {
 			// video caption
-			padding: #{$lh/2}em;
+			padding: #{math.div($lh, 2)}em;
 			background-color: $gray-lighter;
 			font-size: .8em;
 			display: table;
@@ -289,7 +296,7 @@
 		padding: #{$lh*1}em #{$lh*2}em #{$lh*1.1}em #{$lh*2}em;
 		margin: 0 0 #{$lh}em 0;
 		@include breakpoint($Mneg) {
-			padding: #{$lh}em #{$lh/2}em;
+			padding: #{$lh}em #{math.div($lh, 2)}em;
 		}
 		>*:last-child {
 			margin-bottom: 0;

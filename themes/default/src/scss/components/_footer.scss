@@ -1,3 +1,4 @@
+@use "sass:math";
 /* Layout: footer
 ---------------------------------------------------------------------------------- */
 body > footer {
@@ -41,16 +42,13 @@ body > footer {
 					width: #{$lh*2}em;
 				}
 			}
-			@include breakpoint($Sneg) {
-				display: none;
-			}
         }
 		.coord {
 			flex-grow: 1;
 			align-self: flex-end;
 			span, a {
 				display: block;
-				margin-right: #{$lh/2}em;
+				margin-right: #{math.div($lh, 2)}em;
             }
             a {
                 margin-top: #{$lh}em;

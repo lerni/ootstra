@@ -1,12 +1,12 @@
 <% cached 'navigation', $ID, $List('SilverStripe\CMS\Model\SiteTree').max('LastEdited'), $List('SilverStripe\CMS\Model\SiteTree').count() %><% if $Menu(1) %>
 	<ul class="menu1">
 		<% loop $Menu(1) %>
-			<li class="$LinkingMode<% if $Childrenexcluded %> has-children<% end_if %>">
-				<a href="$Link">$MenuTitle</a>
+			<li class="$LinkingMode<% if $Childrenexcluded %> has-children<% end_if %><% if $LinkingMode == section %> expanded<% end_if %>">
+				<a href="$Link">$MenuTitle.XML</a><% if $Childrenexcluded %><span class="trigger"></span><% end_if %>
 				<% if $Childrenexcluded %>
 					<ul class="menu2">
 						<% loop $Childrenexcluded %>
-							<li class="$LinkingMode $FistLast">
+							<li class="$LinkingMode">
 								<a href="$Link">$MenuTitle</a>
 							</li>
 						<% end_loop %>

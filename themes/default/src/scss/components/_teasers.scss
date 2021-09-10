@@ -1,3 +1,4 @@
+@use "sass:math";
 .element.elementteaser,
 .element.elementfeedteaser {
     .teasers {
@@ -5,12 +6,13 @@
         flex-wrap: wrap;
         justify-content: center;
         width: calc(100% + #{$lh}em);
-        margin-left: -#{$lh/2}em;
-        margin-right: -#{$lh/2}em;
+        margin-left: -#{math.div($lh, 2)}em;
+        margin-right: -#{math.div($lh, 2)}em;
         .teaser {
             color: $lauftext-color;
-            margin: 0 #{$lh/2}em #{$lh*2}em #{$lh/2}em;
-            flex: 0 0 calc(#{percentage(1/3)} - #{$lh}em);
+            margin: 0 #{math.div($lh, 2)}em #{$lh*2}em #{math.div($lh, 2)}em;
+            flex: 0 0 calc(percentage(math.div(1, 3)) - #{$lh}em);
+
             position: relative;
             figure {
                 width: 100%;
@@ -50,7 +52,9 @@
                 display: flex;
                 flex-direction: column;
                 @include breakpoint($Lneg) {
-                    flex: 0 0 calc(#{percentage(1/2)} - #{$lh*1/2}em);
+                    flex: 0 0 calc(percentage(math.div(1, 2)) - #{math.div($lh, 2)}em);
+
+
                     margin-right: #{$lh}em;
                 }
                 @include breakpoint($Mneg) {
@@ -65,7 +69,7 @@
                     position: inherit;
                     flex: 0 0 auto;
                     @include breakpoint($Mneg) {
-                        padding: #{$lh*1.5}em #{$lh/2}em 0 #{$lh*2}em;
+                        padding: #{$lh*1.5}em #{math.div($lh, 2)}em 0 #{$lh*2}em;
                     }
                 }
                 .pseudolink {
@@ -84,9 +88,10 @@
         }
         &.halve {
             .teaser {
-                flex: 0 0 calc(#{percentage(1/2)} - #{$lh}em);
+                flex: 0 0 calc(#{percentage(math.div(1, 2))} - #{$lh}em);
+
                 max-width: 480px;
-                margin: #{$lh*2}em #{$lh/2}em;
+                margin: #{$lh*2}em #{math.div($lh, 2)}em;
                 &:nth-of-type(2n) {
                     margin-right: 0;
                 }
@@ -97,7 +102,7 @@
                 }
                 .txt {
                     background-color: $white;
-                    padding: #{$lh*1.5}em #{$lh/2}em #{$lh}em #{$lh*2}em;
+                    padding: #{$lh*1.5}em #{math.div($lh, 2)}em #{$lh}em #{$lh*2}em;
                     max-width: calc(100% - #{$lh*2}em);
                     min-width: 360px;
                     right: 0;
@@ -134,7 +139,7 @@
                 }
                 &:hover {
                     .txt {
-                        padding-bottom: #{$lh/2}em;
+                        padding-bottom: #{math.div($lh, 2)}em;
                         .accordion {
                             max-height: 300px;
                             overflow: show;

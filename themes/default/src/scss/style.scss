@@ -1,3 +1,4 @@
+@use "sass:math";
 @import '~breakpoint-sass/stylesheets/breakpoint';
 @import 'includes/variables';
 @import 'includes/typography';
@@ -26,20 +27,13 @@ html, body {
 }
 
 html {
-	// overflow-x: hidden;
-	// overflow-y: scroll;
 	letter-spacing: .04em;
 	font-size: #{$lauftext-size};
 	font-family: $font-family;
-	font-display: auto;
 	line-height: $lh;
 	color: $lauftext-color;
 	@include normal;
 	@include smoothFonts;
-	&.mobile-nav--active {
-		overflow: hidden;
-		height: -webkit-fill-available;
-	}
 }
 
 body {
@@ -74,16 +68,6 @@ body {
 	transform: translateY(0%);
 	box-shadow: none;
 	background-color: rgba($white, .97);
-	@include breakpoint($Sneg) {
-		top: auto;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		height: $headerheight--small; // same amount on lower footer
-		background-color: $white;
-		box-shadow: 0 0 .8em rgba($black, .3);
-		transform: translateY(0) !important;
-	}
 	.inner {
 		display: flex;
 		// max-width: calc(#{$inner-width + 200px});
@@ -145,13 +129,13 @@ main.typography {
 	padding-left: #{$lh*1}em;
 	padding-right: #{$lh*1}em;
 	@include breakpoint($Mneg) {
-		padding-left: #{$lh/2}em;
-		padding-right: #{$lh/2}em;
+		padding-left: #{math.div($lh, 2)}em;
+		padding-right: #{math.div($lh, 2)}em;
 	}
 }
 
 .breadcrumbs {
-	padding-bottom: #{$lh/2}em;
+	padding-bottom: #{math.div($lh, 2)}em;
 	text-align: center;
 	@include bold;
 	a, span, .delimiter {
@@ -182,7 +166,7 @@ main.typography {
 	>span,
 	>a {
 		display: inline-block;
-		margin: 0 #{$lh/2}em #{$lh/2}em 0;
+		margin: 0 #{math.div($lh, 2)}em #{math.div($lh, 2)}em 0;
 		padding: .3em 1.2em .2em;
 		border-width: 2px;
 		border-style: solid;
@@ -300,7 +284,7 @@ main.typography {
 				p {
 					@include normal;
 					margin-bottom: 0;
-					padding: #{$lh*.5}em 0;
+					padding: #{math.div($lh, 2)}em 0;
 				}
 			}
 			&.upper-left .inner {
@@ -368,7 +352,7 @@ main.typography {
 			@include breakpoint($Lneg) {
 				position: inherit;
 				.spacer {
-					padding: #{$lh/2}em 0 0 0;
+					padding: #{math.div($lh, 2)}em 0 0 0;
 					position: relative;
 					&::after {
 						content: "";
@@ -461,7 +445,7 @@ main.typography {
 			display: table;
 		}
 		&.breadcrumbs {
-			padding-bottom: #{$lh/2}em;
+			padding-bottom: #{math.div($lh, 2)}em;
 			margin-bottom: 0;
 		}
 		&.global-alert {
@@ -499,7 +483,7 @@ main.typography {
 			padding-right: 0;
 		}
 		.txt {
-			flex: 0 0 #{percentage(1/3)};
+			flex: 0 0 percentage(math.div(1, 3));
 			display: flex;
 			flex-direction: row;
 			justify-content: center;
@@ -507,7 +491,7 @@ main.typography {
 			position: relative;
 			z-index: 1;
 			@include ie11 {
-				max-width: calc(#{percentage(1/3)});
+				max-width: percentage(math.div(1, 3));
 			}
 
 			@include breakpoint($Mneg) {
@@ -543,13 +527,13 @@ main.typography {
 			}
 		}
 		figure {
-			flex: 0 0 calc(#{percentage(2/3)} - #{$lh}em);
+			flex: 0 0 calc(percentage(math.div(2, 3)) - #{$lh}em);
 			position: relative;
 			margin: 0;
 			margin-left: #{$lh}em;
 			z-index: 0;
 			@include ie11 {
-				max-width: calc(#{percentage(2/3)} - #{$lh}em);
+				max-width: calc(percentage(math.div(2, 3)) - #{$lh}em);
 				width: 100%;
 			}
 			@include breakpoint($Mneg) {
@@ -581,7 +565,7 @@ main.typography {
 				margin: auto auto auto 0;
 				@include breakpoint($Mplus) {
 					margin-left: -50%;
-					box-shadow: -#{$lh/2}em 0 #{$lh}em rgba($black, .1);
+					box-shadow: -#{math.div($lh, 2)}em 0 #{$lh}em rgba($black, .1);
 				}
 			}
 		}
@@ -600,7 +584,7 @@ main.typography {
 			border-bottom: 1px solid $gray-light;
 			article {
 				header {
-					padding: #{$lh/2}em 0;
+					padding: #{math.div($lh, 2)}em 0;
 					cursor: pointer;
 					position: relative;
 					padding-right: #{$lh*3}em;
@@ -631,7 +615,7 @@ main.typography {
 					}
 				}
 				>div.flip {
-					padding:#{$lh/2}em 0;
+					padding:#{math.div($lh, 2)}em 0;
 					>p:last-child {
 						margin-bottom: 0;
 					}
@@ -669,9 +653,9 @@ main.typography {
 			display: flex;
 			flex-wrap: wrap;
 			justify-content: center;
-			width: calc(100% + #{$lh/2}em);
-			margin-left: -#{$lh/4}em;
-			margin-right: -#{$lh/4}em;
+			width: calc(100% + #{math.div($lh, 2)}em);
+			margin-left: -#{math.div($lh, 4)}em;
+			margin-right: -#{math.div($lh, 4)}em;
 			&.greyscale li.logo figure img {
 				filter: grayscale(100%);
 				transition-property: filter;
@@ -680,7 +664,7 @@ main.typography {
 			li.logo {
 				flex: 0 0 233px;
 				min-height: 120px;
-				margin: #{$lh/4}em;
+				margin: #{math.div($lh, 4)}em;
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
@@ -719,10 +703,10 @@ main.typography {
 			justify-content: center;
 			width: calc(100% - #{$lh}em);
 			a {
-				flex: 0 0 calc(#{percentage(1/3)} - #{$lh}em);
+				flex: 0 0 calc(percentage(math.div(1, 3)) - #{$lh}em);
 				display: flex;
 				flex-direction: column;
-				margin: #{$lh}em #{$lh/2}em;
+				margin: #{$lh}em #{math.div($lh, 2)}em;
 				figure {
 					flex: 0 0 auto;
 					margin: 0;
@@ -734,7 +718,7 @@ main.typography {
 				}
 				.txt {
 					flex: 1 0 auto;
-					margin: #{$lh/2}em 0 auto 0;
+					margin: #{math.div($lh, 2)}em 0 auto 0;
 				}
 			}
 		}
@@ -804,9 +788,9 @@ ul#SearchResults {
 // how does userform handle such things?
 .alert {
 	border: 1px solid;
-	padding: #{$lh/2}em;
-	border-radius: #{$lh/4}em;
-	margin-bottom: #{$lh/2}em;
+	padding: #{math.div($lh, 2)}em;
+	border-radius: #{math.div($lh, 4)}em;
+	margin-bottom: #{math.div($lh, 2)}em;
 	&.alert-warning {
 		background-color: rgba($red, .1);
 		border-color: rgba($red, 1);
@@ -827,7 +811,7 @@ ul#SearchResults {
 
 .global-alert:not(.elementhero) {
 	background-color: $blue;
-	padding: #{$lh/2}em 0;
+	padding: #{math.div($lh, 2)}em 0;
 	margin-bottom: #{$lh}em;
 	.inner >* {
 		color: $white;
@@ -850,7 +834,7 @@ ul#SearchResults {
 			vertical-align: -.05em;
 		}
 		&:not(:last-of-type) {
-			margin-right: #{$lh/2}em;
+			margin-right: #{math.div($lh, 2)}em;
 		}
 		&:hover {
 			color: $lauftext-color;

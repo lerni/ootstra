@@ -1,3 +1,5 @@
+@use "sass:math";
+
 body.blogpost,
 body.blog {
 	.element.blog-post-meta p {
@@ -9,12 +11,12 @@ body.blog {
         flex-wrap: wrap;
         justify-content: center;
 		width: calc(100% + #{$lh}em);
-		margin: 0 -#{$lh/2}em;
+		margin: 0 -#{math.div($lh, 2)}em;
 	}
 	.post-summary {
-        flex: 0 0 calc(#{percentage(1/3)} - #{$lh}em);
+        flex: 0 0 calc(#{percentage(math.div(1, 3))} - #{$lh}em);
         flex-direction: column;
-        margin: #{$lh/2}em #{$lh/2}em #{$lh*1.5}em;
+        margin: #{math.div($lh, 2)}em #{math.div($lh, 2)}em #{$lh*1.5}em;
         color: $lauftext-color;
         &.nopost {
             flex: 0 0 100%;
@@ -38,7 +40,7 @@ body.blog {
 			margin: #{$lh}em auto #{$lh*2}em;
 			max-width: 700px;
 			p {
-				margin: #{$lh/2}em 0;
+				margin: #{math.div($lh, 2)}em 0;
 			}
 		}
 		&:focus {

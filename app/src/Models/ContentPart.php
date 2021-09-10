@@ -27,6 +27,10 @@ class ContentPart extends DataObject
         'FAQSchema' => 'FAQ'
     ];
 
+    private static $defaults = [
+        'ShowTitle' => 1
+    ];
+
     private static $table_name = 'ContentPart';
 
     public function fieldLabels($includerelations = true)

@@ -1,3 +1,5 @@
+@use "sass:math";
+
 .element.elementgallery {
 	ul.gallery {
 		list-style: none;
@@ -5,7 +7,7 @@
 		flex-wrap: wrap;
 		justify-content: center;
 		width: calc(100% + #{$lh}em);
-		margin: 0 -#{$lh/2}em;
+		margin: 0 -#{math.div($lh, 2)}em;
 		padding: 0;
 		padding-top: #{$lh}em;
 		text-align: center;
@@ -22,7 +24,7 @@
 			flex: 0 0 auto;
 			padding-left: 0;
 			padding-bottom : 0;
-			margin: 0 #{$lh/2}em #{$lh}em #{$lh/2}em;
+			margin: 0 #{math.div($lh, 2)}em #{$lh}em #{math.div($lh, 2)}em;
 			a {
 				display: table;
 				width: 100%;
