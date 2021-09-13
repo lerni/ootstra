@@ -122,8 +122,8 @@ DNADesign\ElementalVirtual\Model\ElementVirtual:
 DNADesign\ElementalUserForms\Model\ElementForm:
   # block_default_userforms_js: true
   block_default_userforms_css: true
-  # extensions:
-  #   - App\Extensions\ElementUserFormsExtension
+  extensions:
+    - App\Extensions\ElementUserFormsExtension
 
 SilverStripe\UserForms\Model\UserDefinedForm:
   # block_default_userforms_js: true

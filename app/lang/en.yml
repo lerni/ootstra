@@ -5,3 +5,6 @@ en:
     MORE: 'Read more'
   Kraftausdruck\KlaroCookie:
     MODALLINK: 'Cookies'
+  App\Models\SocialLink:
+    sameAs: 'Use "sameAs" in schema'
+    TitleDescription: 'Just use names from <a href="{link}" target="_blank">{link}</a>!'

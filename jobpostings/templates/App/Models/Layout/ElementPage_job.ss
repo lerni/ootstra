@@ -34,7 +34,7 @@
 				<% if $InseratID %><a class="download" href="$Inserat.Link">$Inserat.Title</a><% end_if %>
 				<a href="$Parent.Link" class="parent-link back">$Parent.Parent.OwnerPage.MenuTitle</a>
 				$JobPostingSchema.RAW
-				$Parent.Page.LocalBusinessSchema.RAW
+				$Parent.Page.OrganisationSchema.RAW
 			</div>
 		</article>
 	<% end_with %>
