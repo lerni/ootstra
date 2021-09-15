@@ -2,9 +2,33 @@
 	<div class="swiper-container hero {$Size}<% if $DoNotCrop %> do-not-crop<% end_if %>" data-id="{$ID}" id="hero-swiper-{$ID}">
 		<div class="swiper-wrapper hero">
 			<% loop $Slides.Sort('SortOrder') %>
-				<% if $SlideImage %>
+				<% if $SlideImage || $EmbedVideo %>
 					<div class="swiper-slide {$TextAlignment}">
-						<% if $Up.Up.Size == "small" %>
+						<% if $EmbedVideo %>
+							<div class="embed-hero" style="display: none;">
+								{$EmbedVideo}
+								<div class="overlayer"></div>
+							</div>
+							<%-- we repeat medium-size for a still-image fake --%>
+							<figure class="video<% if $LinkID %> linked<% end_if %>"><img sizes="100vw"
+								height="$SlideImage.FocusFillMax(1440,650).Height()"
+								width="$SlideImage.FocusFillMax(1440,650).Width()"
+								<% if not $First %>loading="lazy" <% end_if %>
+								alt="$SlideImage.Title"
+								style="object-position: {$SlideImage.FocusFillMax(1440,650).PercentageX}% {$SlideImage.FocusFillMax(1440,650).PercentageY}%;"
+								src="$SlideImage.FocusFillMax(1440,650).URL"
+								srcset="
+									$SlideImage.FocusFillMax(480,217).URL 480w,
+									$SlideImage.FocusFillMax(640,289).URL 640w,
+									$SlideImage.FocusFillMax(800,361).URL 800w,
+									$SlideImage.FocusFillMax(1000,451).URL 1000w,
+									$SlideImage.FocusFillMax(1200,542).URL 1200w,
+									$SlideImage.FocusFillMax(1440,650).URL 1440w<% if $Up.Up.isFullWidth %>,
+									$SlideImage.FocusFillMax(1600,722).URL 1600w,
+									$SlideImage.FocusFillMax(2000,903).URL 2000w,
+									$SlideImage.FocusFillMax(2600,1174).URL 2600w<% end_if %>" />
+							</figure>
+						<% else_if $Up.Up.Size == "small" %>
 							<figure <% if $LinkID %>class="linked"<% end_if %>><img sizes="100vw"
 								height="$SlideImage.FocusFillMax(1440,360).Height()"
 								width="$SlideImage.FocusFillMax(1440,360).Width()"

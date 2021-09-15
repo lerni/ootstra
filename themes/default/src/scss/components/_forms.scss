@@ -258,8 +258,7 @@ form {
 		background: $link-color;
 		color: $white;
 		display: inline-block;
-		border-radius: .5em;
-		padding: .7em 1.41em .6em;
+		padding: #{math.div($lh,4)}em #{math.div($lh,2)}em;
 		border: none;
 		@include bold;
 	}
@@ -415,10 +414,9 @@ form .file {
 	text-align: center;
 	transition: .2s ease-out;
 	cursor: pointer;
-	border-radius: .2em;
-	border-color: $link-color;
 	display: inline-block;
-	padding: .3em 1em .4em;
+	padding: #{math.div($lh,4)}em #{math.div($lh,2)}em;
+	border: none;
 	-webkit-appearance: none;
 	&:hover {
 		background-color: $link-color;

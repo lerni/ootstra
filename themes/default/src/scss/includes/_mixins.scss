@@ -108,3 +108,20 @@
 		}
 	}
 }
+
+@mixin separated($separator: "| ", $color: $lauftext-color) {
+	&:not(:last-of-type) {
+		@include breakpoint($Mneg) {
+			flex: 0 1 100%;
+		}
+		&::after {
+			margin: 0 #{$lh}em;
+			content: "#{$separator}";
+			color: $color;
+			@include breakpoint($Mneg) {
+				display: none;
+				content: "";
+			}
+		}
+	}
+}

@@ -41,11 +41,13 @@
 	// * LINKS
 	// -------------------------------------------- */
 
-	a:not([class]) {
+	a {
 		text-decoration: none;
-		color: $link-color;
-		&:hover {
-			// color: $current-color;
+		&:not([class]) {
+			color: $link-color;
+			&:hover {
+				color: $current-color;
+			}
 		}
 	}
 

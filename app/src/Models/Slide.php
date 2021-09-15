@@ -7,6 +7,8 @@ use SilverStripe\ORM\DataObject;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Forms\CompositeField;
 use SilverStripe\Forms\TreeDropdownField;
+use nathancox\EmbedField\Forms\EmbedField;
+use nathancox\EmbedField\Model\EmbedObject;
 use DNADesign\Elemental\Forms\TextCheckboxGroupField;
 
 class Slide extends DataObject
@@ -23,7 +25,8 @@ class Slide extends DataObject
 
     private static $has_one = [
         'SlideImage' => Image::class,
-        'Link' => SiteTree::class
+        'Link' => SiteTree::class,
+        'EmbedVideo' => EmbedObject::class
     ];
 
     private static $owns = [
@@ -99,6 +102,8 @@ class Slide extends DataObject
             $SlideBildField->getValidator()->setAllowedMaxFileSize($size);
             $SlideBildField->setDescription(_t(__CLASS__ . '.SlideImageDescription', 'small 4:1 // medium 16:9 // fullscreen 8:5 / 5:8 / 4:3 depending on client screensize (use focuspoint!)'));
         }
+
+        $fields->addFieldToTab('Root.Main', EmbedField::create('EmbedVideoID', 'Embed Video'));
 
         return $fields;
     }

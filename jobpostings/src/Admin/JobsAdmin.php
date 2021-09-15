@@ -38,7 +38,7 @@ class JobsAdmin extends ModelAdmin
                 );
                 $form->Fields()->unshift(
                     LiteralField::create(
-                        'HeroNeeded',
+                        'ElementJobsNeeded',
                         sprintf(
                             '<p class="alert alert-info">%s</p>',
                             $message

@@ -12,7 +12,7 @@ use SilverStripe\Core\Manifest\ModuleResourceLoader;
 class PageSchemaExtension extends Extension
 {
 
-    public function LocalBusinessSchema()
+    public function OrganisationSchema()
     {
 
         $siteConfig = SiteConfig::current_site_config();

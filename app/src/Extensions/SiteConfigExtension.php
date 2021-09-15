@@ -103,10 +103,8 @@ class SiteConfigExtension extends Extension
         $ServiceNavigationGridFieldConfig->addComponents(
             new GridFieldEditButton(),
             new GridFieldDeleteAction(false),
-            new GridFieldDeleteAction(true),
             new GridFieldDetailForm(),
             new GridFieldAddNewButton('toolbar-header-right'),
-            new GridFieldAddExistingAutocompleter('toolbar-header-right'),
             new GridFieldOrderableRows('SortOrder')
         );
 

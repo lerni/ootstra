@@ -23,17 +23,17 @@ body > footer {
 			padding-bottom: #{$lh*.5}em;
 		}
 		.inner {
-            display: flex;
-            flex-wrap: wrap;
-        }
-        .column {
-            flex: 0 0 25%;
-            @include breakpoint($Lneg) {
+			display: flex;
+			flex-wrap: wrap;
+		}
+		.column {
+			flex: 0 0 25%;
+			@include breakpoint($Lneg) {
 				flex: 0 0 100%;
 				margin-bottom: #{$lh}em;
 			}
-        }
-        .logo {
+		}
+		.logo {
 			display: flex;
 			flex-direction: column;
 			flex: 0 1 50%;
@@ -42,37 +42,38 @@ body > footer {
 					width: #{$lh*2}em;
 				}
 			}
-        }
+		}
 		.coord {
 			flex-grow: 1;
 			align-self: flex-end;
 			span, a {
 				display: block;
 				margin-right: #{math.div($lh, 2)}em;
-            }
-            a {
-                margin-top: #{$lh}em;
-            }
+			}
+			a {
+				margin-top: #{$lh}em;
+			}
 		}
 		.inprint {
 			flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            nav {
-                display: flex;
-                flex-direction: column;
-                a {
-                    display: inline-block;
-                    margin-bottom: #{$lh}em;
-                    color: $lauftext-color;
-                    &.current {
-                        @include bold;
-                    }
-                    &:not(:last-of-type) {
-                        margin-right: #{$lh}em;
-                    }
-                }
-            }
+			display: flex;
+			flex-direction: column;
+			nav {
+				display: flex;
+				flex-direction: column;
+				a {
+					display: inline-block;
+					margin-bottom: #{$lh}em;
+					color: $lauftext-color;
+					@include separated();
+					&.current {
+						@include bold;
+					}
+					&:not(:last-of-type) {
+						margin-right: #{$lh}em;
+					}
+				}
+			}
 		}
 		.copyright {
 			margin-top: auto;
