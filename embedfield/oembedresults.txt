@@ -1,0 +1,52 @@
+
+
+/*
+
+Oembed_Result Object
+(
+  [data:protected] => Array
+    (
+      [type] => photo
+      [title] => Catgirls Harbour - Golgatha is lost
+      [author_name] => Moos Hultcrantz
+      [author_url] => http://www.flickr.com/photos/79972817@N05/
+      [width] => 1024
+      [height] => 512
+      [url] => http://farm3.staticflickr.com/2875/10957565915_ba750a65d9_b.jpg
+      [web_page] => http://www.flickr.com/photos/79972817@N05/10957565915/
+      [thumbnail_url] => http://farm3.staticflickr.com/2875/10957565915_ba750a65d9_s.jpg
+      [thumbnail_width] => 75
+      [thumbnail_height] => 75
+      [web_page_short_url] => http://flic.kr/p/hGhoAg
+      [license] => All Rights Reserved
+      [license_id] => 0
+      [version] => 1.0
+      [cache_age] => 3600
+      [provider_name] => Flickr
+      [provider_url] => http://www.flickr.com/
+    )
+)
+
+
+
+Oembed_Result Object
+(
+  [data:protected] => Array
+    (
+      [height] => 344
+      [provider_name] => YouTube
+      [author_url] => http://www.youtube.com/user/rmm413e
+      [thumbnail_height] => 360
+      [thumbnail_width] => 480
+      [width] => 459
+      [title] => Johnny Collins - Leave Her Johnny (sea chantey)
+      [version] => 1.0
+      [html] => <iframe width="459" height="344" src="http://www.youtube.com/embed/4fVQwzv5Qfc?feature=oembed" frameborder="0" allowfullscreen></iframe>
+      [type] => video
+      [author_name] => rmm413e
+      [thumbnail_url] => http://i1.ytimg.com/vi/4fVQwzv5Qfc/hqdefault.jpg
+      [provider_url] => http://www.youtube.com/
+    )
+)
+
+ */

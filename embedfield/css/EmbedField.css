@@ -1,0 +1,72 @@
+.field.embed .form__field-holder {
+	border-radius: 4px;
+	padding: initial;
+	width: initial;
+}
+
+.field.embed img {
+	border: 1px transparent;
+	border-radius: 4px;
+}
+
+.field.embed em {
+	margin-top:10px;
+	color:#B7A403;
+	font-style:normal;
+	margin-left:115px;
+	display:block;
+}
+
+.field.embed .embed-thumbnail {
+	width: 113px;
+	min-height: 79px;
+	float:left;
+	display:inline-block;
+
+}
+	.field.embed .embed-thumbnail.empty {
+	  box-shadow: 0 0 4px 0 #808080 inset;
+	  border-radius:4px;
+	  height:70px;
+	  opacity:0.5;
+	}
+
+	.field.embed img {
+		max-width:100%;
+		max-height:100px;
+		display:block;
+	}
+
+
+.field.embed .fieldholder-small {
+	margin-left: 130px;
+}
+
+.field.embed button.action {
+	margin-top: 16px;
+}
+
+.field.embed button.action:not(.btn-outline-primary) {
+	background-color: #008a00;
+	border-color: #008a00;
+}
+
+.field.embed input.text.error {
+	border-color: #ff00004d;
+	background-color: #ff00001a;
+}
+
+.field.embed button.action:hover {
+	background-color: #e9f6e9;
+}
+
+.field.embed button.action:not(.btn-outline-primary):hover {
+	color: #fff;
+	background-color: #006400;
+	border-color: #005700;
+	cursor: pointer;
+}
+
+.field.embed .clear {
+	clear:both;
+}
