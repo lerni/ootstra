@@ -18,6 +18,7 @@ use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 class ElementPerso extends BaseElement
 {
     private static $db = [
+        'Primary' => 'Boolean',
         'Sorting' => 'Enum("random,manual","random")',
     ];
 
@@ -86,6 +87,21 @@ class ElementPerso extends BaseElement
 
         $fields->addFieldToTab('Root.Main', LiteralField::create('DescDeleteIfEmptyOnly', '<p><strong>Nur Abteilungen ohne Personen können gelöscht werden!</strong></p>'));
 
+        if ($PrimaryField = $fields->dataFieldByName('Primary')) {
+            if (!$this->Primary && $this->ClassName::get()->filter(['Primary' => 1])->count()) {
+                $PrimaryPersoElement = $this->ClassName::get()->filter(['Primary' => 1])->first()->AbsoluteLink();
+                $PrimaryField = LiteralField::create(
+                    'PrimaryIs',
+                    sprintf(
+                        '<p class="alert alert-info">Primary Job Element is %s</p>',
+                        $PrimaryPersoElement
+                    )
+                );
+            }
+            $fields->addFieldToTab('Root.Settings', $PrimaryField);
+            $PrimaryField->setTitle('Primärers PersoElement (linked)');
+        }
+
         return $fields;
     }
 
@@ -101,6 +117,16 @@ class ElementPerso extends BaseElement
                 });
             return $all;
         }
+    }
+
+    // first one should be primary unless selected differently
+    public function populateDefaults()
+    {
+        $this->Primary = 1;
+        if ($PersoElements = $this->ClassName::get()->filter('Primary', 1)->count()) {
+            $this->Primary = 0;
+        }
+        parent::populateDefaults();
     }
 
     public function getType()

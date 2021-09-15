@@ -85,6 +85,7 @@ SilverStripe\Blog\Model\BlogPost:
     - App\Elements\ElementTeaser
     - App\Elements\ElementFeedTeaser
     - App\Elements\ElementTextImage
+    - Kraftausdruck\Elements\ElementPodcast
 
 App\Models\ElementPage:
   icon: '_resources/themes/default/dist/images/svg/icon-elements.svg'
@@ -106,6 +107,7 @@ App\Models\ElementPage:
     - App\Elements\ElementTeaser
     - App\Elements\ElementFeedTeaser
     - App\Elements\ElementTextImage
+    - Kraftausdruck\Elements\ElementPodcast
 
 DNADesign\Elemental\Models\BaseElement:
   extensions:
@@ -234,8 +236,8 @@ TractorCow\OpenGraph\OpenGraph:
 #     Latitude: 47
 #     Longitude: 8
 ---
-Only:
-  environment: 'test'
+Except:
+  environment: 'live'
 ---
 gorriecoe\Robots\Robots:
   disallowed_urls:
@@ -247,9 +249,12 @@ gorriecoe\Robots\Robots:
 Only:
   environment: 'dev'
 ---
-SilverStripe\Control\Email\Email:
-  admin_email: '`SS_ADMIN_EMAIL`'
-  send_all_emails_to: '`SS_ADMIN_EMAIL`'
+
+SilverStripe\Core\Injector\Injector:
+  SilverStripe\Control\Email\Email:
+    admin_email: '`SS_ADMIN_EMAIL`'
+    send_all_emails_to:
+      - '`SS_ADMIN_EMAIL`'
 
 SilverStripe\View\SSViewer:
   source_file_comments: false

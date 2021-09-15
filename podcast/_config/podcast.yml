@@ -1,0 +1,17 @@
+---
+Name: podcast
+---
+Kraftausdruck\Models\PodcastEpisode:
+  default_sort: 'DatePosted DESC'
+  parent_class: 'Kraftausdruck\Elements\ElementPodcast'
+  parent_slug: 'podcast'
+  extensions:
+    - App\Extensions\UrlifyExtension
+  additional_locales:
+    - de_CH: 'Deutsch (Schweiz)'
+SilverStripe\Forms\GridField\GridFieldDetailForm_ItemRequest:
+  extensions:
+    - Kraftausdruck\Extensions\GetID3Tags
+App\Controller\ElementPageController:
+  extensions:
+    - Kraftausdruck\Extensions\PodcastControllerExtension
