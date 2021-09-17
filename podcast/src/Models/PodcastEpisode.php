@@ -2,32 +2,17 @@
 
 namespace Kraftausdruck\Models;
 
-
 use App\Models\ElementPage;
-use SilverStripe\Dev\Debug;
 use SilverStripe\i18n\i18n;
 use Spatie\SchemaOrg\Schema;
 use SilverStripe\Assets\File;
 use SilverStripe\Assets\Image;
 use SilverStripe\ORM\DataObject;
-use SilverStripe\Forms\TextField;
 use SilverStripe\Control\Director;
 use SilverStripe\Security\Security;
-use SilverStripe\View\Requirements;
-use SilverStripe\Control\Controller;
-use SilverStripe\Forms\ListboxField;
-use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\DropdownField;
-use SilverStripe\Forms\TextareaField;
-use SilverStripe\Versioned\Versioned;
 use Kraftausdruck\Models\PodcastSeries;
 use SilverStripe\ORM\FieldType\DBDatetime;
-use SilverStripe\ORM\FieldType\DBHTMLText;
-use SilverStripe\Forms\ToggleCompositeField;
-use SilverStripe\View\Parsers\URLSegmentFilter;
-use SilverStripe\CMS\Forms\SiteTreeURLSegmentField;
-use SilverStripe\Core\Manifest\ModuleResourceLoader;
-use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 
 class PodcastEpisode extends DataObject
 {
@@ -205,6 +190,10 @@ class PodcastEpisode extends DataObject
                     $i++;
                 }
                 $schema->author($authors);
+            }
+
+            if ($this->Image()->exists()) {
+                $schema->image(rtrim(Director::absoluteBaseURL(), '/') . $this->Image()->FocusFillMax('1200', '542')->Link());
             }
 
         $schema->setProperty('@id', $this->AbsoluteLink());

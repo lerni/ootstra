@@ -19,7 +19,7 @@ class PodcastAdmin extends ModelAdmin
         PodcastSeries::class
     ];
 
-    private static $menu_icon_class = '';
+    private static $menu_icon_class = 'font-icon-podcast';
 
     private static $url_segment = 'podcasts';
     private static $menu_title = 'Podcasts';

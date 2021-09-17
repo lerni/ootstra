@@ -1,23 +1,13 @@
 # Silverstripe Podcast - WIP
-With Silverstripe Podcast let you manage PodcastSeries & PodcastEpisodes.
+Silverstripe Podcast let you manage Series & Episodes per ModelAdmin and present those per ElementPodcast [Elemental Block](https://github.com/silverstripe/silverstripe-elemental). It's supposed to integrates with "Spotify Podcasts", "iTunes Podcasts" & "Google Podcasts" and offers schema integration.
 
-Podcasts & Series are managed per ModelAdmin. Podcasts are presented per Elemental.
-
-It's supposed to integrates with "Spotify Podcasts", "iTunes Podcasts" & "Google Podcasts".
-        
-
-
- implements [KIProtect/klaro](https://github.com/KIProtect/klaro). A consent manager that helps to be transparent about third-party applications and be compliant with GDPR and ePrivacy. This module is inspred by [nomidi/kw-cookie-consent](https://github.com/nomidi/kw-cookie-consent).
-
+The module is inspired by https://github.com/lukereative/silverstripe-podcast but since I didn't want it to be page based, "phansys/getid3" integration didn't work and other parts didn't fit to what I needed, this came to existence. ATM this module is coupled with my project-setup `lerni/ootstra`.
 
 ## Requirements
 - dnadesign/silverstripe-elemental ^4
-
+- james-heinrich/getid3: ^1 or may ^2?
 
 ### Suggested
-- james-heinrich/getid3: 1
-- wilr/silverstripe-googlesitemaps ^2
-
 
 ## Installation
 [Composer](https://getcomposer.org/) is the recommended way installing Silverstripe modules.
@@ -26,8 +16,10 @@ It's supposed to integrates with "Spotify Podcasts", "iTunes Podcasts" & "Google
 
 Run `dev/build`
 
-## Getting started
+## Getting started / Usage
 ...
 
 # Todo
 - ship a POC
+- decoupled form lerni/ootsra
+- allow external links?

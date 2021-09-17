@@ -126,9 +126,12 @@ class PodcastSeries extends DataObject
         $schema = Schema::PodcastSeries()
             ->about($this->About)
             ->name($this->Title)
-            ->image(rtrim(Director::absoluteBaseURL(), '/') . $this->Image()->FocusFillMax('1200', '542')->Link())
-           ->url($this->AbsoluteLink())
+            ->url($this->AbsoluteLink())
             ->webFeed($this->AbsoluteLink(). 'rss');
+
+            if ($this->Image()->exists()) {
+                $schema->image(rtrim(Director::absoluteBaseURL(), '/') . $this->Image()->FocusFillMax('1200', '542')->Link());
+            }
 
         $schema->setProperty('@id', $this->AbsoluteLink());
 

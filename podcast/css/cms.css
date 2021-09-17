@@ -1,0 +1,20 @@
+span.menu__icon.font-icon-podcast {
+	background-image: url('../icons/podcast.svg');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+	display: inline-block;
+	width: 16px;
+	height: 26px;
+}
+
+.element-editor__element .element-editor-header .font-icon-block-podcast::before {
+	content: " ";
+	display: inline-block;
+	width: 28px;
+	height: 32px;
+	background-image: url('../icons/podcast-boxed.svg');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 26px auto;
+}

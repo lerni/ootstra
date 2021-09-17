@@ -30,6 +30,8 @@ class ElementPodcast extends BaseElement
 
     private static $inline_editable = false;
 
+    private static $icon = 'font-icon-block-podcast';
+
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();
@@ -92,11 +94,11 @@ class ElementPodcast extends BaseElement
     public function getItems()
     {
 
-        $jobs = PodcastEpisode::get()->filter(['Active' => 1])->filterByCallback(function ($record) {
+        $podcasts = PodcastEpisode::get()->filter(['Active' => 1, 'PodcastSeriesID' => $this->PodcastSeriesID])->filterByCallback(function ($record) {
             return $record->canView();
         });
 
-        return $jobs;
+        return $podcasts;
     }
 
     // first one should be primary unless selected differently
