@@ -8,23 +8,15 @@ use Spatie\SchemaOrg\Schema;
 use SilverStripe\Assets\File;
 use SilverStripe\Assets\Image;
 use SilverStripe\ORM\DataObject;
-use SilverStripe\Forms\TextField;
 use SilverStripe\Control\Director;
 use SilverStripe\Security\Security;
-use SilverStripe\View\Requirements;
-use SilverStripe\Control\Controller;
 use SilverStripe\Forms\ListboxField;
 use SilverStripe\Forms\LiteralField;
-use SilverStripe\Forms\TextareaField;
 use SilverStripe\Versioned\Versioned;
 use Kraftausdruck\Elements\ElementJobs;
 use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\ORM\FieldType\DBHTMLText;
-use SilverStripe\Forms\ToggleCompositeField;
-use SilverStripe\View\Parsers\URLSegmentFilter;
-use SilverStripe\CMS\Forms\SiteTreeURLSegmentField;
 use SilverStripe\Core\Manifest\ModuleResourceLoader;
-use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 
 class JobPosting extends DataObject
 {
@@ -132,47 +124,8 @@ class JobPosting extends DataObject
         $fields = parent::getCMSFields();
 
         $fields->removeByName([
-            'Sort',
-            'MetaTitle',
-            'MetaDescription'
+            'Sort'
         ]);
-
-        $MetaToggle = ToggleCompositeField::create(
-            'Metadata',
-            _t(__CLASS__.'.MetadataToggle', 'Metadata'),
-            [
-                $MetaTitleField = new TextField('MetaTitle'),
-                $MetaDescriptionField = new TextareaField('MetaDescription')
-            ]
-        )->setHeadingLevel(4);
-
-        $MetaTitleField->setTargetLength(60, 50, 60);
-        $MetaTitleField->setAttribute('placeholder', $this->DefaultMetaTitle());
-
-        $MetaDescriptionField->setTargetLength(160, 100, 160);
-        $MetaDescriptionField->setAttribute('placeholder', $this->DefaultMetaDescription());
-
-
-        $fields->insertAfter(
-            $MetaToggle,
-            'Title'
-        );
-
-        if ($page = $this->Parent()) {
-            Requirements::add_i18n_javascript('silverstripe/cms: client/lang', false, true);
-            $fields->insertAfter(
-                SiteTreeURLSegmentField::create('URLSegment')
-                    ->setURLPrefix($this->Parent()->getPage()->Link() . 'job/')
-                    ->setURLSuffix('?stage=Live')
-                    ->setDefaultURL($this->generateURLSegment()),
-                'Title'
-            );
-        } else {
-            $message = _t('Kraftausdruck\Models\JobPosting.NoJobElement', 'A job element is currently missing! Insert a JobElement in the page tree and then assign a URL here.');
-            $fields->replaceField('URLSegment', LiteralField::create(
-                'NoParent', '<p class="alert alert-warning">'. $message .'</p>'
-            ));
-        }
 
         if ($this->LastFor() == false) {
             $message = _t('Kraftausdruck\Models\JobPosting.expiredAlert', 'false');
@@ -252,9 +205,6 @@ class JobPosting extends DataObject
         if($this->ValidThrough > date('Y-m-d',strtotime('now + 1 year'))) {
             $result->addError('Das JobPosting sollte höchstens ein Jahr gültig sein.');
         }
-        if(!$this->URLSegment) {
-            $result->addError('URL-Segment wird benötigt');
-        }
         if(!$this->JobLocations()->count() && $this->isInDB()) {
             $result->addError('JobLocations wird benötigt');
         }
@@ -327,86 +277,6 @@ class JobPosting extends DataObject
         return $schema->toScript();
     }
 
-    public function DefaultMetaTitle()
-    {
-        if (!$this->MetaTitle) {
-            $locations = [];
-            $locations = $this->JobLocations()->Column('Town');
-            $locations = implode(', ', $locations);
-            return $this->Title . ', ' . $locations;
-        }
-    }
-
-    // todo: get it from getPage() of primary
-    public function DefaultMetaDescription()
-    {
-        if ($this->MetaDescription) {
-            return $this->MetaDescription;
-        }
-    }
-
-    public function Parent()
-    {
-        if(ElementJobs::get()->count()) {
-            $e = ElementJobs::get()->filter(['Primary' => 1])->first();
-            if (!$e) {
-                $e = ElementJobs::get()->first();
-            }
-            return $e;
-        }
-    }
-
-    public function generateURLSegment()
-    {
-        $anchor = $this->URLSegment;
-
-        if ($anchor == '') {
-            $filter = new URLSegmentFilter();
-            $anchor = $filter->filter($this->Title);
-        }
-
-        if ($this->ID && $this->ClassName::get()->filter(['URLSegment' => $this->URLSegment])->exclude('ID', $this->ID)->count() > 0) {
-            $anchor .= '-' . $this->ID;
-        }
-        return $anchor;
-    }
-
-    // URL
-    public function AbsoluteLink()
-    {
-        if ($this->Parent() && $this->Active && $this->isInDB()) {
-            $base = Director::absoluteBaseURL();
-            $areaID = $this->Parent()->ParentID;
-            $Page = ElementPage::get()->filter(['ElementalAreaID' => $areaID])->first();
-            $siteURL = $Page->Link();
-
-            return Controller::join_links(
-                $base,
-                $siteURL,
-                '/job/',
-                $this->URLSegment
-            );
-        }
-    }
-
-    public function onAfterWrite()
-    {
-        if (!$this->URLSegment) {
-            $this->URLSegment = $this->ID; // todo: just use Title?
-            $this->write();
-        }
-        if ($this->ClassName::get()
-            ->filter(['URLSegment' => $this->URLSegment])
-            ->exclude(['ID' => $this->ID])
-            ->count())
-        {
-            $this->URLSegment .= '-' . $this->ID;
-            $this->write();
-        }
-
-        parent::onAfterWrite();
-    }
-
     public function canView($member = null)
     {
         if ($member = Security::getCurrentUser()) {
@@ -470,13 +340,6 @@ class JobPosting extends DataObject
         }
         return $datediff;
     }
-
-    // sitemap.xml
-    public function getGooglePriority()
-    {
-        return 1;
-    }
-
 
     // Feedteaser
     public function link()

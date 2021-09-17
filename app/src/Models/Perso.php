@@ -3,12 +3,23 @@
 namespace App\Models;
 
 use App\Models\Department;
+use Spatie\SchemaOrg\Schema;
+use App\Elements\ElementPerso;
 use SilverStripe\Assets\Image;
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\View\SSViewer;
 use SilverStripe\ORM\DataObject;
+use SilverStripe\View\ArrayData;
 use SilverStripe\Forms\EmailField;
-use SilverStripe\Forms\GridField\GridFieldEditButton;
-use SilverStripe\Forms\GridField\GridFieldAddNewButton;
+use SilverStripe\Control\Controller;
+use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\View\Parsers\URLSegmentFilter;
+use SilverStripe\Forms\GridField\GridFieldDetailForm;
+use SilverStripe\Forms\GridField\GridFieldEditButton;
+use SilverStripe\Forms\GridField\GridFieldConfig_Base;
+use SilverStripe\Forms\GridField\GridFieldAddNewButton;
+use SilverStripe\Forms\GridField\GridFieldDeleteAction;
+use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 
 class Perso extends DataObject
 {
@@ -20,21 +31,24 @@ class Perso extends DataObject
         'Telephone' => 'Varchar',
         'Motivation' => 'HTMLText'
     ];
+
     private static $has_one = [
         'Portrait' => Image::class
     ];
 
-    private static $belongs_many_many = [
-        "Departments" => Department::class
+    private static $many_many = [
+        'SocialLinks' => SocialLink::class
     ];
-    //	private static $many_many = [
-    //		'SocialLinks' => SocialLink::class
-    //	];
-    //	private static $many_many_extraFields = [
-    //		'SocialLinks' => [
-    //			'SortOrder' => 'Int'
-    //		]
-    //	];
+
+    private static $many_many_extraFields = [
+        'SocialLinks' => [
+            'SortOrder' => 'Int'
+        ]
+    ];
+
+    private static $belongs_many_many = [
+        'Departments' => Department::class
+    ];
 
     private static $owns = [
         'Portrait'
@@ -105,6 +119,21 @@ class Perso extends DataObject
                 ]);
         }
 
+        $SocialConf = GridFieldConfig_Base::create(20);
+        $SocialConf->removeComponentsByType([
+            GridFieldFilterHeader::class
+        ]);
+        $SocialConf->addComponents(
+            new GridFieldEditButton(),
+            new GridFieldDeleteAction(false),
+            new GridFieldDetailForm(),
+            new GridFieldOrderableRows('SortOrder'),
+            new GridFieldAddNewButton('toolbar-header-right')
+        );
+
+        $SocialGridField = new GridField('SocialLinks', 'SocialLinks', $this->owner->SocialLinks(), $SocialConf);
+        $fields->addFieldToTab('Root.Main', $SocialGridField);
+
         return $fields;
     }
 
@@ -127,5 +156,44 @@ class Perso extends DataObject
     public function canView($member = null)
     {
         return true;
+    }
+
+    public function Breadcrumbs($maxDepth = 20, $unlinked = false, $stopAtPageType = false, $showHidden = false)
+    {
+        $page = Controller::curr();
+        $pages = array();
+        $pages[] = $this->owner;
+        while ($page
+            && (!$maxDepth || count($pages) < $maxDepth)
+            && (!$stopAtPageType || $page->ClassName != $stopAtPageType)
+        ) {
+            if ($showHidden || $page->ShowInMenus || ($page->ID == $this->owner->ID)) {
+                $pages[] = $page;
+            }
+            $page = $page->Parent;
+        }
+        $template = new SSViewer('BreadcrumbsTemplate');
+
+        return $template->process($this->owner->customise(new ArrayData(array(
+            'Pages' => new ArrayList(array_reverse($pages)),
+        ))));
+    }
+
+    public function PersoSchema() {
+        $schemaPerson = Schema::person();
+        $schemaPerson
+            ->name($this->getTitle())
+            ->image($this->MitafotoGesicht->Link())
+            ->jobTitle($this->Position)
+            ->email($this->EMail)
+            ->telephone($this->Telephone)
+            ->url($this->AbsoluteLink());
+
+        if ($this->SocialLinks()->filter('sameAs', 1)->Count()) {
+            $sameAsLinks = $$this->SocialLinks()->filter('sameAs', 1)->Column('Url');
+            $schemaPerson->sameAs($sameAsLinks);
+        }
+
+        return $schemaPerson->toScript();
     }
 }

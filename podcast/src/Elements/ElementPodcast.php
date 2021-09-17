@@ -2,8 +2,10 @@
 
 namespace Kraftausdruck\Elements;
 
-use Kraftausdruck\Models\PodcastEpisode;
 use SilverStripe\Forms\LiteralField;
+use SilverStripe\Forms\DropdownField;
+use Kraftausdruck\Models\PodcastSeries;
+use Kraftausdruck\Models\PodcastEpisode;
 use DNADesign\Elemental\Models\BaseElement;
 
 class ElementPodcast extends BaseElement
@@ -12,6 +14,10 @@ class ElementPodcast extends BaseElement
     private static $db = [
         'Primary' => 'Boolean',
         'NoPodcasts' => 'HTMLText'
+    ];
+
+    private static $has_one = [
+        'PodcastSeries' => PodcastSeries::class
     ];
 
     private static $defaults = [
@@ -30,7 +36,8 @@ class ElementPodcast extends BaseElement
 
         $fields->removeByName([
             'isFullWidth',
-            'AvailableGlobally'
+            'AvailableGlobally',
+            'PodcastSeries'
         ]);
 
         if ($AvailableGloballyField = $fields->dataFieldByName('AvailableGlobally')) {
@@ -50,6 +57,18 @@ class ElementPodcast extends BaseElement
             }
             $fields->addFieldToTab('Root.Settings', $PrimaryField);
             $PrimaryField->setTitle(_t(__CLASS__ . '.PRIMARY', 'false'));
+        }
+
+        if ($PodcastSeriesField = $fields->dataFieldByName('PodcastSeriesID')) {
+            // todo: somehow Dropdownfield it doesn't behave if selected item isn't in $source
+            // we allow PodcastSeries to be linked just once, to maintain single URL
+            // $excludedCosChoosen = array_unique($this->ClassName::get()->Column('PodcastSeriesID'));
+            // $source = PodcastSeries::get()->exclude(['ID' => $excludedCosChoosen]);            // ->map('Title', 'ID')
+            // $PodcastSeriesField = DropdownField::create('PodcastSeriesID', _t(__CLASS__ . '.PODCASTSERIES', 'Podcast Series'), $source);
+            $PodcastSeriesField->setEmptyString(_t(__CLASS__ . '.EmptyPodcastSeriesString', '--'));
+            $PodcastSeriesField->setHasEmptyDefault(true);
+            $PodcastSeriesField->setDescription(_t(__CLASS__ . '.PodcastSeriesDescription', 'Podcast series should be linked only once!'));
+            // $fields->replaceField('PodcastSeriesID', $PodcastSeriesField);
         }
 
         if ($TextEditor = $fields->dataFieldByName('NoPodcasts')) {

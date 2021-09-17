@@ -17,7 +17,6 @@
 ---------------------------------------------------------------------------------- */
 
 html, body {
-	height: 100%;
 	width: 100%;
 	margin: 0;
 	@include print {
@@ -37,15 +36,26 @@ html {
 }
 
 body {
+	height: 100vh;
+	height: stretch;
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
 	background-color: $white;
+	// overflow is ignored with mobile
+	// https://stackoverflow.com/questions/24193272/overflow-xhidden-on-mobile-device-not-working
+	overflow-x: hidden;
 	@include breakpoint($Lneg) {
 		font-size: #{$lauftext-size*.9};
 	}
 	@include breakpoint($Sneg) {
 		font-size: #{$lauftext-size*.8};
+	}
+}
+
+@supports (-webkit-touch-callout: none) {
+	body {
+	  height: -webkit-fill-available;
 	}
 }
 
@@ -601,7 +611,7 @@ main.typography {
 			img {
 				width: 100%;
 				margin-bottom: 0;
- 				display: table;
+				display: table;
 				@include breakpoint($Mneg) {
 					position: inherit;
 				}

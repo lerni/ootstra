@@ -13,8 +13,13 @@ use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\TextareaField;
 use SilverStripe\Forms\ToggleCompositeField;
 use SilverStripe\View\Parsers\URLSegmentFilter;
+use SilverStripe\CMS\Controllers\RootURLController;
 use SilverStripe\CMS\Forms\SiteTreeURLSegmentField;
 
+// WIP unify URLs on DataObject with Elemental
+// ATM we work with "Primary" Element but...
+// this functionality will likely change and 'll also be refractored into an extension
+// todo: Breadcrumbs -> Perso
 
 class UrlifyExtension extends Extension
 {
@@ -49,7 +54,9 @@ class UrlifyExtension extends Extension
 
     public function populateDefaults()
     {
+        // todo 'New podcast' is wrong
         $this->owner->Title = _t(__CLASS__ . '.DefaultTitle', 'New podcast');
+        // todo DatePosted is not for all
         $this->owner->DatePosted = date('Y-m-d');
     }
 
@@ -177,8 +184,9 @@ class UrlifyExtension extends Extension
             $Page = ElementPage::get()->filter(['ElementalAreaID' => $areaID])->first();
             $siteURL = $Page->Link();
             // special case home
-            if (strstr($siteURL, '?', true) == '/') {
-                $siteURL = '/home';
+            $defaultHomepage = RootURLController::config()->get('default_homepage_link');
+            if (strstr($siteURL, '?', true) == '/' || $siteURL === '/') {
+                $siteURL = '/' . $defaultHomepage;
             }
             return Controller::join_links(
                 $base,

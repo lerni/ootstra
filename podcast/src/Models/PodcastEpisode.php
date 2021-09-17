@@ -20,6 +20,8 @@ use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\TextareaField;
 use SilverStripe\Versioned\Versioned;
+use Kraftausdruck\Models\PodcastSeries;
+use SilverStripe\ORM\FieldType\DBDatetime;
 use SilverStripe\ORM\FieldType\DBHTMLText;
 use SilverStripe\Forms\ToggleCompositeField;
 use SilverStripe\View\Parsers\URLSegmentFilter;
@@ -37,13 +39,14 @@ class PodcastEpisode extends DataObject
         'Author' => 'Text',
         'Description' => 'HTMLText',
         'DatePosted' => 'Datetime',
+        'Explicit' => 'Enum("No, Clean, Yes", "No")',
         'Duration' => 'Time'
     ];
 
     private static $has_one = [
         'Image' => Image::class,
         'Media' => File::class,
-        // 'PodcastSeries' => File::class
+        'PodcastSeries' => PodcastSeries::class
     ];
 
     private static $owns = [
@@ -62,8 +65,15 @@ class PodcastEpisode extends DataObject
     {
         parent::populateDefaults();
 
-        $this->Title = _t(__CLASS__ . '.DefaultTitle', 'New podcast');
-        $this->DatePosted = date('Y-m-d');
+        $this->Title = _t(__CLASS__ . '.DefaultTitle', 'New episode');
+        $this->DatePosted = DBDatetime::now()->value;
+
+        $defautlPodcastSeries = PodcastSeries::get()->filter(['IsDefault' => 1])->first();
+        if ($defautlPodcastSeries) {
+            $this->Locale = $defautlPodcastSeries->Locale;
+            $this->PodcastSeriesID = $defautlPodcastSeries->ID;
+            $this->ImageID = $defautlPodcastSeries->ImageID;
+        }
     }
 
     private static $defaults = [
@@ -73,14 +83,16 @@ class PodcastEpisode extends DataObject
     private static $summary_fields = [
         'Image.CMSThumbnail' => 'Thumbnail',
         'Title',
-        // 'PodcastSeries.Title',
+        'PodcastSeries.Title',
         'Active'
     ];
 
     private static $searchable_fields = [
         'Title',
         'Active',
-        // 'PodcastSeries.Title'
+        'Author',
+        'Explicit',
+        'PodcastSeries.Title'
     ];
 
     public function fieldLabels($includerelations = true)
@@ -91,7 +103,7 @@ class PodcastEpisode extends DataObject
         $labels['Active'] = _t(__CLASS__ . '.ACTIVE', 'Active / published');
         $labels['Description'] = _t(__CLASS__ . '.DESCRIPTION', 'Description');
         $labels['DatePosted'] = _t(__CLASS__ . '.DATEPOSTED', 'Release date');
-        $labels['Author'] = _t(__CLASS__ . '.AUTHOR', 'Author(s) - new line each!');
+        $labels['Author'] = _t(__CLASS__ . '.AUTHOR', 'Author(s)');
 
         return $labels;
     }
@@ -102,7 +114,7 @@ class PodcastEpisode extends DataObject
         $fields = parent::getCMSFields();
 
         if ($ActiveField = $fields->dataFieldByName('Active')) {
-            $ActiveField->setDescription(_t(__CLASS__ . '.ActiveDescription', 'Prevent episode from appearing in iTunes/Google/Spotify and also on the Website - just Live-Mode - shows up in Draft!'));
+            $ActiveField->setDescription(_t(__CLASS__ . '.ActiveDescription', 'Disabling prevents episode from appearing in iTunes/Google/Spotify and also in Live-Mode on the Website.<br/><strong>Still shows-up in Draft-Mode!</strong>'));
             $fields->insertBefore('Title', $ActiveField, true);
         }
 
@@ -111,9 +123,8 @@ class PodcastEpisode extends DataObject
         }
 
         if ($DatePostedField = $fields->dataFieldByName('DatePosted')) {
-            $DatePostedField->setHTML5(true);
-            // $DatePostedField->setDescription('');
-
+            $DatePostedField->setDescription('');
+            $DatePostedField->setAttribute('placeholder', 'Beispiel: 16.09.2021 20:12'); // todo translate
         }
 
         if ($DurationField = $fields->dataFieldByName('Duration')) {
@@ -128,11 +139,14 @@ class PodcastEpisode extends DataObject
         }
         ksort($allLocales);
 
-        $fields->replaceField('Locale', DropdownField::create(
+        $LocaleField = DropdownField::create(
             'Locale',
             _t(__CLASS__ . '.LOCALE', 'Locale', 'Locale for the Episode'),
             $allLocales
-        ));
+        );
+        $LocaleField->setEmptyString(_t(__CLASS__ . '.EmptyLocaleString', '--'));
+        $LocaleField->setHasEmptyDefault(true);
+        $fields->replaceField('Locale', $LocaleField);
 
         if ($TextEditorField = $fields->dataFieldByName('Description')) {
             $TextEditorField->setRows(30);
@@ -141,13 +155,21 @@ class PodcastEpisode extends DataObject
 
         if ($uploadField = $fields->dataFieldByName('Image')) {
             $uploadField->setFolderName('episodes');
-            $uploadField->setDescription(_t(__CLASS__ . '.Image', 'Episode Image - min. 1200x630px'));
+            $uploadField->setDescription(_t(__CLASS__ . '.ImageDescription', 'Episode Image - min. 1200x630px'));
         }
 
         if ($MediaUploadField = $fields->dataFieldByName('Media')) {
             $MediaUploadField->allowedExtensions = array('mp3', 'ogg', 'aac', 'm4a', 'flac');
             $MediaUploadField->setFolderName('episodes');
             $MediaUploadField->setDescription(_t(__CLASS__ . 'Media.MediaDesc', 'mp3 / ogg / aac/m4a / flac'));
+        }
+
+        if ($ExplicitField = $fields->dataFieldByName('Explicit')) {
+            $ExplicitField->setDescription(_t(__CLASS__ . '.ExplicitDescription', 'Displays an "Explicit", "Clean" or no parental advisory graphic next to your episode in iTunes.'));
+        }
+
+        if ($AuthorField = $fields->dataFieldByName('Author')) {
+            $AuthorField->setDescription(_t(__CLASS__ . '.AuthorDescription', 'New line each!'));
         }
 
         return $fields;
@@ -171,6 +193,19 @@ class PodcastEpisode extends DataObject
             ->description($this->Description)
             ->url($this->AbsoluteLink())
             ->datePosted($this->DatePosted);
+            if ($this->Author) {
+                // remove empty newlines
+                $authorsString = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $this->Author);
+                $authorLines = explode(PHP_EOL, $authorsString);
+                $authors = [];
+                $i = 0;
+                foreach ($authorLines as $author) {
+                    $authors[$i] = Schema::Person()
+                    ->name($author);
+                    $i++;
+                }
+                $schema->author($authors);
+            }
 
         $schema->setProperty('@id', $this->AbsoluteLink());
 
@@ -189,23 +224,6 @@ class PodcastEpisode extends DataObject
             return true;
         }
     }
-
-    // may better use PerLineText?
-    // public function TextAsArray($value)
-    // {
-    //     $entries = explode(PHP_EOL, $value);
-    //     foreach ($entries as $key => $value) {
-    //         $v = trim($value);
-    //         if ($v != '') {
-    //             $entries[$key] = $v;
-    //         } else {
-    //             unset($entries[$key]);
-    //         }
-    //     }
-    //     return $entries;
-    // }
-
-
 
     public function link()
     {

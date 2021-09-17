@@ -5,6 +5,7 @@ namespace Kraftausdruck\Admin;
 use SilverStripe\Admin\ModelAdmin;
 use SilverStripe\Control\Director;
 use SilverStripe\Forms\LiteralField;
+use Kraftausdruck\Models\PodcastSeries;
 use Kraftausdruck\Models\PodcastEpisode;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 // use Kraftausdruck\Elements\ElementPodcast;
@@ -14,10 +15,11 @@ class PodcastAdmin extends ModelAdmin
 {
 
     private static $managed_models = [
-        PodcastEpisode::class
+        PodcastEpisode::class,
+        PodcastSeries::class
     ];
 
-    private static $menu_icon_class = 'font-icon-torso';
+    private static $menu_icon_class = '';
 
     private static $url_segment = 'podcasts';
     private static $menu_title = 'Podcasts';

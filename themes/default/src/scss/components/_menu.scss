@@ -244,11 +244,11 @@ html.mobile-nav--active {
 			height: initial;
 			top: 0;
 			bottom: 0;
+			overflow-x: hidden;
+			overflow-y: scroll; // keeping scrollbar visible
 			.inner {
-position: relative;
 				flex-direction: column;
 				height: initial;
-				overflow-x: scroll;
 				.column {
 					&.nav {
 						order: 1;
@@ -279,7 +279,7 @@ position: relative;
 									width: #{$lh*2}rem;
 									margin-left: 0;
 									background-size: .7em 1.4em;
-									background-position: right #{$lh}em bottom 30%;
+									background-position: right #{$lh*.3}em bottom 30%;
 									@include breakpoint($Mneg) {
 										background-position: right #{$lh*.5}em bottom 30%;
 									}
@@ -324,10 +324,9 @@ position: relative;
 							top: 30px;
 							right: #{$lh}em;
 							outline: none;
-							// @include breakpoint($Sneg) {
-							// 	bottom: 30px;
-							// 	top: auto;
-							// }
+							@include breakpoint($Mneg) {
+								right: #{math.div($lh, 2)}em;
+							}
 							.burger-icon {
 								@include burger-to-cross;
 							}

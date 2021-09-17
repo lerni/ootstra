@@ -15,7 +15,8 @@
 	</div>
 <% else %>
 	<div class="no-vacancies">
-		{$NoVacancies}
+		{$NoPodcasts}
 	</div>
 <% end_if %>
+$PodcastSeries.PodcastSeriesSchema.RAW
 <% if not $isFullWidth %></div><% end_if %>

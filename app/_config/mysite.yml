@@ -189,6 +189,12 @@ gorriecoe\Robots\Robots:
 App\Controller\ElementPersoController:
   expose_vcards: false
 
+App\Models\Perso:
+  parent_class: 'App\Elements\ElementPerso'
+  parent_slug: 'perso'
+  extensions:
+    - App\Extensions\UrlifyExtension
+
 # Kraftausdruck\InstagramFeed\Control\InstaAuthController:
 #  credentials:
 #   appId: ''
