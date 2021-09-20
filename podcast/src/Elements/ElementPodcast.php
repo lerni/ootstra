@@ -64,13 +64,19 @@ class ElementPodcast extends BaseElement
         if ($PodcastSeriesField = $fields->dataFieldByName('PodcastSeriesID')) {
             // todo: somehow Dropdownfield it doesn't behave if selected item isn't in $source
             // we allow PodcastSeries to be linked just once, to maintain single URL
-            // $excludedCosChoosen = array_unique($this->ClassName::get()->Column('PodcastSeriesID'));
-            // $source = PodcastSeries::get()->exclude(['ID' => $excludedCosChoosen]);            // ->map('Title', 'ID')
-            // $PodcastSeriesField = DropdownField::create('PodcastSeriesID', _t(__CLASS__ . '.PODCASTSERIES', 'Podcast Series'), $source);
+            $selected = $this->PodcastSeriesID;
+            $excludedCosChoosen = array_unique($this->ClassName::get()->Column('PodcastSeriesID'));
+            unset($excludedCosChoosen[array_search($this->PodcastSeriesID, $excludedCosChoosen)]);
+            $source = PodcastSeries::get();
+            if(count($excludedCosChoosen)) {
+                $source =   $source->exclude(['ID' => $excludedCosChoosen]);            // ->map('Title', 'ID')
+            }
+
+            $PodcastSeriesField = DropdownField::create('PodcastSeriesID', _t(__CLASS__ . '.PODCASTSERIES', 'Podcast Series'), $source);
             $PodcastSeriesField->setEmptyString(_t(__CLASS__ . '.EmptyPodcastSeriesString', '--'));
-            $PodcastSeriesField->setHasEmptyDefault(true);
+            // $PodcastSeriesField->setHasEmptyDefault(true);
             $PodcastSeriesField->setDescription(_t(__CLASS__ . '.PodcastSeriesDescription', 'Podcast series should be linked only once!'));
-            // $fields->replaceField('PodcastSeriesID', $PodcastSeriesField);
+            $fields->replaceField('PodcastSeriesID', $PodcastSeriesField);
         }
 
         if ($TextEditor = $fields->dataFieldByName('NoPodcasts')) {

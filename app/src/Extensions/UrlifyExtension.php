@@ -37,8 +37,7 @@ class UrlifyExtension extends Extension
     ];
 
     private static $defaults = array(
-        // todo: $what to use?
-        'URLSegment' => 'new-podcast'
+        'URLSegment' => 'new-item'
     );
 
     public function fieldLabels($includerelations = true)
@@ -54,10 +53,76 @@ class UrlifyExtension extends Extension
 
     public function populateDefaults()
     {
-        // todo 'New podcast' is wrong
-        $this->owner->Title = _t(__CLASS__ . '.DefaultTitle', 'New podcast');
+        $this->owner->Title = _t(__CLASS__ . '.DefaultTitle', 'New item');
         // todo DatePosted is not for all
         $this->owner->DatePosted = date('Y-m-d');
+    }
+
+    public function updateCMSFields(FieldList $fields)
+    {
+        $fields->removeByName([
+            'Sort',
+            'MetaTitle',
+            'MetaDescription'
+        ]);
+
+        $MetaToggle = ToggleCompositeField::create(
+            'Metadata',
+            _t(__CLASS__.'.MetadataToggle', 'Metadata'),
+            [
+                $MetaTitleField = new TextField('MetaTitle'),
+                $MetaDescriptionField = new TextareaField('MetaDescription')
+            ]
+        )->setHeadingLevel(4);
+
+        $MetaTitleField->setTargetLength(60, 50, 60);
+        $MetaTitleField->setAttribute('placeholder', $this->owner->DefaultMetaTitle());
+        $MetaTitleField->setRightTitle(_t('\Page.MetaTitleRightTitle', 'Wird als Titel im Browsertab und für Suchmaschinen Resultate verwendet. Wichtig für SEO!'));
+
+        $MetaDescriptionField->setTargetLength(160, 100, 160);
+        $MetaDescriptionField->setAttribute('placeholder', $this->owner->DefaultMetaDescription());
+        $MetaDescriptionField->setRightTitle(_t('\Page.MetaDescriptionRightTitle', 'Wird in Suchmaschinen-Ergebnissen verwendet, wenn Länge passt und Relevanz gegeben ist; beeinflusst die SEO-Position kaum. Ansprechende Meta-Descripton (besonders die ersten ~55 Zeichen -> Sitelinks) beeinflussen die Klickrate jedoch stark.'));
+
+        $fields->insertAfter(
+            $MetaToggle,
+            'Title'
+        );
+
+        if ($page = $this->owner->Parent()) {
+            Requirements::add_i18n_javascript('silverstripe/cms: client/lang', false, true);
+            if ($this->owner->config()->parent_slug) {
+                $parentSlug = $this->owner->config()->parent_slug;
+            } else {
+                $parentSlug = 'item';
+            }
+
+            // special case home
+            $base = Director::absoluteBaseURL();
+            $PageLink = $this->Parent()->getPage()->Link();
+            // special case home
+            if (strstr($PageLink, '?', true) == '/' || $PageLink === '/') {
+                $defaultHomepage = RootURLController::config()->get('default_homepage_link');
+                $PageLink = '/' . $defaultHomepage;
+            }
+            $topLink = Controller::join_links(
+                $PageLink,
+                $parentSlug
+            );
+
+            $fields->insertAfter(
+                SiteTreeURLSegmentField::create('URLSegment')
+                    ->setURLPrefix($topLink . '/')
+                    ->setURLSuffix('?stage=Live')
+                    ->setDefaultURL($this->owner->generateURLSegment()),
+                'Title'
+            );
+        } else {
+            $uiElement = _t('Kraftausdruck\Elements\ElementPodcast.BlockType', 'Podcast Element');
+            $message = _t(__CLASS__ . '.NoParentElement', 'A parent element is currently missing! Insert a {element} in the page tree and then assign a URL here.', [ 'element' => $uiElement ]);
+            $fields->replaceField('URLSegment', LiteralField::create(
+                'NoParent', '<p class="alert alert-warning">'. $message .'</p>'
+            ));
+        }
     }
 
     public function DefaultMetaTitle()
@@ -87,14 +152,19 @@ class UrlifyExtension extends Extension
         }
     }
 
-    // todo: get it from getPage() of primary
     public function DefaultMetaDescription()
     {
         if ($this->owner->MetaDescription) {
-            return $this->owner->MetaDescription;
+            $dmd = $this->owner->MetaDescription;
+        } else {
+            if ($page = $this->owner->Parent()->getPage()) {
+                $dmd = $page->MetaDescription;
+            }
         }
+        return $dmd;
     }
 
+    // returns the Element of the DO
     public function Parent()
     {
         $parentClass = $this->owner->config()->parent_class;
@@ -104,58 +174,6 @@ class UrlifyExtension extends Extension
                 $e = $parentClass::get()->first();
             }
             return $e;
-        }
-    }
-
-    public function updateCMSFields(FieldList $fields)
-    {
-        $fields->removeByName([
-            'Sort',
-            'MetaTitle',
-            'MetaDescription'
-        ]);
-
-        $MetaToggle = ToggleCompositeField::create(
-            'Metadata',
-            _t(__CLASS__.'.MetadataToggle', 'Metadata'),
-            [
-                $MetaTitleField = new TextField('MetaTitle'),
-                $MetaDescriptionField = new TextareaField('MetaDescription')
-            ]
-        )->setHeadingLevel(4);
-
-        $MetaTitleField->setTargetLength(60, 50, 60);
-
-        $MetaTitleField->setAttribute('placeholder', $this->owner->DefaultMetaTitle());
-
-        $MetaDescriptionField->setTargetLength(160, 100, 160);
-        $MetaDescriptionField->setAttribute('placeholder', $this->owner->DefaultMetaDescription());
-
-        $fields->insertAfter(
-            $MetaToggle,
-            'Title'
-        );
-
-        if ($page = $this->owner->Parent()) {
-            Requirements::add_i18n_javascript('silverstripe/cms: client/lang', false, true);
-            if ($this->owner->config()->parent_slug) {
-                $parentSlug = $this->owner->config()->parent_slug;
-            } else {
-                $parentSlug = 'item';
-            }
-            $fields->insertAfter(
-                SiteTreeURLSegmentField::create('URLSegment')
-                    ->setURLPrefix($this->Parent()->getPage()->Link() . $parentSlug . '/')
-                    ->setURLSuffix('?stage=Live')
-                    ->setDefaultURL($this->owner->generateURLSegment()),
-                'Title'
-            );
-        } else {
-            $uiElement = _t('Kraftausdruck\Elements\ElementPodcast.BlockType', 'Podcast Element');
-            $message = _t(__CLASS__ . '.NoParentElement', 'A parent element is currently missing! Insert a {element} in the page tree and then assign a URL here.', [ 'element' => $uiElement ]);
-            $fields->replaceField('URLSegment', LiteralField::create(
-                'NoParent', '<p class="alert alert-warning">'. $message .'</p>'
-            ));
         }
     }
 
@@ -184,8 +202,8 @@ class UrlifyExtension extends Extension
             $Page = ElementPage::get()->filter(['ElementalAreaID' => $areaID])->first();
             $siteURL = $Page->Link();
             // special case home
-            $defaultHomepage = RootURLController::config()->get('default_homepage_link');
             if (strstr($siteURL, '?', true) == '/' || $siteURL === '/') {
+                $defaultHomepage = RootURLController::config()->get('default_homepage_link');
                 $siteURL = '/' . $defaultHomepage;
             }
             return Controller::join_links(
@@ -214,7 +232,7 @@ class UrlifyExtension extends Extension
     }
 
     // sitemap.xml
-    // todo: come-up with something smarter
+    // todo: come-up with something more sensible
     public function getGooglePriority()
     {
         return 1;

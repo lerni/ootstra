@@ -24,7 +24,7 @@
 	<% else %>
 		<% include App/Includes/DefaultHero Page=$Me %>
 	<% end_if %>
-	<% with $Episode %>
+	<% with $Item %>
 		<article <% if $ElementAnchor %>id="$ElementAnchor"<% end_if %> class="element elementpodcast show spacing-bottom-2">
 			<div class="inner">
 				$Description
