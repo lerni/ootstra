@@ -1,18 +1,17 @@
 # Status - WIP
-**This project was published as part of a lightning talk at virtual StripeCon 2020. Unfortunately it wasn't ready at the time of the conference so it's work in progress. As much as I like it to be finished product - so far its not. Time will tell how things progress.**
+**This project was published as part of a lightning talk at virtual StripeCon 2020. Unfortunately it wasn't ready at the time of the conference and still is work in progress. As much as I like it to be finished product - so far its not. Time will tell how things progress.**
 
 # Setup, Requirements & install
 
-This project is inspired from [Bigfork’s quickstart recipe](https://github.com/bigfork/silverstripe-recipe) for [Silverstripe](https://www.silverstripe.org/). It's an opinionated set of tools for a ready to run, build & deploy CMS instance in a minimal amount of time. To get it up and running you'll need [GIT](https://git-scm.com/), some kinda local xAMP-setup (apache mysql php), [composer](https://getcomposer.org/download/), [NPM](https://nodejs.org/) and a server with [SSH](https://de.wikipedia.org/wiki/Secure_Shell) & [GIT](https://git-scm.com/). It utililizes [dnadesign/silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) for a block/element based CMS experience and commes with the following set of elements:
+This project is inspired from [Bigfork’s quickstart recipe](https://github.com/bigfork/silverstripe-recipe) for [Silverstripe](https://www.silverstripe.org/). It's an opinionated set of tools for a ready to run, build & deploy CMS instance in a minimal amount of time. To get it up and running you'll need [GIT](https://git-scm.com/), [Docker](https://www.docker.com/), [composer](https://getcomposer.org/download/), [NPM](https://nodejs.org/) and a server with [SSH](https://de.wikipedia.org/wiki/Secure_Shell). It utililizes [dnadesign/silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) for a block/element based CMS experience and commes with the following set of elements:
 
     - ElementContent
     - ElementForm               (userforms)
     - ElementVirtual
-    - ElementHero
+    - ElementHero               (Slider, YouTube Video)
     - ElementMaps               (Google)
-    - ElementPerso
+    - ElementPerso              (URLs Perso, vCard)
     - ElementPersoCFA
-    - ElementJobs               (schema.org & sitemap.xml)
     - ElementContentSection     (accordion)
     - ElementCounter
     - ElementLogo               (partner/sponsor)
@@ -21,8 +20,14 @@ This project is inspired from [Bigfork’s quickstart recipe](https://github.com
     - ElementFeedTeaser         (holder concept per element with tags)
     - ElementTextImage
 
+    Optional - module in project:
+    - ElementJobs              (schema.org & sitemap.xml)
+    - ElementPodcast           (https://github.com/lerni/podcast)
+
 Other features:
 
+    - DSGVO GDPR ready Cookie Consent with klaro!
+    - Multilingual ready in minutes
     - Blog - elemental based
     - schema.org integration
     - Meta & OpenGraph integration
@@ -50,13 +55,13 @@ This project comes with a Dockerfile for Apache/PHP/MySQL. For this you need to 
  - `docker build --tag silverstripe:refined .`
  - `docker-compose up`
 
-It than should be available on [http://localhost:8080/](http://localhost:8080/). With docker no `.env` file is needed. Default login is `admin` & `password`. With other webserver setups, point your vhost document root to `/project/public`. Database, credentials etc. are provided per environment Variables. See also:
+It than should be available on [http://localhost:8080/](http://localhost:8080/). With docker no `.env` file is needed. Default login is `admin` & `password`. With other webserver setups, point your vhost document root to `project/public`. Database, credentials etc. are provided per environment Variables. See also:
 
 https://www.silverstripe.org/learn/lessons/v4/up-and-running-setting-up-a-local-silverstripe-dev-environment-1
 
 https://docs.silverstripe.org/en/4/getting_started/environment_management/#core-environment-variables
 
-Example `.env`-file in webroot for local develompment could look like:
+Example `.env`-file in webroot for local development could look like:
 
 ```
 # For a complete list of core environment variables see
@@ -101,7 +106,7 @@ This project uses [Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([web
 
 # Hosting & Deployment
 
-You need to [add your public key on the remote server](https://www.google.com/search?q=add+public+key+to+server) in ~/.ssh/authorized_keys. You can use [ssh-copy-id](https://www.ssh.com/ssh/copy-id) on nix-based systems. Deployment is based on [Deployer](https://deployer.org/) - a php based cli-tool. It uses symlinks to the current release. It's easy to use, offers zero downtime deployments and rollback. `/assets`, `.env` are shared ressources, this means they are also symlinked into each release-folder.
+You need to [add your public key on the remote server](https://www.google.com/search?q=add+public+key+to+server) in ~/.ssh/authorized_keys. You can use [ssh-copy-id](https://www.ssh.com/ssh/copy-id) on nix-based systems. Deployment is based on [Deployer](https://deployer.org/) - a php based cli-tool. It uses symlinks to the current release. It's easy to use, offers zero downtime deployments and rollback. `/assets`, `.env` are shared resources, this means they are also symlinked into each release-folder.
 
 ```
 ~/public_html/0live        or ~/public_html/0stage
@@ -139,7 +144,7 @@ mv deployer.phar /usr/local/bin/dep
 chmod +x /usr/local/bin/dep
 ```
 
-To transfer assets and database [ssbak](https://github.com/axllent/ssbak) is used over [sspak](https://github.com/silverstripe/sspak/). Run deployer task like `dep silverstripe:installtools live` to install it on a remote linux servers in `~/bin`. You can set `ssXak_local_path` and `ssXak_path` in `deployer.php`.
+To transfer assets and database [ssbak](https://github.com/axllent/ssbak) (GO) is used over [sspak](https://github.com/silverstripe/sspak/) (PHP). Run deployer task like `dep silverstripe:installtools live` to install it on a remote linux servers in `~/bin`. You can set `ssXak_local_path` and `ssXak_path` in `deployer.php`.
 
 
 ## Configuration
@@ -160,14 +165,14 @@ or
 
 `stage` is default for all `dep` commands and can be omitted. For example with `dep ssh` you'll end up on your stage server with `dep ssh live` - well on live.
 
-The first time you deploy to a given stage you’ll be asked to provide database credentials used to populate `.env`.
+The first time you deploy to a given stage, you’ll be asked to provide database credentials used to populate `.env`.
 
 ### Deploy a branch/tag/revison
 ```
-# Deploy the dev branch to staging
+# Deploy the dev branch to stage
 dep deploy --revision=ca5fcd330910234f63bf7d5417ab6835e5a57b81
 
-# Deploy the dev branch to staging
+# Deploy the dev branch to stage
 dep deploy --branch=dev
 
 # Deploy tag 1.0.1 to live
@@ -175,11 +180,11 @@ dep deploy live --tag=1.0.1
 ```
 
 ### Uploading/downloading database & assets manually
-ssbak is a cli tool for managing Silverstipe database & assets for back-up, restoration, or transfer between environments. It's also used in the deployment-process for backup purpose.
+ssbak is a cli tool for managing Silverstipe database & assets. It's also used in the deployment-process for backup purpose. Unlink sspak, does ssbak not support transfer between environment (like directly bellow) but wrapped with deployer it's possible - see a bit further down.
 https://github.com/silverstripe/sspak
 To get assets and a DB-Dump from the server you can run:
 ```
-./vendor/bin/sspak save USER@SERVER.TLD:/home/bibsu/public_html/0live/current ./SOMENAME.tar.gz
+./vendor/bin/sspak save USER@SERVER.TLD:/home/USER/public_html/0live/current ./SOMENAME.tar.gz
 ```
 
 ```
@@ -214,7 +219,7 @@ dep silverstripe:download_database live
 
 ## Manual dev/build
 
-DevelopmentAdmin is disabled per HTTP in Live-Mode per yml-config.
+DevelopmentAdmin over HTTP in Live-Mode is disabled per yml-config, but you an use the following deployer-tasks.
 
 ```
 # dev/build on stage

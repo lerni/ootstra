@@ -11,7 +11,7 @@
 		<% if $ImageID %>
 			<% with $Image %>
 				<img alt="$Title" width="{$ScaleMaxWidth(800).Width()}" height="{$ScaleMaxWidth(800).Height()}"
-					style="object-position: {$ScaleMaxWidth(800).PercentageX}% {$ScaleMaxWidth(800).PercentageY}%;"
+					style="object-position: {$ScaleMaxWidth(800).FocusPoint.PercentageX}% {$ScaleMaxWidth(800).FocusPoint.PercentageY}%;"
 					src="$ScaleMaxWidth(800).URL"
 					srcset="$ScaleMaxWidth(800).URL 1x, $ScaleMaxWidth(1600).URL 2x" />
 			<% end_with %>

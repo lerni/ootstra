@@ -5,7 +5,7 @@
 				<img sizes="100vw" alt="$Title"
 					height="$FocusFillMax(1440,360).Height()"
 					width="$FocusFillMax(1440,360).Width()"
-					style="object-position: {$FocusFillMax(1440,360).PercentageX}% {$FocusFillMax(1440,360).PercentageY}%;"
+					style="object-position: {$FocusFillMax(1440,360).FocusPoint.PercentageX}% {$FocusFillMax(1440,360).FocusPoint.PercentageY}%;"
 					src="$FocusFillMax(1440,360).URL"
 					srcset="$FocusFillMax(480,120).URL 480w,
 						$FocusFillMax(640,160).URL 640w,

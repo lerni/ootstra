@@ -59,12 +59,12 @@ window.onYouTubeIframeAPIReady = function() {
 
 onPlayerStateChange = function(event) {
   if (event.data == YT.PlayerState.PLAYING) {
-    $('#' + event.target.h.id).closest("div.embed").removeClass("paused-mode");
-    $('#' + event.target.h.id).closest("div.embed").addClass("playing-mode");
+    $('#' + event.target.h.id).closest("div.embed, div.embed-hero").removeClass("paused-mode");
+    $('#' + event.target.h.id).closest("div.embed, div.embed-hero").addClass("playing-mode");
   }
   if (event.data == YT.PlayerState.PAUSED) {
-    $('#' + event.target.h.id).closest("div.embed").removeClass("playing-mode");
-    $('#' + event.target.h.id).closest("div.embed").addClass("paused-mode");
+    $('#' + event.target.h.id).closest("div.embed, div.embed-hero").removeClass("playing-mode");
+    $('#' + event.target.h.id).closest("div.embed, div.embed-hero").addClass("paused-mode");
   }
   if (event.data === YT.PlayerState.ENDED) {
     event.target.playVideo();
@@ -73,7 +73,7 @@ onPlayerStateChange = function(event) {
 
 function onPlayerReady(event)
 {
-  overlayer = $('#' + event.target.h.id).parent().parent().find("div.txt");
+  overlayer = $('#' + event.target.h.id).parent().parent().find(".overlayer, div.txt");
   player = event.target;
 
   $(overlayer).on('click', function(e) {

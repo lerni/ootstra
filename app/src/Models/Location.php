@@ -8,6 +8,7 @@ use BetterBrief\GoogleMapField;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Forms\DropdownField;
+use SilverStripe\Forms\RequiredFields;
 use SilverStripe\SiteConfig\SiteConfig;
 
 class Location extends DataObject
@@ -87,5 +88,13 @@ class Location extends DataObject
         $fields->replaceField('Country', $ContryDropdownField);
 
         return $fields;
+    }
+
+    public function getCMSValidator()
+    {
+        return new RequiredFields([
+            'Title',
+            'Town'
+        ]);
     }
 }

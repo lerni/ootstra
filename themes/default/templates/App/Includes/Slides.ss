@@ -15,7 +15,7 @@
 								width="$SlideImage.FocusFillMax(1440,650).Width()"
 								<% if not $First %>loading="lazy" <% end_if %>
 								alt="$SlideImage.Title"
-								style="object-position: {$SlideImage.FocusFillMax(1440,650).PercentageX}% {$SlideImage.FocusFillMax(1440,650).PercentageY}%;"
+								style="object-position: {$SlideImage.FocusFillMax(1440,650).FocusPoint.PercentageX}% {$SlideImage.FocusFillMax(1440,650).FocusPoint.PercentageY}%;"
 								src="$SlideImage.FocusFillMax(1440,650).URL"
 								srcset="
 									$SlideImage.FocusFillMax(480,217).URL 480w,
@@ -34,7 +34,7 @@
 								width="$SlideImage.FocusFillMax(1440,360).Width()"
 								<% if not $First %>loading="lazy" <% end_if %>
 								alt="$SlideImage.Title"
-								style="object-position: {$SlideImage.FocusFillMax(1440,360).PercentageX}% {$SlideImage.FocusFillMax(1440,360).PercentageY}%;"
+								style="object-position: {$SlideImage.FocusFillMax(1440,360).FocusPoint.PercentageX}% {$SlideImage.FocusFillMax(1440,360).FocusPoint.PercentageY}%;"
 								src="$SlideImage.FocusFillMax(1440,360).URL"
 								srcset="
 									$SlideImage.FocusFillMax(480,120).URL 480w,
@@ -53,17 +53,18 @@
 								width="$SlideImage.FocusFillMax(1440,810).Width()"
 								<% if not $First %>loading="lazy" <% end_if %>
 								alt="$SlideImage.Title"
-								style="object-position: {$SlideImage.FocusFillMax(1440,810).PercentageX}% {$SlideImage.FocusFillMax(1440,810).PercentageY}%;"
-								src="$SlideImage.FocusFillMax(1440,810).URL"
-								srcset="$SlideImage.FocusFillMax(480,270).URL 480w,
-									$SlideImage.FocusFillMax(640,360).URL 640w,
-									$SlideImage.FocusFillMax(800,450).URL 800w,
-									$SlideImage.FocusFillMax(1000,563).URL 1000w,
-									$SlideImage.FocusFillMax(1200,675).URL 1200w,
-									$SlideImage.FocusFillMax(1440,810).URL 1440w<% if $Up.Up.isFullWidth %>,
-									$SlideImage.FocusFillMax(1600,900).URL 1600w,
-									$SlideImage.FocusFillMax(2000,1125).URL 2000w,
-									$SlideImage.FocusFillMax(2600,1463).URL 2600w<% end_if %>" />
+								style="object-position: {$SlideImage.FocusFillMax(1440,650).FocusPoint.PercentageX}% {$SlideImage.FocusFillMax(1440,650).FocusPoint.PercentageY}%;"
+								src="$SlideImage.FocusFillMax(1440,650).URL"
+								srcset="
+									$SlideImage.FocusFillMax(480,217).URL 480w,
+									$SlideImage.FocusFillMax(640,289).URL 640w,
+									$SlideImage.FocusFillMax(800,361).URL 800w,
+									$SlideImage.FocusFillMax(1000,451).URL 1000w,
+									$SlideImage.FocusFillMax(1200,542).URL 1200w,
+									$SlideImage.FocusFillMax(1440,650).URL 1440w<% if $Up.Up.isFullWidth %>,
+									$SlideImage.FocusFillMax(1600,722).URL 1600w,
+									$SlideImage.FocusFillMax(2000,903).URL 2000w,
+									$SlideImage.FocusFillMax(2600,1174).URL 2600w<% end_if %>" />
 							</figure>
 						<% else_if $Up.Up.Size == "fullscreen" %>
 							<figure><picture>

@@ -257,7 +257,7 @@ main.typography {
 				object-fit: cover;
 				max-width: none;
 				margin-bottom: 0;
-				max-height: 500px;
+				// max-height: 500px;
 				@include breakpoint($Mneg) {
 					height: 180px;
 				}
@@ -397,8 +397,8 @@ main.typography {
 				padding: 0 0 80% 0;
 			}
 			iframe {
-				margin-top: -5.5555%;
-				margin-bottom: -5.5555%;
+				margin-top: -8%;
+				margin-bottom: auto;
 				margin-left: auto;
 				margin-right: auto;
 				// pointer-events: none;

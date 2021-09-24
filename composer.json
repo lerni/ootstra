@@ -56,8 +56,7 @@
     "require-dev": {
         "phpunit/phpunit": "^5",
         "deployer/deployer": "^6",
-        "silverstripe/sitetreeimporter": "dev-master",
-        "lekoala/silverstripe-debugbar": "^2.0"
+        "silverstripe/sitetreeimporter": "dev-master"
     },
     "extra": {
         "expose": [

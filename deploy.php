@@ -100,7 +100,7 @@ set('http_user', DEP_SERVER_USER);
 set('default_timeout', 6000); // default is 300 - ssbak may needs more
 
 // Production aliases
-foreach (['production', 'prod', 'live'] as $alias) {
+foreach (['live'] as $alias) {
     host($alias)
         ->stage($alias)
         ->hostname(DEP_SERVER)
@@ -114,7 +114,7 @@ foreach (['production', 'prod', 'live'] as $alias) {
 }
 
 // Staging aliases
-foreach (['staging', 'stage', 'test'] as $alias) {
+foreach (['stage'] as $alias) {
     host($alias)
         ->stage($alias)
         ->hostname(DEP_SERVER)

@@ -2,6 +2,7 @@
 
 namespace {
 
+    use SilverStripe\Assets\Image;
     use App\Elements\ElementHero;
     use App\Elements\ElementGallery;
     use JonoM\ShareCare\ShareCareFields;
@@ -339,8 +340,7 @@ namespace {
         // since we do not want to get related pics in automatically
         public function ImagesForSitemap()
         {
-            $list = new ArrayList();
-
+            $IDList = [];
             if ($this->hasExtension(ElementalPageExtension::class)) {
                 // Images from Heros
                 if ($elementHeros = $this->ElementalArea()->Elements()->filter('ClassName', ElementHero::class)) {
@@ -349,7 +349,7 @@ namespace {
                             if ($slides = $hero->Slides()->Sort('SortOrder ASC')) {
                                 foreach ($slides as $slide) {
                                     if ($slide->SlideImage->exists()) {
-                                        $list->push($slide->SlideImage);
+                                        array_push($IDList, $slide->SlideImageID);
                                     }
                                 }
                             }
@@ -364,6 +364,7 @@ namespace {
                                 foreach ($images as $image) {
                                     if ($image->exists()) {
                                         $list->push($image);
+                                        $IDList = array_push($IDList, $image->ID);
                                     }
                                 }
                             }
@@ -371,7 +372,10 @@ namespace {
                     }
                 }
             }
-            return $list;
+            $IDList = array_unique($IDList);
+            if (count($IDList)) {
+                return Image::get()->filter(['ID' => $IDList]);
+            }
         }
 
         public function CategoriesWithState()

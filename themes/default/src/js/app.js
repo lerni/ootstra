@@ -14,3 +14,4 @@ import './include/flip';
 import './include/feather-icons';
 import './include/expandable-grid';
 import './include/fitvids';
+import './include/video-hero';
