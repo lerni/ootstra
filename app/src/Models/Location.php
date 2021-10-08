@@ -59,14 +59,14 @@ class Location extends DataObject
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['Address'] = _t(__CLASS__ . '.ADDRESS', 'Adresse');
-        $labels['PostOfficeBoxNumber'] = _t(__CLASS__ . '.POSTOFFICEBOXNUMBER', 'Postfach');
-        $labels['PostalCode'] = _t(__CLASS__ . '.POSTALCODE', 'PLZ');
-        $labels['Town'] = _t(__CLASS__ . '.TOWN', 'Ort');
-        $labels['AddressRegion'] = _t(__CLASS__ . '.ADDRESSREGION', 'Kanton');
-        $labels['Telephone'] = _t(__CLASS__ . '.TELEPHONE', 'Telefon');
+        $labels['Address'] = _t(__CLASS__ . '.ADDRESS', 'Address');
+        $labels['PostOfficeBoxNumber'] = _t(__CLASS__ . '.POSTOFFICEBOXNUMBER', 'P.O. Box');
+        $labels['PostalCode'] = _t(__CLASS__ . '.POSTALCODE', 'Postcode');
+        $labels['Town'] = _t(__CLASS__ . '.TOWN', 'Town');
+        $labels['AddressRegion'] = _t(__CLASS__ . '.ADDRESSREGION', 'Canton/State');
+        $labels['Telephone'] = _t(__CLASS__ . '.TELEPHONE', 'Phone');
         $labels['EMail'] = _t(__CLASS__ . '.EMAIL', 'E-Mail');
-        $labels['GeoPoint'] = _t(__CLASS__ . '.GEOPOINT', 'Koordinaten');
+        $labels['GeoPoint'] = _t(__CLASS__ . '.GEOPOINT', 'Coordinates');
 
         return $labels;
     }
@@ -79,7 +79,7 @@ class Location extends DataObject
 
         $gmapDefaultConfig = Config::inst()->get(GoogleMapField::class, 'default_options');
         if (isset($gmapDefaultConfig['api_key']) && $GeoPointField = $fields->dataFieldByName('GeoPointID')) {
-            $GeoPointField->setDescription('Geokoordinaten vom ElementMap mit Location assozieren');
+            $GeoPointField->setDescription('Associate geocoordinates from ElementMap with Location');
         }
 
         $ContryDropdownField = DropdownField::create('Country', 'Country');

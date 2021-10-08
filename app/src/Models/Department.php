@@ -39,8 +39,8 @@ class Department extends DataObject
         'Persos'
     ];
 
-    private static $singular_name = 'Abteilung';
-    private static $plural_name = 'Abteilungen';
+    private static $singular_name = 'department';
+    private static $plural_name = 'departments';
 
     private static $default_sort = 'Sort ASC';
 

@@ -58,7 +58,7 @@ class Teaser extends DataObject
         }
 
         if ($teaserActionField = $fields->dataFieldByName('Action')) {
-            $teaserActionField->setAttribute('placeholder', _t('App\Models\Teaser.MORE', 'Mehr erfahren'));
+            $teaserActionField->setAttribute('placeholder', _t('App\Models\Teaser.MORE', 'Learn more'));
         }
 
         // text left or right is available just for fullwidth layout

@@ -1,0 +1,74 @@
+---
+Name: myfluentconfig
+---
+# for the migration script we need those
+Fluent:
+  default_locale: de_CH
+  locales:
+    - de_CH
+    - en_US
+
+# SilverStripe\i18n\i18n we have in config.yml
+---
+Name: myfluentextensions
+After:
+  - 'app'
+---
+
+# SilverStripe\CMS\Model\SiteTree:
+#   extensions:
+#     - 'TractorCow\Fluent\Extension\FluentFilteredExtension'
+
+SilverStripe\UserForms\Model\EditableFormField:
+  extensions:
+    - 'TractorCow\Fluent\Extension\FluentVersionedExtension'
+
+SilverStripe\UserForms\Model\EditableFormField\EditableOption:
+  extensions:
+    - 'TractorCow\Fluent\Extension\FluentVersionedExtension'
+
+SilverStripe\SiteConfig\SiteConfig:
+  extensions:
+    - 'TractorCow\Fluent\Extension\FluentExtension'
+
+DNADesign\Elemental\Models\BaseElement:
+  extensions:
+    - 'TractorCow\Fluent\Extension\FluentVersionedExtension'
+
+App\Models\Teaser:
+  extensions:
+    - 'TractorCow\Fluent\Extension\FluentExtension'
+App\Models\Partner:
+  extensions:
+    - 'TractorCow\Fluent\Extension\FluentExtension'
+App\Models\Department:
+  extensions:
+    - 'TractorCow\Fluent\Extension\FluentExtension'
+App\Models\ContentPart:
+  extensions:
+    - 'TractorCow\Fluent\Extension\FluentExtension'
+SilverStripe\Blog\Model\BlogCategory:
+  extensions:
+    - 'TractorCow\Fluent\Extension\FluentExtension'
+App\Models\Document:
+  extensions:
+    - 'TractorCow\Fluent\Extension\FluentExtension'
+Kraftausdruck\Models\JobPosting:
+  extensions:
+    - 'TractorCow\Fluent\Extension\FluentExtension'
+App\Models\Perso:
+  extensions:
+    - 'TractorCow\Fluent\Extension\FluentExtension'
+App\Models\Slide:
+  extensions:
+    - 'TractorCow\Fluent\Extension\FluentExtension'
+App\Models\SocialLink:
+  extensions:
+    - 'TractorCow\Fluent\Extension\FluentExtension'
+App\Models\Logo:
+  extensions:
+    - 'TractorCow\Fluent\Extension\FluentExtension'
+
+# Note: If you are applying this via an Extension, be sure to apply it after the FluentExtension.
+TractorCow\Fluent\Extension\FluentExtension:
+  frontend_publish_required: false

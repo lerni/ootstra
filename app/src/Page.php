@@ -70,14 +70,14 @@ namespace {
                 if ($MetaTitleField = $MetaToggle->fieldByName('MetaTitle')) {
                     $MetaTitleField->setTargetLength(60, 50, 60);
                     $MetaTitleField->setAttribute('placeholder', $this->DefaultMetaTitle());
-                    $MetaTitleField->setRightTitle(_t('\Page.MetaTitleRightTitle', 'Wird als Titel im Browsertab und für Suchmaschinen Resultate verwendet. Wichtig für SEO!'));
+                    $MetaTitleField->setRightTitle(_t('\Page.MetaTitleRightTitle', 'Used as a title in the browser tab and for search engine results. Important for SEO!'));
                 }
 
                 if ($MetaDescriptionField = $MetaToggle->fieldByName('MetaDescription')) {
                     if (!$MetaDescriptionField->isReadonly()) {
                         $MetaDescriptionField->setTargetLength(160, 100, 160);
                         $MetaDescriptionField->setAttribute('placeholder', $this->DefaultMetaDescription());
-                        $MetaDescriptionField->setRightTitle(_t('\Page.MetaDescriptionRightTitle', 'Wird in Suchmaschinen-Ergebnissen verwendet, wenn Länge passt und Relevanz gegeben ist; beeinflusst die SEO-Position kaum. Ansprechende Meta-Descripton (besonders die ersten ~55 Zeichen -> Sitelinks) beeinflussen die Klickrate jedoch stark.'));
+                        $MetaDescriptionField->setRightTitle(_t('\Page.MetaDescriptionRightTitle', 'Used in search engine results when length fits and relevance is given; hardly affects the SEO position. Appealing meta-descriptions (especially the first ~ 55 characters -> sitelinks) have a strong influence on the click rate.'));
                     }
                 }
 

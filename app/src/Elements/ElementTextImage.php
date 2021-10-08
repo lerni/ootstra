@@ -35,8 +35,8 @@ class ElementTextImage extends BaseElement
     {
         $labels = parent::fieldLabels($includerelations);
         $labels['HTML'] = _t(__CLASS__ . '.HTML', 'Text');
-        $labels['Image'] = _t(__CLASS__ . '.IMAGE', 'Bild');
-        $labels['ElementLayout'] = _t(__CLASS__ . '.ELEMENTLAYOUT', 'Anordnung links...');
+        $labels['Image'] = _t(__CLASS__ . '.IMAGE', 'Image');
+        $labels['ElementLayout'] = _t(__CLASS__ . '.ELEMENTLAYOUT', 'Arrangement left...');
         return $labels;
     }
 

@@ -51,8 +51,8 @@ class ElementHero extends BaseElement
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['Size'] = _t(__CLASS__ . '.SIZE', 'Grösse/Höhe Header');
-        $labels['DoNotCrop'] = _t(__CLASS__ . '.DONOTCROP', 'Höhe nicht begrenzen');
+        $labels['Size'] = _t(__CLASS__ . '.SIZE', 'Size / height header');
+        $labels['DoNotCrop'] = _t(__CLASS__ . '.DONOTCROP', 'Do not limit height');
 
         return $labels;
     }
@@ -67,7 +67,7 @@ class ElementHero extends BaseElement
 
         if ($SizeField = $fields->dataFieldByName('Size')) {
             $fields->addFieldToTab('Root.Settings', $SizeField, 'isFullWidth');
-            $SizeField->setDescription(_t(__CLASS__ . '.SizeDescription', '"fullscreen" erfordert "volle Breite"!'));
+            $SizeField->setDescription(_t(__CLASS__ . '.SizeDescription', '"fullscreen" requires "full width"!'));
         }
 
         // hack arround unsaved relations
@@ -89,7 +89,7 @@ class ElementHero extends BaseElement
         }
 
         if ($DoNotCropField = $fields->dataFieldByName('DoNotCrop')) {
-            $DoNotCropField->setDescription(_t(__CLASS__ . '.DoNotCropDescription', 'Keine maximale Höhe in Grösse "medium"'));
+            $DoNotCropField->setDescription(_t(__CLASS__ . '.DoNotCropDescription', 'No maximum height in size "medium"'));
             $fields->addFieldToTab('Root.Settings', $DoNotCropField);
         }
 

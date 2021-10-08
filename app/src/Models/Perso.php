@@ -75,10 +75,10 @@ class Perso extends DataObject
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['Firstname'] = _t(__CLASS__ . '.FIRSTNAME', 'Vorname');
-        $labels['Lastname'] = _t(__CLASS__ . '.LASTNAME', 'Nachname');
+        $labels['Firstname'] = _t(__CLASS__ . '.FIRSTNAME', 'First name');
+        $labels['Lastname'] = _t(__CLASS__ . '.LASTNAME', 'Last name');
         $labels['EMail'] = _t(__CLASS__ . '.EMAIL', 'E-Mail');
-        $labels['Telephone'] = _t(__CLASS__ . '.TELEPHONE', 'Telefon');
+        $labels['Telephone'] = _t(__CLASS__ . '.TELEPHONE', 'Phone');
         $labels['Motivation'] = _t(__CLASS__ . '.MOTIVATION', 'Text');
 
         return $labels;

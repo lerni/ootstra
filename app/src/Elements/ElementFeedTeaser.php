@@ -56,7 +56,7 @@ class ElementFeedTeaser extends BaseElement
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['CountMax'] = _t(__CLASS__ . '.COUNTMAX', 'Anzahl Teasers (default 3)');
+        $labels['CountMax'] = _t(__CLASS__ . '.COUNTMAX', 'Number of teasers (default 3)');
         $labels['FirstLinkAction'] = _t(__CLASS__ . '.FIRSTLINKACTION', 'Text link parent (first)');
         return $labels;
     }
@@ -69,8 +69,8 @@ class ElementFeedTeaser extends BaseElement
         $fields->removeByName('Categories');
 
         $fields->addFieldToTab('Root.Main', LiteralField::create('How', '
-            <h2>'. _t(__CLASS__ . '.HowTitle', 'Was wird angezeigt?') .'</h2>
-            <p>'. _t(__CLASS__ . '.HowText', 'Es werden Unterseiten (Kinder) der gewählten Seiten (Eltern/Holders) z.B. News mit den gewählten Kategorien angeteasert. Bild & Text kann auf jeweiligen Seiten im Tab "Feeds & Share" gewählt werden.') .'<br/><br/></p>
+            <h2>'. _t(__CLASS__ . '.HowTitle', 'What is shown?') .'</h2>
+            <p>'. _t(__CLASS__ . '.HowText', 'Subpages (children) of the selected pages (parents / holders) e.g. news with the selected categories are teased. Image & text can be selected on the respective pages in the tab "Feeds & Share".') .'<br/><br/></p>
         '));
 
         // hack arround unsaved relations
@@ -83,7 +83,7 @@ class ElementFeedTeaser extends BaseElement
                 GridFieldAddNewButton::class,
                 GridFieldFilterHeader::class
             ]);
-            $gridField = new GridField('FeedTeaserParents', _t(__CLASS__ . '.FEEDTEASERPARENTS', 'Eltern/Holders verlinkter Seiten'), $this->FeedTeaserParents(), $TeaserGridFieldConfig);
+            $gridField = new GridField('FeedTeaserParents', _t(__CLASS__ . '.FEEDTEASERPARENTS', 'Parents / Holders of Linked Pages'), $this->FeedTeaserParents(), $TeaserGridFieldConfig);
             $fields->addFieldToTab('Root.Main', $gridField);
         } else {
             $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));

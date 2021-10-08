@@ -38,11 +38,11 @@ class ElementExtension extends DataExtension
         ]);
 
         if ($AvailableField = $fields->dataFieldByName('AvailableGlobally')) {
-            $AvailableField->setTitle(_t('DNADesign\Elemental\Models\BaseElement.AVAILABLEGLOBALLY', 'klonen mit virtuellem Element ermöglichen'));
+            $AvailableField->setTitle(_t('DNADesign\Elemental\Models\BaseElement.AVAILABLEGLOBALLY', 'Enable cloning with virtual element'));
         }
         if ($SpacingTopField = $fields->dataFieldByName('SpacingTop')) {
             $SpacingTopField->setTitle(_t('DNADesign\Elemental\Models\BaseElement.SPACINGTOP', 'Spacing top'));
-            $SpacingTopField->setDescription(_t('DNADesign\Elemental\Models\BaseElement.SpacingDescription', 'Anzahl Zeilen Lauftext (1 - 6)'));
+            $SpacingTopField->setDescription(_t('DNADesign\Elemental\Models\BaseElement.SpacingDescription', 'Number of lines of scrolling text (1 - 6)'));
             $fields->addFieldToTab('Root.Settings', $SpacingTopField);
         }
         if ($SpacingBottomField = $fields->dataFieldByName('SpacingBottom')) {
@@ -51,7 +51,7 @@ class ElementExtension extends DataExtension
             $fields->addFieldToTab('Root.Settings', $SpacingBottomField);
         }
         if ($FullWidthBox = $fields->dataFieldByName('isFullWidth')) {
-            $FullWidthBox->setTitle(_t('DNADesign\Elemental\Models\BaseElement.ISFULLWIDTH', 'in voller Breite zeigen'));
+            $FullWidthBox->setTitle(_t('DNADesign\Elemental\Models\BaseElement.ISFULLWIDTH', 'show in full width'));
             $fields->addFieldToTab('Root.Settings', $FullWidthBox);
         }
 
@@ -82,7 +82,7 @@ class ElementExtension extends DataExtension
                     $anchorlink = $this->owner->Parent()->getOwnerPage()->AbsoluteLink() . '#' . $desc;
                     $ElementAnchorLinkField->setDescription($anchorlink);
                 } else {
-                    $ElementAnchorLinkField->setDescription(_t('DNADesign\Elemental\Models\BaseElement.AnchorLinkDescription', 'kein gültiger Anker'));
+                    $ElementAnchorLinkField->setDescription(_t('DNADesign\Elemental\Models\BaseElement.AnchorLinkDescription', 'No valid anchor'));
                 }
                 $fields->addFieldToTab('Root.Settings', $ElementAnchorLinkField);
             }
@@ -92,7 +92,7 @@ class ElementExtension extends DataExtension
             'Root.Settings',
             new ColorPaletteField(
                 'BackgroundColor',
-                _t('DNADesign\Elemental\Models\BaseElement.BACKGROUNDCOLOR', 'Element Hintergrundfarbe'),
+                _t('DNADesign\Elemental\Models\BaseElement.BACKGROUNDCOLOR', 'Element background colour'),
                 array(
                     'white' => 'rgb(255,255,255)',
                     'gray-lighter' => 'rgb(246, 246, 246)'

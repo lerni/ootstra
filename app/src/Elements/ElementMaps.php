@@ -86,7 +86,7 @@ class ElementMaps extends BaseElement
             $ZoomLevels[$i] = ($message) ? $i . ' - ' . $message : $i;
         }
         $fields->addFieldToTab('Root.Main', $ZoomField = DropdownField::create('Zoom', 'Zoom', $ZoomLevels));
-        $ZoomField->setDescription(_t('App\Elements\ElementMaps.ZoomDescription', 'false'));
+        $ZoomField->setDescription(_t('App\Elements\ElementMaps.ZoomDescription', 'Zoom level adjusts to show all markers. A minimum value can be configured here.'));
 
         // hack arround unsaved relations
         if ($this->isInDB()) {

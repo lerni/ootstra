@@ -14,10 +14,10 @@
 		<% if $DefaultMetaDescription %><meta name="Description" content="$DefaultMetaDescription" /><% end_if %>
 	<% end_if %>
 	<% include App/Includes/Favicon %>
-	<script src="$resourceURL('/_resources/themes/default/thirdparty/instant-page.js')" type="module"></script>
+	<script src="$resourceURL('/_resources/themes/default/thirdparty/instant-page.js')" nonce="{$Nonce}" type="module"></script>
 	<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@200;400&display=swap" rel="stylesheet">
 	<% require themedCSS('dist/css/style') %>
-	<style type="text/css">
+	<style type="text/css" nonce="{$Nonce}">
 		@font-face {
 			font-family: "icons";
 			src:url("$resourceURL('app/fonts/icons.woff2')") format('woff2'),

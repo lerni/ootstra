@@ -34,6 +34,7 @@ class ElementPage extends Page
             } else {
                 $base = Director::absoluteBaseURL();
             }
+            // todo: primary should be respected here!!!
             $siteURL = $c->Link();
             $action = $c->urlParams['Action'];
             $id = $c->urlParams['ID'];
@@ -51,7 +52,7 @@ class ElementPage extends Page
         $fields = parent::getCMSFields();
 
         if (!$this->hasHero()) {
-            $message = _t('App\Models\ElementPage.HeroNeeded', 'Wenn kein "Hero" als oberstes Element vorhanden ist, wird <a href="/admin/settings/">default HeadeImage</a> verwendet.');
+            $message = _t('App\Models\ElementPage.HeroNeeded', 'If there is no "Hero" as top element, <a href="/admin/settings/">default HeadeImage </a> is used.');
             $fields->unshift(
                 LiteralField::create(
                     'HeroNeeded',

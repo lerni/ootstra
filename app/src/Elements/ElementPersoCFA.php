@@ -43,13 +43,13 @@ class ElementPersoCFA extends BaseElement
         'CountMax' => 3
     ];
 
-    private static $description = 'Call for Contact Perso Element';
+    private static $description = 'Call for Contact Perso-Element';
 
-    private static $title = 'Ansprechpartner';
+    private static $title = 'Contact';
 
-    private static $singular_name = 'Ansprechpartner';
+    private static $singular_name = 'Contact';
 
-    private static $plural_name = 'Ansprechpartner';
+    private static $plural_name = 'Contacts';
 
     private static $icon = 'font-icon-block-user';
 
@@ -58,7 +58,7 @@ class ElementPersoCFA extends BaseElement
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['CountMax'] = _t(__CLASS__ . '.COUNTMAX', 'Anzahl (default 3)');
+        $labels['CountMax'] = _t(__CLASS__ . '.COUNTMAX', 'Number (default 3)');
         return $labels;
     }
 

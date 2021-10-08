@@ -1,140 +1,226 @@
 de:
+  DNADesign\Elemental\Models\ElementContent:
+    BlockType: 'Text'
+  App\Elements\ElementContentSection:
+    BlockType: Accordion
+  App\Elements\ElementCounter:
+    BlockType: Counter
+  App\Elements\ElementFeedTeaser:
+    BlockType: 'Teaser (feed)'
+    COUNTMAX: 'Anzahl Teasers (default 3)'
+    FEEDTEASERPARENTS: 'Eltern/Holders verlinkter Seiten'
+    FIRSTLINKACTION: 'Text link parent (first)'
+    HowText: 'Es werden Unterseiten (Kinder) der gewählten Seiten (Eltern/Holders) z.B. News mit den gewählten Kategorien angeteasert. Bild & Text kann auf jeweiligen Seiten im Tab "Feeds & Share" gewählt werden.'
+    HowTitle: 'Was wird angezeigt?'
+  App\Elements\ElementGallery:
+    BlockType: Gallery
+    CROPGALLERYTHUMBSBYWIDTH: 'Seitenverhältnis für Miniaturansichten beibehalten'
+    GalleryImagesDescription: 'Breite getrimmt auf 1224px'
+    OneOrTheOther: 'Ordner wählen (alle enthaltenen Bilder) oder hier direkt wählen & sortieren'
+  App\Elements\ElementHero:
+    BlockType: Hero
+    DONOTCROP: 'Höhe nicht begrenzen'
+    DoNotCropDescription: 'Keine maximale Höhe in der Größe "mittel"'
+    SIZE: 'Grösse/Höhe Header'
+    SizeDescription: '"fullscreen" erfordert "full width"!'
+  App\Elements\ElementLogo:
+    BlockType: 'Logos (Partner)'
+  App\Elements\ElementMaps:
+    BlockType: Map
+    PLURALNAME: Maps
+    PLURALS:
+      one: 'A Map'
+      other: '{count} Maps'
+    SINGULARNAME: Map
+    ZoomDescription: 'Zoomstufe passt sich an, um alle Marker zu zeigen. Hier kann ein Minimalwert konfiguriert werden.'
+  App\Elements\ElementPerso:
+    BlockType: Team
+    PLURALNAME: Personal
+    PLURALS:
+      one: 'A Personal'
+      other: '{count} Personal'
+    SINGULARNAME: Personal
+  App\Elements\ElementPersoCFA:
+    BlockType: 'Contact (CFA)'
+    COUNTMAX: 'Anzahl Teasers (default 3)'
+    PLURALNAME: Contacts
+    PLURALS:
+      one: 'A Contact'
+      other: '{count} Contacts'
+    SINGULARNAME: Contact
+  App\Elements\ElementTeaser:
+    BlockType: Teaser
+  App\Elements\ElementTextImage:
+    BlockType: 'Text Bild'
+    ELEMENTLAYOUT: 'Anordnung links...'
+    HTML: Text
+    IMAGE: Bild
+    ImageDescription: 'min. 1400x1800px'
+  App\Extensions\UrlifyExtension:
+    DefaultTitle: 'Neuer Eintrag'
+    METADESCRIPTION: 'Meta Description'
+    METATITLE: 'Meta Title'
+    MetadataToggle: Metadata
+    NoParentElement: 'Ein Element zum anzeigen fehlt derzeit! Fügen Sie ein {Element} in den Seitenbaum ein und weisen Sie hier eine URL zu.'
+    TITLE: Title
+  App\Models\ContentPart:
+    PLURALNAME: 'Content Parts'
+    PLURALS:
+      one: 'A Content Part'
+      other: '{count} Content Parts'
+    SINGULARNAME: 'Content Part'
+    TITLE: Titel
+  App\Models\CountItem:
+    PLURALNAME: 'Count Items'
+    PLURALS:
+      one: 'A Count Item'
+      other: '{count} Count Items'
+    SINGULARNAME: 'Count Item'
+    TEXT: Text
+    TITLE: Titel
+    VALUE: Wert
+  App\Models\Department:
+    PLURALNAME: departments
+    PLURALS:
+      one: 'A department'
+      other: '{count} departments'
+    SINGULARNAME: department
+    TITLE: Titel
+  App\Models\ElementPage:
+    DESCRIPTION: 'Erlaubt modulare Inhaltskomposition mit Elementen'
+    HeroNeeded: 'Wenn kein "Hero" als oberstes Element vorhanden ist, wird <a href="/admin/settings/">default HeadeImage</a> verwendet.'
+    PLURALNAME: 'Element Pages'
+    PLURALS:
+      one: 'An Element Page'
+      other: '{count} Element Pages'
+    SINGULARNAME: 'Element Page'
+  App\Models\Location:
+    ADDRESS: Adresse
+    ADDRESSREGION: 'Kanton / Bundesland'
+    EMAIL: E-Mail
+    GEOPOINT: Coordinates
+    PLURALNAME: Locations
+    PLURALS:
+      one: 'A Location'
+      other: '{count} Locations'
+    POSTALCODE: PLZ
+    POSTOFFICEBOXNUMBER: 'Postfach'
+    TELEPHONE: Telefon
+    TOWN: Ort
+  App\Models\Logo:
+    LogoImageDescription: 'min. 120px hoch'
+    PLURALNAME: Logos
+    PLURALS:
+      one: 'A Logo'
+      other: '{count} Logos'
+    SINGULARNAME: Logo
+    TITLE: Titel
+  App\Models\MetaOverviewPage:
+    PLURALNAME: 'Meta Overview Pages'
+    PLURALS:
+      one: 'A Meta Overview Page'
+      other: '{count} Meta Overview Pages'
+    SINGULARNAME: 'Meta Overview Page'
+  App\Models\Perso:
+    EMAIL: E-Mail
+    FIRSTNAME: 'Vorname'
+    LASTNAME: 'Nachname'
+    MOTIVATION: Text
+    PLURALNAME: Persos
+    PLURALS:
+      one: 'A Perso'
+      other: '{count} Persos'
+    PortraitDescription: 'min. 576x766px'
+    SINGULARNAME: Perso
+    TELEPHONE: 'Telefon'
+    TelephoneDescription: '+41 43 000 00 00'
+  App\Models\Point:
+    PLURALNAME: Points
+    PLURALS:
+      one: 'A Point'
+      other: '{count} Points'
+    POINTURL: 'Link auf Marker'
+    SINGULARNAME: Point
+    TITLE: Titel
+  App\Models\Slide:
+    PLURALNAME: Slides
+    PLURALS:
+      one: 'A Slide'
+      other: '{count} Slides'
+    SINGULARNAME: Slide
+    SlideImageDescription: 'small 4:1 // medium 16:9 // fullscreen 8:5 / 5:8 / 4:3 je nach Bildschirmgröße des Clients (Fokuspunkt verwenden!)'
+    TEXT: 'Claim auf Bild'
+    TEXTALIGNMENT: 'Anordnung Text'
+    TITLE: Titel
+  App\Models\SocialLink:
+    PLURALNAME: Social-Links
+    PLURALS:
+      one: 'A Social-Link'
+      other: '{count} Social-Links'
+    SINGULARNAME: Social-Link
+    TITLE: Title
+    TitleDescription: 'Namen der Icons von <a href="{link}" target="_blank">{link}</a>!'
+    sameAs: '"sameAs" in schema verwenden'
+  App\Models\Teaser:
+    ImageDescription: 'min. 600x600px'
+    MORE: 'Mehr erfahren'
+    PLURALNAME: Teasers
+    PLURALS:
+      one: 'A Teaser'
+      other: '{count} Teasers'
+    SINGULARNAME: Teaser
+  DNADesign\Elemental\Models\BaseElement:
+    AVAILABLEGLOBALLY: 'klonen mit virtuellem Element ermöglichen'
+    AnchorLinkDescription: 'kein gültiger Anker'
+    BACKGROUNDCOLOR: 'Element Hintergrundfarbe'
+    ISFULLWIDTH: 'in voller Breite zeigen'
+    SPACINGBOTTOM: 'Spacing bottom'
+    SPACINGTOP: 'Spacing top'
+    SpacingDescription: 'Anzahl Zeilen Lauftext (1 - 6)'
+    TITLELEVEL: 'H1, H2, H3'
   Page:
-    More: 'Weiterlesen'
-    TELEPHONE: 'Tel.'
     MENU: 'Menu'
     OGDescriptionCustomDescription: 'Defaultwert ist Meta-Description oder Summary bei einem Blog-Post'
     MetaTitleRightTitle: 'Wird als Titel im Browsertab und für Suchmaschinen Resultate verwendet. Wichtig für SEO!'
     MetaDescriptionRightTitle: 'Wird in Suchmaschinen-Ergebnissen verwendet, wenn Länge passt und Relevanz gegeben ist; beeinflusst die SEO-Position kaum. Ansprechende Meta-Descripton (besonders die ersten ~55 Zeichen -> Sitelinks) beeinflussen die Klickrate jedoch stark.'
-  JonoM\ShareCare\ShareCare:
-    TabName: 'Feed & Share'
-  DNADesign\Elemental\Forms\TextCheckboxGroupField:
-    TitleLabel: 'Titel'
-  SilverStripe\Forms\GridField\GridField:
-    PlaceHolderWithLabels: 'Suche {name} % für Alle'
-  DNADesign\Elemental\Models\ElementContent:
-    BlockType: 'Text'
   SilverStripe\Blog\Model\Blog:
     Allcategories: 'Alle Kategorien'
     MORE: 'Weiterlesen'
     NoPosts: 'Kein Artikel vorhanden'
-  App\Elements\ElementMaps:
-    BlockType: 'Map'
-    ZoomDescription: 'Zoomstufe passt sich an, um alle Marker zu zeigen. Hier kann ein Minimalwert konfiguriert werden.'
-  App\Elements\ElementContentSection:
-    BlockType: 'Accordion'
-  App\Elements\ElementCounter:
-    BlockType: 'Counter'
-  App\Elements\ElementFeedTeaser:
-    BlockType: 'Teaser (feed)'
-    COUNTMAX: 'Anzahl Teasers (default 3)'
-    FIRSTLINKACTION: 'Text link parent (first)'
-    HowTitle: 'Was wird angezeigt?'
-    HowText: 'Es werden Unterseiten (Kinder) der gewählten Seiten (Eltern/Holders) z.B. News mit den gewählten Kategorien angeteasert. Bild & Text kann auf jeweiligen Seiten im Tab "Feeds & Share" gewählt werden.'
-    FEEDTEASERPARENTS: 'Eltern/Holders verlinkter Seiten'
-  App\Elements\ElementGallery:
-    BlockType: 'Gallery'
-    CROPGALLERYTUMBSBYWIDTH: 'keep aspectratio for thumbnails'
-    OneOrTheOther: 'Ordner wählen (alle enthaltenen Bilder) oder hier direkt wählen & sortieren'
-    GalleryImagesDescription: 'Breite getrimmt auf 1224px'
-  App\Elements\ElementHero:
-    BlockType: 'Hero'
-    SIZE: 'Grösse/Höhe Header'
-    SizeDescription: '"fullscreen" erfordert "volle Breite"!'
-    DONOTCROP: 'Höhe nicht begrenzen'
-  App\Elements\ElementLogo:
-    BlockType: 'Logos (Partner)'
-  App\Elements\ElementPerso:
-    BlockType: 'Team'
-    MORE: 'Curriculum Vitae'
-  App\Elements\ElementPersoCFA:
-    BlockType: 'Contact (CFA)'
-    COUNTMAX: 'Anzahl (default 3)'
-  App\Elements\ElementTeaser:
-    BlockType: 'Teaser'
-  App\Models\Teaser:
-    MORE: 'Mehr erfahren'
-    ImageDescription: 'min. 600x600px'
-  App\Elements\ElementTextImage:
-    BlockType: 'Text Image'
-    HTML: 'Text'
-    IMAGE: 'Bild'
-    ELEMENTLAYOUT: 'Anordnung links...'
-    ImageDescription: 'min. 1400x1800px'
+  SilverStripe\Blog\Model\BlogPost:
+    ALTERNATIVTEXTEVENTDATE: 'Alternative Text Datum'
+    AlternativTextEventDateDescription: 'Falls kein exaktes Datum resp. Zeitspanne. z.B. 14.10.2020 bis 4.11.2020, jeden Mittwoch, 16 Uhr'
+    EventDateDescription: 'Termin & Zeit z.B. 01.01.2020, 19:00<br /><strong>Um ein Datum zu erfassen, ist die Angabe einer Uhrzeit zwingend -> 00:00</strong>'
+    LOCATION: Veranstaltungsort
+    PastEventsHeaderField: 'Beiträge mit der Kategorie "Termine" werden nur angezeigt, wenn End- und Datum in der Zukunft liegt.'
+    PublishDateDescription: 'geplante Veröffentlichung'
+  SilverStripe\CMS\Controllers\CMSMain:
+    SaveFirst: 'Bitte Element erst speichern, danach können Sub-Elemente erfasst werden.'
   SilverStripe\SiteConfig\SiteConfig:
     SITENAMEDEFAULT: 'Name Webseite'
     TABMAIN: Main
-    SITETAGLINE: 'Claim / Beschreibung'
-    TAGLINEDEFAULT: 'Claim / Beschreibung'
-    SortImpact: 'Die "Location" an 1. Stelle wird im Footer angezeigt. Für "Schema-Daten" wie LocalBusiness werden alle verwendet.'
-    TERMSNAVIGATIONITEMS: 'Terms (AGB, Rechtliches, Impressum)'
+    TAGLINE: 'Claim / Beschreibung'
+    SortImpact: 'Die "Location" an 1. Stelle wird im Footer angezeigt. Für "Schemadaten" werden alle verwendet.'
+    DEFAULTHEADERIMAGE: 'Wird angezeigt, falls kein Hero in ElementPage'
+    DefaultHeaderImageDescription: 2600x993px
+    FOUNDINGDATE: 'Gründungsdatum'
+    LEGALNAME: 'Offizieller Name (rechtlich)'
     METADESCRIPTION: 'Meta Description'
     MetaDescriptionDescription: 'Defaultwert, falls auf Seitenebene keine Beschreibung erfasst ist.'
+    SERVICENAVIGATIONITEMS: 'Service Navigation'
+    TERMSNAVIGATIONITEMS: 'Terms (AGB, Rechtliches, Impressum)'
     TITLE: 'Title / Name'
-    DEFAULTHEADERIMAGE: 'Wird angezeigt, falls kein Hero in ElementPage'
-    DefaultHeaderImageDescription: '2600x993px' # same as slide
-  App\Models\ElementPage:
-    DESCRIPTION: 'Erlaubt modulare Inhaltskomposition mit Elementen'
-    HeroNeeded: 'Wenn kein "Hero" als oberstes Element vorhanden ist, wird <a href="/admin/settings/">default HeadeImage</a> verwendet.'
-  App\Models\CountItem:
-    VALUE: 'Wert'
-    TITLE: 'Titel'
-    TEXT: 'Text'
-  App\Models\Department:
-    TITLE: 'Titel'
-  App\Models\ContentPart:
-    TITLE: 'Titel'
-  App\Models\Point:
-    TITLE: 'Titel'
-    POINTURL: 'Link auf Marker'
-  App\Models\Logo:
-    TITLE: 'Titel'
-    LogoImageDescription: 'min. 120px hoch'
+  \Page:
+    MetaDescriptionRightTitle: 'Used in search engine results when length fits and relevance is given; hardly affects the SEO position. Appealing meta-descriptions (especially the first ~ 55 characters -> sitelinks) have a strong influence on the click rate.'
+    MetaTitleRightTitle: 'Used as a title in the browser tab and for search engine results. Important for SEO!'
+    OGDescriptionCustomDescription: 'Default value is "Meta Description" or "Summary" for a "Blog-post"'
+  JonoM\ShareCare\ShareCare:
+    TabName: 'Feed & Share'
+  JonoM\ShareCare\ShareCareFields:
+    CMSMessage: 'Die Vorschau wird automatisch aus dem Inhalt generiert. Die generierten Werte können hier manuell überschrieben werden.<br><strong>Generell sollte nur etwas erfasst werden, wenn der Inhalt vom Defaultwerte (kursiv) abweicht. Defaultwert für das Bild ist das 1. Slide vom Hero resp. ein Icon als "Fallback", die "Share Beschreibung" basiert auf der Metadescription, resp. im Falle eines BlogPosts auf der Zusammenfassung und verwendet als "Fallback" die globale MetaDescription von "Einstellungen/SiteConfig".</strong>'
+  DNADesign\Elemental\Forms\TextCheckboxGroupField:
+    TitleLabel: 'Titel'
+  SilverStripe\Forms\GridField\GridField:
+    PlaceHolderWithLabels: 'Suche {name} % für Alle'
   App\Models\Marke:
     LogoDescription: 'freigestellt PNG<br />min. 130px breit'
-  App\Models\Slide:
-    TITLE: 'Titel'
-    TEXT: 'Claim auf Bild'
-    SlideImageDescription: 'small 4:1 // medium 16:9 // fullscreen 8:5 / 5:8 / 4:3 depending on client screensize (use focuspoint!)'
-    TEXTALIGNMENT: 'Anordnung Text'
-  App\Models\Perso:
-    FIRSTNAME: 'Vorname'
-    LASTNAME: 'Nachname'
-    EMAIL: 'E-Mail'
-    TELEPHONE: 'Telefon'
-    MOTIVATION: 'Text'
-    PortraitDescription: 'min. 576x766px'
-    TelephoneDescription: '+41 43 000 00 00'
-  App\Models\Location:
-    ADDRESS: 'Adresse'
-    POSTOFFICEBOXNUMBER: 'Postfach'
-    POSTALCODE: 'PLZ'
-    TOWN: 'Ort'
-    ADDRESSREGION: 'Kanton'
-    TELEPHONE: 'Telefon'
-    EMAIL: 'E-Mail'
-    GEOPOINT: 'Koordinaten'
-  SilverStripe\CMS\Controllers\CMSMain:
-    SaveFirst: 'Bitte Element erst speichern, danach können Sub-Elemente erfasst werden.'
-  JonoM\ShareCare\ShareCareFields:
-    CMSMessage: 'Die Vorschau wird automatisch aus dem Inhalt generiert. Die generierten Werte können hier manuell überschrieben werden.<br>
-    <strong>Generell sollte nur etwas erfasst werden, wenn der Inhalt vom Defaultwerte (kursiv) abweicht. Defaultwert für das Bild ist das 1. Slide vom Hero resp. ein Icon als "Fallback", die "Share Beschreibung" basiert auf der Metadescription, resp. im Falle eines BlogPosts auf der Zusammenfassung und verwendet als "Fallback" die globale MetaDescription von "Einstellungen/SiteConfig".</strong>'
-  DNADesign\Elemental\Models\BaseElement:
-    AVAILABLEGLOBALLY: 'klonen mit virtuellem Element ermöglichen'
-    SPACINGTOP: 'Spacing top'
-    SpacingDescription: 'Anzahl Zeilen Lauftext (1 - 6)'
-    SPACINGBOTTOM: 'Spacing bottom'
-    ISFULLWIDTH: 'in voller Breite zeigen'
-    TITLELEVEL: 'H1, H2, H3'
-    AnchorLinkDescription: 'kein gültiger Anker'
-    BACKGROUNDCOLOR: 'Element Hintergrundfarbe'
-  SilverStripe\Blog\Model\BlogPost:
-    EventDateDescription: 'Termin & Zeit z.B. 01.01.2020, 19:00<br /><strong>Um ein Datum zu erfassen, ist die Angabe einer Uhrzeit zwingend -> 00:00</strong>'
-    AlternativTextEventDateDescription: 'Falls kein exaktes Datum resp. Zeitspanne. z.B. 14.10.2020 bis 4.11.2020, jeden Mittwoch, 16 Uhr'
-    PastEventsHeaderField: 'Beiträge mit der Kategorie "Termine" werden nur angezeigt, wenn End- und Datum in der Zukunft liegt.'
-    LOCATION: 'Veranstaltungsort'
-    ALTERNATIVTEXTEVENTDATE: 'Alternative Text Datum'
-    PublishDateDescription: 'geplante Veröffentlichung'
-  App\Models\SocialLink:
-    sameAs: '"sameAs" in schema verwenden'
-    TitleDescription: 'Namen der Icons von <a href="{link}" target="_blank">{link}</a>!'

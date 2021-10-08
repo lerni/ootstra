@@ -13,7 +13,7 @@ class ShareCareFieldsExtension extends Extension
             $uploadField->setFolderName('ShareFeedImages');
         }
         if ($DescriptionField = $fields->dataFieldByName('OGDescriptionCustom')) {
-            $DescriptionField->setDescription(_t('\Page.OGDescriptionCustomDescription', 'Defaultwert ist Meta-Description oder Summary bei einem Blog-Post'));
+            $DescriptionField->setDescription(_t('\Page.OGDescriptionCustomDescription', 'Default value is "Meta Description" or "Summary" for a "Blog-post"'));
             $DescriptionField->setAttribute('placeholder', $this->owner->DefaultMetaDescription());
         }
     }

@@ -3,4 +3,7 @@ de_DE:
     FIELDISREQUIRED: '{name} muss ausgefüllt werden'
     EXTRACLASS_MULTIPLE: 'Mehrere CSS Klassen mit Leerzeichen trennen - half-width - quarter-width-checkbox - auto-width'
   SilverStripe\UserForms:
+  # todo:
+  # SilverStripe\UserForms\Model\UserDefinedForm:
+  # https://github.com/silverstripe/silverstripe-userforms/issues/1100
     ONCOMPLETEMESSAGE: 'Danke wir haben Ihre Nachricht erhalten.'

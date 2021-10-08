@@ -36,7 +36,7 @@ class Point extends DataObject
     {
         $labels = parent::fieldLabels($includerelations);
         $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Titel');
-        $labels['PointURL'] = _t(__CLASS__ . '.POINTURL', 'Link auf Marker');
+        $labels['PointURL'] = _t(__CLASS__ . '.POINTURL', 'Link on marker');
 
         return $labels;
     }
@@ -47,7 +47,7 @@ class Point extends DataObject
         $fields = parent::getCMSFields();
 
         if ($PointURLField = $fields->dataFieldByName('PointURL')) {
-            $PointURLField->setDescription('Link (Kurzform) auf Business-Eintrag von Google-Map');
+            $PointURLField->setDescription('Link (short form) to business entry from Google-Map');
         }
 
         $fields->removeByName('Latitude');

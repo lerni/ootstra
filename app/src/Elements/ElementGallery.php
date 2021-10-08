@@ -81,7 +81,7 @@ class ElementGallery extends BaseElement
         $uploadField->setSortColumn('SortOrder');
         $size = 5 * 1024 * 1024;
         $uploadField->getValidator()->setAllowedMaxFileSize($size);
-        $uploadField->setDescription(_t(__CLASS__ . '.GalleryImagesDescription', 'Breite getrimmt auf 1224px'));
+        $uploadField->setDescription(_t(__CLASS__ . '.GalleryImagesDescription', 'Width trimmed to  1224px'));
 
         return $fields;
     }
