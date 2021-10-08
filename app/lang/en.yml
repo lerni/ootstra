@@ -1,10 +1,51 @@
 en:
+  SilverStripe\UserForms\Model\EditableFormField:
+    FIELDISREQUIRED: '{name} is required'
   Page:
+    Back: 'back to'
     More: 'Read more'
+  Page_results:
+    moreAbout: 'more about &quot;{title}&quot; &rarr;'
+    noResults: 'search for &quot;{query}&quot; gave no results.'
+    next: 'next'
+    previous: 'previous'
+    goToPage: 'Go to page'
+    xOfY: 'page {current} of {total}'
+    searchQuery: 'search result &quot;{query}&quot;'
+  SilverStripe\CMS\Search\SearchForm:
+    GO: 'search'
+    SEARCH: 'search'
+    SearchResults: 'Searchresults'
+  App\Elements\ElementPerso:
+    BlockType: 'Team'
+    MORE: 'more'
+  App\Models\Perso:
+    TELEPHONE: 'Phone'
+  App\Controller\ElementPersoController:
+    FILTERDROPDOWNLABEL: 'Department'
+    ALLDEP: 'all departments'
+  App\Elements\ElementPersoCFA:
+    DefaultTitle: 'Would you like to find out more?'
+    DefaultText: 'We are happy to hear from you!'
+  SilverStripe\Blog\Model\Blog:
+    ReadMoreAbout: "Mehr über {title}..."
+    NoPosts: 'kein Artikel verfügbar'
+    Archive: 'Archive'
+    Alle: 'All'
+    Kategorie: 'Category'
+    topics: 'themes'
+    topic: 'theme'
+  SilverStripe\Blog\Model\BlogPost:
+    BACK: 'back to'
+    Alle: 'All'
+    Kategorie: 'Category'
+    topics: 'themes'
+    topic: 'theme'
   App\Models\Teaser:
     MORE: 'Read more'
   Kraftausdruck\KlaroCookie:
     MODALLINK: 'Cookies'
   App\Models\SocialLink:
+    TITLE: 'Title'
     sameAs: 'Use "sameAs" in schema'
     TitleDescription: 'Just use names from <a href="{link}" target="_blank">{link}</a>!'

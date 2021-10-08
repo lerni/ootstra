@@ -89,9 +89,10 @@ body {
 				a {
 					svg,
 					img {
-						height: 100%;
+						height: auto;
 						max-width: 185px;
-						margin: auto auto 0 auto;
+						margin: auto auto 0 0;
+						display: table;
 					}
 				}
 			}
@@ -202,9 +203,9 @@ main.typography {
 			content: "";
 			width: .9em;
 			height: 1em;
-			background-size: 100% auto;
+			background-size: auto .7em;
 			background-repeat: no-repeat;
-			background-position: center center;
+			background-position: right 0 center;
 			background-image: svg-load('../images/svg/arrow.svg', fill=#{$link-color});
 			transform: rotate(180deg);
 			margin-right: .5em;

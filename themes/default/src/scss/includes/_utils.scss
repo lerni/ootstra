@@ -24,23 +24,6 @@
 	white-space: nowrap;
 }
 
-/* Clearfix - Assign class to element to self clear children
----------------------------------------------------------------------------------- */
-.group,
-%group {
-	zoom: 1; // IE 6/7
-
-	&::before,
-	&::after {
-		display: table;
-		content: '';
-	}
-
-	&::after {
-		clear: both;
-	}
-}
-
 /* Utility class for replacing text with a background-image
 ---------------------------------------------------------------------------------- */
 .replace,

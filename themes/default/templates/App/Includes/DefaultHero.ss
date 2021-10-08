@@ -9,7 +9,6 @@
 					src="$FocusFillMax(1440,360).URL"
 					srcset="$FocusFillMax(480,120).URL 480w,
 						$FocusFillMax(640,160).URL 640w,
-						$FocusFillMax(720,180).URL 720w,
 						$FocusFillMax(800,200).URL 800w,
 						$FocusFillMax(1000,250).URL 1000w,
 						$FocusFillMax(1200,300).URL 1200w,

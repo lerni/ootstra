@@ -154,10 +154,12 @@ class UrlifyExtension extends Extension
 
     public function DefaultMetaDescription()
     {
+        $dmd = '';
         if ($this->owner->MetaDescription) {
             $dmd = $this->owner->MetaDescription;
         } else {
-            if ($page = $this->owner->Parent()->getPage()) {
+            if ($this->owner->Parent() && $this->owner->Parent()->getPage()) {
+                $page = $this->owner->Parent()->getPage();
                 $dmd = $page->MetaDescription;
             }
         }

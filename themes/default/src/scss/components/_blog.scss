@@ -18,6 +18,12 @@ body.blog {
         flex-direction: column;
         margin: #{math.div($lh, 2)}em #{math.div($lh, 2)}em #{$lh*1.5}em;
         color: $lauftext-color;
+		@include breakpoint($Mneg) {
+			flex: 0 0 calc(#{percentage(math.div(1, 2))} - #{$lh}em);
+		}
+		@include breakpoint($Sneg) {
+			flex: 0 0 calc(100% - #{$lh}em);
+		}
         &.nopost {
             flex: 0 0 100%;
             text-align: center;

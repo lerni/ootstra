@@ -60,6 +60,9 @@ Options -Indexes
     SetEnv BlockUntrustedIPs true
 </IfModule>
 
+# prevent iframe
+Header always set X-Frame-Options "SAMEORIGIN"
+
 # ##############################################################################
 # # URL REWRITES                                                               #
 # ##############################################################################
@@ -81,7 +84,7 @@ Options -Indexes
     RewriteEngine On
 
 	# RewriteCond %{HTTP_HOST} !^www\.domain\.tld [NC]
-	# RewriteRule ^(.*)$ http://www.domain.tld/$1 [r=301,L]
+	# RewriteRule ^(.*)$ https://www.domain.tld/$1 [r=301,L]
 
 	# RewriteCond %{SERVER_PORT} !^443 [NC]
 	# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [r=301,L]
@@ -307,7 +310,26 @@ FileETag None
     # Header set Cache-Control "max-age=31536000, public"
     # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
     Header set Cache-Control "max-age=0, public"
-    Header always set Strict-Transport-Security "max-age=0; includeSubDomains; preload"
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" env=HTTPS
+
+# ------------------------------------------------------------------------------
+# | remove Disallowed HTTP headers                                             |
+# ------------------------------------------------------------------------------
+# https://webhint.io/docs/user-guide/hints/hint-no-disallowed-headers/
+    Header unset Expires
+    Header unset Host
+    Header unset P3P
+    Header unset Pragma
+    Header unset Public-Key-Pins
+    Header unset Public-Key-Pins-Report-Only
+    Header unset Via
+    Header unset X-AspNet-Version
+    Header unset X-AspNetMvc-version
+    Header unset X-Frame-Options
+    Header unset X-Powered-By
+    Header unset X-Runtime
+    Header unset X-Version
+
 </IfModule>
 
 # <IfModule mod_expires.c>

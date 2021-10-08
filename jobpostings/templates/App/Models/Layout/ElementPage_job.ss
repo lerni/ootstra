@@ -28,7 +28,7 @@
 		<article <% if $ElementAnchor %>id="$ElementAnchor"<% end_if %> class="element elementjobs show spacing-bottom-2">
 			<div class="inner">
 				<% if not $LastFor %>
-					<div class="alert alert-warning"><%t Kraftausdruck\Models\JobPosting.expired %></div>
+					<div class="alert alert-warning"><%t Kraftausdruck\Models\JobPosting.expired 'expired' %></div>
 				<% end_if %>
 				$Description
 				<% if $InseratID %><a class="download" href="$Inserat.Link">$Inserat.Title</a><% end_if %>

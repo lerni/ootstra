@@ -85,7 +85,6 @@ SilverStripe\Blog\Model\BlogPost:
     - App\Elements\ElementTeaser
     - App\Elements\ElementFeedTeaser
     - App\Elements\ElementTextImage
-    - Kraftausdruck\Elements\ElementPodcast
 
 App\Models\ElementPage:
   icon: '_resources/themes/default/dist/images/svg/icon-elements.svg'
@@ -107,7 +106,6 @@ App\Models\ElementPage:
     - App\Elements\ElementTeaser
     - App\Elements\ElementFeedTeaser
     - App\Elements\ElementTextImage
-    - Kraftausdruck\Elements\ElementPodcast
 
 DNADesign\Elemental\Models\BaseElement:
   extensions:
@@ -158,6 +156,11 @@ SilverStripe\SiteConfig\SiteConfig:
 SilverStripe\Security\Member:
   extensions:
     - App\Extensions\MemberExtension
+
+# Silverstripe\CSP\CSPMiddleware:
+#   policies:
+#     - 'Silverstripe\CSP\Policies\CMS'
+#     - 'App\CSP\ContentSecurityPolicy'
 
 SilverStripe\SpamProtection\Extension\FormSpamProtectionExtension:
   default_spam_protector: UndefinedOffset\NoCaptcha\Forms\NocaptchaProtector

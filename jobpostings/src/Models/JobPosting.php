@@ -128,7 +128,7 @@ class JobPosting extends DataObject
         ]);
 
         if ($this->LastFor() == false) {
-            $message = _t('Kraftausdruck\Models\JobPosting.expiredAlert', 'false');
+            $message = _t('Kraftausdruck\Models\JobPosting.expiredAlert', 'The job-posting has expired or "Valid to" is missing.');
             $fields->unshift(
                 LiteralField::create(
                     'Past',
@@ -335,7 +335,7 @@ class JobPosting extends DataObject
         $datediff = $this->LastFor();
         if ($datediff == false && $this->ValidThrough) {
             $html = DBHTMLText::create();
-            $html->setValue('<span style="color: red;">' . _t('Kraftausdruck\Models\JobPosting.expired', 'false') . '</span>');
+            $html->setValue('<span style="color: red;">' . _t('Kraftausdruck\Models\JobPosting.expired', 'expired') . '</span>');
             $datediff = $html;
         }
         return $datediff;

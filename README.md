@@ -3,7 +3,7 @@
 
 # Setup, Requirements & install
 
-This project is inspired from [Bigfork’s quickstart recipe](https://github.com/bigfork/silverstripe-recipe) for [Silverstripe](https://www.silverstripe.org/). It's an opinionated set of tools for a ready to run, build & deploy CMS instance in a minimal amount of time. To get it up and running you'll need [GIT](https://git-scm.com/), [Docker](https://www.docker.com/), [composer](https://getcomposer.org/download/), [NPM](https://nodejs.org/) and a server with [SSH](https://de.wikipedia.org/wiki/Secure_Shell). It utililizes [dnadesign/silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) for a block/element based CMS experience and commes with the following set of elements:
+This project is inspired from [Bigfork’s quickstart recipe](https://github.com/bigfork/silverstripe-recipe) for [Silverstripe](https://www.silverstripe.org/). It's an opinionated set of tools for a ready to run, build & deploy CMS instance in a minimal amount of time. To get it up and running you'll need [GIT](https://git-scm.com/), [Docker](https://www.docker.com/), [composer](https://getcomposer.org/download/), [NPM](https://nodejs.org/) and a server with [SSH](https://de.wikipedia.org/wiki/Secure_Shell). It utilizes [dnadesign/silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) for a block/element based CMS experience and comes with the following set of elements:
 
     - ElementContent
     - ElementForm               (userforms)
@@ -55,7 +55,7 @@ This project comes with a Dockerfile for Apache/PHP/MySQL. For this you need to 
  - `docker build --tag silverstripe:refined .`
  - `docker-compose up`
 
-It than should be available on [http://localhost:8080/](http://localhost:8080/). With docker no `.env` file is needed. Default login is `admin` & `password`. With other webserver setups, point your vhost document root to `project/public`. Database, credentials etc. are provided per environment Variables. See also:
+It than should be available on [http://localhost:8080/](http://localhost:8080/). With docker no `.env` file is needed. Default login is `admin` & `password`. With other webserver setups, point your vhost document root of your dev-env to `/project/public`. Database, credentials etc. are provided per environment Variables. See also:
 
 https://www.silverstripe.org/learn/lessons/v4/up-and-running-setting-up-a-local-silverstripe-dev-environment-1
 
@@ -86,6 +86,8 @@ SS_DATABASE_SERVER="127.0.0.1"
 
 GHOSTSCRIPT_PATH="/usr/local/bin/gs"
 ```
+
+For your PHP-CLI-Setup, it might be helpfull, to set `sys_temp_dir = "/tmp"` in `php.ini` for `sspak`.
 
 ## npm
 
@@ -146,6 +148,9 @@ chmod +x /usr/local/bin/dep
 
 To transfer assets and database [ssbak](https://github.com/axllent/ssbak) (GO) is used over [sspak](https://github.com/silverstripe/sspak/) (PHP). Run deployer task like `dep silverstripe:installtools live` to install it on a remote linux servers in `~/bin`. You can set `ssXak_local_path` and `ssXak_path` in `deployer.php`.
 
+```bash
+curl -sS https://silverstripe.github.io/sspak/install | php -- /usr/local/bin
+```
 
 ## Configuration
 
@@ -168,6 +173,7 @@ or
 The first time you deploy to a given stage, you’ll be asked to provide database credentials used to populate `.env`.
 
 ### Deploy a branch/tag/revison
+
 ```
 # Deploy the dev branch to stage
 dep deploy --revision=ca5fcd330910234f63bf7d5417ab6835e5a57b81
@@ -191,24 +197,12 @@ To get assets and a DB-Dump from the server you can run:
 docker-compose exec -T database mysql DBNAME < database.sql
 ```
 
-```
-# Upload assets
-dep silverstripe:upload_assets
-
-# Upload database
-dep silverstripe:upload_database
 
 # Download assets
 dep silverstripe:download_assets
 
 # Download database
 dep silverstripe:download_database
-
-# Upload assets to live
-dep silverstripe:upload_assets live
-
-# Upload database to live
-dep silverstripe:upload_database live
 
 # Download assets from live
 dep silverstripe:download_assets live
@@ -219,7 +213,7 @@ dep silverstripe:download_database live
 
 ## Manual dev/build
 
-DevelopmentAdmin over HTTP in Live-Mode is disabled per yml-config, but you an use the following deployer-tasks.
+DevelopmentAdmin over HTTP in Live-Mode is disabled per yml-config. You an use the following deployer-tasks.
 
 ```
 # dev/build on stage

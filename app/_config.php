@@ -7,6 +7,11 @@ use SilverStripe\ORM\Search\FulltextSearchable;
 use SilverStripe\View\Parsers\URLSegmentFilter;
 use SilverStripe\Forms\HTMLEditor\TinyMCEConfig;
 use SilverStripe\CMS\Controllers\CMSPagesController;
+use SilverStripe\Control\Cookie;
+use SilverStripe\Control\Session;
+
+Cookie::config()->set('samesite', 'Lax'); // new configuration property for Cookie
+Session::config()->set('cookie_samesite', 'Lax'); // new configuration property for Session
 
 // Set the site locale
 i18n::set_locale('en_US');

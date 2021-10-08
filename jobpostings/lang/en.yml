@@ -4,6 +4,8 @@ en:
     defaultNoVacancies: 'Thank you for your interest. We have no job openings at present.'
     Holder: 'back to'
     MORE: 'Read more'
+  Kraftausdruck\Admin\JobsAdmin:
+    ElementJobsNeeded: 'Job advertisements are displayed per "Job Element".<br/><a target="_blank" href="https://www.google.com/ping?sitemap={BaseURL}sitemap.xml/sitemap/Kraftausdruck-Models-JobPosting/1">Ping Google</a>'
   Kraftausdruck\Elements\ElementJobs:
     BlockType: 'Jobs'
     Contact: 'Your contact person'

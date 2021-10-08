@@ -114,7 +114,7 @@ foreach (['live'] as $alias) {
 }
 
 // Staging aliases
-foreach (['stage'] as $alias) {
+foreach (['stage', 'test'] as $alias) {
     host($alias)
         ->stage($alias)
         ->hostname(DEP_SERVER)

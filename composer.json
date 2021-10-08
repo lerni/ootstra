@@ -11,6 +11,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/lerni/silverstripe-webp-image"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/lerni/silverstripe-csp"
         }
     ],
     "require": {
@@ -51,7 +55,8 @@
         "silverstripe/selectupload": "dev-master",
         "gorriecoe/silverstripe-link": "^1.3",
         "nomidi/silverstripe-webp-image": "dev-master as 1.0",
-        "lerni/klaro-cookie-consent": "dev-master"
+        "lerni/klaro-cookie-consent": "dev-master",
+        "lerni/samesite-cookie-patch": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "^5",

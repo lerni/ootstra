@@ -119,9 +119,6 @@ de:
   JonoM\ShareCare\ShareCareFields:
     CMSMessage: 'Die Vorschau wird automatisch aus dem Inhalt generiert. Die generierten Werte können hier manuell überschrieben werden.<br>
     <strong>Generell sollte nur etwas erfasst werden, wenn der Inhalt vom Defaultwerte (kursiv) abweicht. Defaultwert für das Bild ist das 1. Slide vom Hero resp. ein Icon als "Fallback", die "Share Beschreibung" basiert auf der Metadescription, resp. im Falle eines BlogPosts auf der Zusammenfassung und verwendet als "Fallback" die globale MetaDescription von "Einstellungen/SiteConfig".</strong>'
-  SilverStripe\UserForms\Model\EditableFormField:
-    FIELDISREQUIRED: '{name} muss ausgefüllt werden'
-    EXTRACLASS_MULTIPLE: 'Mehrere CSS Klassen mit Leerzeichen trennen - half-width - quarter-width-checkbox - auto-width'
   DNADesign\Elemental\Models\BaseElement:
     AVAILABLEGLOBALLY: 'klonen mit virtuellem Element ermöglichen'
     SPACINGTOP: 'Spacing top'
@@ -138,3 +135,6 @@ de:
     LOCATION: 'Veranstaltungsort'
     ALTERNATIVTEXTEVENTDATE: 'Alternative Text Datum'
     PublishDateDescription: 'geplante Veröffentlichung'
+  App\Models\SocialLink:
+    sameAs: '"sameAs" in schema verwenden'
+    TitleDescription: 'Namen der Icons von <a href="{link}" target="_blank">{link}</a>!'

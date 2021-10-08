@@ -46,7 +46,7 @@ class ElementJobs extends BaseElement
                 );
             }
             $fields->addFieldToTab('Root.Settings', $PrimaryField);
-            $PrimaryField->setTitle(_t('Kraftausdruck\Elements\ElementJobs.primary', 'false'));
+            $PrimaryField->setTitle(_t('Kraftausdruck\Elements\ElementJobs.primary', 'Primary JobElement (linked)'));
         }
 
         if ($TextEditor = $fields->dataFieldByName('NoVacancies')) {
@@ -78,7 +78,7 @@ class ElementJobs extends BaseElement
     // first one should be primary unless selected differently
     public function populateDefaults()
     {
-        $this->NoVacancies = '<p>' . _t('Kraftausdruck\Elements\ElementJobs.defaultNoVacancies', 'Besten Dank für Ihr Interesse. Zur Zeit gibt es keine offenen Stellen.') . '</p>';
+        $this->NoVacancies = '<p>' . _t('Kraftausdruck\Elements\ElementJobs.defaultNoVacancies', 'Thank you for your interest. We have no job openings at present.') . '</p>';
         $this->Primary = 1;
         if ($jobElements = $this->ClassName::get()->filter('Primary', 1)->count()) {
             $this->Primary = 0;
@@ -88,6 +88,6 @@ class ElementJobs extends BaseElement
 
     public function getType()
     {
-        return _t(__CLASS__ . '.BlockType', 'false');
+        return _t(__CLASS__ . '.BlockType', 'Jobs');
     }
 }

@@ -33,7 +33,7 @@ class JobsAdmin extends ModelAdmin
             if(Director::isLive())
             {
                 $message = _t('Kraftausdruck\Admin\JobsAdmin.ElementJobsNeeded',
-                    'none',
+                    'Job advertisements are displayed per "Job Element".<br/><a target="_blank" href="https://www.google.com/ping?sitemap={BaseURL}sitemap.xml/sitemap/Kraftausdruck-Models-JobPosting/1">Ping Google</a>',
                     ['BaseURL' => Director::absoluteBaseURL()]
                 );
                 $form->Fields()->unshift(
