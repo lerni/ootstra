@@ -188,6 +188,8 @@ gorriecoe\Robots\Robots:
   disallowed_urls: []
   sitemap: '/sitemap.xml'
   disallow_unsearchable: true
+  extensions:
+    - App\Extensions\RobotsFoldersExtension
 
 App\Controller\ElementPersoController:
   expose_vcards: false

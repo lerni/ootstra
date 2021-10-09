@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7075a3b701a6464fb2cdcb816b3fd672",
+    "content-hash": "9a22fb619eb184316470c42f9ad4dc95",
     "packages": [
         {
             "name": "axllent/silverstripe-email-obfuscator",
@@ -2380,6 +2380,48 @@
                 }
             ],
             "time": "2021-09-25T08:23:19+00:00"
+        },
+        {
+            "name": "lerni/folderindex",
+            "version": "0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lerni/folderindex.git",
+                "reference": "c01b611f269729ec69ee5dc50bbee07ed1bc5b1a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lerni/folderindex/zipball/c01b611f269729ec69ee5dc50bbee07ed1bc5b1a",
+                "reference": "c01b611f269729ec69ee5dc50bbee07ed1bc5b1a",
+                "shasum": ""
+            },
+            "require": {
+                "silverstripe/asset-admin": "^1.6"
+            },
+            "type": "silverstripe-vendormodule",
+            "autoload": {
+                "psr-4": {
+                    "App\\": "folderindex/src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Silverstripe Extension to send  noindex, nofollow for files in foldes that do not ShowInSearch.",
+            "homepage": "https://github.com/lerni/folderindex",
+            "keywords": [
+                "assets",
+                "file",
+                "image",
+                "noindex",
+                "silverstripe"
+            ],
+            "support": {
+                "issues": "https://github.com/lerni/folderindex/issues",
+                "source": "https://github.com/lerni/folderindex/tree/0.0.1"
+            },
+            "time": "2021-10-09T09:41:36+00:00"
         },
         {
             "name": "lerni/klaro-cookie-consent",

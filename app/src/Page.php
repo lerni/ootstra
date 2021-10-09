@@ -348,7 +348,7 @@ namespace {
                         if ($hero->Slides()->count()) {
                             if ($slides = $hero->Slides()->Sort('SortOrder ASC')) {
                                 foreach ($slides as $slide) {
-                                    if ($slide->SlideImage->exists()) {
+                                    if ($slide->SlideImage->exists() && !$slide->SlideImage->NoFileIndex()) {
                                         array_push($IDList, $slide->SlideImageID);
                                     }
                                 }
@@ -362,7 +362,7 @@ namespace {
                         if ($gallery->Items()->count()) {
                             if ($images = $gallery->Items()) {
                                 foreach ($images as $image) {
-                                    if ($image->exists()) {
+                                    if ($image->exists() && !$image->NoFileIndex()) {
                                         $list->push($image);
                                         $IDList = array_push($IDList, $image->ID);
                                     }

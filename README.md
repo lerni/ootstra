@@ -187,13 +187,13 @@ dep deploy live --tag=1.0.1
 
 ### Uploading/downloading database & assets manually
 ssbak is a cli tool for managing Silverstipe database & assets. It's also used in the deployment-process for backup purpose. Unlink sspak, does ssbak not support transfer between environment (like directly bellow) but wrapped with deployer it's possible - see a bit further down.
-https://github.com/silverstripe/sspak
 To get assets and a DB-Dump from the server you can run:
 ```
 ./vendor/bin/sspak save USER@SERVER.TLD:/home/USER/public_html/0live/current ./SOMENAME.tar.gz
 ```
 
 ```
+### Transfer with Docker - Update pending
 docker-compose exec -T database mysql DBNAME < database.sql
 ```
 
