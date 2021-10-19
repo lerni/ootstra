@@ -504,6 +504,19 @@ main.typography {
 			animation: bounce 1.6s ease-in-out infinite;
 		}
 
+		@include sliderpagination(1, $white);
+		.swiper-pagination {
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: #{$lh*2}em;
+		}
+
+		.swiper-button-prev,
+		.swiper-button-next {
+			color: $white;
+		}
+
 		&.default {
 			display: table;
 		}
@@ -887,10 +900,10 @@ ul#SearchResults {
 .social-icons {
 	margin: auto 0 0;
 	a {
-		@include iconfontsettings;
 		color: $lauftext-color;
-		font-size: 1em;
 		display: inline-block;
+		padding-right: #{$lh}em;
+		padding-top:  #{$lh}em;
 		transition: transform .05s linear;
 		&[data-social-short="l"] {
 			font-size: 1.2em;

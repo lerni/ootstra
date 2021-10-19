@@ -44,6 +44,6 @@
     "jquery": "^3.6.0",
     "keen-slider": "^5.5.1",
     "svg4everybody": "^2.1.9",
-    "swiper": "^6"
+    "swiper": "^7.0.8"
   }
 }

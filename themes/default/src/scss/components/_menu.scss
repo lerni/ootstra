@@ -245,7 +245,8 @@ html.mobile-nav--active {
 			top: 0;
 			bottom: 0;
 			overflow-x: hidden;
-			overflow-y: scroll; // keeping scrollbar visible
+			// overflow-y: scroll; // keeping scrollbar visible
+			scrollbar-gutter: stable;  // still experimental
 			.inner {
 				flex-direction: column;
 				height: initial;

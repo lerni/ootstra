@@ -59,7 +59,7 @@
 									$SlideImage.FocusFillMax(480,217).URL 480w,
 									$SlideImage.FocusFillMax(640,289).URL 640w,
 									$SlideImage.FocusFillMax(800,361).URL 800w,
-									$SlideImage.FocusFillMax(1000,451).URL 1000w,
+									$SlideImage.FocusFillMax(1000,452).URL 1000w,
 									$SlideImage.FocusFillMax(1200,542).URL 1200w,
 									$SlideImage.FocusFillMax(1440,650).URL 1440w<% if $Up.Up.isFullWidth %>,
 									$SlideImage.FocusFillMax(1600,722).URL 1600w,

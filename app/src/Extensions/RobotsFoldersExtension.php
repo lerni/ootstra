@@ -13,7 +13,7 @@ class RobotsFoldersExtension extends DataExtension
         if (Robots::config()->disallow_unsearchable) {
             $blockingFolders = Folder::get()->filter(['ShowInSearch' => 0]);
             foreach ($blockingFolders as $folder) {
-                $urls[] = rtrim('/assets/'. $folder->getFilename(), '/');
+                $urls[] = '/assets/'. $folder->getFilename();
             }
         }
     }

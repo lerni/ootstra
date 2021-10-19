@@ -1,5 +1,6 @@
 <?php
 
+use Kraftausdruck\Models\JobPosting;
 use Wilr\GoogleSitemaps\GoogleSitemap;
 
-GoogleSitemap::register_dataobjects(['Kraftausdruck\Models\JobPosting'], 'weekly', '1');
+GoogleSitemap::register_dataobjects([JobPosting::class], 'weekly','1');
