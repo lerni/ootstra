@@ -363,7 +363,6 @@ namespace {
                             if ($images = $gallery->Items()) {
                                 foreach ($images as $image) {
                                     if ($image->exists() && !$image->NoFileIndex()) {
-                                        $list->push($image);
                                         $IDList = array_push($IDList, $image->ID);
                                     }
                                 }

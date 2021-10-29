@@ -59,6 +59,10 @@ Page:
     default:
       - SilverStripe\Blog\Model\BlogPost
 
+SilverStripe\Blog\Model\BlogCategory:
+  extensions:
+    - App\Extensions\BlogCategoryExtension
+
 SilverStripe\Blog\Model\Blog:
   extensions:
     - App\Extensions\BlogExtension

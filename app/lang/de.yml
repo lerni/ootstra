@@ -178,7 +178,7 @@ de:
     SPACINGTOP: 'Spacing top'
     SpacingDescription: 'Anzahl Zeilen Lauftext (1 - 6)'
     TITLELEVEL: 'H1, H2, H3'
-  Page:
+  \Page:
     MENU: 'Menu'
     OGDescriptionCustomDescription: 'Defaultwert ist Meta-Description oder Summary bei einem Blog-Post'
     MetaTitleRightTitle: 'Wird als Titel im Browsertab und für Suchmaschinen Resultate verwendet. Wichtig für SEO!'
@@ -194,6 +194,7 @@ de:
     LOCATION: Veranstaltungsort
     PastEventsHeaderField: 'Beiträge mit der Kategorie "Termine" werden nur angezeigt, wenn End- und Datum in der Zukunft liegt.'
     PublishDateDescription: 'geplante Veröffentlichung'
+    Alle: 'Alle'
   SilverStripe\CMS\Controllers\CMSMain:
     SaveFirst: 'Bitte Element erst speichern, danach können Sub-Elemente erfasst werden.'
   SilverStripe\SiteConfig\SiteConfig:
@@ -210,10 +211,6 @@ de:
     SERVICENAVIGATIONITEMS: 'Service Navigation'
     TERMSNAVIGATIONITEMS: 'Terms (AGB, Rechtliches, Impressum)'
     TITLE: 'Title / Name'
-  \Page:
-    MetaDescriptionRightTitle: 'Used in search engine results when length fits and relevance is given; hardly affects the SEO position. Appealing meta-descriptions (especially the first ~ 55 characters -> sitelinks) have a strong influence on the click rate.'
-    MetaTitleRightTitle: 'Used as a title in the browser tab and for search engine results. Important for SEO!'
-    OGDescriptionCustomDescription: 'Default value is "Meta Description" or "Summary" for a "Blog-post"'
   JonoM\ShareCare\ShareCare:
     TabName: 'Feed & Share'
   JonoM\ShareCare\ShareCareFields:
@@ -224,3 +221,11 @@ de:
     PlaceHolderWithLabels: 'Suche {name} % für Alle'
   App\Models\Marke:
     LogoDescription: 'freigestellt PNG<br />min. 130px breit'
+  SilverStripe\UserForms\Model\EditableFormField:
+    FIELDISREQUIRED: '{name} muss ausgefüllt werden'
+    EXTRACLASS_MULTIPLE: 'Mehrere CSS Klassen mit Leerzeichen trennen - half-width - quarter-width-checkbox - auto-width'
+  SilverStripe\UserForms:
+  # todo:
+  # SilverStripe\UserForms\Model\UserDefinedForm:
+  # https://github.com/silverstripe/silverstripe-userforms/issues/1100
+    ONCOMPLETEMESSAGE: 'Danke wir haben Ihre Nachricht erhalten.'

@@ -44,6 +44,11 @@ class BlogExtension extends DataExtension
     {
         $fields->removeFieldFromTab('Root.Categorisation', 'Tags');
 
+        $CategoriesField = $fields->fieldByName('Root.Categorisation.Categories');
+        $CategoriesFieldConfig = $CategoriesField->getConfig()->addComponents(
+            new GridFieldOrderableRows('SortOrder')
+        );
+
         // hack arround unsaved relations
         if ($this->owner->isInDB()) {
             $SlideGridFieldConfig = GridFieldConfig_Base::create(20);

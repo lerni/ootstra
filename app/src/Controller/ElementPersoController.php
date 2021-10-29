@@ -58,7 +58,9 @@ class ElementPersoController extends ElementController
                 $vcard->addLabel("$location->Address, $location->Town, $location->PostalCode $location->Country");
             }
             $vcard->addURL(Director::protocolAndHost() . Director::get_current_page()->Link() . '#' . $perso->Anchor());
-            $vcard->addPhoto(Director::protocolAndHost() . '/' . $perso->Portrait()->ScaleMaxWidth(400)->Link());
+            if ($perso->Portrait() && $perso->Portrait()->exists()) {
+                $vcard->addPhoto(Director::protocolAndHost() . '/' . $perso->Portrait()->ScaleMaxWidth(400)->Link());
+            }
 
             // return vcard as a string
             // return $vcard->getOutput();

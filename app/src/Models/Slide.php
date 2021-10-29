@@ -19,8 +19,7 @@ class Slide extends DataObject
         'TextAlignment' => 'Enum("center,upper-left,upper-right,lower-left,lower-right,lower-center","center")',
         'ShowTitle'  => 'Boolean',
         'TitleLevel' => 'Enum("1,2,3","2")',
-        'ActionText' => 'Varchar',
-        'TextAlignment' => 'Enum("left,right","left")'
+        'ActionText' => 'Varchar'
     ];
 
     private static $has_one = [

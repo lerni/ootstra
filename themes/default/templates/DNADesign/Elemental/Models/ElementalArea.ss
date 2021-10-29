@@ -12,7 +12,7 @@
 			<% with $Page %>
 				<% if $CategoriesWithState %>
 					<nav class="element blog-post-meta">
-						<p class="cats">
+						<p class="cat-tag">
 							<a href="$Parent.Link" class="all" title="$Parent.Title"><%t Blog.Allcategories "Alle" %></a>
 							<% loop $CategoriesWithState %>
 								<a href="$Link" class="$CustomLinkingMode" title="$Title" data-segment="$URLSegment">$Title</a>

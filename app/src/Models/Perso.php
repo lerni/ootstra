@@ -127,12 +127,13 @@ class Perso extends DataObject
             new GridFieldEditButton(),
             new GridFieldDeleteAction(false),
             new GridFieldDetailForm(),
-            new GridFieldOrderableRows('SortOrder'),
             new GridFieldAddNewButton('toolbar-header-right')
         );
-
-        $SocialGridField = new GridField('SocialLinks', 'SocialLinks', $this->owner->SocialLinks(), $SocialConf);
-        $fields->addFieldToTab('Root.Main', $SocialGridField);
+        if ($this->isInDB()) {
+            $SocialConf->addComponents(
+                new GridFieldOrderableRows('SortOrder')
+            );
+        }
 
         return $fields;
     }

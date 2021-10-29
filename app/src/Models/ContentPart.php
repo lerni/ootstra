@@ -28,7 +28,9 @@ class ContentPart extends DataObject
     ];
 
     private static $defaults = [
-        'ShowTitle' => 1
+        'ShowTitle' => 1,
+        'TitleLevel' => 2
+
     ];
 
     private static $table_name = 'ContentPart';
