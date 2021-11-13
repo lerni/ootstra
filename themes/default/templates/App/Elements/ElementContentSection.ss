@@ -5,11 +5,11 @@
 		<% if $Layout == "Accordion" %>
 			<div class="content-part accordion" role="presentation">
 				<% loop $ContentParts.Sort("SortOrder") %>
-					<article class="flip">
+					<article class="flip<% if $DefaultOpen %> open<% end_if %>">
 						<header>
 							<% if $ShowTitle %><h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %> class="flip">$Title</h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %>><% end_if %>
 						</header>
-						<div class="flip" style="display:none;" aria-expanded="false" role="region">
+						<div class="flip" <% if not $DefaultOpen %>style="display:none;" aria-expanded="false"<% else %>aria-expanded="true"<% end_if %> role="region">
 							$Text
 						</div>
 					</article>

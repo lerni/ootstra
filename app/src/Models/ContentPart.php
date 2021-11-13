@@ -14,6 +14,7 @@ class ContentPart extends DataObject
         'Text' => 'HTMLText',
         'ShowTitle'  => 'Boolean',
         'TitleLevel' => 'Enum("1,2,3","2")',
+        'DefaultOpen' => 'Boolean',
         'FAQSchema' => 'Boolean'
     ];
 
@@ -30,7 +31,6 @@ class ContentPart extends DataObject
     private static $defaults = [
         'ShowTitle' => 1,
         'TitleLevel' => 2
-
     ];
 
     private static $table_name = 'ContentPart';

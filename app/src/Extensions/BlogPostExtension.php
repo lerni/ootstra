@@ -33,27 +33,27 @@ class BlogPostExtension extends DataExtension
         $SummaryField->fieldByName('Summary')->setRows(10);
         $SummaryField->setAttribute('data-mce-body-class', $this->owner->ClassName);
 
-        $EventDateField = DatetimeField::create('EventDate', 'Datum');
-        $EventDateField->setHTML5(true);
-        $EventDateField->setDescription(_t('SilverStripe\Blog\Model\BlogPost.EventDateDescription', 'Termin & Zeit z.B. 01.01.2020, 19:00<br /><strong>Um ein Datum zu erfassen, ist die Angabe einer Uhrzeit zwingend -> 00:00</strong>'));
-        $fields->addFieldToTab('Root.Termin', $EventDateField);
+        // $EventDateField = DatetimeField::create('EventDate', 'Datum');
+        // $EventDateField->setHTML5(true);
+        // $EventDateField->setDescription(_t('SilverStripe\Blog\Model\BlogPost.EventDateDescription', 'Termin & Zeit z.B. 01.01.2020, 19:00<br /><strong>Um ein Datum zu erfassen, ist die Angabe einer Uhrzeit zwingend -> 00:00</strong>'));
+        // $fields->addFieldToTab('Root.Termin', $EventDateField);
 
-        $EventDateEndField = DatetimeField::create("EventDateEnd", "End-Datum");
-        //$EventDateField->setHTML5(true);
-        $fields->insertAfter($EventDateEndField, 'EventDate');
+        // $EventDateEndField = DatetimeField::create("EventDateEnd", "End-Datum");
+        // //$EventDateField->setHTML5(true);
+        // $fields->insertAfter($EventDateEndField, 'EventDate');
 
         // $fields->insertBefore(HeaderField::create('PastEvents', _t('SilverStripe\Blog\Model\BlogPost.PastEventsHeaderField', 'Beiträge mit der Kategorie "Termine" werden nur angezeigt, wenn End- und Datum in der Zukunft liegt.')), 'EventDate');
 
-        $LocationField = TextField::create('Location', _t('SilverStripe\Blog\Model\BlogPost.LOCATION', 'Veranstaltungsort'));
-        $fields->insertAfter($LocationField, 'EventDateEnd');
+        // $LocationField = TextField::create('Location', _t('SilverStripe\Blog\Model\BlogPost.LOCATION', 'Veranstaltungsort'));
+        // $fields->insertAfter($LocationField, 'EventDateEnd');
 
         if ($CategoriesField = $fields->dataFieldByName('Categories')) {
             $CategoriesField->setShouldLazyLoad(false);
         }
 
-        $AlternativTextEventDateField = TextField::create('AlternativTextEventDate', _t('SilverStripe\Blog\Model\BlogPost.ALTERNATIVTEXTEVENTDATE', 'Alternative Text Datum'));
-        $AlternativTextEventDateField->setDescription(_t('SilverStripe\Blog\Model\BlogPost.AlternativTextEventDateDescription', 'Falls kein exaktes Datum resp. Zeitspanne. z.B. 14.10.2020 bis 4.11.2020, jeden Mittwoch, 16 Uhr'));
-        $fields->insertAfter($AlternativTextEventDateField, 'EventDateEnd');
+        // $AlternativTextEventDateField = TextField::create('AlternativTextEventDate', _t('SilverStripe\Blog\Model\BlogPost.ALTERNATIVTEXTEVENTDATE', 'Alternative Text Datum'));
+        // $AlternativTextEventDateField->setDescription(_t('SilverStripe\Blog\Model\BlogPost.AlternativTextEventDateDescription', 'Falls kein exaktes Datum resp. Zeitspanne. z.B. 14.10.2020 bis 4.11.2020, jeden Mittwoch, 16 Uhr'));
+        // $fields->insertAfter($AlternativTextEventDateField, 'EventDateEnd');
 
         if ($PublishDateField = $fields->fieldByName('Root.PostOptions.PublishDate')) {
             $PublishDateField->setDescription(_t('SilverStripe\Blog\Model\BlogPost.PublishDateDescription', 'geplante Veröffentlichung'));

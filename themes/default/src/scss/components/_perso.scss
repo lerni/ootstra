@@ -7,294 +7,293 @@
 // on the info entered below
 
 .element.elementperso {
-    $pad: 20px; // enter desired padding between images
-    $img-width: 305px; // enter max-width of images
-    $min-per-row: 1; // enter minimum items per row
-    $max-per-row: 4; // enter maximum items per row
-    $transition-time: .3s;
+	$pad: 20px; // enter desired padding between images
+	$img-width: 305px; // enter max-width of images
+	$min-per-row: 1; // enter minimum items per row
+	$max-per-row: 4; // enter maximum items per row
+	$transition-time: .3s;
 
-    @mixin mq($min-width,$max-width) {
-        @if $min-width and $max-width {
-            @media screen and (min-width: $min-width) and (max-width: $max-width) {
-                @content;
-            }
-        }
-        @else if $min-width and not $max-width {
-            @media screen and (min-width: $min-width) {
-                @content;
-            }
-        }
-        @else if $max-width and not $min-width {
-            @media screen and (max-width: $max-width) {
-                @content;
-            }
-        }
-    }
+	@mixin mq($min-width,$max-width) {
+		@if $min-width and $max-width {
+			@media screen and (min-width: $min-width) and (max-width: $max-width) {
+				@content;
+			}
+		}
+		@else if $min-width and not $max-width {
+			@media screen and (min-width: $min-width) {
+				@content;
+			}
+		}
+		@else if $max-width and not $min-width {
+			@media screen and (max-width: $max-width) {
+				@content;
+			}
+		}
+	}
 
-    // prevent vertical scrollbars
-    display: table;
-    overflow: hidden;
+	// prevent vertical scrollbars
+	display: table;
+	overflow: hidden;
 
-    .inner {
-        .expandable-grid {
-            width: 100%;
-            float: left;
-            margin-bottom: #{$lh}em;
-            // overflow: hidden;
-        }
+	.inner {
+		.expandable-grid {
+			width: 100%;
+			float: left;
+			margin-bottom: #{$lh}em;
+			// overflow: hidden;
+		}
 
-        .expandable__cell {
-            float: left;
-            position: relative;
-            z-index: 0;
-            margin: 0 $pad 0 0;
-            // loop through instances of no. of items per row
-            @for $i from $max-per-row through $min-per-row {
-                // init vars
-                $max-width: null;
-                $min-width: null;
+		.expandable__cell {
+			float: left;
+			position: relative;
+			z-index: 0;
+			margin: 0 $pad 0 0;
+			// loop through instances of no. of items per row
+			@for $i from $max-per-row through $min-per-row {
+				// init vars
+				$max-width: null;
+				$min-width: null;
 
-                // if not first index
-                @if $min-per-row != $i {
-                    // this is essentially previous breakpoint max-width + 1
-                    $min-width: ($img-width * ($i - 1)) + (($pad * $i) + 1);
-                }
-                // if not last index
-                @if $max-per-row != $i {
-                    // (max img width * img per row) + (padding value * instances of padding per row)
-                    $max-width: ($img-width * $i) + ($pad * ($i + 1));
-                }
+				// if not first index
+				@if $min-per-row != $i {
+					// this is essentially previous breakpoint max-width + 1
+					$min-width: ($img-width * ($i - 1)) + (($pad * $i) + 1);
+				}
+				// if not last index
+				@if $max-per-row != $i {
+					// (max img width * img per row) + (padding value * instances of padding per row)
+					$max-width: ($img-width * $i) + ($pad * ($i + 1));
+				}
 
-                @include mq($min-width, $max-width) {
-                    $i1: $i + 1;
-                    // divide spacing between items and subtract it with calc
-                    width: calc(#{math.div(100, $i)}% - #{math.div($i - 1 * $pad, $i)});
-                    // inner loop to populate nth-of-types but not 1st
-                    @for $j from 2 through $i1 {
+				@include mq($min-width, $max-width) {
+					$i1: $i + 1;
+					// divide spacing between items and subtract it with calc
+					width: calc(#{math.div(100, $i)}% - #{math.div($i - 1 * $pad, $i)});
+					// inner loop to populate nth-of-types but not 1st
+					@for $j from 2 through $i1 {
 
-                        @if $i1 == $j {
-                            // last of all items???
-                            &:nth-of-type(#{$i}n+#{$i1}) {
-                                clear: left;
-                            }
-                        }
-                        @else {
-                            &:nth-of-type(#{$i}n+#{$j}) .item--expand {
-                                // negative margin for gallery-style layout depending on "column"
-                                margin-left: calc(-#{($j - 1) * 100%} - #{($j - 1) * $pad});
-                            }
-                        }
-                    }
-                    // no margin-right for last item per row
-                    &:nth-of-type(#{$i}n)  {
-                        margin-right: 0;
-                    }
-                }
-            }
+						@if $i1 == $j {
+							// last of all items???
+							&:nth-of-type(#{$i}n+#{$i1}) {
+								clear: left;
+							}
+						}
+						@else {
+							&:nth-of-type(#{$i}n+#{$j}) .item--expand {
+								// negative margin for gallery-style layout depending on "column"
+								margin-left: calc(-#{($j - 1) * 100%} - #{($j - 1) * $pad});
+							}
+						}
+					}
+					// no margin-right for last item per row
+					&:nth-of-type(#{$i}n)  {
+						margin-right: 0;
+					}
+				}
+			}
 
-            &.is--collapsed {
-                cursor: pointer;
-                .item--basic {
-                    overflow: hidden;
-                    height: 0px;
-                }
-                &:hover .txt {
-                    transform: translateY(0);
-                    visibility: visible;
-                    opacity: 1;
-                }
-                & .txt {
-                    >span:hover::after {
-                        padding-left: 4em;
-                    }
-                }
-            }
+			&.is--collapsed {
+				cursor: pointer;
+				.item--basic {
+					overflow: hidden;
+					height: 0px;
+				}
+				&:hover .txt {
+					transform: translateY(0);
+					visibility: visible;
+					opacity: 1;
+				}
+				& .txt {
+					>span:hover::after {
+						padding-left: 4em;
+					}
+				}
+			}
 
-            &.is--expanded {
-                z-index: 1;
-                .arrow--up {
-                    opacity: 1;
-                    height: $pad;
-                    width: $pad;
-                    left: calc(50% - #{math.div($pad, 2)});
-                }
-                .item--expand {
-                   height: auto;
-                   max-height: 2000px;
-                   margin-top: $pad;
-                   visibility: visible;
-                   padding: #{$pad*2.5} 0 #{$pad*1};
-               }
-            }
+			&.is--expanded {
+				z-index: 1;
+				.arrow--up {
+					opacity: 1;
+					height: $pad;
+					width: $pad;
+					left: calc(50% - #{math.div($pad, 2)});
+				}
+				.item--expand {
+				height: auto;
+				max-height: 2000px;
+				margin-top: $pad;
+				visibility: visible;
+				padding: #{$pad*2.5} 0 #{$pad*1};
+			}
+			}
 
-            .txt {
-                position: absolute;
-                z-index: 0;
-                left: -1px;
-                right: -1px;
-                bottom: -3px;
-                top: -1px;
-                transform: translateY(100%);
-                padding: .5em .5em .1em;
-                background-color: rgba($white, .92);
-                opacity: 0;
-                margin-bottom: -.25em;
-                will-change: transform;
-                transition: all 320ms ease-out;
-                visibility: hidden;
-                // pointer-events: none;
-                display: flex;
-                flex-direction: column;
-                h2 {
-                    flex: 0 0 auto;
-                    margin-bottom: .3em;
-                    font-size: 1em;
-                    letter-spacing: .06em;
-                }
+			.txt {
+				position: absolute;
+				z-index: 0;
+				left: -1px;
+				right: -1px;
+				bottom: -3px;
+				top: -1px;
+				transform: translateY(100%);
+				padding: .5em .5em .1em;
+				background-color: rgba($white, .92);
+				opacity: 0;
+				margin-bottom: -.25em;
+				will-change: transform;
+				transition: all 320ms ease-out;
+				visibility: hidden;
+				// pointer-events: none;
+				display: flex;
+				flex-direction: column;
+				h2 {
+					flex: 0 0 auto;
+					margin-bottom: .3em;
+					font-size: 1em;
+					letter-spacing: .06em;
+				}
 
-                p {
-                    flex: 0 0 auto;
-                    margin-bottom: 0;
-                    font-size: .9em;
-                }
-                >span {
-                    margin-top: auto;
-                    flex: 0 0 auto;
-                }
-            }
-        }
+				p {
+					flex: 0 0 auto;
+					margin-bottom: 0;
+					font-size: .9em;
+				}
+				>span {
+					margin-top: auto;
+					flex: 0 0 auto;
+				}
+			}
+		}
 
-        .arrow--up {
-            position: absolute;
-            top: 100%;
-            opacity: 0;
-            border-bottom: $pad - math.div($pad, 4) solid $gray-light;
-            border-left: $pad - math.div($pad, 4) solid transparent;
-            border-right: $pad - math.div($pad, 4) solid transparent;
-            height: 0;
-            width: 0;
-            padding-top: math.div($pad, 4);
-            margin: 0 auto 0;
-            transition: opacity $transition-time * .75;
-            transition-delay: $transition-time;
-        }
+		.arrow--up {
+			position: absolute;
+			top: 100%;
+			opacity: 0;
+			border-bottom: $pad - math.div($pad, 4) solid $gray-light;
+			border-left: $pad - math.div($pad, 4) solid transparent;
+			border-right: $pad - math.div($pad, 4) solid transparent;
+			height: 0;
+			width: 0;
+			padding-top: math.div($pad, 4);
+			margin: 0 auto 0;
+			transition: opacity $transition-time * .75;
+			transition-delay: $transition-time;
+		}
 
-        .item--basic {
-            display: table;
-            margin: 0;
-            position: relative;
-            img {
-                float: left;
-                width: 100%;
-                margin-bottom: 0;
-                &.default {
-                    background-color: $gray-light;
-                }
-            }
-        }
+		.item--basic {
+			display: table;
+			margin: 0;
+			position: relative;
+			img {
+				float: left;
+				width: 100%;
+				margin-bottom: 0;
+				&.default {
+					background-color: $gray-light;
+				}
+			}
+		}
 
-        .item--expand {
-            position: relative;
-            box-sizing: content-box;
-            overflow-y: visible;
-            overflow-x: initial;
-            visibility: hidden;
-            height: 0;
-            max-height: 0;
-            transition: max-height $transition-time ease-in-out;
-            margin-bottom: $pad;
+		.item--expand {
+			position: relative;
+			box-sizing: content-box;
+			overflow-y: visible;
+			overflow-x: initial;
+			visibility: hidden;
+			height: 0;
+			max-height: 0;
+			transition: max-height $transition-time ease-in-out;
+			margin-bottom: $pad;
 
-            h2 {
-                color: $black;
-                font-size: 1.6em;
-                margin-bottom: 0;
-                & + p {
-                    font-size: 1.6em;
-                    @include normal;
-                }
-            }
+			h2 {
+				color: $black;
+				font-size: 1.6em;
+				margin-bottom: 0;
+				& + p {
+					font-size: 1.6em;
+					@include normal;
+				}
+			}
 
-            a[href^="mailto:"],
-            a.vcard {
-                padding-left: 1.4em;
-                display: inline-block;
-                background-repeat: no-repeat;
-                background-size: auto .8em;
-                background-position: left 30%;
-                color: $lauftext-color;
-            }
+			a[href^="mailto:"],
+			a.vcard {
+				padding-left: 1.4em;
+				display: inline-block;
+				background-repeat: no-repeat;
+				background-size: auto .8em;
+				background-position: left 30%;
+				color: $lauftext-color;
+			}
 
-            a[href^="mailto:"] {
-                background-image: svg-load('../images/svg/couvert.svg');
-            }
+			a[href^="mailto:"] {
+				background-image: svg-load('../images/svg/couvert.svg', fill=#{$white});
+			}
+			a.vcard {
+				background-image: svg-load('../images/svg/vcard.svg', fill=transparent, stroke=#{$white});
+			}
 
-            a.vcard {
-                background-image: svg-load('../images/svg/vcard.svg');
-            }
+			.columned {
+				display: flex;
+				flex-wrap: wrap;
+				padding-bottom: #{$lh}em;
+			}
+			.col {
+				flex: 0 0 50%;
+				padding: 0 #{$lh}em 0 0;
+				@include breakpoint($Lneg) {
+					flex: 0 0 100%;
+					padding: 0;
+				}
+			}
 
-            .columned {
-                display: flex;
-                flex-wrap: wrap;
-                padding-bottom: #{$lh}em;
-            }
-            .col {
-                flex: 0 0 50%;
-                padding: 0 #{$lh}em 0 0;
-                @include breakpoint($Lneg) {
-                    flex: 0 0 100%;
-                    padding: 0;
-                }
-            }
+			// background with an overflowing pseudo
+			&::after {
+				overflow-y: visible;
+				overflow-x: initial;
+				content: "";
+				position: absolute;
+				width: 300%;
+				height: 100%;
+				left: -100%;
+				right: -100%;
+				top: 0;
+				bottom: 0;
+				background-color: $gray-light;
+				pointer-events: none;
+				z-index: -1;
+			}
 
-            // background with an overflowing pseudo
-            &::after {
-                overflow-y: visible;
-                overflow-x: initial;
-                content: "";
-                position: absolute;
-                width: 300%;
-                height: 100%;
-                left: -100%;
-                right: -100%;
-                top: 0;
-                bottom: 0;
-                background-color: $gray-light;
-                pointer-events: none;
-                z-index: -1;
-            }
+			@for $i from $max-per-row through $min-per-row {
 
-            @for $i from $max-per-row through $min-per-row {
+				$max-width: null;
+				$min-width: null;
 
-                $max-width: null;
-                $min-width: null;
+				@if $min-per-row != $i {
+				$min-width: $img-width * ($i - 1) + $pad * $i + 1;
+				}
 
-                @if $min-per-row != $i {
-                   $min-width: $img-width * ($i - 1) + $pad * $i + 1;
-                }
+				@if $max-per-row != $i {
+					$max-width: $img-width * $i + $pad * ($i + 1);
+				}
 
-                @if $max-per-row != $i {
-                     $max-width: $img-width * $i + $pad * ($i + 1);
-                }
+				@include mq($min-width, $max-width) {
+					width: calc(#{$i  * 100%} + #{($i - 1) * $pad});
+				}
+			}
+		}
 
-                @include mq($min-width, $max-width) {
-                    width: calc(#{$i  * 100%} + #{($i - 1) * $pad});
-                }
-            }
-        }
-
-        .expand__close {
-            position: absolute;
-            top: #{$pad*2.5};
-            right: 0;
-            width: #{$pad};
-            height: #{$pad};
-            background-image: svg-load('../images/svg/close.svg');
-            background-repeat: no-repeat;
-            background-size: #{$pad} #{$pad};
-            cursor: pointer;
-            &:hover {
-                opacity: .7;
-            }
-        }
-    }
+		.expand__close {
+			position: absolute;
+			top: #{$pad*2.5};
+			right: 0;
+			width: #{$pad};
+			height: #{$pad};
+			background-image: svg-load('../images/svg/close.svg');
+			background-repeat: no-repeat;
+			background-size: #{$pad} #{$pad};
+			cursor: pointer;
+			&:hover {
+				opacity: .7;
+			}
+		}
+	}
 }

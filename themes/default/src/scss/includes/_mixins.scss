@@ -94,18 +94,12 @@
 
 
 @mixin small-header() {
-	height: $headerheight--small;
-	.inner {
-		.column {
-			// &.logo {
-			// 	padding-right: 105px;
-			// }
-			// &.nav {
-			// 	ul.menu1 {
-			// 		margin-bottom: .2em;
-			// 	}
-			// }
-		}
+	html:not(.mobile-nav--active) & {
+		height: $headerheight--smaller;
+	}
+	flex: 0 0 $headerheight--smaller;
+	nav.inner {
+		grid-template-rows: $headerheight--smaller !important;
 	}
 }
 

@@ -24,6 +24,13 @@ class ElementJobs extends BaseElement
 
     private static $inline_editable = false;
 
+    public function fieldLabels($includerelations = true)
+    {
+        $labels = parent::fieldLabels($includerelations);
+        $labels['NoVacancies'] = _t(__CLASS__ . '.NOVACANCIES', 'Text if no job postings');
+        return $labels;
+    }
+
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();

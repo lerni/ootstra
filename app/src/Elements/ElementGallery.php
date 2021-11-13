@@ -58,7 +58,7 @@ class ElementGallery extends BaseElement
 
         $fields->removeByName('GalleryFolder');
 
-        $fields->addFieldToTab('Root.Main', HeaderField::create('OneOrTheOther', _t(__CLASS__ . '.OneOrTheOther', 'Choose a folder (all images contained) or upload, choose & sort directly here')));
+        $fields->addFieldToTab('Root.Main', HeaderField::create('OneOrTheOther', _t(__CLASS__ . '.OneOrTheOther', 'Select and sort images per folder (all included) or individually')));
 
         $FolderField = FolderDropdownField::create(
             'GalleryFolderID',

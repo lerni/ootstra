@@ -78,6 +78,13 @@ body {
 	transform: translateY(0%);
 	box-shadow: none;
 	background-color: rgba($white, .97);
+	@include breakpoint($Lneg) {
+		@include small-header();
+	}
+	// @include breakpoint($Sneg) {
+	// 	flex: 0 0 $headerheight--smaller;
+	// 	height: $headerheight--smaller;
+	// }
 	.inner {
 		display: flex;
 		// max-width: calc(#{$inner-width + 200px});
@@ -122,12 +129,12 @@ main.typography {
 	width:100%;
 	flex: 1;
 	border-top: $headerheight solid transparent;
-	@include breakpoint($XLneg) {
-		border-top-width: $headerheight--small;
-	}
-	@include breakpoint($Sneg) {
+	@include breakpoint($Lneg) {
 		border-top-width: $headerheight--smaller;
 	}
+	// @include breakpoint($Sneg) {
+	// 	border-top-width: $headerheight--smaller;
+	// }
 	@include ie11 {
 		flex: 1 0 auto;
 	}
@@ -168,7 +175,7 @@ main.typography {
 	}
 }
 
-.typography p.cats {
+.typography p.cat-tag {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -220,7 +227,7 @@ main.typography {
 	max-width: $inner-width--extended;
 	margin-left: auto;
 	margin-right: auto;
-	&.background-gray-lighter {
+	&.background--gray-lighter {
 		background-color: $gray-lighter;
 	}
 	&.elementjobs.show,
@@ -246,6 +253,7 @@ main.typography {
 	&.elementhero {
 		display: block; // swiper.js shouldn't life in a display: table element otherwise layout breaks
 		// with DefaultHero the image is not wrapped with swiper divs
+		position: relative;
 		figure {
 			height: 100%;
 			width: 100%;
@@ -261,6 +269,24 @@ main.typography {
 				// max-height: 500px;
 				@include breakpoint($Mneg) {
 					height: 180px;
+				}
+			}
+		}
+		.medium figure {
+			padding: 0 0 45.1388888888889% 0;
+			height: 0;
+			@include breakpoint($Mneg) {
+				padding: 0 0 56.25% 0;
+			}
+			@include breakpoint($Sneg) {
+				padding: 0 0 80% 0;
+			}
+			img {
+				position: absolute;
+				max-width: none;
+				// width: 100% !important;
+				@include breakpoint($Mplus) {
+					min-height: 100% !important;
 				}
 			}
 		}

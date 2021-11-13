@@ -208,7 +208,7 @@ namespace {
                     $URLSegment = $req->param('ID');
                     $job = JobPosting::get()->filter('URLSegment', $URLSegment)->first();
                     if ($job && $job->Description) {
-                        $descreturn = trim($job->obj('Description')->Summary(20, 5));
+                        $descreturn = $job->MetaDescription;
                     }
                 }
             }
@@ -403,12 +403,6 @@ namespace {
                 $r->push($Cat);
             }
             return $r;
-        }
-
-        // current year for copyright in footer
-        public function CurrentYear()
-        {
-            return date("Y");
         }
 
         // link without parameter

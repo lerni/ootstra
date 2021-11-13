@@ -30,7 +30,7 @@
 					<% if $SiteConfig.CookieIsActive %><a onClick="klaro.show();return false;"><%t Kraftausdruck\KlaroCookie.MODALLINK "Cookie settings" %></a><% end_if %>
 				</nav>
 				<span class="copyright">
-					© $CurrentYear
+					© $Now.Format('y')
 				</span>
 			</div>
 		</div>

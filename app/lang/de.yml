@@ -16,7 +16,7 @@ de:
     BlockType: Gallery
     CROPGALLERYTHUMBSBYWIDTH: 'Seitenverhältnis für Miniaturansichten beibehalten'
     GalleryImagesDescription: 'Breite getrimmt auf 1224px'
-    OneOrTheOther: 'Ordner wählen (alle enthaltenen Bilder) oder hier direkt wählen & sortieren'
+    OneOrTheOther: 'Bilder per Ordner (alle enthaltenen) oder einzeln wählen & sortieren'
   App\Elements\ElementHero:
     BlockType: Hero
     DONOTCROP: 'Höhe nicht begrenzen'

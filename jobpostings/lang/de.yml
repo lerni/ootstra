@@ -20,4 +20,5 @@ de:
     primary: 'Primärers JobElement (linked)'
     NotFound: 'Der Job wurde nicht gefunden.'
     MORE: 'Stelleninserat'
+    NOVACANCIES: 'Text wenn keine Inserate'
     EditJobsHint: 'Stelleninserate per "Jobs" <a href="/admin/jobs">erfassen & bearbeiten</a>.'
