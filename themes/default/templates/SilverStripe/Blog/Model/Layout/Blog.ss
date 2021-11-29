@@ -14,7 +14,7 @@
 	<% if $CategoriesWithState %>
 		<nav class="element blog-post-meta">
 			<p class="cat-tag">
-				<a href="$Link" <%-- up-target="#main >.typography" --%>class="all<% if not $getCurrentCategory %> current<% end_if %>" title="<%t SilverStripe\Blog\Model\Blog.Alle %>"><%t SilverStripe\Blog\Model\Blog.Alle %></a>
+				<a href="$Link" <%-- up-target="#main >.typography" --%>class="all<% if not $getCurrentCategory %> current<% end_if %>" title="<%t SilverStripe\Blog\Model\Blog.Allcategories %>"><%t SilverStripe\Blog\Model\Blog.Allcategories %></a>
 				<% loop $CategoriesWithState %>
 					<a href="$Link" class="$CustomLinkingMode" title="$Title" <%-- up-target="#main >.typography" href="$Link" --%>data-segment="$URLSegment">$Title</a>
 				<% end_loop %>

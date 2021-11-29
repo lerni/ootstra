@@ -33,7 +33,7 @@ class JobPostingControllerExtension extends Extension
 
             return $r;
         } else {
-            return $this->owner->httpError(404, _t('Kraftausdruck\Elements\ElementJobs.NotFound', 'Jobposting couldn\'t be found.'));
+            return $this->owner->httpError(404, _t(__CLASS__ . '.NotFound', 'Jobposting couldn\'t be found.'));
         }
     }
 }

@@ -52,6 +52,6 @@ AddHandler default-handler php phtml php3 php4 php5 inc
 	AddType image/webp .webp
   </IfModule>
 
-<% if $list("SilverStripe\Assets\Folder").filter("ShowInSearch", 0) %><IfModule mod_headers.c><% loop $list("SilverStripe\Assets\Folder").filter("ShowInSearch", 0) %>
-	Header set X-Robots-Tag "noindex, nofollow, noimageindex, noarchive, nosnippet" "expr=%{REQUEST_URI} =~ m#^/assets/{$getFilename}#"
-<% end_loop %></IfModule><% end_if %>
+  <% if $KraftausdruckFolderIndex %><IfModule mod_headers.c><% loop $KraftausdruckFolderIndex %>
+    Header set X-Robots-Tag "noindex, nofollow, noimageindex, noarchive, nosnippet" "expr=%{REQUEST_URI} =~ m#^/assets/{$getFilename}#"
+  <% end_loop %></IfModule><% end_if %>

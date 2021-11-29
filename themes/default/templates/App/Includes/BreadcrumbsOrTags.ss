@@ -12,7 +12,7 @@
             <nav class="blog-post-meta inner">
                 <% if $CategoriesWithState %>
                     <p class="blog-post-meta cats">
-                        <a href="$Parent.Link" class="all" title="$Parent.Title"><%t Blog.Allcategories "Alle" %></a>
+                        <a href="$Parent.Link" class="all" title="$Parent.Title"><%t SilverStripe\Blog\Model\Blog.Allcategories %></a>
                         <% loop $CategoriesWithState %>
                             <a href="$Link" class="$LinkingMode" title="$Title">$Title</a>
                         <% end_loop %>

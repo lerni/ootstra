@@ -1,7 +1,7 @@
 <% if not $isFullWidth %><div class="inner"><% end_if %>
 	<% include App/Includes/ElementTitle %>
 	<% if $Logos %>
-		<ul class="logos <% if $Greyscale %> greyscale<% end_if %>">
+		<ul class="logos<% if $Greyscale %> greyscale<% end_if %>">
 			<% loop $Logos.Sort("SortOrder") %>
 				<% if $LogoImageID %>
 					<li class="logo<% if $Link %> has-link<% end_if %>">

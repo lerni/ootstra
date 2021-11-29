@@ -43,6 +43,9 @@ class ElementPersoController extends ElementController
         if ($perso && $expose_vcards) {
 
             $vcard = new VCard();
+            $charset = 'utf-8';
+            $vcard->setCharset($charset);
+
             $vcard->addName($perso->Lastname, $perso->Firstname);
             $vcard->addCompany(SiteConfig::current_site_config()->Title);
             $vcard->addJobtitle($perso->Position);
@@ -50,23 +53,38 @@ class ElementPersoController extends ElementController
             $vcard->addPhoneNumber($perso->Telephone, 'PREF;WORK');
 
             if ($location = SiteConfig::current_site_config()->Locations()->First()) {
-                // todo get default country? may from SilverStripe\i18n\Data\getCountries
-                // i18n::config()->uninherited('default_locale')
-                $c = $location->Country;
+                $countryCode = $location->Country;
+                $AllCountries = i18n::getData()->getCountries();
+                $country = $AllCountries[$countryCode];
 
-                $vcard->addAddress(null, null, $location->Address, $location->Town, null, $location->PostalCode, $location->Country);
-                $vcard->addLabel("$location->Address, $location->Town, $location->PostalCode $location->Country");
+                $vcard->addAddress(null, null, $location->Address, $location->Town, null, $location->PostalCode, $country);
+                $vcard->addLabel("$location->Address, $location->Town, $location->PostalCode $country");
             }
             $vcard->addURL(Director::protocolAndHost() . Director::get_current_page()->Link() . '#' . $perso->Anchor());
+
+            // if a current-folder exists, we assume a symlinked baseFolder like with PHP deployer
+            $current = dirname(dirname(Director::baseFolder())) . '/current';
+            if (is_dir($current)) {
+                $base = dirname(dirname(Director::baseFolder())) . '/shared';
+            } else {
+                $base = Director::baseFolder();
+            }
+            $original_filename_relative  = $perso->Portrait()->getFilename();
+            $original_filename_absolute  = $base . '/public/assets/' . $original_filename_relative;
             if ($perso->Portrait() && $perso->Portrait()->exists()) {
-                $vcard->addPhoto(Director::protocolAndHost() . '/' . $perso->Portrait()->ScaleMaxWidth(400)->Link());
+                // $vcard->addPhoto(Director::protocolAndHost() . '/' . $perso->Portrait()->ScaleMaxWidth(400)->Link());
+                $vcard->addPhoto($original_filename_absolute);
             }
 
             // return vcard as a string
             // return $vcard->getOutput();
 
+            $this->getResponse()->addHeader("Content-Type", "text/x-vcard; charset=$charset");
+
             // return vcard as a download
             return $vcard->download();
+        } else {
+            return $this->owner->httpError(404, _t(__CLASS__ . '.NotFound', 'vCard couldn\'t be found.'));
         }
     }
 }

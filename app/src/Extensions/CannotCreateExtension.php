@@ -4,8 +4,7 @@ namespace App\Extensions;
 
 use SilverStripe\Core\Extension;
 
-// no pages just elements
-class UserFormsExtension extends Extension
+class CannotCreateExtension extends Extension
 {
     public function canCreate($member)
     {

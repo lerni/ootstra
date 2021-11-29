@@ -14,7 +14,8 @@ class ElementGallery extends BaseElement
 {
     private static $db = [
         'CropGalleryThumbsByWidth' => 'Boolean',
-        'Layout' => 'Enum("left,center,right", "center")'
+        'Layout' => 'Enum("left,center,right", "center")',
+        'SitemapImageExpose' => 'Boolean'
     ];
 
     private static $has_one = [
@@ -48,6 +49,7 @@ class ElementGallery extends BaseElement
     {
         $labels = parent::fieldLabels($includerelations);
         $labels['CropGalleryThumbsByWidth'] = _t(__CLASS__ . '.CROPGALLERYTHUMBSBYWIDTH', 'keep aspectratio for thumbnails');
+        $labels['SitemapImageExpose'] = _t(__CLASS__ . '.SITEMAPIMAGEEXPOSE', 'expose images in sitemap.xml');
 
         return $labels;
     }

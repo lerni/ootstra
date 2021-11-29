@@ -14,7 +14,7 @@ Cookie::config()->set('samesite', 'Lax'); // new configuration property for Cook
 Session::config()->set('cookie_samesite', 'Lax'); // new configuration property for Session
 
 // Set the site locale
-i18n::set_locale('en_US');
+i18n::set_locale('en_100');
 
 // TinyMCE Config
 

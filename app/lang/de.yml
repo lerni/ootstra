@@ -15,11 +15,13 @@ de:
   App\Elements\ElementGallery:
     BlockType: Gallery
     CROPGALLERYTHUMBSBYWIDTH: 'Seitenverhältnis für Miniaturansichten beibehalten'
+    SITEMAPIMAGEEXPOSE: 'Bilder in sitemap.xml zeigen'
     GalleryImagesDescription: 'Breite getrimmt auf 1224px'
     OneOrTheOther: 'Bilder per Ordner (alle enthaltenen) oder einzeln wählen & sortieren'
   App\Elements\ElementHero:
     BlockType: Hero
     DONOTCROP: 'Höhe nicht begrenzen'
+    SITEMAPIMAGEEXPOSE: 'Bilder in sitemap.xml zeigen'
     DoNotCropDescription: 'Keine maximale Höhe in der Größe "mittel"'
     SIZE: 'Grösse/Höhe Header'
     SizeDescription: '"fullscreen" erfordert "full width"!'
@@ -184,7 +186,6 @@ de:
     MetaTitleRightTitle: 'Wird als Titel im Browsertab und für Suchmaschinen Resultate verwendet. Wichtig für SEO!'
     MetaDescriptionRightTitle: 'Wird in Suchmaschinen-Ergebnissen verwendet, wenn Länge passt und Relevanz gegeben ist; beeinflusst die SEO-Position kaum. Ansprechende Meta-Descripton (besonders die ersten ~55 Zeichen -> Sitelinks) beeinflussen die Klickrate jedoch stark.'
   SilverStripe\Blog\Model\Blog:
-    Allcategories: 'Alle Kategorien'
     MORE: 'Weiterlesen'
     NoPosts: 'Kein Artikel vorhanden'
   SilverStripe\Blog\Model\BlogPost:
@@ -194,7 +195,6 @@ de:
     LOCATION: Veranstaltungsort
     PastEventsHeaderField: 'Beiträge mit der Kategorie "Termine" werden nur angezeigt, wenn End- und Datum in der Zukunft liegt.'
     PublishDateDescription: 'geplante Veröffentlichung'
-    Alle: 'Alle'
   SilverStripe\CMS\Controllers\CMSMain:
     SaveFirst: 'Bitte Element erst speichern, danach können Sub-Elemente erfasst werden.'
   SilverStripe\SiteConfig\SiteConfig:

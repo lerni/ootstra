@@ -3,6 +3,7 @@
 namespace App\Elements;
 
 use App\Models\Logo;
+use SilverStripe\Forms\LiteralField;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
@@ -10,7 +11,6 @@ use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\GridField\GridFieldConfig_Base;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
-use SilverStripe\Forms\LiteralField;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 
 class ElementLogo extends BaseElement
@@ -61,10 +61,10 @@ class ElementLogo extends BaseElement
                 new GridFieldDeleteAction(false),
                 // new GridFieldDeleteAction(true),
                 new GridFieldDetailForm(),
-                new GridFieldAddNewButton('toolbar-header-right')
+                new GridFieldAddNewButton('toolbar-header-right'),
+                new GridFieldOrderableRows('SortOrder')
                 // new GridFieldAddExistingAutocompleter('toolbar-header-right')
             );
-            $LogosGridFieldConfig->addComponent(new GridFieldOrderableRows('SortOrder'));
             $GridField = new GridField('Logos', 'Logos', $this->Logos(), $LogosGridFieldConfig);
             $fields->addFieldToTab('Root.Main', $GridField);
         } else {

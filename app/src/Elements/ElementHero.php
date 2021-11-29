@@ -19,7 +19,8 @@ class ElementHero extends BaseElement
 {
     private static $db = [
         'Size' => 'Enum("small,medium,fullscreen","small")',
-        'DoNotCrop' => 'Boolean'
+        'DoNotCrop' => 'Boolean',
+        'SitemapImageExpose' => 'Boolean'
     ];
 
     private static $many_many = [
@@ -53,6 +54,7 @@ class ElementHero extends BaseElement
         $labels = parent::fieldLabels($includerelations);
         $labels['Size'] = _t(__CLASS__ . '.SIZE', 'Size / height header');
         $labels['DoNotCrop'] = _t(__CLASS__ . '.DONOTCROP', 'Do not limit height');
+        $labels['SitemapImageExpose'] = _t(__CLASS__ . '.SITEMAPIMAGEEXPOSE', 'expose images in sitemap.xml');
 
         return $labels;
     }

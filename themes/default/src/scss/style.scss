@@ -747,57 +747,6 @@ main.typography {
 			}
 		}
 	}
-	&.elementlogo {
-		ul.logos {
-			padding: #{$lh}em 0 0;
-			margin: 0;
-			list-style: none;
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: center;
-			width: calc(100% + #{math.div($lh, 2)}em);
-			margin-left: -#{math.div($lh, 4)}em;
-			margin-right: -#{math.div($lh, 4)}em;
-			&.greyscale li.logo figure img {
-				filter: grayscale(100%);
-				transition-property: filter;
-				transition-duration: .2s;
-			}
-			li.logo {
-				flex: 0 0 233px;
-				min-height: 120px;
-				margin: #{math.div($lh, 4)}em;
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				padding: 0;
-				justify-content: center;
-				align-items: center;
-				border: 1px solid $gray-light;
-				background-color: rgba($gray-light,0);
-				transition-property: background-color;
-				transition-duration: .3s;
-				figure {
-					display: inline-table;
-					max-width: 180px;
-					max-height: 80px;
-					img {
-						float: left;
-						margin: 0;
-					}
-				}
-				&.has-link:hover {
-					border-color: darken($gray-light, 10%);
-					background-color: rgba($gray-light,.1);
-					img {
-						filter: grayscale(0%);
-						transition-property: background-color;
-						transition-duration: .2s;
-					}
-				}
-			}
-		}
-	}
 	&.elementjobs {
 		.jobs {
 			display: flex;
@@ -1045,6 +994,13 @@ html .klaro {
 				&:last-of-type {
 					margin-bottom: #{$lh*3}em;
 					border-bottom: none;
+				}
+				$max-nesting: 5;
+				@for $i from $max-nesting through 0 {
+					&.level-#{$i} {
+						padding-left: #{$lh*$i}em;
+					}
+					$i1: $i + 1;
 				}
 			}
 		}

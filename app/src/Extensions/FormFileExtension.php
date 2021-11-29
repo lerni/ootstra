@@ -15,7 +15,7 @@ class FormFileExtension extends Extension
         $CaptionField = TextareaField::create('Caption');
         $editorTab = $fields->findTab('Editor.Details');
         if ($editorTab) {
-            //if we have the editor tab, follow the readonly state of the title field
+            // if we have the editor tab, follow the readonly state of the title field
             $titleField = $editorTab->fieldByName('Title');
             $CaptionField->setReadonly($titleField->isReadonly());
             $fields->insertAfter('Title', $CaptionField);

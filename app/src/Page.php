@@ -208,7 +208,7 @@ namespace {
                     $URLSegment = $req->param('ID');
                     $job = JobPosting::get()->filter('URLSegment', $URLSegment)->first();
                     if ($job && $job->Description) {
-                        $descreturn = $job->MetaDescription;
+                        $descreturn = trim($job->MetaDescription);
                     }
                 }
             }

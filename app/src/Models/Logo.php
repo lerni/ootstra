@@ -42,14 +42,13 @@ class Logo extends DataObject
 
     public function getCMSFields()
     {
-
         $fields = parent::getCMSFields();
 
         if ($uploadField = $fields->dataFieldByName('LogoImage')) {
             $uploadField->setFolderName('Logos');
             $size = 5 * 1024 * 1024;
             $uploadField->getValidator()->setAllowedMaxFileSize($size);
-            $uploadField->setDescription(_t(__CLASS__ . '.LogoImageDescription', 'min. 120px hoch'));
+            $uploadField->setDescription(_t(__CLASS__ . '.LogoImageDescription', 'min. 120px height'));
         }
 
         return $fields;

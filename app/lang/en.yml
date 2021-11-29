@@ -13,11 +13,9 @@ en:
     ReadMoreAbout: "More about {title}..."
     NoPosts: 'No article available'
     Archive: 'Archive'
-    Alle: 'All'
+    Allcategories: 'All'
   SilverStripe\Blog\Model\BlogPost:
     BACK: 'back to'
-    Alle: 'All'
-    Kategorie: 'Category'
     topics: 'themes'
     topic: 'theme'
   App\Models\Teaser:

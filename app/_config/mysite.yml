@@ -23,7 +23,7 @@ SilverStripe\Core\Manifest\ModuleManifest:
   project: app
 
 SilverStripe\View\SSViewer:
-  global_key: '$CurrentReadingMode, $Locale'
+  # global_key: '$CurrentReadingMode, $Locale'
   rewrite_hash_links: false
 
 SilverStripe\Assets\Upload:
@@ -58,6 +58,8 @@ Page:
   childrenexcluded:
     default:
       - SilverStripe\Blog\Model\BlogPost
+    metaoverview:
+      - SilverStripe\CMS\Model\RedirectorPage
 
 SilverStripe\Blog\Model\BlogCategory:
   extensions:
@@ -133,7 +135,11 @@ SilverStripe\UserForms\Model\UserDefinedForm:
   # block_default_userforms_js: true
   block_default_userforms_css: true
   extensions:
-    - App\Extensions\UserFormsExtension
+    - App\Extensions\CannotCreateExtension
+
+SilverStripe\CMS\Model\VirtualPage:
+  extensions:
+    - App\Extensions\CannotCreateExtension
 
 SilverStripe\UserForms\Model\Recipient\EmailRecipient:
   allow_unbound_recipient_fields: true
@@ -192,8 +198,6 @@ gorriecoe\Robots\Robots:
   disallowed_urls: []
   sitemap: '/sitemap.xml'
   disallow_unsearchable: true
-  extensions:
-    - App\Extensions\RobotsFoldersExtension
 
 App\Controller\ElementPersoController:
   expose_vcards: false
