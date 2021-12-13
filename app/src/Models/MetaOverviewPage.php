@@ -7,6 +7,7 @@ use PageController;
 use SilverStripe\Security\Security;
 use SilverStripe\View\Requirements;
 use SilverStripe\Security\Permission;
+use SilverStripe\CMS\Model\RedirectorPage;
 
 class MetaOverviewPage extends Page
 {
@@ -46,6 +47,15 @@ class MetaOverviewPage extends Page
             return Security::getCurrentUser();
         }
     }
+
+    public function MetaOverview($ParentID = 0) {
+        $pages = Page::get()->filter([
+            'ParentID' => $ParentID
+            // 'ShowInSearch' => 1
+        ]);
+        $pages = $pages->exclude('ClassName', RedirectorPage::class);
+        return $pages;
+    }
 }
 
 class MetaOverviewPageController extends PageController
@@ -54,14 +64,5 @@ class MetaOverviewPageController extends PageController
     {
         parent::init();
         Requirements::insertHeadTags('<meta name="robots" content="noindex">');
-    }
-
-    public function MetaOverview($ParentID = 0) {
-        $pages = Page::get()->filter([
-            'ParentID' => $ParentID
-            // 'ShowInSearch' => 1
-        ]);
-        $pages = $pages->exclude('ClassName', 'SilverStripe\CMS\Model\RedirectorPage');
-        return $pages;
     }
 }

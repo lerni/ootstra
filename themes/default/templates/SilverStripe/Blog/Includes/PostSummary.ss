@@ -11,11 +11,11 @@
 				$Title
 			<% end_if %>
 		</h3>
-		<% if $Summary %>
+		<% if $Summary && $Summary.CountLink < 1 %>
 			$Summary
 		<% else %>
 			<p>$DefaultOGDescription</p>
 		<% end_if %>
-		<span class="pseudolink"><%t SilverStripe\Blog\Model\Blog.MORE "Weiterlesen" %></span>
+		<span class="pseudolink"><%t SilverStripe\Blog\Model\Blog.MORE 'Read more' %></span>
 	</div>
 </a>

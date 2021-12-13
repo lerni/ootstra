@@ -5,14 +5,13 @@
 		<% if $MetaTitle %>
 			<span><strong>$MetaTitle</strong> ($MetaTitle.Length)</span><br>
 		<% else %>
-			<i class="color-gray">$Title | $SiteConfig.Title</i> <span>(Default Meta-Title -> \$Title | \$SiteConfig.Title)</span><br>
+			<i class="color-gray">$Title | $SiteConfig.Title</i> <a href="#default-meta">(Default Meta-Title -> \$Title | \$SiteConfig.Title)</a><br>
 		<% end_if %>
 		<% if $MetaDescription %>
 			<span>$MetaDescription ($MetaDescription.Length)</span><br>
 		<% else %>
 			<span class="color-red">No MetaDescription!</span><br>
 		<% end_if %>
-		<strong class="color-red">$ProductTable.CSVFirstColumUniquenes</strong><br>
 	</p>
 	<% if $ImagesForSitemap %>
 		<ul class="gallery">

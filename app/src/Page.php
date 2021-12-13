@@ -26,6 +26,7 @@ namespace {
     use SilverStripe\Control\Controller;
     use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
     use DNADesign\Elemental\Extensions\ElementalPageExtension;
+    use DNADesign\ElementalVirtual\Model\ElementVirtual;
 
     class Page extends SiteTree
     {
@@ -59,7 +60,7 @@ namespace {
                 if ($TextEditor = $fields->dataFieldByName('Content')) {
                     $TextEditor->setRows(30);
                     $TextEditor->addExtraClass('stacked');
-                    $TextEditor->setAttribute('data-mce-body-class', $this->ShortClassName());
+                    $TextEditor->setAttribute('data-mce-body-class', $this->ShortClassName($this));
                 }
             });
 
@@ -150,10 +151,14 @@ namespace {
 
         // we use this in template & WYSIWYGs for css classes
         // similar function is on ElementExtension
-        public function ShortClassName($lowercase = false)
+        public function ShortClassName($obj, $lowercase = false)
         {
+            if (!$obj) {
+                $r = ClassInfo::shortName($this);
+            } else {
+                $r = ClassInfo::shortName($obj);
+            }
 
-            $r = ClassInfo::shortName($this);
 
             if ($lowercase) {
                 $r = strtolower($r);
@@ -197,7 +202,7 @@ namespace {
             if ($this->ClassName == 'SilverStripe\Blog\Model\BlogPost' && $this->Summary) {
                 $description = trim($this->obj('Summary')->Summary(20));
                 if (!empty($description)) {
-                    $descreturn = $description;
+                    $descreturn = strip_tags($description);
                 }
             }
 
@@ -234,12 +239,18 @@ namespace {
             $i = null;
 
             if ($this->hasExtension(ElementalPageExtension::class)) {
-                if ($EH = $this->ElementalArea()->Elements()->filter('ClassName', ElementHero::class)->first()) {
-                    if ($EH->Slides()->Count()) {
-                        if ($SI = $EH->Slides()->Sort('SortOrder ASC')->first()) {
-                            if ($SI->SlideImage->exists()) {
-                                $i = $SI->SlideImage;
-                            }
+                $FE = $this->ElementalArea()->Elements()->first();
+                if ($this->ShortClassName($FE) === ElementHero::class) {
+                    $EH = $FE;
+                } elseif ($this->ShortClassName($FE) === ElementVirtual::class) {
+                    if ($this->ShortClassName($FE->LinkedElement) === ElementHero::class) {
+                        $EH = $FE->LinkedElement;
+                    }
+                }
+                if (isset($EH) && $EH->Slides()->Count()) {
+                    if ($SI = $EH->Slides()->Sort('SortOrder ASC')->first()) {
+                        if ($SI->SlideImage->exists()) {
+                            $i = $SI->SlideImage;
                         }
                     }
                 }
@@ -348,7 +359,8 @@ namespace {
                         if ($hero->Slides()->count()) {
                             if ($slides = $hero->Slides()->Sort('SortOrder ASC')) {
                                 foreach ($slides as $slide) {
-                                    if ($slide->SlideImage->exists() && !$slide->SlideImage->NoFileIndex()) {
+                                    // if ($slide->SlideImage->exists() && !$slide->SlideImage->NoFileIndex()) {
+                                    if ($slide->SlideImage->exists()) {
                                         array_push($IDList, $slide->SlideImageID);
                                     }
                                 }
@@ -362,8 +374,9 @@ namespace {
                         if ($gallery->Items()->count()) {
                             if ($images = $gallery->Items()) {
                                 foreach ($images as $image) {
-                                    if ($image->exists() && !$image->NoFileIndex()) {
-                                        $IDList = array_push($IDList, $image->ID);
+                                    // if ($image->exists() && !$image->NoFileIndex()) {
+                                    if ($image->exists()) {
+                                        array_push($IDList, $image->ID);
                                     }
                                 }
                             }

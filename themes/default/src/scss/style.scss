@@ -976,6 +976,9 @@ html .klaro {
 	main {
 		.inner {
 			.item {
+				&.default {
+					background-color: $gray-lighter;
+				}
 				padding: #{math.div($lh,2)}em 0;
 				border-bottom: 1px solid $gray-light;
 				margin-bottom: #{$lh}em;

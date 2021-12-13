@@ -21,8 +21,8 @@
 			font-weight: 200;
 			font-display: swap;
 			src: local(''),
-				url('/_resources/themes/default/dist/webfonts/ibm-plex-sans-v9-latin-200.woff2') format('woff2'),
-				url('/_resources/themes/default/dist/webfonts/ibm-plex-sans-v9-latin-200.woff') format('woff');
+				url("$resourceURL('/_resources/themes/default/dist/webfonts/ibm-plex-sans-v9-latin-200.woff2')") format('woff2'),
+				url("$resourceURL('/_resources/themes/default/dist/webfonts/ibm-plex-sans-v9-latin-200.woff')") format('woff');
 		}
 		@font-face {
 			font-family: 'IBM Plex Sans';
@@ -30,12 +30,12 @@
 			font-weight: 400;
 			font-display: swap;
 			src: local(''),
-				url('/_resources/themes/default/dist/webfonts/ibm-plex-sans-v9-latin-regular.woff2') format('woff2'),
-				url('/_resources/themes/default/dist/webfonts/ibm-plex-sans-v9-latin-regular.woff') format('woff');
+				url("$resourceURL('/_resources/themes/default/dist/webfonts/ibm-plex-sans-v9-latin-regular.woff2')") format('woff2'),
+				url("$resourceURL('/_resources/themes/default/dist/webfonts/ibm-plex-sans-v9-latin-regular.woff')") format('woff');
 		}
 		@font-face {
 			font-family: "icons";
-			src:url("$resourceURL('app/fonts/icons.woff2')") format('woff2'),
+			src: url("$resourceURL('app/fonts/icons.woff2')") format('woff2'),
 			url("$resourceURL('app/fonts/icons.woff')") format('woff');
 			font-style: normal;
 			font-display: block;
