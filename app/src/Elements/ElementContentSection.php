@@ -61,7 +61,7 @@ class ElementContentSection extends BaseElement
 
         $fields->removeByName('ContentParts');
 
-        // hack arround unsaved relations
+        // hack around unsaved relations
         if ($this->isInDB()) {
             $ContentPartsGridFieldConfig = GridFieldConfig_Base::create(20);
             $ContentPartsGridFieldConfig->addComponents(

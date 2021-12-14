@@ -73,7 +73,7 @@ class Department extends DataObject
             new GridFieldAddNewButton('toolbar-header-right')
         );
 
-        // hack arround unsaved relations
+        // hack around unsaved relations
         if ($this->isInDB()) {
             $PersoGFConfig->addComponents(
                 new GridFieldOrderableRows('SortOrder'),

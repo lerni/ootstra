@@ -73,7 +73,7 @@ class ElementFeedTeaser extends BaseElement
             <p>'. _t(__CLASS__ . '.HowText', 'Subpages (children) of the selected pages (parents / holders) e.g. news with the selected categories are teased. Image & text can be selected on the respective pages in the tab "Feeds & Share".') .'<br/><br/></p>
         '));
 
-        // hack arround unsaved relations
+        // hack around unsaved relations
         if ($this->isInDB()) {
             $TeaserGridFieldConfig = GridFieldConfig_RelationEditor::create();
             $TeaserGridFieldConfig->removeComponentsByType([

@@ -1,13 +1,14 @@
+// import Swiper from 'swiper/bundle';
+
 import {
   Swiper,
   Navigation,
   Pagination,
-  // Scrollbar,
-  // EffectCoverflow
+  Autoplay,
+  EffectFade
 } from 'swiper';
 
-Swiper.use([Navigation, Pagination]);
-
+Swiper.use([Navigation, Pagination, Autoplay, EffectFade]);
 
 var heroSwiper = document.querySelectorAll('.swiper-container.hero');
 Array.prototype.forEach.call(heroSwiper, function (slider) {
@@ -18,6 +19,7 @@ Array.prototype.forEach.call(heroSwiper, function (slider) {
 
   var articleSwiper = new Swiper ('#'+sliderID, {
     spaceBetween: 0,
+//  effect: 'fade',
     direction: 'horizontal',
     CSSWidthAndHeight: true,
     speed: 2000,
@@ -25,6 +27,9 @@ Array.prototype.forEach.call(heroSwiper, function (slider) {
     autoplay: {
       delay: 4500,
       disableOnInteraction: true,
+    },
+    fadeEffect: {
+      crossFade: true
     },
     navigation: {
       nextEl: sliderNext,

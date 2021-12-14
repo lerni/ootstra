@@ -88,7 +88,7 @@ class ElementMaps extends BaseElement
         $fields->addFieldToTab('Root.Main', $ZoomField = DropdownField::create('Zoom', 'Zoom', $ZoomLevels));
         $ZoomField->setDescription(_t('App\Elements\ElementMaps.ZoomDescription', 'Zoom level adjusts to show all markers. A minimum value can be configured here.'));
 
-        // hack arround unsaved relations
+        // hack around unsaved relations
         if ($this->isInDB()) {
             $PointGridFieldConfig = GridFieldConfig_Base::create(20);
             $PointGridFieldConfig->addComponents(

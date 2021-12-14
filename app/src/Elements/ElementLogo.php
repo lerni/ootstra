@@ -53,7 +53,7 @@ class ElementLogo extends BaseElement
             $fields->addFieldToTab('Root.Settings', $GreyscaleField);
         }
 
-        // hack arround unsaved relations
+        // hack around unsaved relations
         if ($this->isInDB()) {
             $LogosGridFieldConfig = GridFieldConfig_Base::create(100);
             $LogosGridFieldConfig->addComponents(

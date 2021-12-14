@@ -100,7 +100,7 @@ namespace {
                     new GridFieldDeleteAction(true)
                 ]);
 
-                // hack arround unsaved relations
+                // hack around unsaved relations
                 if ($this->isInDB()) {
                     $CatGFConfig->addComponent(new GridFieldOrderableRows('SortOrder'));
                 }
@@ -153,12 +153,11 @@ namespace {
         // similar function is on ElementExtension
         public function ShortClassName($obj, $lowercase = false)
         {
-            if (!$obj) {
+            if (!is_object($obj)) {
                 $r = ClassInfo::shortName($this);
             } else {
                 $r = ClassInfo::shortName($obj);
             }
-
 
             if ($lowercase) {
                 $r = strtolower($r);
@@ -200,7 +199,7 @@ namespace {
 
             // In case of BlogPost use Summary it set
             if ($this->ClassName == 'SilverStripe\Blog\Model\BlogPost' && $this->Summary) {
-                $description = trim($this->obj('Summary')->Summary(20));
+                $description = trim($this->obj('Summary')->Summary(20, 5));
                 if (!empty($description)) {
                     $descreturn = strip_tags($description);
                 }
@@ -240,10 +239,10 @@ namespace {
 
             if ($this->hasExtension(ElementalPageExtension::class)) {
                 $FE = $this->ElementalArea()->Elements()->first();
-                if ($this->ShortClassName($FE) === ElementHero::class) {
+                if ($FE->ClassName === ElementHero::class) {
                     $EH = $FE;
-                } elseif ($this->ShortClassName($FE) === ElementVirtual::class) {
-                    if ($this->ShortClassName($FE->LinkedElement) === ElementHero::class) {
+                } elseif ($FE->ClassName === ElementVirtual::class) {
+                    if ($FE->LinkedElement->ClassName === ElementHero::class) {
                         $EH = $FE->LinkedElement;
                     }
                 }
@@ -353,7 +352,7 @@ namespace {
         {
             $IDList = [];
             if ($this->hasExtension(ElementalPageExtension::class)) {
-                // Images from Heros
+                // Images from Heroes
                 if ($elementHeros = $this->ElementalArea()->Elements()->filter('ClassName', ElementHero::class)) {
                     foreach ($elementHeros as $hero) {
                         if ($hero->Slides()->count()) {

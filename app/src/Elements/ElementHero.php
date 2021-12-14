@@ -72,7 +72,7 @@ class ElementHero extends BaseElement
             $SizeField->setDescription(_t(__CLASS__ . '.SizeDescription', '"fullscreen" requires "full width"!'));
         }
 
-        // hack arround unsaved relations
+        // hack around unsaved relations
         if ($this->isInDB()) {
             $SlideGridFieldConfig = GridFieldConfig_Base::create(20);
             $SlideGridFieldConfig->addComponents(

@@ -69,7 +69,7 @@ class ElementPersoCFA extends BaseElement
 
         $fields->removeByName('Persos');
 
-        // hack arround unsaved relations
+        // hack around unsaved relations
         if ($this->isInDB()) {
             $PersoGFConfig = GridFieldConfig_Base::create(20);
             $PersoGFConfig->removeComponentsByType([

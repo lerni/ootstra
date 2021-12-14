@@ -63,7 +63,7 @@ class PageSchemaExtension extends Extension
                         ->latitude($location->GeoPoint()->Latitude)
                         ->longitude($location->GeoPoint()->Longitude);
 
-                    // default has map lat/lng based - 'll be overriden if $location->PointURL exists
+                    // default has map lat/lng based - 'll be overridden if $location->PointURL exists
                     $locations[$i]->hasMap($location->GeoPoint()->GMapLatLngLink());
                     $locations[$i]->geo($PushGeo);
                 }

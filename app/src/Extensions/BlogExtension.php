@@ -49,7 +49,7 @@ class BlogExtension extends DataExtension
             new GridFieldOrderableRows('SortOrder')
         );
 
-        // hack arround unsaved relations
+        // hack around unsaved relations
         if ($this->owner->isInDB()) {
             $SlideGridFieldConfig = GridFieldConfig_Base::create(20);
             $SlideGridFieldConfig->addComponents(

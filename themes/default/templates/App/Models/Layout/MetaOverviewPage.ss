@@ -6,9 +6,8 @@
 	<div class="inner">
 		<% with $SiteConfig %>
 			<div id="default-meta" class="item default">
-				<h3><%t App\Models\MetaOverviewPage.DefaultItemTitle 'Default values in $SiteConfig' %></h3>
+				<h3><%t App\Models\MetaOverviewPage.DefaultItemTitle 'Default values in $SiteConfig' %> <a target="_blank" href="$Link">$Link</a> &#x2192; <a href="/admin/settings/">edit</a></h3>
 				<p>
-					<a target="_blank" href="$Link">$Link</a> &#x2192; <a href="/admin/settings/">edit</a><br/>
 					<% if $MetaTitle %>
 						<span><strong>$MetaTitle</strong> ($MetaTitle.Length)</span><br>
 					<% else %>

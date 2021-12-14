@@ -44,7 +44,7 @@ class ElementCounter extends BaseElement
         $fields->removeByName('CountItems');
         $fields->removeByName('BackgroundColor');
 
-        // hack arround unsaved relations
+        // hack around unsaved relations
         if ($this->isInDB()) {
             $CountBitsGridFieldConfig = GridFieldConfig_Base::create(20);
             $CountBitsGridFieldConfig->addComponents(

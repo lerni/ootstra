@@ -70,7 +70,7 @@ class ElementPerso extends BaseElement
         $DepGFConfig->removeComponentsByType('SilverStripe\Forms\GridField\GridFieldPageCount');
         $DepGFConfig->removeComponentsByType('SilverStripe\Forms\GridField\GridFieldAddNewButton');
 
-        // hack arround unsaved relations
+        // hack around unsaved relations
         if ($this->isInDB()) {
             $DepGFConfig->addComponents(
                 new GridFieldDeleteAction(true),
