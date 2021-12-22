@@ -107,16 +107,16 @@
 							<div class="scroll"></div>
 							<style type="text/css">
 								#hero-image-{$ID} {
-									object-position: {$SlideImage.FocusFillMax(2600,1950).PercentageX}% {$SlideImage.FocusFillMax(2600,1950).PercentageY}%;
+									object-position: {$SlideImage.FocusFillMax(2600,1950).Focuspoint.PercentageX}% {$SlideImage.FocusFillMax(2600,1950).Focuspoint.PercentageY}%;
 								}
 								@media screen and (max-aspect-ratio: 5/8) {
 									#hero-image-{$ID} {
-										object-position: {$SlideImage.FocusFillMax(1440,2304).PercentageX}% {$SlideImage.FocusFillMax(1440,2304).PercentageY}%;
+										object-position: {$SlideImage.FocusFillMax(1440,2304).Focuspoint.PercentageX}% {$SlideImage.FocusFillMax(1440,2304).Focuspoint.PercentageY}%;
 									}
 								}
 								@media screen and (min-aspect-ratio: 8/5) {
 									#hero-image-{$ID} {
-										object-position: {$SlideImage.FocusFillMax(2600,1625).PercentageX}% {$SlideImage.FocusFillMax(2600,1625).PercentageY}%;
+										object-position: {$SlideImage.FocusFillMax(2600,1625).Focuspoint.PercentageX}% {$SlideImage.FocusFillMax(2600,1625).Focuspoint.PercentageY}%;
 									}
 								}
 							</style>

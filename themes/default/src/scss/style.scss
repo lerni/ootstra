@@ -6,7 +6,7 @@
 @import 'includes/defaults';
 @import 'includes/utils';
 
-@import 'includes/jquery.fancybox.min.css';
+// @import 'includes/jquery.fancybox.min.css'; // included per template
 @import 'includes/swiper.scss';
 
 
@@ -224,9 +224,11 @@ main.typography {
 .element {
 	position: relative;
 	width: 100%;
-	max-width: $inner-width--extended;
 	margin-left: auto;
 	margin-right: auto;
+	&:not(.full-width) {
+		max-width: $inner-width--extended;
+	}
 	&.background--gray-lighter {
 		background-color: $gray-lighter;
 	}
@@ -531,12 +533,6 @@ main.typography {
 		}
 
 		@include sliderpagination(1, $white);
-		.swiper-pagination {
-			position: absolute;
-			left: 0;
-			right: 0;
-			bottom: #{$lh*2}em;
-		}
 
 		.swiper-button-prev,
 		.swiper-button-next {

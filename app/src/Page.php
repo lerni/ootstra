@@ -239,17 +239,19 @@ namespace {
 
             if ($this->hasExtension(ElementalPageExtension::class)) {
                 $FE = $this->ElementalArea()->Elements()->first();
-                if ($FE->ClassName === ElementHero::class) {
-                    $EH = $FE;
-                } elseif ($FE->ClassName === ElementVirtual::class) {
-                    if ($FE->LinkedElement->ClassName === ElementHero::class) {
-                        $EH = $FE->LinkedElement;
+                if ($FE) {
+                    if ($FE->ClassName === ElementHero::class) {
+                        $EH = $FE;
+                    } elseif ($FE->ClassName === ElementVirtual::class) {
+                        if ($FE->LinkedElement->ClassName === ElementHero::class) {
+                            $EH = $FE->LinkedElement;
+                        }
                     }
-                }
-                if (isset($EH) && $EH->Slides()->Count()) {
-                    if ($SI = $EH->Slides()->Sort('SortOrder ASC')->first()) {
-                        if ($SI->SlideImage->exists()) {
-                            $i = $SI->SlideImage;
+                    if (isset($EH) && $EH->Slides()->Count()) {
+                        if ($SI = $EH->Slides()->Sort('SortOrder ASC')->first()) {
+                            if ($SI->SlideImage->exists()) {
+                                $i = $SI->SlideImage;
+                            }
                         }
                     }
                 }

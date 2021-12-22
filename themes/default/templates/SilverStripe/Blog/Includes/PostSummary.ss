@@ -13,7 +13,7 @@
 		</h3>
 		<% if $Summary && $Summary.CountLink < 1 %>
 			$Summary
-		<% else %>
+		<% else_if $DefaultOGDescription %>
 			<p>$DefaultOGDescription</p>
 		<% end_if %>
 		<span class="pseudolink"><%t SilverStripe\Blog\Model\Blog.MORE 'Read more' %></span>

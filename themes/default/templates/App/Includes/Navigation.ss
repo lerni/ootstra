@@ -15,7 +15,7 @@
 			</li>
 		<% end_loop %>
 	</ul>
-	<a href="#" class="menu-button" id="menuButton" aria-label="Navigation">
-		<span class="txt"><%t Page.MENU "Menu" %></span><span class="burger-icon"></span>
-	</a>
 <% end_if %><% end_cached %>
+<a href="#" class="menu-button" id="menuButton" aria-label="Navigation">
+	<span class="txt"><%t Page.MENU "Menu" %></span><span class="burger-icon"></span>
+</a>

@@ -17,9 +17,8 @@ Array.prototype.forEach.call(heroSwiper, function (slider) {
   var sliderNext = '#hero-swiper-next' + slider.getAttribute('data-id');
   var sliderPagination = '#hero-swiper-pagination' + slider.getAttribute('data-id');
 
-  var articleSwiper = new Swiper ('#'+sliderID, {
+  var heroSwiperInstance = new Swiper ('#'+sliderID, {
     spaceBetween: 0,
-//  effect: 'fade',
     direction: 'horizontal',
     CSSWidthAndHeight: true,
     speed: 2000,

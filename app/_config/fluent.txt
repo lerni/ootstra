@@ -71,4 +71,4 @@ App\Models\Logo:
 
 # Note: If you are applying this via an Extension, be sure to apply it after the FluentExtension.
 TractorCow\Fluent\Extension\FluentExtension:
-  frontend_publish_required: false
+  frontend_publish_required: true

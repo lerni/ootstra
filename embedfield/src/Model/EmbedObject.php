@@ -2,8 +2,9 @@
 
 namespace nathancox\EmbedField\Model;
 
-use SilverStripe\ORM\DataObject;
+use DOMDocument;
 use Embed\Embed;
+use SilverStripe\ORM\DataObject;
 
 /**
  * Represents an oembed object.  Basically populated from oembed so the front end has quick access to properties.
@@ -77,9 +78,14 @@ class EmbedObject extends DataObject {
 			$this->AuthorName = $info->author_name;
 
 			$embed = $info->getCode();
-            $embedlazy = str_replace('allowfullscreen>' , 'loading="lazy" allowfullscreen>', $embed);
-            $embednocookieslazy = str_replace('www.youtube.com' , 'www.youtube-nocookie.com', $embedlazy);
-			$this->EmbedHTML = $embednocookieslazy;
+
+            $dom = new DOMDocument();
+            $dom->loadHTML($embed);
+            $iframe = $dom->getElementsByTagName("iframe");
+            $iframe->item(0)->setAttribute('loading','lazy');
+            $embed = $dom->saveXML($iframe->item(0));
+
+			$this->EmbedHTML = $embed;
 			$this->URL = $info->url;
 			$this->Origin = $info->origin;
 			$this->WebPage = $info->web_page;

@@ -41,7 +41,7 @@ $(document).ready(function() {
 
 // we need to prevent loading from cache if back-button is used, cos ios-safari would apply the fadeTo-effect to the destination not the original
 window.onpageshow = function(event) {
-    if (event.persisted) {
-        window.location.reload()
-    }
+	if (event.persisted) {
+		window.location.reload()
+	}
 };

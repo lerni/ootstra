@@ -188,6 +188,7 @@ de:
   SilverStripe\Blog\Model\Blog:
     MORE: 'Weiterlesen'
     NoPosts: 'Kein Artikel vorhanden'
+    Allcategories: 'Alle'
   SilverStripe\Blog\Model\BlogPost:
     ALTERNATIVTEXTEVENTDATE: 'Alternative Text Datum'
     AlternativTextEventDateDescription: 'Falls kein exaktes Datum resp. Zeitspanne. z.B. 14.10.2020 bis 4.11.2020, jeden Mittwoch, 16 Uhr'

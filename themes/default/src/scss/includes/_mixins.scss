@@ -125,6 +125,13 @@
 		$size: $lh*.7 !default;
 		$color: $white !default;
 		height: #{$size*2}em;
+		display: flex;
+		justify-content: center;
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: #{$lh*2}em;
+		z-index: 1;
 		.swiper-pagination-bullet {
 			width:  #{$size}em;
 			height: #{$size}em;

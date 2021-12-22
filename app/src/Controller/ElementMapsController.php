@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Models\Point;
+use TractorCow\Fluent\Model\Locale;
 use SilverStripe\i18n\i18n;
 use BetterBrief\GoogleMapField;
 use SilverStripe\ORM\ArrayList;
@@ -23,8 +24,8 @@ class ElementMapsController extends ElementController
     {
         parent::init();
 
-        if (class_exists("Fluent")) {
-            $Lang = Fluent::current_locale();
+        if (class_exists('TractorCow\Fluent\Model\Locale')) {
+            $Lang = Locale::getCurrentLocale();
         } else {
             $Lang = i18n::get_locale();
         }
