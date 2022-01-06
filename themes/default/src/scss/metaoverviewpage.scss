@@ -1,0 +1,124 @@
+@use "sass:math";
+@import 'includes/variables';
+@import 'includes/defaults';
+@import 'includes/mixins';
+@import '~breakpoint-sass/stylesheets/breakpoint';
+
+.metaoverviewpage {
+	main {
+		article {
+			padding-bottom: #{$lh*3}em;
+			div.label {
+				grid-column: 1/3;
+			}
+			.item {
+				display: grid;
+				grid-template-columns: auto 1fr;
+				grid-gap: #{$lh}em;
+				position: relative;
+				padding: #{math.div($lh,2)}em;
+				margin-bottom: #{$lh}em;
+				&:not(:first-of-type) {
+					border: solid #{math.div($lh,1)}em $gray-lighter;
+				}
+				&.default {
+					background-color: $gray-lighter;
+				}
+				&.no-images {
+					column-gap: 0;
+				}
+				&.not-published {
+					border-color: orange;
+				}
+				&.not-showed-in-search {
+					border-color: yellowgreen;
+				}
+				figure {
+					margin: 0;
+					grid-column: 1/2;
+					max-width: calc(300px + #{$lh}em);
+					@include breakpoint($Lneg) {
+						grid-column: 1/3;
+					}
+					img {
+						margin-bottom: 0;
+						display: table;
+					}
+				}
+				.txt {
+					grid-column: 2/3;
+					@include breakpoint($Lneg) {
+						grid-column: 1/3;
+						padding: #{math.div($lh,2)}em 0;
+					}
+				}
+				.label {
+					padding-bottom: #{math.div($lh,4)}em;
+					@include bold;
+					font-size: .7em;
+					&.large {
+						font-size: 1em;
+						position: absolute;
+						left: 0;
+						bottom: -#{$lh*1.3}em;
+					}
+					&.class-name {
+						position: absolute;
+						right: 0;
+						top: -#{$lh}em;
+					}
+					&.anchor {
+						position: absolute;
+						left: 0;
+						top: -#{$lh}em;
+					}
+				}
+				h3 {
+					margin: 0;
+				}
+				p {
+					margin-bottom: 0;
+				}
+				.color-red {
+					color: $red;
+				}
+				.color-gray {
+					color: $gray;
+				}
+				$max-nesting: 10;
+				@for $i from $max-nesting through 0 {
+					&.level-#{$i} {
+						border-left-width: #{$lh*$i}em;
+					}
+					$i1: $i + 1;
+				}
+			}
+		}
+		.gallery {
+			grid-column: 1/3;
+			>ul {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				display: grid;
+				grid-template-columns: repeat(auto-fit,minmax(100px,140px));
+				grid-template-rows: repeat(auto-fit,minmax(100px,1fr));
+				grid-gap: #{$lh}em;
+				li {
+					max-width: 200px;
+					font-size: .7em;
+					padding: 0;
+					a {
+						p,
+						h4 {
+							color: $lauftext-color;
+						}
+					}
+					img {
+						margin-bottom: 0;
+					}
+				}
+			}
+		}
+	}
+}

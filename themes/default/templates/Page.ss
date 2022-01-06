@@ -12,7 +12,6 @@
 		<% if $DefaultMetaDescription %><meta name="Description" content="$DefaultMetaDescription" /><% end_if %>
 	<% end_if %>
 	<% include App/Includes/Favicon %>
-	<script src="$resourceURL('/_resources/themes/default/thirdparty/instant-page.js')" nonce="{$Nonce}" type="module"></script>
 	<% require themedCSS('dist/css/style') %>
 	<style type="text/css" nonce="{$Nonce}">
 		@font-face {<%-- https://google-webfonts-helper.herokuapp.com/fonts --%>

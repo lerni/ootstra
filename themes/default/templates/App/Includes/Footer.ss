@@ -27,7 +27,7 @@
 					<% loop $SiteConfig.TermsNavigationItems.Sort("SortOrder ASC") %>
 						<a class="{$LinkingMode}" href="{$Link}">$Title</a>
 					<% end_loop %>
-					<% if $SiteConfig.CookieIsActive %><a onClick="klaro.show();return false;"><%t Kraftausdruck\KlaroCookie.MODALLINK "Cookie settings" %></a><% end_if %>
+					<% if $SiteConfig.CookieIsActive %><a href="#klaro" onClick="klaro.show();return false;"><%t Kraftausdruck\KlaroCookie.MODALLINK "Cookie settings" %></a><% end_if %>
 				</nav>
 				<span class="copyright">
 					© $Now.Format('y')

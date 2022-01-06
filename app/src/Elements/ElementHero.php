@@ -40,7 +40,8 @@ class ElementHero extends BaseElement
     private static $table_name = 'ElementHero';
 
     private static $defaults = [
-        'isFullWidth' => 1
+        'isFullWidth' => 1,
+        'SitemapImageExpose' => 1
     ];
 
     private static $description = 'Hero Element';

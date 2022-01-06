@@ -56,7 +56,7 @@
         "gorriecoe/silverstripe-link": "^1.3",
         "nomidi/silverstripe-webp-image": "dev-master as 1.0",
         "lerni/klaro-cookie-consent": "dev-master",
-        "lerni/folderindex": "^0.0.5",
+        "lerni/folderindex": "dev-master#8e320e9d2b77c2ae57ab5aaf3d8ef65e35a43937",
         "lerni/samesite-cookie-patch": "dev-master",
         "league/commonmark": "^2.0"
     },

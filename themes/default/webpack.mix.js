@@ -27,11 +27,13 @@ mix.options({
 });
 
 // Set up base tasks
+let productionSourceMaps = false;
 mix
   .js('src/js/app.js', 'dist/js')
   .sass('src/scss/editor.scss', 'dist/css')
   .sass('src/scss/style.scss', 'dist/css')
-  .sourceMaps(true, 'source-map')
+  .sass('src/scss/metaoverviewpage.scss', 'dist/css')
+  .sourceMaps(productionSourceMaps, 'source-map')
   .copyDirectory('src/webfonts', 'dist/webfonts');
 
 // Glob loading for SASS ("@import dir/**/*.scss")

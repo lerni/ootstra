@@ -311,7 +311,7 @@ namespace {
                 }
             }
 
-            $children = $this->Children();
+            $children = $this->AllChildren();
 
             if (isset($exclude) && is_array($exclude)) {
                 $children = $children->exclude('ClassName', $exclude);
@@ -357,11 +357,10 @@ namespace {
                 // Images from Heroes
                 if ($elementHeros = $this->ElementalArea()->Elements()->filter('ClassName', ElementHero::class)) {
                     foreach ($elementHeros as $hero) {
-                        if ($hero->Slides()->count()) {
+                        if ($hero->Slides()->count() && $hero->SitemapImageExpose) {
                             if ($slides = $hero->Slides()->Sort('SortOrder ASC')) {
                                 foreach ($slides as $slide) {
-                                    // if ($slide->SlideImage->exists() && !$slide->SlideImage->NoFileIndex()) {
-                                    if ($slide->SlideImage->exists()) {
+                                    if ($slide->SlideImage->exists() && !$slide->SlideImage->NoFileIndex()) {
                                         array_push($IDList, $slide->SlideImageID);
                                     }
                                 }
@@ -372,11 +371,10 @@ namespace {
                 // Images from ElementGallery
                 if ($elementGallery = $this->ElementalArea()->Elements()->filter('ClassName', ElementGallery::class)) {
                     foreach ($elementGallery as $gallery) {
-                        if ($gallery->Items()->count()) {
+                        if ($gallery->Items()->count() && $gallery->SitemapImageExpose) {
                             if ($images = $gallery->Items()) {
                                 foreach ($images as $image) {
-                                    // if ($image->exists() && !$image->NoFileIndex()) {
-                                    if ($image->exists()) {
+                                    if ($image->exists() && !$image->NoFileIndex()) {
                                         array_push($IDList, $image->ID);
                                     }
                                 }

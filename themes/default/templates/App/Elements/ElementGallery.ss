@@ -1,6 +1,5 @@
 <% require css("themes/default/thirdparty/fancybox/jquery.fancybox.min.css") %>
-<% require javascript("themes/default/thirdparty/fancybox/jquery.fancybox.min.js") %>
-<% if not $isFullWidth %><div class="inner"><% end_if %>
+<%-- require javascript("themes/default/thirdparty/fancybox/jquery.fancybox.min.js") --%>
 <% include App/Includes/ElementTitle %>
 <% if $Items %>
 	<ul class="gallery {$Layout}">
@@ -39,4 +38,3 @@
 		<% end_if %>
 	</ul>
 <% end_if %>
-<% if not $isFullWidth %></div><% end_if %>

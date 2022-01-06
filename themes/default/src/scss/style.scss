@@ -1,10 +1,10 @@
 @use "sass:math";
 @import '~breakpoint-sass/stylesheets/breakpoint';
 @import 'includes/variables';
-@import 'includes/typography';
-@import 'includes/mixins';
 @import 'includes/defaults';
+@import 'includes/mixins';
 @import 'includes/utils';
+@import 'includes/typography';
 
 // @import 'includes/jquery.fancybox.min.css'; // included per template
 @import 'includes/swiper.scss';
@@ -126,7 +126,7 @@ body {
 }
 
 main.typography {
-	width:100%;
+	width: 100%;
 	flex: 1;
 	border-top: $headerheight solid transparent;
 	@include breakpoint($Lneg) {
@@ -227,7 +227,13 @@ main.typography {
 	margin-left: auto;
 	margin-right: auto;
 	&:not(.full-width) {
-		max-width: $inner-width--extended;
+		max-width: $inner-width;
+		padding-left: #{$lh}em;
+		padding-right: #{$lh}em;
+		@include breakpoint($Mneg) {
+			padding-left: #{math.div($lh, 2)}em;
+			padding-right: #{math.div($lh, 2)}em;
+		}
 	}
 	&.background--gray-lighter {
 		background-color: $gray-lighter;
@@ -571,7 +577,7 @@ main.typography {
 			}
 		}
 	}
-	&.elementtextimage .inner {
+	&.elementtextimage {
 		display: flex;
 		padding-top: 0;
 		padding-bottom: 0;
@@ -588,17 +594,11 @@ main.typography {
 			padding: 5% 0;
 			position: relative;
 			z-index: 1;
-			@include ie11 {
-				max-width: percentage(math.div(1, 3));
-			}
-
+			order: 0;
 			@include breakpoint($Mneg) {
 				flex: 0 0 100%;
 				padding: 0;
 				order: 1;
-				@include ie11 {
-					max-width: 100%;
-				}
 			}
 			.relativizer {
 				position: relative;
@@ -610,10 +610,11 @@ main.typography {
 				width: 150%;
 				background-color: rgba($white, .86);
 				padding: #{$lh}em;
+				margin: auto 0 auto auto;
 				@include breakpoint($Mplus) {
-					padding: #{$lh}em;
-					width: 100%;
-					box-shadow: none;
+					margin-right: -50%;
+					width: 150%;
+					box-shadow: -#{math.div($lh, 2)}em 0 #{$lh}em rgba($black, .1);
 				}
 				h1, h2 {
 					text-align: left;
@@ -630,19 +631,11 @@ main.typography {
 			margin: 0;
 			margin-left: #{$lh}em;
 			z-index: 0;
-			@include ie11 {
-				max-width: calc(percentage(math.div(2, 3)) - #{$lh}em);
-				width: 100%;
-			}
 			@include breakpoint($Mneg) {
 				flex: 0 0 100%;
 				margin-left: 0;
 				margin-right: 0;
 				order: 0;
-				// max-height: 60vw;
-				@include ie11 {
-					max-width: 100%;
-				}
 			}
 			img {
 				width: 100%;
@@ -871,21 +864,16 @@ ul#SearchResults {
 .social-icons {
 	margin: auto 0 0;
 	a {
-		color: $lauftext-color;
 		display: inline-block;
-		padding-right: #{$lh}em;
-		padding-top:  #{$lh}em;
+		color: $white;
+		margin-top:  #{$lh}em;
 		transition: transform .05s linear;
-		&[data-social-short="l"] {
-			font-size: 1.2em;
-			vertical-align: -.05em;
-		}
 		&:not(:last-of-type) {
-			margin-right: #{math.div($lh, 2)}em;
+			margin-right: #{math.div($lh, 1)}em;
 		}
 		&:hover {
-			color: $lauftext-color;
-			transform: scale(1.1);
+			color: $white;
+			transform: scale(1.08);
 		}
 	}
 }
@@ -964,60 +952,6 @@ html .klaro {
 		// klaro link
 		.cm-modal .cm-footer .cm-powered-by {
 			display: none;
-		}
-	}
-}
-
-.metaoverviewpage {
-	main {
-		.inner {
-			.item {
-				&.default {
-					background-color: $gray-lighter;
-				}
-				padding: #{math.div($lh,2)}em 0;
-				border-bottom: 1px solid $gray-light;
-				margin-bottom: #{$lh}em;
-				h3 {
-					margin: 0;
-				}
-				p {
-					margin-bottom: 0;
-				}
-				.color-red {
-					color: $red;
-				}
-				.color-gray {
-					color: $gray;
-				}
-				&:last-of-type {
-					margin-bottom: #{$lh*3}em;
-					border-bottom: none;
-				}
-				$max-nesting: 5;
-				@for $i from $max-nesting through 0 {
-					&.level-#{$i} {
-						padding-left: #{$lh*$i}em;
-					}
-					$i1: $i + 1;
-				}
-			}
-		}
-	}
-	.gallery {
-		list-style: none;
-		margin: 0;
-		display: flex;
-		flex-wrap: wrap;
-		padding: #{$lh}em 0 0 0;
-		li {
-			margin: 0 #{$lh}em #{$lh}em 0;
-			flex: 0 0 200px;
-			text-align: center;
-			font-size: .7em;
-			img {
-				margin-bottom: 0;
-			}
 		}
 	}
 }

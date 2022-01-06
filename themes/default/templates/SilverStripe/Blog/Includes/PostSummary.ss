@@ -1,6 +1,12 @@
 <a href="$Link" class="post-summary">
 	<% if $getDefaultOGImage(1).ID %><figure>
-		<img height="$getDefaultOGImage(1).FocusFillMax(340,170).Height()" width="$getDefaultOGImage(1).FocusFillMax(340,170).Height()" src="$getDefaultOGImage(1).FocusFillMax(340,170).URL" srcset="$getDefaultOGImage(1).FocusFillMax(340,170).URL 1x, $getDefaultOGImage(1).FocusFillMax(680,340).URL 2x" alt="$Title" />
+		<img
+			height="$getDefaultOGImage(1).FocusFillMax(340,170).Height()"
+			width="$getDefaultOGImage(1).FocusFillMax(340,170).Height()"
+			src="$getDefaultOGImage(1).FocusFillMax(340,170).URL"
+			srcset="$getDefaultOGImage(1).FocusFillMax(340,170).URL 1x,
+				$getDefaultOGImage(1).FocusFillMax(680,340).URL 2x"
+			alt="{$Title} {$Caption}" />
 	</figure><% end_if %>
 	<div class="txt">
 		<p>$PublishDate.Format('d. LLLL y')<% if $Authors %> | <% loop $Authors %>{$Name}<% if not $Last %>, <% end_if %><% end_loop %><% end_if %></p>

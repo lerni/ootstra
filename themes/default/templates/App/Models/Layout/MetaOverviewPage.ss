@@ -1,9 +1,8 @@
 <% include App/Includes/Header %>
+<% require themedCSS('dist/css/metaoverviewpage') %>
+<% require css("themes/default/thirdparty/fancybox/jquery.fancybox.min.css") %>
 <main class="typography">
-	<% if not $hasHero %>
-		<% include App/Includes/DefaultHero Page=$Me %>
-	<% end_if %>
-	<div class="inner">
+	<article class="element">
 		<% with $SiteConfig %>
 			<div id="default-meta" class="item default">
 				<h3><%t App\Models\MetaOverviewPage.DefaultItemTitle 'Default values in $SiteConfig' %> <a target="_blank" href="$Link">$Link</a> &#x2192; <a href="/admin/settings/">edit</a></h3>
@@ -20,5 +19,5 @@
 		<% loop $MetaOverview %>
 			<% include App/Includes/MetaItem %>
 		<% end_loop %>
-	</div>
+	</article>
 </main>

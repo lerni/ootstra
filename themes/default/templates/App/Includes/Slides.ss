@@ -49,8 +49,8 @@
 							</figure>
 						<% else_if $Up.Up.Size == "medium" %>
 							<figure <% if $LinkID %>class="linked"<% end_if %>><img sizes="100vw"
-								height="$SlideImage.FocusFillMax(1440,810).Height()"
-								width="$SlideImage.FocusFillMax(1440,810).Width()"
+								height="$SlideImage.FocusFillMax(1440,650).Height()"
+								width="$SlideImage.FocusFillMax(1440,650).Width()"
 								<% if not $First %>loading="lazy" <% end_if %>
 								alt="$SlideImage.Title"
 								style="object-position: {$SlideImage.FocusFillMax(1440,650).FocusPoint.PercentageX}% {$SlideImage.FocusFillMax(1440,650).FocusPoint.PercentageY}%;"

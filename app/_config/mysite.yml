@@ -58,8 +58,10 @@ Page:
   childrenexcluded:
     default:
       - SilverStripe\Blog\Model\BlogPost
-    metaoverview:
       - SilverStripe\CMS\Model\RedirectorPage
+      - App\Models\MetaOverviewPage
+    metaoverview:
+      - App\Models\MetaOverviewPage
 
 SilverStripe\Blog\Model\BlogCategory:
   extensions:

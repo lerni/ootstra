@@ -1,4 +1,4 @@
-<div class="inner typography">
+<div class="typography">
 	<% include App/Includes/ElementTitle %>
 	<% if $Everybody %>
 		<% if $Sorting == "random" %>

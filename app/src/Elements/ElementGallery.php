@@ -37,6 +37,10 @@ class ElementGallery extends BaseElement
         'GalleryFolder'
     ];
 
+    private static $defaults = [
+        'SitemapImageExpose' => 1
+    ];
+
     private static $table_name = 'ElementGallery';
 
     private static $description = 'Gallery Element';

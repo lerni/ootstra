@@ -6,6 +6,7 @@ use Page;
 use PageController;
 use SilverStripe\Security\Security;
 use SilverStripe\View\Requirements;
+use SilverStripe\Core\Config\Config;
 use SilverStripe\Security\Permission;
 use SilverStripe\CMS\Model\RedirectorPage;
 
@@ -51,9 +52,17 @@ class MetaOverviewPage extends Page
     public function MetaOverview($ParentID = 0) {
         $pages = Page::get()->filter([
             'ParentID' => $ParentID
-            // 'ShowInSearch' => 1
         ]);
-        $pages = $pages->exclude('ClassName', RedirectorPage::class);
+
+        $conf = Config::inst()->get('Page', 'childrenexcluded');
+
+        if (array_key_exists('metaoverview', $conf)) {
+            $exclude = $conf['metaoverview'];
+            if (isset($exclude) && is_array($exclude)) {
+                $pages = $pages->exclude('ClassName', $exclude);
+            }
+        }
+
         return $pages;
     }
 }
