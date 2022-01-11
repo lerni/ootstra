@@ -5,7 +5,7 @@
 			<li class="graph undiscovered">
 				<span class="counter" data-count="$Value">$Value</span><br />
 				<h4>{$Title}</h4>
-				<p>{$Text}</p>
+				<p>{$Text.Markdowned}</p>
 			</li>
 		<% end_loop %>
 	</ul>

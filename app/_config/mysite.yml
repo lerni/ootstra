@@ -52,13 +52,16 @@ SilverStripe\Forms\HTMLEditor\TinyMCEConfig:
   image_size_presets:
     - width: 1223
 
+SilverStripe\Forms\HTMLEditor\HTMLEditorField:
+    default_classes:
+      stacked: stacked
+
 Page:
   extensions:
     - App\Extensions\PageSchemaExtension
   childrenexcluded:
     default:
       - SilverStripe\Blog\Model\BlogPost
-      - SilverStripe\CMS\Model\RedirectorPage
       - App\Models\MetaOverviewPage
     metaoverview:
       - App\Models\MetaOverviewPage
@@ -72,7 +75,7 @@ SilverStripe\Blog\Model\Blog:
     - App\Extensions\BlogExtension
 
 SilverStripe\Blog\Model\BlogPost:
-  show_in_sitetree: true
+  show_in_sitetree: false
   default_sort: 'Sort ASC, PublishDate DESC'
   extensions:
     - App\Extensions\BlogPostExtension

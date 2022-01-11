@@ -19,7 +19,6 @@ class ElementContentExtension extends Extension
 
         if ($TextEditor = $fields->dataFieldByName('HTML')) {
             $TextEditor->setRows(30);
-            $TextEditor->addExtraClass('stacked');
             $TextEditor->setAttribute('data-mce-body-class', $this->owner->ShortClassName('true'));
         }
     }

@@ -126,7 +126,7 @@
 								<% if $Text %><div class="inner">
 									<div class="spacer">
 										<% if $ShowTitle %><h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %>>$Title</h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %>><% end_if %>
-										<p>$Text</p>
+										<p>$Text.Markdowned</p>
 									</div>
 								</div><% end_if %>
 							<% if $LinkID %></a><% else %></div><% end_if %>

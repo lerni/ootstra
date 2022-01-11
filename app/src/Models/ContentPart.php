@@ -49,7 +49,6 @@ class ContentPart extends DataObject
 
         if ($TextEditorField = $fields->dataFieldByName('Text')) {
             $TextEditorField->setRows(30);
-            $TextEditorField->addExtraClass('stacked');
         }
 
         // Add a combined field for "Title" and "Displayed" checkbox in a Bootstrap input group

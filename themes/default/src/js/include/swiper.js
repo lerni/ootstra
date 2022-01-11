@@ -5,10 +5,11 @@ import {
   Navigation,
   Pagination,
   Autoplay,
-  EffectFade
+  EffectFade,
+  Keyboard
 } from 'swiper';
 
-Swiper.use([Navigation, Pagination, Autoplay, EffectFade]);
+Swiper.use([Navigation, Pagination, Autoplay, EffectFade, Keyboard]);
 
 var heroSwiper = document.querySelectorAll('.swiper-container.hero');
 Array.prototype.forEach.call(heroSwiper, function (slider) {

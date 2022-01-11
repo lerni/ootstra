@@ -23,6 +23,13 @@
 				}
 				&.default {
 					background-color: $gray-lighter;
+					display: block;
+					h3 {
+						margin-bottom: #{$lh*.5}em;
+					}
+					.edit {
+						top: #{$lh*.5}em;
+					}
 				}
 				&.no-images {
 					column-gap: 0;
@@ -32,6 +39,18 @@
 				}
 				&.not-showed-in-search {
 					border-color: yellowgreen;
+				}
+				&.redirectorpage {
+					background-color: $gray-lighter;
+				}
+				.edit {
+					position: absolute;
+					right: #{$lh*.5}em;
+					&::before {
+						font-family: silverstripe;
+						content: "N";
+						color: $lauftext-color;
+					}
 				}
 				figure {
 					margin: 0;
@@ -108,11 +127,16 @@
 					max-width: 200px;
 					font-size: .7em;
 					padding: 0;
-					a {
-						p,
-						h4 {
-							color: $lauftext-color;
-						}
+					position: relative;
+					p,
+					h4 {
+						color: $lauftext-color;
+					}
+					h4 {
+						padding-right: #{$lh}em;
+					}
+					.edit {
+						right: 0;
 					}
 					img {
 						margin-bottom: 0;

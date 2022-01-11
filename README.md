@@ -84,6 +84,8 @@ SS_DATABASE_USERNAME=""
 SS_DATABASE_PASSWORD=""
 SS_DATABASE_SERVER="127.0.0.1"
 
+SS_ERROR_LOG="silverstripe.log"
+
 GHOSTSCRIPT_PATH="/usr/local/bin/gs"
 ```
 

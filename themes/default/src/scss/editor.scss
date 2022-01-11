@@ -1,17 +1,25 @@
 /* For CMS HtmlEditorField
 ---------------------------------------------------------------------------------- */
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@200;400&display=swap');
 
-// @font-face {
-//     font-family: "icons";
-//     src:url("/_resources/themes/default/dist/webfonts/icons.eot");
-//     src:url("/_resources/themes/default/dist/webfonts/icons.eot?#iefix") format("embedded-opentype"),
-//         url("/_resources/themes/default/dist/webfonts/icons.woff") format("woff"),
-//         url("/_resources/themes/default/dist/webfonts/icons.woff2") format("woff2"),
-//         url("/_resources/themes/default/dist/webfonts/icons.ttf") format("truetype");
-//     font-weight: normal;
-//     font-style: normal;
-// }
+@font-face {
+	font-family: 'IBM Plex Sans';
+	font-style: normal;
+	font-weight: 200;
+	font-display: swap;
+	src: local(''),
+		url("/_resources/themes/default/dist/webfonts/ibm-plex-sans-v9-latin-200.woff2") format('woff2'),
+		url("/_resources/themes/default/dist/webfonts/ibm-plex-sans-v9-latin-200.woff") format('woff');
+}
+@font-face {
+	font-family: 'IBM Plex Sans';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: local(''),
+		url("/_resources/themes/default/dist/webfonts/ibm-plex-sans-v9-latin-regular.woff2") format('woff2'),
+		url("/_resources/themes/default/dist/webfonts/ibm-plex-sans-v9-latin-regular.woff") format('woff');
+}
+
 @import 'includes/variables';
 @import 'includes/mixins';
 @import 'includes/typography';

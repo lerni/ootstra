@@ -56,7 +56,6 @@ class ElementContentSection extends BaseElement
         if ($TextEditorField = $fields->dataFieldByName('HTML')) {
             $TextEditorField->setRows(16);
             $TextEditorField->setAttribute('data-mce-body-class', $this->ShortClassName());
-            $TextEditorField->addExtraClass('stacked');
         }
 
         $fields->removeByName('ContentParts');

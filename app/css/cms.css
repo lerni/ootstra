@@ -98,6 +98,10 @@ fieldset.grid {
 	padding-left: 0;
 	padding-right: 0;
 }
+/* if HTMLEditor is stacked */
+.custom-summary .ui-accordion-content .field .mce-container {
+	max-width: calc(100% - 2px);
+}
 
 .ss-toggle .ui-accordion-content,
 .ss-toggle .ui-accordion-content .field {
@@ -124,9 +128,11 @@ fieldset.grid {
 }
 
 /* thumbnail preview marke used if GF on ProductPage */
+/* preview ElementLogo */
 .col-LogoImage-PreviewThumbnail img,
 .col-Logo-PreviewThumbnail img {
-	max-width: 100px;
+	max-width: 200px;
+	height: auto;
 }
 
 /* prevent description being shown inline */

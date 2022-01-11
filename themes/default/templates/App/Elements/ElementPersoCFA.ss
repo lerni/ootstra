@@ -12,7 +12,7 @@
 				<h2>{$Firstname} {$Lastname}</h2>
 				<p>
 					<% if $Position %>
-						<span class="position">$Position</span>
+						<span class="position">$Position.Markdowned</span>
 					<% end_if %>
 					<a href="mailto:{$EMail}"></a>
 				</p>

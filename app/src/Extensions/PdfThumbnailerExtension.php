@@ -40,7 +40,7 @@ class PdfThumbnailerExtension extends Extension
         $absolute_filename = $base . '/public/assets/' . $original_filename_relative . '.page-' . (int)$page . '.jpg';
 
         // Check for existing cached thumbnail and date
-        if (file_exists($absolute_filename)) {
+        if (is_file($absolute_filename)) {
             if (filemtime($absolute_filename) > filemtime($original_filename_absolute)) {
                 $img = Image::get()->filter(['FileFilename' => $filename_relative])->first();
                 if ($img) return $img;

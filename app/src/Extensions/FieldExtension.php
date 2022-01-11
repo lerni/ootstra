@@ -11,9 +11,15 @@ use libphonenumber\PhoneNumberUtil;
 use libphonenumber\PhoneNumberFormat;
 use libphonenumber\NumberParseException;
 use SilverStripe\View\Parsers\URLSegmentFilter;
+use League\CommonMark\GithubFlavoredMarkdownConverter;
 
 class FieldExtension extends Extension
 {
+
+    private static $casting = [
+        'Markdowned' => 'HTMLFragment',
+    ];
+
     public function CountLink()
     {
         $stringwithnoemptylines = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $this->owner->value);
@@ -82,5 +88,11 @@ class FieldExtension extends Extension
             $number = str_replace('+', '', $number);
             return '00' . $number;
         }
+    }
+
+    public function Markdowned() {
+        $converter = new GithubFlavoredMarkdownConverter();
+        $html = $converter->convertToHtml($this->owner->value);
+        return $html->getContent();
     }
 }

@@ -1,7 +1,5 @@
 // // FancyApps
-// window.fancybox = require('@fancyapps/fancybox');
-// we require this in template - bundle gets to fat
-
+window.fancybox = require('@fancyapps/fancybox');
 $(document).ready(function() {
   if (typeof fancybox === 'object') {
     $("[data-fancybox]").fancybox({

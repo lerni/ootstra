@@ -9,6 +9,7 @@ use SilverStripe\ORM\DataExtension;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\GridField\GridFieldPaginator;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
 use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\GridField\GridFieldConfig_Base;
@@ -22,14 +23,17 @@ class BlogExtension extends DataExtension
     private static $db = [
         'Size' => 'Enum("small,medium,fullscreen","small")'
     ];
+
     private static $many_many = [
         'Slides' => Slide::class
     ];
+
     private static $many_many_extraFields = [
         'Slides' => [
             'SortOrder' => 'Int'
         ]
     ];
+
     private static $owns = [
         'Slides'
     ];
@@ -70,6 +74,12 @@ class BlogExtension extends DataExtension
             $fields->addFieldToTab('Root.Main', $SizeField, 'Content', true);
         } else {
             $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
+        }
+
+        if ($ChildPagesField = $fields->fieldByName('Root.ChildPages.ChildPages')) {
+            $ChildPagesField->getConfig()
+                ->getComponentByType(GridFieldPaginator::class)
+                ->setItemsPerPage(100);
         }
     }
 

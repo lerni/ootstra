@@ -22,6 +22,11 @@ class BlogPostExtension extends DataExtension
 
     private static $has_one = [];
 
+    private static $summary_fields = [
+        'BlogThumbnail' => 'Thumbnail',
+        'Title' => 'Titel'
+    ];
+
     public function updateCMSFields(FieldList $fields)
     {
         $fields->removeByName('FeaturedImage');
@@ -57,6 +62,14 @@ class BlogPostExtension extends DataExtension
 
         if ($PublishDateField = $fields->fieldByName('Root.PostOptions.PublishDate')) {
             $PublishDateField->setDescription(_t('SilverStripe\Blog\Model\BlogPost.PublishDateDescription', 'geplante Veröffentlichung'));
+        }
+    }
+
+    public function BlogThumbnail()
+    {
+        // todo exists
+        if (is_object($this->owner->getDefaultOGImage()) && $this->owner->getDefaultOGImage()->exists()) {
+            return $this->owner->getDefaultOGImage()->CMSThumbnail();
         }
     }
 

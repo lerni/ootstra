@@ -40,4 +40,18 @@
 			}
 		}
 	}
+	.swiper-container.multiple {
+		.swiper-wrapper {
+			.swiper-slide {
+				width: auto;
+				outline: none;
+				img {
+					margin-bottom: 0;
+				}
+			}
+		}
+	}
+}
+body.compensate-for-scrollbar {
+	overflow-y: initial;
 }

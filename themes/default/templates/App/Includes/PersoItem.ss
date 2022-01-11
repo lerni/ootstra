@@ -9,7 +9,7 @@
 			<h2>{$Firstname} {$Lastname}</h2>
 			<p>
 				<% if $Position %>
-					<span class="position">$Position</span>
+					<span class="position">$Position.Markdowned</span>
 				<% end_if %>
 			</p>
 			<span class="pseudolink"><%t App\Elements\ElementPerso.MORE "Curriculum Vitae" %></span>
@@ -27,7 +27,6 @@
 		<div class="columned">
 			<div class="col">$Motivation</div>
 			<div class="col">
-				$Motivation2
 				<p>
 					<a class="vcard" href="{$Link}element/{$ElementID}/vcard/{$ID}">vCard</a><br/>
 					<a href="mailto:{$EMail}">{$EMail}</a>

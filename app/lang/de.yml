@@ -24,7 +24,7 @@ de:
     SITEMAPIMAGEEXPOSE: 'Bilder in sitemap.xml zeigen'
     DoNotCropDescription: 'Keine maximale Höhe in der Größe "mittel"'
     SIZE: 'Grösse/Höhe Header'
-    SizeDescription: '"fullscreen" erfordert "full width"!'
+    SizeDescription: 'medium entspricht 16:9, "fullscreen" erfordert "full width"!'
   App\Elements\ElementLogo:
     BlockType: 'Logos (Partner)'
   App\Elements\ElementMaps:
@@ -215,7 +215,7 @@ de:
   JonoM\ShareCare\ShareCare:
     TabName: 'Feed & Share'
   JonoM\ShareCare\ShareCareFields:
-    CMSMessage: 'Die Vorschau wird automatisch aus dem Inhalt generiert. Die generierten Werte können hier manuell überschrieben werden.<br><strong>Generell sollte nur etwas erfasst werden, wenn der Inhalt vom Defaultwerte (kursiv) abweicht. Defaultwert für das Bild ist das 1. Slide vom Hero resp. ein Icon als "Fallback", die "Share Beschreibung" basiert auf der Metadescription, resp. im Falle eines BlogPosts auf der Zusammenfassung und verwendet als "Fallback" die globale MetaDescription von "Einstellungen/SiteConfig".</strong>'
+    CMSMessage: 'Die Vorschau wird automatisch aus dem Inhalt generiert. Die generierten Werte können hier manuell überschrieben werden.<br><strong>Generell sollte nur etwas erfasst werden, wenn der Inhalt vom Defaultwerte (kursiv) abweicht. Als Bild wird per default das 1. Bild der xml-sitemap resp. ein Icon als "Fallback" verwendet. Die "Share Beschreibung" basiert auf der Metadescription, resp. im Falle eines BlogPosts auf der Zusammenfassung und verwendet als "Fallback" die globale MetaDescription von "Einstellungen/SiteConfig".</strong>'
   DNADesign\Elemental\Forms\TextCheckboxGroupField:
     TitleLabel: 'Titel'
   SilverStripe\Forms\GridField\GridField:

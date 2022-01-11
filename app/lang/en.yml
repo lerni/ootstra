@@ -24,3 +24,7 @@ en:
     MODALLINK: 'Cookies'
   SilverStripe\CMS\Controllers\CMSMain:
     SaveFirst: 'Please save the element first, then sub-elements can be entered.'
+  JonoM\ShareCare\ShareCare:
+    TabName: 'Feed & Share'
+  JonoM\ShareCare\ShareCareFields:
+    CMSMessage: 'The preview is generated automatically from the content. The generated values can be overwritten manually here.<br><strong>In general, just add something, if the content deviates from the default values (italics). The default picture is the 1st picture of the xml-sitemap resp. an icon is used as a "fallback". The "share description" is based on the meta description, respectively in the case of a BlogPost summary is used and it uses the global MetaDescription from "Settings / SiteConfig" as a "fallback". </strong>'

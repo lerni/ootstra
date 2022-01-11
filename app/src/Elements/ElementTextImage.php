@@ -13,10 +13,13 @@ class ElementTextImage extends BaseElement
         'ElementLayout' => 'Enum("Image, Text", "Image")',
         'ImageCover' => 'Boolean'
     ];
+
     private static $has_one = [
         'Image' => Image::class
     ];
+
     private static $has_many = [];
+
     private static $many_many = [];
 
     private static $owns = [
@@ -44,10 +47,6 @@ class ElementTextImage extends BaseElement
     {
         $fields = parent::getCMSFields();
         $fields->removeByName('BackgroundColor');
-
-        if ($TextEditorField = $fields->dataFieldByName('HTML')) {
-            $TextEditorField->addExtraClass('stacked');
-        }
 
         if ($uploadField = $fields->dataFieldByName('Image')) {
             $uploadField->setFolderName('TextImageElement');

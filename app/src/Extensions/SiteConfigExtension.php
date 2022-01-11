@@ -84,7 +84,6 @@ class SiteConfigExtension extends Extension
 
         $fields->addFieldsToTab('Root.Main', $GlobalAlertField = HTMLEditorField::create('GlobalAlert'));
         $GlobalAlertField->setRows(14);
-        $GlobalAlertField->addExtraClass('stacked');
         $GlobalAlertField->setAttribute('data-mce-body-class', 'global-alert');
 
         $fields->addFieldToTab(

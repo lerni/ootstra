@@ -2,22 +2,23 @@
 
 namespace Kraftausdruck\Admin;
 
-use Kraftausdruck\Models\JobPosting;
-use Kraftausdruck\Models\JobDefaults;
-use App\Models\Point;
 use SilverStripe\Admin\ModelAdmin;
 use SilverStripe\Control\Director;
+use Kraftausdruck\Models\JobPosting;
 use SilverStripe\Forms\LiteralField;
+use JonoM\SomeConfig\SomeConfigAdmin;
+use Kraftausdruck\Models\JobDefaults;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 
 
 class JobsAdmin extends ModelAdmin
 {
 
+    use SomeConfigAdmin;
+
     private static $managed_models = [
         JobPosting::class,
         JobDefaults::class,
-        // Point::class
     ];
 
     private static $menu_icon_class = 'font-icon-torso';

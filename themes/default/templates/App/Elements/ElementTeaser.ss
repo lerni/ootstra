@@ -7,7 +7,7 @@
 					<% if $Image %><figure><img width="$Image.FocusFillMax(340,170).Width()" height="$Image.FocusFillMax(340,170).Height()" src="$Image.FocusFillMax(340,170).URL" srcset="$Image.FocusFillMax(340,170).URL 1x, $Image.FocusFillMax(680,340).URL 2x" alt="$Title" /></figure><% end_if %>
 					<div class="txt">
 						<% if $Title %><h4>$Title</h4><% end_if %>
-						<% if $Text %>$ParsedText<% end_if %>
+						<% if $Text %>$Text.Markdowned<% end_if %>
 					</div>
 					<% if $RelatedPageID %><span class="pseudolink"><% if $Action %>{$Action}<% else %><%t App\Models\Teaser.MORE "Learn more" %><% end_if %></span><% end_if %>
 				<% if $RelatedPageID %></a><% else %></span><% end_if %>
@@ -22,7 +22,7 @@
 					<div class="txt">
 						<% if $Title %><h4>$Title</h4><% end_if %>
 						<div class="accordion">
-							<% if $Text %>$ParsedText<% end_if %>
+							<% if $Text %>$Text.Markdowned<% end_if %>
 							<% if $RelatedPageID %><span class="pseudolink"><% if $Action %>{$Action}<% else %><%t App\Models\Teaser.MORE "Learn more" %><% end_if %></span><% end_if %>
 						</div>
 					</div>
@@ -38,7 +38,7 @@
 					<div class="txt">
 						<% if $Title %><h4>$Title</h4><% end_if %>
 						<div class="accordion">
-							<% if $Text %>$ParsedText<% end_if %>
+							<% if $Text %>$Text.Markdowned<% end_if %>
 							<% if $RelatedPageID %><span class="pseudolink"><% if $Action %>{$Action}<% else %><%t App\Models\Teaser.MORE "Learn more" %><% end_if %></span><% end_if %>
 						</div>
 					</div>

@@ -59,7 +59,6 @@ namespace {
 
                 if ($TextEditor = $fields->dataFieldByName('Content')) {
                     $TextEditor->setRows(30);
-                    $TextEditor->addExtraClass('stacked');
                     $TextEditor->setAttribute('data-mce-body-class', $this->ShortClassName($this));
                 }
             });
@@ -78,7 +77,7 @@ namespace {
                     if (!$MetaDescriptionField->isReadonly()) {
                         $MetaDescriptionField->setTargetLength(160, 100, 160);
                         $MetaDescriptionField->setAttribute('placeholder', $this->DefaultMetaDescription());
-                        $MetaDescriptionField->setRightTitle(_t('\Page.MetaDescriptionRightTitle', 'Used in search engine results when length fits and relevance is given; hardly affects the SEO position. Appealing meta-descriptions (especially the first ~ 55 characters -> sitelinks) have a strong influence on the click rate.'));
+                        $MetaDescriptionField->setRightTitle(_t('\Page.MetaDescriptionRightTitle', 'Used in search engine results when length fits and relevance is given; hardly affects SEO position. Appealing meta-descriptions (especially the first ~ 55 characters -> sitelinks) have a strong influence on the click rate.'));
                     }
                 }
 
@@ -185,13 +184,13 @@ namespace {
             return $title_return;
         }
 
-        public function getDefaultOGDescription()
+        public function getDefaultOGDescription($limitChar = 0, $limitWordCount = 20)
         {
             $descreturn = '';
 
             // Use MetaDescription if set
             if ($this->MetaDescription) {
-                $description = trim($this->MetaDescription);
+                $description = trim($this->obj('MetaDescription')->Summary($limitWordCount, 5));
                 if (!empty($description)) {
                     $descreturn = $description;
                 }
@@ -199,7 +198,7 @@ namespace {
 
             // In case of BlogPost use Summary it set
             if ($this->ClassName == 'SilverStripe\Blog\Model\BlogPost' && $this->Summary) {
-                $description = trim($this->obj('Summary')->Summary(20, 5));
+                $description = trim($this->obj('Summary')->Summary($limitWordCount, 5));
                 if (!empty($description)) {
                     $descreturn = strip_tags($description);
                 }
@@ -220,21 +219,35 @@ namespace {
             if (!$descreturn) {
                 // Fall back to Content
                 if ($this->Content) {
-                    $description = trim($this->obj('Content')->Summary(20, 5));
+                    $description = trim($this->obj('Content')->Summary($limitWordCount, 5));
                     if (!empty($description)) {
                         $descreturn = $description;
                     }
                 }
                 if ($this->hasExtension('DNADesign\Elemental\Extensions\ElementalPageExtension')) {
-                    $descreturn = trim(($this->obj('getElementsForSummary')->Summary(20, 5)));
+                    $descreturn = trim(($this->obj('getElementsForSummary')->Summary($limitWordCount, 5)));
                 }
             }
+
+            if ($limitChar && strlen($descreturn) > $limitChar) {
+                $descreturn = substr($descreturn, 0, $limitChar);
+            }
+
             return $descreturn;
         }
 
         // $origin = 1 -> not resized
         public function getDefaultOGImage($origin = 0)
         {
+            // todo: It appears getDefaultOGImage() could use first of ImagesForSitemap()
+            // but than we do not get images from virtual elements
+
+            // if ($this->ImagesForSitemap() && $this->ImagesForSitemap()->count()) {
+            //     $i = $this->ImagesForSitemap()->first();
+            // } else {
+            //     $i = null;
+            // }
+
             $i = null;
 
             if ($this->hasExtension(ElementalPageExtension::class)) {
@@ -286,9 +299,9 @@ namespace {
                 }
             }
 
-            if ($i != null) {
+            if ($i != null && $i->exists()) {
                 if (!$origin) {
-                    return $i->FocusFillMax(1200, 630);
+                    return ($i->getWidth() > 1200) ? $i->scaleWidth(1200) : $i;
                 } else {
                     return $i;
                 }

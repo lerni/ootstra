@@ -18,7 +18,9 @@ class ElementLogo extends BaseElement
     private static $db = [
         'Greyscale' => 'Boolean'
     ];
+
     private static $has_one = [];
+
     private static $many_many = [
         'Logos' => Logo::class
     ];

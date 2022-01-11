@@ -95,7 +95,6 @@ class Perso extends DataObject
         }
 
         if ($MotivationField = $fields->dataFieldByName('Motivation')) {
-            $MotivationField->addExtraClass('stacked');
             $MotivationField->setAttribute('data-mce-body-class', 'persoeditor');
             $MotivationField->setRows(10);
         }

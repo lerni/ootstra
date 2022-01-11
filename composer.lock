@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "86bdad1d890da88298c98d9e0c65bd58",
+    "content-hash": "2eee9f52eced93dc85c3e3743006bd86",
     "packages": [
         {
             "name": "axllent/silverstripe-email-obfuscator",
@@ -1162,16 +1162,16 @@
         },
         {
             "name": "giggsey/libphonenumber-for-php",
-            "version": "8.12.40",
+            "version": "8.12.41",
             "source": {
                 "type": "git",
                 "url": "https://github.com/giggsey/libphonenumber-for-php.git",
-                "reference": "cafb3497dce678e9643ec3eba38be251a67d7469"
+                "reference": "c7b9f89a25e37e8bb650a378c3eabcbdafedeafd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/cafb3497dce678e9643ec3eba38be251a67d7469",
-                "reference": "cafb3497dce678e9643ec3eba38be251a67d7469",
+                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/c7b9f89a25e37e8bb650a378c3eabcbdafedeafd",
+                "reference": "c7b9f89a25e37e8bb650a378c3eabcbdafedeafd",
                 "shasum": ""
             },
             "require": {
@@ -1231,7 +1231,7 @@
                 "issues": "https://github.com/giggsey/libphonenumber-for-php/issues",
                 "source": "https://github.com/giggsey/libphonenumber-for-php"
             },
-            "time": "2021-12-23T11:54:39+00:00"
+            "time": "2022-01-11T10:10:37+00:00"
         },
         {
             "name": "giggsey/locale",
@@ -2093,6 +2093,65 @@
             "time": "2021-07-29T22:16:36+00:00"
         },
         {
+            "name": "jonom/silverstripe-someconfig",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jonom/silverstripe-someconfig.git",
+                "reference": "696143341849a5af7d3946418f2279467658468b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jonom/silverstripe-someconfig/zipball/696143341849a5af7d3946418f2279467658468b",
+                "reference": "696143341849a5af7d3946418f2279467658468b",
+                "shasum": ""
+            },
+            "require": {
+                "silverstripe/framework": "^4.0"
+            },
+            "type": "silverstripe-vendormodule",
+            "autoload": {
+                "psr-4": {
+                    "JonoM\\SomeConfig\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Jono Menz",
+                    "homepage": "https://jonomenz.com"
+                }
+            ],
+            "description": "Combines the CRUD features of ModelAdmin with the singleton settings editing of SiteConfig so content and settings can be co-located.",
+            "keywords": [
+                "config",
+                "configuration",
+                "model admin",
+                "modeladmin",
+                "silverstripe",
+                "site config",
+                "siteconfig"
+            ],
+            "support": {
+                "issues": "https://github.com/jonom/silverstripe-someconfig/issues",
+                "source": "https://github.com/jonom/silverstripe-someconfig/tree/1.0.1"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.me/jmnz",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/jonom",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-01-05T07:57:00+00:00"
+        },
+        {
             "name": "jonom/silverstripe-text-target-length",
             "version": "2.0.2",
             "source": {
@@ -2664,16 +2723,16 @@
         },
         {
             "name": "lerni/folderindex",
-            "version": "dev-master",
+            "version": "0.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lerni/folderindex.git",
-                "reference": "8e320e9d2b77c2ae57ab5aaf3d8ef65e35a43937"
+                "reference": "b02b695c039f9dbb810b55c7a7cd29f726d642f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lerni/folderindex/zipball/8e320e9d2b77c2ae57ab5aaf3d8ef65e35a43937",
-                "reference": "8e320e9d2b77c2ae57ab5aaf3d8ef65e35a43937",
+                "url": "https://api.github.com/repos/lerni/folderindex/zipball/b02b695c039f9dbb810b55c7a7cd29f726d642f1",
+                "reference": "b02b695c039f9dbb810b55c7a7cd29f726d642f1",
                 "shasum": ""
             },
             "require": {
@@ -2682,7 +2741,6 @@
             "suggest": {
                 "gorriecoe/silverstripe-robots": "robots.txt generation for Silverstripe"
             },
-            "default-branch": true,
             "type": "silverstripe-vendormodule",
             "autoload": {
                 "psr-4": {
@@ -2704,9 +2762,9 @@
             ],
             "support": {
                 "issues": "https://github.com/lerni/folderindex/issues",
-                "source": "https://github.com/lerni/folderindex/tree/master"
+                "source": "https://github.com/lerni/folderindex/tree/0.0.6"
             },
-            "time": "2022-01-06T20:49:44+00:00"
+            "time": "2022-01-07T07:33:31+00:00"
         },
         {
             "name": "lerni/klaro-cookie-consent",
@@ -3387,12 +3445,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/lerni/silverstripe-webp-image.git",
-                "reference": "3a421a90ba5394d70f41528284b020ce054756e5"
+                "reference": "9fdc1eedbd39647fcb3d5e29a4ecc58b6e644324"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lerni/silverstripe-webp-image/zipball/3a421a90ba5394d70f41528284b020ce054756e5",
-                "reference": "3a421a90ba5394d70f41528284b020ce054756e5",
+                "url": "https://api.github.com/repos/lerni/silverstripe-webp-image/zipball/9fdc1eedbd39647fcb3d5e29a4ecc58b6e644324",
+                "reference": "9fdc1eedbd39647fcb3d5e29a4ecc58b6e644324",
                 "shasum": ""
             },
             "require": {
@@ -3433,7 +3491,7 @@
                 "issues": "https://github.com/nomidi/silverstripe-webp-image/issues",
                 "source": "https://github.com/lerni/silverstripe-webp-image/tree/master"
             },
-            "time": "2021-12-07T22:39:19+00:00"
+            "time": "2022-01-11T13:17:41+00:00"
         },
         {
             "name": "psr/cache",
@@ -9593,7 +9651,6 @@
         "silverstripe/selectupload": 20,
         "nomidi/silverstripe-webp-image": 20,
         "lerni/klaro-cookie-consent": 20,
-        "lerni/folderindex": 20,
         "lerni/samesite-cookie-patch": 20,
         "silverstripe/sitetreeimporter": 20
     },

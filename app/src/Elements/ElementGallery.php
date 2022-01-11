@@ -14,7 +14,7 @@ class ElementGallery extends BaseElement
 {
     private static $db = [
         'CropGalleryThumbsByWidth' => 'Boolean',
-        'Layout' => 'Enum("left,center,right", "center")',
+        'Layout' => 'Enum("left,center,right,slider", "center")',
         'SitemapImageExpose' => 'Boolean'
     ];
 
@@ -102,11 +102,12 @@ class ElementGallery extends BaseElement
         return $r;
     }
 
-    // protected function provideBlockSchema()
+    // public function updateBlockSchema(array &$blockSchema)
     // {
     // 	$blockSchema = parent::provideBlockSchema();
-    // 	if ($this->Items()->first()->exists()) {
-    // 		$blockSchema['fileURL'] = $this->Items()->First()->CMSThumbnail()->getURL();
+    // 	if ($this->Items() && $this->Items()->first()->exists()) {
+    //         $url = $this->Items()->first()->CMSThumbnail()->getURL();
+    //         $blockSchema['fileURL'] = $url;
     // 	}
     //     return $blockSchema;
     // }
