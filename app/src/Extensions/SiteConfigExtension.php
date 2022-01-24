@@ -6,7 +6,7 @@ use App\Models\Location;
 use App\Models\SocialLink;
 use SilverStripe\Assets\Image;
 use gorriecoe\Link\Models\Link;
-use SilverStripe\Core\Extension;
+use SilverStripe\ORM\DataExtension;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\HeaderField;
@@ -25,7 +25,7 @@ use SilverStripe\Forms\GridField\GridFieldFilterHeader;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
-class SiteConfigExtension extends Extension
+class SiteConfigExtension extends DataExtension
 {
     private static $db = [
         'MetaDescription' => 'Varchar',
@@ -59,6 +59,7 @@ class SiteConfigExtension extends Extension
             'SortOrder' => 'Int'
         ]
     ];
+
     private static $owns = [
         'DefaultHeaderImage'
     ];

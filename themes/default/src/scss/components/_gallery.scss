@@ -44,8 +44,18 @@
 		.swiper-wrapper {
 			.swiper-slide {
 				width: auto;
-				outline: none;
+				@include breakpoint($Lneg) {
+					height: 500px;
+				}
+				@include breakpoint($Mneg) {
+					height: 400px;
+				}
+				@include breakpoint($Mneg) {
+					height: 240px;
+				}
 				img {
+					height: 100%;
+					width: auto;
 					margin-bottom: 0;
 				}
 			}

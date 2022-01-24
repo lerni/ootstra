@@ -11,6 +11,7 @@ use SilverStripe\View\Requirements;
 use SilverStripe\Control\Controller;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\TextareaField;
+use SilverStripe\Versioned\Versioned;
 use SilverStripe\Forms\ToggleCompositeField;
 use SilverStripe\View\Parsers\URLSegmentFilter;
 use SilverStripe\CMS\Controllers\RootURLController;
@@ -36,9 +37,9 @@ class UrlifyExtension extends Extension
         'URLSegment' => true
     ];
 
-    private static $defaults = array(
+    private static $defaults = [
         'URLSegment' => 'new-item'
-    );
+    ];
 
     public function fieldLabels($includerelations = true)
     {
@@ -192,6 +193,50 @@ class UrlifyExtension extends Extension
             $anchor .= '-' . $this->owner->ID;
         }
         return $anchor;
+    }
+
+    public function ExplicitLiveParent()
+    {
+        $id = $this->owner->Parent()->getPage()->ID;
+        $parent = Versioned::get_by_stage(ElementPage::class, 'Live')->filter('ID', $id)->first();
+        return $parent;
+    }
+
+    public function hasParentPage()
+    {
+        if ($this->owner->hasMethod('ExplicitLiveParent')) {
+            return $this->owner->ExplicitLiveParent();
+        }
+
+        return false;
+    }
+
+    public function Link($action = NULL)
+    {
+        $link = 'false';
+        if ($this->hasParentPage()) {
+            $base = Director::baseURL();
+            $relativeLink = $this->owner->RelativeLink($action);
+            $link =  Controller::join_links($base, $relativeLink);
+
+            if (Controller::curr()->urlParams['Action'] == 'job') {
+
+                $c = Controller::curr();
+
+                // todo: primary should be respected here!!!
+                $siteURL = $c->Link();
+                $relativeLink = $this->owner->RelativeLink($action);
+                $action = $c->urlParams['Action'];
+                $id = $c->urlParams['ID'];
+                $link = Controller::join_links(
+                    $base,
+                    $relativeLink,
+                    $action,
+                    $id
+                );
+            }
+        }
+        return $link;
     }
 
     // URL

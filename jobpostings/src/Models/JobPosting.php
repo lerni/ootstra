@@ -4,6 +4,7 @@ namespace Kraftausdruck\Models;
 
 use App\Models\Location;
 use App\Models\ElementPage;
+use App\Models\JobDefaults;
 use Spatie\SchemaOrg\Schema;
 use SilverStripe\Assets\File;
 use SilverStripe\Assets\Image;
@@ -212,7 +213,6 @@ class JobPosting extends DataObject
         return $result;
     }
 
-
     public function JobPostingSchema()
     {
 
@@ -306,13 +306,6 @@ class JobPosting extends DataObject
         return $entries;
     }
 
-    public function ExplicitLiveParentLink()
-    {
-        $id = $this->Parent()->getPage()->ID;
-        $link = Versioned::get_by_stage(ElementPage::class, 'Live')->filter('ID', $id)->first()->Link();
-        return $link;
-    }
-
     public function getAddressLocalityAsString()
     {
         return implode(', ', $this->JobLocations()->Column('Town'));
@@ -339,11 +332,5 @@ class JobPosting extends DataObject
             $datediff = $html;
         }
         return $datediff;
-    }
-
-    // Feedteaser
-    public function link()
-    {
-        return $this->AbsoluteLink();
     }
 }

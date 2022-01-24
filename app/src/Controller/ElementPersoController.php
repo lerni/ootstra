@@ -69,10 +69,10 @@ class ElementPersoController extends ElementController
             } else {
                 $base = Director::baseFolder();
             }
-            $original_filename_relative  = $perso->Portrait()->getFilename();
-            $original_filename_absolute  = $base . '/public/assets/' . $original_filename_relative;
+            $original_filename_relative  = $perso->Portrait()->FocusFillMax(305,400)->Link();
+            $original_filename_absolute  = $base . '/public' . $original_filename_relative;
+
             if ($perso->Portrait() && $perso->Portrait()->exists()) {
-                // $vcard->addPhoto(Director::protocolAndHost() . '/' . $perso->Portrait()->ScaleMaxWidth(400)->Link());
                 $vcard->addPhoto($original_filename_absolute);
             }
 

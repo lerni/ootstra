@@ -39,6 +39,11 @@ SilverStripe\ORM\FieldType\DBField:
     - App\Extensions\FieldExtension
 
 SilverStripe\ORM\FieldType\DBText:
+  summarySentenceSeparators:
+    - '.'
+    - '?'
+    - '!'
+    - ':'
   extensions:
     - App\Extensions\TabTableExtension
 
@@ -269,16 +274,16 @@ gorriecoe\Robots\Robots:
   sitemap: ''
   disallow_unsearchable: true
 
----
-Only:
-  environment: 'dev'
----
-
-SilverStripe\Core\Injector\Injector:
-  SilverStripe\Control\Email\Email:
-    admin_email: '`SS_ADMIN_EMAIL`'
-    send_all_emails_to:
-      - '`SS_ADMIN_EMAIL`'
+#---
+#Only:
+#  environment: 'dev'
+#---
+#
+#SilverStripe\Core\Injector\Injector:
+#  SilverStripe\Control\Email\Email:
+#    admin_email: '`SS_ADMIN_EMAIL`'
+#    send_all_emails_to:
+#      - '`SS_ADMIN_EMAIL`'
 
 SilverStripe\View\SSViewer:
   source_file_comments: false

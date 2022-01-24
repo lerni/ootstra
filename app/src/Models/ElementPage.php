@@ -24,29 +24,6 @@ class ElementPage extends Page
 
     private static $description = 'Allows modular content composition with elements.';
 
-    public function CanonicalLink()
-    {
-        if (Controller::curr()->urlParams['Action'] == 'job') {
-            $c = Controller::curr();
-            $siteConfig = SiteConfig::current_site_config();
-            if ($siteConfig->CanonicalDomain) {
-                $base = trim($siteConfig->CanonicalDomain, '/');
-            } else {
-                $base = Director::absoluteBaseURL();
-            }
-            // todo: primary should be respected here!!!
-            $siteURL = $c->Link();
-            $action = $c->urlParams['Action'];
-            $id = $c->urlParams['ID'];
-            return Controller::join_links(
-                $base,
-                $siteURL,
-                $action,
-                $id
-            );
-        }
-    }
-
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();

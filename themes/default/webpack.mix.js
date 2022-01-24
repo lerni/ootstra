@@ -103,7 +103,6 @@ mix.webpackConfig({
 });
 
 // Setup task to copy + compress images
-// Setup task to copy + compress images
 mix.webpackConfig({
   plugins: [
     new CopyWebpackPlugin(
