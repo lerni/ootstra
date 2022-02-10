@@ -73,7 +73,8 @@ class ElementMapsController extends ElementController
                 $r->push($d);
             }
 
-            $this->getResponse()->addHeader("Content-Type", "application/json; charset=utf-8");
+            $this->getResponse()->addHeader('Content-Type', 'application/json; charset=utf-8');
+            $this->getResponse()->addHeader('X-Robots-Tag', 'noindex');
             if ($list->count()) {
                 return json_encode($r->toNestedArray());
             }

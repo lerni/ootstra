@@ -158,27 +158,6 @@ class Perso extends DataObject
         return true;
     }
 
-    public function Breadcrumbs($maxDepth = 20, $unlinked = false, $stopAtPageType = false, $showHidden = false)
-    {
-        $page = Controller::curr();
-        $pages = array();
-        $pages[] = $this->owner;
-        while ($page
-            && (!$maxDepth || count($pages) < $maxDepth)
-            && (!$stopAtPageType || $page->ClassName != $stopAtPageType)
-        ) {
-            if ($showHidden || $page->ShowInMenus || ($page->ID == $this->owner->ID)) {
-                $pages[] = $page;
-            }
-            $page = $page->Parent;
-        }
-        $template = new SSViewer('BreadcrumbsTemplate');
-
-        return $template->process($this->owner->customise(new ArrayData(array(
-            'Pages' => new ArrayList(array_reverse($pages)),
-        ))));
-    }
-
     public function PersoSchema() {
         $schemaPerson = Schema::person();
         $schemaPerson

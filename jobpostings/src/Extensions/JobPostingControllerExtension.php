@@ -31,6 +31,10 @@ class JobPostingControllerExtension extends Extension
                 $r['MetaDescription'] = $job->MetaDescription;
             }
 
+            $r['AbsoluteLink'] = $job->AbsoluteLink();
+            $r['Link'] = $job->Link();
+            $r['Breadcrumbs'] = $job->Breadcrumbs();
+
             return $r;
         } else {
             return $this->owner->httpError(404, _t(__CLASS__ . '.NotFound', 'Jobposting couldn\'t be found.'));

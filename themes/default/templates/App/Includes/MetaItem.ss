@@ -11,14 +11,14 @@
 <% end_if %>
 <div class="txt">
     <a  class="edit" alt="edit" href="/admin/pages/edit/show/{$ID}"></a>
-    <h3>$Title #{$Pos}</h3>
+    <h3>$Title #{$Pos} <span class="gray">(Title)</span></h3>
     <p>
         <a target="_blank" href="$Link">$Link</a><br/>
         <% if $ClassName != "SilverStripe\CMS\Model\RedirectorPage" %>
             <% if $MetaTitle %>
-                <span><strong>$MetaTitle</strong> ($MetaTitle.Length | min. 50 max. 60)</span><br>
+                <span><strong>$MetaTitle</strong>  <span class="gray">(Metatitle $MetaTitle.Length | min. 50 max. 60)</span></span><br>
             <% else %>
-                <i class="color-gray">$Title | $SiteConfig.Title</i> <a href="#default-meta">(Default Meta-Title -> \$Title | \$SiteConfig.Title)</a><br>
+                <br><i class="color-gray">$Title | $SiteConfig.Title</i><br><a href="#default-meta">(Default Meta-Title -> \$Title | \$SiteConfig.Title)</a><br><br>
             <% end_if %>
             <% if $MetaDescription %>
                 <span>$MetaDescription ($MetaDescription.Length | min. 100 max. 160)</span><br>
@@ -37,7 +37,7 @@
                     <a href="{$AbsoluteLink}"
                         data-type="image"
                         data-caption="{$Title}<br/>{$Caption}"
-                        data-fancybox="group{$Up.Pos}">
+                        data-fancybox="group{$Up.ID}">
                         <img src="{$AbsoluteLink}" alt="$Title" />
                     </a>
                     <a class="edit" alt="edit {$Title}" target="_blank" href="{$CMSEditLink}"></a>

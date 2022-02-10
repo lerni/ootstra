@@ -110,6 +110,18 @@ task('silverstripe:dev_build', function () {
 });
 
 
+task('silverstripe:htaccessperstage', function() {
+    $stage = Context::get()->getHost()->getConfig()->get('stage');
+    $pwd = getcwd();
+
+	// upload htaccess local if a specific version for the current stage exist
+    if(file_exists($pwd .'/deploy/' . $stage . '.htaccess')) {
+        writeln('Overwriting .htaccess with ' . $pwd .'/deploy/' . $stage . '.htaccess');
+	    upload('deploy/{{stage}}.htaccess', '{{release_path}}/public/.htaccess', ['delete' => true]);
+    }
+})->desc('upload/replace .htaccess stage specific');
+
+
 desc('Running Task Hydrate the focuspoint extension image size cache');
 task('silverstripe:focu_hydrate', function () {
 //     run('cd {{release_path}} && {{bin/php}} ./vendor/silverstripe/framework/cli-script.php dev/tasks/HydrateFocusPointTask "flush=1"');

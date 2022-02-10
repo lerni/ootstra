@@ -3,7 +3,10 @@
 namespace App\Extensions;
 
 use App\Models\ElementPage;
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\View\SSViewer;
 use SilverStripe\Core\Extension;
+use SilverStripe\View\ArrayData;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Control\Director;
@@ -11,7 +14,6 @@ use SilverStripe\View\Requirements;
 use SilverStripe\Control\Controller;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\TextareaField;
-use SilverStripe\Versioned\Versioned;
 use SilverStripe\Forms\ToggleCompositeField;
 use SilverStripe\View\Parsers\URLSegmentFilter;
 use SilverStripe\CMS\Controllers\RootURLController;
@@ -20,7 +22,6 @@ use SilverStripe\CMS\Forms\SiteTreeURLSegmentField;
 // WIP unify URLs on DataObject with Elemental
 // ATM we work with "Primary" Element but...
 // this functionality will likely change and 'll also be refractored into an extension
-// todo: Breadcrumbs -> Perso
 
 class UrlifyExtension extends Extension
 {
@@ -195,71 +196,52 @@ class UrlifyExtension extends Extension
         return $anchor;
     }
 
-    public function ExplicitLiveParent()
-    {
-        $id = $this->owner->Parent()->getPage()->ID;
-        $parent = Versioned::get_by_stage(ElementPage::class, 'Live')->filter('ID', $id)->first();
-        return $parent;
-    }
-
-    public function hasParentPage()
-    {
-        if ($this->owner->hasMethod('ExplicitLiveParent')) {
-            return $this->owner->ExplicitLiveParent();
-        }
-
-        return false;
-    }
-
-    public function Link($action = NULL)
-    {
-        $link = 'false';
-        if ($this->hasParentPage()) {
-            $base = Director::baseURL();
-            $relativeLink = $this->owner->RelativeLink($action);
-            $link =  Controller::join_links($base, $relativeLink);
-
-            if (Controller::curr()->urlParams['Action'] == 'job') {
-
-                $c = Controller::curr();
-
-                // todo: primary should be respected here!!!
-                $siteURL = $c->Link();
-                $relativeLink = $this->owner->RelativeLink($action);
-                $action = $c->urlParams['Action'];
-                $id = $c->urlParams['ID'];
-                $link = Controller::join_links(
-                    $base,
-                    $relativeLink,
-                    $action,
-                    $id
-                );
-            }
-        }
-        return $link;
-    }
-
-    // URL
-    public function AbsoluteLink()
+    public function Link()
     {
         $parentSlug = $this->owner->config()->parent_slug;
+        $c = Controller::curr();
+        // $action = $c->urlParams['Action'];
         if ($this->owner->Parent() && $this->owner->isInDB()) {
-            $base = Director::absoluteBaseURL();
+        // if ($this->owner->Parent() && $this->owner->isInDB() && $parentSlug == $action) {
             $areaID = $this->owner->Parent()->ParentID;
             $Page = ElementPage::get()->filter(['ElementalAreaID' => $areaID])->first();
             $siteURL = $Page->Link();
-            // special case home
             if (strstr($siteURL, '?', true) == '/' || $siteURL === '/') {
                 $defaultHomepage = RootURLController::config()->get('default_homepage_link');
                 $siteURL = '/' . $defaultHomepage;
             }
             return Controller::join_links(
-                $base,
                 $siteURL,
                 $parentSlug,
                 $this->owner->URLSegment
             );
         }
+    }
+
+    public function AbsoluteLink($action = null)
+    {
+        return Director::absoluteURL($this->owner->Link($action));
+    }
+
+    public function Breadcrumbs($maxDepth = 20, $unlinked = false, $stopAtPageType = false, $showHidden = false)
+    {
+        $page = Controller::curr();
+        $pages = [];
+        $pages[] = $this->owner;
+        while ($page
+            && (!$maxDepth || count($pages) < $maxDepth)
+            && (!$stopAtPageType || $page->ClassName != $stopAtPageType)
+        ) {
+            if ($showHidden || $page->ShowInMenus || ($page->ID == $this->owner->ID)) {
+                $pages[] = $page;
+            }
+            $page = $page->Parent;
+        }
+        $template = new SSViewer('BreadcrumbsTemplate');
+
+        return $template->process($this->owner->customise(new ArrayData(array(
+            'Pages' => new ArrayList(array_reverse($pages)),
+        ))));
     }
 
     public function onAfterWrite()

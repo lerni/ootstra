@@ -41,6 +41,7 @@ class ElementHero extends BaseElement
 
     private static $defaults = [
         'isFullWidth' => 1,
+        'Size' => 'medium',
         'SitemapImageExpose' => 1
     ];
 

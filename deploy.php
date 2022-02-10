@@ -146,6 +146,7 @@ task('deploy', function () {
     invoke('deploy:clear_paths');
     invoke('deploy:symlink');
     invoke('pkill');
+    invoke('silverstripe:htaccessperstage');
     invoke('deploy:unlock');
     invoke('cleanup');
     invoke('success');

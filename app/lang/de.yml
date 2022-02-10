@@ -230,3 +230,5 @@ de:
   # SilverStripe\UserForms\Model\UserDefinedForm:
   # https://github.com/silverstripe/silverstripe-userforms/issues/1100
     ONCOMPLETEMESSAGE: 'Danke wir haben Ihre Nachricht erhalten.'
+  Kraftausdruck\KlaroCookie:
+    MODALLINK: 'Datenschutz & Cookies'

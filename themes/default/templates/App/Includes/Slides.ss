@@ -140,6 +140,5 @@
 		<div class="swiper-pagination hero" id="hero-swiper-pagination{$ID}"></div>
 		<div class="swiper-button-prev hero" id="hero-swiper-prev{$ID}"></div>
 		<div class="swiper-button-next hero" id="hero-swiper-next{$ID}"></div>
-
 	<% end_if %>
 <% end_if %>

@@ -66,6 +66,9 @@
 				}
 				.txt {
 					grid-column: 2/3;
+					.gray {
+						color: $gray-light;
+					}
 					@include breakpoint($Lneg) {
 						grid-column: 1/3;
 						padding: #{math.div($lh,2)}em 0;

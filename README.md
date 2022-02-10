@@ -156,7 +156,7 @@ curl -sS https://silverstripe.github.io/sspak/install | php -- /usr/local/bin
 
 ## Configuration
 
-Rename `config.example.php` to `deploy/config.php` and configure things to your needs.
+Rename `config.example.php` to `deploy/config.php` and configure things to your needs. Usually `.htaccess` in public comes from the repo but if needed, it can also be overwritten with a stage specific version. Just create `./deploy/stage.htaccess` or `./deploy/live.htaccess`, which than 'll overwrite the file from the repo during deployment, depending on stage.
 
 ## Deploying a site
 

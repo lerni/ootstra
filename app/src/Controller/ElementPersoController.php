@@ -69,17 +69,18 @@ class ElementPersoController extends ElementController
             } else {
                 $base = Director::baseFolder();
             }
-            $original_filename_relative  = $perso->Portrait()->FocusFillMax(305,400)->Link();
-            $original_filename_absolute  = $base . '/public' . $original_filename_relative;
 
             if ($perso->Portrait() && $perso->Portrait()->exists()) {
+                $original_filename_relative  = $perso->Portrait()->FocusFillMax(305,400)->Link();
+                $original_filename_absolute  = $base . '/public' . $original_filename_relative;
                 $vcard->addPhoto($original_filename_absolute);
             }
 
             // return vcard as a string
             // return $vcard->getOutput();
 
-            $this->getResponse()->addHeader("Content-Type", "text/x-vcard; charset=$charset");
+            $this->getResponse()->addHeader('Content-Type', "text/x-vcard; charset=$charset");
+            $this->getResponse()->addHeader('X-Robots-Tag', 'noindex');
 
             // return vcard as a download
             return $vcard->download();
