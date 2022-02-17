@@ -11,7 +11,7 @@
                 <image:image>
                     <image:loc>{$AbsoluteLink}</image:loc>
                     <image:title>{$Title}</image:title>
-                    <image:caption>{$Caption}</image:caption>
+					<% if $Caption %><image:caption>{$Caption}</image:caption><% end_if %>
                 </image:image>
             <% end_loop %><% end_if %>
         </url>

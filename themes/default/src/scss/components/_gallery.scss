@@ -41,6 +41,9 @@
 		}
 	}
 	.swiper-container.multiple {
+		@include breakpoint($XLneg) {
+			overflow-x: hidden;
+		}
 		.swiper-wrapper {
 			.swiper-slide {
 				width: auto;
@@ -54,6 +57,7 @@
 					height: 240px;
 				}
 				img {
+					display: table;
 					height: 100%;
 					width: auto;
 					margin-bottom: 0;

@@ -27,7 +27,7 @@ class MetaTitleOnSiteTree extends BuildTask
         // per ORM we get the value form SiteTree - we're migrating to that
         $query = SQLSelect::create()
             ->setFrom('Page')
-            ->setWhere(array('MetaTitle IS NOT NULL'));
+            ->setWhere(['MetaTitle IS NOT NULL']);
 
 
         $result = $query->execute();

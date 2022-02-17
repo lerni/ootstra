@@ -158,7 +158,7 @@ curl -sS https://silverstripe.github.io/sspak/install | php -- /usr/local/bin
 
 Rename `config.example.php` to `deploy/config.php` and configure things to your needs. Usually `.htaccess` in public comes from the repo but if needed, it can also be overwritten with a stage specific version. Just create `./deploy/stage.htaccess` or `./deploy/live.htaccess`, which than 'll overwrite the file from the repo during deployment, depending on stage.
 
-## Deploying a site
+# Deploy
 
 ```bash
     ./vendor/bin/dep deploy stage
@@ -174,7 +174,7 @@ or
 
 The first time you deploy to a given stage, you’ll be asked to provide database credentials used to populate `.env`.
 
-### Deploy a branch/tag/revison
+## Deploy a branch/tag/revison
 
 ```
 # Deploy the dev branch to stage
@@ -187,40 +187,48 @@ dep deploy --branch=dev
 dep deploy live --tag=1.0.1
 ```
 
-### Uploading/downloading database & assets manually
+## Uploading/downloading database & assets manually
 ssbak is a cli tool for managing Silverstipe database & assets. It's also used in the deployment-process for backup purpose. Unlink sspak, does ssbak not support transfer between environment (like directly bellow) but wrapped with deployer it's possible - see a bit further down.
 To get assets and a DB-Dump from the server you can run:
-```
-./vendor/bin/sspak save USER@SERVER.TLD:/home/USER/public_html/0live/current ./SOMENAME.tar.gz
-```
-
+```bash
+    ./vendor/bin/sspak save USER@SERVER.TLD:/home/USER/public_html/0live/current ./SOMENAME.tar.gz
 ```
 ### Transfer with Docker - Update pending
-docker-compose exec -T database mysql DBNAME < database.sql
+```bash
+    docker-compose exec -T database mysql DBNAME < database.sql
 ```
 
 
-# Download assets
+## Download assets
+```bash
 dep silverstripe:download_assets
+```
 
-# Download database
+## Download database
+```bash
 dep silverstripe:download_database
+```
 
-# Download assets from live
+## Download assets from live
+```bash
 dep silverstripe:download_assets live
+```
 
-# Download database from live
+## Download database from live
+```bash
 dep silverstripe:download_database live
 ```
 
-## Manual dev/build
+# Manual dev/build
 
-DevelopmentAdmin over HTTP in Live-Mode is disabled per yml-config. You an use the following deployer-tasks.
+DevelopmentAdmin over HTTP in Live-Mode is disabled per yml-config. You can use the following deployer-tasks.
 
-```
-# dev/build on stage
+
+## dev/build on stage
+```bash
 dep silverstripe:dev_build
-
-# dev/build on live
+```
+## dev/build on live
+```bash
 dep silverstripe:dev_build live
 ```

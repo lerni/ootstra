@@ -93,10 +93,10 @@ class ElementExtension extends DataExtension
             new ColorPaletteField(
                 'BackgroundColor',
                 _t('DNADesign\Elemental\Models\BaseElement.BACKGROUNDCOLOR', 'Element background colour'),
-                array(
+                [
                     'white' => 'rgb(255,255,255)',
                     'gray-lighter' => 'rgb(246, 246, 246)'
-                )
+                ]
             )
         );
     }

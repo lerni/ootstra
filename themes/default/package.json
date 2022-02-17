@@ -42,6 +42,6 @@
     "fitvids": "^2.1.1",
     "headroom.js": "^0.12.0",
     "jquery": "^3.6.0",
-    "swiper": "^7.0.8"
+    "swiper": "^8.0.6"
   }
 }

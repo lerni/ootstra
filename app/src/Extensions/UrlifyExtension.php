@@ -239,9 +239,9 @@ class UrlifyExtension extends Extension
         }
         $template = new SSViewer('BreadcrumbsTemplate');
 
-        return $template->process($this->owner->customise(new ArrayData(array(
+        return $template->process($this->owner->customise(new ArrayData([
             'Pages' => new ArrayList(array_reverse($pages)),
-        ))));
+        ])));
     }
 
     public function onAfterWrite()

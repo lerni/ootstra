@@ -40,14 +40,14 @@ class ElementMapsController extends ElementController
             Requirements::javascript('https://maps.google.com/maps/api/js?language=' . $Lang, ['defer' => true, 'async' => true]);
         }
 
-        Requirements::javascriptTemplate("themes/default/src/js/include/google-map.js", array(
+        Requirements::javascriptTemplate("themes/default/src/js/include/google-map.js", [
             'Zoom' => $this->Zoom,
             'Scale' => $this->Scale,
             'Fullscreen' => $this->Fullscreen,
             'StreetView' => $this->StreetView,
             'MapType' => $this->MapType,
             'ControllerLink' => $this->ControllerLink()
-        ));
+        ]);
     }
 
     //public function jpoints(SS_HTTPRequest $r) {

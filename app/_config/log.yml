@@ -48,7 +48,8 @@ SilverStripe\Core\Injector\Injector:
       - 'error'
     properties:
       ContentType: text/html
-      Formatter: '%$SilverStripe\Logging\DetailedErrorFormatter'
+      # Formatter: '%$SilverStripe\Logging\DetailedErrorFormatter'
+      Formatter: '%$Monolog\Formatter\HtmlFormatter'
 
   # Configuration for the "friendly" error formatter
   SilverStripe\Logging\DebugViewFriendlyErrorFormatter:

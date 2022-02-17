@@ -3,6 +3,7 @@
 <% include App/Includes/ElementTitle %>
 <% if $Items %>
 	<% if $Layout == "slider" %>
+		<% require css("themes/default/dist/css/swiper.css") %>
 		<div class="swiper-container multiple" data-id="{$ID}" id="multiple-swiper-{$ID}">
 			<div class="swiper-wrapper multiple">
 				<% loop $Items %>

@@ -7,7 +7,6 @@
 @import 'includes/typography';
 
 // @import 'includes/jquery.fancybox.min.css'; // included per template
-@import 'includes/swiper.scss';
 
 
 // Many styles
@@ -129,6 +128,9 @@ main.typography {
 	width: 100%;
 	flex: 1;
 	border-top: $headerheight solid transparent;
+	@include breakpoint($XLneg) {
+		overflow-x: hidden;
+	}
 	@include breakpoint($Lneg) {
 		border-top-width: $headerheight--smaller;
 	}
@@ -993,6 +995,10 @@ html .klaro {
 			&::before {
 				background-color: darken($white, 16%);
 			}
+		}
+		// halve is used on parent if children are on & off
+		.cm-list-input.half-checked:checked + .cm-list-label .slider {
+			background-color: mix($link-color, $white, 71%);
 		}
 
 		// accept all
