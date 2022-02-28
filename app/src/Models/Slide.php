@@ -2,14 +2,23 @@
 
 namespace App\Models;
 
+use App\Elements\ElementHero;
 use SilverStripe\Assets\Image;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\CMS\Model\SiteTree;
+use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\CompositeField;
 use SilverStripe\Forms\TreeDropdownField;
 use nathancox\EmbedField\Forms\EmbedField;
 use nathancox\EmbedField\Model\EmbedObject;
+use SilverStripe\Versioned\GridFieldArchiveAction;
 use DNADesign\Elemental\Forms\TextCheckboxGroupField;
+use SilverStripe\Forms\GridField\GridFieldEditButton;
+use SilverStripe\Forms\GridField\GridFieldDataColumns;
+use SilverStripe\Forms\GridField\GridFieldAddNewButton;
+use SilverStripe\Forms\GridField\GridFieldDeleteAction;
+use SilverStripe\Forms\GridField\GridFieldSortableHeader;
+use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
 class Slide extends DataObject
 {
@@ -30,6 +39,10 @@ class Slide extends DataObject
 
     private static $owns = [
         'SlideImage'
+    ];
+
+    private static $belongs_many_many = [
+        'Hero' => ElementHero::class.'.Slides'
     ];
 
     private static $table_name = 'Slide';
@@ -103,6 +116,35 @@ class Slide extends DataObject
         }
 
         $fields->addFieldToTab('Root.Main', EmbedField::create('EmbedVideoID', 'Embed Video'));
+
+        if ($this->isInDB() && $this->Hero()->count() > 1) {
+            $fields
+                ->fieldByName('Root.Hero.Hero')
+                ->getConfig()
+                ->removeComponentsByType([
+                    GridFieldAddNewButton::class,
+                    GridFieldArchiveAction::class,
+                    GridFieldDeleteAction::class,
+                    GridFieldAddExistingAutocompleter::class,
+                    GridFieldSortableHeader::class
+                ]);
+
+            $fields->fieldByName('Root.Hero.Hero')->setTitle(_t(__CLASS__.'.IsUsedOnComment','This Slide is used on following Elements'));
+
+            $fields
+                ->fieldByName('Root.Hero.Hero')
+                ->getConfig()
+                ->getComponentByType(GridFieldDataColumns::class)
+                ->setDisplayFields([
+                    'getTypeBreadcrumb' => 'Element'
+                ]);
+
+            $usedGF = $fields->fieldByName('Root.Hero.Hero');
+            $fields->removeByName(['Hero']);
+            $fields->addFieldsToTab('Root.Main', $usedGF);
+        } else {
+            $fields->removeByName(['Main.Hero']);
+        }
 
         return $fields;
     }

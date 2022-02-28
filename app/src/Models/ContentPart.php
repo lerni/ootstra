@@ -3,9 +3,17 @@
 namespace App\Models;
 
 use SilverStripe\ORM\DataObject;
+use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\CompositeField;
 use App\Elements\ElementContentSection;
+use SilverStripe\Versioned\GridFieldArchiveAction;
 use DNADesign\Elemental\Forms\TextCheckboxGroupField;
+use SilverStripe\Forms\GridField\GridFieldEditButton;
+use SilverStripe\Forms\GridField\GridFieldDataColumns;
+use SilverStripe\Forms\GridField\GridFieldAddNewButton;
+use SilverStripe\Forms\GridField\GridFieldDeleteAction;
+use SilverStripe\Forms\GridField\GridFieldSortableHeader;
+use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
 class ContentPart extends DataObject
 {
@@ -16,6 +24,10 @@ class ContentPart extends DataObject
         'TitleLevel' => 'Enum("1,2,3","2")',
         'DefaultOpen' => 'Boolean',
         'FAQSchema' => 'Boolean'
+    ];
+
+    private static $belongs_many_many = [
+        'ElementContentSection' => ElementContentSection::class. '.ContentParts'
     ];
 
     private static $casting = [
@@ -78,6 +90,35 @@ class ContentPart extends DataObject
                     ->setName('Title')
             );
             $fields->addFieldToTab('Root.Main', $TitleFieldGroup, true);
+        }
+
+        if ($this->isInDB() && $this->ElementContentSection()->count() > 1) {
+            $fields
+                ->fieldByName('Root.ElementContentSection.ElementContentSection')
+                ->getConfig()
+                ->removeComponentsByType([
+                    GridFieldAddNewButton::class,
+                    GridFieldArchiveAction::class,
+                    GridFieldDeleteAction::class,
+                    GridFieldAddExistingAutocompleter::class,
+                    GridFieldSortableHeader::class
+                ]);
+
+            $fields->fieldByName('Root.ElementContentSection.ElementContentSection')->setTitle(_t(__CLASS__.'.IsUsedOnComment','This Slide is used on following Elements'));
+
+            $fields
+                ->fieldByName('Root.ElementContentSection.ElementContentSection')
+                ->getConfig()
+                ->getComponentByType(GridFieldDataColumns::class)
+                ->setDisplayFields([
+                    'getTypeBreadcrumb' => 'Element'
+                ]);
+
+            $usedGF = $fields->fieldByName('Root.ElementContentSection.ElementContentSection');
+            $fields->removeByName(['ElementContentSection']);
+            $fields->addFieldsToTab('Root.Main', $usedGF);
+        } else {
+            $fields->removeByName(['Main.ElementContentSection']);
         }
 
         return $fields;

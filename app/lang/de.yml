@@ -72,6 +72,7 @@ de:
       other: '{count} Content Parts'
     SINGULARNAME: 'Content Part'
     TITLE: Titel
+    IsUsedOnComment: 'ContentPart wird in folgenden Elementen verwendet'
   App\Models\CountItem:
     PLURALNAME: 'Count Items'
     PLURALS:
@@ -154,6 +155,7 @@ de:
     TEXT: 'Claim auf Bild'
     TEXTALIGNMENT: 'Anordnung Text'
     TITLE: Titel
+    IsUsedOnComment: 'Slide wird in folgenden Elementen verwendet'
   App\Models\SocialLink:
     PLURALNAME: Social-Links
     PLURALS:
@@ -171,6 +173,7 @@ de:
       one: 'A Teaser'
       other: '{count} Teasers'
     SINGULARNAME: Teaser
+    IsUsedOnComment: 'Teaser wird in folgenden Elementen verwendet'
   DNADesign\Elemental\Models\BaseElement:
     AVAILABLEGLOBALLY: 'klonen mit virtuellem Element ermöglichen'
     AnchorLinkDescription: 'kein gültiger Anker'

@@ -1,22 +1,15 @@
-// // FancyApps
-window.fancybox = require('@fancyapps/fancybox');
-$(document).ready(function() {
-  if (typeof fancybox === 'object') {
-    $("[data-fancybox]").fancybox({
-      thumbs     : false,
-      slideShow  : false,
-      image : {
-        protect : true
-      },
-      buttons: [
-        // "zoom",
-        //"share",
-        // "slideShow",
-        //"fullScreen",
-        //"download",
-        // "thumbs",
-        "close"
-      ]
-    });
-  }
+import { Fancybox } from "@fancyapps/ui";
+
+Fancybox.bind("[data-fancybox]", {
+  thumbs     : false,
+  slideShow  : false,
+  Image : {
+    zoom: false,
+    protect : true
+  },
+  Toolbar: {
+    display: [
+      "close"
+    ],
+  },
 });

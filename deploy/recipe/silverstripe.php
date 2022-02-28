@@ -112,11 +112,9 @@ task('silverstripe:dev_build', function () {
 
 task('silverstripe:htaccessperstage', function() {
     $stage = Context::get()->getHost()->getConfig()->get('stage');
-    $pwd = getcwd();
-
 	// upload htaccess local if a specific version for the current stage exist
-    if(file_exists($pwd .'/deploy/' . $stage . '.htaccess')) {
-        writeln('Overwriting .htaccess with ' . $pwd .'/deploy/' . $stage . '.htaccess');
+    if(file_exists('deploy/' . $stage . '.htaccess')) {
+        writeln('Overwriting .htaccess with deploy/' . $stage . '.htaccess');
 	    upload('deploy/{{stage}}.htaccess', '{{release_path}}/public/.htaccess', ['delete' => true]);
     }
 })->desc('upload/replace .htaccess stage specific');

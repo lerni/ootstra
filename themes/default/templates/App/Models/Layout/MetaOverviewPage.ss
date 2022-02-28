@@ -7,8 +7,8 @@
 	}
 </style>
 <% include App/Includes/Header %>
-<% require themedCSS('dist/css/metaoverviewpage') %>
-<% require css("themes/default/thirdparty/fancybox/jquery.fancybox.min.css") %>
+<% require themedCSS("dist/css/metaoverviewpage") %>
+<% require themedCSS("dist/css/fancy.css") %>
 <main class="typography">
 	<article class="element">
 		<% with $SiteConfig %>

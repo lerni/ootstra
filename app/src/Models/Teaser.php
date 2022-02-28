@@ -6,7 +6,16 @@ use SilverStripe\Assets\Image;
 use App\Elements\ElementTeaser;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\CMS\Model\SiteTree;
+use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\TreeDropdownField;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Versioned\GridFieldArchiveAction;
+use SilverStripe\Forms\GridField\GridFieldEditButton;
+use SilverStripe\Forms\GridField\GridFieldDataColumns;
+use SilverStripe\Forms\GridField\GridFieldAddNewButton;
+use SilverStripe\Forms\GridField\GridFieldDeleteAction;
+use SilverStripe\Forms\GridField\GridFieldSortableHeader;
+use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
 class Teaser extends DataObject
 {
@@ -23,7 +32,7 @@ class Teaser extends DataObject
     ];
 
     private static $belongs_many_many = [
-        'TeaserElements' => ElementTeaser::class
+        'TeaserElements' => ElementTeaser::class. '.Teasers'
     ];
 
     private static $owns = [
@@ -68,6 +77,35 @@ class Teaser extends DataObject
 
         $RelatedPage = TreeDropdownField::create('RelatedPageID', 'Link', SiteTree::class);
         $fields->replaceField('RelatedPageID', $RelatedPage);
+
+        if ($this->isInDB() && $this->TeaserElements()->count() > 1) {
+            $fields
+                ->fieldByName('Root.TeaserElements.TeaserElements')
+                ->getConfig()
+                ->removeComponentsByType([
+                    GridFieldAddNewButton::class,
+                    GridFieldArchiveAction::class,
+                    GridFieldDeleteAction::class,
+                    GridFieldAddExistingAutocompleter::class,
+                    GridFieldSortableHeader::class
+                ]);
+
+            $fields->fieldByName('Root.TeaserElements.TeaserElements')->setTitle(_t(__CLASS__.'.IsUsedOnComment','This Teaser is used on following Elements'));
+
+            $fields
+                ->fieldByName('Root.TeaserElements.TeaserElements')
+                ->getConfig()
+                ->getComponentByType(GridFieldDataColumns::class)
+                ->setDisplayFields([
+                    'getTypeBreadcrumb' => 'Element'
+                ]);
+
+            $usedGF = $fields->fieldByName('Root.TeaserElements.TeaserElements');
+            $fields->removeByName(['TeaserElements']);
+            $fields->addFieldsToTab('Root.Main', $usedGF);
+        } else {
+            $fields->removeByName(['Main.TeaserElements']);
+        }
 
         return $fields;
     }

@@ -32,7 +32,7 @@ mix
   .js('src/js/app.js', 'dist/js')
   .sass('src/scss/editor.scss', 'dist/css')
   .sass('src/scss/style.scss', 'dist/css')
-  .sass('src/scss/swiper.scss', 'dist/css')
+  .sass('src/scss/fancy.scss', 'dist/css')
   .sass('src/scss/metaoverviewpage.scss', 'dist/css')
   .sourceMaps(productionSourceMaps, 'source-map')
   .copyDirectory('src/webfonts', 'dist/webfonts');

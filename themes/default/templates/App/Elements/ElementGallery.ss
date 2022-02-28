@@ -1,9 +1,6 @@
-<% require css("themes/default/thirdparty/fancybox/jquery.fancybox.min.css") %>
-<%-- require javascript("themes/default/thirdparty/fancybox/jquery.fancybox.min.js") --%>
 <% include App/Includes/ElementTitle %>
 <% if $Items %>
 	<% if $Layout == "slider" %>
-		<% require css("themes/default/dist/css/swiper.css") %>
 		<div class="swiper-container multiple" data-id="{$ID}" id="multiple-swiper-{$ID}">
 			<div class="swiper-wrapper multiple">
 				<% loop $Items %>
@@ -23,6 +20,7 @@
 			</div>
 		</div>
 	<% else %>
+		<% require themedCSS("dist/css/fancy.css") %>
 		<ul class="gallery {$Layout}">
 			<% if $CropGalleryThumbsByWidth %>
 				<% loop $Items %>

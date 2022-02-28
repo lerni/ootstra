@@ -1,0 +1,7 @@
+@import 'includes/variables';
+
+.fancybox__container {
+	--fancybox-accent-color: #{$link-color};
+}
+
+@import "../../node_modules/@fancyapps/ui/dist/fancybox.css";

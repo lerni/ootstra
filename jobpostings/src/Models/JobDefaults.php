@@ -1,10 +1,10 @@
 <?php
 
 namespace Kraftausdruck\Models;
-
+use App\Models\Perso;
 use SilverStripe\Assets\Image;
-use SilverStripe\ORM\DataObject;
 use JonoM\SomeConfig\SomeConfig;
+use SilverStripe\ORM\DataObject;
 use SilverStripe\View\TemplateGlobalProvider;
 
 class JobDefaults extends DataObject implements TemplateGlobalProvider
@@ -14,12 +14,14 @@ class JobDefaults extends DataObject implements TemplateGlobalProvider
 
     private static $db = [
         'Industry' => 'Varchar',
+        'CFA' => 'Varchar'
         // 'OccupationalCategory' => 'Varchar',
         // 'WorkHours' => 'Varchar'
     ];
 
     private static $has_one = [
-        'HeaderImage' => Image::class
+        'HeaderImage' => Image::class,
+        'ContactPerso' => Perso::class
     ];
 
     private static $defaults = [];

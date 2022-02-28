@@ -80,6 +80,9 @@ class BlogExtension extends DataExtension
             $ChildPagesField->getConfig()
                 ->getComponentByType(GridFieldPaginator::class)
                 ->setItemsPerPage(100);
+            $ChildPagesField->getConfig()->addComponents(
+                new GridFieldOrderableRows('Sort')
+            );
         }
     }
 

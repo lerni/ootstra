@@ -2,17 +2,18 @@
 
 namespace App\Extensions;
 
-use App\Elements\ElementHero;
-use DNADesign\Elemental\Forms\TextCheckboxGroupField;
 use ReflectionClass;
+use App\Elements\ElementHero;
+use SilverStripe\Core\ClassInfo;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\DataExtension;
+use SilverStripe\Forms\CompositeField;
+use SilverStripe\ORM\FieldType\DBField;
 use DNADesign\Elemental\Models\BaseElement;
-use DNADesign\ElementalVirtual\Model\ElementVirtual;
 use SilverStripe\View\Parsers\URLSegmentFilter;
 use Heyday\ColorPalette\Fields\ColorPaletteField;
-use SilverStripe\Core\ClassInfo;
-use SilverStripe\Forms\CompositeField;
+use DNADesign\ElementalVirtual\Model\ElementVirtual;
+use DNADesign\Elemental\Forms\TextCheckboxGroupField;
 
 class ElementExtension extends DataExtension
 {
@@ -188,5 +189,19 @@ class ElementExtension extends DataExtension
             }
         }
         return $TitleOrAnchor;
+    }
+
+    public function getTypeBreadcrumb()
+    {
+        if ($this->owner->Title) {
+            $description = $this->owner->Title;
+        } else {
+            $description = $this->owner->getDescription();
+        }
+        $pageTitle = $this->owner->getPageTitle();
+        return DBField::create_field(
+            'HTMLVarchar',
+            $pageTitle . ' → ' . $description
+        );
     }
 }

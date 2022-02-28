@@ -2,9 +2,9 @@
 
 namespace Kraftausdruck\Models;
 
+use App\Models\Perso;
 use App\Models\Location;
 use App\Models\ElementPage;
-use App\Models\JobDefaults;
 use Spatie\SchemaOrg\Schema;
 use SilverStripe\Assets\File;
 use SilverStripe\Assets\Image;
@@ -13,6 +13,7 @@ use SilverStripe\Control\Director;
 use SilverStripe\Security\Security;
 use SilverStripe\Forms\ListboxField;
 use SilverStripe\Forms\LiteralField;
+use Kraftausdruck\Models\JobDefaults;
 use SilverStripe\Versioned\Versioned;
 use Kraftausdruck\Elements\ElementJobs;
 use SilverStripe\SiteConfig\SiteConfig;
@@ -45,7 +46,8 @@ class JobPosting extends DataObject
 
     private static $has_one = [
         'HeaderImage' => Image::class,
-        'Inserat' => File::class
+        'Inserat' => File::class,
+        'ContactPerso' => Perso::class
     ];
 
     private static $many_many = [
@@ -79,6 +81,9 @@ class JobPosting extends DataObject
             // $this->WorkHours = $defaults->WorkHours;
             if ($defaults->HeaderImageID) {
                 $this->HeaderImage = $defaults->HeaderImage;
+            }
+            if ($defaults->ContactPersoID) {
+                $this->ContactPerso = $defaults->ContactPerso;
             }
         }
         parent::populateDefaults();
@@ -218,10 +223,11 @@ class JobPosting extends DataObject
 
         $siteConfig = SiteConfig::get()->first();
         $location = $siteConfig->Locations()->first();
+        $descriptionPlain = strip_tags($this->owner->Description);
 
         $schema = Schema::jobPosting()
             ->title($this->Title)
-            ->description($this->Description)
+            ->description($descriptionPlain)
             ->url($this->AbsoluteLink())
             ->employmentType($this->EmploymentType)
 //          ->workHours($this->WorkHours)
@@ -290,6 +296,11 @@ class JobPosting extends DataObject
             }
             return true;
         }
+    }
+
+    public function canIndexInAlgolia(): bool
+    {
+        return $this->canView();
     }
 
     public function TextAsArray($value)

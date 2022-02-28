@@ -37,7 +37,7 @@
     "defaults"
   ],
   "dependencies": {
-    "@fancyapps/fancybox": "^3.5.7",
+    "@fancyapps/ui": "^4.0.26",
     "feather-icons": "^4.28.0",
     "fitvids": "^2.1.1",
     "headroom.js": "^0.12.0",
