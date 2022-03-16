@@ -9,13 +9,17 @@ use SilverStripe\Forms\LiteralField;
 use SilverStripe\Blog\Model\BlogCategory;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\View\Parsers\URLSegmentFilter;
 use SilverStripe\Versioned\GridFieldArchiveAction;
 use SilverStripe\Forms\GridField\GridFieldPageCount;
 use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
-use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
+use SilverStripe\Forms\GridField\GridFieldDeleteAction;
 use SilverStripe\Forms\GridField\GridFieldFilterHeader;
-use SilverStripe\View\Parsers\URLSegmentFilter;
+use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
+use SilverStripe\Blog\Admin\GridFieldCategorisationConfig;
+use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
+use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
 
 class ElementFeedTeaser extends BaseElement
@@ -37,7 +41,7 @@ class ElementFeedTeaser extends BaseElement
 
     private static $many_many_extraFields = [
         'Categories' => [
-            'SortOrder' => 'Int'
+            'MMSortOrder' => 'Int'
         ]
     ];
 
@@ -89,14 +93,32 @@ class ElementFeedTeaser extends BaseElement
             $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
         }
 
-        $CategoriyField = TagField::create(
+        $CatGFConfig = GridFieldCategorisationConfig::create(
+            15,
+            $this->Categories()->sort('MMSortOrder'),
+            BlogCategory::class,
             'Categories',
-            _t('SilverStripe\Blog\Model\Blog.Categories', 'Categories'),
-            BlogCategory::get(), //
-            $this->Categories()
+            'BlogPosts'
         );
 
-        $fields->addFieldToTab('Root.Main', $CategoriyField);
+        $CatGFConfig->addComponents([
+            new GridFieldAddExistingAutocompleter('toolbar-header-right'),
+            new GridFieldDeleteAction(true)
+        ]);
+
+        // hack around unsaved relations
+        if ($this->isInDB()) {
+            $CatGFConfig->addComponent(new GridFieldOrderableRows('MMSortOrder'));
+        }
+
+        $categories = GridField::create(
+            'Categories',
+            _t('SilverStripe\Blog\Model\BlogPost.Categories', 'Categories'),
+            $this->Categories(),
+            $CatGFConfig
+        );
+
+        $fields->addFieldToTab('Root.' . _t('SilverStripe\Blog\Model\BlogPost.Categories', 'Categories'), $categories);
 
         return $fields;
     }

@@ -3,8 +3,8 @@
 namespace nathancox\EmbedField\Model;
 
 use DOMDocument;
-use Embed\Embed;
 use SilverStripe\ORM\DataObject;
+use Embed\Embed;
 
 /**
  * Represents an oembed object.  Basically populated from oembed so the front end has quick access to properties.

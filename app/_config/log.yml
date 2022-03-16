@@ -36,7 +36,7 @@ SilverStripe\Core\Injector\Injector:
   LogFileHandler:
     class: Monolog\Handler\StreamHandler
     constructor:
-      - '../silverstripe.log'
+      - '`SS_ERROR_LOG`'
       - 'notice'
 
   MailHandler:

@@ -95,13 +95,13 @@
     },
     "autoload": {
         "psr-4": {
-            "\\": "src/",
-            "App\\Admin\\": "src/Admin/",
-            "App\\Controller\\": "src/Controller/",
-            "App\\Elements\\": "src/Elements/",
-            "App\\Extensions\\": "src/Extensions/",
-            "App\\Models\\": "src/Models/",
-            "App\\Dev\\Tasks\\": "src/Tasks/"
+            "\\": "app/src/",
+            "App\\Admin\\": "app/src/Admin/",
+            "App\\Controller\\": "app/src/Controller/",
+            "App\\Elements\\": "app/src/Elements/",
+            "App\\Extensions\\": "app/src/Extensions/",
+            "App\\Models\\": "app/src/Models/",
+            "App\\Tasks\\": "app/src/Tasks/"
         }
     },
     "minimum-stability": "dev",

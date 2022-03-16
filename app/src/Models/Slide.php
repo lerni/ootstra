@@ -37,12 +37,12 @@ class Slide extends DataObject
         'EmbedVideo' => EmbedObject::class
     ];
 
-    private static $owns = [
-        'SlideImage'
-    ];
-
     private static $belongs_many_many = [
         'Hero' => ElementHero::class.'.Slides'
+    ];
+
+    private static $owns = [
+        'SlideImage'
     ];
 
     private static $table_name = 'Slide';

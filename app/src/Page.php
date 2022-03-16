@@ -2,6 +2,7 @@
 
 namespace {
 
+    use SilverStripe\TagField\TagField;
     use SilverStripe\Assets\Image;
     use App\Elements\ElementHero;
     use App\Elements\ElementGallery;
@@ -16,15 +17,10 @@ namespace {
     use SilverStripe\Security\Permission;
     use TractorCow\Fluent\State\FluentState;
     use SilverStripe\Blog\Model\BlogCategory;
-    use SilverStripe\Forms\GridField\GridField;
     use SilverStripe\CMS\Controllers\RootURLController;
     use SilverStripe\Core\Manifest\ModuleResourceLoader;
-    use SilverStripe\Forms\GridField\GridFieldDeleteAction;
-    use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
-    use SilverStripe\Blog\Admin\GridFieldCategorisationConfig;
     use SilverStripe\Blog\Model\BlogPost;
     use SilverStripe\Control\Controller;
-    use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
     use DNADesign\Elemental\Extensions\ElementalPageExtension;
     use DNADesign\ElementalVirtual\Model\ElementVirtual;
 
@@ -35,12 +31,6 @@ namespace {
 
         private static $many_many = [
             'PageCategories' => BlogCategory::class
-        ];
-
-        private static $many_many_extraFields = [
-            'PageCategories' => [
-                'SortOrder' => 'Int'
-            ]
         ];
 
         private static $table_name = 'Page';
@@ -85,33 +75,16 @@ namespace {
                 $fields->insertAfter('MenuTitle', $MetaToggle);
             }
 
-            if ($this->ClassName != Blog::class) {
-                $CatGFConfig = GridFieldCategorisationConfig::create(
-                    15,
-                    $this->PageCategories()->sort('Title'),
-                    BlogCategory::class,
+            if ($this->ClassName != Blog::class && $this->ClassName != BlogPost::class) {
+
+                $CategoriyField = TagField::create(
                     'PageCategories',
-                    'BlogPosts'
+                    _t('SilverStripe\Blog\Model\Blog.Categories', 'Categories'),
+                    BlogCategory::get(), //
+                    $this->PageCategories()
                 );
 
-                $CatGFConfig->addComponents([
-                    new GridFieldAddExistingAutocompleter('toolbar-header-right'),
-                    new GridFieldDeleteAction(true)
-                ]);
-
-                // hack around unsaved relations
-                if ($this->isInDB()) {
-                    $CatGFConfig->addComponent(new GridFieldOrderableRows('SortOrder'));
-                }
-
-                $categories = GridField::create(
-                    'PageCategories',
-                    _t('SilverStripe\Blog\Model\BlogPost.Categories', 'Categories'),
-                    $this->PageCategories(),
-                    $CatGFConfig
-                );
-
-                // $fields->addFieldToTab('Root.' . _t('SilverStripe\Blog\Model\BlogPost.Categories', 'Categories'), $categories);
+                $fields->addFieldToTab('Root.Main', $CategoriyField, 'Metadata');
             }
 
             return $fields;

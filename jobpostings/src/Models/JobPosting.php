@@ -134,7 +134,7 @@ class JobPosting extends DataObject
         ]);
 
         if ($this->LastFor() == false) {
-            $message = _t('Kraftausdruck\Models\JobPosting.expiredAlert', 'The job-posting has expired or "Valid to" is missing.');
+            $message = _t(__CLASS__ . '.expiredAlert', 'The job-posting has expired or "Valid to" is missing.');
             $fields->unshift(
                 LiteralField::create(
                     'Past',
@@ -147,31 +147,31 @@ class JobPosting extends DataObject
         }
 
         if ($TitleField = $fields->dataFieldByName('Title')) {
-            $TitleField->setDescription( _t('Kraftausdruck\Models\JobPosting.TitleCMSDesc', 'z.B. Projektleiter 100% (m/w/d)'));
+            $TitleField->setDescription( _t(__CLASS__ . '.TitleCMSDesc', 'z.B. Projektleiter 100% (m/w/d)'));
         }
 
         if ($WorkHoursField = $fields->dataFieldByName('WorkHours')) {
-            $WorkHoursField->setDescription(_t('Kraftausdruck\Models\JobPosting.WorkHoursDesc', 'z.B. 42 Stunden pro Woche'));
+            $WorkHoursField->setDescription(_t(__CLASS__ . '.WorkHoursDesc', 'z.B. 42 Stunden pro Woche'));
         }
 
         if ($SkillsField = $fields->dataFieldByName('Skills')) {
-            $SkillsField->setDescription(_t('Kraftausdruck\Models\JobPosting.SkillsDesc', 'z.B. Englischkenntnisse Kommunikationsfähigkeiten'));
+            $SkillsField->setDescription(_t(__CLASS__ . '.SkillsDesc', 'z.B. Englischkenntnisse Kommunikationsfähigkeiten'));
         }
 
         if ($QualificationsField = $fields->dataFieldByName('Qualifications')) {
-            $QualificationsField->setDescription(_t('Kraftausdruck\Models\JobPosting.QualificationsDesc', 'Zertifikate z.B. CCNA LPI NBW'));
+            $QualificationsField->setDescription(_t(__CLASS__ . '.QualificationsDesc', 'Zertifikate z.B. CCNA LPI NBW'));
         }
 
         if ($EducationRequirementsField = $fields->dataFieldByName('EducationRequirements')) {
-            $EducationRequirementsField->setDescription(_t('Kraftausdruck\Models\JobPosting.EducationRequirementsDesc', 'z.B. Lehre Hochschule HF/FH ETH UNI'));
+            $EducationRequirementsField->setDescription(_t(__CLASS__ . '.EducationRequirementsDesc', 'z.B. Lehre Hochschule HF/FH ETH UNI'));
         }
 
         if ($JobBenefitsField = $fields->dataFieldByName('JobBenefits')) {
-            $JobBenefitsField->setDescription(_t('Kraftausdruck\Models\JobPosting.JobBenefitsDesc', 'z.B. 5 Wochen Ferien, flexible Arbeitszeiten'));
+            $JobBenefitsField->setDescription(_t(__CLASS__ . '.JobBenefitsDesc', 'z.B. 5 Wochen Ferien, flexible Arbeitszeiten'));
         }
 
         if ($ExperienceRequirementsField = $fields->dataFieldByName('ExperienceRequirements')) {
-            $ExperienceRequirementsField->setDescription(_t('Kraftausdruck\Models\JobPosting.ExperienceRequirementsDesc', 'z.B. Führungserfahrung'));
+            $ExperienceRequirementsField->setDescription(_t(__CLASS__ . '.ExperienceRequirementsDesc', 'z.B. Führungserfahrung'));
         }
 
         if ($TextEditorField = $fields->dataFieldByName('Description')) {
@@ -191,14 +191,14 @@ class JobPosting extends DataObject
 
         if ($uploadField = $fields->dataFieldByName('HeaderImage')) {
             $uploadField->setFolderName('jobs');
-            $uploadField->setDescription(_t('Kraftausdruck\Models\JobPosting.HeaderImageDesc', '1:2.62 // 2600x993px'));
+            $uploadField->setDescription(_t(__CLASS__ . '.HeaderImageDesc', '1:2.62 // 2600x993px'));
             $fields->insertAfter('Active', $uploadField, true);
         }
 
         if ($InseratuploadField = $fields->dataFieldByName('Inserat')) {
             $InseratuploadField->allowedExtensions = array('PDF', 'pdf');
             $InseratuploadField->setFolderName('Jobs');
-            $InseratuploadField->setDescription(_t('Kraftausdruck\Models\JobPosting.InseratDesc', 'PDF'));
+            $InseratuploadField->setDescription(_t(__CLASS__ . '.InseratDesc', 'PDF'));
         }
 
         return $fields;
@@ -209,10 +209,10 @@ class JobPosting extends DataObject
     {
         $result = parent::validate();
         if($this->ValidThrough > date('Y-m-d',strtotime('now + 1 year'))) {
-            $result->addError('Das JobPosting sollte höchstens ein Jahr gültig sein.');
+            $result->addError(_t(__CLASS__ . '.ValidateDateError', 'Das JobPosting sollte höchstens ein Jahr gültig sein.'));
         }
         if(!$this->JobLocations()->count() && $this->isInDB()) {
-            $result->addError('JobLocations wird benötigt');
+            $result->addError(_t(__CLASS__ . '.ValidateLocationError', 'JobLocations wird benötigt'));
         }
 
         return $result;
@@ -339,7 +339,7 @@ class JobPosting extends DataObject
         $datediff = $this->LastFor();
         if ($datediff == false && $this->ValidThrough) {
             $html = DBHTMLText::create();
-            $html->setValue('<span style="color: red;">' . _t('Kraftausdruck\Models\JobPosting.expired', 'expired') . '</span>');
+            $html->setValue('<span style="color: red;">' . _t(__CLASS__ . '.expired', 'expired') . '</span>');
             $datediff = $html;
         }
         return $datediff;

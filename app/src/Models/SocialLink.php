@@ -68,4 +68,15 @@ class SocialLink extends DataObject
 
         return $fields;
     }
+
+    public function validate()
+    {
+        $result = parent::validate();
+
+        if (!$this->Title) {
+            $result->addError('Title ist zwingend erforderlich!');
+        }
+
+        return $result;
+    }
 }

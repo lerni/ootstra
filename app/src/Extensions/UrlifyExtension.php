@@ -205,22 +205,26 @@ class UrlifyExtension extends Extension
         // if ($this->owner->Parent() && $this->owner->isInDB() && $parentSlug == $action) {
             $areaID = $this->owner->Parent()->ParentID;
             $Page = ElementPage::get()->filter(['ElementalAreaID' => $areaID])->first();
-            $siteURL = $Page->Link();
-            if (strstr($siteURL, '?', true) == '/' || $siteURL === '/') {
-                $defaultHomepage = RootURLController::config()->get('default_homepage_link');
-                $siteURL = '/' . $defaultHomepage;
+            if ($Page) {
+                $siteURL = $Page->Link();
+                // special case home
+                if (strstr($siteURL, '?', true) == '/' || $siteURL === '/') {
+                    $defaultHomepage = RootURLController::config()->get('default_homepage_link');
+                    $siteURL = '/' . $defaultHomepage;
+                }
+                return Controller::join_links(
+                    $siteURL,
+                    $parentSlug,
+                    $this->owner->URLSegment
+                );
             }
-            return Controller::join_links(
-                $siteURL,
-                $parentSlug,
-                $this->owner->URLSegment
-            );
         }
     }
 
     public function AbsoluteLink($action = null)
     {
-        return Director::absoluteURL($this->owner->Link($action));
+        return Director::absoluteURL($this->Link($action));
+
     }
 
     public function Breadcrumbs($maxDepth = 20, $unlinked = false, $stopAtPageType = false, $showHidden = false)
@@ -265,5 +269,14 @@ class UrlifyExtension extends Extension
     public function getGooglePriority()
     {
         return 1;
+    }
+
+    public function getMenuTitle() {
+        if (property_exists($this->owner, 'MenuTitle') && strlen($this->owner->MenuTitle)) {
+            $r = $this->owner->MenuTitle;
+        } else {
+            $r = $this->owner->Title;
+        }
+        return $r;
     }
 }

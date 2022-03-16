@@ -67,6 +67,7 @@ class ElementLogo extends BaseElement
                 new GridFieldOrderableRows('SortOrder')
                 // new GridFieldAddExistingAutocompleter('toolbar-header-right')
             );
+            $LogosGridFieldConfig->addComponent(new GridFieldOrderableRows('SortOrder'));
             $GridField = new GridField('Logos', 'Logos', $this->Logos(), $LogosGridFieldConfig);
             $fields->addFieldToTab('Root.Main', $GridField);
         } else {

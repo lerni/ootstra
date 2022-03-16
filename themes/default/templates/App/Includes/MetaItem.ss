@@ -1,17 +1,18 @@
 <div id="#{$ID}-{$URLSegment}" class="item level-{$PageLevel}<% if not $ImagesForSitemap %> no-images<% end_if %><% if not $isPublished %> not-published<% end_if %><% if not $ShowInSearch %> not-showed-in-search<% end_if %> {$ShortClassName($this, 'false')}">
 <% if not $ShowInSearch %><label class="label large"><%t App\Models\MetaOverviewPage.NotShowInSearch 'ShowInSearch isn\'t checked' %></label><% end_if %>
 <% if not $isPublished %><label class="label large"><%t App\Models\MetaOverviewPage.IsNotPublished 'Not published!' %></label><% end_if %>
+<% if $ClassName == 'SilverStripe\CMS\Model\RedirectorPage' %><label class="label large"><%t App\Models\MetaOverviewPage.RedirectorPage 'Redirector Page' %></label><% end_if %>
 <label class="label class-name">{$ShortClassName($this, 0)}</label>
 <label class="label anchor">#{$ID}-{$URLSegment}</label>
-<% if $ImagesForSitemap %>
+<%-- if $ImagesForSitemap --%>
 <figure>
     <img src="$getDefaultOGImage().Link" alt="$getDefaultOGImage().Title">
 <figcaption class="label"><%t App\Models\MetaOverviewPage.OGImageLabel 'OG Image' %></figcaption>
 </figure>
-<% end_if %>
+<%-- end_if --%>
 <div class="txt">
     <a  class="edit" alt="edit" href="/admin/pages/edit/show/{$ID}"></a>
-    <h3>$Title #{$Pos} <span class="gray">(Title)</span></h3>
+    <h3>$Title ID:{$ID} <span class="gray">(Title)</span></h3>
     <p>
         <a target="_blank" href="$Link">$Link</a><br/>
         <% if $ClassName != "SilverStripe\CMS\Model\RedirectorPage" %>

@@ -16,7 +16,10 @@ class BlogCategoryExtension extends DataExtension
 
     public function updateCMSFields(FieldList $fields) {
 
-        $fields->removeByName('SortOrder');
+        $fields->removeByName([
+            'SortOrder',
+            'MMSortOrder'
+        ]);
 
         return $fields;
     }
