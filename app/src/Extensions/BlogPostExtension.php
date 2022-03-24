@@ -86,14 +86,14 @@ class BlogPostExtension extends DataExtension
     }
 
     public function PrevNext($Mode = 'next')
-	{
-		$list = $this->owner->Parent()->getBlogPosts();
+    {
+        $list = $this->owner->Parent()->getBlogPosts();
 
-		if($Mode == 'next'){
-			return $list->filter(["Sort:GreaterThan" => $this->owner->Sort])->sort("Sort ASC")->limit(1)->first();
-		}
-		if($Mode == 'prev'){
-			return $list->filter(["Sort:LessThan" => $this->owner->Sort])->sort("Sort DESC")->limit(1)->first();
-		}
-	}
+        if ($Mode == 'next') {
+            return $list->filter(["Sort:GreaterThan" => $this->owner->Sort])->sort("Sort ASC")->limit(1)->first();
+        }
+        if ($Mode == 'prev') {
+            return $list->filter(["Sort:LessThan" => $this->owner->Sort])->sort("Sort DESC")->limit(1)->first();
+        }
+    }
 }

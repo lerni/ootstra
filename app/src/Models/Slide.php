@@ -38,7 +38,7 @@ class Slide extends DataObject
     ];
 
     private static $belongs_many_many = [
-        'Hero' => ElementHero::class.'.Slides'
+        'Hero' => ElementHero::class . '.Slides'
     ];
 
     private static $owns = [
@@ -129,7 +129,7 @@ class Slide extends DataObject
                     GridFieldSortableHeader::class
                 ]);
 
-            $fields->fieldByName('Root.Hero.Hero')->setTitle(_t(__CLASS__.'.IsUsedOnComment','This Slide is used on following Elements'));
+            $fields->fieldByName('Root.Hero.Hero')->setTitle(_t(__CLASS__ . '.IsUsedOnComment', 'This Slide is used on following Elements'));
 
             $fields
                 ->fieldByName('Root.Hero.Hero')

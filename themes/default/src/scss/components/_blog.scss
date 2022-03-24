@@ -52,5 +52,103 @@ body.blog {
 		&:focus {
 			outline: none;
 		}
-    }
+	}
+	.prev-all-next {
+		display: grid;
+		grid-template-columns: 1fr #{$lh*3}em 1fr;
+		grid-gap: #{$lh}em;
+		align-items: center;
+		margin: #{$lh*2}em auto #{$lh*2}em;
+		@include breakpoint($Lneg) {
+			grid-template-columns: 1fr;
+		}
+		>a {
+			color: $lauftext-color;
+		}
+		&.inner {
+			padding-left: 0;
+			padding-right: 0;
+		}
+		.prev,
+		.next {
+			display: block;
+			height: #{$lh*3}em;
+			margin: 0 auto;
+			display: flex;
+			background-color: $gray-lighter;
+			// min-width: 300px;
+			>img {
+				width: #{$lh*3}em;
+				height: #{$lh*3}em;
+			}
+			span {
+				margin: auto 0;
+				&::before,
+				&::after {
+					will-change: background-position;
+					transition: background-position;
+					transition-duration: .12s;
+				}
+			}
+		}
+		.prev {
+			margin-left: 0;
+			padding-right: 1em;
+			span::before {
+				content: "";
+				width: #{$lh}em;
+				height: 1em;
+				display: inline-block;
+				background-size: auto 80%;
+				background-repeat: no-repeat;
+				background-image: svg-load('../images/svg/forth.svg', fill=#{$lauftext-color});
+				background-position: bottom 100% right 50%;
+				transform: rotate(180deg);
+			}
+			>img {
+				margin-right: 1em;
+			}
+			&:hover {
+				span::before {
+					background-position: bottom 100% right 0%;
+				}
+			}
+		}
+		.next {
+			margin-right: 0;
+			padding-left: 1em;
+			span::after {
+				content: "";
+				width: #{$lh}em;
+				height: 1em;
+				display: inline-block;
+				background-size: auto 80%;
+				background-repeat: no-repeat;
+				background-image: svg-load('../images/svg/forth.svg', fill=#{$lauftext-color});
+				background-position: top 100% right 50%;
+			}
+			>img {
+				margin-left: 1em;
+			}
+			&:hover {
+				span::after {
+					background-position: top 100% right 0%;
+				}
+			}
+		}
+		// if empty - first & last element
+		span.prev,
+		span.next {
+			background-color: transparent;
+		}
+		.all-posts {
+			margin: auto;
+			display: block;
+			width: #{$lh*2.4}em;
+			height: #{$lh*2.4}em;
+			background-image: svg-load('../images/svg/grid.svg', fill=#{$gray-light});
+			background-size: 100% auto;
+		}
+	}
+
 }

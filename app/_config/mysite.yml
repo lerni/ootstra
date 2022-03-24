@@ -168,6 +168,7 @@ SilverStripe\CMS\Model\SiteTree:
     - App\Extensions\HeritageExtension
     - DorsetDigital\SilverStripeCanonical\SiteTreeCanonicalExtension
   meta_generator: ''
+  show_meta_generator_version: false
 
 SilverStripe\SiteConfig\SiteConfig:
   extensions:
@@ -223,6 +224,12 @@ App\Models\Perso:
 #   appId: ''
 #   appSecret: ''
 ##  redirectUri: 'https://domain.tld/_instaauth/'
+
+App\Models\SlugHolderPage:
+  ManagedModels:
+    - JobPosting: 'Kraftausdruck\Models\JobPosting'
+    - Perso: 'App\Models\Perso'
+
 ---
 Name: mywebmanifestconfig
 After: webmanifestconfig
@@ -252,6 +259,10 @@ TractorCow\OpenGraph\OpenGraph:
   default_locale: 'de_DE'  # OpenGraph accepts just a limited subset of possible locales - de_CH for example is not supported
   application_id: ''
   admin_id: ''
+
+TractorCow\OpenGraph\ObjectBuilders\OpenGraphBuilder:
+  extensions:
+    - App\Extensions\OpengraphBuilderExtension
 
 # ---
 # Name: mygooglemapfield

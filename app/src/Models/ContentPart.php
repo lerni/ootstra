@@ -27,7 +27,7 @@ class ContentPart extends DataObject
     ];
 
     private static $belongs_many_many = [
-        'ElementContentSection' => ElementContentSection::class. '.ContentParts'
+        'ElementContentSection' => ElementContentSection::class . '.ContentParts'
     ];
 
     private static $casting = [
@@ -104,7 +104,7 @@ class ContentPart extends DataObject
                     GridFieldSortableHeader::class
                 ]);
 
-            $fields->fieldByName('Root.ElementContentSection.ElementContentSection')->setTitle(_t(__CLASS__.'.IsUsedOnComment','This Slide is used on following Elements'));
+            $fields->fieldByName('Root.ElementContentSection.ElementContentSection')->setTitle(_t(__CLASS__ . '.IsUsedOnComment', 'This Slide is used on following Elements'));
 
             $fields
                 ->fieldByName('Root.ElementContentSection.ElementContentSection')

@@ -29,7 +29,7 @@ class Teaser extends DataObject
     ];
 
     private static $belongs_many_many = [
-        'TeaserElements' => ElementTeaser::class. '.Teasers'
+        'TeaserElements' => ElementTeaser::class . '.Teasers'
     ];
 
     private static $owns = [
@@ -87,7 +87,7 @@ class Teaser extends DataObject
                     GridFieldSortableHeader::class
                 ]);
 
-            $fields->fieldByName('Root.TeaserElements.TeaserElements')->setTitle(_t(__CLASS__.'.IsUsedOnComment','This Teaser is used on following Elements'));
+            $fields->fieldByName('Root.TeaserElements.TeaserElements')->setTitle(_t(__CLASS__ . '.IsUsedOnComment', 'This Teaser is used on following Elements'));
 
             $fields
                 ->fieldByName('Root.TeaserElements.TeaserElements')

@@ -28,4 +28,11 @@ class JobDefaults extends DataObject implements TemplateGlobalProvider
 
     private static $table_name = 'JobDefaults';
 
+    public function populateDefaults()
+    {
+        $this->CFA = _t(__CLASS__ . '.defaultCFA', 'Contact me for any further information.');
+
+        parent::populateDefaults();
+    }
+
 }

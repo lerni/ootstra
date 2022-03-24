@@ -3,7 +3,6 @@
 use SilverStripe\i18n\i18n;
 use SilverStripe\Admin\CMSMenu;
 use Wilr\GoogleSitemaps\GoogleSitemap;
-use SilverStripe\ORM\Search\FulltextSearchable;
 use SilverStripe\View\Parsers\URLSegmentFilter;
 use SilverStripe\Forms\HTMLEditor\TinyMCEConfig;
 use SilverStripe\CMS\Controllers\CMSPagesController;
@@ -105,7 +104,7 @@ $EditorConfig->setButtonsForLine(2, '');
 CMSMenu::remove_menu_item('SilverStripe-Reports-ReportAdmin');
 CMSMenu::remove_menu_item('SilverStripe-CampaignAdmin-CampaignAdmin');
 CMSMenu::remove_menu_item('SilverStripe-Admin-SecurityAdmin');
-CMSMenu::remove_menu_item('SilverStripe-VersionedAdmin-ArchiveAdmin');
+// CMSMenu::remove_menu_item('SilverStripe-VersionedAdmin-ArchiveAdmin');
 // CMSMenu::remove_menu_item('SilverStripe-SiteConfig-SiteConfigLeftAndMain');
 
 CMSPagesController::config()->help_links = [];

@@ -105,7 +105,7 @@
 								<img src="$SlideImage.FocusFillMax(1400,1050).URL" alt="$Beschreibung" id="hero-image-{$ID}">
 							</picture></figure>
 							<div class="scroll"></div>
-							<style type="text/css">
+							<style type="text/css" nonce="{$Nonce}">
 								#hero-image-{$ID} {
 									object-position: {$SlideImage.FocusFillMax(2600,1950).Focuspoint.PercentageX}% {$SlideImage.FocusFillMax(2600,1950).Focuspoint.PercentageY}%;
 								}

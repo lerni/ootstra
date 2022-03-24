@@ -8,7 +8,6 @@ use SilverStripe\Security\Security;
 use SilverStripe\View\Requirements;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Security\Permission;
-use SilverStripe\CMS\Model\RedirectorPage;
 
 class MetaOverviewPage extends Page
 {

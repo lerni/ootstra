@@ -22,3 +22,5 @@ de:
     MORE: 'Stelleninserat'
     NOVACANCIES: 'Text wenn keine Inserate'
     EditJobsHint: 'Stelleninserate per "Jobs" <a href="/admin/jobs">erfassen & bearbeiten</a>.'
+  Kraftausdruck\Models\JobDefaults:
+    defaultCFA: 'Gerne stehe ich für weitere Auskünfte zur Verfügung.'
