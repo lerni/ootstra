@@ -21,7 +21,7 @@ namespace {
                 Requirements::insertHeadTags('<meta name="robots" content="noindex">');
             }
             if ($this->response) {
-                $this->response->addHeader('Link', implode(',', [
+                $additionalLinkHeaders = [
                     sprintf(
                         '<%s>; rel=preload; as=script',
                         ModuleResourceLoader::resourceURL('/_resources/themes/default/dist/js/app.js')
@@ -30,7 +30,15 @@ namespace {
                         '<%s>; rel=preload; as=style',
                         ModuleResourceLoader::resourceURL('/_resources/themes/default/dist/css/style.css')
                     )
-                ]));
+                ];
+                $headers = $this->response->getHeaders();
+                if (array_key_exists('link', $headers)) {
+                    $linkHeaders = explode(',', $headers['link']);
+                    $linkHeaders = array_merge($linkHeaders, $additionalLinkHeaders);
+                } else {
+                    $linkHeaders = $additionalLinkHeaders;
+                }
+                $this->response->addHeader('link', implode(',', $linkHeaders));
             }
         }
     }

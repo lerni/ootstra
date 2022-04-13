@@ -51,7 +51,7 @@
         "undefinedoffset/silverstripe-nocaptcha": "^2.0",
         "lerni/silverstripe-webmanifest": "dev-master",
         "spatie/schema-org": "^3",
-        "heyday/silverstripe-colorpalette": "dev-master",
+        "heyday/silverstripe-colorpalette": "^2",
         "betterbrief/silverstripe-googlemapfield": "^2.2.1",
         "giggsey/libphonenumber-for-php": "^8.10",
         "kinglozzer/htmleditorstylinghook": "^2.0",

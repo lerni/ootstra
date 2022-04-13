@@ -37,7 +37,7 @@ class ContentPart extends DataObject
     private static $summary_fields = [
         'Title' => 'Title',
         'Text.Summary' => 'Text',
-        'FAQSchema' => 'FAQ'
+        'FAQSchema.Nice' => 'FAQ'
     ];
 
     private static $defaults = [

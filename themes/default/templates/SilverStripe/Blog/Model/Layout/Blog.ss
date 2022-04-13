@@ -1,5 +1,5 @@
 <% include App/Includes/Header %>
-<main class="typography" id="main">
+<main class="typography">
 	<% if $Slides %>
 		<article class="element elementhero spacing-bottom-2<% if $SiteConfig.GlobalAlert %>> global-alert<% end_if %>"><% include App/Includes/Slides %></article>
 	<% else %>

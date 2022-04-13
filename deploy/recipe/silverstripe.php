@@ -36,6 +36,7 @@ SS_DEFAULT_ADMIN_PASSWORD='{$cmsDefaultPass}'
 SS_ERROR_EMAIL='{$errorEmail}'
 SS_ADMIN_EMAIL='{$adminEmail}'
 GHOSTSCRIPT_PATH='/usr/bin/gs'
+SS_ERROR_LOG='silverstripe.log'
 
 ENV;
 

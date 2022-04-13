@@ -13,6 +13,8 @@ SilverStripe\Assets\File:
     - App\Extensions\FileExtension
     # needs GHOSTSCRIPT_PATH="/usr/local/bin/gs"
     # - App\Extensions\PdfThumbnailerExtension
+  allowed_extensions:
+    bmp: false
 
 # SilverStripe\AssetAdmin\Forms\FileFormFactory:
 SilverStripe\AssetAdmin\Forms\ImageFormFactory:
@@ -204,6 +206,20 @@ SilverStripe\Core\Injector\Injector:
   SilverStripe\Assets\Image_Backend:
     properties:
       Quality: 84
+  Psr\SimpleCache\CacheInterface.cacheblock:
+    constructor:
+      namespace: 'cacheblock'
+      defaultLifetime: 0 # zero is infinit
+  # Swift_Transport:
+  #   class: Swift_SmtpTransport
+  #   properties:
+  #     Host: '`SMTPMAIL_HOST`'
+  #     Port: 465
+  #     Encryption: ssl
+  #   calls:
+  #     Username: [ setUsername, ['`SMTPMAIL_USERNAME`'] ]
+  #     Password: [ setPassword, ['`SMTPMAIL_PASSWORD`'] ]
+  #     AuthMode: [ setAuthMode, ['login'] ]
 
 gorriecoe\Robots\Robots:
   disallowed_urls: []

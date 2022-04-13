@@ -249,33 +249,30 @@ class JobPosting extends DataObject
 
         if ($this->JobLocations()->Count()) {
             $locations = [];
+            $geoLocations = [];
             $i = 0;
             foreach ($this->JobLocations() as $location) {
-
                 $country = strtoupper($location->Country);
-
-                $PushLocation = Schema::postalAddress()
-                    ->streetAddress($location->Address)
+                $pushLocation = Schema::postalAddress()
+                    ->streetAddress($location->StreetAddress)
                     ->postalCode($location->PostalCode)
-                    ->addressLocality($location->Town)
+                    ->addressLocality($location->AddressLocality)
                     ->addressRegion($location->AddressRegion)
-                    ->addressCountry(Schema::Country()
-                        ->name($country));
+                    ->addressCountry(Schema::Country()->name($country))
+                    ->hasMap($location->GeoPoint()->PointURL);
+                $locations[$i] = $pushLocation;
 
-                $locations[$i] = Schema::Place()->address($PushLocation);
-
-                if ($location->GeoPointID) {
-                    $PushGeo = Schema::geoCoordinates()
-                        ->latitude($location->GeoPoint()->Latitude)
-                        ->longitude($location->GeoPoint()->Longitude);
-
-                    $locations[$i]->hasMap($location->GeoPoint()->GMapLatLngLink());
-                    $locations[$i]->geo($PushGeo);
-                }
+                $pushGeoLocation = Schema::geoCoordinates()
+                    ->latitude($location->Location()->Latitude)
+                    ->longitude($location->Location()->Longitude);
+                $geoLocations[$i] = $pushGeoLocation;
 
                 $i++;
             }
-            $schema->jobLocation($locations);
+			$schema->jobLocation(Schema::Place()
+				->address($locations)
+				->geo($geoLocations)
+			);
         }
 
         $schema->setProperty('@id', $this->AbsoluteLink());

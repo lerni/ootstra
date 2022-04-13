@@ -9,29 +9,29 @@
 AddHandler default-handler php phtml php3 php4 php5 inc
 
 <IfModule mod_php5.c>
-    # Turn the PHP engine off
-    php_flag engine off
+	# Turn the PHP engine off
+	php_flag engine off
 </IfModule>
 
 <IfModule mod_rewrite.c>
-    <IfModule mod_env.c>
-        SetEnv HTTP_MOD_REWRITE On
-    </IfModule>
+	<IfModule mod_env.c>
+		SetEnv HTTP_MOD_REWRITE On
+	</IfModule>
 
-    RewriteEngine On
+	RewriteEngine On
 
-    # Allow error pages
-    RewriteCond %{REQUEST_FILENAME} -f
-    RewriteRule error[^\\\\/]*\\.html$ - [L]
+	# Allow error pages
+	RewriteCond %{REQUEST_FILENAME} -f
+	RewriteRule error[^\\\\/]*\\.html$ - [L]
 
-    # Allow specific file extensions
-    RewriteCond %{REQUEST_URI} !^[^.]*[^\\/]*\\.(?i:css|js<% loop $AllowedExtensions %>|$Extension<% end_loop %>)$
-    RewriteRule .* - [F]
+	# Allow specific file extensions
+	RewriteCond %{REQUEST_URI} !^[^.]*[^\\/]*\\.(?i:css|js<% loop $AllowedExtensions %>|$Extension<% end_loop %>)$
+	RewriteRule .* - [F]
 
-    # Non existent files passed to requesthandler
-    RewriteCond %{REQUEST_URI} ^(.*)$
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule .* ../index.php [QSA]
+	# Non existent files passed to requesthandler
+	RewriteCond %{REQUEST_URI} ^(.*)$
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteRule .* ../index.php [QSA]
 </IfModule>
 
 <IfModule mod_rewrite.c>
@@ -42,16 +42,16 @@ AddHandler default-handler php phtml php3 php4 php5 inc
 	RewriteCond %{DOCUMENT_ROOT}/assets/$1_$2.webp -f
 	# Serve WebP image instead
 	RewriteRule (.+)\.(jpe?g|JPE?G|png)$ $1_$2.webp [T=image/webp,E=accept:1]
-  </IfModule>
+</IfModule>
 
-  <IfModule mod_headers.c>
+<IfModule mod_headers.c>
 	Header append Vary Accept env=REDIRECT_accept
-  </IfModule>
+</IfModule>
 
-  <IfModule mod_mime.c>
+<IfModule mod_mime.c>
 	AddType image/webp .webp
-  </IfModule>
+</IfModule>
 
-  <% if $KraftausdruckFolderIndex %><IfModule mod_headers.c><% loop $KraftausdruckFolderIndex %>
-    Header set X-Robots-Tag "noindex, nofollow, noimageindex, noarchive, nosnippet" "expr=%{REQUEST_URI} =~ m#^/assets/{$getFilename}#"
-  <% end_loop %></IfModule><% end_if %>
+<% if $KraftausdruckFolderIndex %><IfModule mod_headers.c><% loop $KraftausdruckFolderIndex %>
+	Header set X-Robots-Tag "noindex, nofollow, noimageindex, noarchive, nosnippet" "expr=%{REQUEST_URI} =~ m#^/assets/{$getFilename}#"
+<% end_loop %></IfModule><% end_if %>

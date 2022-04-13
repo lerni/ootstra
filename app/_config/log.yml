@@ -29,6 +29,7 @@ SilverStripe\Core\Injector\Injector:
   # Core error handler for system use
   Psr\Log\LoggerInterface.errorhandler:
     calls:
+      pushWebProcessor: [ pushProcessor, [ '%$Monolog\Processor\WebProcessor' ]]
       pushFileLogHandler: [ pushHandler, [ '%$LogFileHandler' ]]
       pushMailHandler: [ pushHandler, [ '%$MailHandler' ]]
 
