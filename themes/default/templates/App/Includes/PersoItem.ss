@@ -17,7 +17,7 @@
 		<div class="arrow--up"></div>
 	</div>
 	<div class="item--expand">
-		<a href="#item-{$ID}" class="expand__close"></a>
+		<a href="#item-{$ID}" class="expand__close" aria-label="<%t App\Models\Perso.CLOSE 'Close details' %> {$Title}"></a>
 		<h2>{$Firstname} {$Lastname}</h2>
 		<p>
 			<% if $Position %>

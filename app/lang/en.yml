@@ -3,6 +3,9 @@ en:
     FIELDISREQUIRED: '{name} is required'
   App\Elements\ElementPerso:
     BlockType: 'Team'
+  App\Models\Perso:
+    MORE: 'More'
+    CLOSE: 'Close details'
   App\Controller\ElementPersoController:
     FILTERDROPDOWNLABEL: 'Department'
     ALLDEP: 'all departments'

@@ -137,6 +137,7 @@ de:
     SINGULARNAME: Perso
     TELEPHONE: 'Telefon'
     TelephoneDescription: '+41 43 000 00 00'
+    CLOSE: 'Details ausblenden'
   App\Models\Point:
     PLURALNAME: Points
     PLURALS:
@@ -228,7 +229,7 @@ de:
   SilverStripe\UserForms\Model\EditableFormField:
     FIELDISREQUIRED: '{name} muss ausgefüllt werden'
     EXTRACLASS_MULTIPLE: 'Mehrere CSS Klassen mit Leerzeichen trennen - half-width - quarter-width-checkbox - auto-width'
-  SilverStripe\UserForms:
+  SilverStripe\UserForms\Model\UserDefinedForm:
     ONCOMPLETEMESSAGE: 'Danke wir haben Ihre Nachricht erhalten.'
   Kraftausdruck\KlaroCookie:
     MODALLINK: 'Datenschutz & Cookies'

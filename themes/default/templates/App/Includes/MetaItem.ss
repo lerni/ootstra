@@ -1,13 +1,14 @@
-<div id="#{$ID}-{$URLSegment}" class="item level-{$PageLevel}<% if not $ImagesForSitemap %> no-images<% end_if %><% if not $isPublished %> not-published<% end_if %><% if not $ShowInSearch %> not-showed-in-search<% end_if %> {$ShortClassName($this, 'false')}">
+<div id="{$ID}-{$URLSegment}" class="item level-{$PageLevel}<% if not $ImagesForSitemap %> no-images<% end_if %><% if not $isPublished %> not-published<% end_if %><% if not $ShowInSearch %> not-showed-in-search<% end_if %> {$ShortClassName($this, 'false')}">
 <% if not $ShowInSearch %><label class="label large"><%t App\Models\MetaOverviewPage.NotShowInSearch 'ShowInSearch isn\'t checked' %></label><% end_if %>
 <% if not $isPublished %><label class="label large"><%t App\Models\MetaOverviewPage.IsNotPublished 'Not published!' %></label><% end_if %>
 <% if $ClassName == 'SilverStripe\CMS\Model\RedirectorPage' %><label class="label large"><%t App\Models\MetaOverviewPage.RedirectorPage 'Redirector Page' %></label><% end_if %>
 <label class="label class-name">{$ShortClassName($this, 0)}</label>
 <label class="label anchor">#{$ID}-{$URLSegment}</label>
+<label class="label pub-date"><% if $PublishDate %><strong><%t App\Models\MetaOverviewPage.PagePublishDate 'Publish date:' %></strong> {$PublishDate.Format('d.M.yy')}<% else %><strong><%t App\Models\MetaOverviewPage.PageCreated 'Created:' %></strong> {$Created.Format('d.M.yy')}<% end_if %> <strong><%t App\Models\MetaOverviewPage.PageLastEdited 'Last edited:' %></strong> {$LastEdited.Format('d.M.yy')}</label>
 <%-- if $ImagesForSitemap --%>
 <figure>
     <img src="$getDefaultOGImage().Link" alt="$getDefaultOGImage().Title">
-<figcaption class="label"><%t App\Models\MetaOverviewPage.OGImageLabel 'OG Image' %></figcaption>
+	<figcaption class="label"><strong><%t App\Models\MetaOverviewPage.OGImageLabel 'OG Image' %>:</strong> $getDefaultOGImage().Title</figcaption>
 </figure>
 <%-- end_if --%>
 <div class="txt">

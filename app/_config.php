@@ -109,8 +109,6 @@ CMSMenu::remove_menu_item('SilverStripe-Admin-SecurityAdmin');
 
 CMSPagesController::config()->help_links = [];
 
-// FulltextSearchable::enable();
-
 // SilverStripe\ORM\DB::query("SET SESSION sql_mode='REAL_AS_FLOAT,PIPES_AS_CONCAT,ANSI_QUOTES,IGNORE_SPACE';");
 
 URLSegmentFilter::config()->default_replacements = [

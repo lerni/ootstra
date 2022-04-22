@@ -60,8 +60,8 @@ SilverStripe\Forms\HTMLEditor\TinyMCEConfig:
     - width: 1223
 
 SilverStripe\Forms\HTMLEditor\HTMLEditorField:
-    default_classes:
-      stacked: stacked
+  default_classes:
+    stacked: stacked
 
 Page:
   extensions:
@@ -70,8 +70,8 @@ Page:
     default:
       - SilverStripe\Blog\Model\BlogPost
       - App\Models\MetaOverviewPage
-    metaoverview:
-      - App\Models\MetaOverviewPage
+  metaoverview:
+    - App\Models\MetaOverviewPage
 
 SilverStripe\Blog\Model\BlogCategory:
   extensions:

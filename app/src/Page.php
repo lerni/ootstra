@@ -44,7 +44,7 @@ namespace {
                 $fields->removeByName(['ExtraMeta']);
 
                 if (!Permission::check('ADMIN') && $this->IsHome()) {
-                    $fields->removeByName('URLSegment');
+                    $fields->removeByName(['URLSegment']);
                 }
 
                 if ($TextEditor = $fields->dataFieldByName('Content')) {
@@ -90,6 +90,7 @@ namespace {
             return $fields;
         }
 
+        // todo: relay on get magic or not?
         public function DefaultMetaTitle()
         {
             if (!$this->MetaTitle) {

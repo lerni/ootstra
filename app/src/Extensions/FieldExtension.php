@@ -50,13 +50,10 @@ class FieldExtension extends Extension
         if ($this->owner->value) {
             $stringwithnoemptylines = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $this->owner->value);
             $lines = explode(PHP_EOL, $stringwithnoemptylines);
-
             $i = 0;
-            $c = 0;
             foreach ($lines as $l) {
                 if ($start <= ($i + 1)) {
                     $r->push(ArrayData::create(['Item' => $l]));
-                    $c++;
                 }
                 $i++;
             }

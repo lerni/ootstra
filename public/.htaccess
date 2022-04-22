@@ -65,8 +65,8 @@ Options -Indexes
     SetEnv BlockUntrustedIPs true
 </IfModule>
 
-# prevent iframe
-Header always set X-Frame-Options "SAMEORIGIN"
+# prevent iframe - questionable in lieu of CSP
+# Header always set X-Frame-Options "SAMEORIGIN"
 
 # ##############################################################################
 # # URL REWRITES                                                               #

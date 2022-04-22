@@ -11,5 +11,5 @@ Fancybox.bind("[data-fancybox]", {
     display: [
       "close"
     ],
-  },
+  }
 });
