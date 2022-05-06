@@ -1,30 +1,64 @@
 version: "3.8"
 services:
   silverstripe:
-    # image: brettt89/silverstripe-web:7.4-apache
+    # image: brettt89/silverstripe-web:8.0-apache
     image: silverstripe:refined
     ports:
       - 8080:80
     volumes:
-      - .:/var/www/html
+      - .:/var/www/html:cached
+      # - "~/.composer:/var/www/.composer"
+      - ./docker/config/php/80/custom.php.ini:/usr/local/etc/php/conf.d/custom.php.ini
+
     depends_on:
-       - database
+      - database
+      - mailcatcher
     environment:
-       - DOCUMENT_ROOT=/var/www/html/public
-       - SS_TRUSTED_PROXY_IPS=*
-       - SS_ENVIRONMENT_TYPE=dev
-       - SS_DATABASE_SERVER=database
-       - SS_DATABASE_NAME=database
-       - SS_DATABASE_USERNAME=root
-       - SS_DATABASE_PASSWORD=
-       - SS_DEFAULT_ADMIN_USERNAME=admin
-       - SS_DEFAULT_ADMIN_PASSWORD=password
+      - DOCUMENT_ROOT=/var/www/html/public
+      - SS_TRUSTED_PROXY_IPS=*
+      - SS_ENVIRONMENT_TYPE=dev
+      - SS_DATABASE_SERVER=database
+      - SS_DATABASE_NAME=database
+      # - SS_DATABASE_SERVER=host.docker.internal
+      # - SS_DATABASE_NAME=SS_project
+      - SS_DATABASE_USERNAME=root
+      - SS_DATABASE_PASSWORD=
+      - SS_DEFAULT_ADMIN_USERNAME=admin
+      - SS_DEFAULT_ADMIN_PASSWORD=password
+      - SS_ERROR_LOG=silverstripe.log
+      - GHOSTSCRIPT_PATH=/usr/bin/gs
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   database:
     image: mysql:5.7
     environment:
-       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
     volumes:
-       - db-data:/var/lib/mysql
-volumes:
-     db-data:
+      - ./docker/data/mysql/:/var/lib/mysql:delegated
+      - ./docker/config/mysql/my.cnf:/etc/mysql/conf.d/z_my.cnf
+
+  pma:
+    image: phpmyadmin/phpmyadmin
+    links:
+        - database
+    ports:
+        - 8081:80
+    environment:
+        - PMA_ARBITRARY=1
+        - PMA_PORT=3306
+        - PMA_HOST=database
+        - PMA_USER=root
+        - PMA_PASSWORD=
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    # container_name: '${COMPOSE_PROJECT_NAME}-mailhog'
+    ports:
+      - 1025:1025
+      - 8025:8025
+    # networks:
+    #   - mailhog
+
+# volumes:
+#      db-data:

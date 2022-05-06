@@ -3,13 +3,16 @@
 namespace App\Elements;
 
 use App\Models\Perso;
+use SilverStripe\Forms\LiteralField;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\GridField\GridFieldPageCount;
 use SilverStripe\Forms\GridField\GridFieldConfig_Base;
+use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
+use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
 use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
-use SilverStripe\Forms\LiteralField;
 
 class ElementPersoCFA extends BaseElement
 {
@@ -71,17 +74,24 @@ class ElementPersoCFA extends BaseElement
 
         // hack around unsaved relations
         if ($this->isInDB()) {
-            $PersoGFConfig = GridFieldConfig_Base::create(20);
-            $PersoGFConfig->removeComponentsByType([
-                GridFieldFilterHeader::class
-            ]);
+            $PersoGFConfig = GridFieldConfig_RecordEditor::create(20);
+            $PersoGFConfig->removeComponentsByType(GridFieldPageCount::class);
+            $PersoGFConfig->removeComponentsByType(GridFieldAddNewButton::class);
+
             $PersoGFConfig->addComponents(
-                new GridFieldAddExistingAutocompleter('toolbar-header-right'),
-                new GridFieldDeleteAction(true)
+                new GridFieldDeleteAction(true),
+                new GridFieldAddNewButton('toolbar-header-right')
             );
-            $PersoGFConfig->addComponent(new GridFieldOrderableRows('SortOrder'));
-            $GFPerso = new GridField('Persos', 'Personen', $this->Persos(), $PersoGFConfig);
-            $fields->addFieldToTab('Root.Main', $GFPerso);
+
+            // hack around unsaved relations
+            $PersoGFConfig->addComponents(
+                new GridFieldOrderableRows('SortOrder'),
+                new GridFieldAddExistingAutocompleter('toolbar-header-right')
+            );
+            $PersoGFConfig->getComponentByType(GridFieldPaginator::class)->setItemsPerPage(100);
+
+            $GFPerso = new GridField('Persos', _t(__CLASS__ . '.PERSOS', 'Employees'), $this->Persos(), $PersoGFConfig);
+            $fields->push($GFPerso);
         } else {
             $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
         }

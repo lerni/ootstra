@@ -91,12 +91,12 @@ body {
 			&.logo {
 				flex: 0 0 220px;
 				a {
+					display: table;
 					svg,
 					img {
 						height: auto;
 						max-width: 185px;
 						margin: auto auto 0 0;
-						display: table;
 					}
 				}
 			}
@@ -671,14 +671,13 @@ main.typography {
 	}
 	&.elementcontentsection {
 		.content-part.accordion {
-			border-top: 1px solid $gray-light;
-			border-bottom: 1px solid $gray-light;
+			// border-bottom: 2px solid $lauftext-color;
 			article {
 				header {
-					padding: #{math.div($lh, 2)}em 0;
+					padding: #{math.div($lh, 1)}em 0;
+					padding-right: #{$lh*3}em;
 					cursor: pointer;
 					position: relative;
-					padding-right: #{$lh*3}em;
 					@include breakpoint($Lneg) {
 						flex: 0 0 100%;
 					}
@@ -689,24 +688,23 @@ main.typography {
 						&::after {
 							content: "";
 							display: block;
-							width: #{$lh*1.8}rem;
-							height: #{$lh*1.8}rem;
+							width: #{$lh*.6}em;
+							height: #{$lh*.6}em;
 							position: absolute;
 							right: 0;
-							top: .3em;
+							top: 1.1em;
 							background-repeat: no-repeat;
-							background-image: svg-load('../images/svg/forth.svg', fill=#{$lauftext-color});
-							// background-image: svg-load('../images/svg/arrow-down.svg', fill=#{$lauftext-color});
+							background-image: svg-load('../images/svg/plus.svg', stroke=#{$lauftext-color}, stroke-width=2);
 							background-position: 50% 50%;
-							background-size: .4rem .8rem;
+							background-size: 100%;
 							transform-origin: 50% 50%;
 							transition: .1s transform ease-in-out;
-							transform: rotate(90deg);
+							transform: rotate(0deg);
 						}
 					}
 				}
 				>div.flip {
-					padding:#{math.div($lh, 2)}em 0;
+					padding: 0 #{$lh*2}em #{$lh * 1.5}em 0;
 					>p:last-child {
 						margin-bottom: 0;
 					}
@@ -717,14 +715,14 @@ main.typography {
 						h2.flip,
 						h3.flip {
 							&::after {
-								transform: rotate(-90deg);
+								transform: rotate(45deg);
 							}
 						}
 					}
 				}
 			}
 			article.flip + article.flip {
-				border-top: 1px solid $gray-light;
+				border-top: 2px solid $lauftext-color;
 			}
 		}
 		.content-part.text-blocks {
@@ -735,6 +733,27 @@ main.typography {
 			grid-template-columns: 1fr 1fr;
 			@include breakpoint($Lneg) {
 				grid-template-columns: 1fr;
+			}
+			article {
+				padding: #{$lh}em #{$lh}em #{math.div($lh, 2)}em #{$lh}em;
+				background-color: $red;
+				h2 {
+					color: $white;
+				}
+				*  {
+					color: $white;
+				}
+				@include breakpoint($Lplus) {
+					&:nth-of-type(4n+1),
+					&:nth-of-type(4n) {
+						background-color: $blue;
+					}
+				}
+				@include breakpoint($Lneg) {
+					&:nth-of-type(2n) {
+						background-color: $blue;
+					}
+				}
 			}
 		}
 	}
@@ -833,31 +852,6 @@ main.typography {
 		$i1: $i + 1;
 	}
 }
-
-
-/* SEARCH RESULTS STYLES
------------------------------------------------- */
-
-ul#SearchResults {
-	margin: 0px;
-	padding: 0px;
-	a {
-		text-decoration: none;
-	}
-	li {
-		list-style: none;
-		padding: 16px 0 20px 0;
-		font-size: 1em;
-		margin: 0;
-		border-bottom: 1px solid $gray-light;
-		&:first-child {
-			padding-top: 0;
-		}
-	}
-}
-
-
-
 
 @media print {
 	footer, //  .upper .inner .sitemap,
@@ -998,7 +992,9 @@ html .klaro {
 		.cm-list-input.half-checked:checked + .cm-list-label .slider {
 			background-color: mix($link-color, $white, 71%);
 		}
-
+		.cm-list-description {
+			color: $gray-light;
+		}
 		// accept all
 		.cm-btn.cm-btn-accept-all {
 			background-color: $link-color;

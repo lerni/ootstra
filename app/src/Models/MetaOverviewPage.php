@@ -28,9 +28,11 @@ class MetaOverviewPage extends Page
     {
         $fields = parent::getCMSFields();
 
-        $fields->removeByName('Content');
-        $fields->removeByName('Root.Main.Metadata');
-        $fields->removeByName('Root.Main.Share');
+        $fields->removeByName([
+            'Content',
+            'Metadata',
+            'PageCategories'
+        ]);
 
         return $fields;
     }

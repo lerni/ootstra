@@ -19,6 +19,7 @@ class ContentPart extends DataObject
 {
     private static $db = [
         'Title' => 'Varchar',
+        'FAQTitle' => 'Varchar',
         'Text' => 'HTMLText',
         'ShowTitle'  => 'Boolean',
         'TitleLevel' => 'Enum("1,2,3","2")',
@@ -51,7 +52,8 @@ class ContentPart extends DataObject
     {
         $labels = parent::fieldLabels($includerelations);
         $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Titel');
-
+        $labels['FAQTitle'] = _t(__CLASS__ . '.FAQTITLE', 'Title/Question');
+        $labels['DefaultOpen'] = _t(__CLASS__ . '.DEFAULTOPEN', 'Open on load');
         return $labels;
     }
 
@@ -90,6 +92,10 @@ class ContentPart extends DataObject
                     ->setName('Title')
             );
             $fields->addFieldToTab('Root.Main', $TitleFieldGroup, true);
+        }
+
+        if ($FAQTitleField = $fields->dataFieldByName('FAQTitle')) {
+            $FAQTitleField->setDescription(_t(__CLASS__ . '.FAQTitleDescription', 'Overrides "Title" for FAQ schema'));
         }
 
         if ($this->isInDB() && $this->ElementContentSection()->count() > 1) {

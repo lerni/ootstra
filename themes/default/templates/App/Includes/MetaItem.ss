@@ -7,12 +7,15 @@
 <label class="label pub-date"><% if $PublishDate %><strong><%t App\Models\MetaOverviewPage.PagePublishDate 'Publish date:' %></strong> {$PublishDate.Format('d.M.yy')}<% else %><strong><%t App\Models\MetaOverviewPage.PageCreated 'Created:' %></strong> {$Created.Format('d.M.yy')}<% end_if %> <strong><%t App\Models\MetaOverviewPage.PageLastEdited 'Last edited:' %></strong> {$LastEdited.Format('d.M.yy')}</label>
 <%-- if $ImagesForSitemap --%>
 <figure>
-    <img src="$getDefaultOGImage().Link" alt="$getDefaultOGImage().Title">
-	<figcaption class="label"><strong><%t App\Models\MetaOverviewPage.OGImageLabel 'OG Image' %>:</strong> $getDefaultOGImage().Title</figcaption>
+	<img src="$getDefaultOGImage(1).Link" alt="$getDefaultOGImage(1).Title">
+	<figcaption class="label">
+		<a class="og-edit" alt="edit {$getDefaultOGImage(1).Title}" target="_blank" href="{$getDefaultOGImage(1).CMSEditLink}"></a>
+		<strong><%t App\Models\MetaOverviewPage.OGImageLabel 'OG Image' %>:</strong> $getDefaultOGImage(1).Title
+	</figcaption>
 </figure>
 <%-- end_if --%>
 <div class="txt">
-    <a  class="edit" alt="edit" href="/admin/pages/edit/show/{$ID}"></a>
+    <a target="_blank" class="edit" alt="edit" href="/admin/pages/edit/show/{$ID}"></a>
     <h3>$Title ID:{$ID} <span class="gray">(Title)</span></h3>
     <p>
         <a target="_blank" href="$Link">$Link</a><br/>

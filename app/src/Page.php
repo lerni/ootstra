@@ -247,7 +247,7 @@ namespace {
             if ($this->ClassName == Blog::class) {
                 if ($this->Slides()->Count()) {
                     if ($SI = $this->Slides()->Sort('SortOrder ASC')->first()) {
-                        if ($SI->SlideImageID) {
+                        if ($SI->SlideImage->exists()) {
                             $i = $SI->SlideImage;
                         }
                     }
@@ -273,7 +273,7 @@ namespace {
                 }
             }
 
-            if ($i != null && $i->exists()) {
+            if ($i != null) {
                 if (!$origin) {
                     return ($i->getWidth() > 1200) ? $i->scaleWidth(1200) : $i;
                 } else {

@@ -82,7 +82,7 @@ class Department extends DataObject
             $PersoGFConfig->getComponentByType(GridFieldPaginator::class)->setItemsPerPage(100);
         }
 
-        $GFPerso = new GridField('Persos', 'Mitarbeiter', $this->Persos(), $PersoGFConfig);
+        $GFPerso = new GridField('Persos', _t(__CLASS__ . '.PERSOS', 'Employees'), $this->Persos(), $PersoGFConfig);
         $fields->push($GFPerso);
 
         // $fields->addFieldToTab('Root.Main', LiteralField::create('PersosInDep', '<h2>Personen in ' . $this->Title . '</h2><p>' . $this->PersoString() . '</p>'));

@@ -5,7 +5,7 @@
 		<div class="teasers third">
 			<% loop $Items %>
 				<a href="$Link" class="teaser">
-					<% if $getDefaultOGImage(1).ID %><figure><img width="$getDefaultOGImage(1).FocusFillMax(340,170).Width()" height="$getDefaultOGImage(1).FocusFillMax(340,170).Height()" src="$getDefaultOGImage(1).FocusFillMax(340,170).URL" srcset="$getDefaultOGImage(1).FocusFillMax(340,170).URL 1x, $getDefaultOGImage(1).FocusFillMax(680,340).URL 2x" alt="$Title" /></figure><% end_if %>
+					<% if $getDefaultOGImage(1).ID %><figure><img loading="lazy" width="$getDefaultOGImage(1).FocusFillMax(340,170).Width()" height="$getDefaultOGImage(1).FocusFillMax(340,170).Height()" src="$getDefaultOGImage(1).FocusFillMax(340,170).URL" srcset="$getDefaultOGImage(1).FocusFillMax(340,170).URL 1x, $getDefaultOGImage(1).FocusFillMax(680,340).URL 2x" alt="$Title" /></figure><% end_if %>
 					<div class="txt">
 						<% if $OGTitle %><h4>$OGTitle</h4><% end_if %>
 						<% if $Summary %>
@@ -23,7 +23,7 @@
 		<div class="teasers halve">
 			<% loop $Items %>
 				<a href="$Link" class="teaser">
-					<% if $getDefaultOGImage(1).ID %><figure><img width="$getDefaultOGImage(1).FocusFillMax(480,400).Width()" height="$getDefaultOGImage(1).FocusFillMax(480,400).Height()" src="$getDefaultOGImage(1).FocusFillMax(480,400).URL" srcset="$getDefaultOGImage(1).FocusFillMax(480,400).URL 1x, $getDefaultOGImage(1).FocusFillMax(960,800).URL 2x" alt="$Title" /></figure><% end_if %>
+					<% if $getDefaultOGImage(1).ID %><figure><img loading="lazy" width="$getDefaultOGImage(1).FocusFillMax(480,400).Width()" height="$getDefaultOGImage(1).FocusFillMax(480,400).Height()" src="$getDefaultOGImage(1).FocusFillMax(480,400).URL" srcset="$getDefaultOGImage(1).FocusFillMax(480,400).URL 1x, $getDefaultOGImage(1).FocusFillMax(960,800).URL 2x" alt="$Title" /></figure><% end_if %>
 					<div class="txt">
 						<% if $OGTitle %><h4>$OGTitle</h4><% end_if %>
 						<% if $Summary %>
@@ -41,7 +41,7 @@
 		<div class="teasers full">
 			<% loop $Items %>
 				<a href="$Link" class="teaser">
-					<% if $getDefaultOGImage(1).ID %><figure><img width="$getDefaultOGImage(1).FocusFillMax(1400,600).Width()" height="$getDefaultOGImage(1).FocusFillMax(1400,600).Height()" src="$getDefaultOGImage(1).FocusFillMax(1400,600).URL" srcset="$getDefaultOGImage(1).FocusFillMax(1400,600).URL 1x, $getDefaultOGImage(1).FocusFillMax(2800,1200).URL 2x" alt="$Title" /></figure><% end_if %>
+					<% if $getDefaultOGImage(1).ID %><figure><img loading="lazy" width="$getDefaultOGImage(1).FocusFillMax(1400,600).Width()" height="$getDefaultOGImage(1).FocusFillMax(1400,600).Height()" src="$getDefaultOGImage(1).FocusFillMax(1400,600).URL" srcset="$getDefaultOGImage(1).FocusFillMax(1400,600).URL 1x, $getDefaultOGImage(1).FocusFillMax(2800,1200).URL 2x" alt="$Title" /></figure><% end_if %>
 					<div class="txt">
 						<% if $OGTitle %><h4>$OGTitle</h4><% end_if %>
 						<% if $OGDescription %><p>$OGDescription</p><% end_if %>

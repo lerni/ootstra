@@ -83,6 +83,7 @@ class EmbedObject extends DataObject {
             $dom->loadHTML($embed);
             $iframe = $dom->getElementsByTagName("iframe");
             $iframe->item(0)->setAttribute('loading','lazy');
+			$iframe->item(0)->setAttribute('title', $this->Title);
             $embed = $dom->saveXML($iframe->item(0));
 
 			$this->EmbedHTML = $embed;

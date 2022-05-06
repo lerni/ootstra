@@ -38,6 +38,7 @@
   ],
   "dependencies": {
     "@fancyapps/ui": "^4.0.26",
+    "@micropackage/responsive-embeds": "^1.0.3",
     "feather-icons": "^4.28.0",
     "fitvids": "^2.1.1",
     "headroom.js": "^0.12.0",

@@ -4,7 +4,7 @@
 	<% if $Layout == "Accordion" %>
 		<div class="content-part accordion" role="presentation">
 			<% loop $ContentParts.Sort("SortOrder") %>
-				<article class="flip<% if $DefaultOpen %> open<% end_if %>">
+				<article class="flip<% if $DefaultOpen %> open<% end_if %>"<% if $Titel %> id="{$Title.URLEnc}"<% end_if %>>
 					<header>
 						<% if $ShowTitle %><h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %> class="flip">$Title</h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %>><% end_if %>
 					</header>

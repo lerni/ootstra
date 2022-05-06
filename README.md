@@ -3,7 +3,7 @@
 
 # Setup, Requirements & install
 
-This project is inspired from [Bigfork’s quickstart recipe](https://github.com/bigfork/silverstripe-recipe) for [Silverstripe](https://www.silverstripe.org/). It's an opinionated set of tools for a ready to run, build & deploy CMS instance in a minimal amount of time. To get it up and running you'll need [GIT](https://git-scm.com/), [Docker](https://www.docker.com/), [composer](https://getcomposer.org/download/), [NPM](https://nodejs.org/) and a server with [SSH](https://de.wikipedia.org/wiki/Secure_Shell). It utilizes [dnadesign/silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) for a block/element based CMS experience and comes with the following set of elements:
+This project is inspired from [Bigfork’s quickstart recipe](https://github.com/bigfork/silverstripe-recipe) for [Silverstripe](https://www.silverstripe.org/). It's an opinionated set of tools for a ready to run, build & deploy CMS instance in a minimal amount of time. To get it up and running you'll need [GIT](https://git-scm.com/), [Docker](https://www.docker.com/), [NPM](https://nodejs.org/) preferred with [nvm](https://github.com/nvm-sh/nvm) and for deployment a server with [SSH](https://de.wikipedia.org/wiki/Secure_Shell) access. It utilizes [dnadesign/silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) for a block/element based CMS experience and comes with the following set of elements:
 
     - ElementContent
     - ElementForm               (userforms)
@@ -32,7 +32,7 @@ Other features:
     - schema.org integration
     - Meta & OpenGraph integration
     - depending on content ~90+ close to 100% Google PageSpeed Score
-    - Analytics, Tagmanager, sitemap.xml, robots.txt
+    - Google Analytics & Tagmanager, Microsoft Clarity, sitemap.xml, robots.txt
     - etc.
 
 ## VCS, source repo
@@ -50,12 +50,16 @@ Other features:
 
 ### Running local dev-env
 
-This project comes with a Dockerfile for Apache/PHP/MySQL. For this you need to install [docker](https://www.docker.com/) and than run the commands bellow in your project:
+For development purpose the project comes with a Dockerfile for Apache/PHP/MySQL/phpMyAdmin/MailHog. Obviously [docker](https://www.docker.com/) needs to be installed. Run the commands bellow in the project directory:
 
  - `docker build --tag silverstripe:refined .`
  - `docker-compose up`
 
-It than should be available on [http://localhost:8080/](http://localhost:8080/). With docker no `.env` file is needed. Default login is `admin` & `password`. With other webserver setups, point your vhost document root of your dev-env to `/project/public`. Database, credentials etc. are provided per environment Variables. See also:
+It than should be available on [http://localhost:8080/](http://localhost:8080/). `phpMyAdmin` is available under [http://localhost:8081/](http://localhost:8081/), MailHog under [http://localhost:8025/](http://localhost:8025/). Default login into `/admin` is `admin` & `password`. **ATM `.env` isn't used with docker - env-var are set in `docker-compose.yml` when running per docker.**
+
+With `docker ps` you can get the <CONTAINER ID> of running instances. Running a shell in a container just do `docker exec -it <CONTAINER_NAME> bash`
+
+With other webserver setups, point your vhost document root of your dev-env to `/project/public` and adjust `proxy` in `themes/default/webpack.mix.js`. Database, credentials etc. are provided per environment Variables. See also:
 
 https://www.silverstripe.org/learn/lessons/v4/up-and-running-setting-up-a-local-silverstripe-dev-environment-1
 
@@ -84,14 +88,17 @@ SS_DATABASE_USERNAME=""
 SS_DATABASE_PASSWORD=""
 SS_DATABASE_SERVER="127.0.0.1"
 
+# for local environments which usually aren't symlinked use "../silverstripe.log" otherwise "silverstripe.log"
 SS_ERROR_LOG="silverstripe.log"
 
 GHOSTSCRIPT_PATH="/usr/local/bin/gs"
 ```
 
-For your PHP-CLI-Setup, it might be helpfull, to set `sys_temp_dir = "/tmp"` in `php.ini` for `sspak`.
+For your PHP-CLI-Setup, it might be helpful, to set `sys_temp_dir = "/tmp"` in `php.ini` for `sspak`.
 
 ## npm
+
+Node/npm runs locally. There is an `.nvmrc` file in `themes/default/`. It should make npm switch to the needed version when changing directory into `themes/default/`.
 
 ```bash
     cd PROJECT/themes/default
@@ -110,7 +117,7 @@ This project uses [Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([web
 
 # Hosting & Deployment
 
-You need to [add your public key on the remote server](https://www.google.com/search?q=add+public+key+to+server) in ~/.ssh/authorized_keys. You can use [ssh-copy-id](https://www.ssh.com/ssh/copy-id) on nix-based systems. Deployment is based on [Deployer](https://deployer.org/) - a php based cli-tool. It uses symlinks to the current release. It's easy to use, offers zero downtime deployments and rollback. `/assets`, `.env` are shared resources, this means they are also symlinked into each release-folder.
+You need to [add your public key on the remote server](https://www.google.com/search?q=add+public+key+to+server) in ~/.ssh/authorized_keys. You can use [ssh-copy-id](https://www.ssh.com/ssh/copy-id) on nix-based systems. Deployment is based on [Deployer](https://deployer.org/) - a php based cli-tool. It uses symlinks to the current release. It's easy to use, offers zero downtime deployments and rollback. `/assets`, `.env` are shared resources, this means they are symlinked into each release-folder.
 
 ```
 ~/public_html/0live        or ~/public_html/0stage
@@ -140,12 +147,9 @@ You need to [add your public key on the remote server](https://www.google.com/se
 
 ```
 
-[Deployer](https://deployer.org/) is included in this project as dev-requirement per `composer.json` but can also be installed globally like:
-
+[Deployer](https://deployer.org/) is included in this project as dev-requirement per `composer.json`. An alias in you rc-files makes it available in thee project directory, so you just can use `dep` instead of prefixing it with `./vendor/bin/...` all the time.
 ```bash
-curl -LO https://deployer.org/deployer.phar
-mv deployer.phar /usr/local/bin/dep
-chmod +x /usr/local/bin/dep
+alias dep="./vendor/bin/dep"
 ```
 
 To transfer assets and database [ssbak](https://github.com/axllent/ssbak) (GO) is used over [sspak](https://github.com/silverstripe/sspak/) (PHP). Run deployer task like `dep silverstripe:installtools live` to install it on a remote linux servers in `~/bin`. You can set `ssXak_local_path` and `ssXak_path` in `deployer.php`.

@@ -25,6 +25,12 @@
 	p {
 		font-size: 1em;
 		margin: 0 0 #{$lh}em 0;
+		&.inlinish {
+			margin-bottom: 0;
+		}
+		&.halvelinish {
+			margin-bottom: #{math.div($lh, 2)}em;
+		}
 	}
 
 	// * horizontal rule
@@ -43,6 +49,9 @@
 
 	a {
 		text-decoration: none;
+		&:visited {
+			color: $link-color;
+		}
 		&:not([class]) {
 			color: $link-color;
 			&:hover {
@@ -60,7 +69,7 @@
 		padding: 0 0 0 #{$lh*.666}em;
 		li {
 			line-height: $lh;
-			padding: 0 0 #{math.div($lh, 2)}em #{math.div($lh, 2)}em;
+			padding: 0 0 #{math.div($lh, 4)}em #{math.div($lh, 2)}em;
 			font-size: 1em;
 		}
 		ul {
@@ -79,28 +88,25 @@
 	}
 
 	dl {
-		display:flex;
+		display: grid;
 		width: 100%;
+		grid-template-columns: minmax(200px, 1fr), 1fr;
+		grid-template-rows: repeat(auto-fit, 1fr);
+		column-gap: #{math.div($lh, 2)}em;
 		margin: 0 auto #{math.div($lh, 2)}em auto;
-		@include breakpoint($Lneg) {
-			flex-wrap: wrap;
-		}
 		dt {
-			flex: 0 0 auto;
+			grid-column: 1/2;
 			@include bold;
-			@include breakpoint($Lplus) {
-				min-width: 400px;
-			}
-			@include breakpoint($Mneg) {
-				flex-basis: 100%;
+			@include breakpoint($Lneg) {
+				grid-column: 1/3;
 			}
 		}
 		dd {
-			flex: 1 1 calc(100% - 400px);
-			margin-left: #{math.div($lh, 2)}em;
-			@include breakpoint($Mneg) {
-				flex: 0 0 100%;
-
+			grid-column: 2/3;
+			margin-left: 0;
+			@include breakpoint($Lneg) {
+				grid-column: 1/3;
+				padding: 0 0 #{math.div($lh, 2)}em #{math.div($lh, 2)}em;
 			}
 		}
 	}
@@ -236,6 +242,9 @@
 		margin-bottom: #{$lh}em;
 		p {
 			margin-bottom: 0;
+		}
+		li {
+			break-inside: avoid-column;
 		}
 		@include breakpoint($Mplus) {
 			column-count: 2;

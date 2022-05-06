@@ -4,7 +4,7 @@
  */
 
 // jquery globally available
-import './include/jquery';
+import '../../node_modules/jquery/dist/jquery';
 
 import './include/nav';
 import './include/youtube';
@@ -14,5 +14,5 @@ import './include/flip';
 import './include/fancy';
 import './include/feather-icons';
 import './include/expandable-grid';
-import './include/fitvids';
+import './include/responsive-embeds';
 import './include/video-hero';
