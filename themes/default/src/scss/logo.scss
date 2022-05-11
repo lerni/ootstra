@@ -1,0 +1,60 @@
+@use "sass:math";
+@import 'includes/variables';
+@import 'includes/defaults';
+@import 'includes/mixins';
+@import '~breakpoint-sass/stylesheets/breakpoint';
+
+.element.elementlogo {
+	// this things are living in logo.scss
+	$width: 240px;
+	$height: 160px;
+	ul.logos {
+		padding: #{$lh}em 0 0;
+		margin: 0;
+		list-style: none;
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax($width, 1fr));
+		grid-gap: #{$lh}em;
+		&.greyscale li.logo figure img {
+			filter: grayscale(100%);
+			transition-property: filter;
+			transition-duration: .2s;
+		}
+		li.logo {
+			min-width: $width;
+			min-height: $height;
+			padding: 0;
+			background-color: rgba($gray-light, .3);
+			transition-property: background-color;
+			transition-duration: .4s;
+			a {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				height: 100%;
+			}
+			figure {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				height: 100%;
+				margin: 0;
+				img {
+					margin: 0;
+					transition-property: filter;
+					transition-duration: .2s;
+					max-width: 180px;
+					max-height: 80px;
+				}
+			}
+			&.has-link:hover {
+				background-color: rgba($gray-light, .6);
+				img {
+					filter: grayscale(0%);
+				}
+			}
+		}
+	}
+}

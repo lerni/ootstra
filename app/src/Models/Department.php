@@ -7,6 +7,7 @@ use App\Elements\ElementPerso;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\View\Parsers\URLSegmentFilter;
+use SilverStripe\Forms\GridField\GridFieldPageCount;
 use SilverStripe\Forms\GridField\GridFieldPaginator;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
@@ -65,8 +66,8 @@ class Department extends DataObject
         $fields->removeByName('PersoElement');
 
         $PersoGFConfig = GridFieldConfig_RecordEditor::create(20);
-        $PersoGFConfig->removeComponentsByType('SilverStripe\Forms\GridField\GridFieldPageCount');
-        $PersoGFConfig->removeComponentsByType('SilverStripe\Forms\GridField\GridFieldAddNewButton');
+        $PersoGFConfig->removeComponentsByType(GridFieldPageCount::class);
+        $PersoGFConfig->removeComponentsByType(GridFieldAddNewButton::class);
 
         $PersoGFConfig->addComponents(
             new GridFieldDeleteAction(true),

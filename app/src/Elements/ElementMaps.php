@@ -24,7 +24,8 @@ class ElementMaps extends BaseElement
         'MapType' => 'Varchar',
         'Scale' => 'Boolean',
         'Fullscreen' => 'Boolean',
-        'StreetView' => 'Boolean'
+        'StreetView' => 'Boolean',
+        'HTML' => 'HTMLText'
     ];
 
     private static $many_many = [
@@ -71,6 +72,12 @@ class ElementMaps extends BaseElement
             $AvailableGloballyField->setDisabled(true);
         }
 
+        if ($TextEditorField = $fields->dataFieldByName('HTML')) {
+            $TextEditorField->setRows(16);
+            $TextEditorField->setAttribute('data-mce-body-class', $this->ShortClassName($this));
+            $TextEditorField->setDescription(_t(__CLASS__ . '.HTMLFieldDescription', 'If content, it \'ll be shown side by side to "map"'));
+        }
+
         $fields->addFieldToTab('Root.Main', new HeaderField('MapSettingsHeader', 'Map settings'));
         $fields->addFieldToTab('Root.Main', new DropdownField('MapType', 'Map type', [
             'roadmap' => 'Roadmap',
@@ -86,7 +93,7 @@ class ElementMaps extends BaseElement
             $ZoomLevels[$i] = ($message) ? $i . ' - ' . $message : $i;
         }
         $fields->addFieldToTab('Root.Main', $ZoomField = DropdownField::create('Zoom', 'Zoom', $ZoomLevels));
-        $ZoomField->setDescription(_t('App\Elements\ElementMaps.ZoomDescription', 'Zoom level adjusts to show all markers. A minimum value can be configured here.'));
+        $ZoomField->setDescription(_t(__CLASS__ . '.ZoomDescription', 'Zoom level adjusts to show all markers. A minimum value can be configured here.'));
 
         // hack around unsaved relations
         if ($this->isInDB()) {

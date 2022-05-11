@@ -1,3 +1,4 @@
+<% require themedCSS("dist/css/teaser") %>
 <% cached 'ElementFeedTeaser', $ID, $LastEdited, $List('SilverStripe\CMS\Model\SiteTree').max('LastEdited'), $List('SilverStripe\CMS\Model\SiteTree').count() %>
 <% include App/Includes/ElementTitle %>
 <% if $Items %>

@@ -1,3 +1,4 @@
+<% require themedCSS("dist/css/fancy") %>
 <% include App/Includes/ElementTitle %>
 <% if $Items %>
 	<% if $Layout == "slider" %>
@@ -20,7 +21,6 @@
 			</div>
 		</div>
 	<% else %>
-		<% require themedCSS("dist/css/fancy.css") %>
 		<ul class="gallery {$Layout}">
 			<% if $CropGalleryThumbsByWidth %>
 				<% loop $Items %>

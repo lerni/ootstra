@@ -35,6 +35,7 @@ de:
       other: '{count} Maps'
     SINGULARNAME: Map
     ZoomDescription: 'Zoomstufe passt sich an, um alle Marker zu zeigen. Hier kann ein Minimalwert konfiguriert werden.'
+    HTMLFieldDescription: 'Wenn Inhalt vorhanden, wird dieser auf dem Desktop neben der "Karte" angezeigt'
   App\Elements\ElementPerso:
     BlockType: Team
     PLURALNAME: Personal
@@ -199,6 +200,7 @@ de:
     MORE: 'Weiterlesen'
     NoPosts: 'Kein Artikel vorhanden'
     Allcategories: 'Alle'
+    OpeningHours: 'Öffnungszeiten'
   SilverStripe\Blog\Model\BlogPost:
     ALTERNATIVTEXTEVENTDATE: 'Alternative Text Datum'
     AlternativTextEventDateDescription: 'Falls kein exaktes Datum resp. Zeitspanne. z.B. 14.10.2020 bis 4.11.2020, jeden Mittwoch, 16 Uhr'

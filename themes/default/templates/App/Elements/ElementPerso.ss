@@ -1,3 +1,4 @@
+<% require themedCSS("dist/css/perso") %>
 <div class="typography">
 	<% include App/Includes/ElementTitle %>
 	<% if $Everybody %>

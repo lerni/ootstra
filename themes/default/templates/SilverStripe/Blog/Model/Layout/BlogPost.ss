@@ -1,3 +1,4 @@
+<% require themedCSS("dist/css/blog.css") %>
 <% include App/Includes/Header %>
 <main class="typography" id="main">
 	<% if not $hasHero %>

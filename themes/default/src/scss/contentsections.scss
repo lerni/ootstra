@@ -1,0 +1,180 @@
+@use "sass:math";
+@import 'includes/variables';
+@import 'includes/defaults';
+@import 'includes/mixins';
+@import '~breakpoint-sass/stylesheets/breakpoint';
+.element.elementcontentsection {
+	.content-parts.accordion {
+		// border-bottom: 2px solid $lauftext-color;
+		// max-width: #{$inner-width - 200px};
+
+		dt.flip {
+			$trigger-size: 1;
+			$trigger-stroke-width: .15;
+			$trigger-color: $lauftext-color;
+			$spacing-factor: 1.5;
+			padding: #{$lh}em 0;
+			cursor: pointer;
+			position: relative;
+			@include breakpoint($Lneg) {
+				flex: 0 0 100%;
+			}
+			h1.flip,
+			h2.flip,
+			h3.flip {
+				margin-bottom: 0;
+				padding-right: #{$trigger-size * $spacing-factor}em;
+				button {
+					display: flex;
+					width: 100%;
+					all: inherit;
+					padding-right: 0;
+					.trigger {
+						width: #{$trigger-size}em;
+						height: #{$trigger-size}em;
+						position: relative;
+						flex: 0 0 #{$trigger-size}em;
+						margin: 0 0 auto auto;
+						right: -#{$trigger-size * $spacing-factor}em;
+						transform: rotate(0deg);
+						transform-origin: 50% 50%;
+						transition: transform .1s ease-in-out;
+
+						// cross-close variant
+						&::before,
+						&::after {
+							content: "";
+							display: block;
+							background-color: $trigger-color;
+							position: absolute;
+							width: #{$trigger-stroke-width}em;
+							height: 100%;
+							bottom: 0;
+
+						}
+						&::before {
+							left: 50%;
+							transform-origin: 0% 100%;
+							transform: rotate(-45deg);
+							transition: left .1s ease-in-out;
+
+						}
+						&::after {
+							right: 50%;
+							transform-origin: 100% 100%;
+							transform: rotate(45deg);
+							transition: right .1s ease-in-out;
+						}
+
+						// rotating plus variant
+						// &::before,
+						// &::after {
+						// 	content: "";
+						// 	display: block;
+						// 	background-color: $trigger-color;
+						// 	position: absolute;
+						// }
+						// &::before {
+						// 	width: 100%;
+						// 	height: #{$trigger-stroke-width}em;
+						// 	top: calc(50% - #{math.div($trigger-stroke-width,2)}em);
+						// 	right: 0;
+						// }
+						// &::after {
+						// 	width: #{$trigger-stroke-width}em;
+						// 	height: 100%;
+						// 	top: 0;
+						// 	right: calc(50% - #{math.div($trigger-stroke-width,2)}em);
+						// }
+					}
+					&:focus {
+						color: $current-color;
+						.trigger {
+							&::before,
+							&::after {
+								background-color: $current-color;
+							}
+						}
+
+						// .trigger {
+						// 	box-shadow: 0 0 0 #{$trigger-stroke-width}em $link-color;
+						// }
+						// &::after {
+						// 	content: "";
+						// 	position: absolute;
+						// 	top: 0;
+						// 	right: 0;
+						// 	bottom: 0;
+						// 	left: 0;
+						// 	z-index: -1;
+						// pointer-events: none;
+						// 	background-color: rgba($link-color, .3);
+						// 	box-shadow: 0 2px 0 0 $gray;
+						// }
+					}
+					&[aria-expanded="true"] .trigger {
+						&::before,
+						&::after {
+							background-color: $current-color;
+						}
+
+						// rotating plus variant
+						// transform: rotate(45deg);
+
+						// cross-close variant
+						&::before {
+							// left: calc(50% - #{math.div($trigger-stroke-width,2) *.707}em + (50% * math.div(math.sqrt(2),2)));
+							left: calc(50% - #{math.div($trigger-stroke-width,2) * .707106781186548}em + (50% * .707106781186548));
+						}
+						&::after {
+							// right: calc(50% - #{math.div($trigger-stroke-width,2) *.707}em + (50% * math.div(math.sqrt(2),2)));
+							right: calc(50% - #{math.div($trigger-stroke-width,2) * .707106781186548}em + (50% * .707106781186548));
+						}
+					}
+				}
+			}
+		}
+		>dd.flip {
+			padding: 0 #{$lh*2}em #{$lh * 1.5}em 0;
+			margin-left: 0;
+			>p:last-child {
+				margin-bottom: 0;
+			}
+		}
+		dd.flip + dt.flip {
+			border-top: 2px solid $gray;
+		}
+	}
+	.content-parts
+	.text-blocks {
+		display: grid;
+		max-width: initial;
+		grid-gap: #{$lh}em;
+		// grid-template-columns: 1fr 1fr;
+		grid-template-columns: 1fr 1fr;
+		@include breakpoint($Lneg) {
+			grid-template-columns: 1fr;
+		}
+		article {
+			padding: #{$lh}em #{$lh}em #{math.div($lh, 2)}em #{$lh}em;
+			background-color: $red;
+			h2 {
+				color: $white;
+			}
+			*  {
+				color: $white;
+			}
+			@include breakpoint($Lplus) {
+				&:nth-of-type(4n+1),
+				&:nth-of-type(4n) {
+					background-color: $blue;
+				}
+			}
+			@include breakpoint($Lneg) {
+				&:nth-of-type(2n) {
+					background-color: $blue;
+				}
+			}
+		}
+	}
+}

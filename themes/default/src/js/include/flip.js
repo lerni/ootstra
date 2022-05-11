@@ -1,9 +1,44 @@
-$(".flip header").click(function() {
-	$(this).next('div.flip').slideToggle('fast');
-	$(this).parent().toggleClass("open");
-	if ($(this).parent().hasClass("open")) {
-		$(this).next("div.flip").attr("aria-expanded", true);
-	} else {
-		$(this).next("div.flip").attr("aria-expanded", false);
-	}
-});
+(function() {
+  const headings = document.querySelectorAll('dt.flip');
+
+  Array.prototype.forEach.call(headings, definitionTitle => {
+    let btn = definitionTitle.querySelector('button');
+    let target = definitionTitle.nextElementSibling;
+
+
+    btn.onclick = () => {
+
+      let expanded = btn.getAttribute('aria-expanded') === 'true';
+      let heading = definitionTitle.id;
+      let hash = window.location.hash.substr(1);
+
+      btn.setAttribute('aria-expanded', !expanded);
+      target.hidden = expanded;
+
+      if (heading && !expanded) {
+        history.replaceState(null, null, '#' + heading)
+      }
+      if (heading && expanded && heading == hash) {
+        history.replaceState(null, document.title, window.location.pathname + window.location.search);
+      }
+    }
+  });
+  // open per hash
+  document.addEventListener('DOMContentLoaded', function(event) {
+    let hash = window.location.hash.substr(1);
+
+    if (hash) {
+      Array.prototype.forEach.call(headings, definitionTitle => {
+        let btn = definitionTitle.querySelector('button');
+        let target = definitionTitle.nextElementSibling;
+
+        if (hash === definitionTitle.id) {
+          btn.setAttribute('aria-expanded', 'true')
+          target.removeAttribute('hidden')
+          btn.focus()
+        }
+      });
+    }
+  });
+
+})()

@@ -1,3 +1,4 @@
+<% require themedCSS("dist/css/teaser") %>
 <% include App/Includes/ElementTitle %>
 <% if $Teasers %>
 	<% if $Layout == "third" %>

@@ -44,7 +44,7 @@ SilverStripe\Core\Injector\Injector:
     class: Monolog\Handler\NativeMailerHandler
     constructor:
       - '`SS_ERROR_EMAIL`'
-      - 'error'
+      - '%message%'
       - '`SS_ADMIN_EMAIL`'
       - 'error'
     properties:

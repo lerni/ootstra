@@ -1,3 +1,4 @@
+<% require themedCSS("dist/css/logo") %>
 <% include App/Includes/ElementTitle %>
 <% if $Logos %>
 	<ul class="logos<% if $Greyscale %> greyscale<% end_if %>">

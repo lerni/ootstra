@@ -88,13 +88,14 @@ SS_DATABASE_USERNAME=""
 SS_DATABASE_PASSWORD=""
 SS_DATABASE_SERVER="127.0.0.1"
 
-# for local environments which usually aren't symlinked use "../silverstripe.log" otherwise "silverstripe.log"
 SS_ERROR_LOG="silverstripe.log"
 
 GHOSTSCRIPT_PATH="/usr/local/bin/gs"
 ```
 
 For your PHP-CLI-Setup, it might be helpful, to set `sys_temp_dir = "/tmp"` in `php.ini` for `sspak`.
+
+On the first Request the database structure (tables) 'll automatically be generated - it runs a `dev/build`. Before you do so, set the correct value for `i18n::set_locale('VALUE');` in `app/_config.php`!
 
 ## npm
 
@@ -105,7 +106,7 @@ Node/npm runs locally. There is an `.nvmrc` file in `themes/default/`. It should
     npm install
 ```
 
-This project uses [Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([webpack](https://webpack.js.org/) based) as build environment. Your vhost 'll be proxied per http://localhost:3000/ in order to run it with browsersync.
+[Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([webpack](https://webpack.js.org/) based) is used as build environment. In `themes/default/webpack.mix.js` vhost is set and 'll be proxied to http://localhost:3000/ in order to run browsersync.
 
 ```bash
     npm run watch
@@ -147,7 +148,7 @@ You need to [add your public key on the remote server](https://www.google.com/se
 
 ```
 
-[Deployer](https://deployer.org/) is included in this project as dev-requirement per `composer.json`. An alias in you rc-files makes it available in thee project directory, so you just can use `dep` instead of prefixing it with `./vendor/bin/...` all the time.
+[Deployer](https://deployer.org/) is included as dev-requirement per `composer.json`. An alias in you rc-files makes it available in thee project directory, so you just can use `dep` instead of prefixing it with `./vendor/bin/...` all the time.
 ```bash
 alias dep="./vendor/bin/dep"
 ```

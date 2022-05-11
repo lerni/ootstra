@@ -1,4 +1,8 @@
 @use "sass:math";
+@import 'includes/variables';
+@import 'includes/defaults';
+@import 'includes/mixins';
+@import '~breakpoint-sass/stylesheets/breakpoint';
 
 // https://www.sitepoint.com/recreating-google-images-search-layout-css/
 // https://codepen.io/SitePoint/pen/bNYBZX

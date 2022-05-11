@@ -30,10 +30,17 @@ mix.options({
 let productionSourceMaps = false;
 mix
   .js('src/js/app.js', 'dist/js')
+  .sass('src/scss/blog.scss', 'dist/css')
+  .sass('src/scss/contentsections.scss', 'dist/css')
   .sass('src/scss/editor.scss', 'dist/css')
-  .sass('src/scss/style.scss', 'dist/css')
   .sass('src/scss/fancy.scss', 'dist/css')
+  .sass('src/scss/footer.scss', 'dist/css')
+  .sass('src/scss/gallery.scss', 'dist/css')
   .sass('src/scss/metaoverviewpage.scss', 'dist/css')
+  .sass('src/scss/perso.scss', 'dist/css')
+  .sass('src/scss/style.scss', 'dist/css')
+  .sass('src/scss/teaser.scss', 'dist/css')
+  .sass('src/scss/textimage.scss', 'dist/css')
   .sourceMaps(productionSourceMaps, 'source-map')
   .copyDirectory('src/webfonts', 'dist/webfonts');
 
@@ -77,9 +84,9 @@ const parent = path.basename(path.join(sitepath, '../'));
 if (parent === 'webroot') {
   mix.browserSync({
     files: ['dist/**/*'],// , 'templates/**/*'
-    proxy: `http://${path.basename(sitepath)}.lodev`
+//  proxy: `http://${path.basename(sitepath)}.lodev`
 //  docker
-//  proxy: `http://localhost:8080`
+    proxy: `http://localhost:8080`
   });
 }
 

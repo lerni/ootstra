@@ -1,28 +1,31 @@
+<% require themedCSS("dist/css/contentsections") %>
 <% include App/Includes/ElementTitle %>
-<% if $HTML %>$HTML<% end_if %>
 <% if $ContentParts %>
 	<% if $Layout == "Accordion" %>
-		<div class="content-part accordion" role="presentation">
+		<%-- <details><summary></summary></details> --%>
+		<dl class="content-parts accordion" role="presentation">
 			<% loop $ContentParts.Sort("SortOrder") %>
-				<article class="flip<% if $DefaultOpen %> open<% end_if %>"<% if $Titel %> id="{$Title.URLEnc}"<% end_if %>>
-					<header>
-						<% if $ShowTitle %><h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %> class="flip">$Title</h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %>><% end_if %>
-					</header>
-					<div class="flip" <% if not $DefaultOpen %>style="display:none;" aria-expanded="false"<% else %>aria-expanded="true"<% end_if %> role="region">
-						$Text
-					</div>
-				</article>
+				<dt class="flip"<% if $Title %> id="{$Title.URLEnc}"<% end_if %>>
+					<% if $ShowTitle %><h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %> class="flip">
+						<button aria-expanded="<% if $DefaultOpen %>true<% else %>false<% end_if %>">
+							{$Title}<div class="trigger" aria-hidden="true" focusable="false"></div>
+						</button>
+					</h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %>><% end_if %>
+				</dt>
+				<dd class="flip" <% if not $DefaultOpen %>hidden<% end_if %> role="region">
+					$Text
+				</dd>
 			<% end_loop %>
-		</div>
+		</dl>
 	<% else %>
-		<div class="content-part text-blocks">
+		<dl class="content-parts text-blocks">
 			<% loop $ContentParts.Sort("SortOrder") %>
 				<article>
 					<% if $ShowTitle %><h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %>>$Title</h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %>><% end_if %>
 					$Text
 				</article>
 			<% end_loop %>
-		</div>
+		</dl>
 	<% end_if %>
 <% end_if %>
 <% if $FAQParts %>$FAQSchema.RAW<% end_if %>

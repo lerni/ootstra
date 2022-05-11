@@ -14,12 +14,10 @@ use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
-use SwiftDevLabs\DuplicateDataObject\Forms\GridField\GridFieldDuplicateAction;
 
 class ElementContentSection extends BaseElement
 {
     private static $db = [
-        'HTML' => 'HTMLText',
         'Layout' => 'Enum("Accordion,Textblocks","Accordion")'
     ];
 
@@ -50,12 +48,7 @@ class ElementContentSection extends BaseElement
         $fields->removeByName('isFullWidth');
 
         if ($LayoutField = $fields->dataFieldByName('Layout')) {
-            $fields->insertBefore($LayoutField, 'HTML');
-        }
-
-        if ($TextEditorField = $fields->dataFieldByName('HTML')) {
-            $TextEditorField->setRows(16);
-            $TextEditorField->setAttribute('data-mce-body-class', $this->ShortClassName($this));
+            $fields->addFieldToTab('Root.Main', $LayoutField);
         }
 
         $fields->removeByName('ContentParts');

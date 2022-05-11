@@ -557,6 +557,8 @@ main.typography {
 		}
 	}
 	&.elementmaps {
+		display: flex;
+		flex-wrap: wrap;
 		p.gm-style-pbt {
 			font-size: initial;
 		}
@@ -564,11 +566,24 @@ main.typography {
 			max-width: none;
 			margin-bottom: initial; // checbox-placing otherwise clashes with typography img
 		}
+		.txt {
+			padding: 0 #{$lh}em #{$lh}em 0;
+			@include breakpoint($Lplus) {
+				flex: 0 0 50%;
+			}
+		}
+
 		#map_canvas {
 			box-sizing: unset;
 			height: 0;
 			width: 100%;
+			flex: 0 0 100%;
 			padding-bottom: 45%;
+			&.has-txt {
+				@include breakpoint($Lplus) {
+					flex: 0 0 50%;
+				}
+			}
 			@include breakpoint($Lneg) {
 				padding-bottom: 60%;
 			}
@@ -578,237 +593,16 @@ main.typography {
 		}
 	}
 	&.elementtextimage {
-		display: flex;
-		padding-top: 0;
-		padding-bottom: 0;
-		@include breakpoint($Mneg) {
-			flex-wrap: wrap;
-			padding-left: 0;
-			padding-right: 0;
-		}
-		.txt {
-			flex: 0 0 percentage(math.div(1, 3));
-			display: flex;
-			flex-direction: row;
-			justify-content: center;
-			padding: 5% 0;
-			position: relative;
-			z-index: 1;
-			order: 0;
-			@include breakpoint($Mneg) {
-				flex: 0 0 100%;
-				padding: 0;
-				order: 1;
-			}
-			.relativizer {
-				position: relative;
-				margin: auto 0 auto auto;
-				width: 100%;
-			}
-			.inner-txt {
-				position: relative;
-				width: 150%;
-				background-color: rgba($white, .86);
-				padding: #{$lh}em;
-				margin: auto 0 auto auto;
-				@include breakpoint($Mplus) {
-					margin-right: -50%;
-					width: 150%;
-					box-shadow: -#{math.div($lh, 2)}em 0 #{$lh}em rgba($black, .1);
-				}
-				h1, h2 {
-					text-align: left;
-					font-size: 1.41em;
-				}
-				>*:last-child {
-					margin-bottom: 0;
-				}
-			}
-		}
-		figure {
-			flex: 0 0 calc(percentage(math.div(2, 3)) - #{$lh}em);
-			position: relative;
-			margin: 0;
-			margin-left: #{$lh}em;
-			z-index: 0;
-			@include breakpoint($Mneg) {
-				flex: 0 0 100%;
-				margin-left: 0;
-				margin-right: 0;
-				order: 0;
-			}
-			img {
-				width: 100%;
-				margin-bottom: 0;
-				display: table;
-				@include breakpoint($Mneg) {
-					position: inherit;
-				}
-			}
-			&.image-cover img {
-				height: 100%;
-				object-fit: cover;
-			}
-		}
-		.txt.Image {
-			order: 1;
-			.inner-txt {
-				margin: auto auto auto 0;
-				@include breakpoint($Mplus) {
-					margin-left: -50%;
-					box-shadow: -#{math.div($lh, 2)}em 0 #{$lh}em rgba($black, .1);
-				}
-			}
-		}
-		figure.Image {
-			order: 0;
-			margin-left: 0;
-			margin-right: #{$lh}em;
-		}
+		// this things are living in textimage.scss
 	}
 	&.elementperso {
-		// this things are living in _perso.scss
+		// this things are living in perso.scss
 	}
 	&.elementcontentsection {
-		.content-part.accordion {
-			// border-bottom: 2px solid $lauftext-color;
-			article {
-				header {
-					padding: #{math.div($lh, 1)}em 0;
-					padding-right: #{$lh*3}em;
-					cursor: pointer;
-					position: relative;
-					@include breakpoint($Lneg) {
-						flex: 0 0 100%;
-					}
-					h1.flip,
-					h2.flip,
-					h3.flip {
-						margin-bottom: 0;
-						&::after {
-							content: "";
-							display: block;
-							width: #{$lh*.6}em;
-							height: #{$lh*.6}em;
-							position: absolute;
-							right: 0;
-							top: 1.1em;
-							background-repeat: no-repeat;
-							background-image: svg-load('../images/svg/plus.svg', stroke=#{$lauftext-color}, stroke-width=2);
-							background-position: 50% 50%;
-							background-size: 100%;
-							transform-origin: 50% 50%;
-							transition: .1s transform ease-in-out;
-							transform: rotate(0deg);
-						}
-					}
-				}
-				>div.flip {
-					padding: 0 #{$lh*2}em #{$lh * 1.5}em 0;
-					>p:last-child {
-						margin-bottom: 0;
-					}
-				}
-				&.open {
-					header {
-						h1.flip,
-						h2.flip,
-						h3.flip {
-							&::after {
-								transform: rotate(45deg);
-							}
-						}
-					}
-				}
-			}
-			article.flip + article.flip {
-				border-top: 2px solid $lauftext-color;
-			}
-		}
-		.content-part.text-blocks {
-			display: grid;
-			max-width: initial;
-			grid-gap: #{$lh}em;
-			// grid-template-columns: 1fr 1fr;
-			grid-template-columns: 1fr 1fr;
-			@include breakpoint($Lneg) {
-				grid-template-columns: 1fr;
-			}
-			article {
-				padding: #{$lh}em #{$lh}em #{math.div($lh, 2)}em #{$lh}em;
-				background-color: $red;
-				h2 {
-					color: $white;
-				}
-				*  {
-					color: $white;
-				}
-				@include breakpoint($Lplus) {
-					&:nth-of-type(4n+1),
-					&:nth-of-type(4n) {
-						background-color: $blue;
-					}
-				}
-				@include breakpoint($Lneg) {
-					&:nth-of-type(2n) {
-						background-color: $blue;
-					}
-				}
-			}
-		}
+		// this things are living in contentsections.scss
 	}
 	&.elementlogo {
-		$width: 240px;
-		$height: 160px;
-		ul.logos {
-			padding: #{$lh}em 0 0;
-			margin: 0;
-			list-style: none;
-			display: grid;
-			grid-template-columns: repeat(auto-fill, minmax($width, 1fr));
-			grid-gap: #{$lh}em;
-			&.greyscale li.logo figure img {
-				filter: grayscale(100%);
-				transition-property: filter;
-				transition-duration: .2s;
-			}
-			li.logo {
-				min-width: $width;
-				min-height: $height;
-				padding: 0;
-				background-color: rgba($gray-light, .3);
-				transition-property: background-color;
-				transition-duration: .4s;
-				a {
-					display: flex;
-					flex-direction: column;
-					justify-content: center;
-					align-items: center;
-					height: 100%;
-				}
-				figure {
-					display: flex;
-					flex-direction: column;
-					justify-content: center;
-					align-items: center;
-					height: 100%;
-					margin: 0;
-					img {
-						margin: 0;
-						transition-property: filter;
-						transition-duration: .2s;
-						max-width: 180px;
-						max-height: 80px;
-					}
-				}
-				&.has-link:hover {
-					background-color: rgba($gray-light, .6);
-					img {
-						filter: grayscale(0%);
-					}
-				}
-			}
-		}
+		// this things are living in logo.scss
 	}
 	&.elementjobs {
 		.jobs {

@@ -6,6 +6,7 @@ use SilverStripe\ORM\DataObject;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\CompositeField;
 use App\Elements\ElementContentSection;
+use SilverStripe\View\Parsers\URLSegmentFilter;
 use SilverStripe\Versioned\GridFieldArchiveAction;
 use DNADesign\Elemental\Forms\TextCheckboxGroupField;
 use SilverStripe\Forms\GridField\GridFieldEditButton;

@@ -1,3 +1,4 @@
+<% require themedCSS("dist/css/textimage") %>
 <% include App/Includes/ElementTitle %>
 <div class="txt {$ElementLayout}">
 	<div class="relativizer">

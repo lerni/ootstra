@@ -1,3 +1,4 @@
+<% require themedCSS("dist/css/footer") %>
 <footer>
 	<div class="upper">
 		<div class="inner">
@@ -8,7 +9,7 @@
 				<% if $SiteConfig.Locations.Count %>
 					<% with $SiteConfig.Locations.First() %>
 						<% if $OpeningHours %>
-							<h3>Öffnungszeiten</h3>
+							<h3><%t Page.OpeningHours 'opening hours' %></h3>
 							$OpeningHours
 						<% end_if %>
 					<% end_with %>
