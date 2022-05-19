@@ -57,7 +57,7 @@ For development purpose the project comes with a Dockerfile for Apache/PHP/MySQL
 
 It than should be available on [http://localhost:8080/](http://localhost:8080/). `phpMyAdmin` is available under [http://localhost:8081/](http://localhost:8081/), MailHog under [http://localhost:8025/](http://localhost:8025/). Default login into `/admin` is `admin` & `password`. **ATM `.env` isn't used with docker - env-var are set in `docker-compose.yml` when running per docker.**
 
-With `docker ps` you can get the <CONTAINER ID> of running instances. Running a shell in a container just do `docker exec -it <CONTAINER_NAME> bash`
+With `docker ps` you can get the <CONTAINER ID> of running instances. Running a shell in a container just do `docker exec -it <CONTAINER_NAME> zsh`
 
 With other webserver setups, point your vhost document root of your dev-env to `/project/public` and adjust `proxy` in `themes/default/webpack.mix.js`. Database, credentials etc. are provided per environment Variables. See also:
 
@@ -194,6 +194,7 @@ dep deploy live --tag=1.0.1
 
 ## Uploading/downloading database & assets manually
 ssbak is a cli tool for managing Silverstipe database & assets. It's also used in the deployment-process for backup purpose. Unlink sspak, does ssbak not support transfer between environment (like directly bellow) but wrapped with deployer it's possible - see a bit further down.
+
 To get assets and a DB-Dump from the server you can run:
 ```bash
     ./vendor/bin/sspak save USER@SERVER.TLD:/home/USER/public_html/0live/current ./SOMENAME.tar.gz

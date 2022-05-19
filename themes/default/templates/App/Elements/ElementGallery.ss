@@ -1,3 +1,4 @@
+<% require themedCSS("dist/css/gallery") %>
 <% require themedCSS("dist/css/fancy") %>
 <% include App/Includes/ElementTitle %>
 <% if $Items %>

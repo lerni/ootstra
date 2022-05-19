@@ -1,0 +1,42 @@
+---
+Name: myemailconfig
+After:
+  - '#emailconfig'
+---
+SilverStripe\Core\Injector\Injector:
+  SilverStripe\Control\Email\Email:
+    admin_email: '`SS_ADMIN_EMAIL`'
+#    send_all_emails_to:
+#      - '`SS_ADMIN_EMAIL`'
+  Swift_Transport:
+    class: Swift_SendmailTransport
+  # Swift_Transport:
+  #   class: Swift_SmtpTransport
+  #   properties:
+  #     Host: '`SMTPMAIL_HOST`'
+  #     Port: 465
+  #     Encryption: ssl
+  #   calls:
+  #     Username: [ setUsername, ['`SMTPMAIL_USERNAME`'] ]
+  #     Password: [ setPassword, ['`SMTPMAIL_PASSWORD`'] ]
+  #     AuthMode: [ setAuthMode, ['login'] ]
+
+# in php.ini we set sendmail_path = /usr/sbin/sendmail -t -i -S mailhog:1025
+# this should send emails directly to mailhog, so no additional  config like
+# bellow is needed
+
+# ---
+# Name: mydevemailconfig
+# After:
+#   - '#emailconfig'
+# Only:
+#   environment: dev
+# ---
+# SilverStripe\Core\Injector\Injector:
+#   SilverStripe\Control\Email\Email:
+#     no-reply: 'Test User'
+#   Swift_Transport:
+#     class: Swift_SmtpTransport
+#     properties:
+#       Host: 'mailhog'
+#       Port: 1025

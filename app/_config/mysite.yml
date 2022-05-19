@@ -156,9 +156,6 @@ SilverStripe\CMS\Model\VirtualPage:
 SilverStripe\UserForms\Model\Recipient\EmailRecipient:
   allow_unbound_recipient_fields: true
 
-SilverStripe\Control\Email\Email:
-  admin_email: ''
-
 SilverStripe\i18n\i18n:
   default_locale: de_CH
   date_format: 'dd.MM.yyyy'
@@ -203,6 +200,7 @@ SilverStripe\Core\Injector\Injector:
   Intervention\Image\ImageManager:
     constructor:
       - { driver: imagick }
+      # - { driver: vips }
   SilverStripe\Assets\Image_Backend:
     properties:
       Quality: 84
@@ -210,16 +208,6 @@ SilverStripe\Core\Injector\Injector:
     constructor:
       namespace: 'cacheblock'
       defaultLifetime: 0 # zero is infinit
-  # Swift_Transport:
-  #   class: Swift_SmtpTransport
-  #   properties:
-  #     Host: '`SMTPMAIL_HOST`'
-  #     Port: 465
-  #     Encryption: ssl
-  #   calls:
-  #     Username: [ setUsername, ['`SMTPMAIL_USERNAME`'] ]
-  #     Password: [ setPassword, ['`SMTPMAIL_PASSWORD`'] ]
-  #     AuthMode: [ setAuthMode, ['login'] ]
 
 gorriecoe\Robots\Robots:
   disallowed_urls: []
@@ -300,17 +288,6 @@ gorriecoe\Robots\Robots:
     - '*'
   sitemap: ''
   disallow_unsearchable: true
-
-#---
-#Only:
-#  environment: 'dev'
-#---
-#
-#SilverStripe\Core\Injector\Injector:
-#  SilverStripe\Control\Email\Email:
-#    admin_email: '`SS_ADMIN_EMAIL`'
-#    send_all_emails_to:
-#      - '`SS_ADMIN_EMAIL`'
 
 SilverStripe\View\SSViewer:
   source_file_comments: false

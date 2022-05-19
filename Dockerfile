@@ -9,8 +9,11 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 RUN curl -L https://github.com/axllent/ssbak/releases/latest/download/ssbak_linux_amd64.tar.gz --create-dirs -o ~/bin/ssbak.tar.gz && tar -xf ~/bin/ssbak.tar.gz -C ~/bin/ && rm ~/bin/ssbak.tar.gz
 
-RUN apt-get clean
+RUN curl -L https://github.com/mailhog/mhsendmail/releases/latest/download/mhsendmail_linux_amd64 --create-dirs -o ~/bin/mhsendmail && chmod +x ~/bin/mhsendmail
+
 RUN apt-get update
+
+# RUN apt install --assume-yes openssh-client
 
 ### --- building vips-start ---
 # WORKDIR /usr/local/src
@@ -65,6 +68,7 @@ RUN apt-get install -y \
     unzip \
     vim \
     wget \
+    wkhtmltopdf \
     zsh
 
 RUN pecl install xdebug \
@@ -90,3 +94,13 @@ RUN install-php-extensions \
 
 RUN apt-get clean \
     && apt-get autoremove -y
+
+RUN git clone https://github.com/powerline/fonts.git --depth=1
+RUN sh fonts/install.sh
+RUN rm -rf fonts
+
+# Uses "agnoster" theme for better distingusion
+RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.2/zsh-in-docker.sh)" -- \
+    -t agnoster
+
+# RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
