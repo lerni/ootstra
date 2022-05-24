@@ -9,7 +9,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 RUN curl -L https://github.com/axllent/ssbak/releases/latest/download/ssbak_linux_amd64.tar.gz --create-dirs -o ~/bin/ssbak.tar.gz && tar -xf ~/bin/ssbak.tar.gz -C ~/bin/ && rm ~/bin/ssbak.tar.gz
 
-RUN curl -L https://github.com/mailhog/mhsendmail/releases/latest/download/mhsendmail_linux_amd64 --create-dirs -o ~/bin/mhsendmail && chmod +x ~/bin/mhsendmail
+RUN curl -L https://github.com/mailhog/mhsendmail/releases/latest/download/mhsendmail_linux_amd64 --create-dirs -o /usr/local/bin/mhsendmail && chmod +x /usr/local/bin/mhsendmail
 
 RUN apt-get update
 
@@ -75,22 +75,10 @@ RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
 
 RUN install-php-extensions \
-    bcmath \
-    exif \
-    gd \
     gmp \
     imagick \
-    intl \
-    ldap \
-    mysqli \
     opcache \
-    pdo \
-    pdo_mysql \
-    soap \
-    tidy \
-    yaml \
-    xsl \
-    zip
+    yaml
 
 RUN apt-get clean \
     && apt-get autoremove -y
@@ -99,7 +87,7 @@ RUN git clone https://github.com/powerline/fonts.git --depth=1
 RUN sh fonts/install.sh
 RUN rm -rf fonts
 
-# Uses "agnoster" theme for better distingusion
+# Uses "agnoster" theme for better distingusion of local & container-shell
 RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.2/zsh-in-docker.sh)" -- \
     -t agnoster
 

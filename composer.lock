@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6009a893af1280442d5d9ed1c18f9c63",
+    "content-hash": "b01b3791007347966fb69625b761452b",
     "packages": [
         {
             "name": "axllent/silverstripe-email-obfuscator",
@@ -805,16 +805,16 @@
         },
         {
             "name": "dnadesign/silverstripe-elemental",
-            "version": "4.8.2",
+            "version": "4.8.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/silverstripe/silverstripe-elemental.git",
-                "reference": "b0f3596f29afe6ef6df93242bea655a065000d42"
+                "reference": "b18c209bbadb69005ad7631085f28d6332b51f53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/silverstripe/silverstripe-elemental/zipball/b0f3596f29afe6ef6df93242bea655a065000d42",
-                "reference": "b0f3596f29afe6ef6df93242bea655a065000d42",
+                "url": "https://api.github.com/repos/silverstripe/silverstripe-elemental/zipball/b18c209bbadb69005ad7631085f28d6332b51f53",
+                "reference": "b18c209bbadb69005ad7631085f28d6332b51f53",
                 "shasum": ""
             },
             "require": {
@@ -829,6 +829,7 @@
                 "symbiote/silverstripe-gridfieldextensions": "^3.1"
             },
             "require-dev": {
+                "silverstripe/frameworktest": "4.x-dev",
                 "silverstripe/recipe-testing": "^2"
             },
             "suggest": {
@@ -873,22 +874,22 @@
             ],
             "support": {
                 "issues": "https://github.com/silverstripe/silverstripe-elemental/issues",
-                "source": "https://github.com/silverstripe/silverstripe-elemental/tree/4.8.2"
+                "source": "https://github.com/silverstripe/silverstripe-elemental/tree/4.8.3"
             },
-            "time": "2022-04-22T01:22:02+00:00"
+            "time": "2022-05-11T21:15:09+00:00"
         },
         {
             "name": "dnadesign/silverstripe-elemental-userforms",
-            "version": "3.2.0",
+            "version": "3.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dnadesign/silverstripe-elemental-userforms.git",
-                "reference": "7382314d6ee33ec99d6c2963716e39a744d43efc"
+                "reference": "9f727d536df07a5613d2788ca3f7a3fe7fb31dba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dnadesign/silverstripe-elemental-userforms/zipball/7382314d6ee33ec99d6c2963716e39a744d43efc",
-                "reference": "7382314d6ee33ec99d6c2963716e39a744d43efc",
+                "url": "https://api.github.com/repos/dnadesign/silverstripe-elemental-userforms/zipball/9f727d536df07a5613d2788ca3f7a3fe7fb31dba",
+                "reference": "9f727d536df07a5613d2788ca3f7a3fe7fb31dba",
                 "shasum": ""
             },
             "require": {
@@ -930,9 +931,9 @@
             ],
             "support": {
                 "issues": "https://github.com/dnadesign/silverstripe-elemental-userforms/issues",
-                "source": "https://github.com/dnadesign/silverstripe-elemental-userforms/tree/3.2.0"
+                "source": "https://github.com/dnadesign/silverstripe-elemental-userforms/tree/3.2.1"
             },
-            "time": "2022-02-18T09:12:06+00:00"
+            "time": "2022-05-17T04:37:28+00:00"
         },
         {
             "name": "dnadesign/silverstripe-elemental-virtual",
@@ -1370,16 +1371,16 @@
         },
         {
             "name": "gorriecoe/silverstripe-link",
-            "version": "1.3.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/gorriecoe/silverstripe-link.git",
-                "reference": "03ebaa1f33c4680ec3c4bb8cbe5657e5eddbc507"
+                "reference": "38dbad4271543ae87a8b39fb7a9be751a389e7a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gorriecoe/silverstripe-link/zipball/03ebaa1f33c4680ec3c4bb8cbe5657e5eddbc507",
-                "reference": "03ebaa1f33c4680ec3c4bb8cbe5657e5eddbc507",
+                "url": "https://api.github.com/repos/gorriecoe/silverstripe-link/zipball/38dbad4271543ae87a8b39fb7a9be751a389e7a9",
+                "reference": "38dbad4271543ae87a8b39fb7a9be751a389e7a9",
                 "shasum": ""
             },
             "require": {
@@ -1409,7 +1410,7 @@
             ],
             "support": {
                 "issues": "https://github.com/gorriecoe/silverstripe-link/issues",
-                "source": "https://github.com/gorriecoe/silverstripe-link/tree/master"
+                "source": "https://github.com/gorriecoe/silverstripe-link/tree/1.4.0"
             },
             "funding": [
                 {
@@ -1417,7 +1418,7 @@
                     "type": "ko_fi"
                 }
             ],
-            "time": "2020-04-20T04:51:25+00:00"
+            "time": "2022-05-19T02:15:26+00:00"
         },
         {
             "name": "gorriecoe/silverstripe-robots",
@@ -1841,16 +1842,16 @@
         },
         {
             "name": "intervention/image",
-            "version": "2.7.1",
+            "version": "2.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Intervention/image.git",
-                "reference": "744ebba495319501b873a4e48787759c72e3fb8c"
+                "reference": "04be355f8d6734c826045d02a1079ad658322dad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Intervention/image/zipball/744ebba495319501b873a4e48787759c72e3fb8c",
-                "reference": "744ebba495319501b873a4e48787759c72e3fb8c",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/04be355f8d6734c826045d02a1079ad658322dad",
+                "reference": "04be355f8d6734c826045d02a1079ad658322dad",
                 "shasum": ""
             },
             "require": {
@@ -1893,8 +1894,8 @@
             "authors": [
                 {
                     "name": "Oliver Vogel",
-                    "email": "oliver@olivervogel.com",
-                    "homepage": "http://olivervogel.com/"
+                    "email": "oliver@intervention.io",
+                    "homepage": "https://intervention.io/"
                 }
             ],
             "description": "Image handling and manipulation library with support for Laravel integration",
@@ -1909,11 +1910,11 @@
             ],
             "support": {
                 "issues": "https://github.com/Intervention/image/issues",
-                "source": "https://github.com/Intervention/image/tree/2.7.1"
+                "source": "https://github.com/Intervention/image/tree/2.7.2"
             },
             "funding": [
                 {
-                    "url": "https://www.paypal.me/interventionphp",
+                    "url": "https://paypal.me/interventionio",
                     "type": "custom"
                 },
                 {
@@ -1921,68 +1922,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-12-16T16:49:26+00:00"
-        },
-        {
-            "name": "jcupitt/vips",
-            "version": "v1.0.9",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/libvips/php-vips.git",
-                "reference": "5015e7fb823e68ff914cd421b1a2e2674c9a1424"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/libvips/php-vips/zipball/5015e7fb823e68ff914cd421b1a2e2674c9a1424",
-                "reference": "5015e7fb823e68ff914cd421b1a2e2674c9a1424",
-                "shasum": ""
-            },
-            "require": {
-                "ext-vips": ">=0.1.2",
-                "php": ">=7.1",
-                "psr/log": "^1.1.3"
-            },
-            "require-dev": {
-                "php-parallel-lint/php-parallel-lint": "^1.2",
-                "phpdocumentor/phpdocumentor": "3.0.0",
-                "phpunit/phpunit": "^9.3",
-                "squizlabs/php_codesniffer": "^3.5"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Jcupitt\\Vips\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "John Cupitt",
-                    "email": "jcupitt@gmail.com",
-                    "homepage": "https://github.com/jcupitt",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A high-level interface to the libvips image processing library.",
-            "homepage": "https://github.com/libvips/php-vips",
-            "keywords": [
-                "image",
-                "libvips",
-                "processing"
-            ],
-            "support": {
-                "issues": "https://github.com/libvips/php-vips/issues",
-                "source": "https://github.com/libvips/php-vips/tree/v1.0.9"
-            },
-            "time": "2021-11-20T12:28:59+00:00"
+            "time": "2022-05-21T17:30:32+00:00"
         },
         {
             "name": "jeroendesloovere/vcard",
@@ -2433,16 +2373,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "2.3.0",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "32a49eb2b38fe5e5c417ab748a45d0beaab97955"
+                "reference": "cb36fee279f7fca01d5d9399ddd1b37e48e2eca1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/32a49eb2b38fe5e5c417ab748a45d0beaab97955",
-                "reference": "32a49eb2b38fe5e5c417ab748a45d0beaab97955",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/cb36fee279f7fca01d5d9399ddd1b37e48e2eca1",
+                "reference": "cb36fee279f7fca01d5d9399ddd1b37e48e2eca1",
                 "shasum": ""
             },
             "require": {
@@ -2535,7 +2475,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-04-07T22:37:05+00:00"
+            "time": "2022-05-14T15:37:39+00:00"
         },
         {
             "name": "league/config",
@@ -2852,6 +2792,51 @@
                 }
             ],
             "time": "2022-04-17T13:12:02+00:00"
+        },
+        {
+            "name": "lerni/folderindex",
+            "version": "0.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lerni/folderindex.git",
+                "reference": "b02b695c039f9dbb810b55c7a7cd29f726d642f1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lerni/folderindex/zipball/b02b695c039f9dbb810b55c7a7cd29f726d642f1",
+                "reference": "b02b695c039f9dbb810b55c7a7cd29f726d642f1",
+                "shasum": ""
+            },
+            "require": {
+                "silverstripe/asset-admin": "^1.6"
+            },
+            "suggest": {
+                "gorriecoe/silverstripe-robots": "robots.txt generation for Silverstripe"
+            },
+            "type": "silverstripe-vendormodule",
+            "autoload": {
+                "psr-4": {
+                    "Kraftausdruck\\Extensions\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Silverstripe Extension to send  noindex, nofollow for files in foldes that do not ShowInSearch.",
+            "homepage": "https://github.com/lerni/folderindex",
+            "keywords": [
+                "assets",
+                "file",
+                "image",
+                "noindex",
+                "silverstripe"
+            ],
+            "support": {
+                "issues": "https://github.com/lerni/folderindex/issues",
+                "source": "https://github.com/lerni/folderindex/tree/0.0.6"
+            },
+            "time": "2022-01-07T07:33:31+00:00"
         },
         {
             "name": "lerni/klaro-cookie-consent",
@@ -3580,56 +3565,6 @@
                 "source": "https://github.com/lerni/silverstripe-webp-image/tree/master"
             },
             "time": "2022-04-08T07:02:27+00:00"
-        },
-        {
-            "name": "osiemsiedem/intervention-image-vips-driver",
-            "version": "v0.7.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/osiemsiedem/intervention-image-vips-driver.git",
-                "reference": "9a6f1d47d5c280a4a106564e6ed4b71098f02559"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/osiemsiedem/intervention-image-vips-driver/zipball/9a6f1d47d5c280a4a106564e6ed4b71098f02559",
-                "reference": "9a6f1d47d5c280a4a106564e6ed4b71098f02559",
-                "shasum": ""
-            },
-            "require": {
-                "intervention/image": "^2.4",
-                "jcupitt/vips": "^1.0",
-                "php": "^7.1|^8.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Intervention\\Image\\Vips\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Marek Szymczuk",
-                    "email": "marek@osiemsiedem.com"
-                }
-            ],
-            "description": "VIPS driver for Intervention Image.",
-            "homepage": "http://osiemsiedem.com",
-            "keywords": [
-                "image",
-                "intervention",
-                "libvips",
-                "processing",
-                "vips"
-            ],
-            "support": {
-                "issues": "https://github.com/osiemsiedem/intervention-image-vips-driver/issues",
-                "source": "https://github.com/osiemsiedem/intervention-image-vips-driver/tree/v0.7.0"
-            },
-            "time": "2021-11-19T15:28:06+00:00"
         },
         {
             "name": "psr/cache",
@@ -4416,16 +4351,16 @@
         },
         {
             "name": "silverstripe/cms",
-            "version": "4.10.1",
+            "version": "4.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/silverstripe/silverstripe-cms.git",
-                "reference": "101b17f16e87f9e753c123f361859a02c3c1d311"
+                "reference": "87c3ee62689d26802f1550ab4a7faa6a6f9ffb32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/silverstripe/silverstripe-cms/zipball/101b17f16e87f9e753c123f361859a02c3c1d311",
-                "reference": "101b17f16e87f9e753c123f361859a02c3c1d311",
+                "url": "https://api.github.com/repos/silverstripe/silverstripe-cms/zipball/87c3ee62689d26802f1550ab4a7faa6a6f9ffb32",
+                "reference": "87c3ee62689d26802f1550ab4a7faa6a6f9ffb32",
                 "shasum": ""
             },
             "require": {
@@ -4481,9 +4416,9 @@
             ],
             "support": {
                 "issues": "https://github.com/silverstripe/silverstripe-cms/issues",
-                "source": "https://github.com/silverstripe/silverstripe-cms/tree/4.10.1"
+                "source": "https://github.com/silverstripe/silverstripe-cms/tree/4.10.2"
             },
-            "time": "2022-02-01T00:58:00+00:00"
+            "time": "2022-04-19T09:54:29+00:00"
         },
         {
             "name": "silverstripe/config",
@@ -4531,16 +4466,16 @@
         },
         {
             "name": "silverstripe/framework",
-            "version": "4.10.4",
+            "version": "4.10.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/silverstripe/silverstripe-framework.git",
-                "reference": "82aba312fe2d8a2563331052d6783556b143e803"
+                "reference": "67d5c15c5ecc5997b3104120707284957048dff4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/silverstripe/silverstripe-framework/zipball/82aba312fe2d8a2563331052d6783556b143e803",
-                "reference": "82aba312fe2d8a2563331052d6783556b143e803",
+                "url": "https://api.github.com/repos/silverstripe/silverstripe-framework/zipball/67d5c15c5ecc5997b3104120707284957048dff4",
+                "reference": "67d5c15c5ecc5997b3104120707284957048dff4",
                 "shasum": ""
             },
             "require": {
@@ -4651,9 +4586,9 @@
             ],
             "support": {
                 "issues": "https://github.com/silverstripe/silverstripe-framework/issues",
-                "source": "https://github.com/silverstripe/silverstripe-framework/tree/4.10.4"
+                "source": "https://github.com/silverstripe/silverstripe-framework/tree/4.10.6"
             },
-            "time": "2022-03-09T22:27:48+00:00"
+            "time": "2022-05-13T03:29:01+00:00"
         },
         {
             "name": "silverstripe/graphql",
@@ -4869,16 +4804,16 @@
         },
         {
             "name": "silverstripe/recipe-plugin",
-            "version": "1.6.0",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/silverstripe/recipe-plugin.git",
-                "reference": "a76509e8a641c3f0cdda30c795c9ff82c0da75c7"
+                "reference": "301daf2437c361fa983eae7e286b850ca06736ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/silverstripe/recipe-plugin/zipball/a76509e8a641c3f0cdda30c795c9ff82c0da75c7",
-                "reference": "a76509e8a641c3f0cdda30c795c9ff82c0da75c7",
+                "url": "https://api.github.com/repos/silverstripe/recipe-plugin/zipball/301daf2437c361fa983eae7e286b850ca06736ea",
+                "reference": "301daf2437c361fa983eae7e286b850ca06736ea",
                 "shasum": ""
             },
             "require": {
@@ -4909,9 +4844,9 @@
             "description": "Helper plugin to install SilverStripe recipes",
             "support": {
                 "issues": "https://github.com/silverstripe/recipe-plugin/issues",
-                "source": "https://github.com/silverstripe/recipe-plugin/tree/1.6.0"
+                "source": "https://github.com/silverstripe/recipe-plugin/tree/1.7.0"
             },
-            "time": "2022-04-01T08:25:06+00:00"
+            "time": "2022-05-09T21:40:14+00:00"
         },
         {
             "name": "silverstripe/redirectedurls",

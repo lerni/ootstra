@@ -63,8 +63,7 @@
         "lerni/folderindex": "^0.0.6",
         "lerni/samesite-cookie-patch": "dev-master",
         "league/commonmark": "^2.0",
-        "jonom/silverstripe-someconfig": "^1.0",
-        "osiemsiedem/intervention-image-vips-driver": "^0.7.0"
+        "jonom/silverstripe-someconfig": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^5",

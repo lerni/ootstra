@@ -17,6 +17,18 @@
 				</dd>
 			<% end_loop %>
 		</dl>
+	<% else_if $Layout == "NumberedList" %>
+		<ol class="content-part numbered-list">
+			<% loop $ContentParts.Sort("SortOrder") %>
+				<li>
+					<span class="number">{$Pos}</span>
+					<div class="txt">
+						<% if $ShowTitle %><h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %>>$Title</h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %>><% end_if %>
+						$Text
+					</div>
+				</li>
+			<% end_loop %>
+		</ol>
 	<% else %>
 		<dl class="content-parts text-blocks">
 			<% loop $ContentParts.Sort("SortOrder") %>

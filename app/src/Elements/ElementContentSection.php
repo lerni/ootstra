@@ -18,7 +18,7 @@ use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 class ElementContentSection extends BaseElement
 {
     private static $db = [
-        'Layout' => 'Enum("Accordion,Textblocks","Accordion")'
+        'Layout' => 'Enum("Accordion,Textblocks,NumberedList","Accordion")'
     ];
 
     private static $many_many = [

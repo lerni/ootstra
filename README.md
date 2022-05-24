@@ -57,7 +57,7 @@ For development purpose the project comes with a Dockerfile for Apache/PHP/MySQL
 
 It than should be available on [http://localhost:8080/](http://localhost:8080/). `phpMyAdmin` is available under [http://localhost:8081/](http://localhost:8081/), MailHog under [http://localhost:8025/](http://localhost:8025/). Default login into `/admin` is `admin` & `password`. **ATM `.env` isn't used with docker - env-var are set in `docker-compose.yml` when running per docker.**
 
-With `docker ps` you can get the <CONTAINER ID> of running instances. Running a shell in a container just do `docker exec -it <CONTAINER_NAME> zsh`
+With `docker ps` you can get the <CONTAINER ID> of running instances. Running a shell in a container just do `docker exec -it <CONTAINER_NAME> zsh` or just `docker-compose exec silverstripe zsh`.
 
 With other webserver setups, point your vhost document root of your dev-env to `/project/public` and adjust `proxy` in `themes/default/webpack.mix.js`. Database, credentials etc. are provided per environment Variables. See also:
 

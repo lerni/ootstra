@@ -85,6 +85,8 @@
 
 	ol {
 		list-style-type: decimal;
+		list-style-position: inside;
+		padding-left: 0;
 	}
 
 	dl:not(.content-parts) {

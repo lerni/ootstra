@@ -177,4 +177,52 @@
 			}
 		}
 	}
+	.content-part.numbered-list {
+		list-style: none;
+		display: grid;
+		grid-template-rows: 1fr;
+		row-gap: #{$lh}em;
+		// @include breakpoint($Mneg) {
+		// 	row-gap: #{math.div($lh, 2)}em;
+		// }
+		li {
+			display: grid;
+			grid-template-columns: #{$lh*3}em 1fr;
+			column-gap: #{$lh}em;
+			padding: 0;
+			@include breakpoint($Mneg) {
+				grid-template-columns: #{$lh*2}em 1fr;
+				column-gap: #{math.div($lh, 2)}em;
+			}
+		}
+		.number {
+			display: block;
+			width: 100%;
+			background-color: $blue;
+			color: $white;
+			display: flex;
+			aspect-ratio: 1/1;
+			font-size: 2em;
+			border-radius: .1em;
+			justify-content: center;
+			text-align: center;
+			align-items: center;
+			align-self: top;
+			margin: 0 auto 0 0;
+			@include bold;
+			line-height: 1;
+			@include breakpoint($Mneg) {
+				font-size:1.6em;
+			}
+		}
+		.txt {
+			h1, h2, h3 {
+				margin-bottom: #{math.div($lh,4)}em;
+				line-height: 1;
+			}
+			>*:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
 }

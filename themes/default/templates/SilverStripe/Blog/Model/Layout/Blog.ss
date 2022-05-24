@@ -1,4 +1,4 @@
-<% require themedCSS("dist/css/blog.css") %>
+<% require themedCSS("dist/css/blog") %>
 <% include App/Includes/Header %>
 <main class="typography">
 	<% if $Slides %>
