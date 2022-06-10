@@ -1,4 +1,4 @@
-<div class="typography<% if not $isFullWidth %> inner<% end_if %>">
+<div class="typography">
 	<% include App/Includes/ElementTitle %>
 	$HTML
 </div>

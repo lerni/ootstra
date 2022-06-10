@@ -36,6 +36,7 @@ mix
   .sass('src/scss/fancy.scss', 'dist/css')
   .sass('src/scss/footer.scss', 'dist/css')
   .sass('src/scss/gallery.scss', 'dist/css')
+  .sass('src/scss/logo.scss', 'dist/css')
   .sass('src/scss/metaoverviewpage.scss', 'dist/css')
   .sass('src/scss/perso.scss', 'dist/css')
   .sass('src/scss/style.scss', 'dist/css')

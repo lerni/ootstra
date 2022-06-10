@@ -45,12 +45,15 @@ form {
 				}
 			}
 		}
-        .field {
-            float: left;
-            display: block;
+		.field {
+			float: left;
+			display: block;
 			width: 100%;
 			max-width: calc(100% - #{$lh}em);
 			margin: 0 0 #{$lh}em 0;
+			@include breakpoint($Mneg) {
+				max-width: initial;
+			}
 			&.half-width {
 				width: calc(50% - #{$lh}em);
 				margin-right: #{$lh}em;
@@ -92,60 +95,60 @@ form {
 					}
 				}
 			}
-            label {
-                color: $lauftext-color;
-                margin-bottom: #{math.div($lh, 4)}em;
-                &.left {
+			label {
+				color: $lauftext-color;
+				margin-bottom: #{math.div($lh, 4)}em;
+				&.left {
 					display: block;
 					font-weight: normal;
 					font-size: $labelfontsize;
-                }
-                &.right {}
-                &.required {
-                    display: none !important;
-                }
-            }
-            .middleColumn {
-            	float: left;
-                width:100% !important;
-                background: none;
-                input.text,
-                textarea,
-                .textajaxuniquetext,
-                select {
-                    width: 100%;
-                    padding: 6px 5px;
-                    background-color: $gray-lighter;
-                    border: 1px solid $gray-lighter;
-                    color: $lauftext-color;
-                    @include normal; // dropdown needs this
-                }
-                input.text:focus,
-                textarea:focus,
-                .textajaxuniquetext:focus,
-                select:focus {
-                    outline: none;
-                }
-                input[disabled], form textarea[disabled] {
-                    background-color: #f7f7f7;
-                    border: 1px solid #dad9d9;
-                }
-                textarea {
-                    resize: vertical;
-                }
-                .checkbox, .radio {
-                    input {
-                        float: left;
-                        width: 13px;
-                        height: 13px;
-                        margin-right: 6px;
-                        margin-top: 6px;
-                        padding: 0;
-                    }
-                    & label.right {
-                        float: left;
-                    }
-                }
+				}
+				&.right {}
+				&.required {
+					display: none !important;
+				}
+			}
+			.middleColumn {
+				float: left;
+				width:100% !important;
+				background: none;
+				input.text,
+				textarea,
+				.textajaxuniquetext,
+				select {
+					width: 100%;
+					padding: #{math.div($lh, 2)}em #{math.div($lh, 3)}em;
+					background-color: $gray-lighter;
+					border: 1px solid $gray-lighter;
+					color: $lauftext-color;
+					@include normal; // dropdown needs this
+				}
+				input.text:focus,
+				textarea:focus,
+				.textajaxuniquetext:focus,
+				select:focus {
+					outline: none;
+				}
+				input[disabled], form textarea[disabled] {
+					background-color: #f7f7f7;
+					border: 1px solid #dad9d9;
+				}
+				textarea {
+					resize: vertical;
+				}
+				.checkbox, .radio {
+					input {
+						float: left;
+						width: 13px;
+						height: 13px;
+						margin-right: 6px;
+						margin-top: 6px;
+						padding: 0;
+					}
+					& label.right {
+						float: left;
+					}
+				}
 				[type="date"] {
 					box-sizing: content-box;
 					@include normal;
@@ -320,7 +323,7 @@ form {
 .checkbox label.right {
 	font-size: 1em;
 	color: $lauftext-color;
-    float: left;
+	float: left;
 }
 form .requiredField label.left::after {
 	color: $lauftext-color;
@@ -379,7 +382,7 @@ textarea:invalid {
 	float: left;
 }
 form .file {
-    color: $lauftext-color;
+	color: $lauftext-color;
 }
 
 @media only screen and (max-width: 700px) {

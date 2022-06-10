@@ -7,8 +7,8 @@
 	font-weight: 200;
 	font-display: swap;
 	src: local(''),
-		url("/_resources/themes/default/dist/webfonts/ibm-plex-sans-v9-latin-200.woff2") format('woff2'),
-		url("/_resources/themes/default/dist/webfonts/ibm-plex-sans-v9-latin-200.woff") format('woff');
+		url("/_resources/themes/default/dist/webfonts/ibm-plex-sans-v9-latin-200.woff2") format("woff2"),
+		url("/_resources/themes/default/dist/webfonts/ibm-plex-sans-v9-latin-200.woff") format("woff");
 }
 @font-face {
 	font-family: 'IBM Plex Sans';
@@ -16,8 +16,8 @@
 	font-weight: 400;
 	font-display: swap;
 	src: local(''),
-		url("/_resources/themes/default/dist/webfonts/ibm-plex-sans-v9-latin-regular.woff2") format('woff2'),
-		url("/_resources/themes/default/dist/webfonts/ibm-plex-sans-v9-latin-regular.woff") format('woff');
+		url("/_resources/themes/default/dist/webfonts/ibm-plex-sans-v9-latin-regular.woff2") format("woff2"),
+		url("/_resources/themes/default/dist/webfonts/ibm-plex-sans-v9-latin-regular.woff") format("woff");
 }
 
 @import 'includes/variables';

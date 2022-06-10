@@ -236,7 +236,6 @@ de:
     LogoDescription: 'freigestellt PNG<br />min. 130px breit'
   SilverStripe\UserForms\Model\EditableFormField:
     FIELDISREQUIRED: '{name} muss ausgefüllt werden'
-    EXTRACLASS_MULTIPLE: 'Mehrere CSS Klassen mit Leerzeichen trennen - half-width - quarter-width-checkbox - auto-width'
   SilverStripe\UserForms\Model\UserDefinedForm:
     ONCOMPLETEMESSAGE: 'Danke wir haben Ihre Nachricht erhalten.'
   Kraftausdruck\KlaroCookie:

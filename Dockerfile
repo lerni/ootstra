@@ -1,4 +1,4 @@
-FROM brettt89/silverstripe-web:8.0-apache
+FROM brettt89/silverstripe-web:7.4-apache
 ENV DOCUMENT_ROOT /var/www/html
 
 COPY . $DOCUMENT_ROOT
@@ -75,17 +75,18 @@ RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
 
 RUN install-php-extensions \
-    gmp \
     imagick \
-    opcache \
     yaml
 
 RUN apt-get clean \
     && apt-get autoremove -y
 
-RUN git clone https://github.com/powerline/fonts.git --depth=1
-RUN sh fonts/install.sh
-RUN rm -rf fonts
+RUN rm /var/log/apache2/access.log
+# RUN touch /var/log/apache2/access.log
+RUN rm /var/log/apache2/error.log
+# RUN touch /var/log/apache2/error.log
+RUN rm /var/log/apache2/other_vhosts_access.log
+# RUN touch /var/log/apache2/other_vhosts_access.log
 
 # Uses "agnoster" theme for better distingusion of local & container-shell
 RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.2/zsh-in-docker.sh)" -- \

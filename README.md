@@ -35,29 +35,44 @@ Other features:
     - Google Analytics & Tagmanager, Microsoft Clarity, sitemap.xml, robots.txt
     - etc.
 
-## VCS, source repo
+## Getting started
+As editor/IDE VSCode with [Silverstripe](https://marketplace.visualstudio.com/items?itemName=adrianhumphreys.silverstripe) extension is recommended. Further settings in the project for extensions like , [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client), [PHP Debug](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug) and [Log Viewer](https://marketplace.visualstudio.com/items?itemName=berublan.vscode-log-viewer) allow an even smoother debugging experience. Zsh with [agnoster.zsh-theme](https://github.com/agnoster/agnoster-zsh-theme) is used in the docker container. This needs [Powerline font](https://github.com/powerline/fonts) on the host machine to be installed to shine in it's full beauty.
 
+
+### clone the project
 ```bash
     git clone git@github.com:lerni/ootstra.git "PROJECT"
 ```
-
-## PHP, composer
-
+### npm
+Node/npm runs locally. There is an `.nvmrc` file in `themes/default/`. It should make npm switch to the needed version when changing directory into `themes/default/`.
+```bash
+    cd PROJECT/themes/default
+    npm install
+```
+### Docker dev-env
+For development purpose the project comes with a Dockerfile for Apache/PHP/MySQL/phpMyAdmin/MailHog. Obviously [docker](https://www.docker.com/) needs to be installed. Run the commands bellow in the project directory:
 ```bash
     cd PROJECT/
+    docker build --tag silverstripe:refined .
+    docker-compose up
+ ```
+### Docker zsh, composer
+```bash
+    cd PROJECT/
+    docker-compose exec silverstripe zsh
     composer install
 ```
+### Laravel Mix watch & build
+[Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([webpack](https://webpack.js.org/) based) is used as build environment. In `themes/default/webpack.mix.js` vhost is set and 'll be proxied to http://localhost:3000/ in order to run browsersync.
+```bash
+    cd themes/default && npm run watch
+or
+    cd themes/default && npm run production
+```
 
-### Running local dev-env
+This should make a local webserver available on [http://localhost:8080/](http://localhost:8080/) or [http://localhost:3000/](http://localhost:3000/) if the watcher is running. `phpMyAdmin` you'll find under [http://localhost:8081/](http://localhost:8081/), MailHog under [http://localhost:8025/](http://localhost:8025/). Default login into `/admin` is `admin` & `password`. **ATM `.env` isn't used with docker - env-var are set in `docker-compose.yml` when running per docker.**
 
-For development purpose the project comes with a Dockerfile for Apache/PHP/MySQL/phpMyAdmin/MailHog. Obviously [docker](https://www.docker.com/) needs to be installed. Run the commands bellow in the project directory:
-
- - `docker build --tag silverstripe:refined .`
- - `docker-compose up`
-
-It than should be available on [http://localhost:8080/](http://localhost:8080/). `phpMyAdmin` is available under [http://localhost:8081/](http://localhost:8081/), MailHog under [http://localhost:8025/](http://localhost:8025/). Default login into `/admin` is `admin` & `password`. **ATM `.env` isn't used with docker - env-var are set in `docker-compose.yml` when running per docker.**
-
-With `docker ps` you can get the <CONTAINER ID> of running instances. Running a shell in a container just do `docker exec -it <CONTAINER_NAME> zsh` or just `docker-compose exec silverstripe zsh`.
+With `docker ps` you can get the <CONTAINER ID> of running instances. To run a shell in a container do either `docker exec -it <CONTAINER_NAME> zsh` or just `docker-compose exec silverstripe zsh`.
 
 With other webserver setups, point your vhost document root of your dev-env to `/project/public` and adjust `proxy` in `themes/default/webpack.mix.js`. Database, credentials etc. are provided per environment Variables. See also:
 
@@ -96,25 +111,6 @@ GHOSTSCRIPT_PATH="/usr/local/bin/gs"
 For your PHP-CLI-Setup, it might be helpful, to set `sys_temp_dir = "/tmp"` in `php.ini` for `sspak`.
 
 On the first Request the database structure (tables) 'll automatically be generated - it runs a `dev/build`. Before you do so, set the correct value for `i18n::set_locale('VALUE');` in `app/_config.php`!
-
-## npm
-
-Node/npm runs locally. There is an `.nvmrc` file in `themes/default/`. It should make npm switch to the needed version when changing directory into `themes/default/`.
-
-```bash
-    cd PROJECT/themes/default
-    npm install
-```
-
-[Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([webpack](https://webpack.js.org/) based) is used as build environment. In `themes/default/webpack.mix.js` vhost is set and 'll be proxied to http://localhost:3000/ in order to run browsersync.
-
-```bash
-    npm run watch
-```
-
-```bash
-    npm run production
-```
 
 # Hosting & Deployment
 

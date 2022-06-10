@@ -9,11 +9,6 @@
       "type": "php",
       "request": "launch",
       "port": 9003,
-      "xdebugSettings": {
-        "max_children": 128,
-        "max_depth": 3,
-        "max_data": 512
-      },
       "pathMappings": {
         "/var/www/html/": "${workspaceFolder}"
       }

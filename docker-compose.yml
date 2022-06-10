@@ -7,14 +7,31 @@ services:
       - 8080:80
     volumes:
       - .:/var/www/html:cached
-      # using local composer cache to save a bit of bandwidth
-      - ~/.composer:/var/www/.composer
-      - ./docker/config/php/80/custom.php.ini:/usr/local/etc/php/conf.d/custom.php.ini
-
+      # using local composer cache to save a bit of bandwidth - depending on your hostplattform you need to adapt paths
+      # Defaults to C:\Users\<user>\AppData\Local\Composer on Windows,
+      # /Users/<user>/Library/Caches/composer on macOS,
+      # $XDG_CACHE_HOME/composer on unix systems that follow the XDG Base Directory Specifications,
+      # and $COMPOSER_HOME/cache on other unix systems. Stores all the caches used by Composer.
+      - ~/.composer:/root/.composer:delegated
+      - /run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock
+      - ./docker/config/php/74/custom.php.ini:/usr/local/etc/php/conf.d/custom.php.ini:cached
+      - ./docker/log/apache2/access.log:/var/log/apache2/access.log:delegated
+      - ./docker/log/apache2/error.log:/var/log/apache2/error.log:delegated
+      - ./docker/log/apache2/other_vhosts_access.log:/var/log/apache2/other_vhosts_access.log:delegated
+      # - type: bind
+      #   source: ./docker/log/apache2/access.log
+      #   target: /var/log/apache2/access.log
+      # - type: bind
+      #   source: ./docker/log/apache2/error.log
+      #   target: /var/log/apache2/error.log
+      # - type: bind
+      #   source: ./docker/log/apache2/other_vhosts_access.log
+      #   target: /var/log/apache2/other_vhosts_access.log
     depends_on:
       - database
       - mailhog
     environment:
+      - SSH_AUTH_SOCK=/run/host-services/ssh-auth.sock
       - DOCUMENT_ROOT=/var/www/html/public
       - SS_TRUSTED_PROXY_IPS=*
       - SS_ENVIRONMENT_TYPE=dev

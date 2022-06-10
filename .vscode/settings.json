@@ -1,0 +1,27 @@
+{
+  "php.validate.run": "onType",
+  "logViewer.watch": [
+    {
+      "groupName": "apache2",
+      "watches": [
+        {
+          "title": "access",
+          "pattern": "docker/log/apache2/access.log"
+        },
+        {
+          "title": "error",
+          "pattern": "docker/log/apache2/error.log"
+        },
+        {
+          "title": "other_vhosts_access",
+          "pattern": "docker/log/apache2/other_vhosts_access.log"
+        }
+      ]
+    },
+    {
+        "title": "Silverstripe",
+        "pattern": "silverstripe.log"
+    }
+  ],
+  "terminal.integrated.fontFamily": "Droid Sans Mono for Powerline"
+}

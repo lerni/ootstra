@@ -4,9 +4,7 @@
 		<% include App/Includes/DefaultHero Page=$Me %>
 	<% end_if %>
 	<article class="element">
-		<div class="inner">
-			$Content
-			$Form
-		</div>
+		$Content
+		$Form
 	</article>
 </main>

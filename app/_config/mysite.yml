@@ -264,9 +264,9 @@ TractorCow\OpenGraph\OpenGraph:
   application_id: ''
   admin_id: ''
 
-TractorCow\OpenGraph\ObjectBuilders\OpenGraphBuilder:
-  extensions:
-    - App\Extensions\OpengraphBuilderExtension
+# TractorCow\OpenGraph\ObjectBuilders\OpenGraphBuilder:
+#   extensions:
+#     - App\Extensions\OpengraphBuilderExtension
 
 # ---
 # Name: mygooglemapfield

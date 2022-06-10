@@ -9,6 +9,7 @@
 /.idea/
 /.vscode/*
 !/.vscode/launch.json
+!/.vscode/settings.json
 /deploy/config.php
 /public/.well-known/
 /public/assets/

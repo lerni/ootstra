@@ -226,7 +226,7 @@ main.typography {
 	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
-	&:not(.full-width) {
+	&:not(.full-width):not(.elementhero.default) {
 		max-width: $inner-width;
 		padding-left: #{$lh}em;
 		padding-right: #{$lh}em;

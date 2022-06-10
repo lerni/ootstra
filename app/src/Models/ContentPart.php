@@ -99,6 +99,13 @@ class ContentPart extends DataObject
             $FAQTitleField->setDescription(_t(__CLASS__ . '.FAQTitleDescription', 'Overrides "Title" for FAQ schema'));
         }
 
+        if ($DefaultOpenField = $fields->dataFieldByName('DefaultOpen')) {
+            $fields->insertBefore($DefaultOpenField, 'Text');
+        }
+        if ($FAQSchemaField = $fields->dataFieldByName('FAQSchema')) {
+            $fields->insertBefore($FAQSchemaField, 'Text');
+        }
+
         if ($this->isInDB() && $this->ElementContentSection()->count() > 1) {
             $fields
                 ->fieldByName('Root.ElementContentSection.ElementContentSection')
