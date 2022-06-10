@@ -1,5 +1,5 @@
 # Status - WIP
-**This project was published as part of a lightning talk at virtual StripeCon 2020. Unfortunately it wasn't ready at the time of the conference and still is work in progress. As much as I like it to be finished product - so far its not. Time will tell how things progress.**
+**This was published as part of a lightning talk at virtual StripeCon 2020. Unfortunately it wasn't ready at the time of the conference and still is work in progress. As much as I like it to be finished product - so far its not. Time will tell how things progress.**
 
 # Setup, Requirements & install
 
@@ -36,12 +36,16 @@ Other features:
     - etc.
 
 ## Getting started
-As editor/IDE VSCode with [Silverstripe](https://marketplace.visualstudio.com/items?itemName=adrianhumphreys.silverstripe) extension is recommended. Further settings in the project for extensions like , [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client), [PHP Debug](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug) and [Log Viewer](https://marketplace.visualstudio.com/items?itemName=berublan.vscode-log-viewer) allow an even smoother debugging experience. Zsh with [agnoster.zsh-theme](https://github.com/agnoster/agnoster-zsh-theme) is used in the docker container. This needs [Powerline font](https://github.com/powerline/fonts) on the host machine to be installed to shine in it's full beauty.
+As editor/IDE [VSCode](https://code.visualstudio.com/) with [Silverstripe](https://marketplace.visualstudio.com/items?itemName=adrianhumphreys.silverstripe) extension is recommended. Further settings in the project for extensions like , [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client), [PHP Debug](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug) and [Log Viewer](https://marketplace.visualstudio.com/items?itemName=berublan.vscode-log-viewer) allow an even smoother debugging experience. Zsh with [agnoster.zsh-theme](https://github.com/agnoster/agnoster-zsh-theme) is used in the docker container. This needs [Powerline font](https://github.com/powerline/fonts) to be installed on the host machine to shine in it's full beauty.
 
 
-### clone the project
+### clone or fork lerni/ootstra
 ```bash
     git clone git@github.com:lerni/ootstra.git "PROJECT"
+```
+Set default locale in `app/_config.php` as needed.
+```php
+    i18n::set_locale('de_CH');
 ```
 ### npm
 Node/npm runs locally. There is an `.nvmrc` file in `themes/default/`. It should make npm switch to the needed version when changing directory into `themes/default/`.

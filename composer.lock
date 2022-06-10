@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cbad2b7cd998aa7f6e51250c83d46b7f",
+    "content-hash": "f9d545eb00c158c4a9da8d7cc4ba3228",
     "packages": [
         {
             "name": "axllent/silverstripe-email-obfuscator",
@@ -2792,51 +2792,6 @@
                 }
             ],
             "time": "2022-04-17T13:12:02+00:00"
-        },
-        {
-            "name": "lerni/folderindex",
-            "version": "0.0.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/lerni/folderindex.git",
-                "reference": "b02b695c039f9dbb810b55c7a7cd29f726d642f1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/lerni/folderindex/zipball/b02b695c039f9dbb810b55c7a7cd29f726d642f1",
-                "reference": "b02b695c039f9dbb810b55c7a7cd29f726d642f1",
-                "shasum": ""
-            },
-            "require": {
-                "silverstripe/asset-admin": "^1.6"
-            },
-            "suggest": {
-                "gorriecoe/silverstripe-robots": "robots.txt generation for Silverstripe"
-            },
-            "type": "silverstripe-vendormodule",
-            "autoload": {
-                "psr-4": {
-                    "Kraftausdruck\\Extensions\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": "Silverstripe Extension to send  noindex, nofollow for files in foldes that do not ShowInSearch.",
-            "homepage": "https://github.com/lerni/folderindex",
-            "keywords": [
-                "assets",
-                "file",
-                "image",
-                "noindex",
-                "silverstripe"
-            ],
-            "support": {
-                "issues": "https://github.com/lerni/folderindex/issues",
-                "source": "https://github.com/lerni/folderindex/tree/0.0.6"
-            },
-            "time": "2022-01-07T07:33:31+00:00"
         },
         {
             "name": "lerni/klaro-cookie-consent",
@@ -9783,5 +9738,5 @@
         "php": "^7.1 || ^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.1.0"
 }

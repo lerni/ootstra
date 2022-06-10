@@ -136,7 +136,7 @@ task('deploy', function () {
     invoke('deploy:release');
     invoke('deploy:update_code');
     invoke('silverstripe:create_dotenv');
-    invoke('silverstripe:create_cache_dir');
+    // invoke('silverstripe:create_cache_dir');
     invoke('deploy:shared');
     //    invoke('deploy:writable');
     invoke('deploy:vendors');
