@@ -145,8 +145,7 @@
 			border-top: 2px solid $gray;
 		}
 	}
-	.content-parts
-	.text-blocks {
+	.content-parts.text-blocks {
 		display: grid;
 		max-width: initial;
 		grid-gap: #{$lh}em;
@@ -171,8 +170,9 @@
 				}
 			}
 			@include breakpoint($Lneg) {
+				background-color: $blue;
 				&:nth-of-type(2n) {
-					background-color: $blue;
+					background-color: $red;
 				}
 			}
 		}

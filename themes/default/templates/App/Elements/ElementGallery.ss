@@ -1,6 +1,8 @@
 <% require themedCSS("dist/css/gallery") %>
 <% require themedCSS("dist/css/fancy") %>
-<% include App/Includes/ElementTitle %>
+<% if isFullWidth %><div class="inner"><% end_if %>
+	<% include App/Includes/ElementTitle %>
+<% if isFullWidth %></div><% end_if %>
 <% if $Items %>
 	<% if $Layout == "slider" %>
 		<div class="swiper-container multiple" data-id="{$ID}" id="multiple-swiper-{$ID}">

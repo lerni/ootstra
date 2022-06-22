@@ -24,7 +24,7 @@
 			min-width: $width;
 			min-height: $height;
 			padding: 0;
-			background-color: rgba($gray-light, .3);
+			background-color: rgba($gray--light, .3);
 			transition-property: background-color;
 			transition-duration: .4s;
 			a {
@@ -50,7 +50,7 @@
 				}
 			}
 			&.has-link:hover {
-				background-color: rgba($gray-light, .6);
+				background-color: rgba($gray--light, .6);
 				img {
 					filter: grayscale(0%);
 				}

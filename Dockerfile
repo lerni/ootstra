@@ -88,6 +88,9 @@ RUN rm /var/log/apache2/error.log
 RUN rm /var/log/apache2/other_vhosts_access.log
 # RUN touch /var/log/apache2/other_vhosts_access.log
 
+RUN rm /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN rm /usr/local/etc/php/conf.d/timezone.ini
+
 # Uses "agnoster" theme for better distingusion of local & container-shell
 RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.2/zsh-in-docker.sh)" -- \
     -t agnoster

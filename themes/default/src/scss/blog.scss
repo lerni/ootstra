@@ -79,7 +79,7 @@ body.blog {
 			height: #{$lh*3}em;
 			margin: 0 auto;
 			display: flex;
-			background-color: $gray-lighter;
+			background-color: $gray--lighter;
 			// min-width: 300px;
 			>img {
 				width: #{$lh*3}em;
@@ -150,7 +150,7 @@ body.blog {
 			display: block;
 			width: #{$lh*2.4}em;
 			height: #{$lh*2.4}em;
-			background-image: svg-load('../images/svg/grid.svg', fill=#{$gray-light});
+			background-image: svg-load('../images/svg/grid.svg', fill=#{$gray--light});
 			background-size: 100% auto;
 		}
 	}

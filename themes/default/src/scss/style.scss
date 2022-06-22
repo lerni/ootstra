@@ -124,11 +124,11 @@ body {
 
 main.typography {
 	width: 100%;
-	flex: 1;
+	flex: 1 1 auto;
 	border-top: $headerheight solid transparent;
-	@include breakpoint($XLneg) {
-		overflow-x: hidden;
-	}
+	// @include breakpoint($XLneg) {
+	// 	overflow-x: hidden;
+	// }
 	@include breakpoint($Lneg) {
 		border-top-width: $headerheight--smaller;
 	}
@@ -236,7 +236,21 @@ main.typography {
 		}
 	}
 	&.background--gray-lighter {
-		background-color: $gray-lighter;
+		position: relative;
+		z-index: 1;
+		&::after {
+			content: "";
+			position: absolute;
+			z-index: -1;
+			top: 0;
+			right: -100%;
+			bottom: 0;
+			left: -100%;
+			background-color: $gray--lighter;
+		}
+	}
+	.element-title {
+		flex: 0 0 100%;
 	}
 	&.elementjobs.show,
 	&.elementform,
@@ -407,7 +421,7 @@ main.typography {
 						top: 0;
 						bottom: 0;
 						pointer-events: none;
-						background-color: $gray-light;
+						background-color: $gray--light;
 						z-index: 0;
 					}
 					p, h1, h2, h3 {
@@ -769,7 +783,7 @@ html .klaro {
 		}
 		// switch disabled
 		.cm-list-label .slider {
-			background-color: $gray-light;
+			background-color: $gray--light;
 		}
 		// slider-switches
 		.cm-list-input:checked + .cm-list-label .slider {
@@ -787,7 +801,7 @@ html .klaro {
 			background-color: mix($link-color, $white, 71%);
 		}
 		.cm-list-description {
-			color: $gray-light;
+			color: $gray--light;
 		}
 		// accept all
 		.cm-btn.cm-btn-accept-all {

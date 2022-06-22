@@ -118,8 +118,8 @@ form {
 				select {
 					width: 100%;
 					padding: #{math.div($lh, 2)}em #{math.div($lh, 3)}em;
-					background-color: $gray-lighter;
-					border: 1px solid $gray-lighter;
+					background-color: $gray--lighter;
+					border: 1px solid $gray--lighter;
 					color: $lauftext-color;
 					@include normal; // dropdown needs this
 				}

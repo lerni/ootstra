@@ -19,10 +19,10 @@
 				padding: #{math.div($lh,2)}em;
 				margin-bottom: #{$lh}em;
 				&:not(:first-of-type) {
-					border: solid #{math.div($lh,1)}em $gray-lighter;
+					border: solid #{math.div($lh,1)}em $gray--lighter;
 				}
 				&.default {
-					background-color: $gray-lighter;
+					background-color: $gray--lighter;
 					h3 {
 						margin-bottom: #{$lh*.5}em;
 					}
@@ -40,7 +40,7 @@
 					border-color: yellowgreen;
 				}
 				&.redirectorpage {
-					background-color: $gray-lighter;
+					background-color: $gray--lighter;
 				}
 				.edit,
 				.og-edit {
@@ -69,7 +69,7 @@
 				.txt {
 					grid-column: 2/3;
 					.gray {
-						color: darken($gray-light, 10%);
+						color: darken($gray--light, 10%);
 					}
 					@include breakpoint($Lneg) {
 						grid-column: 1/3;

@@ -172,7 +172,7 @@
 			position: absolute;
 			top: 100%;
 			opacity: 0;
-			border-bottom: $pad - math.div($pad, 4) solid $gray-light;
+			border-bottom: $pad - math.div($pad, 4) solid $gray--light;
 			border-left: $pad - math.div($pad, 4) solid transparent;
 			border-right: $pad - math.div($pad, 4) solid transparent;
 			height: 0;
@@ -192,7 +192,7 @@
 				width: 100%;
 				margin-bottom: 0;
 				&.default {
-					background-color: $gray-light;
+					background-color: $gray--light;
 				}
 			}
 		}
@@ -261,7 +261,7 @@
 				right: -100%;
 				top: 0;
 				bottom: 0;
-				background-color: $gray-light;
+				background-color: $gray--light;
 				pointer-events: none;
 				z-index: -1;
 			}

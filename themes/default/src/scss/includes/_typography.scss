@@ -38,7 +38,7 @@
 	// -------------------------------------------- */
 	hr {
 		border:0;
-		border-bottom: 1px solid $gray-light;
+		border-bottom: 1px solid $gray--light;
 		clear: both;
 		height: 0;
 		padding: calc(#{math.div($lh, 2)}em - 1px) 0 0 0;
@@ -162,8 +162,8 @@
 				font-size: .8em;
 				padding: .1em .2em .2em;
 				vertical-align: top;
-				border-top: 1px solid $gray-light;
-				border-bottom: 1px solid $gray-light;
+				border-top: 1px solid $gray--light;
+				border-bottom: 1px solid $gray--light;
 			}
 			&:last-of-type {
 				td {
@@ -235,7 +235,7 @@
 		>p {
 			// video caption
 			padding: #{math.div($lh, 2)}em;
-			background-color: $gray-lighter;
+			background-color: $gray--lighter;
 			font-size: .8em;
 			display: table;
 			width: 100%;
@@ -311,7 +311,7 @@
 		}
 	}
 	.boxed {
-		background-color: $gray-lighter;
+		background-color: $gray--lighter;
 		padding: #{$lh*1}em #{$lh*2}em #{$lh*1.1}em #{$lh*2}em;
 		margin: 0 0 #{$lh}em 0;
 		@include breakpoint($Mneg) {

@@ -6,6 +6,7 @@ services:
     ports:
       - 8080:80
     volumes:
+      - ./docker/config/php/74/custom.php.ini:/usr/local/etc/php/conf.d/custom.php.ini:cached
       - .:/var/www/html:cached
       # using local composer cache to save a bit of bandwidth - depending on your hostplattform you need to adapt paths
       # Defaults to C:\Users\<user>\AppData\Local\Composer on Windows,
@@ -14,7 +15,6 @@ services:
       # and $COMPOSER_HOME/cache on other unix systems. Stores all the caches used by Composer.
       - ~/.composer:/root/.composer:delegated
       - /run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock
-      - ./docker/config/php/74/custom.php.ini:/usr/local/etc/php/conf.d/custom.php.ini:cached
       - ./docker/log/apache2/access.log:/var/log/apache2/access.log:delegated
       - ./docker/log/apache2/error.log:/var/log/apache2/error.log:delegated
       - ./docker/log/apache2/other_vhosts_access.log:/var/log/apache2/other_vhosts_access.log:delegated

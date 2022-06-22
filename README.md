@@ -36,19 +36,19 @@ Other features:
     - etc.
 
 ## Getting started
-As editor/IDE [VSCode](https://code.visualstudio.com/) with [Silverstripe](https://marketplace.visualstudio.com/items?itemName=adrianhumphreys.silverstripe) extension is recommended. Further settings in the project for extensions like , [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client), [PHP Debug](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug) and [Log Viewer](https://marketplace.visualstudio.com/items?itemName=berublan.vscode-log-viewer) allow an even smoother debugging experience. Zsh with [agnoster.zsh-theme](https://github.com/agnoster/agnoster-zsh-theme) is used in the docker container. This needs [Powerline font](https://github.com/powerline/fonts) to be installed on the host machine to shine in it's full beauty.
+As editor/IDE [VSCode](https://code.visualstudio.com/) with [Silverstripe](https://marketplace.visualstudio.com/items?itemName=adrianhumphreys.silverstripe) extension is recommended. There are further settings under `.vscode/settings.json` for extensions like , [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client), [PHP Debug](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug) and [Log Viewer](https://marketplace.visualstudio.com/items?itemName=berublan.vscode-log-viewer) allowing an even smoother experience. Zsh with [agnoster.zsh-theme](https://github.com/agnoster/agnoster-zsh-theme) is used in the docker container. This needs [Powerline font](https://github.com/powerline/fonts) to be installed on the host machine to shine in it's full beauty.
 
 
 ### clone or fork lerni/ootstra
 ```bash
     git clone git@github.com:lerni/ootstra.git "PROJECT"
 ```
-Set default locale in `app/_config.php` as needed.
+On the first Request the database structure (tables) 'll automatically be generated - it runs a `dev/build`. Before you do so, set the correct default locale in `app/_config.php` like:
 ```php
     i18n::set_locale('de_CH');
 ```
 ### npm
-Node/npm runs locally. There is an `.nvmrc` file in `themes/default/`. It should make npm switch to the needed version when changing directory into `themes/default/`.
+Node/npm runs locally. There is an `.nvmrc` file in `themes/default/`. If [nvm](https://github.com/nvm-sh/nvm) is set up, npm version should switch automatically when changing directory into `themes/default/`.
 ```bash
     cd PROJECT/themes/default
     npm install
@@ -113,8 +113,6 @@ GHOSTSCRIPT_PATH="/usr/local/bin/gs"
 ```
 
 For your PHP-CLI-Setup, it might be helpful, to set `sys_temp_dir = "/tmp"` in `php.ini` for `sspak`.
-
-On the first Request the database structure (tables) 'll automatically be generated - it runs a `dev/build`. Before you do so, set the correct value for `i18n::set_locale('VALUE');` in `app/_config.php`!
 
 # Hosting & Deployment
 

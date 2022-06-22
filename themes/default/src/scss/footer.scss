@@ -18,7 +18,7 @@ body > footer {
 		}
 	}
 	.upper {
-		background-color: $gray-lighter;
+		background-color: $gray--lighter;
 		padding: #{$lh*1.5}em 0;
 		@include breakpoint($Lneg) {
 			padding-bottom: #{$lh*2}em;
