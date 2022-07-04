@@ -50,9 +50,12 @@ class ElementTeaser extends BaseElement
     {
         $fields = parent::getCMSFields();
 
-        $fields->removeByName('BackgroundColor');
-        $fields->removeByName('Teasers');
-        $fields->removeByName('isFullWidth');
+        $fields->removeByName([
+            'BackgroundColor',
+            'Teasers',
+            'isFullWidth'
+        ]);
+
         // hack around unsaved relations
         if ($this->isInDB()) {
             $TeaserGridFieldConfig = GridFieldConfig_Base::create(20);

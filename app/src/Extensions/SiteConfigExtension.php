@@ -71,7 +71,9 @@ class SiteConfigExtension extends DataExtension
 
     public function updateCMSFields(FieldList $fields)
     {
-        $fields->removeByName('Tagline');
+        $fields->removeByName([
+            'Tagline'
+        ]);
 
         $fields->renameField('Title', _t('SilverStripe\SiteConfig\SiteConfig.TITLE', 'Title / Name'));
 

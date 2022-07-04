@@ -11,10 +11,13 @@
 !/.vscode/launch.json
 !/.vscode/settings.json
 /deploy/config.php
+/.graphql-generated/*
+/public/_graphql/admin.types.graphql
 /public/.well-known/
 /public/assets/
 /public/_resources/
-/silverstripe-cache/
+/silverstripe-cache/*
+!/silverstripe-cache/.gitignore
 /vendor/
 /app/todo**
 # docker

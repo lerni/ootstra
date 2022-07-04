@@ -66,6 +66,7 @@ Array.prototype.forEach.call(multipleSwiper, function (slider) {
     freeMode: true,
     slidesPerView: 'auto',
     speed: 1000,
+    // loop: true,
     keyboard: {
       enabled: true,
     },

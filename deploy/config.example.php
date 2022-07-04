@@ -1,6 +1,6 @@
 <?php
 
-// The application/site name - also used as the directory name (unless DEP_DEPLOY_PATH is set)
+// application/site name - repo name
 define('DEP_APPLICATION', 'APPLICATION');
 
 // user
@@ -21,13 +21,12 @@ if (!defined('DEP_REPOSITORY')) {
     define('DEP_REPOSITORY', 'git@github.com:YOURORG/' . DEP_APPLICATION . '.git');
 }
 
-
 // The live deploy path - optional, defaults to /home/{{user}}/public_html/0live
 if (!defined('DEP_DEPLOY_PATH')) {
     define('DEP_DEPLOY_PATH', '/home/' . DEP_SERVER_USER . '/public_html/0live');
 }
 
-// The stage deploy path - optional, detauls to /home/{{user}}/public_html/0stage
+// The stage deploy path - optional, defaults to /home/{{user}}/public_html/0test
 if (!defined('DEP_DEPLOY_STAGE_PATH')) {
-    define('DEP_DEPLOY_STAGE_PATH', '/home/' . DEP_SERVER_USER . '/public_html/0stage');
+    define('DEP_DEPLOY_STAGE_PATH', '/home/' . DEP_SERVER_USER . '/public_html/0test');
 }

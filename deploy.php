@@ -92,7 +92,7 @@ set('ssXak_local_path', '/usr/local/bin/ssbak');
 set('ssXak_path', '~/bin/ssbak');
 
 // Hosts
-set('default_stage', 'stage');
+set('default_stage', 'test');
 
 set('bin/composer', '~/bin/composer.phar');
 set('composer_options', 'install --no-dev --verbose --prefer-dist --optimize-autoloader --no-interaction');
@@ -114,7 +114,7 @@ foreach (['live'] as $alias) {
 }
 
 // Staging aliases
-foreach (['stage', 'test'] as $alias) {
+foreach (['test', 'stage'] as $alias) {
     host($alias)
         ->stage($alias)
         ->hostname(DEP_SERVER)
@@ -123,7 +123,7 @@ foreach (['stage', 'test'] as $alias) {
             if (defined('DEP_DEPLOY_STAGE_PATH')) {
                 return DEP_DEPLOY_STAGE_PATH;
             }
-            return '/home/{{user}}/public_html/0stage';
+            return '/home/{{user}}/public_html/0test';
         });
 }
 

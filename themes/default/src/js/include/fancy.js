@@ -1,7 +1,7 @@
 import { Fancybox } from "@fancyapps/ui";
 
 Fancybox.bind("[data-fancybox]", {
-  thumbs     : false,
+  Thumbs: false,
   slideShow  : false,
   Image : {
     zoom: false,

@@ -1,4 +1,4 @@
-<% require themedCSS("dist/css/blog") %>
+<%-- require themedCSS("dist/css/blog") - those sytes are (pre)loaded per BlogInitExtension --%>
 <% include App/Includes/Header %>
 <main class="typography">
 	<% if $Slides %>
@@ -10,7 +10,7 @@
 		<div class="inner">$SiteConfig.GlobalAlert</div>
 	</article><% end_if %>
 	<% if $Content %><article class="element elementcontent">
-		<div class="typography inner">$Content</div>
+		<div class="typography">$Content</div>
 	</article><% end_if %>
 	<% if $CategoriesWithState %>
 		<nav class="element blog-post-meta">
