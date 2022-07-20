@@ -19,7 +19,7 @@
 					display: inline-block;
 					outline: none;
 					white-space: nowrap;
-					color: $lauftext-color;
+					color: $scrolling-text-color;
 					position: relative;
 					z-index: 1;
 				}
@@ -75,7 +75,7 @@
 						background-repeat: no-repeat;
 						background-size: .5em 1em;
 						background-position: right .5em bottom 30%;
-						background-image: svg-load('../images/svg/arrow-down.svg', stroke="#{$lauftext-color}", stroke-width="20");
+						background-image: svg-load('../images/svg/arrow-down.svg', stroke="#{$scrolling-text-color}", stroke-width="20");
 					}
 					.menu2 {
 						visibility: hidden;
@@ -187,7 +187,7 @@ body.mobile-nav--active & {
 			}
 			.txt {
 				margin-right: #{math.div($lh, 2)}em;
-				color: $lauftext-color;
+				color: $scrolling-text-color;
 				line-height: 1;
 				@include breakpoint($Sneg) {
 					display: none;
@@ -195,7 +195,7 @@ body.mobile-nav--active & {
 			}
 			.burger-icon {
 				span {
-					background-color: $lauftext-color;
+					background-color: $scrolling-text-color;
 				}
 				@include print {
 					display: none;
@@ -212,7 +212,7 @@ body.mobile-nav--active & {
 					}
 				}
 				// values need to be passed in px
-				@include burger(28px, 3px, 5px, $lauftext-color, 2px);
+				@include burger(28px, 3px, 5px, $scrolling-text-color, 2px);
 				background-color: transparent !important;
 			}
 		}
@@ -293,7 +293,7 @@ html.mobile-nav--active {
 									background-color: transparent;
 									padding-top: 0;
 									box-shadow: none;
-									padding: #{math.div($lh, 3)*2}em 0;
+									padding: #{math.div($lh, 3) * 2}em 0;
 									visibility: hidden;
 									display: none;
 									&::after {
@@ -304,9 +304,9 @@ html.mobile-nav--active {
 											height: auto;
 											font-size: 1em;
 											opacity: 1;
-											padding-left: #{math.div($lh, 3)*5}em;
+											padding-left: #{math.div($lh, 3) * 5}em;
 											@include breakpoint($Mneg) {
-												padding-left: #{math.div($lh, 3)*5}em;
+												padding-left: #{math.div($lh, 3) * 5}em;
 											}
 										}
 									}

@@ -62,9 +62,11 @@ class ElementPerso extends BaseElement
     {
         $fields = parent::getCMSFields();
 
-        $fields->removeByName('Persos');
-        $fields->removeByName('isFullWidth');
-        $fields->removeByName('Departments');
+        $fields->removeByName([
+            'Persos',
+            'isFullWidth',
+            'Departments'
+        ]);
 
         $DepGFConfig = GridFieldConfig_RecordEditor::create(20);
         $DepGFConfig->removeComponentsByType('SilverStripe\Forms\GridField\GridFieldPageCount');

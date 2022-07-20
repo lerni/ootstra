@@ -5,13 +5,13 @@
 @import '~breakpoint-sass/stylesheets/breakpoint';
 .element.elementcontentsection {
 	.content-parts.accordion {
-		// border-bottom: 2px solid $lauftext-color;
+		// border-bottom: 2px solid $scrolling-text-color
 		// max-width: #{$inner-width - 200px};
 
 		dt.flip {
 			$trigger-size: 1;
 			$trigger-stroke-width: .15;
-			$trigger-color: $lauftext-color;
+			$trigger-color: $scrolling-text-color;
 			$spacing-factor: 1.5;
 			padding: #{$lh}em 0;
 			cursor: pointer;

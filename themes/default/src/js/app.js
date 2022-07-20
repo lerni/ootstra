@@ -3,8 +3,9 @@
  * ---------------------------------------------------------------------------------
  */
 
-// jquery globally available
+// jQuery available globally
 import '../../node_modules/jquery/dist/jquery';
+import './include/jquery';
 
 import './include/nav';
 import './include/youtube';

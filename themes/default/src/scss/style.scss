@@ -24,10 +24,11 @@ html, body {
 
 html {
 	letter-spacing: .04em;
-	font-size: #{$lauftext-size};
+	font-size: #{$scrolling-text-size};
 	font-family: $font-family;
 	line-height: $lh;
-	color: $lauftext-color;
+	color: $scrolling-text-color;
+	overflow-x: hidden;
 	@include normal;
 	@include smoothFonts;
 }
@@ -43,10 +44,7 @@ body {
 	// https://stackoverflow.com/questions/24193272/overflow-xhidden-on-mobile-device-not-working
 	overflow-x: hidden;
 	@include breakpoint($Lneg) {
-		font-size: #{$lauftext-size*.9};
-	}
-	@include breakpoint($Sneg) {
-		font-size: #{$lauftext-size*.8};
+		font-size: #{$scrolling-text-size*.9};
 	}
 }
 
@@ -135,9 +133,6 @@ main.typography {
 	// @include breakpoint($Sneg) {
 	// 	border-top-width: $headerheight--smaller;
 	// }
-	@include ie11 {
-		flex: 1 0 auto;
-	}
 }
 
 .inner {
@@ -161,7 +156,7 @@ main.typography {
 	}
 	a {
 		@include normal;
-		color: $lauftext-color;
+		color: $scrolling-text-color;
 	}
 	.delimiter {
 		display: inline-block;
@@ -177,25 +172,28 @@ main.typography {
 
 .typography p.cat-tag {
 	display: flex;
+	gap: #{math.div($lh, 1)}em;
 	flex-wrap: wrap;
-	justify-content: center;
+	justify-content: flex-start;
 	margin-bottom: 0;
-	font-size: .9em;
+	padding-top: #{$lh}em;
+	padding-bottom: #{$lh*2}em;
 	>span,
 	>a {
+		font-size: .9em;
 		display: inline-block;
-		margin: 0 #{math.div($lh, 2)}em #{math.div($lh, 2)}em 0;
-		padding: .3em 1.2em .2em;
+		padding: .14em #{math.div($lh, 1)}em .1em;
 		border-width: 2px;
 		border-style: solid;
-		border-color: $link-color;
-		color: $link-color;
+		border-color: $scrolling-text-color;
+		color: $scrolling-text-color;
+		@include bold;
 		&:last-child {
 			margin-right: 0;
 		}
 		&.current {
 			color: $white;
-			background-color: $link-color;
+			background-color: $scrolling-text-color;
 		}
 		&:not(.current) {
 			background-color: transparent;
@@ -204,18 +202,17 @@ main.typography {
 	>a.all:not(.current) {
 		border-color: transparent;
 		padding-left: 0;
-		padding-right: 1em;
 		&::before {
 			display: inline-block;
 			content: "";
-			width: .9em;
+			width: #{$lh*.7}em;
 			height: 1em;
 			background-size: auto .7em;
 			background-repeat: no-repeat;
 			background-position: right 0 center;
-			background-image: svg-load('../images/svg/arrow.svg', fill=#{$link-color});
+			background-image: svg-load('../images/svg/arrow-outline.svg', fill=#{$scrolling-text-color});
 			transform: rotate(180deg);
-			margin-right: .5em;
+			margin-right: #{$lh*.3}em;
 			vertical-align: -.1em;
 		}
 	}
@@ -226,8 +223,8 @@ main.typography {
 	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
-	&:not(.full-width):not(.elementhero.default) {
-		max-width: $inner-width;
+	max-width: $inner-width;
+	&:not(.elementhero.default) {
 		padding-left: #{$lh}em;
 		padding-right: #{$lh}em;
 		@include breakpoint($Mneg) {
@@ -253,7 +250,6 @@ main.typography {
 		flex: 0 0 100%;
 	}
 	&.elementjobs.show,
-	&.elementform,
 	&.elementcontent,
 	&.elementcontentsection,
 	.page & {
@@ -333,7 +329,7 @@ main.typography {
 				}
 				p, h1, h2, h3 {
 					font-size: 1.5em;
-					text-shadow: 0 0 .7em rgba($lauftext-color, .5);
+					text-shadow: 0 0 .7em rgba($scrolling-text-color, .5);
 					color: $white;
 				}
 				h1, h2, h3 {
@@ -427,7 +423,7 @@ main.typography {
 					p, h1, h2, h3 {
 						font-size: 1em;
 						text-shadow: none;
-						color: $lauftext-color;
+						color: $scrolling-text-color;
 						position: relative;
 						z-index: 1;
 					}
@@ -578,7 +574,7 @@ main.typography {
 		}
 		img {
 			max-width: none;
-			margin-bottom: initial; // checbox-placing otherwise clashes with typography img
+			margin-bottom: initial; // checkbox-placing otherwise clashes with typography img
 		}
 		.txt {
 			padding: 0 #{$lh}em #{$lh}em 0;

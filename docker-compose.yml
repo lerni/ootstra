@@ -58,6 +58,7 @@ services:
 
   pma:
     image: phpmyadmin/phpmyadmin
+    restart: always
     links:
         - database
     ports:
@@ -68,6 +69,7 @@ services:
         - PMA_HOST=database
         - PMA_USER=root
         - PMA_PASSWORD=
+        - UPLOAD_LIMIT=300M
 
   mailhog:
     image: mailhog/mailhog:latest

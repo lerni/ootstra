@@ -20,7 +20,7 @@ This project is inspired from [Bigfork’s quickstart recipe](https://github.com
     - ElementFeedTeaser         (holder concept per element with tags)
     - ElementTextImage
 
-    Optional - module in project:
+    Optional, separate - module:
     - ElementJobs              (schema.org & sitemap.xml)
     - ElementPodcast           (https://github.com/lerni/podcast)
 
@@ -76,7 +76,7 @@ or
 
 This should make a local webserver available on [http://localhost:8080/](http://localhost:8080/) or [http://localhost:3000/](http://localhost:3000/) if the watcher is running. `phpMyAdmin` you'll find under [http://localhost:8081/](http://localhost:8081/), MailHog under [http://localhost:8025/](http://localhost:8025/). Default login into `/admin` is `admin` & `password`. **ATM `.env` isn't used with docker - env-var are set in `docker-compose.yml` when running per docker.**
 
-With `docker ps` you can get the <CONTAINER ID> of running instances. To run a shell in a container do either `docker exec -it <CONTAINER_NAME> zsh` or just `docker-compose exec silverstripe zsh`.
+With `docker ps` you can get the `<CONTAINER ID>` of running instances. To run a shell in a container do either `docker exec -it <CONTAINER_NAME> zsh` or just `docker-compose exec silverstripe zsh`.
 
 With other webserver setups, point your vhost document root of your dev-env to `/project/public` and adjust `proxy` in `themes/default/webpack.mix.js`. Database, credentials etc. are provided per environment Variables. See also:
 
@@ -116,7 +116,7 @@ For your PHP-CLI-Setup, it might be helpful, to set `sys_temp_dir = "/tmp"` in `
 
 # Hosting & Deployment
 
-You need to [add your public key on the remote server](https://www.google.com/search?q=add+public+key+to+server) in ~/.ssh/authorized_keys. You can use [ssh-copy-id](https://www.ssh.com/ssh/copy-id) on nix-based systems. Deployment is based on [Deployer](https://deployer.org/) - a php based cli-tool. It uses symlinks to the current release. It's easy to use, offers zero downtime deployments and rollback. `/assets`, `.env` are shared resources, this means they are symlinked into each release-folder.
+Deployment is based on [Deployer](https://deployer.org/) - a php based cli-tool it's included as dev-requirement per `composer.json` and uses symlinks to the current release. It's easy to use, offers zero downtime deployments and rollback. `/assets`, `.env` are shared resources, this means they are symlinked into each release-folder.
 
 ```
 ~/public_html/0live        or ~/public_html/0stage
@@ -146,7 +146,9 @@ You need to [add your public key on the remote server](https://www.google.com/se
 
 ```
 
-[Deployer](https://deployer.org/) is included as dev-requirement per `composer.json`. An alias in you rc-files makes it available in thee project directory, so you just can use `dep` instead of prefixing it with `./vendor/bin/...` all the time.
+You need to [add your public key on the remote server](https://www.google.com/search?q=add+public+key+to+server) in ~/.ssh/authorized_keys. On nix-based systems you can use [ssh-copy-id](https://www.ssh.com/ssh/copy-id) to do so.
+
+With an alias in you rc-file you can make `dep` command available in the project directory, so you just can type `dep` instead of prefixing it with `./vendor/bin/...` all the time -> a ready made setup running inside silverstripes docker container is on it's way :)
 ```bash
 alias dep="./vendor/bin/dep"
 ```

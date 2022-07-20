@@ -1,8 +1,8 @@
 @use "sass:math";
-@import 'includes/variables';
-@import 'includes/defaults';
-@import 'includes/mixins';
-@import '~breakpoint-sass/stylesheets/breakpoint';
+@import "includes/variables";
+@import "includes/defaults";
+@import "includes/mixins";
+@import "~breakpoint-sass/stylesheets/breakpoint";
 
 // https://www.sitepoint.com/recreating-google-images-search-layout-css/
 // https://codepen.io/SitePoint/pen/bNYBZX
@@ -15,20 +15,18 @@
 	$img-width: 305px; // enter max-width of images
 	$min-per-row: 1; // enter minimum items per row
 	$max-per-row: 4; // enter maximum items per row
-	$transition-time: .3s;
+	$transition-time: 0.3s;
 
-	@mixin mq($min-width,$max-width) {
+	@mixin mq($min-width, $max-width) {
 		@if $min-width and $max-width {
 			@media screen and (min-width: $min-width) and (max-width: $max-width) {
 				@content;
 			}
-		}
-		@else if $min-width and not $max-width {
+		} @else if $min-width and not $max-width {
 			@media screen and (min-width: $min-width) {
 				@content;
 			}
-		}
-		@else if $max-width and not $min-width {
+		} @else if $max-width and not $min-width {
 			@media screen and (max-width: $max-width) {
 				@content;
 			}
@@ -72,25 +70,27 @@
 				@include mq($min-width, $max-width) {
 					$i1: $i + 1;
 					// divide spacing between items and subtract it with calc
-					width: calc(#{math.div(100, $i)}% - #{math.div($i - 1 * $pad, $i)});
+					width: calc(
+						#{math.div(100, $i)}% - #{math.div(($i - 1) * $pad, $i)}
+					);
 					// inner loop to populate nth-of-types but not 1st
 					@for $j from 2 through $i1 {
-
 						@if $i1 == $j {
 							// last of all items???
-							&:nth-of-type(#{$i}n+#{$i1}) {
+							&:nth-of-type(#{$i}n + #{$i1}) {
 								clear: left;
 							}
-						}
-						@else {
-							&:nth-of-type(#{$i}n+#{$j}) .item--expand {
+						} @else {
+							&:nth-of-type(#{$i}n + #{$j}) .item--expand {
 								// negative margin for gallery-style layout depending on "column"
-								margin-left: calc(-#{($j - 1) * 100%} - #{($j - 1) * $pad});
+								margin-left: calc(
+									-#{($j - 1) * 100%} - #{($j - 1) * $pad}
+								);
 							}
 						}
 					}
 					// no margin-right for last item per row
-					&:nth-of-type(#{$i}n)  {
+					&:nth-of-type(#{$i}n) {
 						margin-right: 0;
 					}
 				}
@@ -108,7 +108,7 @@
 					opacity: 1;
 				}
 				& .txt {
-					>span:hover::after {
+					> span:hover::after {
 						padding-left: 4em;
 					}
 				}
@@ -123,12 +123,12 @@
 					left: calc(50% - #{math.div($pad, 2)});
 				}
 				.item--expand {
-				height: auto;
-				max-height: 2000px;
-				margin-top: $pad;
-				visibility: visible;
-				padding: #{$pad*2.5} 0 #{$pad*1};
-			}
+					height: auto;
+					max-height: 2000px;
+					margin-top: $pad;
+					visibility: visible;
+					padding: #{$pad * 2.5} 0 #{$pad * 1};
+				}
 			}
 
 			.txt {
@@ -139,10 +139,10 @@
 				bottom: -3px;
 				top: -1px;
 				transform: translateY(100%);
-				padding: .5em .5em .1em;
-				background-color: rgba($white, .92);
+				padding: 0.5em 0.5em 0.1em;
+				background-color: rgba($white, 0.92);
 				opacity: 0;
-				margin-bottom: -.25em;
+				margin-bottom: -0.25em;
 				will-change: transform;
 				transition: all 320ms ease-out;
 				visibility: hidden;
@@ -151,17 +151,17 @@
 				flex-direction: column;
 				h2 {
 					flex: 0 0 auto;
-					margin-bottom: .3em;
+					margin-bottom: 0.3em;
 					font-size: 1em;
-					letter-spacing: .06em;
+					letter-spacing: 0.06em;
 				}
 
 				p {
 					flex: 0 0 auto;
 					margin-bottom: 0;
-					font-size: .9em;
+					font-size: 0.9em;
 				}
-				>span {
+				> span {
 					margin-top: auto;
 					flex: 0 0 auto;
 				}
@@ -179,7 +179,7 @@
 			width: 0;
 			padding-top: math.div($pad, 4);
 			margin: 0 auto 0;
-			transition: opacity $transition-time * .75;
+			transition: opacity $transition-time * 0.75;
 			transition-delay: $transition-time;
 		}
 
@@ -223,16 +223,24 @@
 				padding-left: 1.4em;
 				display: inline-block;
 				background-repeat: no-repeat;
-				background-size: auto .8em;
+				background-size: auto 0.8em;
 				background-position: left 30%;
-				color: $lauftext-color;
+				color: $scrolling-text-color;
 			}
 
 			a[href^="mailto:"] {
-				background-image: svg-load('../images/svg/couvert.svg', fill=#{$white});
+				background-image: svg-load(
+					"../images/svg/couvert.svg",
+					fill=#{$white}
+				);
 			}
+
 			a.vcard {
-				background-image: svg-load('../images/svg/vcard.svg', fill=transparent, stroke=#{$white});
+				background-image: svg-load(
+					"../images/svg/vcard.svg",
+					fill=transparent,
+					stroke=#{$white}
+				);
 			}
 
 			.columned {
@@ -267,12 +275,11 @@
 			}
 
 			@for $i from $max-per-row through $min-per-row {
-
 				$max-width: null;
 				$min-width: null;
 
 				@if $min-per-row != $i {
-				$min-width: $img-width * ($i - 1) + $pad * $i + 1;
+					$min-width: $img-width * ($i - 1) + $pad * $i + 1;
 				}
 
 				@if $max-per-row != $i {
@@ -280,23 +287,23 @@
 				}
 
 				@include mq($min-width, $max-width) {
-					width: calc(#{$i  * 100%} + #{($i - 1) * $pad});
+					width: calc(#{$i * 100%} + #{($i - 1) * $pad});
 				}
 			}
 		}
 
 		.expand__close {
 			position: absolute;
-			top: #{$pad*2.5};
+			top: #{$pad * 2.5};
 			right: 0;
 			width: #{$pad};
 			height: #{$pad};
-			background-image: svg-load('../images/svg/close.svg');
+			background-image: svg-load("../images/svg/close.svg");
 			background-repeat: no-repeat;
 			background-size: #{$pad} #{$pad};
 			cursor: pointer;
 			&:hover {
-				opacity: .7;
+				opacity: 0.7;
 			}
 		}
 	}

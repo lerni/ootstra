@@ -43,7 +43,7 @@
 		background-size: auto 50%;
 		background-repeat: no-repeat;
 		background-position: bottom 30% right 0;
-		background-image: svg-load('../images/svg/arrow.svg', fill=#{$link-color});
+		background-image: svg-load('../images/svg/arrow-outline.svg', fill=#{$link-color});
 		transform: rotate(180deg);
 		margin-right: .3em;
 		vertical-align: -.1em;
@@ -65,7 +65,7 @@
 		background-size: auto 50%;
 		background-repeat: no-repeat;
 		background-position: bottom 30% right 0;
-		background-image: svg-load('../images/svg/arrow.svg', fill=#{$link-color});
+		background-image: svg-load('../images/svg/arrow-outline.svg', fill=#{$link-color});
 		margin-left: .3em;
 		vertical-align: -.1em;
 		transition: all;

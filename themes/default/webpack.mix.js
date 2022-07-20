@@ -43,7 +43,7 @@ mix
   .sass('src/scss/teaser.scss', 'dist/css')
   .sass('src/scss/textimage.scss', 'dist/css')
   .sourceMaps(productionSourceMaps, 'source-map')
-  .copyDirectory('src/webfonts', 'dist/webfonts');
+  .copyDirectory('src/fonts', 'dist/fonts');
 
 // Glob loading for SASS ("@import dir/**/*.scss")
 mix.webpackConfig({
@@ -99,8 +99,8 @@ mix.webpackConfig({
       cleanOnceBeforeBuildPatterns: [
         'dist/images/**/*',
         '!dist/images/.gitkeep',
-        'dist/webfonts/**/*',
-        '!dist/webfonts/.gitkeep'
+        'dist/fonts/**/*',
+        '!dist/fonts/.gitkeep'
       ],
       cleanStaleWebpackAssets: false,
       verbose: false

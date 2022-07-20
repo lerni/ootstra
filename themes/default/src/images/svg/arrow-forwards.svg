@@ -1,0 +1,6 @@
+<svg viewBox="0 0 120 30" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="inherit" stroke-width="inherit" fill="none" stroke-linecap="round" stroke-linejoin="round" fill-rule="evenodd">
+        <line x1="5" y1="15" x2="114" y2="15"></line>
+        <polyline points="105 5 115 15 105 25"></polyline>
+    </g>
+</svg>

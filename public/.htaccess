@@ -334,7 +334,6 @@ FileETag None
     Header unset X-Powered-By
     Header unset X-Runtime
     Header unset X-Version
-
 </IfModule>
 
 # <IfModule mod_expires.c>

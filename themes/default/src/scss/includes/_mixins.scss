@@ -67,7 +67,7 @@
 	border-radius: 0;
 	background-repeat: no-repeat;
 	background-position: top .7em right .7em;
-	background-image: svg-load('../images/svg/arrow-down.svg', stroke=#{$lauftext-color}, stroke-width=20);
+	background-image: svg-load('../images/svg/arrow-down.svg', stroke=#{$scrolling-text-color}, stroke-width=20);
 	background-size: 1.2em  .6em;
 	&:-moz-focusring {
 		text-shadow: 0 0 0 #000;
@@ -103,7 +103,7 @@
 	}
 }
 
-@mixin separated($separator: "| ", $color: $lauftext-color) {
+@mixin separated($separator: "| ", $color: $scrolling-text-color) {
 	&:not(:last-of-type) {
 		@include breakpoint($Mneg) {
 			flex: 0 1 100%;

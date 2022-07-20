@@ -16,7 +16,7 @@ ul.doc {
 }
 
 a.download {
-	color: $lauftext-color;
+	color: $scrolling-text-color
 	display: inline-block;
 	width: 100%;
 	line-height: #{$lh*1.4}em;
@@ -27,7 +27,7 @@ a.download {
 	background-image: url(../images/svg/default.svg);
 	&:hover {
 		filter: brightness(90%);
-		color: darken($lauftext-color, 6%);
+		color: darken($scrolling-text-color, 6%);
 	}
 	&[href$=".pdf"],
 	&[href$=".PDF"],

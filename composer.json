@@ -15,10 +15,6 @@
         {
             "type": "vcs",
             "url": "https://github.com/lerni/silverstripe-csp"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/lerni/silverstripe-focuspoint"
         }
     ],
     "require": {
@@ -33,7 +29,7 @@
         "symbiote/silverstripe-gridfieldextensions": "^3",
         "wilr/silverstripe-googlesitemaps": "^2",
         "jonom/silverstripe-betternavigator": "^5",
-        "jonom/focuspoint": "dev-getHeight-getWidth as 4.0.3",
+        "jonom/focuspoint": "^4",
         "silverstripe/userforms": "^5",
         "silverstripe/blog": "^3",
         "axllent/silverstripe-email-obfuscator": "^2",
@@ -62,6 +58,7 @@
         "lerni/klaro-cookie-consent": "v2.x-dev",
         "lerni/samesite-cookie-patch": "dev-master",
         "league/commonmark": "^2.0",
+        "eluceo/ical": "^2.2",
         "jonom/silverstripe-someconfig": "^1.0"
     },
     "require-dev": {

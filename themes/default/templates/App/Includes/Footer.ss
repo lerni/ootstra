@@ -10,7 +10,7 @@
 					<% with $SiteConfig.Locations.First() %>
 						<% if $OpeningHours %>
 							<h3><%t Page.OpeningHours 'opening hours' %></h3>
-							$OpeningHours
+							$OpeningHours.Markdowned
 						<% end_if %>
 					<% end_with %>
 				<% end_if %>

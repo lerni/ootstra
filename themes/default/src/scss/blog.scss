@@ -21,7 +21,7 @@ body.blog {
         flex: 0 0 calc(#{percentage(math.div(1, 3))} - #{$lh}em);
         flex-direction: column;
         margin: #{math.div($lh, 2)}em #{math.div($lh, 2)}em #{$lh*1.5}em;
-        color: $lauftext-color;
+        color: $scrolling-text-color;
 		@include breakpoint($Mneg) {
 			flex: 0 0 calc(#{percentage(math.div(1, 2))} - #{$lh}em);
 		}
@@ -67,11 +67,7 @@ body.blog {
 			grid-template-columns: 1fr;
 		}
 		>a {
-			color: $lauftext-color;
-		}
-		&.inner {
-			padding-left: 0;
-			padding-right: 0;
+			color: $scrolling-text-color;
 		}
 		.prev,
 		.next {
@@ -105,7 +101,7 @@ body.blog {
 				display: inline-block;
 				background-size: auto 80%;
 				background-repeat: no-repeat;
-				background-image: svg-load('../images/svg/forth.svg', fill=#{$lauftext-color});
+				background-image: svg-load('../images/svg/forth.svg', fill=#{$scrolling-text-color});
 				background-position: bottom 100% right 50%;
 				transform: rotate(180deg);
 			}
@@ -128,7 +124,7 @@ body.blog {
 				display: inline-block;
 				background-size: auto 80%;
 				background-repeat: no-repeat;
-				background-image: svg-load('../images/svg/forth.svg', fill=#{$lauftext-color});
+				background-image: svg-load('../images/svg/forth.svg', fill=#{$scrolling-text-color});
 				background-position: top 100% right 50%;
 			}
 			>img {

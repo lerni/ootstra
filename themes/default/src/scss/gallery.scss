@@ -8,13 +8,13 @@
 	ul.gallery {
 		list-style: none;
 		display: flex;
+		gap: #{$lh}em;
 		flex-wrap: wrap;
 		justify-content: center;
-		width: calc(100% + #{$lh}em);
-		margin: 0 -#{math.div($lh, 2)}em;
-		padding: 0;
-		padding-top: #{$lh}em;
-		text-align: center;
+		padding: #{$lh}em 0 0 0;
+		@include breakpoint($Mneg) {
+			gap: #{math.div($lh, 2)}em;
+		}
 		&.left {
 			justify-content: flex-start;
 		}
@@ -28,7 +28,7 @@
 			flex: 0 0 auto;
 			padding-left: 0;
 			padding-bottom : 0;
-			margin: 0 #{math.div($lh, 2)}em #{$lh}em #{math.div($lh, 2)}em;
+			margin: 0;
 			a {
 				display: table;
 				width: 100%;
@@ -37,6 +37,9 @@
 					float: left;
 					margin-bottom: 0;
 					width: 100%;
+					@include breakpoint($Mneg) {
+						max-width: 125px;
+					}
 					&:hover {
 						opacity: .9;
 					}

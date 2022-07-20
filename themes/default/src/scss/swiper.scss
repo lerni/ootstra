@@ -12,9 +12,10 @@ $themeColor: $link-color !default;
 	  font-weight: 400;
 	  font-style: normal;
 	}
-  }
+}
 
 @import "../../node_modules/swiper/modules/navigation/navigation";
+// @import "../../node_modules//swiper/modules/effect-fade/effect-fade";
 // @import "~swiper/modules/navigation/navigation";
 @import "../../node_modules/swiper/swiper";
 // @import "~swiper/swiper";

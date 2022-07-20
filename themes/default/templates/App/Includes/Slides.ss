@@ -83,7 +83,6 @@
 								<source media="(min-width: 384px) and (max-aspect-ratio: 5/8)"
 										srcset="$SlideImage.FocusFillMax(384,614).URL 320w,
 									$SlideImage.FocusFillMax(480,768).URL 480w,
-									$SlideImage.FocusFillMax(640,1024).URL 720w,
 									$SlideImage.FocusFillMax(720,1152).URL 800w,
 									$SlideImage.FocusFillMax(800,1280).URL 1000w,
 									$SlideImage.FocusFillMax(1000,1600).URL 1200w,

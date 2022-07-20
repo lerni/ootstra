@@ -31,12 +31,9 @@ form {
 					&::before {
 						// position: absolute;
 						content: "";
-						display: block;
-						width: calc(200% + #{$lh}em);
 						height: 0;
 						border-top: 1px solid $link-color;
-						margin-top: -#{$lh}em;
-						margin-bottom: #{$lh}em;
+						flex: 0 0 100%;
 					}
 				}
 				&>div:first-child {
@@ -46,37 +43,31 @@ form {
 			}
 		}
 		.field {
-			float: left;
-			display: block;
-			width: 100%;
-			max-width: calc(100% - #{$lh}em);
-			margin: 0 0 #{$lh}em 0;
-			@include breakpoint($Mneg) {
-				max-width: initial;
-			}
+			display: flex;
+			flex-wrap: wrap;
+			column-gap: #{$lh}em;
+			flex: 0 0 100%;
+			margin-bottom: #{$lh}em;
 			&.half-width {
-				width: calc(50% - #{$lh}em);
-				margin-right: #{$lh}em;
+				flex: 0 0 calc(50% - #{math.div($lh, 2)}em);
 				@include breakpoint($Mneg) {
-					width: 100%;
-					margin-right: 0;
+					flex: 0 0 100%;
 				}
 			}
 			&.auto-width {
-				width: auto;
+				flex: 1 1 auto;
 				margin-right: .3em;
-				@include breakpoint($Sneg) {
-					margin-right: 0;
-					width: 100%;
+				@include breakpoint($Mneg) {
+					flex: 0 0 100%;
 				}
 			}
 			&.checkboxset.quarter-width-checkbox {
 				.middleColumn {
 					display: flex;
 					flex-wrap: wrap;
+					gap: #{math.div($lh, 2)}em;
 					>div {
-						flex: 0 0 calc(#{percentage(math.div(1, 4))} - #{math.div($lh, 2)}em);
-						margin: 0 #{math.div($lh, 2)}em #{math.div($lh, 2)}em 0;
+						flex: 1 0 calc(#{percentage(math.div(1, 4))} - #{math.div($lh, 2)}em);
 					}
 				}
 				@include breakpoint($Mneg) {
@@ -90,13 +81,12 @@ form {
 					.middleColumn {
 						>div {
 							flex: 0 0 100%;
-							margin: 0 0 #{math.div($lh, 2)}em 0;
 						}
 					}
 				}
 			}
 			label {
-				color: $lauftext-color;
+				color: $scrolling-text-color;
 				margin-bottom: #{math.div($lh, 4)}em;
 				&.left {
 					display: block;
@@ -120,7 +110,7 @@ form {
 					padding: #{math.div($lh, 2)}em #{math.div($lh, 3)}em;
 					background-color: $gray--lighter;
 					border: 1px solid $gray--lighter;
-					color: $lauftext-color;
+					color: $scrolling-text-color;
 					@include normal; // dropdown needs this
 				}
 				input.text:focus,
@@ -206,7 +196,7 @@ form {
 						left: 0;
 						z-index: 5;
 						transition: border .25s linear;
-						border: #{math.div($size, 5)}px solid $lauftext-color;
+						border: #{math.div($size, 5)}px solid $scrolling-text-color;
 						&::before {
 							display: block;
 							position: absolute;
@@ -243,7 +233,7 @@ form {
 	.bad, .required {
 		background-color: lighten($red, 45%) !important;
 		border-color: $red !important;
-		color: $lauftext-color !important;
+		color: $scrolling-text-color !important;
 	}
 	body &.userform .left {
 		@include normal;
@@ -319,14 +309,14 @@ form {
 	background-color: #aaa;
 }
 
-
 .checkbox label.right {
 	font-size: 1em;
-	color: $lauftext-color;
+	color: $scrolling-text-color;
 	float: left;
 }
+
 form .requiredField label.left::after {
-	color: $lauftext-color;
+	color: $scrolling-text-color;
 	content: "*";
 	font-weight: normal;
 	padding-left: 3px;
@@ -382,7 +372,7 @@ textarea:invalid {
 	float: left;
 }
 form .file {
-	color: $lauftext-color;
+	color: $scrolling-text-color
 }
 
 @media only screen and (max-width: 700px) {

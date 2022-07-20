@@ -26,6 +26,8 @@
 	p {
 		font-size: 1em;
 		margin: 0 0 #{$lh}em 0;
+	}
+	* {
 		&.inlinish {
 			margin-bottom: 0;
 		}
@@ -275,11 +277,11 @@
 			&::before {
 				width: #{$lh*1}em;
 				margin-left: #{-$lh*1}em;
-				background-image: svg-load('../images/svg/quote-before.svg', fill=#{$lauftext-color});
+				background-image: svg-load('../images/svg/quote-before.svg', fill=#{$scrolling-text-color});
 			}
 			&::after {
 				margin-left: .2em;
-				background-image: svg-load('../images/svg/quote-after.svg', fill=#{$lauftext-color});
+				background-image: svg-load('../images/svg/quote-after.svg', fill=#{$scrolling-text-color});
 			}
 			&:last-child {
 				margin-bottom: 0;
