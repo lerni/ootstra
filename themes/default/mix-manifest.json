@@ -1,5 +1,6 @@
 {
     "/dist/js/app.js": "/dist/js/app.js",
+    "/dist/js/fancy.js": "/dist/js/fancy.js",
     "/dist/css/fancy.css": "/dist/css/fancy.css",
     "/dist/css/footer.css": "/dist/css/footer.css",
     "/dist/css/editor.css": "/dist/css/editor.css",

@@ -81,12 +81,9 @@ RUN install-php-extensions \
 RUN apt-get clean \
     && apt-get autoremove -y
 
-RUN rm /var/log/apache2/access.log
-# RUN touch /var/log/apache2/access.log
 RUN rm /var/log/apache2/error.log
-# RUN touch /var/log/apache2/error.log
 RUN rm /var/log/apache2/other_vhosts_access.log
-# RUN touch /var/log/apache2/other_vhosts_access.log
+# RUN touch /var/log/xdebug.log
 
 RUN rm /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN rm /usr/local/etc/php/conf.d/timezone.ini

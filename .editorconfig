@@ -23,6 +23,7 @@ indent_style = space
 
 [composer.json]
 indent_size = 4
+indent_style = tab
 
 # Don't perform any clean-up on thirdparty files
 [thirdparty/**]

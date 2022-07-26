@@ -20,7 +20,7 @@ This project is inspired from [Bigfork’s quickstart recipe](https://github.com
     - ElementFeedTeaser         (holder concept per element with tags)
     - ElementTextImage
 
-    Optional, separate - module:
+    Optional, separate modules:
     - ElementJobs              (schema.org & sitemap.xml)
     - ElementPodcast           (https://github.com/lerni/podcast)
 
@@ -114,12 +114,17 @@ GHOSTSCRIPT_PATH="/usr/local/bin/gs"
 
 For your PHP-CLI-Setup, it might be helpful, to set `sys_temp_dir = "/tmp"` in `php.ini` for `sspak`.
 
+## Debugging
+In order to use Xdebug with VSCode install [PHP Debug](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug). For triggering per browser, extensions like [Xdebug Helper for Firefox](https://addons.mozilla.org/de/firefox/addon/xdebug-helper-for-firefox/) or [Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc) are needed.
+
+To debug JS inside VSCode with Firefox you need to install [Debugger for Firefox](https://marketplace.visualstudio.com/items?itemName=firefox-devtools.vscode-firefox-debug). Width Chrome & Edge you may need to tweak config in `.vscode/launch.json` :shrug:
+
 # Hosting & Deployment
 
 Deployment is based on [Deployer](https://deployer.org/) - a php based cli-tool it's included as dev-requirement per `composer.json` and uses symlinks to the current release. It's easy to use, offers zero downtime deployments and rollback. `/assets`, `.env` are shared resources, this means they are symlinked into each release-folder.
 
 ```
-~/public_html/0live        or ~/public_html/0stage
+~/public_html/0live        or ~/public_html/0test
 |
 |--.dep
 |  |--releases             deployers internal notes
@@ -161,12 +166,12 @@ curl -sS https://silverstripe.github.io/sspak/install | php -- /usr/local/bin
 
 ## Configuration
 
-Rename `config.example.php` to `deploy/config.php` and configure things to your needs. Usually `.htaccess` in public comes from the repo but if needed, it can also be overwritten with a stage specific version. Just create `./deploy/stage.htaccess` or `./deploy/live.htaccess`, which than 'll overwrite the file from the repo during deployment, depending on stage.
+Rename `config.example.php` to `deploy/config.php` and configure things to your needs. Usually `.htaccess` in public comes from the repo but if needed, it can also be overwritten with a stage specific version. Just create `./deploy/test.htaccess` or `./deploy/live.htaccess`, which than 'll overwrite the file from the repo during deployment, depending on stage.
 
 # Deploy
 
 ```bash
-    ./vendor/bin/dep deploy stage
+    ./vendor/bin/dep deploy test
 ```
 
 or
@@ -175,17 +180,17 @@ or
     ./vendor/bin/dep deploy live
 ```
 
-`stage` is default for all `dep` commands and can be omitted. For example with `dep ssh` you'll end up on your stage server with `dep ssh live` - well on live.
+`test` is default for all `dep` commands and can be omitted. For example with `dep ssh` you'll end up on your test server with `dep ssh live` - well on live.
 
 The first time you deploy to a given stage, you’ll be asked to provide database credentials used to populate `.env`.
 
 ## Deploy a branch/tag/revison
 
 ```
-# Deploy the dev branch to stage
+# Deploy the dev branch to test
 dep deploy --revision=ca5fcd330910234f63bf7d5417ab6835e5a57b81
 
-# Deploy the dev branch to stage
+# Deploy the dev branch to test
 dep deploy --branch=dev
 
 # Deploy tag 1.0.1 to live
@@ -230,7 +235,7 @@ dep silverstripe:download_database live
 DevelopmentAdmin over HTTP in Live-Mode is disabled per yml-config. You can use the following deployer-tasks.
 
 
-## dev/build on stage
+## dev/build on test
 ```bash
 dep silverstripe:dev_build
 ```

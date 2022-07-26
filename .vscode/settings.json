@@ -5,15 +5,11 @@
       "groupName": "apache2",
       "watches": [
         {
-          "title": "access",
-          "pattern": "docker/log/apache2/access.log"
-        },
-        {
           "title": "error",
           "pattern": "docker/log/apache2/error.log"
         },
         {
-          "title": "other_vhosts_access",
+          "title": "access",
           "pattern": "docker/log/apache2/other_vhosts_access.log"
         }
       ]

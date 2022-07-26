@@ -103,7 +103,7 @@ SilverStripe\Blog\Model\BlogPost:
     - App\Elements\ElementMaps
     - App\Elements\ElementPerso
     - App\Elements\ElementPersoCFA
-    - Kraftausdruck\Elements\ElementJobs
+    # - Kraftausdruck\Elements\ElementJobs
     - App\Elements\ElementContentSection
     - App\Elements\ElementCounter
     - App\Elements\ElementLogo
@@ -124,7 +124,7 @@ App\Models\ElementPage:
     - App\Elements\ElementMaps
     - App\Elements\ElementPerso
     - App\Elements\ElementPersoCFA
-    - Kraftausdruck\Elements\ElementJobs
+    # - Kraftausdruck\Elements\ElementJobs
     - App\Elements\ElementContentSection
     - App\Elements\ElementCounter
     - App\Elements\ElementLogo

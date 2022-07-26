@@ -1,8 +1,8 @@
 AddHandler application/x-httpd-php74 .php
 
-<IfModule LiteSpeed>
-    SmartPush no-cookie
-</IfModule>
+# <IfModule LiteSpeed>
+#     SmartPush no-cookie
+# </IfModule>
 
 # ##############################################################################
 # # SECURITY                                                                   #

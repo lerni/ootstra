@@ -30,6 +30,7 @@ mix.options({
 let productionSourceMaps = false;
 mix
   .js('src/js/app.js', 'dist/js')
+  .js('src/js/fancy.js', 'dist/js')
   .sass('src/scss/blog.scss', 'dist/css')
   .sass('src/scss/contentsections.scss', 'dist/css')
   .sass('src/scss/editor.scss', 'dist/css')
@@ -155,4 +156,11 @@ mix.webpackConfig({
       }
     )
   ]
+});
+
+// Stop mix from generating a license file called app.js.LICENSE.txt
+mix.options({
+  terser: {
+    extractComments: false,
+  }
 });

@@ -11,6 +11,13 @@
       "port": 9003,
       "pathMappings": {
         "/var/www/html/": "${workspaceFolder}"
+      },
+      "runtimeArgs": [
+        "-d xdebug.start_with_request=yes"
+      ],
+      "env": {
+        "XDEBUG_MODE": "debug,develop",
+        "XDEBUG_CONFIG": "client_port=${port}"
       }
     },
     {
@@ -22,16 +29,18 @@
       "port": 9003
     },
     {
-      "name": "Launch localhost",
+      "name": "JS Firefox localhost",
       "type": "firefox",
       "request": "launch",
       "reAttach": true,
+      "reloadOnAttach": true,
       "url": "http://localhost:8080/",
-      "webRoot": "${workspaceFolder}",
+      "webRoot": "${workspaceFolder}/public",
+      "port": 9222,
       "pathMappings": [
         {
           "url": "webpack:///src",
-          "path": "${workspaceFolder}/themes/default/src/js"
+          "path": "${workspaceFolder}/themes/default/src"
         }
       ]
     }
