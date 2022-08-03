@@ -19,5 +19,12 @@
         "pattern": "silverstripe.log"
     }
   ],
-  "terminal.integrated.fontFamily": "Droid Sans Mono for Powerline"
+  "terminal.integrated.fontFamily": "Droid Sans Mono for Powerline",
+  "php.suggest.basic": false,
+  "php.validate.executablePath": "./docker/php",
+  "php.executablePath": "./docker/php",
+  "php.validate.run": "onSave",
+  "[php]": {
+    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+  }
 }

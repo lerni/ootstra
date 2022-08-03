@@ -5,24 +5,27 @@
 
 This project is inspired from [Bigfork’s quickstart recipe](https://github.com/bigfork/silverstripe-recipe) for [Silverstripe](https://www.silverstripe.org/). It's an opinionated set of tools for a ready to run, build & deploy CMS instance in a minimal amount of time. To get it up and running you'll need [GIT](https://git-scm.com/), [Docker](https://www.docker.com/), [NPM](https://nodejs.org/) preferred with [nvm](https://github.com/nvm-sh/nvm) and for deployment a server with [SSH](https://de.wikipedia.org/wiki/Secure_Shell) access. It utilizes [dnadesign/silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) for a block/element based CMS experience and comes with the following set of elements:
 
-    - ElementContent
-    - ElementForm               (userforms)
-    - ElementVirtual
-    - ElementHero               (Slider, YouTube Video)
-    - ElementMaps               (Google)
-    - ElementPerso              (URLs Perso, vCard)
-    - ElementPersoCFA
-    - ElementContentSection     (accordion)
-    - ElementCounter
-    - ElementLogo               (partner/sponsor)
-    - ElementGallery            (lightbox)
-    - ElementTeaser
-    - ElementFeedTeaser         (holder concept per element with tags)
-    - ElementTextImage
+- ElementContent
+- ElementForm               (userforms)
+- ElementVirtual
+- ElementHero               (Slider, YouTube Video)
+- ElementMaps               (Google)
+- ElementPerso              (URLs Perso, vCard)
+- ElementPersoCFA
+- ElementContentSection     (accordion with FAQ schema)
+- ElementCounter
+- ElementLogo               (partner/sponsor)
+- ElementGallery            (lightbox)
+- ElementTeaser
+- ElementFeedTeaser         (holder concept per element with tags)
+- ElementTextImage
 
-    Optional, separate modules:
-    - ElementJobs              (schema.org & sitemap.xml)
-    - ElementPodcast           (https://github.com/lerni/podcast)
+Optional, separate modules:
+- [InstagramFeed](https://github.com/lerni/instagram-basic-display-feed-element)
+- EMail-/LinkDownload (not yet published), Contact collector
+- [ElementPodcast](https://github.com/lerni/podcast)
+- ElementJobs (privat), schema.org & sitemap.xml integration
+- EasyShop (privat), Google Shoppingfeed with local Inventory & Omnipay
 
 Other features:
 
@@ -154,10 +157,10 @@ Deployment is based on [Deployer](https://deployer.org/) - a php based cli-tool 
 You need to [add your public key on the remote server](https://www.google.com/search?q=add+public+key+to+server) in ~/.ssh/authorized_keys. On nix-based systems you can use [ssh-copy-id](https://www.ssh.com/ssh/copy-id) to do so.
 
 There are a few aliases like `dep` (Deployer) in silverstripe docker container:
-`dep` instead `$DOCUMENT_ROOT/vendor/bin/dep`
-`flush` instead `$DOCUMENT_ROOT/vendor/silverstripe/framework/sake flush`
-`flushh` (flush hard) instead `rm -rf $DOCUMENT_ROOT/silverstripe-cache/*`
-`dbuild` instead `$DOCUMENT_ROOT/vendor/silverstripe/framework/sake dev/build`
+- `dep` instead `$DOCUMENT_ROOT/vendor/bin/dep`
+- `flush` instead `$DOCUMENT_ROOT/vendor/silverstripe/framework/sake flush`
+- `flushh` (flush hard) instead `rm -rf $DOCUMENT_ROOT/silverstripe-cache/*`
+- `dbuild` instead `$DOCUMENT_ROOT/vendor/silverstripe/framework/sake dev/build`
 
 To transfer assets and database [ssbak](https://github.com/axllent/ssbak) (GO) is used over [sspak](https://github.com/silverstripe/sspak/) (PHP). Run deployer task like `dep silverstripe:installtools live` to install it on a remote linux servers in `~/bin`. You can set `ssXak_local_path` and `ssXak_path` in `deployer.php`.
 

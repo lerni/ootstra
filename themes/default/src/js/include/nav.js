@@ -1,41 +1,38 @@
-$(document).ready(function() {
+document.addEventListener("DOMContentLoaded", function() {
 
 	// burger
-	var menuButton = document.getElementById('menuButton');
-	menuButton.addEventListener('click', function (event) {
-		$('html').toggleClass('mobile-nav--active');
+	document.getElementById('menuButton').addEventListener('click', function (event) {
+    document.querySelector('html').classList.toggle('mobile-nav--active');
 		event.preventDefault();
 	});
 
-	// just open and do not navigate on collapsed navi-items
-	$('.menu1').on('click', '>li.has-children:not(.expanded) > a', function(event) {
-		if ($('html').hasClass('mobile-nav--active')) {
-			event.preventDefault();
-			event.stopPropagation();
-			$(this).parent().find("ul.mobile-menu2").toggleClass('expanded');
-			$(this).closest("li").toggleClass('expanded');
-		}
+	// toggle expanded-class
+  // open and do not navigate on collapsed:not(.expanded) navi-items
+  document.querySelector('.menu1').addEventListener('click', (event) => {
+    if (event.target.closest('li.has-children.expanded >a')) {
+      window.location = event.target.getAttribute('href');
+    }
+    if (event.target.closest('li.has-children >a')) {
+      event.preventDefault();
+      event.target.parentElement.classList.toggle('expanded');
+    }
 	});
 
 	// collapse/expand navi per .trigger
-	$('span.trigger').on('click', function(event) {
-		$(this).next("ul").toggleClass('expanded');
-		$(this).closest("li").toggleClass('expanded');
+  document.querySelector('span.trigger').addEventListener('click', (event) => {
+    event.stopPropagation();
+    event.target.parentElement.classList.toggle('expanded');
 	});
 
-	// if we navigate, we fade-out .menu1 a bit to indicate action
-	$('.menu1').on('click', '>li:not(".has-children") > a, >li.expanded > a, .mobile-menu2 li > a', function(event) {
-		if ($('html').hasClass('mobile-nav--active')) {
-			// event.stopPropagation();
-			$('html').fadeTo("fast", 0.6);
-		}
+  document.querySelector('.menu1').addEventListener('mouseleave', (event) => {
+    if (!document.querySelector('html').classList.contains('mobile-nav--active')) {
+      items = document.querySelectorAll('.menu1 li');
+      items.forEach(i => {
+        i.classList.remove('expanded');
+      });
+    }
 	});
 
-	$('html').on('click touch', '#overlaynav', function(event) {
-		if ($('html').hasClass('mobile-nav--active')) {
-			$('html').toggleClass('mobile-nav--active');
-		}
-	});
 });
 
 // we need to prevent loading from cache if back-button is used, cos ios-safari would apply the fadeTo-effect to the destination not the original
