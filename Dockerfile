@@ -91,5 +91,11 @@ RUN rm /usr/local/etc/php/conf.d/timezone.ini
 # Uses "agnoster" theme for better distingusion of local & container-shell
 RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.2/zsh-in-docker.sh)" -- \
     -t agnoster
-
 # RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
+
+# Add aliases to /root/.zshrc
+RUN sed -i '1 a alias flush="'$DOCUMENT_ROOT'/vendor/silverstripe/framework/sake flush"' /root/.zshrc \
+ && sed -i '1 a alias flushh="rm -rf '$DOCUMENT_ROOT'/silverstripe-cache/*"' /root/.zshrc \
+ && sed -i '1 a alias dbuild="'$DOCUMENT_ROOT'/vendor/silverstripe/framework/sake dev/build"' /root/.zshrc \
+ && sed -i '1 a alias dep="'$DOCUMENT_ROOT'/vendor/bin/dep"' /root/.zshrc \
+ && sed -i '1 a alias up="cd ../.."' /root/.zshrc

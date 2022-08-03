@@ -1,5 +1,6 @@
 <% require themedCSS("dist/css/gallery") %>
 <% require themedCSS("dist/css/fancy") %>
+<% require javascript("themes/default/dist/js/fancy.js") %>
 <% if $isFullWidth && $ShowTitle %><div class="inner"><% end_if %>
 	<% include App/Includes/ElementTitle %>
 <% if isFullWidth %></div><% end_if %>

@@ -5,7 +5,9 @@ namespace App\Elements;
 use SilverStripe\TagField\TagField;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Control\Controller;
+use SilverStripe\Core\Config\Config;
 use SilverStripe\Forms\LiteralField;
+use SilverStripe\Blog\Model\BlogPost;
 use SilverStripe\Blog\Model\BlogCategory;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Forms\GridField\GridField;
@@ -69,8 +71,10 @@ class ElementFeedTeaser extends BaseElement
     {
         $fields = parent::getCMSFields();
 
-        $fields->removeByName('FeedTeaserParents');
-        $fields->removeByName('Categories');
+        $fields->removeByName([
+            'FeedTeaserParents',
+            'Categories'
+        ]);
 
         $fields->addFieldToTab('Root.Main', LiteralField::create('How', '
             <h2>'. _t(__CLASS__ . '.HowTitle', 'What is shown?') .'</h2>
@@ -128,7 +132,16 @@ class ElementFeedTeaser extends BaseElement
         if ($this->FeedTeaserParents()->count()) {
             $parentIDs = (array)$this->FeedTeaserParents()->Column('ID');
 
-            $childrens = SiteTree::get()->filter('ParentID', $parentIDs)->Sort('Sort ASC');
+            $childrens = SiteTree::get()->filter('ParentID', $parentIDs);
+
+            // If Blog is sorted per date?
+            $blogSorting = Config::inst()->get(BlogPost::class, 'default_sort');
+            if (count($parentIDs) == 1 &&
+                $childrens->first()->ClassName == 'SilverStripe\Blog\Model\BlogPost' &&
+                substr($blogSorting, 0, strlen('PublishDate DESC')) === 'PublishDate DESC') {
+                    $childrens = BlogPost::get()->filter('ParentID', $parentIDs)->sort('PublishDate DESC');
+            }
+
             if ($filter = $this->getURLCategoryFilter()) {
                 $childrens = $childrens->filterAny('Categories.URLSegment', $filter);
             }
@@ -142,7 +155,7 @@ class ElementFeedTeaser extends BaseElement
                 $exclude = $childrens->Column('ID');
                 $padfill = $this->CountMax - $childrens->count();
 
-                $additionalPosts = SiteTree::get()->filter('ParentID', $parentIDs)->Sort('Sort ASC');
+                $additionalPosts = SiteTree::get()->filter('ParentID', $parentIDs);
 
                 // just exclude if there is something to
                 if (count($exclude)) {

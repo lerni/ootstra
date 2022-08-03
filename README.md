@@ -67,7 +67,7 @@ For development purpose the project comes with a Dockerfile for Apache/PHP/MySQL
     composer install
 ```
 ### Laravel Mix watch & build
-[Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([webpack](https://webpack.js.org/) based) is used as build environment. In `themes/default/webpack.mix.js` vhost is set and 'll be proxied to http://localhost:3000/ in order to run browsersync.
+[Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([webpack](https://webpack.js.org/) based) is used as build environment. In `themes/default/webpack.mix.js` vhost is set and 'll be proxied to http://localhost:3000/ in order to run browsersync. See also scripts section in `themes/default/package.json` and [ The Mix CLI](https://laravel-mix.com/docs/6.0/cli).
 ```bash
     cd themes/default && npm run watch
 or
@@ -153,10 +153,11 @@ Deployment is based on [Deployer](https://deployer.org/) - a php based cli-tool 
 
 You need to [add your public key on the remote server](https://www.google.com/search?q=add+public+key+to+server) in ~/.ssh/authorized_keys. On nix-based systems you can use [ssh-copy-id](https://www.ssh.com/ssh/copy-id) to do so.
 
-With an alias in you rc-file you can make `dep` command available in the project directory, so you just can type `dep` instead of prefixing it with `./vendor/bin/...` all the time -> a ready made setup running inside silverstripes docker container is on it's way :)
-```bash
-alias dep="./vendor/bin/dep"
-```
+There are a few aliases like `dep` (Deployer) in silverstripe docker container:
+`dep` instead `$DOCUMENT_ROOT/vendor/bin/dep`
+`flush` instead `$DOCUMENT_ROOT/vendor/silverstripe/framework/sake flush`
+`flushh` (flush hard) instead `rm -rf $DOCUMENT_ROOT/silverstripe-cache/*`
+`dbuild` instead `$DOCUMENT_ROOT/vendor/silverstripe/framework/sake dev/build`
 
 To transfer assets and database [ssbak](https://github.com/axllent/ssbak) (GO) is used over [sspak](https://github.com/silverstripe/sspak/) (PHP). Run deployer task like `dep silverstripe:installtools live` to install it on a remote linux servers in `~/bin`. You can set `ssXak_local_path` and `ssXak_path` in `deployer.php`.
 

@@ -3,7 +3,6 @@
 namespace App\Elements;
 
 use App\Models\Logo;
-use SilverStripe\Forms\LiteralField;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
@@ -11,12 +10,14 @@ use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\GridField\GridFieldConfig_Base;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
+use SilverStripe\Forms\LiteralField;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 
 class ElementLogo extends BaseElement
 {
     private static $db = [
-        'Greyscale' => 'Boolean'
+        'Greyscale' => 'Boolean',
+        'Sorting' => 'Enum("random,manual","random")'
     ];
 
     private static $has_one = [];
@@ -75,6 +76,18 @@ class ElementLogo extends BaseElement
         }
 
         return $fields;
+    }
+
+    public function Items()
+    {
+        if ($this->Logos()) {
+            if ($this->Sorting == 'manual') {
+                $items = $this->Logos()->sort('Sort ASC');
+            } else {
+                $items = $this->Logos()->sort('RAND()');
+            }
+            return $items;
+        }
     }
 
     protected function provideBlockSchema()
