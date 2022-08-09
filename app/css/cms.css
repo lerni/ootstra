@@ -164,3 +164,9 @@ html .field.embed .fieldholder-small {
 html .field.embed button.action {
     margin-top: 16px;
 }
+
+/* Insert Media - we place things always 100% width  */
+#Form_remoteEditForm_Placement_Holder,
+#Form_remoteEditForm_Dimensions_Holder {
+	display: none;
+}

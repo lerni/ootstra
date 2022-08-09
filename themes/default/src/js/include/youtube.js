@@ -1,7 +1,7 @@
 // this script loads the YouTube iframe-api, gets all instances and adds enable jsapi & origin-URL to the src-URL and prevents showing related videos
 // after initializing the API it adds playing-mode & paused-mode "div.embed"
 
-if ($('[src^="https://www.youtube.com/"], [src^="https://www.youtube-nocookie.com/"]').length) {
+if (document.querySelectorAll('iframe[src*="youtube.com"]').length) {
   var tag = document.createElement('script');
   tag.src = "https://www.youtube.com/iframe_api";
   var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -9,79 +9,75 @@ if ($('[src^="https://www.youtube.com/"], [src^="https://www.youtube-nocookie.co
 }
 
 window.BaseUrl = function() {
-  return(window.location.protocol +'//'+ window.location.hostname);
+  url = window.location.protocol +'//'+ window.location.hostname;
+  if (window.location.port != 80) {
+    url = url + ':' + window.location.port;
+  }
+  return(url);
 }
 
 window.onYouTubeIframeAPIReady = function() {
-  $('iframe').filter(function(){
-    return this.src.indexOf('https://www.youtube-nocookie.com/') || this.src.indexOf('https://www.youtube.com/')
-  }).each( function (k, v) {
-    if (!this.id) { this.id='embeddedvideoiframe' + k }
-    id = this.id;
+  document.querySelectorAll('iframe[src*="youtube.com"]').forEach( function (v, k) {
+  id = 'embeddedvideoiframe' + k;
+  if (!v.getAttribute('id')) { v.setAttribute('id', id) }
 
-    var url = new URL($('#'+id).attr("src"));
+    var url = new URL(v.getAttribute("src"));
     url.searchParams.append('enablejsapi', 1);
     url.searchParams.append('origin', BaseUrl());
     url.searchParams.append('rel', 0);
 
-    $('#'+id).attr("src", url);
-    if ($(this).parent().hasClass('embed-hero')) {
-      url.searchParams.append('disablekb', 1);
-      url.searchParams.append('fs', 0);
-      url.searchParams.append('modestbranding', 1);
-      url.searchParams.append('controls', 0);
-      url.searchParams.append('mute', 1);
-      url.searchParams.append('showinfo', 0);
-      url.searchParams.append('autoplay', 1);
-      url.searchParams.append('loop', 1);
-      url.searchParams.append('autohide', 2);
-      url.searchParams.append('iv_load_policy', 3);
-      url.searchParams.append('cc_load_policty', 0);
-      new YT.Player(id, {
-        events: {
-          'onStateChange': onPlayerStateChange,
-          'onReady': function(e) {
-            e.target.mute();
-            e.target.playVideo();
-            onPlayerReady(e);
-          }
-        }
-      });
-    } else {
-      new YT.Player(id, {
-        events: {
-          'onStateChange': onPlayerStateChange
-        }
-      });
-    }
+    // if (v.parentElement.classList.contains('embed-hero')) {
+    //   url.searchParams.append('disablekb', 1);
+    //   url.searchParams.append('fs', 0);
+    //   url.searchParams.append('modestbranding', 1);
+    //   url.searchParams.append('controls', 0);
+    //   url.searchParams.append('mute', 1);
+    //   url.searchParams.append('showinfo', 0);
+    //   url.searchParams.append('autoplay', 1);
+    //   url.searchParams.append('loop', 1);
+    //   url.searchParams.append('autohide', 2);
+    //   url.searchParams.append('iv_load_policy', 3);
+    //   url.searchParams.append('cc_load_policty', 0);
+    //   v.setAttribute('src', url.href);
+    //   new YT.Player(id, {
+    //     events: {
+    //       'onStateChange': onPlayerStateChange,
+    //       'onReady': function(e) {
+    //         e.target.mute();
+    //         e.target.playVideo();
+    //         onPlayerReady(e);
+    //       }
+    //     }
+    //   });
+    // } else {
+    v.setAttribute('src', url.href);
+    new YT.Player(id, {
+      events: {
+        'onStateChange': onPlayerStateChange,
+        'onReady': onPlayerReady
+      }
+    });
+
   });
 }
 
 onPlayerStateChange = function(event) {
-  if (event.data == YT.PlayerState.PLAYING) {
-    $('#' + event.target.h.id).closest("div.embed, div.embed-hero").removeClass("paused-mode");
-    $('#' + event.target.h.id).closest("div.embed, div.embed-hero").addClass("playing-mode");
+  if (event.data == 1) {
+    event.target.i.parentNode.classList.remove('paused-mode')
+    event.target.i.parentNode.classList.add('playing-mode')
   }
-  if (event.data == YT.PlayerState.PAUSED) {
-    $('#' + event.target.h.id).closest("div.embed, div.embed-hero").removeClass("playing-mode");
-    $('#' + event.target.h.id).closest("div.embed, div.embed-hero").addClass("paused-mode");
+  if (event.data == 2) {
+    event.target.i.parentNode.classList.remove('playing-mode')
+    event.target.i.parentNode.classList.add('paused-mode')
   }
-  if (event.data === YT.PlayerState.ENDED) {
-    event.target.playVideo();
-  }
+  // if (event.target.getPlayerState() == 2) {
+  //   event.target.playVideo();
+  // }
 }
 
 function onPlayerReady(event)
 {
-  overlayer = $('#' + event.target.h.id).parent().parent().find(".overlayer, div.txt");
-  player = event.target;
-
-  $(overlayer).on('click', function(e) {
-    if (player.getPlayerState() == 1) {
-        player.pauseVideo();
-    }
-    if (player.getPlayerState() == 2) {
-      player.playVideo();
-    }
-  });
+  if (event.data == null) {
+    event.target.i.parentNode.classList.add('paused-mode')
+  }
 }

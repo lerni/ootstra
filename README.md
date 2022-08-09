@@ -28,15 +28,14 @@ Optional, separate modules:
 - EasyShop (privat), Google Shoppingfeed with local Inventory & Omnipay
 
 Other features:
-
-    - DSGVO GDPR ready Cookie Consent with klaro!
-    - Multilingual ready in minutes
-    - Blog - elemental based
-    - schema.org integration
-    - Meta & OpenGraph integration
-    - depending on content ~90+ close to 100% Google PageSpeed Score
-    - Google Analytics & Tagmanager, Microsoft Clarity, sitemap.xml, robots.txt
-    - etc.
+- DSGVO GDPR ready, Cookie Consent with klaro!
+- Multilingual ready in minutes
+- Blog - elemental based
+- schema.org integration
+- Meta & OpenGraph integration
+- depending on content ~90+ close to 100% Google PageSpeed Score
+- Google Analytics & Tagmanager, Microsoft Clarity, sitemap.xml, robots.txt
+- etc.
 
 ## Getting started
 As editor/IDE [VSCode](https://code.visualstudio.com/) with [Silverstripe](https://marketplace.visualstudio.com/items?itemName=adrianhumphreys.silverstripe) extension is recommended. There are further settings under `.vscode/settings.json` for extensions like , [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client), [PHP Debug](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug) and [Log Viewer](https://marketplace.visualstudio.com/items?itemName=berublan.vscode-log-viewer) allowing an even smoother experience. Zsh with [agnoster.zsh-theme](https://github.com/agnoster/agnoster-zsh-theme) is used in the docker container. This needs [Powerline font](https://github.com/powerline/fonts) to be installed on the host machine to shine in it's full beauty.
@@ -57,7 +56,7 @@ Node/npm runs locally. There is an `.nvmrc` file in `themes/default/`. If [nvm](
     npm install
 ```
 ### Docker dev-env
-For development purpose the project comes with a Dockerfile for Apache/PHP/MySQL/phpMyAdmin/MailHog. Obviously [docker](https://www.docker.com/) needs to be installed. Run the commands bellow in the project directory:
+For development purpose the project comes with a Dockerfile for Apache/PHP/MySQL/phpMyAdmin/MailHog. Obviously [Docker](https://www.docker.com/) needs to be installed. Run the commands bellow in the project directory:
 ```bash
     cd PROJECT/
     docker build --tag silverstripe:refined .
@@ -70,16 +69,16 @@ For development purpose the project comes with a Dockerfile for Apache/PHP/MySQL
     composer install
 ```
 ### Laravel Mix watch & build
-[Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([webpack](https://webpack.js.org/) based) is used as build environment. In `themes/default/webpack.mix.js` vhost is set and 'll be proxied to http://localhost:3000/ in order to run browsersync. See also scripts section in `themes/default/package.json` and [ The Mix CLI](https://laravel-mix.com/docs/6.0/cli).
+[Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([webpack](https://webpack.js.org/) based) is used as build environment. In `themes/default/webpack.mix.js` host is set and 'll be proxied to http://localhost:3000/ in order to run browsersync. See also scripts section in `themes/default/package.json` and [Mix CLI](https://laravel-mix.com/docs/6.0/cli).
 ```bash
     cd themes/default && npm run watch
 or
     cd themes/default && npm run production
 ```
 
-This should make a local webserver available on [http://localhost:8080/](http://localhost:8080/) or [http://localhost:3000/](http://localhost:3000/) if the watcher is running. `phpMyAdmin` you'll find under [http://localhost:8081/](http://localhost:8081/), MailHog under [http://localhost:8025/](http://localhost:8025/). Default login into `/admin` is `admin` & `password`. **ATM `.env` isn't used with docker - env-var are set in `docker-compose.yml` when running per docker.**
+Docker makes a local webserver available on [http://localhost:8080/](http://localhost:8080/) and on [http://localhost:3000/](http://localhost:3000/) if the watcher/browsersync is running. `phpMyAdmin` you'll find under [http://localhost:8081/](http://localhost:8081/), MailHog under [http://localhost:8025/](http://localhost:8025/). Default login into [/admin](http://localhost:8080/admin) is `admin` & `password`. **ATM `.env` isn't used with docker - env-var are set in `docker-compose.yml` when running per docker.**
 
-With `docker ps` you can get the `<CONTAINER ID>` of running instances. To run a shell in a container do either `docker exec -it <CONTAINER_NAME> zsh` or just `docker-compose exec silverstripe zsh`.
+With `docker ps` you can get the `<CONTAINER ID>` of running instances. To run a shell in a container do either `docker exec -it <CONTAINER_NAME> zsh` or just `docker-compose exec silverstripe zsh`. You may also add an alias to your rcfile (`~/.zshrc` on Mac) like: `alias dshell="docker-compose exec silverstripe zsh"` in order to run a `zsh` in the silverstripe container per `dshell`.
 
 With other webserver setups, point your vhost document root of your dev-env to `/project/public` and adjust `proxy` in `themes/default/webpack.mix.js`. Database, credentials etc. are provided per environment Variables. See also:
 

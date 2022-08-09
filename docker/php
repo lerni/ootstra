@@ -1,2 +1,3 @@
 #!/bin/bash
+# VSCode php.executablePath needs php binary
 docker-compose exec silverstripe php $@

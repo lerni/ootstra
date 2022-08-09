@@ -1,5 +1,4 @@
 {
-  "php.validate.run": "onType",
   "logViewer.watch": [
     {
       "groupName": "apache2",

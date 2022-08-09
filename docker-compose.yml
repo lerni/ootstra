@@ -15,22 +15,19 @@ services:
       # and $COMPOSER_HOME/cache on other unix systems. Stores all the caches used by Composer.
       - ~/.composer:/root/.composer:delegated
       - /run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock
-      # - ./docker/log/apache2/access.log:/var/log/apache2/access.log:delegated
       - ./docker/log/apache2/error.log:/var/log/apache2/error.log:delegated
-      # - ./docker/log/xdebug.log:/var/log/xdebug.log:delegated
-      - ./docker/log/apache2/other_vhosts_access.log:/var/log/apache2/other_vhosts_access.log:delegated
-      # - type: bind
-      #   source: ./docker/log/apache2/access.log
-      #   target: /var/log/apache2/access.log
       # - type: bind
       #   source: ./docker/log/apache2/error.log
       #   target: /var/log/apache2/error.log
+      - ./docker/log/apache2/other_vhosts_access.log:/var/log/apache2/other_vhosts_access.log:delegated
       # - type: bind
       #   source: ./docker/log/apache2/other_vhosts_access.log
       #   target: /var/log/apache2/other_vhosts_access.log
     depends_on:
       - database
       - mailhog
+    # env_file:
+    #     - .env
     environment:
       - SSH_AUTH_SOCK=/run/host-services/ssh-auth.sock
       - DOCUMENT_ROOT=/var/www/html/public

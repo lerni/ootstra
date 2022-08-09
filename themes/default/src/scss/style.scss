@@ -82,19 +82,24 @@ body {
 	// }
 	.inner {
 		display: flex;
+		gap: #{$lh}em;
 		// max-width: calc(#{$inner-width + 200px});
 		.column {
-			justify-content: flex-end;
+			justify-content: center;
 			flex-direction: column;
 			&.logo {
-				flex: 0 0 220px;
+				display: flex;
+				flex: 0 0 auto;
 				a {
-					display: table;
 					svg,
 					img {
+						width: 300px;
 						height: auto;
-						max-width: 185px;
-						margin: auto auto 0 0;
+						display: table;
+						// initial width we provide inline like width="300"
+						@include breakpoint($Lneg) {
+							width: 200px;
+						}
 					}
 				}
 			}
@@ -136,7 +141,7 @@ main.typography {
 }
 
 .inner {
-	width:100%;
+	width: 100%;
 	max-width: $inner-width;
 	margin: 0 auto;
 	padding-left: #{$lh*1}em;
@@ -615,31 +620,7 @@ main.typography {
 		// this things are living in logo.scss
 	}
 	&.elementjobs {
-		.jobs {
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: center;
-			width: calc(100% - #{$lh}em);
-			a {
-				flex: 0 0 calc(percentage(math.div(1, 3)) - #{$lh}em);
-				display: flex;
-				flex-direction: column;
-				margin: #{$lh}em #{math.div($lh, 2)}em;
-				figure {
-					flex: 0 0 auto;
-					margin: 0;
-					img {
-						width: 100%;
-						float: left;
-						margin-bottom: 0;
-					}
-				}
-				.txt {
-					flex: 1 0 auto;
-					margin: #{math.div($lh, 2)}em 0 auto 0;
-				}
-			}
-		}
+		// this things are living in jobs.scss
 	}
 	$min-spacing: 0;
 	$max-spacing: 6;
@@ -716,10 +697,10 @@ main.typography {
 
 .social-icons {
 	margin: auto 0 0;
+	display: flex;
+	gap: #{lh}em;
 	a {
-		display: inline-block;
 		color: $white;
-		margin-top:  #{$lh}em;
 		transition: transform .05s linear;
 		&:not(:last-of-type) {
 			margin-right: #{math.div($lh, 1)}em;

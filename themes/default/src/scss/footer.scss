@@ -9,19 +9,15 @@
 body > footer {
 	flex-shrink: 0;
 	padding: 0;
-	font-size: .9em;
 	a {
 		text-decoration: none;
-		color: $link-color;
-		&:hover {
-			color: $current-color
-		}
+		color: $white;
 	}
 	p {
 		margin: 0 0 #{$lh}em 0;
 	}
 	.upper {
-		background-color: $gray--lighter;
+		background-color: $blue;
 		padding: #{$lh*1.5}em 0;
 		.inner {
 			display: flex;
@@ -30,65 +26,52 @@ body > footer {
 		}
 		.column {
 			display: flex;
-			flex-direction: column;
-			justify-content: flex-end;
 			flex: 0 0 auto;
-			@include breakpoint($Lneg) {
+			column-gap: #{$lh}em;
+			@include breakpoint($XLneg) {
 				flex: 0 0 100% !important;
 			}
-		}
-		.logo {
-			flex-basis: percentage(math.div(1, 3));
-			a:not(.socialize) {
-				img {
-					width: #{$lh*2}em;
+			span, a {
+				color: $white;
+			}
+			a {
+				&:hover {
+					color: $current-color;
+				}
+				@include breakpoint($XLneg) {
+					margin-top: #{math.div($lh, 2)}em;
+					margin-bottom: #{math.div($lh, 2)}em;
 				}
 			}
 		}
 		.coord {
 			flex-grow: 1;
-			span, a {
-				display: block;
-				margin-right: #{math.div($lh, 2)}em;
-			}
-			a {
-				margin-top: #{$lh}em;
+			@include breakpoint($XLneg) {
+				flex-direction: column;
 			}
 		}
 		.inprint {
 			flex-basis: percentage(math.div(1, 4));
 			nav {
 				display: flex;
-				flex-direction: column;
+				column-gap: #{$lh}em;
 				a {
-					display: inline-block;
-					color: $scrolling-text-color;
+					color: $white;
+					@include bold;
 					// @include separated();
-					&:not(:first-child) {
-						margin-top: #{$lh}em;
-					}
 					&.current {
-						@include bold;
+						color: $current-color;
 					}
 				}
 			}
 		}
-		.copyright {
-			margin-top: #{$lh}em;
-		}
-	}
-	.lowest {
-		padding: #{$lh*1.5}em 0 #{$lh*1.3}em;
-		display: table;
-		width: 100%;
-		background-color: mix($blue, $black, 50%);
-		background-color: $blue;
-		@include breakpoint($Sneg) {
-			margin-bottom: $headerheight--small;
-		}
-		.inner {
-			text-align: center;
-			color: $white;
+		.social {
+			justify-content: flex-end;
+			margin-right: 0;
+			margin-left: auto;
+			@include breakpoint($XLneg) {
+				justify-content: flex-start;
+			}
 		}
 	}
 }

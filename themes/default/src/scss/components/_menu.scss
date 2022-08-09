@@ -34,7 +34,6 @@
 			}
 		}
 		ul.menu1 {
-			margin: auto 0 0 0;
 			align-self: flex-end;
 			@include breakpoint($Lneg) {
 				display: none;
@@ -46,6 +45,7 @@
 				// bottom padding and negative margin for hoverstate
 				// padding-bottom: 33px;
 				// margin-bottom: -33px;
+				&.expanded,
 				&:focus-within,
 				&:hover {
 					// this is used to cover box-shadow on the upper part, that overlaps with header
@@ -121,6 +121,7 @@
 							background-image: svg-load('../images/svg/arrow-down.svg', stroke="#{$current-color}", stroke-width="20");
 						}
 					}
+					&.expanded,
 					&:hover,
 					&:focus-within {
 						.menu2 {
@@ -244,7 +245,7 @@ html.mobile-nav--active {
 			height: initial;
 			top: 0;
 			bottom: 0;
-			overflow-x: hidden;
+			// overflow-x: hidden;
 			// overflow-y: scroll; // keeping scrollbar visible
 			scrollbar-gutter: stable;  // still experimental
 			.inner {
@@ -271,10 +272,8 @@ html.mobile-nav--active {
 								}
 								a {
 									text-align: left;
-									font-size: 1.2em;
-									@include breakpoint($Mneg) {
-										padding-left: #{$lh*.5}em;
-									}
+									padding-left: 0;
+									padding-right: 0;
 								}
 								>span.trigger {
 									width: #{$lh*2}rem;

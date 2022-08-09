@@ -42,6 +42,7 @@ mix
   .sass('src/scss/perso.scss', 'dist/css')
   .sass('src/scss/style.scss', 'dist/css')
   .sass('src/scss/teaser.scss', 'dist/css')
+  .sass('src/scss/jobs.scss', 'dist/css')
   .sass('src/scss/textimage.scss', 'dist/css')
   .sourceMaps(productionSourceMaps, 'source-map')
   .copyDirectory('src/fonts', 'dist/fonts');
