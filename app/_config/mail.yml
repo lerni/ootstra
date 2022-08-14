@@ -3,11 +3,9 @@ Name: myemailconfig
 After:
   - '#emailconfig'
 ---
+# Email.admin_email is set per _config.php to SS_ADMIN_EMAIL
+
 SilverStripe\Core\Injector\Injector:
-  SilverStripe\Control\Email\Email:
-    admin_email: '`SS_ADMIN_EMAIL`'
-#    send_all_emails_to:
-#      - '`SS_ADMIN_EMAIL`'
   Swift_Transport:
     class: Swift_SendmailTransport
   # Swift_Transport:
@@ -16,27 +14,31 @@ SilverStripe\Core\Injector\Injector:
   #     Host: '`SMTPMAIL_HOST`'
   #     Port: 465
   #     Encryption: ssl
-  #   calls:
-  #     Username: [ setUsername, ['`SMTPMAIL_USERNAME`'] ]
-  #     Password: [ setPassword, ['`SMTPMAIL_PASSWORD`'] ]
-  #     AuthMode: [ setAuthMode, ['login'] ]
+  # calls:
+  #   Username: [ setUsername, ['`SMTPMAIL_USERNAME`'] ]
+  #   Password: [ setPassword, ['`SMTPMAIL_PASSWORD`'] ]
+  #   AuthMode: [ setAuthMode, ['login'] ]
 
-# in php.ini we set sendmail_path = /usr/sbin/sendmail -t -i -S mailhog:1025
-# this should send emails directly to mailhog, so no additional  config like
-# bellow is needed
+# on local docker dev-env we set in php.ini
+# sendmail_path = '/usr/local/bin/mhsendmail --smtp-addr="mailhog:1025"'
+# this sends all mails to mailhog
+---
+Name: mydevemailconfig
+After:
+  - '#emailconfig'
+Only:
+  environment: dev
+---
+SilverStripe\Control\Email\Email:
+  send_all_emails_to: mailhog@local
+SilverStripe\Core\Injector\Injector:
+  Swift_Transport:
+    class: Swift_MailTransport
 
-# ---
-# Name: mydevemailconfig
-# After:
-#   - '#emailconfig'
-# Only:
-#   environment: dev
-# ---
-# SilverStripe\Core\Injector\Injector:
-#   SilverStripe\Control\Email\Email:
-#     no-reply: 'Test User'
-#   Swift_Transport:
-#     class: Swift_SmtpTransport
-#     properties:
-#       Host: 'mailhog'
-#       Port: 1025
+    # swiftmailer & mailhog do not come to terms
+    # "Encryption: null" and also various mhsendmail paraments do not fix
+    # "[Emergency] Uncaught Swift_TransportException: Expected response code 220 but got an empty response"
+    # anyway "Swift Mailer" is dead (deprecated) on arrival in SS land
+
+    # properties:
+    #   Encryption: null

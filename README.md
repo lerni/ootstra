@@ -119,7 +119,16 @@ For your PHP-CLI-Setup, it might be helpful, to set `sys_temp_dir = "/tmp"` in `
 ## Debugging
 In order to use Xdebug with VSCode install [PHP Debug](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug). For triggering per browser, extensions like [Xdebug Helper for Firefox](https://addons.mozilla.org/de/firefox/addon/xdebug-helper-for-firefox/) or [Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc) are needed.
 
-To debug JS inside VSCode with Firefox you need to install [Debugger for Firefox](https://marketplace.visualstudio.com/items?itemName=firefox-devtools.vscode-firefox-debug). Width Chrome & Edge you may need to tweak config in `.vscode/launch.json` :shrug:
+To debug JS inside VSCode with Firefox you need to install [Debugger for Firefox](https://marketplace.visualstudio.com/items?itemName=firefox-devtools.vscode-firefox-debug). With Chrome & Edge you may need to tweak config in `.vscode/launch.json` :shrug:
+
+## PHP Version
+Current used PHP-Version is 8.0. It's set in following places:
+- `Dockerfile`
+- `deploy/config.php`
+- `public/.htaccess` -> watch out if you maintain stage specific versions in `deploy/`
+- `composer.json`
+- `docker-compose.yml` -> custom.php.ini
+Don't forget to rebuild/restart docker and reinstall vendors per composer after changing!
 
 # Hosting & Deployment
 

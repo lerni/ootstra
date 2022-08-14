@@ -3,8 +3,7 @@
 @font-face {
 	font-family: "icons";
 	src: url("/_resources/app/fonts/icons.woff2") format("woff2"),
-	url("/_resources/app/fonts/icons.woff") format("woff"),
-	url("/_resources/app/fonts/icons.ttf") format("truetype");
+	url("/_resources/app/fonts/icons.woff") format("woff");
 	font-weight: normal;
 	font-style: normal;
 }

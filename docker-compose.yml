@@ -6,7 +6,7 @@ services:
     ports:
       - 8080:80
     volumes:
-      - ./docker/config/php/74/custom.php.ini:/usr/local/etc/php/conf.d/custom.php.ini:cached
+      - ./docker/config/php/80/custom.php.ini:/usr/local/etc/php/conf.d/custom.php.ini:cached
       - .:/var/www/html:cached
       # using local composer cache to save a bit of bandwidth - depending on your hostplattform you need to adapt paths
       # Defaults to C:\Users\<user>\AppData\Local\Composer on Windows,
@@ -42,6 +42,7 @@ services:
       - SS_DEFAULT_ADMIN_USERNAME=admin
       - SS_DEFAULT_ADMIN_PASSWORD=password
       - SS_ERROR_LOG=silverstripe.log
+      - SS_ADMIN_EMAIL=docker@sends.me
       - GHOSTSCRIPT_PATH=/usr/bin/gs
     extra_hosts:
       - "host.docker.internal:host-gateway"

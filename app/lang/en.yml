@@ -1,6 +1,7 @@
 en:
   SilverStripe\UserForms\Model\EditableFormField:
     FIELDISREQUIRED: '{name} is required'
+    EXTRACLASS_MULTIPLE: 'Separate multiple CSS classes with spaces - half-width - quarter-width-checkbox - auto-width'
   App\Elements\ElementPerso:
     BlockType: 'Team'
   App\Models\Perso:

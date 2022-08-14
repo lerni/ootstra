@@ -19,10 +19,13 @@ document.addEventListener("DOMContentLoaded", function() {
 	});
 
 	// collapse/expand navi per .trigger
-  document.querySelector('span.trigger').addEventListener('click', (event) => {
-    event.stopPropagation();
-    event.target.parentElement.classList.toggle('expanded');
-	});
+  trigger = document.querySelector('span.trigger');
+  if (trigger) {
+    document.querySelector('span.trigger').addEventListener('click', (event) => {
+      event.stopPropagation();
+      event.target.parentElement.classList.toggle('expanded');
+    });
+  }
 
   document.querySelector('.menu1').addEventListener('mouseleave', (event) => {
     if (!document.querySelector('html').classList.contains('mobile-nav--active')) {

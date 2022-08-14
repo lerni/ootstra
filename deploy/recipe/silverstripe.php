@@ -8,12 +8,13 @@ use RuntimeException;
 // Tasks
 desc('Populate .env file');
 task('silverstripe:create_dotenv', function () {
+    $stage = get('labels')['stage'];
     $envPath = "{{deploy_path}}/shared/.env";
-    if (test("[ -f {$envPath} ]")) {
+    $hasEnvFile = run("if [ -e {{deploy_path}}/shared/.env ]; then echo 'true'; fi");
+    if ($hasEnvFile) {
         return;
     }
 
-    $stage = Context::get()->getHost()->getConfig()->get('stage');
     $errorEmail = ask('Please enter error E-Mail', '');
     $adminEmail = ask('Please enter admin E-Mail', '');
     $dbServer = ask('Please enter the database server', '127.0.0.1');
@@ -40,14 +41,17 @@ SS_ERROR_LOG='silverstripe.log'
 
 ENV;
 
-    $command = <<<BASH
-cat >{$envPath} <<EOL
-$contents
-EOL
-BASH;
+// heredoc is a mess with this setup
+// most probable .editorconfig adds some carriage return after EOL, which make it fail!
+// $command = <<<BASH
+// cat >{$envPath} <<EOL
+// $contents
+// EOL
+// BASH;
 
-    run("$command");
-})->setPrivate();
+    run('echo "'. $contents .'" &> '. $envPath);
+
+});
 
 
 desc('install composer & sspak in ~/bin');
@@ -69,32 +73,16 @@ task('silverstripe:installtools', function () {
 });
 
 
-// copy paste from "deployer/recipe/deploy/vendors.php" but with php/bin
-// {{bin/composer}} should include {{php/bin}} but doesn't if you set both separytely
-// other solution would be: https://stackoverflow.com/a/65850204/1938738
-desc('Installing vendors');
-task('deploy:vendors', function () {
-    if (!commandExist('unzip')) {
-        writeln('<comment>To speed up composer installation setup "unzip" command with PHP zip extension https://goo.gl/sxzFcD</comment>');
-    }
-    run('cd {{release_path}} && {{bin/php}} {{bin/composer}} {{composer_options}}');
-});
-
-
 desc('Run composer vendor-expose');
 task('silverstripe:vendor_expose', function () {
     run('cd {{release_path}} && {{bin/composer}} vendor-expose');
 });
 
 
-desc('Create silverstripe-cache directory');
-task('silverstripe:create_cache_dir', function () {
-    run("cd {{release_path}} && if [ ! -d silverstripe-cache ]; then mkdir silverstripe-cache; fi");
-})->setPrivate();
-
-
-// Reset php process on lightspeed server (symlink-caching)
-desc('Run pkill to reset php process on cyon server');
+// Reset lsphp/php-fpm process on server (symlink-caching)
+// todo: probable a better fix:
+// https://deployer.org/docs/7.x/avoid-php-fpm-reloading
+desc('Run pkill to reset php process');
 task('pkill', function () {
     try {
         run('pkill lsphp');
@@ -112,7 +100,7 @@ task('silverstripe:dev_build', function () {
 
 
 task('silverstripe:htaccessperstage', function() {
-    $stage = Context::get()->getHost()->getConfig()->get('stage');
+    $stage = get('labels')['stage'];
 	// upload htaccess local if a specific version for the current stage exist
     if(file_exists('deploy/' . $stage . '.htaccess')) {
         writeln('Overwriting .htaccess with deploy/' . $stage . '.htaccess');
@@ -131,7 +119,7 @@ task('silverstripe:focu_hydrate', function () {
 desc('Create directory for sspak dumps');
 task('silverstripe:create_dump_dir', function () {
     run("cd {{deploy_path}} && if [ ! -d dumps ]; then mkdir dumps; fi");
-})->setPrivate();
+});
 
 
 desc('Upload assets');
@@ -213,7 +201,7 @@ before('silverstripe:download_database', 'silverstripe:create_dump_dir');
 
 desc('Creates a DB-dump in dumps-dir and delete older dumps with "auto" as prefix to to the number specified in keep_releases.');
 task('silverstripe:remote_dump', function ($prefix = 'auto') {
-    $stage = Context::get()->getHost()->getConfig()->get('stage');
+    $stage = Deployer::get('labels')['stage'];
 
     $releaseNo = basename(get('release_path'));
     if($releaseNo) {

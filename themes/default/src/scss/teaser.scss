@@ -83,7 +83,7 @@
         &.halve {
             .teaser {
 				flex: 1 1 calc(#{percentage(math.div(1, 2))} - #{math.div($lh, 2)}em);
-                @include breakpoint($XLneg) {
+                @include breakpoint($Lneg) {
                     flex: 0 0 100%;
                 }
                 .txt {

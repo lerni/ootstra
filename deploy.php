@@ -7,47 +7,6 @@ require 'recipe/common.php';
 require 'deploy/config.php';
 require 'deploy/recipe/silverstripe.php';
 
-// Number of releases to keep
-set('keep_releases', 5);
-
-// [Optional] Allocate tty for git clone. Default value is false
-set('git_tty', true);
-
-// Shared files/dirs between deploys
-set('shared_files', [
-    '.env',
-    'silverstripe.log'
-]);
-set('shared_dirs', [
-    'public/assets'
-]);
-
-// Writable dirs by web server
-set('writable_dirs', [
-    'public/assets',
-    'silverstripe-cache'
-]);
-
-set('allow_anonymous_stats', false);
-
-set('ssXak_local_path', '/usr/local/bin/ssbak');
-set('ssXak_path', '~/bin/ssbak');
-
-set('bin/composer', '~/bin/composer.phar');
-set('composer_options', '--no-dev --verbose --prefer-dist --optimize-autoloader --no-interaction');
-set('http_user', DEP_SERVER_USER);
-set('default_timeout', 6000); // default is 300 - ssbak may needs more
-
-// Server user
-set('remote_user', function () {
-    if (!defined('DEP_SERVER_USER')) {
-        writeln("<error>Please define DEP_SERVER_USER in deploy/config.php</error>");
-        exit;
-    }
-
-    return DEP_SERVER_USER;
-});
-
 // Server address/ip
 set('alias', function () {
     if (!defined('DEP_SERVER')) {
@@ -94,6 +53,52 @@ set('timezone', function () {
         exit;
     }
     return DEP_TIMEZONE;
+});
+
+// Number of releases to keep
+set('keep_releases', 5);
+
+// [Optional] Allocate tty for git clone. Default value is false
+set('git_tty', true);
+
+// Shared files/dirs between deploys
+set('shared_files', [
+    '.env',
+    'silverstripe.log'
+]);
+set('shared_dirs', [
+    'public/assets'
+]);
+
+// Writable dirs by web server
+set('writable_dirs', [
+    'public/assets',
+    'silverstripe-cache'
+]);
+
+set('allow_anonymous_stats', false);
+
+set('ssXak_local_path', '/usr/local/bin/ssbak');
+set('ssXak_path', '~/bin/ssbak');
+
+// also set specified php version for composer
+// https://stackoverflow.com/a/65850204/1938738
+set('bin/composer', function () {
+    return '{{bin/php}} ~/bin/composer.phar';
+});
+
+set('composer_options', '--no-dev --verbose --prefer-dist --optimize-autoloader --no-interaction');
+set('http_user', DEP_SERVER_USER);
+set('default_timeout', 6000); // default is 300 - ssbak may needs more
+
+// Server user
+set('remote_user', function () {
+    if (!defined('DEP_SERVER_USER')) {
+        writeln("<error>Please define DEP_SERVER_USER in deploy/config.php</error>");
+        exit;
+    }
+
+    return DEP_SERVER_USER;
 });
 
 host('live')

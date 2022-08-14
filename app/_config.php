@@ -8,6 +8,10 @@ use SilverStripe\Forms\HTMLEditor\TinyMCEConfig;
 use SilverStripe\CMS\Controllers\CMSPagesController;
 use SilverStripe\Control\Cookie;
 use SilverStripe\Control\Session;
+use SilverStripe\Core\Environment;
+use SilverStripe\Control\Email\Email;
+
+Email::config()->set('admin_email', Environment::getEnv('SS_ADMIN_EMAIL'));
 
 Cookie::config()->set('samesite', 'Lax'); // new configuration property for Cookie
 Session::config()->set('cookie_samesite', 'Lax'); // new configuration property for Session
@@ -58,7 +62,19 @@ $styles = [
         'attributes' => ['class' => 'large'],
         'block' => 'div',
         'wrapper' => 1
-    ]
+    ],
+    [
+        // add .inlinish - no margin-bottom
+        'title' => 'p no bottom-margin',
+        'attributes' => ['class' => 'inlinish'],
+        'selector' => 'p,h1,h2,h3'
+    ],
+    // [
+    //     // add .halvelinish - no margin-bottom
+    //     'title' => 'p 1/2 bottom-margin',
+    //     'attributes' => ['class' => 'halvelinish'],
+    //     'selector' => 'p,h1,h2,h3'
+    // ]
 ];
 
 $EditorConfig = TinyMCEConfig::get('cms');
