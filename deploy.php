@@ -87,7 +87,7 @@ set('bin/composer', function () {
     return '{{bin/php}} ~/bin/composer.phar';
 });
 
-set('composer_options', '--no-dev --verbose --prefer-dist --optimize-autoloader --no-interaction');
+// set('composer_options', '--no-dev --verbose --prefer-dist --optimize-autoloader --no-interaction');
 set('http_user', DEP_SERVER_USER);
 set('default_timeout', 6000); // default is 300 - ssbak may needs more
 
@@ -105,7 +105,7 @@ host('live')
     ->set('labels', ['stage' => 'live'])
     ->set('hostname', DEP_SERVER)
     ->set('remote_user', DEP_SERVER_USER)
-    ->set('git_ssh_command', 'ssh') // https://github.com/deployphp/deployer/issues/2908#issuecomment-1022748724
+    ->set('git_ssh_command', 'ssh') // https://github.com/deployphp/deployer/issues/2908#issuecomment-1022748724 - we mount ~/.ssh/known_hosts
     ->set('writable_mode', 'chmod')
     ->set('deploy_path', function () {
         if (defined('DEP_DEPLOY_LIVE_PATH')) {
@@ -118,7 +118,7 @@ host('test')
     ->set('labels', ['stage' => 'test'])
     ->set('hostname', DEP_SERVER)
     ->set('remote_user', DEP_SERVER_USER)
-    ->set('git_ssh_command', 'ssh') // https://github.com/deployphp/deployer/issues/2908#issuecomment-1022748724
+    ->set('git_ssh_command', 'ssh') // https://github.com/deployphp/deployer/issues/2908#issuecomment-1022748724 - we mount ~/.ssh/known_hosts
     ->set('writable_mode', 'chmod')
     ->set('deploy_path', function () {
         if (defined('DEP_DEPLOY_TEST_PATH')) {

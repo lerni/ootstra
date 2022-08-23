@@ -238,7 +238,6 @@ main.typography {
 		}
 	}
 	&.background--gray-lighter {
-		position: relative;
 		z-index: 1;
 		&::after {
 			content: "";
@@ -698,13 +697,10 @@ main.typography {
 .social-icons {
 	margin: auto 0 0;
 	display: flex;
-	gap: #{lh}em;
+	gap: #{$lh}em;
 	a {
 		color: $white;
 		transition: transform .05s linear;
-		&:not(:last-of-type) {
-			margin-right: #{math.div($lh, 1)}em;
-		}
 		&:hover {
 			color: $white;
 			transform: scale(1.08);

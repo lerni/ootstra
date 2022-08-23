@@ -15,6 +15,7 @@ services:
       # and $COMPOSER_HOME/cache on other unix systems. Stores all the caches used by Composer.
       - ~/.composer:/root/.composer:delegated
       - /run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock
+      - ~/.ssh/known_hosts:/root/.ssh/known_hosts
       - ./docker/log/apache2/error.log:/var/log/apache2/error.log:delegated
       # - type: bind
       #   source: ./docker/log/apache2/error.log
@@ -49,6 +50,8 @@ services:
 
   database:
     image: mysql:5.7
+    # image: mariadb:10.7
+    # command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci, --innodb-file-per-table=1]
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
     volumes:
