@@ -10,6 +10,8 @@
 /.vscode/*
 !/.vscode/launch.json
 !/.vscode/settings.json
+!/.vscode/extensions.json
+!/.vscode/tasks.json
 /deploy/config.php
 /.graphql-generated/*
 /public/_graphql/admin.types.graphql

@@ -3,7 +3,7 @@
 
 # Setup, Requirements & install
 
-This project is inspired from [Bigfork’s quickstart recipe](https://github.com/bigfork/silverstripe-recipe) for [Silverstripe](https://www.silverstripe.org/). It's an opinionated set of tools for a ready to run, build & deploy CMS instance in a minimal amount of time. To get it up and running you'll need [GIT](https://git-scm.com/), [Docker](https://www.docker.com/), [NPM](https://nodejs.org/) preferred with [nvm](https://github.com/nvm-sh/nvm) and for deployment a server with [SSH](https://de.wikipedia.org/wiki/Secure_Shell) access. It utilizes [dnadesign/silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) for a block/element based CMS experience and comes with the following set of elements:
+This project is inspired from [Bigfork’s quickstart recipe](https://github.com/bigfork/silverstripe-recipe) for [Silverstripe](https://www.silverstripe.org/). It's an opinionated set of tools for a ready to run, build & deploy CMS instance in a minimal amount of time. To get it up and running you'll need [GIT](https://git-scm.com/), [Docker](https://www.docker.com/) (for local development), [NPM](https://nodejs.org/) preferred with [nvm](https://github.com/nvm-sh/nvm) and for deployment a server with [SSH](https://de.wikipedia.org/wiki/Secure_Shell) & git. It utilizes [dnadesign/silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) for a block/element based CMS experience and comes with the following set of elements:
 
 - ElementContent
 - ElementForm               (userforms)
@@ -76,11 +76,11 @@ or
     cd themes/default && npm run production
 ```
 
-Docker makes a local webserver available on [http://localhost:8080/](http://localhost:8080/) and on [http://localhost:3000/](http://localhost:3000/) if the watcher/browsersync is running. `phpMyAdmin` you'll find under [http://localhost:8081/](http://localhost:8081/), MailHog under [http://localhost:8025/](http://localhost:8025/). Default login into [/admin](http://localhost:8080/admin) is `admin` & `password`. **ATM `.env` isn't used with docker - env-var are set in `docker-compose.yml` when running per docker.**
+Docker makes a local webserver available on [http://localhost:8080/](http://localhost:8080/), the watcher/browsersync runs on [http://localhost:3000/](http://localhost:3000/), `phpMyAdmin` on [http://localhost:8081/](http://localhost:8081/), MailHog on [http://localhost:8025/](http://localhost:8025/). Default login into [/admin](http://localhost:8080/admin) is `admin` & `password`. **For local development with docker `.env` isn't used - those are set in `docker-compose.yml`.**
 
-With `docker ps` you can get the `<CONTAINER ID>` of running instances. To run a shell in a container do either `docker exec -it <CONTAINER_NAME> zsh` or just `docker-compose exec silverstripe zsh`. You may also add an alias to your rcfile (`~/.zshrc` on Mac) like: `alias dshell="docker-compose exec silverstripe zsh"` in order to run a `zsh` in the silverstripe container per `dshell`.
+`docker ps` shows `<CONTAINER IDs>` for all running instances. To run a shell in a container do either `docker exec -it <CONTAINER_ID> zsh` or just `docker-compose exec silverstripe zsh` -> containers are named in `docker-compose.yml`. You may add an alias to your rcfile (`~/.zshrc` on Mac) like: `alias dshell="docker-compose exec silverstripe zsh"` for an alias to run a `zsh` in the silverstripe container with `dshell`.
 
-With other webserver setups, point your vhost document root of your dev-env to `/project/public` and adjust `proxy` in `themes/default/webpack.mix.js`. Database, credentials etc. are provided per environment Variables. See also:
+With other dev-env/webserver-setups, point vhost document root to `/project/public` and adjust the watcher `proxy` in `themes/default/webpack.mix.js`. Database, credentials etc. are provided per environment Variables. See also:
 
 https://www.silverstripe.org/learn/lessons/v4/up-and-running-setting-up-a-local-silverstripe-dev-environment-1
 
@@ -117,7 +117,7 @@ GHOSTSCRIPT_PATH="/usr/local/bin/gs"
 For your PHP-CLI-Setup, it might be helpful, to set `sys_temp_dir = "/tmp"` in `php.ini` for `sspak`.
 
 ## Debugging
-In order to use Xdebug with VSCode install [PHP Debug](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug). For triggering per browser, extensions like [Xdebug Helper for Firefox](https://addons.mozilla.org/de/firefox/addon/xdebug-helper-for-firefox/) or [Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc) are needed.
+In order to use Xdebug with VSCode install [PHP Debug](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug) and trigger per browser, extensions like [Xdebug Helper for Firefox](https://addons.mozilla.org/de/firefox/addon/xdebug-helper-for-firefox/) or [Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc).
 
 To debug JS inside VSCode with Firefox you need to install [Debugger for Firefox](https://marketplace.visualstudio.com/items?itemName=firefox-devtools.vscode-firefox-debug). With Chrome & Edge you may need to tweak config in `.vscode/launch.json` :shrug:
 
@@ -132,7 +132,7 @@ Don't forget to rebuild/restart docker and reinstall vendors per composer after 
 
 # Hosting & Deployment
 
-Deployment is based on [Deployer](https://deployer.org/) - a php based cli-tool it's included as dev-requirement per `composer.json` and uses symlinks to the current release. It's easy to use, offers zero downtime deployments and rollback. `/assets`, `.env` are shared resources, this means they are symlinked into each release-folder.
+Deployment is based on [Deployer](https://deployer.org/) - a php based cli-tool it's included as dev-requirement per `composer.json`. It uses symlinks to the current release. It's easy to use, offers zero downtime deployments and rollback. `/assets`, `.env` are shared resources, this means they are symlinked into each release-folder.
 
 ```
 ~/public_html/0live        or ~/public_html/0test

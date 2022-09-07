@@ -12,7 +12,7 @@
 					<span class="position">$Position.Markdowned</span>
 				<% end_if %>
 			</p>
-			<span class="pseudolink"><%t App\Elements\ElementPerso.MORE "Curriculum Vitae" %></span>
+			<span class="link forth"><%t App\Elements\ElementPerso.MORE "Curriculum Vitae" %></span>
 		</div>
 		<div class="arrow--up"></div>
 	</div>

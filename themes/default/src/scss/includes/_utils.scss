@@ -40,10 +40,10 @@
 		content: "";
 		width: .9em;
 		height: 1em;
-		background-size: auto 50%;
+		background-size: auto 70%;
 		background-repeat: no-repeat;
-		background-position: bottom 30% right 0;
-		background-image: svg-load('../images/svg/arrow-outline.svg', fill=#{$link-color});
+		background-position: bottom 40% right 0;
+		background-image: svg-load('../images/svg/arrow-forward.svg', stroke-width=4, stroke=#{$link-color});
 		transform: rotate(180deg);
 		margin-right: .3em;
 		vertical-align: -.1em;
@@ -56,18 +56,19 @@
 		}
 	}
 }
+
 %forth {
 	&::after {
 		display: inline-block;
 		content: "";
 		width: .9em;
 		height: 1em;
-		background-size: auto 50%;
+		background-size: auto 70%;
 		background-repeat: no-repeat;
 		background-position: bottom 30% right 0;
-		background-image: svg-load('../images/svg/arrow-outline.svg', fill=#{$link-color});
+		background-image: svg-load('../images/svg/arrow-forward.svg', stroke-width=4, stroke=#{$link-color});
 		margin-left: .3em;
-		vertical-align: -.1em;
+		// vertical-align: -.1em;
 		transition: all;
 		transition-duration: .12s;
 	}

@@ -14,7 +14,11 @@ SilverStripe\Assets\File:
     # needs GHOSTSCRIPT_PATH="/usr/local/bin/gs"
     # - App\Extensions\PdfThumbnailerExtension
   allowed_extensions:
+    svg: true
+    webp: true
     bmp: false
+    vcf: true
+
 
 # SilverStripe\AssetAdmin\Forms\FileFormFactory:
 SilverStripe\AssetAdmin\Forms\ImageFormFactory:

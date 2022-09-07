@@ -162,7 +162,7 @@ class Perso extends DataObject
         $schemaPerson = Schema::person();
         $schemaPerson
             ->name($this->getTitle())
-            ->image($this->MitafotoGesicht->Link())
+            ->image($this->Portrait->AbsoluteLink())
             ->jobTitle($this->Position)
             ->email($this->EMail)
             ->telephone($this->Telephone)
@@ -174,5 +174,15 @@ class Perso extends DataObject
         }
 
         return $schemaPerson->toScript();
+    }
+
+    public function QRURL()
+    {
+        if ($this->Departments()) {
+            if ($this->Departments()->first()->PersoElement()) {
+                $link = $this->Departments()->first()->PersoElement()->first()->getController()->qrvc($this->ID);
+                return $link;
+            }
+        }
     }
 }

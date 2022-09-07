@@ -670,7 +670,7 @@ main.typography {
 	}
 }
 
-.pseudolink {
+.link.forth {
 	display: inline-block;
 	color: #{$link-color};
 	@extend %forth;

@@ -1,6 +1,6 @@
 <%-- require themedCSS("dist/css/blog") - those sytes are (pre)loaded per BlogInitExtension --%>
 <% include App/Includes/Header %>
-<main class="typography" id="main">
+<main class="typography">
 	<% if not $hasHero %>
 		<% include App/Includes/DefaultHero Page=$Me %>
 	<% end_if %>

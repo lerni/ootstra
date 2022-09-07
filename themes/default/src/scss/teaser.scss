@@ -45,7 +45,7 @@
         }
         // just hover if it's really a link
         a.teaser {
-            .pseudolink:hover {
+            .link.forth:hover {
                 &::after {
                 }
             }
@@ -68,7 +68,7 @@
                     position: inherit;
                     flex: 0 0 auto;
                 }
-                .pseudolink {
+                .link.forth {
 					margin: auto 0 0;
                 }
             }
@@ -98,7 +98,7 @@
 						padding-right: 0;
                     }
                     p,
-                    .pseudolink {
+                    .link.forth {
                         float: left;
                         width: 100%;
                     }
@@ -151,7 +151,7 @@
 						padding-right: 0;
                     }
                     p,
-                    .pseudolink {
+                    .link.forth {
                         float: left;
                         width: 100%;
                     }

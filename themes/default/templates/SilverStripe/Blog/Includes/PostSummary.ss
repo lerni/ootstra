@@ -22,6 +22,6 @@
 		<% else_if $DefaultOGDescription %>
 			<p>$DefaultOGDescription</p>
 		<% end_if %>
-		<span class="pseudolink"><%t SilverStripe\Blog\Model\Blog.MORE 'Read more' %></span>
+		<span class="link forth"><%t SilverStripe\Blog\Model\Blog.MORE 'Read more' %></span>
 	</div>
 </a>

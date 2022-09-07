@@ -10,7 +10,7 @@
 						<% if $Title %><h3>$Title</h3><% end_if %>
 						<% if $Text %>$Text.Markdowned<% end_if %>
 					</div>
-					<% if $RelatedPageID %><span class="pseudolink"><% if $Action %>{$Action}<% else %><%t App\Models\Teaser.MORE "Learn more" %><% end_if %></span><% end_if %>
+					<% if $RelatedPageID %><span class="link forth"><% if $Action %>{$Action}<% else %><%t App\Models\Teaser.MORE "Learn more" %><% end_if %></span><% end_if %>
 				<% if $RelatedPageID %></a><% else %></div><% end_if %>
 			<% end_loop %>
 		</div>
@@ -24,7 +24,7 @@
 						<% if $Title %><h3>$Title</h3><% end_if %>
 						<div class="accordion">
 							<% if $Text %>$Text.Markdowned<% end_if %>
-							<% if $RelatedPageID %><span class="pseudolink"><% if $Action %>{$Action}<% else %><%t App\Models\Teaser.MORE "Learn more" %><% end_if %></span><% end_if %>
+							<% if $RelatedPageID %><span class="link forth"><% if $Action %>{$Action}<% else %><%t App\Models\Teaser.MORE "Learn more" %><% end_if %></span><% end_if %>
 						</div>
 					</div>
 				<% if $RelatedPageID %></a><% else %></div><% end_if %>
@@ -40,7 +40,7 @@
 						<% if $Title %><h3>$Title</h3><% end_if %>
 						<div class="accordion">
 							<% if $Text %>$Text.Markdowned<% end_if %>
-							<% if $RelatedPageID %><span class="pseudolink"><% if $Action %>{$Action}<% else %><%t App\Models\Teaser.MORE "Learn more" %><% end_if %></span><% end_if %>
+							<% if $RelatedPageID %><span class="link forth"><% if $Action %>{$Action}<% else %><%t App\Models\Teaser.MORE "Learn more" %><% end_if %></span><% end_if %>
 						</div>
 					</div>
 				<% if $RelatedPageID %></a><% else %></div><% end_if %>

@@ -21,7 +21,7 @@ use SilverStripe\CMS\Forms\SiteTreeURLSegmentField;
 
 // WIP unify URLs on DataObject with Elemental
 // ATM we work with "Primary" Element but...
-// this functionality will likely change and 'll also be refractored into an extension
+// this functionality will likely change and 'll also be refactored into an extension
 
 class UrlifyExtension extends Extension
 {
@@ -196,7 +196,7 @@ class UrlifyExtension extends Extension
         return $anchor;
     }
 
-    public function Link()
+    public function Link($action = null)
     {
         $parentSlug = $this->owner->config()->parent_slug;
         $c = Controller::curr();
@@ -215,7 +215,8 @@ class UrlifyExtension extends Extension
                 return Controller::join_links(
                     $siteURL,
                     $parentSlug,
-                    $this->owner->URLSegment
+                    $this->owner->URLSegment,
+                    $action
                 );
             }
         }

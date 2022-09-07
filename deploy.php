@@ -89,7 +89,7 @@ set('bin/composer', function () {
 
 // set('composer_options', '--no-dev --verbose --prefer-dist --optimize-autoloader --no-interaction');
 set('http_user', DEP_SERVER_USER);
-set('default_timeout', 6000); // default is 300 - ssbak may needs more
+set('default_timeout', 6000); // default is 300 - sspak sometimes needs more. With this we at least see the truncated (size-limit) error :(
 
 // Server user
 set('remote_user', function () {
@@ -139,11 +139,11 @@ task('deploy', function () {
     invoke('deploy:vendors');
     invoke('silverstripe:vendor_expose');
     // invoke('silverstripe:remote_dump');
+    invoke('silverstripe:htaccessperstage');
     invoke('silverstripe:dev_build');
     invoke('deploy:clear_paths');
     invoke('deploy:symlink');
     invoke('pkill');
-    invoke('silverstripe:htaccessperstage');
     invoke('deploy:unlock');
     invoke('deploy:cleanup');
     invoke('deploy:success');

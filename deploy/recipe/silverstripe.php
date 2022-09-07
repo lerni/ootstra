@@ -4,6 +4,7 @@ namespace Deployer;
 
 use Deployer\Task\Context;
 use RuntimeException;
+use Symfony\Component\Console\Input\InputOption;
 
 // Tasks
 desc('Populate .env file');
@@ -101,10 +102,10 @@ task('silverstripe:dev_build', function () {
 
 task('silverstripe:htaccessperstage', function() {
     $stage = get('labels')['stage'];
-	// upload htaccess local if a specific version for the current stage exist
+	// upload htaccess, if a specific version for the current stage exist
     if(file_exists('deploy/' . $stage . '.htaccess')) {
         writeln('Overwriting .htaccess with deploy/' . $stage . '.htaccess');
-	    upload('deploy/{{stage}}.htaccess', '{{release_path}}/public/.htaccess', ['delete' => true]);
+        upload('deploy/' . $stage . '.htaccess', "{{release_path}}/public/.htaccess", ['delete' => true]);
     }
 })->desc('upload/replace .htaccess stage specific');
 

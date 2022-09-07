@@ -1,0 +1,14 @@
+{
+  "recommendations": [
+    "adrianhumphreys.silverstripe",
+    "firefox-devtools.vscode-firefox-debug",
+    "EditorConfig.EditorConfig",
+    "berublan.vscode-log-viewer",
+    "xdebug.php-debug",
+    "bmewburn.vscode-intelephense-client",
+    "esbenp.prettier-vscode",
+    "firefox-devtools.vscode-firefox-debug",
+    "WallabyJs.quokka-vscode",
+    "formulahendry.auto-rename-tag"
+  ]
+}

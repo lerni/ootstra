@@ -52,8 +52,9 @@
 		"betterbrief/silverstripe-googlemapfield": "^2.2.1",
 		"giggsey/libphonenumber-for-php": "^8.10",
 		"kinglozzer/htmleditorstylinghook": "^2.0",
-		"jeroendesloovere/vcard": "^1.7",
+		"jeroendesloovere/vcard": "dev-master#baff586cd57f197060bc9e0c8c49573b894e264c",
 		"silverstripe/selectupload": "dev-master",
+		"endroid/qr-code": "^4.4",
 		"gorriecoe/silverstripe-link": "^1.3",
 		"nomidi/silverstripe-webp-image": "dev-master as 1.0",
 		"lerni/klaro-cookie-consent": "v2.x-dev",
@@ -62,7 +63,6 @@
 		"jonom/silverstripe-someconfig": "^1.0"
 	},
 	"require-dev": {
-		"phpunit/phpunit": "^5",
 		"deployer/deployer": "^7",
 		"silverstripe/sitetreeimporter": "dev-master"
 	},

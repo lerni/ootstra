@@ -3,13 +3,24 @@
 namespace App\Controller;
 
 use App\Models\Perso;
-use SilverStripe\Control\Director;
-use JeroenDesloovere\VCard\VCard;
-use DNADesign\Elemental\Controllers\ElementController;
-use SilverStripe\Control\Controller;
-use SilverStripe\i18n\Data\Locales;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Logo\Logo;
+use SilverStripe\Assets\File;
+use Endroid\QrCode\Color\Color;
 use SilverStripe\i18n\i18n;
+use JeroenDesloovere\VCard\VCard;
+use SilverStripe\Control\Director;
+use SilverStripe\i18n\Data\Locales;
+use Endroid\QrCode\Writer\SvgWriter;
+use SilverStripe\Control\Controller;
+use Endroid\QrCode\Encoding\Encoding;
 use SilverStripe\SiteConfig\SiteConfig;
+use SilverStripe\View\Parsers\URLSegmentFilter;
+use SilverStripe\Core\Manifest\ModuleResourceLoader;
+use DNADesign\Elemental\Controllers\ElementController;
+use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
 
 class ElementPersoController extends ElementController
 {
@@ -86,6 +97,82 @@ class ElementPersoController extends ElementController
             return $vcard->download();
         } else {
             return $this->owner->httpError(404, _t(__CLASS__ . '.NotFound', 'vCard couldn\'t be found.'));
+        }
+    }
+
+    public function qrvc($ID)
+    {
+
+        $perso = Perso::get()->byID($ID);
+
+        if ($perso->ID) {
+            // if a current-folder exists, we assume a symlinked baseFolder like with PHP deployer
+            $current = dirname(dirname(Director::baseFolder())) . '/current';
+            if (is_dir($current)) {
+                $basePath = dirname(dirname(Director::baseFolder())) . '/shared';
+            } else {
+                $basePath = Director::baseFolder();
+            }
+
+            $baseURL = Director::absoluteBaseURL();
+            $qrURL = Controller::join_links(
+                $baseURL,
+                $this->Link(),
+                'vcard',
+                $perso->ID,
+            );
+
+            $filter = new URLSegmentFilter();
+            $qrURLNomalized = $filter->filter($qrURL . $perso->LastEdited);
+
+            $tmp_filename = sys_get_temp_dir() . '/' . $qrURLNomalized . '.svg';
+            $relative_filepath = 'qr/' . $perso->ID . '.svg';
+            $absolute_filepath = $basePath . '/public/assets/qr/' . $perso->ID . '.svg';
+
+            // Check for existing cached thumbnail and date
+            if (is_file($absolute_filepath)) {
+                if (filemtime($absolute_filepath) < ((int)strtotime($perso->LastEdited) - 3)) {
+                    // the file should be deleted
+                    // unlink($absolute_filepath);
+                    $obsoletRecord = File::get()->filter(['FileFilename' =>'qr/' . $perso->ID . '.svg'])->first();
+                    $obsoletRecord->delete();
+                    $obsoletRecord->revokeFile();
+                    $obsoletRecord->deleteFile(true);
+                }
+                $file = File::get()->filter(['FileFilename' => $relative_filepath])->first();
+                if ($file) return $file;
+
+            }
+
+            if (!isset($file)) {
+                // Create QR code
+                $qrCode = QrCode::create($qrURL)
+                    ->setEncoding(new Encoding('UTF-8'))
+                    ->setErrorCorrectionLevel(new ErrorCorrectionLevelHigh())
+                    ->setSize(300)
+                    ->setMargin(0)
+                    ->setRoundBlockSizeMode(new RoundBlockSizeModeMargin())
+                    ->setForegroundColor(new Color(42, 145, 208))
+                    ->setBackgroundColor(new Color(255, 255, 255, 0));
+
+                // Create generic logo
+                // $logo = Logo::create(rtrim(Director::absoluteBaseURL(), '/') . ModuleResourceLoader::resourceURL('resources/themes/default/dist/images/svg/scanme.svg'))
+                //     ->setResizeToWidth(68)
+                //     ->setResizeToHeight(68);
+
+                $writer = new SvgWriter();
+                $result = $writer->write($qrCode);
+                $result->saveToFile($tmp_filename);
+
+                if (!file_exists($tmp_filename))
+                    return false;
+
+                $file = new File();
+                $file->Title = $perso->getTitle();
+                $file->setFromLocalFile($tmp_filename, 'qr/' . $perso->ID . '.svg');
+                $file->write();
+                return $file;
+            }
         }
     }
 }
