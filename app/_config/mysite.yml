@@ -18,7 +18,7 @@ SilverStripe\Assets\File:
     webp: true
     bmp: false
     vcf: true
-
+    ics: true
 
 # SilverStripe\AssetAdmin\Forms\FileFormFactory:
 SilverStripe\AssetAdmin\Forms\ImageFormFactory:

@@ -131,7 +131,7 @@ desc('Deploy your project');
 task('deploy', function () {
     invoke('deploy:prepare');
     invoke('silverstripe:installtools');
-    invoke('deploy:release');
+    // invoke('deploy:release');
     invoke('deploy:update_code');
     invoke('silverstripe:create_dotenv');
     invoke('deploy:shared');

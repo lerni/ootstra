@@ -18,6 +18,8 @@
         "pattern": "silverstripe.log"
     }
   ],
+  "editor.stickyScroll.enabled": true,
+  "editor.linkedEditing": true,
   "terminal.integrated.fontFamily": "Droid Sans Mono for Powerline",
   "php.suggest.basic": false,
   "php.validate.executablePath": "./docker/php",

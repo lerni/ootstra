@@ -751,6 +751,9 @@ html .klaro {
 	}
 
 	.cookie-modal {
+		.cm-header a {
+			@include bold;
+		}
 		.cm-app-title {
 			font-size: 14px;
 		}

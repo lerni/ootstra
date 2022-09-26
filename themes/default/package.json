@@ -41,7 +41,7 @@
     "@micropackage/responsive-embeds": "^1.0.3",
     "feather-icons": "^4.28.0",
     "headroom.js": "^0.12.0",
-    "jquery": "^3.6.0",
+    "jquery": "^3.6.1",
     "swiper": "^8.0.6"
   }
 }

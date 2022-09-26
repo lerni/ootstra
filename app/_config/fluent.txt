@@ -53,9 +53,6 @@ SilverStripe\Blog\Model\BlogCategory:
 App\Models\Document:
   extensions:
     - 'TractorCow\Fluent\Extension\FluentExtension'
-Kraftausdruck\Models\JobPosting:
-  extensions:
-    - 'TractorCow\Fluent\Extension\FluentExtension'
 App\Models\Perso:
   extensions:
     - 'TractorCow\Fluent\Extension\FluentExtension'
@@ -68,7 +65,15 @@ App\Models\SocialLink:
 App\Models\Logo:
   extensions:
     - 'TractorCow\Fluent\Extension\FluentExtension'
-
+Kraftausdruck\Models\JobPosting:
+  extensions:
+    - 'TractorCow\Fluent\Extension\FluentExtension'
+Kraftausdruck\Models\CookieCategory:
+  extensions:
+    - 'TractorCow\Fluent\Extension\FluentExtension'
+Kraftausdruck\Models\CookieEntry:
+  extensions:
+    - 'TractorCow\Fluent\Extension\FluentExtension'
 # Note: If you are applying this via an Extension, be sure to apply it after the FluentExtension.
 TractorCow\Fluent\Extension\FluentExtension:
   frontend_publish_required: true

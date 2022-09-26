@@ -59,7 +59,6 @@ services:
 
   pma:
     image: phpmyadmin/phpmyadmin
-    restart: always
     links:
         - database
     ports:
