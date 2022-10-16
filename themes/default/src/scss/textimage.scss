@@ -6,8 +6,6 @@
 
 .element.elementtextimage {
 	display: flex;
-	padding-top: 0;
-	padding-bottom: 0;
 	@include breakpoint($Mneg) {
 		flex-wrap: wrap;
 		padding-left: 0;

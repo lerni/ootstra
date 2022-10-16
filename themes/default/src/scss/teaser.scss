@@ -6,194 +6,197 @@
 
 .element.elementteaser,
 .element.elementfeedteaser {
-    .teasers {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+	.teasers {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
 		gap: #{$lh}em;
-        width: 100%;
-        .teaser {
-            color: $scrolling-text-color;
-            flex: 1 1 calc(#{percentage(math.div(1, 3))} - #{math.div($lh*2, 3)}em);
-            position: relative;
-            figure {
-                width: 100%;
-                margin: 0;
-                overflow: hidden;
-                img {
-                    width: 100%;
-                    float: left;
-                    margin-bottom: 0;
-                    transform: scale(1);
-                    will-change: transform;
-                    transition: transform 140ms ease-out;
-                }
-            }
-            .txt {
-                position: absolute;
-                z-index: 1;
-				background-color: $white;
-                h3 {
-                    @include normal;
-                    font-size: 1.25em;
+		width: 100%;
+		.teaser {
+			color: $text-color;
+			flex: 1 1 calc(#{percentage(math.div(1, 3))} - #{math.div($lh*2, 3)}em);
+			position: relative;
+			figure {
+				width: 100%;
+				margin: 0;
+				overflow: hidden;
+				img {
+					width: 100%;
+					float: left;
 					margin-bottom: 0;
-                }
-                p {
-                    margin: #{math.div($lh, 2)}em 0;
-                }
-            }
-        }
-        // just hover if it's really a link
-        a.teaser {
-            .link.forth:hover {
-                &::after {
-                }
-            }
-        }
-        &.third {
-            .teaser {
-                display: flex;
-                flex-direction: column;
-                @include breakpoint($Lneg) {
+					transform: scale(1);
+					will-change: transform;
+					transition: transform 140ms ease-out;
+				}
+			}
+			.txt {
+				position: absolute;
+				z-index: 1;
+				background-color: rgba($gray--lighter, 1);
+				h3 {
+					// @include normal;
+					// font-size: 1.25em;
+					// margin-bottom: 0;
+				}
+				p {
+					@include normal;
+					margin: #{math.div($lh, 2)}em 0;
+				}
+			}
+		}
+		// just hover if it's really a link
+		a.teaser {
+			.link.forth:hover {
+				&::after {
+				}
+			}
+		}
+		&.third {
+			.teaser {
+				display: flex;
+				flex-direction: column;
+				@include breakpoint($Lneg) {
 					flex: 1 1 calc(#{percentage(math.div(1, 2))} - #{math.div($lh, 2)}em);
-                }
-                @include breakpoint($Mneg) {
-                    flex: 0 0 100%;
-                }
-                figure {
-                    flex: 0 0 auto;
-                    margin-bottom: #{math.div($lh, 2)}em;
-                }
-                .txt {
-                    position: inherit;
-                    flex: 0 0 auto;
-                }
-                .link.forth {
+				}
+				@include breakpoint($Mneg) {
+					flex: 0 0 100%;
+				}
+				figure {
+					flex: 0 0 auto;
+					margin-bottom: #{math.div($lh, 2)}em;
+				}
+				.txt {
+					position: inherit;
+					flex: 0 0 auto;
+				}
+				.link.forth {
 					margin: auto 0 0;
-                }
-            }
-            a.teaser:hover {
-                figure {
-                    img {
-                        transform: scale(1.02);
-                    }
-                }
-            }
-        }
-        &.halve {
-            .teaser {
+				}
+			}
+			a.teaser:hover {
+				figure {
+					img {
+						transform: scale(1.02);
+					}
+				}
+			}
+		}
+		&.halve {
+			.teaser {
 				flex: 1 1 calc(#{percentage(math.div(1, 2))} - #{math.div($lh, 2)}em);
-                @include breakpoint($Lneg) {
-                    flex: 0 0 100%;
-                }
-                .txt {
-                    right: 0;
-                    bottom: 0;
-                    padding: #{math.div($lh, 2)}em #{$lh}em 0;
-                    max-width: calc(100% - #{$lh*3}em);
-                    min-width: calc(100% - #{$lh*3}em);
+				@include breakpoint($Lneg) {
+					flex: 0 0 100%;
+				}
+				.txt {
+					right: 0;
+					bottom: 0;
+					padding: #{math.div($lh, 2)}em #{$lh}em 0;
+					max-width: calc(100% - #{$lh*3}em);
+					min-width: calc(100% - #{$lh*3}em);
 					@include breakpoint($Mneg) {
 						width: 100%;
 						padding-left: 0;
 						padding-right: 0;
-                    }
-                    p,
-                    .link.forth {
-                        float: left;
-                        width: 100%;
-                    }
-                    .accordion {
-                        max-height: 0;
-                        overflow: hidden;
-                        will-change: max-height;
-                        transition: max-height 320ms ease-out;
-                    }
-                }
-                @include breakpoint($Mneg) {
-                    .txt {
-                        position: inherit;
-                        left: auto;
-                        bottom: auto;
-                        max-width: 100%;
-                        .accordion {
-                            max-height: none;
-                        }
-                    }
-                }
-                &:hover {
-                    .txt {
-                        .accordion {
-                            max-height: 400px;
-                            overflow: show;
-                        }
-                    }
-                }
-                &.left {
-                    .txt {
-                        left: 0;
-                        right: auto;
-                    }
-                }
-            }
-        }
-        &.full {
-            .teaser {
+					}
+					p,
+					.link.forth {
+						float: left;
+						width: 100%;
+					}
+					.accordion {
+						max-height: 0;
+						overflow: hidden;
+						will-change: max-height;
+						transition: max-height 320ms ease-out;
+					}
+				}
+				@include breakpoint($Mneg) {
+					.txt {
+						position: inherit;
+						left: auto;
+						bottom: auto;
+						max-width: 100%;
+						.accordion {
+							max-height: none;
+						}
+					}
+				}
+				&:hover {
+					.txt {
+						.accordion {
+							max-height: 400px;
+							overflow: show;
+						}
+					}
+				}
+				&.left {
+					.txt {
+						padding-left: 0;
+						left: 0;
+						right: auto;
+					}
+				}
+			}
+		}
+		&.full {
+			.teaser {
 				flex: 0 0 100%;
-                .txt {
-                    right: 0;
-                    bottom: 0;
-                    // width: calc(50% - #{$lh*.5}em);
-                    width: 50%;
+				.txt {
+					right: 0;
+					bottom: 0;
+					// width: calc(50% - #{$lh*.5}em);
+					width: 50%;
 					padding: #{$lh}em #{$lh}em 0;
-                    @include breakpoint($Mneg) {
+					@include breakpoint($Mneg) {
 						width: 100%;
 						padding-left: 0;
 						padding-right: 0;
-                    }
-                    p,
-                    .link.forth {
-                        float: left;
-                        width: 100%;
-                    }
-                    .accordion {
-                        max-height: 0;
-                        overflow: hidden;
-                        will-change: max-height;
-                        transition: max-height 320ms ease-out;
-                    }
-                }
-                &.text-overlay-left {
-                    .txt {
-                        left: 0;
-                        right: auto;
-                    }
-                }
-                @include breakpoint($Mneg) {
-                    .txt {
-                        position: inherit;
-                        left: auto;
-                        bottom: auto;
-                        width: 100%;
-                        .accordion {
-                            max-height: none;
-                        }
-                    }
-                }
-                &:hover {
-                    .txt {
-                        .accordion {
-                            max-height: 600px;
-                            overflow: show;
-                        }
-                    }
-                }
-                &.left {
-                    .txt {
-                        left: 0;
-                        right: auto;
-                    }
-                }
-            }
-        }
-    }
+					}
+					p,
+					.link.forth {
+						float: left;
+						width: 100%;
+					}
+					.accordion {
+						max-height: 0;
+						overflow: hidden;
+						will-change: max-height;
+						transition: max-height 320ms ease-out;
+					}
+				}
+				&.text-overlay-left {
+					.txt {
+						left: 0;
+						right: auto;
+					}
+				}
+				@include breakpoint($Mneg) {
+					.txt {
+						position: inherit;
+						left: auto;
+						bottom: auto;
+						width: 100%;
+						.accordion {
+							max-height: none;
+						}
+					}
+				}
+				&:hover {
+					.txt {
+						.accordion {
+							max-height: 600px;
+							overflow: show;
+						}
+					}
+				}
+				&.left {
+					.txt {
+						padding-left: 0;
+						left: 0;
+						right: auto;
+					}
+				}
+			}
+		}
+	}
 }

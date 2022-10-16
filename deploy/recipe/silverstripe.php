@@ -27,19 +27,29 @@ task('silverstripe:create_dotenv', function () {
     $cmsDefaultPass = str_replace("'", "\\'", askHiddenResponse('Please enter the CMS password'));
 
     $contents = <<<ENV
+# Environment dev/stage/live
+SS_ENVIRONMENT_TYPE='{$type}'
+# SS_BASE_URL=""
+
+SS_DEFAULT_ADMIN_USERNAME='{$cmsDefaultUser}'
+SS_DEFAULT_ADMIN_PASSWORD='{$cmsDefaultPass}'
+
+SS_ERROR_EMAIL='{$errorEmail}'
+SS_ADMIN_EMAIL='{$adminEmail}'
+
+## Database
 SS_DATABASE_CLASS='MySQLDatabase'
 SS_DATABASE_USERNAME='{$dbUser}'
 SS_DATABASE_PASSWORD='{$dbPass}'
 SS_DATABASE_SERVER='{$dbServer}'
 SS_DATABASE_NAME='{$dbName}'
-SS_ENVIRONMENT_TYPE='{$type}'
-SS_DEFAULT_ADMIN_USERNAME='{$cmsDefaultUser}'
-SS_DEFAULT_ADMIN_PASSWORD='{$cmsDefaultPass}'
-SS_ERROR_EMAIL='{$errorEmail}'
-SS_ADMIN_EMAIL='{$adminEmail}'
-GHOSTSCRIPT_PATH='/usr/bin/gs'
+
 SS_ERROR_LOG='silverstripe.log'
 
+GHOSTSCRIPT_PATH='/usr/bin/gs'
+
+# SS_NOCAPTCHA_SITE_KEY=""
+# SS_NOCAPTCHA_SECRET_KEY=""
 ENV;
 
 // heredoc is a mess with this setup

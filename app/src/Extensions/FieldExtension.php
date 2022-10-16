@@ -98,8 +98,10 @@ class FieldExtension extends Extension
     }
 
     public function Markdowned() {
-        $converter = new GithubFlavoredMarkdownConverter();
-        $html = $converter->convertToHtml($this->owner->value);
-        return $html->getContent();
+        if ($this->owner->value) {
+            $converter = new GithubFlavoredMarkdownConverter();
+            $html = $converter->convertToHtml($this->owner->value);
+            return $html->getContent();
+        }
     }
 }

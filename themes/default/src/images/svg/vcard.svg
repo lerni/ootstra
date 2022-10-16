@@ -1,11 +1,11 @@
 <svg width="285px" height="214px" viewBox="0 0 285 214" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <rect stroke="inherit" stroke-width="27" x="13.5" y="13.5" width="258" height="187" rx="31" fill="transparent"></rect>
-    <g id="Group-2" transform="translate(156.000000, 69.000000)" stroke="#fff" stroke-linecap="round" stroke-width="13">
+    <rect stroke="inherit" stroke-width="24" x="13.5" y="13.5" width="258" height="187" rx="31" fill="transparent"></rect>
+    <g id="Group-2" transform="translate(156.000000, 69.000000)" stroke="inherit" stroke-linecap="round" stroke-width="12">
         <line x1="0.5" y1="0.5" x2="84.5" y2="0.5"></line>
         <line x1="0.5" y1="38" x2="84.5" y2="38"></line>
         <line x1="0.5" y1="76" x2="84.5" y2="76"></line>
     </g>
-    <g id="Group" transform="translate(47.000000, 62.000000)" fill="inherit">
+    <g id="Group" transform="translate(47.000000, 62.000000)" fill="inherit" stroke="inherit" stroke-width="10">
         <path d="M0,71.2544169 C6.15393555,57.0848056 19.4871913,50 39.9997673,50 C61.1026176,50 74.4360285,57.0848056 80,71.2544169 L80,91 L0,91 L0,71.2544169 Z"></path>
         <circle cx="40.5" cy="21.5" r="21.5"></circle>
     </g>

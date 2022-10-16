@@ -29,7 +29,7 @@
 			<div class="col">
 				<p>
 					<a class="vcard" href="{$Link}element/{$ElementID}/vcard/{$ID}">vCard</a><br/>
-					<a href="mailto:{$EMail}">{$EMail}</a>
+					<span data-feather="mail"></span><a href="mailto:{$EMail}">{$EMail}</a>
 				</p>
 			</div>
 		</div>

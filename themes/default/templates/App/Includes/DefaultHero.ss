@@ -20,3 +20,9 @@
 		<% end_if %>
 	</figure>
 </article>
+<% if $SiteConfig.GlobalAlert %><article class="global-alert">
+	<div class="inner">$SiteConfig.GlobalAlert</div>
+</article><% end_if %>
+<% with $Page %><% if $ClassName != 'SilverStripe\Blog\Model\BlogPost' && $ParentID != 0 %>
+	<nav class="breadcrumbs"><div class="typography inner">{$Breadcrumbs}</div></nav>
+<% end_if %><% end_with %>

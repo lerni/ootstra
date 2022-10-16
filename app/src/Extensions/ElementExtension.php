@@ -19,6 +19,7 @@ class ElementExtension extends DataExtension
 {
     private static $db = [
         'isFullWidth' => 'Boolean',
+        'WidthReduced' => 'Boolean',
         'AnchorLink' => 'Varchar',
         'SpacingTop' => 'Int',
         'SpacingBottom' => 'Int',
@@ -28,7 +29,8 @@ class ElementExtension extends DataExtension
 
     private static $defaults = [
         'SpacingTop' => 0,
-        'SpacingBottom' => 2
+        'SpacingBottom' => 2,
+        'BackgroundColor' => 'transparent'
     ];
 
     public function updateCMSFields(FieldList $fields)
@@ -54,6 +56,10 @@ class ElementExtension extends DataExtension
         if ($FullWidthBox = $fields->dataFieldByName('isFullWidth')) {
             $FullWidthBox->setTitle(_t('DNADesign\Elemental\Models\BaseElement.ISFULLWIDTH', 'show in full width'));
             $fields->addFieldToTab('Root.Settings', $FullWidthBox);
+        }
+        if ($WidthReducedBox = $fields->dataFieldByName('WidthReduced')) {
+            $WidthReducedBox->setTitle(_t('DNADesign\Elemental\Models\BaseElement.WIDTHREDUCED', 'reduce width'));
+            $fields->addFieldToTab('Root.Settings', $WidthReducedBox);
         }
 
         $TitleField = $fields->dataFieldByName('Title');
@@ -95,7 +101,8 @@ class ElementExtension extends DataExtension
                 'BackgroundColor',
                 _t('DNADesign\Elemental\Models\BaseElement.BACKGROUNDCOLOR', 'Element background colour'),
                 [
-                    'white' => 'rgb(255,255,255)',
+                    'transparent' => 'rgb(255,255,255)',
+                    'white' => 'rgb(255, 255, 255)',
                     'gray-lighter' => 'rgb(246, 246, 246)'
                 ]
             )

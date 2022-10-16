@@ -65,9 +65,12 @@ class ElementHero extends BaseElement
     {
 
         $fields = parent::getCMSFields();
-        $fields->removeByName('Slides');
-        $fields->removeByName('AnchorLink');
-        $fields->removeByName('BackgroundColor');
+
+        $fields->removeByName([
+            'Slides',
+            'AnchorLink',
+            'BackgroundColor'
+        ]);
 
         if ($SizeField = $fields->dataFieldByName('Size')) {
             $fields->addFieldToTab('Root.Settings', $SizeField, 'isFullWidth');

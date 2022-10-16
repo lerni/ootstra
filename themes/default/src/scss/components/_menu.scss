@@ -1,352 +1,252 @@
 @use "sass:math";
 #header {
-	nav {
-		flex: 1 0 auto;
-		display: flex;
-		flex-direction: column;
-		ul {
-			display: flex;
-			justify-content: flex-start;
-			margin: auto 0;
-			padding: 0;
-			list-style: none;
-			li {
-				margin-right: auto;
-				a {
-					min-width: 100%;
-					padding: .4em #{$lh}rem .3em;
-					text-decoration: none;
-					display: inline-block;
-					outline: none;
-					white-space: nowrap;
-					color: $scrolling-text-color;
-					position: relative;
-					z-index: 1;
-				}
-				&:focus-within,
+	ul {
+		display: grid;
+		padding: 0;
+		list-style: none;
+		li {
+			a {
+				text-decoration: none;
+				display: inline-block;
+				outline: none;
+				white-space: nowrap;
+				color: $text-color;
+				z-index: 1;
+				@include bold;
 				&:hover,
 				&.current,
 				&.section {
-					>a {
-						color: $current-color;
-					}
+					color: $current-color;
 				}
 			}
+		}
+	}
+	ul.service-nav {
+		margin: auto 0 0;
+		grid-row: 1 / 2;
+		grid-column: 2 / 3;
+		display: flex;
+		justify-content: flex-end;
+		gap: #{$lh}em;
+		@include breakpoint($Lneg) {
+			display: none;
+		}
+		li {
+			margin: 0;
+			a {
+				font-size: $font-size--small;
+			}
+			&.current a {
+				color: $current-color;
+			}
+		}
+	}
+	nav.nav {
+		grid-row: 2 / 3;
+		grid-column: 2 / 3;
+		@include breakpoint($Lneg) {
+			display: none;
 		}
 		ul.menu1 {
-			align-self: flex-end;
+			display: flex;
+			justify-content: space-between;
+			height: 100%;
+			grid-column: 2/4;
+			margin: auto 0 0 0;
+			column-gap: #{$lh}em;
+			padding-left: #{$lh*2}em;
 			@include breakpoint($Lneg) {
-				display: none;
+				grid-column: 1/4;
+				grid-row: 2/3;
+			}
+			@include breakpoint($Mneg) {
+				grid-template-columns: 1fr;
 			}
 			>li {
-				position: relative;
+				margin: auto 0 0 0;
 				display: flex;
-				padding-bottom: 1em;
-				// bottom padding and negative margin for hoverstate
-				// padding-bottom: 33px;
-				// margin-bottom: -33px;
-				&.expanded,
-				&:focus-within,
-				&:hover {
-					// this is used to cover box-shadow on the upper part, that overlaps with header
+				> a {
+					line-height: 1;
+					flex: 0 0 auto;
+					position: relative;
+					padding-bottom: .7em;
+				}
+				.menu2 {
+					visibility: hidden;
+					margin: 0 0 auto 0;
+					position: absolute;
+					top: 100%;
+					padding: #{math.div($lh, 3) * 2}em 0;
 					&::after {
+						background-color: $gold;
+						bottom: 0;
+						box-shadow: 0 0 1em rgba(0,0,0,.1);
+						content: "";
+						left: -1000%;
+						right: -1000%;
+						position: absolute;
+						top: 0;
+						z-index: -2;
+						opacity: 0;
+						transition: opacity .1s linear;
+					}
+					// @include breakpoint($Mneg) {
+					// 	padding: #{math.div($lh, 3)}em 0 0 0;
+					// }
+					li {
+						height: 0;
+						transition: height linear .1s;
+						a {
+							line-height: #{$lh*1.5}em;
+							// color: $text-color;
+							display: flex;
+						}
+					}
+				}
+				&.has-children {
+					>a::after {
+						background-color: $text-color;
+						bottom: 0;
 						content: "";
 						position: absolute;
+						height: 6px;
 						left: 0;
 						right: 0;
-						top: 0;
-						bottom: 0;
-						background-color: $white;
-						pointer-events: none;
+						transform: translateY(0);
+						transition: bottom .1s ease-out,height .1s linear;
 						z-index: -1;
 					}
-				}
-
-				&.has-children {
-					>a {
-						min-width: calc(100% - #{$lh*2}rem);
-					}
-					span.trigger {
-						cursor: pointer;
-						z-index: 1;
-						display: block;
-						width: #{$lh*1}rem;
-						margin-left: -#{$lh*1}rem;
-						background-repeat: no-repeat;
-						background-size: .5em 1em;
-						background-position: right .5em bottom 30%;
-						background-image: svg-load('../images/svg/arrow-down.svg', stroke="#{$scrolling-text-color}", stroke-width="20");
-					}
-					.menu2 {
-						visibility: hidden;
-						position: absolute;
-						top: 100%;
-						padding: 0 0 #{math.div($lh, 2)}em 0;
-						display: block;
-						transition-timing-function: ease-out;
-						min-width: 100%;
-						box-shadow: 0 0 1em rgba($black, .2);
-						// background for subnavi
-						&::after {
-							content: "";
-							position: absolute;
-							z-index: -2;
-							top: -1em;
-							left: 0;
-							right: 0;
-							bottom: 0;
-							background-color: $white;
-						}
-						li {
-							// width: 100%;
-							display: block;
-							a {
-								font-size: .8em;
-								opacity: 0;
-								display: flex;
-								float: left;
-								height: 0;
-								overflow-y: hidden;
-								will-change: height opacity;
-								transition: height opacity;
-								transition: height 100ms linear, opacity 100ms linear;
-							}
-						}
-					}
-
-					&:hover,
 					&.current,
 					&.section {
-						span.trigger {
-							background-image: svg-load('../images/svg/arrow-down.svg', stroke="#{$current-color}", stroke-width="20");
+						>a::after {
+							background-color: $red;
 						}
 					}
-					&.expanded,
-					&:hover,
-					&:focus-within {
-						.menu2 {
-		// display: block;
+					&:focus-within,
+					&:hover {
+						>a::after {
+							bottom: -6px;
+							transition: bottom .1s ease-out,height .1s linear;
+							z-index: -1;
+						}
+						ul.menu2 {
+							display: flex;
 							visibility: visible;
-							z-index: 100;
+							flex-direction: column;
+							top: 100%;
+							&::after {
+								opacity: 1;
+							}
 							li {
-								a {
-									opacity: 1;
-									height: calc(#{$lh}em + .7em);
-								}
+								height: #{$lh*1.5}em;
 							}
 						}
 					}
 				}
 			}
 		}
-		ul.service-nav {
-			margin-top: 0;
-			margin-bottom: auto;
-
-// todo remove or move down
-body:not(.mobile-nav--active) & {
-	@include breakpoint($XLneg) {
+	}
+	.menu-button {
 		display: none;
-	}
-}
-body.mobile-nav--active & {
-	order: 2;
-	justify-content: flex-start;
-}
-			li {
-				margin-right: #{$lh}em;
-				&:first-of-type {
-					margin-left: auto;
-				}
-				a {
-					font-size: .8em;
-					padding: .2em .5rem .1em;
-					color: $white;
-					@include bold;
-					background-color: $link-color;
-				}
-				&:hover {
-					a {
-						background-color: darken($link-color, 2%);
-					}
-				}
-			}
+		grid-row: 1 / 3;
+		grid-column: 2/3;
+		margin: auto 0 auto auto;
+		cursor: pointer;
+		outline: none;
+		@include breakpoint($Lneg) {
+			display: flex;
 		}
-		.menu-button {
-			display: none;
-			position: relative;
-			z-index: 9900;
-			align-self: flex-start;
-			margin: auto 0 auto auto;
-			justify-content: flex-start;
-			cursor: pointer;
-			@include breakpoint($Lneg) {
-				display: flex;
-			}
+		.txt {
+			align-self: center;
+			margin-right: #{math.div($lh, 2)}em;
+			color: $text-color;
+			line-height: 1;
 			@include breakpoint($Sneg) {
-				width: 30px;
+				display: none;
 			}
-			.txt {
-				margin-right: #{math.div($lh, 2)}em;
-				color: $scrolling-text-color;
-				line-height: 1;
-				@include breakpoint($Sneg) {
+		}
+		.burger-icon {
+			@include print {
+				display: none;
+				&::before,
+				&::after {
 					display: none;
 				}
 			}
-			.burger-icon {
-				span {
-					background-color: $scrolling-text-color;
-				}
-				@include print {
-					display: none;
-					&::before,
-					&::after {
-						display: none;
-					}
-				}
-				@include breakpoint($Lneg) {
-					display: block;
-					&::before,
-					&::after {
-						display: block;
-					}
-				}
-				// values need to be passed in px
-				@include burger(28px, 3px, 5px, $scrolling-text-color, 2px);
-				background-color: transparent !important;
-			}
+			// values need to be passed in px
+			@include burger(63px, 4px, 12px, $text-color, 20px);
 		}
 	}
 }
-
-
 
 html.mobile-nav--active {
 	@include breakpoint($Lneg) {
-		overflow: hidden;
-		// overflow-y: scroll;
-		height: -webkit-fill-available;
-		body {
-			overflow: hidden;
-			>main,
-			>footer {
-				height: 0;
-				overflow: hidden;
-			}
-		}
-		>main,
-		>footer {
-			height: 0;
-			overflow: hidden;
-		}
 		#header {
-			position: fixed;
-			height: initial;
-			top: 0;
-			bottom: 0;
-			// overflow-x: hidden;
-			// overflow-y: scroll; // keeping scrollbar visible
-			scrollbar-gutter: stable;  // still experimental
-			.inner {
-				flex-direction: column;
-				height: initial;
-				.column {
-					&.nav {
-						order: 1;
-						justify-content: flex-start;
-						ul.menu1 {
-							display: flex;
-							flex-direction: column;
-							justify-content: flex-start;
-							align-items: flex-start;
-							width: 100%;
-							margin: #{$lh}em 0;
-							>li {
-								flex-wrap: wrap;
-								width: 100%;
-								padding-bottom: 0;
-								margin: 0 0 #{math.div($lh, 2)}em 0;
-								&::after {
-									display: none;
-								}
-								a {
-									text-align: left;
-									padding-left: 0;
-									padding-right: 0;
-								}
-								>span.trigger {
-									width: #{$lh*2}rem;
-									margin-left: 0;
-									background-size: .7em 1.4em;
-									background-position: right #{$lh*.3}em bottom 30%;
-									@include breakpoint($Mneg) {
-										background-position: right #{$lh*.5}em bottom 30%;
-									}
-								}
-								.menu2 {
-									position: inherit;
-									left: auto;
-									top: auto;
-									height: auto;
-									background-color: transparent;
-									padding-top: 0;
-									box-shadow: none;
-									padding: #{math.div($lh, 3) * 2}em 0;
-									visibility: hidden;
-									display: none;
-									&::after {
-										display: none;
-									}
-									li {
-										a {
-											height: auto;
-											font-size: 1em;
-											opacity: 1;
-											padding-left: #{math.div($lh, 3) * 5}em;
-											@include breakpoint($Mneg) {
-												padding-left: #{math.div($lh, 3) * 5}em;
-											}
-										}
-									}
-								}
-								&.current,
-								&.expanded {
-									.menu2 {
-										visibility: visible;
-										display: table;
-									}
-								}
+			position: inherit;
+			flex: 1 1 auto;
+			transform: translateY(0%) !important;
+			height: auto;
+			nav.nav {
+				display: flex;
+				padding: #{$lh}em 0 #{$lh*2}em;
+				@include breakpoint($Lneg) {
+					grid-column: 1/3;
+					grid-row: 3/4;
+				}
+				ul.menu1 {
+					display: flex;
+					flex-wrap: wrap;
+					gap: #{$lh}em;
+					padding-left: 0;
+					font-size: 1.1em;
+					>li {
+						min-width: 280px;
+						flex-direction: column;
+						margin: 0 0 auto 0;
+						>a {
+							&::after {
+								display: none;
 							}
 						}
-						.menu-button {
-							position: fixed;
-							top: 30px;
-							right: #{$lh}em;
-							outline: none;
-							@include breakpoint($Mneg) {
-								right: #{math.div($lh, 2)}em;
+						ul.menu2 {
+							visibility: visible;
+							position: inherit;
+							padding-top: 0;
+							padding-left: #{$lh*.5}em;
+							&::after {
+								display: none;
 							}
-							.burger-icon {
-								@include burger-to-cross;
-							}
-						}
-						ul.service-nav {
-							padding-left: #{math.div($lh, 2)}em;
-							margin-bottom: #{$lh*2}em;
 							li {
+								height: inherit;
 								a {
-									padding: .3em .7em;
+									@include normal
 								}
 							}
 						}
-					}
-					&.logo {
-						height: $headerheight--small;
-						flex: 0 0 $headerheight--small;
 					}
 				}
 			}
+			.menu-button {
+				.burger-icon {
+					@include burger-to-cross;
+				}
+				// html.mobile-nav--active & {
+				// 	&::before,
+				// 	&::after {
+				// 		// background-color: $white;
+				// 	}
+				// }
+			}
+		}
+		.parallax-bg,
+		main.typography {
+			height: 0;
+			overflow: hidden;
+			display: none;
+		}
+		// hide captcha if nav--active
+		body > div:not([class]) {
+			display: none;
 		}
 	}
 }

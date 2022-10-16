@@ -45,7 +45,9 @@ class ElementContentSection extends BaseElement
     {
         $fields = parent::getCMSFields();
 
-        $fields->removeByName('isFullWidth');
+        $fields->removeByName([
+            'isFullWidth'
+        ]);
 
         if ($LayoutField = $fields->dataFieldByName('Layout')) {
             $fields->addFieldToTab('Root.Main', $LayoutField);

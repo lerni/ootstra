@@ -73,7 +73,9 @@ set('shared_dirs', [
 // Writable dirs by web server
 set('writable_dirs', [
     'public/assets',
-    'silverstripe-cache'
+    'public/_graphql',
+    'silverstripe-cache',
+    'graphql-generated/'
 ]);
 
 set('allow_anonymous_stats', false);

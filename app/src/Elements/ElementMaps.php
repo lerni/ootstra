@@ -64,9 +64,11 @@ class ElementMaps extends BaseElement
     {
         $fields = parent::getCMSFields();
 
-        $fields->removeByName('AnchorLink');
-        $fields->removeByName('BackgroundColor');
-        $fields->removeByName('Points');
+        $fields->removeByName([
+            'AnchorLink',
+            'BackgroundColor',
+            'Points'
+        ]);
 
         if ($AvailableGloballyField = $fields->dataFieldByName('AvailableGlobally')) {
             $AvailableGloballyField->setDisabled(true);

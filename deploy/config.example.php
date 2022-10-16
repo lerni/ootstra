@@ -6,7 +6,7 @@ define('DEP_APPLICATION', 'APPLICATION');
 // user
 define('DEP_SERVER_USER', 'USER');
 
-// IP
+// IP or host
 define('DEP_SERVER', 'IP.IP.IP.IP');
 
 // WEBDIR - just use if it fits to suggested DEP_DEPLOY_PATH & DEP_DEPLOY_TEST_PATH

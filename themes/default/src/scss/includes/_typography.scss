@@ -39,7 +39,7 @@
 	// * horizontal rule
 	// -------------------------------------------- */
 	hr {
-		border:0;
+		border: 0;
 		border-bottom: 1px solid $gray--light;
 		clear: both;
 		height: 0;
@@ -126,9 +126,9 @@
 		margin: 0 0 #{math.div($lh, 2)}em 0;
 		color: $blue;
 		@include bold;
-		&:first-child {
-			line-height: 1;
-		}
+		// &:first-child {
+		// 	line-height: 1;
+		// }
 	}
 	h1 {
 		font-size: 1.6em;
@@ -277,11 +277,11 @@
 			&::before {
 				width: #{$lh*1}em;
 				margin-left: #{-$lh*1}em;
-				background-image: svg-load('../images/svg/quote-before.svg', fill=#{$scrolling-text-color});
+				background-image: svg-load('../images/svg/quote-before.svg', fill=#{$text-color});
 			}
 			&::after {
 				margin-left: .2em;
-				background-image: svg-load('../images/svg/quote-after.svg', fill=#{$scrolling-text-color});
+				background-image: svg-load('../images/svg/quote-after.svg', fill=#{$text-color});
 			}
 			&:last-child {
 				margin-bottom: 0;

@@ -13,26 +13,12 @@
 	}
 }
 
-/* High-DPI displays
----------------------------------------------------------------------------------- */
-@mixin retina($density: 1.5) {
-	// Otherwise, all the pixels
-	@media
-		only screen and (-webkit-min-device-pixel-ratio: #{$density}),
-		only screen and (   min--moz-device-pixel-ratio: #{$density}),
-		only screen and (     -o-min-device-pixel-ratio: #{($density * 10)}/10),
-		only screen and (        min-device-pixel-ratio: #{$density}),
-		only screen and (                min-resolution: ($density * 96dpi)),
-		only screen and (                min-resolution: #{$density}dppx) {
-			@content;
-	}
-}
-
+// mixin cos depending on webfont-setup things are easier that way
 @mixin bold {
-	font-weight: 400;
+	font-weight: $font-weight-bold;
 }
 @mixin normal {
-	font-weight: 200;
+	font-weight: $font-weight-normal;
 }
 /* Strip 'px', 'rem' etc units from a number
 ---------------------------------------------------------------------------------- */
@@ -66,7 +52,7 @@
 	border-radius: 0;
 	background-repeat: no-repeat;
 	background-position: top .7em right .7em;
-	background-image: svg-load('../images/svg/arrow-down.svg', stroke=#{$scrolling-text-color}, stroke-width=20);
+	background-image: svg-load('../images/svg/arrow-down.svg', stroke=#{$text-color}, stroke-width=20);
 	background-size: 1.2em  .6em;
 	&:-moz-focusring {
 		text-shadow: 0 0 0 #000;
@@ -91,18 +77,7 @@
 	}
 }
 
-
-@mixin small-header() {
-	html:not(.mobile-nav--active) & {
-		height: $headerheight--smaller;
-	}
-	flex: 0 0 $headerheight--smaller;
-	nav.inner {
-		grid-template-rows: $headerheight--smaller !important;
-	}
-}
-
-@mixin separated($separator: "| ", $color: $scrolling-text-color) {
+@mixin separated($separator: "| ", $color: $text-color) {
 	&:not(:last-of-type) {
 		@include breakpoint($Mneg) {
 			flex: 0 1 100%;

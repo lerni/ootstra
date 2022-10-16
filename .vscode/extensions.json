@@ -11,6 +11,7 @@
     "WallabyJs.quokka-vscode",
     "formulahendry.auto-rename-tag",
     "christian-kohler.npm-intellisense",
-    "dbaeumer.vscode-eslint"
+    "dbaeumer.vscode-eslint",
+    "syler.sass-indented"
   ]
 }

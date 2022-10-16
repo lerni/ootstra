@@ -65,7 +65,7 @@ namespace {
 
                 if ($MetaDescriptionField = $MetaToggle->fieldByName('MetaDescription')) {
                     if (!$MetaDescriptionField->isReadonly()) {
-                        $MetaDescriptionField->setTargetLength(160, 100, 160);
+                        $MetaDescriptionField->setTargetLength(150, 100, 160);
                         $MetaDescriptionField->setAttribute('placeholder', $this->DefaultMetaDescription());
                         $MetaDescriptionField->setRightTitle(_t('\Page.MetaDescriptionRightTitle', 'Used in search engine results when length fits and relevance is given; hardly affects SEO position. Appealing meta-descriptions (especially the first ~ 55 characters -> sitelinks) have a strong influence on the click rate.'));
                     }
@@ -123,7 +123,7 @@ namespace {
         //    }
 
         // we use this in template & WYSIWYGs for css classes
-        // similar function is on ElementExtension
+        // todo: similar function is on ElementExtension
         public function ShortClassName($obj, $lowercase = false)
         {
             if (!is_object($obj)) {
@@ -378,7 +378,6 @@ namespace {
 
         public function CategoriesWithState()
         {
-
             $Categories = [];
             $currentCategories = [];
 

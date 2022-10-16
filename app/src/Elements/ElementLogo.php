@@ -50,7 +50,9 @@ class ElementLogo extends BaseElement
     {
         $fields = parent::getCMSFields();
 
-        $fields->removeByName('Logos');
+        $fields->removeByName([
+            'Logos'
+        ]);
 
         if ($GreyscaleField = $fields->dataFieldByName('Greyscale')) {
             $fields->addFieldToTab('Root.Settings', $GreyscaleField);

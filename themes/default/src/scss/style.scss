@@ -24,27 +24,23 @@ html, body {
 
 html {
 	letter-spacing: .04em;
-	font-size: #{$scrolling-text-size};
+	font-size: #{$font-size};
 	font-family: $font-family;
 	line-height: $lh;
-	color: $scrolling-text-color;
-	overflow-x: hidden;
+	color: $text-color;
 	@include normal;
 	@include smoothFonts;
+	overflow-y: scroll;
+	overflow-x: hidden;
 }
 
 body {
-	height: 100vh;
+	min-height: 100vh;
 	height: stretch;
 	display: flex;
 	flex-direction: column;
-	min-height: 100vh;
-	background-color: $white;
-	// overflow is ignored with mobile
-	// https://stackoverflow.com/questions/24193272/overflow-xhidden-on-mobile-device-not-working
-	overflow-x: hidden;
 	@include breakpoint($Lneg) {
-		font-size: #{$scrolling-text-size*.9};
+		font-size: #{$font-size*.9};
 	}
 }
 
@@ -54,58 +50,67 @@ body {
 	}
 }
 
+.bold,
+strong {
+	@include bold;
+}
+
 // #BetterNavigator {
 // 	display:none !important;
 // }
 
 #header {
 	display: flex;
-	flex: 0 0 $headerheight;
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
 	z-index: 200;
 	width: 100%;
-	height: $headerheight;
 	will-change: transform, height;
 	transition: transform .2s ease-out;
 	transform: translateY(0%);
 	box-shadow: none;
 	background-color: rgba($white, .97);
+	height: $headerheight;
 	@include breakpoint($Lneg) {
-		@include small-header();
+		height: $headerheight--small;
 	}
-	// @include breakpoint($Sneg) {
-	// 	flex: 0 0 $headerheight--smaller;
-	// 	height: $headerheight--smaller;
-	// }
+	@include breakpoint($Sneg) {
+		height: $headerheight--smaller;
+	}
 	.inner {
-		display: flex;
-		gap: #{$lh}em;
+		display: grid;
+		grid-template-rows: #{$lh*1.2}em auto;
+		grid-template-columns: auto 1fr;
 		// max-width: calc(#{$inner-width + 200px});
-		.column {
-			justify-content: center;
+		@include breakpoint($Lneg) {
+			// min-height: 100vh;
+			grid-template-rows: #{$lh*1.2}em calc(#{$headerheight--smaller} - #{$lh*1.2}em) 1fr;
+		}
+		a.logo {
+			display: flex;
 			flex-direction: column;
-			&.logo {
-				display: flex;
-				flex: 0 0 auto;
-				a {
-					svg,
-					img {
-						width: 300px;
-						height: auto;
-						display: table;
-						// initial width we provide inline like width="300"
-						@include breakpoint($Lneg) {
-							width: 200px;
-						}
-					}
+			justify-content: center;
+			width: 280px;
+			grid-row: 1 / 3;
+			grid-column: 1/2;
+			@include breakpoint($Lneg) {
+				width: 180px;
+			}
+			svg,
+			img {
+				width: 100%;
+				height: auto;
+				display: table;
+				// initial width we provide inline like width="300"
+				@include breakpoint($Lneg) {
+					width: 200px;
 				}
 			}
-			&.nav {
-				// this things are living in _menu.scss
-			}
+		}
+		&.nav {
+			// this things are living in _menu.scss
 		}
 	}
 	&.headroom {
@@ -114,13 +119,13 @@ body {
 		}
 		&.headroom--not-top {
 			box-shadow: 0 0 .7em rgba($black, .3);
-			@include small-header();
+// 			@include small-header();
 		}
 		&.headroom--pinned  {
 			transform: translateY(0%);
 		}
 		&.headroom--unpinned {
-			transform: translateY(-100%);
+			transform: translateY(calc((100% + .7em) * -1));
 		}
 	}
 }
@@ -129,15 +134,12 @@ main.typography {
 	width: 100%;
 	flex: 1 1 auto;
 	border-top: $headerheight solid transparent;
-	// @include breakpoint($XLneg) {
-	// 	overflow-x: hidden;
-	// }
 	@include breakpoint($Lneg) {
+		border-top-width: $headerheight--small;
+	}
+	@include breakpoint($Sneg) {
 		border-top-width: $headerheight--smaller;
 	}
-	// @include breakpoint($Sneg) {
-	// 	border-top-width: $headerheight--smaller;
-	// }
 }
 
 .inner {
@@ -152,16 +154,21 @@ main.typography {
 	}
 }
 
-.breadcrumbs {
-	padding-bottom: #{math.div($lh, 2)}em;
-	text-align: center;
-	@include bold;
+nav.breadcrumbs {
+	padding-top: #{math.div($lh, 2)}em;
+	padding-bottom: #{math.div($lh, 1)}em;
+	text-align: left;
+	.typography {
+		max-width: $inner-width;
+		margin-left: auto;
+		margin-right: auto;
+	}
 	a, span, .delimiter {
-		font-size: .9em;
+		font-size: $font-size--small;
+		color: $text-color;
 	}
 	a {
-		@include normal;
-		color: $scrolling-text-color;
+		@include bold;
 	}
 	.delimiter {
 		display: inline-block;
@@ -190,15 +197,15 @@ main.typography {
 		padding: .14em #{math.div($lh, 1)}em .1em;
 		border-width: 2px;
 		border-style: solid;
-		border-color: $scrolling-text-color;
-		color: $scrolling-text-color;
+		border-color: $text-color;
+		color: $text-color;
 		@include bold;
 		&:last-child {
 			margin-right: 0;
 		}
 		&.current {
 			color: $white;
-			background-color: $scrolling-text-color;
+			background-color: $text-color;
 		}
 		&:not(.current) {
 			background-color: transparent;
@@ -215,10 +222,22 @@ main.typography {
 			background-size: auto .7em;
 			background-repeat: no-repeat;
 			background-position: right 0 center;
-			background-image: svg-load('../images/svg/arrow-outline.svg', fill=#{$scrolling-text-color});
+			background-image: svg-load('../images/svg/arrow-outline.svg', fill=#{$text-color});
 			transform: rotate(180deg);
 			margin-right: #{$lh*.3}em;
 			vertical-align: -.1em;
+		}
+	}
+}
+
+// nav.breadcrumbs,
+.element.width-reduced {
+	.typography {
+		max-width: $inner-width--reduced;
+		margin-left: 0;
+		margin-right: auto;
+		>*:last-child {
+			margin-bottom: 0;
 		}
 	}
 }
@@ -228,8 +247,10 @@ main.typography {
 	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
-	max-width: $inner-width;
-	&:not(.elementhero.default) {
+	&:not(.full-width) {
+		max-width: $inner-width;
+	}
+	&:not(.elementhero):not(.full-width) {
 		padding-left: #{$lh}em;
 		padding-right: #{$lh}em;
 		@include breakpoint($Mneg) {
@@ -237,22 +258,24 @@ main.typography {
 			padding-right: #{math.div($lh, 2)}em;
 		}
 	}
+	&::after {
+		content: "";
+		position: absolute;
+		z-index: -1;
+		top: 0;
+		right: -100%;
+		bottom: 0;
+		left: -100%;
+	}
 	&.background--gray-lighter {
-		z-index: 1;
 		&::after {
-			content: "";
-			position: absolute;
-			z-index: -1;
-			top: 0;
-			right: -100%;
-			bottom: 0;
-			left: -100%;
 			background-color: $gray--lighter;
 		}
 	}
 	.element-title {
 		flex: 0 0 100%;
 	}
+	// todo: use reduced-width
 	&.elementjobs.show,
 	&.elementcontent,
 	&.elementcontentsection,
@@ -274,8 +297,11 @@ main.typography {
 	}
 	&.elementhero {
 		display: block; // swiper.js shouldn't life in a display: table element otherwise layout breaks
-		// with DefaultHero the image is not wrapped with swiper divs
+		// with DefaultHero the image isn't wrapped with swiper divs
 		position: relative;
+		&:not(.full-width) {
+			max-width: calc(#{$inner-width + 300px});
+		}
 		figure {
 			height: 100%;
 			width: 100%;
@@ -333,7 +359,7 @@ main.typography {
 				}
 				p, h1, h2, h3 {
 					font-size: 1.5em;
-					text-shadow: 0 0 .7em rgba($scrolling-text-color, .5);
+					text-shadow: 0 0 .7em rgba($text-color, .5);
 					color: $white;
 				}
 				h1, h2, h3 {
@@ -427,7 +453,7 @@ main.typography {
 					p, h1, h2, h3 {
 						font-size: 1em;
 						text-shadow: none;
-						color: $scrolling-text-color;
+						color: $text-color;
 						position: relative;
 						z-index: 1;
 					}
@@ -573,6 +599,7 @@ main.typography {
 	&.elementmaps {
 		display: flex;
 		flex-wrap: wrap;
+		gap: #{$lh}em;
 		p.gm-style-pbt {
 			font-size: initial;
 		}
@@ -581,9 +608,8 @@ main.typography {
 			margin-bottom: initial; // checkbox-placing otherwise clashes with typography img
 		}
 		.txt {
-			padding: 0 #{$lh}em #{$lh}em 0;
 			@include breakpoint($Lplus) {
-				flex: 0 0 50%;
+				flex: 0 0 calc(50% - #{math.div($lh, 2)}em);
 			}
 		}
 
@@ -595,7 +621,7 @@ main.typography {
 			padding-bottom: 45%;
 			&.has-txt {
 				@include breakpoint($Lplus) {
-					flex: 0 0 50%;
+					flex: 0 0 calc(50% - #{math.div($lh, 2)}em);
 				}
 			}
 			@include breakpoint($Lneg) {
@@ -727,7 +753,7 @@ html .klaro {
 			display: flex;
 			flex-wrap: wrap;
 			justify-content: flex-start !important;
-				.cn-buttons {
+			.cn-buttons {
 				order: 1;
 				// decline
 				.cm-btn.cn-decline {

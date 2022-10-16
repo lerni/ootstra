@@ -32,6 +32,7 @@ a[href^=tel],
 a[href^="x-apple-data-detectors:"] {
 	color: inherit;
 	text-decoration: inherit;
+	white-space: nowrap;
 }
 
 @page {

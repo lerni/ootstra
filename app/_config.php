@@ -65,16 +65,16 @@ $styles = [
     ],
     [
         // add .inlinish - no margin-bottom
-        'title' => 'p no bottom-margin',
+        'title' => 'no bottom-margin',
         'attributes' => ['class' => 'inlinish'],
         'selector' => 'p,h1,h2,h3'
     ],
-    // [
-    //     // add .halvelinish - no margin-bottom
-    //     'title' => 'p 1/2 bottom-margin',
-    //     'attributes' => ['class' => 'halvelinish'],
-    //     'selector' => 'p,h1,h2,h3'
-    // ]
+    [
+        // add .halvelinish - no margin-bottom
+        'title' => '½ bottom-margin',
+        'attributes' => ['class' => 'halvelinish'],
+        'selector' => 'p,h1,h2,h3'
+    ]
 ];
 
 $EditorConfig = TinyMCEConfig::get('cms');
@@ -120,7 +120,7 @@ $EditorConfig->setButtonsForLine(2, '');
 CMSMenu::remove_menu_item('SilverStripe-Reports-ReportAdmin');
 CMSMenu::remove_menu_item('SilverStripe-CampaignAdmin-CampaignAdmin');
 CMSMenu::remove_menu_item('SilverStripe-Admin-SecurityAdmin');
-// CMSMenu::remove_menu_item('SilverStripe-VersionedAdmin-ArchiveAdmin');
+CMSMenu::remove_menu_item('SilverStripe-VersionedAdmin-ArchiveAdmin');
 // CMSMenu::remove_menu_item('SilverStripe-SiteConfig-SiteConfigLeftAndMain');
 
 CMSPagesController::config()->help_links = [];

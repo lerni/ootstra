@@ -49,7 +49,7 @@ form {
 			flex: 0 0 100%;
 			margin-bottom: #{$lh}em;
 			&.half-width {
-				flex: 0 0 calc(50% - #{math.div($lh, 2)}em);
+				flex: 0 0 calc(50% - (#{math.div($lh, 2)}em + 1px)); // gahh subpixel rounding
 				@include breakpoint($Mneg) {
 					flex: 0 0 100%;
 				}
@@ -86,7 +86,7 @@ form {
 				}
 			}
 			label {
-				color: $scrolling-text-color;
+				color: $text-color;
 				margin-bottom: #{math.div($lh, 4)}em;
 				&.left {
 					display: block;
@@ -110,7 +110,7 @@ form {
 					padding: #{math.div($lh, 2)}em #{math.div($lh, 3)}em;
 					background-color: $gray--lighter;
 					border: 1px solid $gray--lighter;
-					color: $scrolling-text-color;
+					color: $text-color;
 					@include normal; // dropdown needs this
 				}
 				input.text:focus,
@@ -196,7 +196,7 @@ form {
 						left: 0;
 						z-index: 5;
 						transition: border .25s linear;
-						border: #{math.div($size, 5)}px solid $scrolling-text-color;
+						border: #{math.div($size, 5)}px solid $text-color;
 						&::before {
 							display: block;
 							position: absolute;
@@ -220,6 +220,7 @@ form {
 			max-width: 100%;
 		}
 	}
+	label.error,
 	.message {
 		background-color: rgba($link-color, .1);
 		padding: 5px 10px;
@@ -233,7 +234,7 @@ form {
 	.bad, .required {
 		background-color: lighten($red, 45%) !important;
 		border-color: $red !important;
-		color: $scrolling-text-color !important;
+		color: $text-color !important;
 	}
 	body &.userform .left {
 		@include normal;
@@ -311,12 +312,12 @@ form {
 
 .checkbox label.right {
 	font-size: 1em;
-	color: $scrolling-text-color;
+	color: $text-color;
 	float: left;
 }
 
 form .requiredField label.left::after {
-	color: $scrolling-text-color;
+	color: $text-color;
 	content: "*";
 	font-weight: normal;
 	padding-left: 3px;
@@ -343,7 +344,12 @@ form .optionset ul {
 		float:left;
 		margin: .2em .3em 0 0;
 	}
+	form .checkbox label p {
+		margin-bottom: 0;
+		line-height: 1;
+	}
 
+label.error,
 span.message {
 	font-size: $labelfontsize;
 	margin: 10px 0;
@@ -372,7 +378,7 @@ textarea:invalid {
 	float: left;
 }
 form .file {
-	color: $scrolling-text-color
+	color: $text-color
 }
 
 @media only screen and (max-width: 700px) {

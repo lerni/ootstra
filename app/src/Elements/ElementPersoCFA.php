@@ -69,9 +69,11 @@ class ElementPersoCFA extends BaseElement
     function getCMSFields()
     {
         $fields = parent::getCMSFields();
-        $fields->removeByName('isFullWidth');
 
-        $fields->removeByName('Persos');
+        $fields->removeByName([
+            'isFullWidth',
+            'Persos'
+        ]);
 
         // hack around unsaved relations
         if ($this->isInDB()) {

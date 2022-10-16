@@ -1,3 +1,4 @@
+@use "sass:math";
 // https://raw.githubusercontent.com/jorenvanhee/sass-burger/master/_burger.scss
 // Burger parts
 //
@@ -104,21 +105,9 @@ $burger-gutter: 0 !default;
         }
     }
     &::before {
-        @if $sass-burger-add-vendor-prefixes {
-            -webkit-transform: translateY($burger-gutter + $burger-height) rotate(45deg);
-            -moz-transform: translateY($burger-gutter + $burger-height) rotate(45deg);
-            -ms-transform: translateY($burger-gutter + $burger-height) rotate(45deg);
-            -o-transform: translateY($burger-gutter + $burger-height) rotate(45deg);
-        }
         transform: translateY($burger-gutter + $burger-height) rotate(45deg);
     }
     &::after {
-        @if $sass-burger-add-vendor-prefixes {
-            -webkit-transform: translateY(-($burger-gutter + $burger-height)) rotate(-45deg);
-            -moz-transform: translateY(-($burger-gutter + $burger-height)) rotate(-45deg);
-            -ms-transform: translateY(-($burger-gutter + $burger-height)) rotate(-45deg);
-            -o-transform: translateY(-($burger-gutter + $burger-height)) rotate(-45deg);
-        }
         transform: translateY(-($burger-gutter + $burger-height)) rotate(-45deg);
     }
 }

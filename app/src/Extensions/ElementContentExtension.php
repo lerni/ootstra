@@ -12,6 +12,10 @@ class ElementContentExtension extends Extension
 
     private static $inline_editable = false;
 
+    private static $defaults = [
+        'WidthReduced' => 1
+    ];
+
     public function updateCMSFields(FieldList $fields)
     {
 

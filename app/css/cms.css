@@ -169,3 +169,10 @@ html .field.embed button.action {
 #Form_remoteEditForm_Dimensions_Holder {
 	display: none;
 }
+
+ul#Form_ItemEditForm_BackgroundColor li label[for$="transparent"] {
+	background-color: transparent !important;
+	background-image: url("/_resources/themes/default/dist/images/transparent.png");
+	background-repeat: repeat;
+	background-size: 400% auto;
+}

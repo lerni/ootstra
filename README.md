@@ -38,14 +38,28 @@ Other features:
 - etc.
 
 ## Getting started
-As editor/IDE [VSCode](https://code.visualstudio.com/) with [Silverstripe](https://marketplace.visualstudio.com/items?itemName=adrianhumphreys.silverstripe) extension is recommended. There are further settings under `.vscode/settings.json` for extensions like , [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client), [PHP Debug](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug) and [Log Viewer](https://marketplace.visualstudio.com/items?itemName=berublan.vscode-log-viewer) allowing an even smoother experience. Zsh with [agnoster.zsh-theme](https://github.com/agnoster/agnoster-zsh-theme) is used in the docker container. This needs [Powerline font](https://github.com/powerline/fonts) to be installed on the host machine to shine in it's full beauty.
+As editor/IDE [VSCode](https://code.visualstudio.com/) is recommended. It also suggests a broad set of extensions per `.vscode/extensions.json` and comes with `.vscode/settings.json` to make debugging, Logviewer etc. work out of the box.
+- [Silverstripe](https://marketplace.visualstudio.com/items?itemName=adrianhumphreys.silverstripe)
+- [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client)
+- [PHP Debug](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug)
+- [Log Viewer](https://marketplace.visualstudio.com/items?itemName=berublan.vscode-log-viewer)
+- [Debugger for Firefox](https://marketplace.visualstudio.com/items?itemName=firefox-devtools.vscode-firefox-debug)
+- [EditorConfig for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
+- [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+- [Quokka.js](https://marketplace.visualstudio.com/items?itemName=WallabyJs.quokka-vscode)
+- [Auto Rename Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag)
+- [npm Intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.npm-intellisense)
+- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+- [Sass](https://marketplace.visualstudio.com/items?itemName=Syler.sass-indented)
+
+  Zsh with [agnoster.zsh-theme](https://github.com/agnoster/agnoster-zsh-theme) is used in the docker container. This needs [Powerline font](https://github.com/powerline/fonts) to be installed on the host machine to shine in it's full beauty.
 
 
 ### clone or fork lerni/ootstra
 ```bash
     git clone git@github.com:lerni/ootstra.git "PROJECT"
 ```
-On the first Request the database structure (tables) 'll automatically be generated - it runs a `dev/build`. Before you do so, set the correct default locale in `app/_config.php` like:
+On the first Request the database structure (tables) 'll automatically be generated - it runs `dev/build`. Before you do so, set the correct default locale in `app/_config.php` like:
 ```php
     i18n::set_locale('de_CH');
 ```
@@ -69,16 +83,16 @@ For development purpose the project comes with a Dockerfile for Apache/PHP/MySQL
     composer install
 ```
 ### Laravel Mix watch & build
-[Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([webpack](https://webpack.js.org/) based) is used as build environment. In `themes/default/webpack.mix.js` host is set and 'll be proxied to http://localhost:3000/ in order to run browsersync. See also scripts section in `themes/default/package.json` and [Mix CLI](https://laravel-mix.com/docs/6.0/cli).
+[Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([webpack](https://webpack.js.org/) based) is used as build environment. In `themes/default/webpack.mix.js` host is set to be proxied to http://localhost:3000/ for browsersync. See also scripts section in `themes/default/package.json` and [Mix CLI](https://laravel-mix.com/docs/6.0/cli).
 ```bash
     cd themes/default && npm run watch
 or
     cd themes/default && npm run production
 ```
 
-Docker makes a local webserver available on [http://localhost:8080/](http://localhost:8080/), the watcher/browsersync runs on [http://localhost:3000/](http://localhost:3000/), `phpMyAdmin` on [http://localhost:8081/](http://localhost:8081/), MailHog on [http://localhost:8025/](http://localhost:8025/). Default login into [/admin](http://localhost:8080/admin) is `admin` & `password`. **For local development with docker `.env` isn't used - those are set in `docker-compose.yml`.**
+Docker makes a local webserver available on [http://localhost:8080/](http://localhost:8080/), watcher/browsersync runs on [http://localhost:3000/](http://localhost:3000/), `phpMyAdmin` on [http://localhost:8081/](http://localhost:8081/), MailHog on [http://localhost:8025/](http://localhost:8025/). Default login into [/admin](http://localhost:8080/admin) is `admin` & `password`. **For local development with docker `.env` isn't used. EnvVars are set in `docker-compose.yml`.**
 
-`docker ps` shows `<CONTAINER IDs>` for all running instances. To run a shell in a container do either `docker exec -it <CONTAINER_ID> zsh` or just `docker-compose exec silverstripe zsh` -> containers are named in `docker-compose.yml`. You may add an alias to your rcfile (`~/.zshrc` on Mac) like: `alias dshell="docker-compose exec silverstripe zsh"` for an alias to run a `zsh` in the silverstripe container with `dshell`.
+`docker ps` shows `<CONTAINER IDs>` for all running instances. To run a shell in a container do either `docker exec -it <CONTAINER_ID> zsh` or `docker-compose exec silverstripe zsh` -> containers are named in `docker-compose.yml`. You may add an alias to your rcfile (`~/.zshrc` on Mac) like: `alias dshell="docker-compose exec silverstripe zsh"` for an alias to run a `zsh` in the silverstripe container with `dshell`.
 
 With other dev-env/webserver-setups, point vhost document root to `/project/public` and adjust the watcher `proxy` in `themes/default/webpack.mix.js`. Database, credentials etc. are provided per environment Variables. See also:
 
@@ -86,7 +100,7 @@ https://www.silverstripe.org/learn/lessons/v4/up-and-running-setting-up-a-local-
 
 https://docs.silverstripe.org/en/4/getting_started/environment_management/#core-environment-variables
 
-Example `.env`-file in webroot for local development could look like:
+Example `.env`-file in webroot for local development could look like - not needed with Docker:
 
 ```
 # For a complete list of core environment variables see
@@ -94,6 +108,7 @@ Example `.env`-file in webroot for local development could look like:
 
 # Environment dev/stage/live
 SS_ENVIRONMENT_TYPE="dev"
+# SS_BASE_URL=""
 
 # SS_DEFAULT_ADMIN_USERNAME=""
 # SS_DEFAULT_ADMIN_PASSWORD=""
@@ -112,14 +127,17 @@ SS_DATABASE_SERVER="127.0.0.1"
 SS_ERROR_LOG="silverstripe.log"
 
 GHOSTSCRIPT_PATH="/usr/local/bin/gs"
+
+# SS_NOCAPTCHA_SITE_KEY=""
+# SS_NOCAPTCHA_SECRET_KEY=""
 ```
 
-For your PHP-CLI-Setup, it might be helpful, to set `sys_temp_dir = "/tmp"` in `php.ini` for `sspak`.
+For `sspak`, it might be helpful, to set `sys_temp_dir = "/tmp"` in `php.ini` for PHP-CLI.
 
 ## Debugging
-In order to use Xdebug with VSCode install [PHP Debug](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug) and trigger per browser, extensions like [Xdebug Helper for Firefox](https://addons.mozilla.org/de/firefox/addon/xdebug-helper-for-firefox/) or [Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc).
+In order to use Xdebug with this setup, a browser-extensions like [Xdebug Helper for Firefox](https://addons.mozilla.org/de/firefox/addon/xdebug-helper-for-firefox/) or [Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc) is needed to control/trigger debugging behaviour.
 
-To debug JS inside VSCode with Firefox you need to install [Debugger for Firefox](https://marketplace.visualstudio.com/items?itemName=firefox-devtools.vscode-firefox-debug). With Chrome & Edge you may need to tweak config in `.vscode/launch.json` :shrug:
+To debug JS inside VSCode with Firefox [Debugger for Firefox](https://marketplace.visualstudio.com/items?itemName=firefox-devtools.vscode-firefox-debug) is used. With Chrome & Edge you may need to tweak config in `.vscode/launch.json` :shrug:
 
 ## PHP Version
 Current used PHP-Version is 8.0. It's set in following places:

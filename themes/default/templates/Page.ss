@@ -7,7 +7,7 @@
 	<% else %>
 		<title>$DefaultMetaTitle</title>
 	<% end_if %>
-	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<% if not $MetaDescription %>
 		<% if $DefaultMetaDescription %><meta name="Description" content="$DefaultMetaDescription" /><% end_if %>
 	<% end_if %>

@@ -28,8 +28,8 @@ body.mce-content-body {
 	@include smoothFonts;
 	@include normal;
 	font-family: $font-family;
-    color: $scrolling-text-color;
-	font-size: $scrolling-text-size;
+    color: $text-color;
+	font-size: $font-size;
     line-height: $lh;
 	&.typography {
 		max-width: $inner-width--reduced;

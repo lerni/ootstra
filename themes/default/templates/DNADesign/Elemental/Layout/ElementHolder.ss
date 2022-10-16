@@ -2,6 +2,7 @@
 	<% if $ClassName == 'DNADesign\ElementalVirtual\Model\ElementVirtual' %>
 		$ClassName.ShortName.LowerCase
 		<% if $LinkedElement.isFullWidth %>full-width<% end_if %>
+		<% if $WidthReduced %>width-reduced<% end_if %>
 		$LinkedElement.ShortClassName.LowerCase
 		spacing-top-{$LinkedElement.SpacingTop}
 		spacing-bottom-{$LinkedElement.SpacingBottom}
@@ -10,6 +11,7 @@
 	<% else %>
 		$ShortClassName.LowerCase
 		<% if $isFullWidth %>full-width<% end_if %>
+		<% if $WidthReduced %>width-reduced<% end_if %>
 		spacing-top-{$SpacingTop}
 		spacing-bottom-{$SpacingBottom}
 		<% if $Page.ClassName == 'App\Models\ElementPage' && $isHero && $Page.ParentID != 0 %>breadcrumbs<% end_if %>

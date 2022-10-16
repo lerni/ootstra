@@ -197,6 +197,7 @@ ErrorDocument 500 /assets/error-500.html
                                       image/x-icon \
                                       text/css \
                                       text/html \
+                                      text/javascript \
                                       text/plain \
                                       text/vtt \
                                       text/x-component \

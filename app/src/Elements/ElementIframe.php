@@ -29,7 +29,9 @@ class ElementIframe extends BaseElement
     {
         $fields = parent::getCMSFields();
 
-        $fields->removeByName('BackgroundColor');
+        $fields->removeByName([
+            'BackgroundColor'
+        ]);
 
         return $fields;
     }

@@ -9,6 +9,8 @@
 body > footer {
 	flex-shrink: 0;
 	padding: 0;
+	background-color: $blue;
+	padding: #{$lh*1.5}em 0;
 	a {
 		text-decoration: none;
 		color: $white;
@@ -16,62 +18,60 @@ body > footer {
 	p {
 		margin: 0 0 #{$lh}em 0;
 	}
-	.upper {
-		background-color: $blue;
-		padding: #{$lh*1.5}em 0;
-		.inner {
+	.inner {
+		display: flex;
+		flex-wrap: wrap;
+		gap: #{$lh}em;
+	}
+	.column {
+		display: flex;
+		flex: 0 0 auto;
+		column-gap: #{$lh}em;
+		@include breakpoint($XLneg) {
+			flex: 0 0 100% !important;
+		}
+		span, a {
+			color: $white;
+		}
+		a {
+			&:hover {
+				color: $current-color;
+			}
+			@include breakpoint($XLneg) {
+				margin-top: #{math.div($lh, 2)}em;
+				margin-bottom: #{math.div($lh, 2)}em;
+			}
+		}
+	}
+	.coord {
+		flex-grow: 1;
+		@include breakpoint($XLneg) {
+			flex-direction: column;
+		}
+	}
+	.inprint {
+		flex-basis: auto;
+		nav {
 			display: flex;
 			flex-wrap: wrap;
-			gap: #{$lh}em;
-		}
-		.column {
-			display: flex;
-			flex: 0 0 auto;
 			column-gap: #{$lh}em;
-			@include breakpoint($XLneg) {
-				flex: 0 0 100% !important;
-			}
-			span, a {
-				color: $white;
-			}
 			a {
-				&:hover {
+				color: $white;
+				// flex-wrap: wrap;
+				@include bold;
+				// @include separated();
+				&.current {
 					color: $current-color;
 				}
-				@include breakpoint($XLneg) {
-					margin-top: #{math.div($lh, 2)}em;
-					margin-bottom: #{math.div($lh, 2)}em;
-				}
 			}
 		}
-		.coord {
-			flex-grow: 1;
-			@include breakpoint($XLneg) {
-				flex-direction: column;
-			}
-		}
-		.inprint {
-			flex-basis: percentage(math.div(1, 4));
-			nav {
-				display: flex;
-				column-gap: #{$lh}em;
-				a {
-					color: $white;
-					@include bold;
-					// @include separated();
-					&.current {
-						color: $current-color;
-					}
-				}
-			}
-		}
-		.social {
-			justify-content: flex-end;
-			margin-right: 0;
-			margin-left: auto;
-			@include breakpoint($XLneg) {
-				justify-content: flex-start;
-			}
+	}
+	.social {
+		justify-content: flex-end;
+		margin-right: 0;
+		margin-left: auto;
+		@include breakpoint($XLneg) {
+			justify-content: flex-start;
 		}
 	}
 }

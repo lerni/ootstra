@@ -46,7 +46,10 @@ class ElementTextImage extends BaseElement
     function getCMSFields()
     {
         $fields = parent::getCMSFields();
-        $fields->removeByName('BackgroundColor');
+
+        $fields->removeByName([
+            'BackgroundColor'
+        ]);
 
         if ($uploadField = $fields->dataFieldByName('Image')) {
             $uploadField->setFolderName('TextImageElement');

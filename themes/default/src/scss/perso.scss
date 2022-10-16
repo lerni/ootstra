@@ -34,8 +34,8 @@
 	}
 
 	// prevent vertical scrollbars
-	display: table;
-	overflow: hidden;
+	// display: table;
+	// overflow: hidden;
 	.expandable-grid {
 		width: 100%;
 		float: left;
@@ -185,6 +185,7 @@
 		display: table;
 		margin: 0;
 		position: relative;
+		width: 100%;
 		img {
 			float: left;
 			width: 100%;
@@ -216,28 +217,28 @@
 			}
 		}
 
-		a[href^="mailto:"],
+		// a[href^="mailto:"],
 		a.vcard {
 			padding-left: 1.4em;
 			display: inline-block;
 			background-repeat: no-repeat;
-			background-size: auto 0.8em;
-			background-position: left 30%;
-			color: $scrolling-text-color;
+			background-size: auto 0.86em;
+			background-position: left 15%;
+			color: $text-color;
 		}
 
-		a[href^="mailto:"] {
-			background-image: svg-load(
-				"../images/svg/couvert.svg",
-				fill=#{$white}
-			);
-		}
+		// a[href^="mailto:"] {
+		// 	background-image: svg-load(
+		// 		"../images/svg/couvert.svg",
+		// 		fill=#{$text-color}
+		// 	);
+		// }
 
 		a.vcard {
 			background-image: svg-load(
 				"../images/svg/vcard.svg",
 				fill=transparent,
-				stroke=#{$white}
+				stroke=#{$text-color}
 			);
 		}
 

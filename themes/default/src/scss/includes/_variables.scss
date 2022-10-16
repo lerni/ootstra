@@ -2,18 +2,19 @@
 // https://abc.useallfive.com/?colors[]=1A295A,E33666,E3A809,505050,E8E8E8,F5F5F5
 // https://whocanuse.com/?b=1a295a&c=e33666&f=20&s=
 $blue: rgb(26, 41, 90);
-$red: rgb(227,54,102);
-$gold: rgb(227,168,9);
-$gray: rgb(80,80,80);
-$gray--light: rgb(232,232,232);
+$red: rgb(227, 54, 102);
+$gold: rgb(227, 168, 9);
+$gray: rgb(80, 80, 80);
+$gray--light: rgb(232, 232, 232);
 $gray--lighter: rgb(246, 246, 246);
-$white: rgb(255,255,255);
+$white: rgb(255, 255, 255);
 $black: rgb(39, 39, 39);
 
 $link-color: $red;
 
-$scrolling-text-color: $black;
-$scrolling-text-size: 20px;
+$text-color: $black;
+$font-size: 20px;
+$font-size--small: .84em;
 $line-height: 1.41;
 $lh: $line-height;
 
@@ -24,10 +25,12 @@ $badcolor: $gold;
 // $ServiceNavHeight2:60px;
 
 $font-family: 'IBM Plex Sans', sans-serif;
+$font-weight-normal: 200;
+$font-weight-bold: 400;
 
-$headerheight: 100px;
-$headerheight--small: 100px;
-$headerheight--smaller: 60px;
+$headerheight: 140px;
+$headerheight--small: 80px;
+$headerheight--smaller: 80px;
 
 $inner-width: 1280px;
 $inner-width--reduced: 940px;
