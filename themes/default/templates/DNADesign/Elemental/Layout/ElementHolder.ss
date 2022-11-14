@@ -1,11 +1,11 @@
 <article class="element
 	<% if $ClassName == 'DNADesign\ElementalVirtual\Model\ElementVirtual' %>
-		$ClassName.ShortName.LowerCase
+		$ClassName.ShortName.LowerCase $LinkedElement.ShortClassName.LowerCase
 		<% if $LinkedElement.isFullWidth %>full-width<% end_if %>
-		<% if $WidthReduced %>width-reduced<% end_if %>
-		$LinkedElement.ShortClassName.LowerCase
+		<% if $LinkedElement.WidthReduced %>width-reduced<% end_if %>
 		spacing-top-{$LinkedElement.SpacingTop}
 		spacing-bottom-{$LinkedElement.SpacingBottom}
+		<% if $Page.ClassName == 'App\Models\ElementPage' && $isHero && $Page.ParentID != 0 %>breadcrumbs<% end_if %>
 		<% if $LinkedElement.AfterHero %>after-hero<% end_if %>
 		<% if $LinkedElement.BackgroundColor %> background--{$LinkedElement.BackgroundColor}<% end_if %>
 	<% else %>

@@ -221,8 +221,6 @@ ErrorDocument 500 /assets/error-500.html
 # https://webhint.io/docs/user-guide/hints/hint-content-type/#examples-that-pass-the-hint
 <IfModule mod_mime.c>
 
-    AddType text/xml                                    xml
-
 # Audio
     AddType audio/mp4                                   m4a f4a f4b
     AddType audio/ogg                                   oga ogg spx
@@ -261,9 +259,11 @@ ErrorDocument 500 /assets/error-500.html
     AddType image/webp                                  webp
     AddType image/x-icon                                cur
     AddType text/cache-manifest                         appcache manifest
+    AddType text/calendar                               ics
     AddType text/vtt                                    vtt
     AddType text/x-component                            htc
     AddType text/x-vcard                                vcf
+    AddType text/xml                                    xml
     AddType application/manifest+json                   webmanifest
 
 </IfModule>

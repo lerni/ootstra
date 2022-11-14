@@ -73,7 +73,7 @@ Node/npm runs locally. There is an `.nvmrc` file in `themes/default/`. If [nvm](
 For development purpose the project comes with a Dockerfile for Apache/PHP/MySQL/phpMyAdmin/MailHog. Obviously [Docker](https://www.docker.com/) needs to be installed. Run the commands bellow in the project directory:
 ```bash
     cd PROJECT/
-    docker build --tag silverstripe:refined .
+    docker build --tag silverstripe:refined80 .
     docker-compose up
  ```
 ### Docker zsh, composer
@@ -90,11 +90,13 @@ or
     cd themes/default && npm run production
 ```
 
-Docker makes a local webserver available on [http://localhost:8080/](http://localhost:8080/), watcher/browsersync runs on [http://localhost:3000/](http://localhost:3000/), `phpMyAdmin` on [http://localhost:8081/](http://localhost:8081/), MailHog on [http://localhost:8025/](http://localhost:8025/). Default login into [/admin](http://localhost:8080/admin) is `admin` & `password`. **For local development with docker `.env` isn't used. EnvVars are set in `docker-compose.yml`.**
+Docker makes a local webserver available on [http://localhost:8080/](http://localhost:8080/), watcher/browsersync runs on [http://localhost:3000/](http://localhost:3000/), `phpMyAdmin` on [http://localhost:8081/](http://localhost:8081/), MailHog on [http://localhost:8025/](http://localhost:8025/). Default login into [/admin](http://localhost:8080/admin) is `admin` & `password`.
 
 `docker ps` shows `<CONTAINER IDs>` for all running instances. To run a shell in a container do either `docker exec -it <CONTAINER_ID> zsh` or `docker-compose exec silverstripe zsh` -> containers are named in `docker-compose.yml`. You may add an alias to your rcfile (`~/.zshrc` on Mac) like: `alias dshell="docker-compose exec silverstripe zsh"` for an alias to run a `zsh` in the silverstripe container with `dshell`.
 
-With other dev-env/webserver-setups, point vhost document root to `/project/public` and adjust the watcher `proxy` in `themes/default/webpack.mix.js`. Database, credentials etc. are provided per environment Variables. See also:
+With other dev-env/webserver-setups, point vhost document root to `project/public` and adjust the watcher `proxy` in `themes/default/webpack.mix.js`.
+
+Database, credentials etc. are provided per environment Variables. **For local development with docker `.env` isn't used. EnvVars are set in `docker-compose.yml`.** See also:
 
 https://www.silverstripe.org/learn/lessons/v4/up-and-running-setting-up-a-local-silverstripe-dev-environment-1
 
@@ -131,8 +133,6 @@ GHOSTSCRIPT_PATH="/usr/local/bin/gs"
 # SS_NOCAPTCHA_SITE_KEY=""
 # SS_NOCAPTCHA_SECRET_KEY=""
 ```
-
-For `sspak`, it might be helpful, to set `sys_temp_dir = "/tmp"` in `php.ini` for PHP-CLI.
 
 ## Debugging
 In order to use Xdebug with this setup, a browser-extensions like [Xdebug Helper for Firefox](https://addons.mozilla.org/de/firefox/addon/xdebug-helper-for-firefox/) or [Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc) is needed to control/trigger debugging behaviour.
@@ -188,18 +188,12 @@ There are a few aliases like `dep` (Deployer) in silverstripe docker container:
 - `flushh` (flush hard) instead `rm -rf $DOCUMENT_ROOT/silverstripe-cache/*`
 - `dbuild` instead `$DOCUMENT_ROOT/vendor/silverstripe/framework/sake dev/build`
 
-To transfer assets and database [ssbak](https://github.com/axllent/ssbak) (GO) is used over [sspak](https://github.com/silverstripe/sspak/) (PHP). Run deployer task like `dep silverstripe:installtools live` to install it on a remote linux servers in `~/bin`. You can set `ssXak_local_path` and `ssXak_path` in `deployer.php`.
-
-```bash
-curl -sS https://silverstripe.github.io/sspak/install | php -- /usr/local/bin
-```
-
 ## Configuration
 
 Rename `config.example.php` to `deploy/config.php` and configure things to your needs. Usually `.htaccess` in public comes from the repo but if needed, it can also be overwritten with a stage specific version. Just create `./deploy/test.htaccess` or `./deploy/live.htaccess`, which than 'll overwrite the file from the repo during deployment, depending on stage.
 
 # Deploy
-
+Deployment with key forwarding can be done from the silverstripe docker Container.
 ```bash
     ./vendor/bin/dep deploy test
 ```
@@ -210,8 +204,6 @@ or
     ./vendor/bin/dep deploy live
 ```
 
-`test` is default for all `dep` commands and can be omitted. For example with `dep ssh` you'll end up on your test server with `dep ssh live` - well on live.
-
 The first time you deploy to a given stage, you’ll be asked to provide database credentials used to populate `.env`.
 
 ## Deploy a branch/tag/revison
@@ -221,24 +213,11 @@ The first time you deploy to a given stage, you’ll be asked to provide databas
 dep deploy --revision=ca5fcd330910234f63bf7d5417ab6835e5a57b81
 
 # Deploy the dev branch to test
-dep deploy --branch=dev
+dep deploy --branch=dev test
 
 # Deploy tag 1.0.1 to live
-dep deploy live --tag=1.0.1
+dep deploy live --tag=1.0.1 live
 ```
-
-## Uploading/downloading database & assets manually
-ssbak is a cli tool for managing Silverstipe database & assets. It's also used in the deployment-process for backup purpose. Unlink sspak, does ssbak not support transfer between environment (like directly bellow) but wrapped with deployer it's possible - see a bit further down.
-
-To get assets and a DB-Dump from the server you can run:
-```bash
-    ./vendor/bin/sspak save USER@SERVER.TLD:/home/USER/public_html/0live/current ./SOMENAME.tar.gz
-```
-### Transfer with Docker - Update pending
-```bash
-    docker-compose exec -T database mysql DBNAME < database.sql
-```
-
 
 ## Download assets
 ```bash

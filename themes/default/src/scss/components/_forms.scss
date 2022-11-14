@@ -27,6 +27,8 @@ form {
 				padding-bottom: #{$lh}em;
 			}
 			>.middleColumn {
+				// since we add 1px height (border) with the ::before element flow would be screwed
+				margin-bottom: -1px;
 				&>div:first-child {
 					&::before {
 						// position: absolute;
@@ -35,10 +37,6 @@ form {
 						border-top: 1px solid $link-color;
 						flex: 0 0 100%;
 					}
-				}
-				&>div:first-child {
-					// since we add 1px height (border) with the ::before element flow would be screwed
-					margin-bottom: -1px;
 				}
 			}
 		}
@@ -151,9 +149,6 @@ form {
 					&:calendar-picker-indicator {
 						color: $black;
 					}
-				}
-				.g-recaptcha {
-					margin-top: #{math.div($lh, 2)}em;
 				}
 			}
 			&.dropdown .middleColumn select  {
@@ -378,7 +373,7 @@ textarea:invalid {
 	float: left;
 }
 form .file {
-	color: $text-color
+	color: $text-color;
 }
 
 @media only screen and (max-width: 700px) {

@@ -80,9 +80,6 @@ set('writable_dirs', [
 
 set('allow_anonymous_stats', false);
 
-set('ssXak_local_path', '/usr/local/bin/ssbak');
-set('ssXak_path', '~/bin/ssbak');
-
 // also set specified php version for composer
 // https://stackoverflow.com/a/65850204/1938738
 set('bin/composer', function () {
@@ -140,7 +137,7 @@ task('deploy', function () {
     invoke('deploy:writable');
     invoke('deploy:vendors');
     invoke('silverstripe:vendor_expose');
-    // invoke('silverstripe:remote_dump');
+    invoke('silverstripe:remote_dump');
     invoke('silverstripe:htaccessperstage');
     invoke('silverstripe:dev_build');
     invoke('deploy:clear_paths');

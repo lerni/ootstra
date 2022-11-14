@@ -186,9 +186,24 @@ html.mobile-nav--active {
 			flex: 1 1 auto;
 			transform: translateY(0%) !important;
 			height: auto;
+			.inner {
+				grid-template-rows: #{$lh*1.2}em calc(#{$headerheight--smaller} - #{$lh*1.2}em) auto 1fr;
+			}
+			ul.service-nav {
+				margin: 0 auto auto 0;
+				grid-column: 1/3;
+				grid-row: 4/-1;
+				justify-content: flex-start;
+				display: flex;
+				flex-direction: column;
+				>li >a {
+					color: $text-color;
+					font-size: 1em;
+				}
+			}
 			nav.nav {
 				display: flex;
-				padding: #{$lh}em 0 #{$lh*2}em;
+				padding: #{$lh*2}em 0;
 				@include breakpoint($Lneg) {
 					grid-column: 1/3;
 					grid-row: 3/4;

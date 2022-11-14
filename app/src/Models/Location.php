@@ -59,6 +59,7 @@ class Location extends DataObject
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
+        $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Title');
         $labels['Address'] = _t(__CLASS__ . '.ADDRESS', 'Address');
         $labels['PostOfficeBoxNumber'] = _t(__CLASS__ . '.POSTOFFICEBOXNUMBER', 'P.O. Box');
         $labels['PostalCode'] = _t(__CLASS__ . '.POSTALCODE', 'Postcode');
@@ -66,6 +67,7 @@ class Location extends DataObject
         $labels['AddressRegion'] = _t(__CLASS__ . '.ADDRESSREGION', 'Canton/State');
         $labels['Telephone'] = _t(__CLASS__ . '.TELEPHONE', 'Phone');
         $labels['EMail'] = _t(__CLASS__ . '.EMAIL', 'E-Mail');
+        $labels['OpeningHours'] = _t(__CLASS__ . '.OPENINGHOURS', 'Opening hours');
         $labels['GeoPoint'] = _t(__CLASS__ . '.GEOPOINT', 'Coordinates');
 
         return $labels;
@@ -79,10 +81,10 @@ class Location extends DataObject
 
         $gmapDefaultConfig = Config::inst()->get(GoogleMapField::class, 'default_options');
         if (isset($gmapDefaultConfig['api_key']) && $GeoPointField = $fields->dataFieldByName('GeoPointID')) {
-            $GeoPointField->setDescription('Associate geocoordinates from ElementMap with Location');
+            $GeoPointField->setDescription(_t(__CLASS__ . '.DescriptionGeoPointField', 'Link coordinates from ElementMap'));
         }
 
-        $ContryDropdownField = DropdownField::create('Country', 'Country');
+        $ContryDropdownField = DropdownField::create('Country', _t(__CLASS__ . '.COUNTRY', 'Country'));
         $ContryDropdownField->setSource(i18n::getData()->getCountries());
         $ContryDropdownField->setEmptyString('--');
         $fields->replaceField('Country', $ContryDropdownField);

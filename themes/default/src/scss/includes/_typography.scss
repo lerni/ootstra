@@ -52,9 +52,9 @@
 
 	a {
 		text-decoration: none;
-		&:visited {
-			color: $link-color;
-		}
+		// &:visited {
+		// 	color: $link-color;
+		// }
 		&:not([class]) {
 			color: $link-color;
 			&:hover {
@@ -161,7 +161,7 @@
 		border-collapse: collapse;
 		tr {
 			td {
-				font-size: .8em;
+				font-size: $font-size--small;
 				padding: .1em .2em .2em;
 				vertical-align: top;
 				border-top: 1px solid $gray--light;

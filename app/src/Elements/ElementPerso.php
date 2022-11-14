@@ -114,9 +114,11 @@ class ElementPerso extends BaseElement
             // -> distinct() is a bitch
             $all = Perso::get()
                 ->filter('Departments.ID', $departmentIDs)
-                ->alterDataQuery(function ($query) {
-                    $query->groupby('"Perso"."ID"');
-                });
+                ->alterDataQuery(
+                    function ($query) {
+                        $query->groupby('"Perso"."ID"');
+                    }
+                );
             return $all;
         }
     }

@@ -28,8 +28,8 @@
 			<div class="col">$Motivation</div>
 			<div class="col">
 				<p>
-					<a class="vcard" href="{$Link}element/{$ElementID}/vcard/{$ID}">vCard</a><br/>
-					<span data-feather="mail"></span><a href="mailto:{$EMail}">{$EMail}</a>
+					<% if $EMail %><a class="vcard" href="{$Top.Element.Controller.Link}/vcard/{$ID}">vCard</a><br/><% end_if %>
+					<% if $EMail %><span data-feather="mail"></span><a href="mailto:{$EMail}">{$EMail}</a><% end_if %>
 				</p>
 			</div>
 		</div>

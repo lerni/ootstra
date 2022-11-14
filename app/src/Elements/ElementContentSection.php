@@ -97,9 +97,10 @@ class ElementContentSection extends BaseElement
             foreach ($FAQParts as $faq) {
 
                 $PushFAQ = Schema::question()
-                    ->acceptedAnswer(Schema::Answer()
-                        ->text($faq->Text)
-                );
+                    ->acceptedAnswer(
+                        Schema::Answer()
+                            ->text($faq->Text)
+                    );
 
                 if ($faq->FAQTitle) {
                     $PushFAQ->name($faq->FAQTitle);

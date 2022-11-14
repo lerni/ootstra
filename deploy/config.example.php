@@ -24,12 +24,12 @@ if (!defined('DEP_REPOSITORY')) {
     define('DEP_REPOSITORY', 'git@github.com:YOURORG/' . DEP_APPLICATION . '.git');
 }
 
-// The live deploy path - optional, defaults to /home/' . DEP_SERVER_USER . '/' . DEP_WEBDIR . '/0live
+// live-env deploy path - optional, defaults to /home/' . DEP_SERVER_USER . '/' . DEP_WEBDIR . '/0live
 if (!defined('DEP_DEPLOY_LIVE_PATH')) {
     define('DEP_DEPLOY_LIVE_PATH', '/home/' . DEP_SERVER_USER . '/' . DEP_WEBDIR . '/0live');
 }
 
-// The stage deploy path - optional, defaults to /home/{{user}}/' . DEP_WEBDIR . '/0test
+// test-env deploy path - optional, defaults to /home/' . DEP_SERVER_USER . '/' . DEP_WEBDIR . '/0test
 if (!defined('DEP_DEPLOY_TEST_PATH')) {
     define('DEP_DEPLOY_TEST_PATH', '/home/' . DEP_SERVER_USER . '/' . DEP_WEBDIR . '/0test');
 }

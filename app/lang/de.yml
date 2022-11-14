@@ -1,6 +1,6 @@
 de:
   DNADesign\Elemental\Models\ElementContent:
-    BlockType: 'Text'
+    BlockType: Text
   App\Elements\ElementContentSection:
     BlockType: Accordion
   App\Elements\ElementCounter:
@@ -104,18 +104,22 @@ de:
       other: '{count} Element Pages'
     SINGULARNAME: 'Element Page'
   App\Models\Location:
+    TITLE: Titel
     ADDRESS: Adresse
     ADDRESSREGION: 'Kanton / Bundesland'
     EMAIL: E-Mail
-    GEOPOINT: Coordinates
-    PLURALNAME: Locations
+    GEOPOINT: Koordinaten
+    PLURALNAME: Standort
     PLURALS:
-      one: 'A Location'
-      other: '{count} Locations'
+      one: 'Standort'
+      other: '{count} Standorte'
     POSTALCODE: PLZ
     POSTOFFICEBOXNUMBER: 'Postfach'
     TELEPHONE: Telefon
     TOWN: Ort
+    COUNTRY: Land
+    OPENINGHOURS: Öffnungszeiten
+    DescriptionGeoPointField: 'Koordinaten aus ElementMap verknüpfen'
   App\Models\Logo:
     LogoImageDescription: 'min. 120px hoch'
     PLURALNAME: Logos
@@ -175,7 +179,7 @@ de:
     sameAs: '"sameAs" in schema verwenden'
   App\Models\Teaser:
     ImageDescription: 'min. 600x600px'
-    MORE: 'Mehr erfahren'
+    MORE: 'Mehr&nbsp;erfahren'
     PLURALNAME: Teasers
     PLURALS:
       one: 'A Teaser'
@@ -193,15 +197,14 @@ de:
     TITLELEVEL: 'H1, H2, H3'
     WIDTHREDUCED: 'Breite reduziert'
   \Page:
-    MENU: 'Menu'
+    MENU: Menu
     OGDescriptionCustomDescription: 'Defaultwert ist Meta-Description oder Summary bei einem Blog-Post'
     MetaTitleRightTitle: 'Wird als Titel im Browsertab und für Suchmaschinen Resultate verwendet. Wichtig für SEO!'
     MetaDescriptionRightTitle: 'Wird in Suchmaschinen-Ergebnissen verwendet, wenn Länge passt und Relevanz gegeben ist; beeinflusst die SEO-Position kaum. Ansprechende Meta-Descripton (besonders die ersten ~55 Zeichen -> Sitelinks) beeinflussen die Klickrate jedoch stark.'
   SilverStripe\Blog\Model\Blog:
-    MORE: 'Weiterlesen'
+    Allcategories: Alle
+    MORE: Weiterlesen
     NoPosts: 'Kein Artikel vorhanden'
-    Allcategories: 'Alle'
-    OpeningHours: 'Öffnungszeiten'
   SilverStripe\Blog\Model\BlogPost:
     ALTERNATIVTEXTEVENTDATE: 'Alternative Text Datum'
     AlternativTextEventDateDescription: 'Falls kein exaktes Datum resp. Zeitspanne. z.B. 14.10.2020 bis 4.11.2020, jeden Mittwoch, 16 Uhr'
@@ -214,7 +217,7 @@ de:
   SilverStripe\SiteConfig\SiteConfig:
     SITENAMEDEFAULT: 'Name Webseite'
     TABMAIN: Main
-    TAGLINE: 'Claim / Beschreibung'
+    SITETAGLINE: 'Claim / Beschreibung'
     SortImpact: 'Die "Location" an 1. Stelle wird im Footer angezeigt. Für "Schemadaten" werden alle verwendet.'
     DEFAULTHEADERIMAGE: 'Wird angezeigt, falls kein Hero in ElementPage'
     DefaultHeaderImageDescription: 2600x993px
@@ -230,7 +233,7 @@ de:
   JonoM\ShareCare\ShareCareFields:
     CMSMessage: 'Die Vorschau wird automatisch aus dem Inhalt generiert. Die generierten Werte können hier manuell überschrieben werden.<br><strong>Generell sollte nur etwas erfasst werden, wenn der Inhalt vom Defaultwerte (kursiv) abweicht. Als Bild wird per default das 1. Bild der xml-sitemap resp. ein Icon als "Fallback" verwendet. Die "Share Beschreibung" basiert auf der Metadescription, resp. im Falle eines BlogPosts auf der Zusammenfassung und verwendet als "Fallback" die globale MetaDescription von "Einstellungen/SiteConfig".</strong>'
   DNADesign\Elemental\Forms\TextCheckboxGroupField:
-    Title: 'Titel'
+    TitleLabel: Titel
   SilverStripe\Forms\GridField\GridField:
     PlaceHolderWithLabels: 'Suche {name} % für Alle'
   App\Models\Marke:

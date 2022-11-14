@@ -125,7 +125,7 @@
 								<% if $Text %><div class="inner">
 									<div class="spacer">
 										<% if $ShowTitle %><h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %>>$Title</h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %>><% end_if %>
-										<p>$Text.Markdowned</p>
+										$Text.Markdowned
 									</div>
 								</div><% end_if %>
 							<% if $LinkID %></a><% else %></div><% end_if %>
@@ -136,7 +136,7 @@
 		</div>
 	</div>
 	<% if $Slides.Count > 1 %>
-		<div class="swiper-pagination hero" id="hero-swiper-pagination{$ID}"></div>
+		<div class="swiper-pagination hero spacing-bottom-{$SpacingBottom}" id="hero-swiper-pagination{$ID}"></div>
 		<div class="swiper-button-prev hero" id="hero-swiper-prev{$ID}"></div>
 		<div class="swiper-button-next hero" id="hero-swiper-next{$ID}"></div>
 	<% end_if %>

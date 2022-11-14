@@ -103,10 +103,6 @@ strong {
 				width: 100%;
 				height: auto;
 				display: table;
-				// initial width we provide inline like width="300"
-				@include breakpoint($Lneg) {
-					width: 200px;
-				}
 			}
 		}
 		&.nav {
@@ -516,7 +512,7 @@ nav.breadcrumbs {
 			&.medium figure img {
 				max-height: 700px;
 			}
-			&.fullscreen {
+			&.hero--fullscreen {
 				height: calc(100vh - var(--vh-offset));
 				figure img {
 					max-height: none;
@@ -591,6 +587,9 @@ nav.breadcrumbs {
 		&.breadcrumbs {
 			padding-bottom: #{math.div($lh, 2)}em;
 			margin-bottom: 0;
+			.swiper-pagination {
+				bottom: #{$lh*.5}em;
+			}
 		}
 		&.global-alert {
 			padding-bottom: 0 !important;

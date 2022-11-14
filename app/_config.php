@@ -10,6 +10,7 @@ use SilverStripe\Control\Cookie;
 use SilverStripe\Control\Session;
 use SilverStripe\Core\Environment;
 use SilverStripe\Control\Email\Email;
+use SilverStripe\Core\Manifest\ModuleResourceLoader;
 
 Email::config()->set('admin_email', Environment::getEnv('SS_ADMIN_EMAIL'));
 
@@ -84,8 +85,8 @@ $EditorConfig->enablePlugins([
     'image' => null,
     'anchor' => null,
     'sslink',
-    'sslinkinternal'
-    // 'definitionlists' => '/_resources/app/thirdparty/tinymce-definitionlist-master/definitionlist/plugin.js' // needs Buttons: ToggleDefinitionList ToggleDefinitionItem
+    'sslinkinternal',
+    // 'definitionlists' => ModuleResourceLoader::resourceURL('/app/thirdparty/tinymce-definitionlist-master/definitionlist/plugin.js') // needs Buttons: ToggleDefinitionList ToggleDefinitionItem
 ]);
 $EditorConfig->disablePlugins(['importcss']);
 

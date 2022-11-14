@@ -139,7 +139,8 @@ class Perso extends DataObject
 
     public function getTitle()
     {
-        return $this->Firstname . ' ' . $this->Lastname;
+        $title = implode(' ', [$this->Firstname, $this->Lastname]);
+        return $title;
     }
 
     public function Anchor()

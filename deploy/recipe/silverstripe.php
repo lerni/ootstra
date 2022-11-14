@@ -67,14 +67,6 @@ ENV;
 
 desc('install composer & sspak in ~/bin');
 task('silverstripe:installtools', function () {
-    $hasSspak = run("if [ -e ~/bin/sspak ]; then echo 'true'; fi");
-    if ('true' != $hasSspak) {
-        run('curl -sS https://silverstripe.github.io/sspak/install | php -- ~/bin');
-    }
-    $hasSsbak = run("if [ -e ~/bin/ssbak ]; then echo 'true'; fi");
-    if ('true' != $hasSsbak) {
-        run('curl -L https://github.com/axllent/ssbak/releases/latest/download/ssbak_linux_amd64.tar.gz --create-dirs -o ~/bin/ssbak.tar.gz && tar -xf ~/bin/ssbak.tar.gz -C ~/bin/ && rm ~/bin/ssbak.tar.gz');
-    }
     $hasComposer = run("if [ -e ~/bin/composer.phar ]; then echo 'true'; fi");
     if ('true' != $hasComposer) {
         // run('curl https://getcomposer.org/composer-1.phar --create-dirs -o ~/bin/composer.phar');
@@ -135,100 +127,166 @@ task('silverstripe:create_dump_dir', function () {
 
 desc('Upload assets');
 task('silverstripe:upload_assets', function () {
-    $filename = get('application') . '-assets-' . date('Y-m-d-H-i-s') . '.sspak';
-    $local = sys_get_temp_dir() . '/' . $filename;
-
-    // Dump assets from local copy and upload
-    runLocally("{{ssXak_local_path}} save --assets . $local");
-    upload($local, "{{deploy_path}}/dumps/");
-
-    // Deploy assets
-    run("cd {{release_path}} && {{ssXak_path}} load --assets {{deploy_path}}/dumps/{$filename}");
-
-    // Tidy up
-    runLocally("rm $local");
-    run("rm {{deploy_path}}/dumps/{$filename}");
+    $stage = get('labels')['stage'];
+    if (!askConfirmation("Are you sure you want to overwrite the {$stage} assets?")) {
+        echo "🐔\n";
+        exit;
+    }
+    upload('public/assets/', '{{deploy_path}}/shared/public/assets', [
+        'options' => [
+            "--exclude={'error-*.html','_tinymce','.htaccess','.DS_Store','._*'}",
+            "--delete"
+        ]
+    ]);
 });
-before('silverstripe:upload_assets', 'silverstripe:create_dump_dir');
-after('silverstripe:upload_assets', 'deploy:writable');
-
-
-desc('Upload database');
-task('silverstripe:upload_database', function () {
-    $filename = get('application') . '-db-' . date('Y-m-d-H-i-s') . '.sspak';
-    $local = sys_get_temp_dir() . '/' . $filename;
-
-    // Dump database from local copy and upload
-    runLocally("{{ssXak_local_path}} save --db . $local");
-    upload($local, "{{deploy_path}}/dumps/");
-
-    // Deploy database
-    run("cd {{release_path}} && {{ssXak_path}} load --db {{deploy_path}}/dumps/{$filename}");
-
-    // Tidy up
-    runLocally("rm $local");
-    run("rm {{deploy_path}}/dumps/{$filename}");
-});
-before('silverstripe:upload_database', 'silverstripe:create_dump_dir');
+// after('silverstripe:upload_assets', 'deploy:writable');
 
 
 desc('Download assets');
 task('silverstripe:download_assets', function () {
-    $filename = get('application') . '-assets-' . date('Y-m-d-H-i-s') . '.sspak';
-    $local = sys_get_temp_dir() . '/' . $filename;
+    download('{{deploy_path}}/shared/public/assets/', 'public/assets', [
+        'options' => [
+            "--exclude={'error-*.html','_tinymce','.htaccess','.DS_Store','._*'}",
+            "--delete"
+        ]
+    ]);
+});
 
-    // Dump assets from remote copy and download
-    run("cd {{release_path}} && {{ssXak_path}} save --assets . {{deploy_path}}/dumps/{$filename}");
-    download("{{deploy_path}}/dumps/{$filename}", $local);
 
-    // Import assets
-    runLocally("{{ssXak_local_path}} load --assets {$local}");
+desc('Upload database');
+task('silverstripe:upload_database', function () {
+    $stage = get('labels')['stage'];
+    if (!askConfirmation("Are you sure you want to overwrite the {$stage} database?")) {
+        echo "🐔\n";
+        exit;
+    }
+
+    invoke('silverstripe:create_dump_dir');
+
+    if (!testLocally('[ -f .env ]')) {
+        writeln("<error>Unable to find .env file in local environment.</error>");
+        exit;
+    } elseif (!test('[ -f {{deploy_path}}/shared/.env ]')) {
+        writeln("<error>Unable to find .env file on remote server.</error>");
+        exit;
+    }
+
+    $filename = 'db-' . date('Y-m-d-H-i-s') . '.gz';
+    $localPath = sys_get_temp_dir() . '/' . $filename;
+
+    // Export database
+    runLocally(getExportDatabaseCommand('.env', $localPath));
+
+    // Upload database
+    upload($localPath, "{{deploy_path}}/dumps/");
+
+    // Import database
+    run(getImportDatabaseCommand('{{deploy_path}}/shared/.env', "{{deploy_path}}/dumps/{$filename}"));
 
     // Tidy up
-    runLocally("rm $local");
+    runLocally("rm {$localPath}");
     run("rm {{deploy_path}}/dumps/{$filename}");
 });
-before('silverstripe:download_assets', 'silverstripe:create_dump_dir');
 
 
 desc('Download database');
 task('silverstripe:download_database', function () {
-    $filename = get('application') . '-db-' . date('Y-m-d-H-i-s') . '.sspak';
-    $local = sys_get_temp_dir() . '/' . $filename;
+    invoke('silverstripe:create_dump_dir');
 
-    // Dump database from remote copy and download
-    run("cd {{release_path}} && {{ssXak_path}} save --db . {{deploy_path}}/dumps/{$filename}");
-    download("{{deploy_path}}/dumps/{$filename}", $local);
+    if (!testLocally('[ -f .env ]')) {
+        writeln("<error>Unable to find .env file in local environment.</error>");
+        exit;
+    } elseif (!test('[ -f {{deploy_path}}/shared/.env ]')) {
+        writeln("<error>Unable to find .env file on remote server.</error>");
+        exit;
+    }
+
+    $filename = 'db-' . date('Y-m-d-H-i-s') . '.gz';
+    $localPath = sys_get_temp_dir() . '/' . $filename;
+
+    // Export database
+    run(getExportDatabaseCommand('{{deploy_path}}/shared/.env', "{{deploy_path}}/dumps/{$filename}"));
+
+    // Download database
+    download("{{deploy_path}}/dumps/{$filename}", $localPath);
 
     // Import database
-    runLocally("{{ssXak_local_path}} load --db {$local}");
+    runLocally(getImportDatabaseCommand('.env', $localPath));
 
     // Tidy up
-    runLocally("rm $local");
+    runLocally("rm {$localPath}");
     run("rm {{deploy_path}}/dumps/{$filename}");
 });
-before('silverstripe:download_database', 'silverstripe:create_dump_dir');
+
+set('mysql_default_charset', 'utf8mb4');
+set(
+    'mysqldump_args',
+    implode(' ', [
+        '--no-tablespaces',
+        '--skip-opt',
+        '--add-drop-table',
+        '--extended-insert',
+        '--create-options',
+        '--quick',
+        '--set-charset',
+        '--default-character-set={{mysql_default_charset}}'
+    ])
+);
+
+set(
+    'mysql_args',
+    implode(' ', [
+        '--default-character-set={{mysql_default_charset}}'
+    ])
+);
+
+
+function getExportDatabaseCommand($envPath, $destination) {
+    $usernameArg = '--user=$SS_DATABASE_USERNAME';
+    $passwordArg = '--password=$SS_DATABASE_PASSWORD';
+    $hostArg = '--host=$SS_DATABASE_SERVER';
+    $databaseArg = '$SS_DATABASE_PREFIX$SS_DATABASE_NAME';
+
+    $loadEnvCmd = "export $(grep -v '^#' {$envPath} | xargs)";
+
+    $exportDbCmd = "mysqldump {{mysqldump_args}} {$usernameArg} {$passwordArg} {$hostArg} {$databaseArg} | gzip > {$destination}";
+    return "{$loadEnvCmd} && {$exportDbCmd}";
+}
+
+
+function getImportDatabaseCommand($envPath, $source) {
+    $usernameArg = '--user=$SS_DATABASE_USERNAME';
+    $passwordArg = '--password=$SS_DATABASE_PASSWORD';
+    $hostArg = '--host=$SS_DATABASE_SERVER';
+    $databaseArg = '$SS_DATABASE_PREFIX$SS_DATABASE_NAME';
+
+    $loadEnvCmd = "export $(grep -v '^#' {$envPath} | xargs)";
+
+    $createDbArg = "--execute='create database if not exists `'{$databaseArg}'`;'";
+    $createDbCmd = "mysql {{mysql_args}} {$usernameArg} {$passwordArg} {$hostArg} {$createDbArg}";
+
+    $importDbCmd = "gunzip < {$source} | mysql {{mysql_args}} {$usernameArg} {$passwordArg} {$hostArg} {$databaseArg}";
+
+    return "{$loadEnvCmd} && {$createDbCmd} && {$importDbCmd}";
+}
 
 
 desc('Creates a DB-dump in dumps-dir and delete older dumps with "auto" as prefix to to the number specified in keep_releases.');
 task('silverstripe:remote_dump', function ($prefix = 'auto') {
-    $stage = Deployer::get('labels')['stage'];
+    $stage = get('labels')['stage'];
 
     $releaseNo = basename(get('release_path'));
     if($releaseNo) {
-        $filename = 'auto-' . get('application') . '-' . $stage . '-' . $releaseNo . '-db-' . date('Y-m-d-H-i-s') . '.sql.gz';
+
+
         $filename = get('application') . '-' . $stage . '-' . $releaseNo . '-db-' . date('Y-m-d-H-i-s') . '.sql.gz';
-        if ($prefix) {
-            $filename = $prefix . '-' . $filename;
-        } else {
-            $filename = 'auto-' . $filename;
-        }
+        $filename = $prefix . '-' . $filename;
 
         // delete older dumps
         run('rm -f $(ls -1t {{deploy_path}}/dumps/auto-' . get('application') . '-' . $stage . '* | tail -n +' . get('keep_releases') . ')');
 
         // Dump database remote DB
-        run("cd {{release_path}} && {{ssXak_path}} save --db . {{deploy_path}}/dumps/{$filename}");
+        run(getExportDatabaseCommand('{{deploy_path}}/shared/.env', "{{deploy_path}}/dumps/{$filename}"));
 
         $dumpsdirsize = run('du -h {{deploy_path}}/dumps');
         writeln('dumps directory: ' . $dumpsdirsize);

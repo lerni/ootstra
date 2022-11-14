@@ -2,7 +2,7 @@ version: "3.8"
 services:
   silverstripe:
     # image: brettt89/silverstripe-web:8.0-apache
-    image: silverstripe:refined
+    image: silverstripe:refined80
     ports:
       - 8080:80
     volumes:

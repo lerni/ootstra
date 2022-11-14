@@ -104,8 +104,15 @@
 		position: absolute;
 		left: 0;
 		right: 0;
-		bottom: #{$lh*2}em;
 		z-index: 1;
+		$min-spacing: 0;
+		$max-spacing: 6;
+		@for $i from $max-spacing through $min-spacing {
+			&.spacing-bottom-#{$i} {
+				bottom: #{$i * $lh + 0}em;
+			}
+			$i1: $i + 1;
+		}
 		.swiper-pagination-bullet {
 			width:  #{$size}em;
 			height: #{$size}em;

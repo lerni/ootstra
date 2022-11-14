@@ -101,7 +101,7 @@ class ElementExtension extends DataExtension
                 'BackgroundColor',
                 _t('DNADesign\Elemental\Models\BaseElement.BACKGROUNDCOLOR', 'Element background colour'),
                 [
-                    'transparent' => 'rgb(255,255,255)',
+                    'transparent' => 'rgb(255, 255, 255)',
                     'white' => 'rgb(255, 255, 255)',
                     'gray-lighter' => 'rgb(246, 246, 246)'
                 ]

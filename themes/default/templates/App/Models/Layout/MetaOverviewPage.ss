@@ -8,7 +8,8 @@
 </style>
 <% include App/Includes/Header %>
 <% require themedCSS("dist/css/metaoverviewpage") %>
-<% require themedCSS("dist/css/fancy.css") %>
+<% require themedCSS("dist/css/fancy") %>
+<% require javascript("themes/default/dist/js/fancy.js") %>
 <main class="typography">
 	<article class="element">
 		<% with $SiteConfig %>
