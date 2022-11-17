@@ -11,42 +11,42 @@ RUN curl -L https://github.com/mailhog/mhsendmail/releases/latest/download/mhsen
 
 RUN apt-get update
 
-# RUN apt install --assume-yes openssh-client
+RUN apt install --assume-yes openssh-client
 
 ### --- building vips-start ---
 # WORKDIR /usr/local/src
-# ARG VIPS_URL=https://github.com/libvips/libvips/releases/download
-# ARG VIPS_VERSION=8.12.2
+ARG VIPS_URL=https://github.com/libvips/libvips/releases/download
+ARG VIPS_VERSION=8.13.3
 
-# RUN apt-get install -y \
-#     glib-2.0-dev \
-#     libheif-dev \
-#     libexpat-dev \
-#     librsvg2-dev \
-#     libpng-dev \
-#     libpoppler-glib-dev \
-#     libgif-dev \
-#     libjpeg-dev \
-#     libexif-dev \
-#     liblcms2-dev \
-#     libtiff-dev \
-#     libwebp-dev \
-#     wget \
-#     liborc-dev
+RUN apt-get install -y \
+    glib-2.0-dev \
+    libheif-dev \
+    libexpat-dev \
+    librsvg2-dev \
+    libpng-dev \
+    libpoppler-glib-dev \
+    libgif-dev \
+    libjpeg-dev \
+    libexif-dev \
+    liblcms2-dev \
+    libtiff-dev \
+    libwebp-dev \
+    wget \
+    liborc-dev
 
-# RUN apt-get install -y \
-#     build-essential \
-#     pkg-config
+RUN apt-get install -y \
+    build-essential \
+    pkg-config
 
-# RUN wget $VIPS_URL/v$VIPS_VERSION/vips-$VIPS_VERSION.tar.gz \
-#     && tar xf vips-$VIPS_VERSION.tar.gz \
-#     && cd vips-$VIPS_VERSION \
-#     && ./configure --prefix=/usr/local \
-#     && make V=0 \
-#     && make install
+RUN wget $VIPS_URL/v$VIPS_VERSION/vips-$VIPS_VERSION.tar.gz \
+    && tar xf vips-$VIPS_VERSION.tar.gz \
+    && cd vips-$VIPS_VERSION \
+    && ./configure --prefix=/usr/local \
+    && make V=0 \
+    && make install
 
-# RUN pecl install vips \
-#     && docker-php-ext-enable vips
+RUN pecl install vips \
+    && docker-php-ext-enable vips
 ### --- vips-end ---
 
 RUN apt-get install -y \
@@ -60,7 +60,7 @@ RUN apt-get install -y \
     libxml2-dev \
     libxpm4 \
     libzip-dev \
-    openssh-client \
+    # openssh-client \
     rsync \
     mariadb-client \
     tzdata \

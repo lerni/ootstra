@@ -1,5 +1,5 @@
 # Status - WIP
-**This was published as part of a lightning talk at virtual StripeCon 2020. Unfortunately it wasn't ready at the time of the conference and still is work in progress. As much as I like it to be finished product - so far its not. Time will tell how things progress.**
+**This was published as part of a lightning talk at virtual StripeCon 2020. Unfortunately it wasn't ready at the time of the conference and still is work in progress. As much as I like it to be finished product - so far its not. Time will tell, how things progress.**
 
 # Setup, Requirements & install
 
@@ -15,7 +15,7 @@ This project is inspired from [Bigfork’s quickstart recipe](https://github.com
 - ElementContentSection     (accordion with FAQ schema)
 - ElementCounter
 - ElementLogo               (partner/sponsor)
-- ElementGallery            (lightbox)
+- ElementGallery            (lightbox, slider)
 - ElementTeaser
 - ElementFeedTeaser         (holder concept per element with tags)
 - ElementTextImage
@@ -28,17 +28,17 @@ Optional, separate modules:
 - EasyShop (privat), Google Shoppingfeed with local Inventory & Omnipay
 
 Other features:
-- DSGVO GDPR ready, Cookie Consent with klaro!
-- Multilingual ready in minutes
-- Blog - elemental based
-- schema.org integration
-- Meta & OpenGraph integration
+- [DSGVO GDPR ready, Cookie Consent with klaro!](https://github.com/lerni/klaro-cookie-consent)
+- Multilingual ready in minutes with [fluent](https://github.com/tractorcow-farm/silverstripe-fluent)
+- Elemental based [Blog](https://github.com/silverstripe/silverstripe-blog)
+- [schema.org](https://schema.org/) integration with [spatie/schema-org](https://github.com/spatie/schema-org)
+- Meta & OpenGraph integration & MetaOverviewPage
 - depending on content ~90+ close to 100% Google PageSpeed Score
-- Google Analytics & Tagmanager, Microsoft Clarity, sitemap.xml, robots.txt
+- [Google Analytics & Tagmanager, Microsoft Clarity](https://github.com/lerni/googleanalytics), sitemap.xml, robots.txt
 - etc.
 
 ## Getting started
-As editor/IDE [VSCode](https://code.visualstudio.com/) is recommended. It also suggests a broad set of extensions per `.vscode/extensions.json` and comes with `.vscode/settings.json` to make debugging, Logviewer etc. work out of the box.
+As editor/IDE [VSCode](https://code.visualstudio.com/) is recommended. Per `.vscode/extensions.json` extensions 'll be suggested and `.vscode/settings.json` contains settings for debugging, making Logviewer work out of the box etc.
 - [Silverstripe](https://marketplace.visualstudio.com/items?itemName=adrianhumphreys.silverstripe)
 - [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client)
 - [PHP Debug](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug)
@@ -52,25 +52,25 @@ As editor/IDE [VSCode](https://code.visualstudio.com/) is recommended. It also s
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 - [Sass](https://marketplace.visualstudio.com/items?itemName=Syler.sass-indented)
 
-  Zsh with [agnoster.zsh-theme](https://github.com/agnoster/agnoster-zsh-theme) is used in the docker container. This needs [Powerline font](https://github.com/powerline/fonts) to be installed on the host machine to shine in it's full beauty.
+Zsh with [agnoster.zsh-theme](https://github.com/agnoster/agnoster-zsh-theme) is used in the docker container. This needs [Powerline font](https://github.com/powerline/fonts) -> `Droid Sans Mono for Powerline` to be installed on the host machine to shine in it's full beauty.
 
 
 ### clone or fork lerni/ootstra
 ```bash
     git clone git@github.com:lerni/ootstra.git "PROJECT"
 ```
-On the first Request the database structure (tables) 'll automatically be generated - it runs `dev/build`. Before you do so, set the correct default locale in `app/_config.php` like:
+On the first Request database structure (tables) 'll automatically be generated - it runs `dev/build`. Before you do so, set the correct default locale in `app/_config.php` like:
 ```php
     i18n::set_locale('de_CH');
 ```
 ### npm
-Node/npm runs locally. There is an `.nvmrc` file in `themes/default/`. If [nvm](https://github.com/nvm-sh/nvm) is set up, npm version should switch automatically when changing directory into `themes/default/`.
+Node/npm runs locally. There is an `.nvmrc` file in `themes/default/`. If [nvm](https://github.com/nvm-sh/nvm) is set up, npm version switches automatically when changing directory into `themes/default/`.
 ```bash
     cd PROJECT/themes/default
     npm install
 ```
 ### Docker dev-env
-For development purpose the project comes with a Dockerfile for Apache/PHP/MySQL/phpMyAdmin/MailHog. Obviously [Docker](https://www.docker.com/) needs to be installed. Run the commands bellow in the project directory:
+For development ootstra comes with a Docker-Setup with Apache/PHP/MySQL/phpMyAdmin/MailHog. Run the commands bellow in the project directory:
 ```bash
     cd PROJECT/
     docker build --tag silverstripe:refined80 .
@@ -92,17 +92,11 @@ or
 
 Docker makes a local webserver available on [http://localhost:8080/](http://localhost:8080/), watcher/browsersync runs on [http://localhost:3000/](http://localhost:3000/), `phpMyAdmin` on [http://localhost:8081/](http://localhost:8081/), MailHog on [http://localhost:8025/](http://localhost:8025/). Default login into [/admin](http://localhost:8080/admin) is `admin` & `password`.
 
-`docker ps` shows `<CONTAINER IDs>` for all running instances. To run a shell in a container do either `docker exec -it <CONTAINER_ID> zsh` or `docker-compose exec silverstripe zsh` -> containers are named in `docker-compose.yml`. You may add an alias to your rcfile (`~/.zshrc` on Mac) like: `alias dshell="docker-compose exec silverstripe zsh"` for an alias to run a `zsh` in the silverstripe container with `dshell`.
+`docker ps` shows `<CONTAINER IDs>` for all running instances. To run a shell in a container do either `docker exec -it <CONTAINER_ID> zsh` or `docker-compose exec silverstripe zsh` -> containers are named in `docker-compose.yml`. You may add an alias to your rcfile (`~/.zshrc` on Mac) like: `alias dshell="docker-compose exec silverstripe zsh"` to just type `dshell` in order to run `zsh` in the silverstripe container.
 
-With other dev-env/webserver-setups, point vhost document root to `project/public` and adjust the watcher `proxy` in `themes/default/webpack.mix.js`.
+Database, credentials etc. are provided per environment Variables. **For local development with docker no `.env` file is needed! EnvVars are set in `docker-compose.yml`.**
 
-Database, credentials etc. are provided per environment Variables. **For local development with docker `.env` isn't used. EnvVars are set in `docker-compose.yml`.** See also:
-
-https://www.silverstripe.org/learn/lessons/v4/up-and-running-setting-up-a-local-silverstripe-dev-environment-1
-
-https://docs.silverstripe.org/en/4/getting_started/environment_management/#core-environment-variables
-
-Example `.env`-file in webroot for local development could look like - not needed with Docker:
+The first time you deploy to a given stage, you’ll be asked to provide database credentials etc. to populate `.env`. A file similar as bellow 'll be created.
 
 ```
 # For a complete list of core environment variables see
@@ -133,6 +127,11 @@ GHOSTSCRIPT_PATH="/usr/local/bin/gs"
 # SS_NOCAPTCHA_SITE_KEY=""
 # SS_NOCAPTCHA_SECRET_KEY=""
 ```
+See also:
+
+https://www.silverstripe.org/learn/lessons/v4/up-and-running-setting-up-a-local-silverstripe-dev-environment-1
+
+
 
 ## Debugging
 In order to use Xdebug with this setup, a browser-extensions like [Xdebug Helper for Firefox](https://addons.mozilla.org/de/firefox/addon/xdebug-helper-for-firefox/) or [Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc) is needed to control/trigger debugging behaviour.
@@ -150,7 +149,7 @@ Don't forget to rebuild/restart docker and reinstall vendors per composer after 
 
 # Hosting & Deployment
 
-Deployment is based on [Deployer](https://deployer.org/) - a php based cli-tool it's included as dev-requirement per `composer.json`. It uses symlinks to the current release. It's easy to use, offers zero downtime deployments and rollback. `/assets`, `.env` are shared resources, this means they are symlinked into each release-folder.
+Deployment is based on [Deployer](https://deployer.org/), a php based cli-tool, which is included as dev-requirement per `composer.json`. It uses symlinks to the current release. It's easy to use, offers zero downtime deployments and rollback. `/assets`, `.env` are shared resources, this means they are symlinked into each release-folder.
 
 ```
 ~/public_html/0live        or ~/public_html/0test
@@ -182,18 +181,19 @@ Deployment is based on [Deployer](https://deployer.org/) - a php based cli-tool 
 
 You need to [add your public key on the remote server](https://www.google.com/search?q=add+public+key+to+server) in ~/.ssh/authorized_keys. On nix-based systems you can use [ssh-copy-id](https://www.ssh.com/ssh/copy-id) to do so.
 
-There are a few aliases like `dep` (Deployer) in silverstripe docker container:
-- `dep` instead `$DOCUMENT_ROOT/vendor/bin/dep`
+There are a few aliases in silverstripe docker container:
+- `dep` instead `$DOCUMENT_ROOT/vendor/bin/dep` (Deployer)
 - `flush` instead `$DOCUMENT_ROOT/vendor/silverstripe/framework/sake flush`
 - `flushh` (flush hard) instead `rm -rf $DOCUMENT_ROOT/silverstripe-cache/*`
 - `dbuild` instead `$DOCUMENT_ROOT/vendor/silverstripe/framework/sake dev/build`
 
 ## Configuration
 
-Rename `config.example.php` to `deploy/config.php` and configure things to your needs. Usually `.htaccess` in public comes from the repo but if needed, it can also be overwritten with a stage specific version. Just create `./deploy/test.htaccess` or `./deploy/live.htaccess`, which than 'll overwrite the file from the repo during deployment, depending on stage.
+Rename `config.example.php` to `deploy/config.php` and configure things to your needs. Usually `.htaccess` in public comes from the repo but if needed, it can be overwritten with a stage specific version. Just create `./deploy/test.htaccess` or `./deploy/live.htaccess`, which than 'll overwrite `public/.htaccess` from the repo during deployment according to the stage in use.
 
 # Deploy
-Deployment with key forwarding can be done from the silverstripe docker Container.
+
+The setup uses key-forwarding, so deployment can be done from inside the silverstripe docker container. Before first deployment ssh into remote servers like `dep ssh test` or `dep ssh live` and make sure ssh-fingerprint from the git repo are accepted. You may just do a git clone into a test directory to verify things work as expected. If so, deployment is than done like:
 ```bash
     ./vendor/bin/dep deploy test
 ```
@@ -204,7 +204,6 @@ or
     ./vendor/bin/dep deploy live
 ```
 
-The first time you deploy to a given stage, you’ll be asked to provide database credentials used to populate `.env`.
 
 ## Deploy a branch/tag/revison
 
@@ -219,17 +218,17 @@ dep deploy --branch=dev test
 dep deploy live --tag=1.0.1 live
 ```
 
-## Download assets
+## Download assets from live/test utilizing rsync
 ```bash
-dep silverstripe:download_assets
+dep silverstripe:download_assets live/test
 ```
 
-## Download database
+## Download database from live/test
 ```bash
-dep silverstripe:download_database
+dep silverstripe:download_database live/test
 ```
 
-## Download assets from live
+## Download assets from live utilizing rsync
 ```bash
 dep silverstripe:download_assets live
 ```
@@ -239,14 +238,14 @@ dep silverstripe:download_assets live
 dep silverstripe:download_database live
 ```
 
-# Manual dev/build
+# Manual remove dev/build
 
-DevelopmentAdmin over HTTP in Live-Mode is disabled per yml-config. You can use the following deployer-tasks.
+DevelopmentAdmin over HTTP in Live-Mode is disabled per yml-config. Following deployer-tasks does it.
 
 
 ## dev/build on test
 ```bash
-dep silverstripe:dev_build
+dep silverstripe:dev_build test
 ```
 ## dev/build on live
 ```bash

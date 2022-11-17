@@ -163,10 +163,7 @@ task('silverstripe:upload_database', function () {
 
     invoke('silverstripe:create_dump_dir');
 
-    if (!testLocally('[ -f .env ]')) {
-        writeln("<error>Unable to find .env file in local environment.</error>");
-        exit;
-    } elseif (!test('[ -f {{deploy_path}}/shared/.env ]')) {
+    if (!test('[ -f {{deploy_path}}/shared/.env ]')) {
         writeln("<error>Unable to find .env file on remote server.</error>");
         exit;
     }
@@ -193,10 +190,7 @@ desc('Download database');
 task('silverstripe:download_database', function () {
     invoke('silverstripe:create_dump_dir');
 
-    if (!testLocally('[ -f .env ]')) {
-        writeln("<error>Unable to find .env file in local environment.</error>");
-        exit;
-    } elseif (!test('[ -f {{deploy_path}}/shared/.env ]')) {
+    if (!test('[ -f {{deploy_path}}/shared/.env ]')) {
         writeln("<error>Unable to find .env file on remote server.</error>");
         exit;
     }
@@ -289,7 +283,7 @@ task('silverstripe:remote_dump', function ($prefix = 'auto') {
         run(getExportDatabaseCommand('{{deploy_path}}/shared/.env', "{{deploy_path}}/dumps/{$filename}"));
 
         $dumpsdirsize = run('du -h {{deploy_path}}/dumps');
-        writeln('dumps directory: ' . $dumpsdirsize);
+        writeln('dumps directory size: ' . $dumpsdirsize);
     }
 });
 before('silverstripe:remote_dump', 'silverstripe:create_dump_dir');

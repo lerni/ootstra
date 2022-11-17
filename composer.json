@@ -60,7 +60,8 @@
 		"lerni/klaro-cookie-consent": "v2.x-dev",
 		"league/commonmark": "^2.0",
 		"eluceo/ical": "^2.2",
-		"jonom/silverstripe-someconfig": "^1.0"
+		"jonom/silverstripe-someconfig": "^1.0",
+		"osiemsiedem/intervention-image-vips-driver": "v0.8.0"
 	},
 	"require-dev": {
 		"deployer/deployer": "^7",

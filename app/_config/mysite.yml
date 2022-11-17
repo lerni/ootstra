@@ -219,8 +219,8 @@ UndefinedOffset\NoCaptcha\Forms\NocaptchaField:
 SilverStripe\Core\Injector\Injector:
   Intervention\Image\ImageManager:
     constructor:
-      - { driver: imagick }
-      # - { driver: vips }
+      # - { driver: imagick }
+      - { driver: vips }
   SilverStripe\Assets\Image_Backend:
     properties:
       Quality: 84
