@@ -9,7 +9,9 @@ class CountItem extends DataObject
     private static $db = [
         'Title' => 'Varchar',
         'Text' => 'Text',
-        'Value' => 'Int'
+        'Prefix' => 'Varchar',
+        'Value' => 'Int',
+        'Unit' => 'Varchar'
     ];
 
     private static $summary_fields = [
@@ -22,9 +24,11 @@ class CountItem extends DataObject
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['Value'] = _t(__CLASS__ . '.VALUE', 'Wert');
-        $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Titel');
+        $labels['Value'] = _t(__CLASS__ . '.VALUE', 'Value');
+        $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Title');
+        $labels['Prefix'] = _t(__CLASS__ . '.PREFIX', 'Prefix');
         $labels['Text'] = _t(__CLASS__ . '.TEXT', 'Text');
+        $labels['Unit'] = _t(__CLASS__ . '.UNIT', 'Unit/Suffix');
 
         return $labels;
     }

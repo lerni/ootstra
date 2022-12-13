@@ -103,7 +103,7 @@ class ElementExtension extends DataExtension
                 [
                     'transparent' => 'rgb(255, 255, 255)',
                     'white' => 'rgb(255, 255, 255)',
-                    'gray-lighter' => 'rgb(246, 246, 246)'
+                    'gray--lighter' => 'rgb(246, 246, 246)'
                 ]
             )
         );

@@ -76,8 +76,10 @@ class Location extends DataObject
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();
-        $fields->removeByName('Sort');
-        $fields->removeByName('SiteConfigID');
+        $fields->removeByName([
+            'Sort',
+            'SiteConfigID'
+        ]);
 
         $gmapDefaultConfig = Config::inst()->get(GoogleMapField::class, 'default_options');
         if (isset($gmapDefaultConfig['api_key']) && $GeoPointField = $fields->dataFieldByName('GeoPointID')) {

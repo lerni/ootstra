@@ -139,3 +139,5 @@ URLSegmentFilter::config()->default_replacements = [
     '/^[\-]+/u' => '', // Remove all leading dashes
     '/[\-]+$/u' => '' // Remove all trailing dashes
 ];
+
+// GoogleSitemap::register_dataobjects(['App\Models\Perso'], 'weekly', '1');

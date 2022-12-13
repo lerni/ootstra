@@ -95,7 +95,7 @@
 	dl:not(.content-parts) {
 		display: grid;
 		width: 100%;
-		grid-template-columns: minmax(300px, 1fr), 1fr;
+		grid-template-columns: auto 1fr;
 		grid-template-rows: repeat(auto-fit, 1fr);
 		column-gap: #{math.div($lh, 2)}em;
 		margin: 0 auto #{math.div($lh, 2)}em auto;
@@ -324,7 +324,7 @@
 		}
 	}
 	.small {
-		font-size: .8em;
+		font-size: $font-size--small;
 	}
 	.large {
 		font-size: 1.3em;

@@ -1,0 +1,47 @@
+@use "sass:math";
+@import 'includes/variables';
+@import 'includes/defaults';
+@import 'includes/mixins';
+@import '~breakpoint-sass/stylesheets/breakpoint';
+
+.element.elementcounter {
+	ul.graphs {
+		padding: 0;
+		margin: 0;
+		list-style: none;
+		display: grid;
+		grid-gap: #{$lh}em;
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+		@include breakpoint($Lneg) {
+			grid-template-columns: 1fr 1fr;
+		}
+		@include breakpoint($Sneg) {
+			grid-template-columns: 1fr;
+		}
+		li.graph {
+			margin: #{$lh}em 0;
+			display: flex;
+			flex-direction: column;
+			padding: 0;
+			text-align: center;
+			.counter {
+				flex: 0 0 auto;
+				font-size: 3em;
+				@include bold;
+				line-height: 1em;
+				margin: auto;
+				color: $current-color;
+				// @include breakpoint($XLneg) {
+				// 	font-size: 5em;
+				// }
+				// @include breakpoint($Mneg) {
+				// 	font-size: 4em;
+				// }
+			}
+			p {
+				font-size: 1.41em;
+				margin: 0;
+			}
+		}
+	}
+}

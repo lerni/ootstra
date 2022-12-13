@@ -31,6 +31,7 @@ let productionSourceMaps = false;
 mix
   .js('src/js/app.js', 'dist/js')
   .js('src/js/fancy.js', 'dist/js')
+  .js('src/js/countup.js', 'dist/js')
   .sass('src/scss/blog.scss', 'dist/css')
   .sass('src/scss/contentsections.scss', 'dist/css')
   .sass('src/scss/editor.scss', 'dist/css')
@@ -43,7 +44,9 @@ mix
   .sass('src/scss/style.scss', 'dist/css')
   .sass('src/scss/teaser.scss', 'dist/css')
   .sass('src/scss/jobs.scss', 'dist/css')
+  .sass('src/scss/counter.scss', 'dist/css')
   .sass('src/scss/textimage.scss', 'dist/css')
+  .sass('src/scss/localvideo.scss', 'dist/css')
   .sourceMaps(productionSourceMaps, 'source-map')
   .copyDirectory('src/fonts', 'dist/fonts');
 

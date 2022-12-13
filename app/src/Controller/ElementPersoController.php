@@ -156,7 +156,8 @@ class ElementPersoController extends ElementController
                     ->setBackgroundColor(new Color(255, 255, 255, 0));
 
                 // Create generic logo
-                // $logo = Logo::create(rtrim(Director::absoluteBaseURL(), '/') . ModuleResourceLoader::resourceURL('resources/themes/default/dist/images/svg/scanme.svg'))
+                // // $logo = Logo::create(rtrim(Director::absoluteBaseURL(), '/') . ModuleResourceLoader::resourceURL('themes/default/dist/images/svg/scanme.svg'))
+                // $logo = Logo::create('_resources/themes/default/dist/images/svg/scanme.svg')
                 //     ->setResizeToWidth(68)
                 //     ->setResizeToHeight(68);
 

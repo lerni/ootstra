@@ -101,7 +101,7 @@
 									$SlideImage.FocusFillMax(2000,1500).URL 2000w,
 									$SlideImage.FocusFillMax(2600,1950).URL 2600w
 							">
-								<img src="$SlideImage.FocusFillMax(1400,1050).URL" alt="$Beschreibung" id="hero-image-{$ID}">
+								<img src="$SlideImage.FocusFillMax(1400,1050).URL" alt="$SlideImage.Title" id="hero-image-{$ID}">
 							</picture></figure>
 							<div class="scroll"></div>
 							<style type="text/css" nonce="{$Nonce}">

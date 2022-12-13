@@ -52,7 +52,7 @@ As editor/IDE [VSCode](https://code.visualstudio.com/) is recommended. Per `.vsc
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 - [Sass](https://marketplace.visualstudio.com/items?itemName=Syler.sass-indented)
 
-Zsh with [agnoster.zsh-theme](https://github.com/agnoster/agnoster-zsh-theme) is used in the docker container. This needs [Powerline font](https://github.com/powerline/fonts) -> `Droid Sans Mono for Powerline` to be installed on the host machine to shine in it's full beauty.
+Zsh with [agnoster.zsh-theme](https://github.com/agnoster/agnoster-zsh-theme) is used in the docker container. This needs [Powerline font](https://github.com/powerline/fonts) -> `Droid Sans Mono for Powerline` installed on the host machine to shine in it's full beauty.
 
 
 ### clone or fork lerni/ootstra
@@ -193,7 +193,7 @@ Rename `config.example.php` to `deploy/config.php` and configure things to your 
 
 # Deploy
 
-The setup uses key-forwarding, so deployment can be done from inside the silverstripe docker container. Before first deployment ssh into remote servers like `dep ssh test` or `dep ssh live` and make sure ssh-fingerprint from the git repo are accepted. You may just do a git clone into a test directory to verify things work as expected. If so, deployment is than done like:
+The setup uses key-forwarding, so deployment can be done from inside the silverstripe docker container. Before first deployment ssh into remote servers like `dep ssh test` or `dep ssh live` and make sure ssh-fingerprint from the git repo is accepted. You may just do a git clone into a test directory to verify things work as expected. If so, deployment is done like:
 ```bash
     ./vendor/bin/dep deploy test
 ```
@@ -209,7 +209,7 @@ or
 
 ```
 # Deploy the dev branch to test
-dep deploy --revision=ca5fcd330910234f63bf7d5417ab6835e5a57b81
+dep deploy --revision=ca5fcd330910234f63bf7d5417ab6835e5a57b81 test
 
 # Deploy the dev branch to test
 dep deploy --branch=dev test
@@ -218,29 +218,46 @@ dep deploy --branch=dev test
 dep deploy live --tag=1.0.1 live
 ```
 
-## Download assets from live/test utilizing rsync
+## What revision is on live?
 ```bash
-dep silverstripe:download_assets live/test
+dep releases live
+```
+gives you something like:
+```
+task releases
++----------------------+-------------+-------- live ---+------------------------------------------+
+| Date (Europe/Zurich) | Release     | Author | Target | Commit                                   |
++----------------------+-------------+--------+--------+------------------------------------------+
+| 2022-11-21 16:57:41  | 1           | user   | HEAD   | 089d9397c34f0c478059a09470000006ed41e000 |
+| 2022-12-01 16:06:45  | 2           | user   | HEAD   | 007300b9e054675050d0d1de7000000444918000 |
+| 2022-12-02 10:41:18  | 3 (current) | user   | HEAD   | 0d2f7df3fbbc53f666366c3cf000000a392f3000 |
++----------------------+-------------+--------+--------+------------------------------------------+
 ```
 
-## Download database from live/test
-```bash
-dep silverstripe:download_database live/test
+## Uploading/downloading database from live/test
 ```
+# Upload database to test
+dep silverstripe:upload_database test
 
-## Download assets from live utilizing rsync
-```bash
-dep silverstripe:download_assets live
-```
-
-## Download database from live
-```bash
+# Download database from live
 dep silverstripe:download_database live
+
+etc.
+```
+## Uploading/downloading assets from live/test utilizing rsync
+```
+# Download assets from live
+dep silverstripe:download_assets live
+
+# Upload assets to test
+dep silverstripe:upload_assets test
+
+etc.
 ```
 
-# Manual remove dev/build
+# Manual remote dev/build
 
-DevelopmentAdmin over HTTP in Live-Mode is disabled per yml-config. Following deployer-tasks does it.
+DevelopmentAdmin over HTTP in Live-Mode is disabled per yml-config. Following deployer-tasks 'll do.
 
 
 ## dev/build on test

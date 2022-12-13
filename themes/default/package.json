@@ -39,6 +39,7 @@
   "dependencies": {
     "@fancyapps/ui": "^4.0.26",
     "@micropackage/responsive-embeds": "^1.0.3",
+    "countup.js": "^2.3.2",
     "feather-icons": "^4.28.0",
     "headroom.js": "^0.12.0",
     "jquery": "^3.6.1",

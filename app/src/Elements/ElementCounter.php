@@ -42,8 +42,7 @@ class ElementCounter extends BaseElement
         $fields = parent::getCMSFields();
 
         $fields->removeByName([
-            'CountItems',
-            'BackgroundColor'
+            'CountItems'
         ]);
 
         // hack around unsaved relations

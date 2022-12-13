@@ -51,7 +51,8 @@ class ElementLogo extends BaseElement
         $fields = parent::getCMSFields();
 
         $fields->removeByName([
-            'Logos'
+            'Logos',
+            'WidthReduced'
         ]);
 
         if ($GreyscaleField = $fields->dataFieldByName('Greyscale')) {
@@ -84,7 +85,7 @@ class ElementLogo extends BaseElement
     {
         if ($this->Logos()) {
             if ($this->Sorting == 'manual') {
-                $items = $this->Logos()->sort('Sort ASC');
+                $items = $this->Logos()->sort('SortOrder ASC');
             } else {
                 $items = $this->Logos()->sort('RAND()');
             }

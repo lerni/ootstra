@@ -262,8 +262,13 @@ nav.breadcrumbs {
 		right: -100%;
 		bottom: 0;
 		left: -100%;
+		// prevents horizontal overflow on ios
+		@include breakpoint($XLneg) {
+			left: 0;
+			right: 0;
+		}
 	}
-	&.background--gray-lighter {
+	&.background--gray--lighter {
 		&::after {
 			background-color: $gray--lighter;
 		}
@@ -566,7 +571,6 @@ nav.breadcrumbs {
 			bottom: 2%;
 			left: calc(50% - 1.25em);
 			z-index: 100;
-			cursor: pointer;
 		}
 
 		#header:not(.headroom--unpinned) + & .swiper-container.fullscreen .scroll {
@@ -753,6 +757,7 @@ html .klaro {
 			flex-wrap: wrap;
 			justify-content: flex-start !important;
 			.cn-buttons {
+				display: flex !important;
 				order: 1;
 				// decline
 				.cm-btn.cn-decline {

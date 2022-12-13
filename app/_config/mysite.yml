@@ -115,6 +115,7 @@ SilverStripe\Blog\Model\BlogPost:
     - App\Elements\ElementTeaser
     - App\Elements\ElementFeedTeaser
     - App\Elements\ElementTextImage
+    # - App\Elements\ElementLocalVideo
     # - App\Elements\ElementIframe
 
 App\Models\ElementPage:
@@ -137,6 +138,7 @@ App\Models\ElementPage:
     - App\Elements\ElementTeaser
     - App\Elements\ElementFeedTeaser
     - App\Elements\ElementTextImage
+    # - App\Elements\ElementLocalVideo
     # - App\Elements\ElementIframe
 
 DNADesign\Elemental\Models\BaseElement:
@@ -162,6 +164,9 @@ SilverStripe\UserForms\Model\UserDefinedForm:
   block_default_userforms_css: true
   extensions:
     - App\Extensions\CannotCreateExtension
+
+Hamaka\Tasks\UserFormsCleanupOldEntriesTask:
+  days_retention: 180
 
 SilverStripe\CMS\Model\VirtualPage:
   extensions:

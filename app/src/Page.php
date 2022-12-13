@@ -77,14 +77,14 @@ namespace {
 
             if ($this->ClassName != Blog::class && $this->ClassName != BlogPost::class) {
 
-                $CategoriyField = TagField::create(
+                $CategoryField = TagField::create(
                     'PageCategories',
                     _t('SilverStripe\Blog\Model\Blog.Categories', 'Categories'),
                     BlogCategory::get(), //
                     $this->PageCategories()
                 );
 
-                $fields->addFieldToTab('Root.Main', $CategoriyField, 'Metadata');
+                $fields->addFieldToTab('Root.Main', $CategoryField, 'Metadata');
             }
 
             return $fields;
