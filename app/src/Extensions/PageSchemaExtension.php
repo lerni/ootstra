@@ -69,12 +69,13 @@ class PageSchemaExtension extends Extension
                 }
 
                 if ($location->PointURL) {
+                    // $locations[$i]->hasMap($location->GMapLatLngLink);
                     $locations[$i]->hasMap($location->PointURL);
                 }
 
-                if ($siteConfig->DefaultHeaderImage()->exists()) {
-                    $locations[$i]->image(rtrim(Director::absoluteBaseURL(), '/') . $siteConfig->DefaultHeaderImage()->Link());
-                }
+                // if ($siteConfig->DefaultHeaderImage()->exists()) {
+                //     $locations[$i]->image(rtrim(Director::absoluteBaseURL(), '/') . $siteConfig->DefaultHeaderImage()->Link());
+                // }
 
                 $i++;
             }

@@ -12,7 +12,9 @@ window.onload = function() {
       {
         enableScrollSpy: true,
         scrollSpyDelay: 100,
-        scrollSpyOnce: true
+        scrollSpyOnce: true,
+        separator: '\'',
+        decimal: ','
       }
     );
     // with scrollSpy we should not start!

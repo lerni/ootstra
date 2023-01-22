@@ -238,10 +238,8 @@ de:
     PlaceHolderWithLabels: 'Suche {name} % für Alle'
   App\Models\Marke:
     LogoDescription: 'freigestellt PNG<br />min. 130px breit'
-  SilverStripe\UserForms\Model\EditableFormField:
-    FIELDISREQUIRED: '{name} muss ausgefüllt werden'
-  SilverStripe\UserForms\Model\UserDefinedForm:
-    ONCOMPLETEMESSAGE: 'Danke wir haben Ihre Nachricht erhalten.'
-    SUBMITBUTTON: 'Senden'
+  # userform used de_DE.yml
+  # SilverStripe\UserForms\Model\EditableFormField:
+  # SilverStripe\UserForms\Model\UserDefinedForm:
   Kraftausdruck\KlaroCookie:
-    MODALLINK: 'Datenschutz & Cookies'
+    MODALLINK: 'Cookies'

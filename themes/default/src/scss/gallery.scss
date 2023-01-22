@@ -38,10 +38,8 @@
 		.swiper-wrapper {
 			.swiper-slide {
 				width: auto;
+				height: 500px;
 				@include breakpoint($Lneg) {
-					height: 500px;
-				}
-				@include breakpoint($Mneg) {
 					height: 400px;
 				}
 				@include breakpoint($Mneg) {

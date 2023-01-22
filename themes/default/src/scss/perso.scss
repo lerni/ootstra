@@ -96,6 +96,7 @@
 
 		&.is--collapsed {
 			cursor: pointer;
+			overflow: hidden;
 			.item--basic {
 				overflow: hidden;
 				height: 0px;

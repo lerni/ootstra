@@ -30,6 +30,7 @@ services:
     # env_file:
     #     - .env
     environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/var/www/html/vendor/bin
       - SSH_AUTH_SOCK=/run/host-services/ssh-auth.sock
       - DOCUMENT_ROOT=/var/www/html/public
       - SS_TRUSTED_PROXY_IPS=*

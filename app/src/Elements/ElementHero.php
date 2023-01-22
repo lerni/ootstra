@@ -69,7 +69,8 @@ class ElementHero extends BaseElement
         $fields->removeByName([
             'Slides',
             'AnchorLink',
-            'BackgroundColor'
+            'BackgroundColor',
+            'WidthReduced'
         ]);
 
         if ($SizeField = $fields->dataFieldByName('Size')) {

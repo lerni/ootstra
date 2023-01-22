@@ -14,7 +14,7 @@
 	<% include App/Includes/Favicon %>
 	<% require themedCSS('dist/css/style') %>
 	<style type="text/css" nonce="{$Nonce}">
-		@font-face {<%-- https://google-webfonts-helper.herokuapp.com/fonts --%>
+		@font-face {<%-- https://gwfh.mranftl.com/fonts --%>
 			font-family: 'IBM Plex Sans';
 			font-style: normal;
 			font-weight: 200;

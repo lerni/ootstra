@@ -5,6 +5,10 @@ After:
   - 'mysharecare'
   - 'blogconfig'
 ---
+DNADesign\Populate\Populate:
+  include_yaml_fixtures:
+    - 'app/fixtures/populate.yml'
+
 SilverStripe\Assets\InterventionBackend:
   flush_enabled: false
 
@@ -184,6 +188,7 @@ SilverStripe\i18n\i18n:
   missing_default_warning: false
 
 SilverStripe\CMS\Model\SiteTree:
+  create_default_pages: false
   extensions:
     - App\Extensions\HeritageExtension
     - DorsetDigital\SilverStripeCanonical\SiteTreeCanonicalExtension
@@ -224,8 +229,8 @@ UndefinedOffset\NoCaptcha\Forms\NocaptchaField:
 SilverStripe\Core\Injector\Injector:
   Intervention\Image\ImageManager:
     constructor:
-      # - { driver: imagick }
-      - { driver: vips }
+      - { driver: imagick }
+      # - { driver: vips }
   SilverStripe\Assets\Image_Backend:
     properties:
       Quality: 84

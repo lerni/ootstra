@@ -46,7 +46,6 @@ As editor/IDE [VSCode](https://code.visualstudio.com/) is recommended. Per `.vsc
 - [Debugger for Firefox](https://marketplace.visualstudio.com/items?itemName=firefox-devtools.vscode-firefox-debug)
 - [EditorConfig for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
 - [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-- [Quokka.js](https://marketplace.visualstudio.com/items?itemName=WallabyJs.quokka-vscode)
 - [Auto Rename Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag)
 - [npm Intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.npm-intellisense)
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
@@ -218,12 +217,10 @@ dep deploy --branch=dev test
 dep deploy live --tag=1.0.1 live
 ```
 
-## What revision is on live?
+## Show deployed revision
 ```bash
 dep releases live
-```
-gives you something like:
-```
+
 task releases
 +----------------------+-------------+-------- live ---+------------------------------------------+
 | Date (Europe/Zurich) | Release     | Author | Target | Commit                                   |
@@ -235,7 +232,7 @@ task releases
 ```
 
 ## Uploading/downloading database from live/test
-```
+```bash
 # Upload database to test
 dep silverstripe:upload_database test
 
@@ -245,7 +242,7 @@ dep silverstripe:download_database live
 etc.
 ```
 ## Uploading/downloading assets from live/test utilizing rsync
-```
+```bash
 # Download assets from live
 dep silverstripe:download_assets live
 
@@ -256,15 +253,10 @@ etc.
 ```
 
 # Manual remote dev/build
-
-DevelopmentAdmin over HTTP in Live-Mode is disabled per yml-config. Following deployer-tasks 'll do.
-
-
-## dev/build on test
+DevelopmentAdmin over HTTP is disabled in Live-Mode per yml-config. Following deployer-tasks 'll do.
 ```bash
-dep silverstripe:dev_build test
-```
-## dev/build on live
-```bash
+# dev/build on live
 dep silverstripe:dev_build live
+# dev/build on test
+dep silverstripe:dev_build test
 ```

@@ -1,5 +1,5 @@
 <a href="$Link" class="post-summary">
-	<% if $getDefaultOGImage.Exists() %><figure>
+	<% if $getDefaultOGImage(1).Exists() %><figure>
 		<img
 			height="$getDefaultOGImage(1).FocusFillMax(340,170).Height()"
 			width="$getDefaultOGImage(1).FocusFillMax(340,170).Height()"

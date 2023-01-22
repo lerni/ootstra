@@ -6,9 +6,9 @@
 			<source src="{$LocalMP4Video.Link}" type="{$LocalMP4Video.Mimetype}">
 		</video>
 		<div class="play-wrapper">
-			<button type="button" class="play" onclick="togglePlay()"></button>
+			<button type="button" class="play" aria-label="play" onclick="togglePlay()"></button>
 		</div>
-		<button class="mute" onclick="toggleMute()">
+		<button type="button" class="mute" aria-label="mute" onclick="toggleMute()">
 			<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2">
 				<path id="cross" d="M16.28,8.22c-0.142,-0.152 -0.341,-0.239 -0.549,-0.239c-0.411,0 -0.75,0.339 -0.75,0.75c0,0.208 0.087,0.407 0.239,0.549l2.72,2.72l-2.72,2.72c-0.152,0.142 -0.239,0.341 -0.239,0.549c0,0.411 0.339,0.75 0.75,0.75c0.208,-0 0.407,-0.087 0.549,-0.239l2.72,-2.72l2.72,2.72c0.142,0.152 0.341,0.239 0.549,0.239c0.411,-0 0.75,-0.339 0.75,-0.75c-0,-0.208 -0.087,-0.407 -0.239,-0.549l-2.72,-2.72l2.72,-2.72c0.129,-0.139 0.201,-0.322 0.201,-0.511c0,-0.412 -0.338,-0.75 -0.75,-0.75c-0.189,-0 -0.372,0.072 -0.511,0.201l-2.72,2.72l-2.72,-2.72Z"/>
 				<path id="wave" d="M18.718,4.23c0.291,-0.29 0.769,-0.29 1.06,0c4.296,4.296 4.296,11.26 0,15.556c-0.139,0.13 -0.322,0.202 -0.511,0.202c-0.412,-0 -0.75,-0.339 -0.75,-0.75c-0,-0.19 0.072,-0.373 0.201,-0.512c1.781,-1.781 2.783,-4.199 2.783,-6.718c-0,-2.519 -1.002,-4.937 -2.783,-6.718c-0.291,-0.291 -0.291,-0.769 0,-1.06Zm-2.476,3.535c2.328,2.328 2.327,6.158 -0,8.485c-0.139,0.13 -0.322,0.202 -0.511,0.202c-0.412,-0 -0.75,-0.339 -0.75,-0.75c-0,-0.19 0.072,-0.373 0.201,-0.512c0.844,-0.843 1.318,-1.989 1.318,-3.182c0,-1.193 -0.474,-2.338 -1.318,-3.182c-0.141,-0.14 -0.22,-0.331 -0.22,-0.53c0,-0.412 0.339,-0.75 0.75,-0.75c0.199,-0 0.39,0.079 0.53,0.219Z"/>
@@ -32,5 +32,5 @@
 			}
 		</script>
 	</div>
-	<a href="{$RelatedPage.Link}" class="button">{$ActionText}</a>
+	<% if $ActionText && $RelatedPage %><a href="{$RelatedPage.Link}" class="button">{$ActionText}</a><% end_if %>
 <% end_if %>

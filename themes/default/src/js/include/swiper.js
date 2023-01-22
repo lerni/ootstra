@@ -62,7 +62,7 @@ Array.prototype.forEach.call(multipleSwiper, function (slider) {
   var sliderNext = '#multiple-swiper-next' + slider.getAttribute('data-id');
   var sliderPagination = '#multiple-swiper-pagination' + slider.getAttribute('data-id');
   var multipleSwiperInstance = new Swiper ('#'+sliderID, {
-    spaceBetween: 25, // 18px times (1.41em = $lineheight)
+    spaceBetween: 25, // // $text-size times $lineheight
     freeMode: true,
     slidesPerView: 'auto',
     speed: 1000,

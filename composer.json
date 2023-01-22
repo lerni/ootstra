@@ -22,7 +22,7 @@
 		"silverstripe/recipe-plugin": "^1",
 		"silverstripe/recipe-core": "^4",
 		"silverstripe/cms": "^4",
-		"silverstripe/asset-admin": "^1.6.0",
+		"silverstripe/asset-admin": "^1",
 		"bigfork/htmleditorsrcset": "^2",
 		"bigfork/silverstripe-fail-whale": "^0",
 		"firebrandhq/silverstripe-phonelink": "^2",
@@ -44,28 +44,30 @@
 		"dnadesign/silverstripe-elemental-userforms": "^3",
 		"dnadesign/silverstripe-elemental-virtual": "^1",
 		"bummzack/sortablefile": "^2.1",
-		"silverstripe/redirectedurls": "^2.0",
-		"undefinedoffset/silverstripe-nocaptcha": "^2.0",
+		"silverstripe/redirectedurls": "^2",
+		"undefinedoffset/silverstripe-nocaptcha": "^2",
 		"lerni/silverstripe-webmanifest": "dev-master",
 		"spatie/schema-org": "^3",
 		"heyday/silverstripe-colorpalette": "^2",
-		"betterbrief/silverstripe-googlemapfield": "^2.2.1",
+		"betterbrief/silverstripe-googlemapfield": "^2",
 		"giggsey/libphonenumber-for-php": "^8.10",
-		"kinglozzer/htmleditorstylinghook": "^2.0",
+		"kinglozzer/htmleditorstylinghook": "^2",
 		"jeroendesloovere/vcard": "dev-master#baff586cd57f197060bc9e0c8c49573b894e264c",
 		"silverstripe/selectupload": "dev-master",
 		"endroid/qr-code": "^4.4",
-		"gorriecoe/silverstripe-link": "^1.3",
+		"gorriecoe/silverstripe-link": "^1",
 		"nomidi/silverstripe-webp-image": "dev-master as 1.0",
 		"lerni/klaro-cookie-consent": "v2.x-dev",
-		"league/commonmark": "^2.0",
+		"league/commonmark": "^2",
 		"eluceo/ical": "^2.2",
-		"jonom/silverstripe-someconfig": "^1.0",
-		"osiemsiedem/intervention-image-vips-driver": "v0.8.0"
+		"jonom/silverstripe-someconfig": "^1",
+		"hamaka/userforms-cleanupsubmissions": "^2",
+		"silverstripe/admin": "1.11.3"
 	},
 	"require-dev": {
 		"deployer/deployer": "^7",
-		"silverstripe/sitetreeimporter": "dev-master"
+		"silverstripe/sitetreeimporter": "dev-master",
+		"dnadesign/silverstripe-populate": "^2"
 	},
 	"extra": {
 		"expose": [

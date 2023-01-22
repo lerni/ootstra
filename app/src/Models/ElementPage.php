@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Page;
+use PageController;
 use SilverStripe\Control\Director;
 use SilverStripe\Control\Controller;
 use SilverStripe\Forms\LiteralField;

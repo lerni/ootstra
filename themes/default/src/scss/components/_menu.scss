@@ -65,6 +65,14 @@
 			>li {
 				margin: auto 0 0 0;
 				display: flex;
+				@include breakpoint($XLneg) {
+					&:last-of-type {
+						justify-content: flex-end;
+						.menu2 {
+							align-items: flex-end;
+						}
+					}
+				}
 				> a {
 					line-height: 1;
 					flex: 0 0 auto;
@@ -254,13 +262,13 @@ html.mobile-nav--active {
 			}
 		}
 		.parallax-bg,
-		main.typography {
+		main {
 			height: 0;
 			overflow: hidden;
 			display: none;
 		}
-		// hide captcha if nav--active
-		body > div:not([class]) {
+		// hide captcha but show klaro if nav--active
+		body > div:not([class]):not(#klaro) {
 			display: none;
 		}
 	}

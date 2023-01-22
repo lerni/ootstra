@@ -50,3 +50,18 @@ body.global-alert {
 		color: $red;
 	}
 }
+
+body {
+	&.background--transparent {
+		background-color: transparent;
+	}
+	&.background--white {
+		background-color: $white;
+	}
+	&.background--blue--lightest {
+		background-color: $blue--lightest;
+	}
+	&.background--blue--lighter {
+		background-color: $blue--lighter;
+	}
+}

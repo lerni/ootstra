@@ -62,6 +62,10 @@ class ElementTextImage extends BaseElement
             $fields->addFieldToTab('Root.Main', $CoverField, 'Image');
         }
 
+        if ($TextEditor = $fields->dataFieldByName('HTML')) {
+            $TextEditor->setAttribute('data-mce-body-class', $this->owner->ShortClassName('true') . ' background--' . $this->BackgroundColor);
+        }
+
         return $fields;
     }
 

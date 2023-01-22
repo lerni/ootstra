@@ -2,6 +2,7 @@
 
 namespace App\Elements;
 
+use App\Models\ElementPage;
 use SilverStripe\TagField\TagField;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Control\Controller;
@@ -132,14 +133,17 @@ class ElementFeedTeaser extends BaseElement
         if ($this->FeedTeaserParents()->count()) {
             $parentIDs = (array)$this->FeedTeaserParents()->Column('ID');
 
-            $childrens = SiteTree::get()->filter('ParentID', $parentIDs);
-
-            // If Blog is sorted per date?
             $blogSorting = Config::inst()->get(BlogPost::class, 'default_sort');
+
             if (count($parentIDs) == 1 &&
-                $childrens->first()->ClassName == 'SilverStripe\Blog\Model\BlogPost' &&
-                substr($blogSorting, 0, strlen('PublishDate DESC')) === 'PublishDate DESC') {
-                    $childrens = BlogPost::get()->filter('ParentID', $parentIDs)->sort('PublishDate DESC');
+                $this->FeedTeaserParents()->first()->ClassName == 'SilverStripe\Blog\Model\Blog') {
+                    $childrens = BlogPost::get()->filter('ParentID', $parentIDs);
+                    // If Blog is sorted per date?
+                    if (substr($blogSorting, 0, strlen('PublishDate DESC')) === 'PublishDate DESC') {
+                        $childrens = $childrens->sort('PublishDate DESC');
+                    }
+            } else {
+                $childrens = ElementPage::get()->filter('ParentID', $parentIDs);
             }
 
             if ($filter = $this->getURLCategoryFilter()) {

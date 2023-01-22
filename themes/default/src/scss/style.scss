@@ -32,6 +32,7 @@ html {
 	@include smoothFonts;
 	overflow-y: scroll;
 	overflow-x: hidden;
+	scroll-behavior: smooth;
 }
 
 body {
@@ -67,8 +68,10 @@ strong {
 	right: 0;
 	z-index: 200;
 	width: 100%;
-	will-change: transform, height;
-	transition: transform .2s ease-out;
+	will-change: transform;
+	transition-duration: .2s;
+	transition-property: transform;
+	transition-timing-function: ease-out;
 	transform: translateY(0%);
 	box-shadow: none;
 	background-color: rgba($white, .97);
@@ -126,7 +129,7 @@ strong {
 	}
 }
 
-main.typography {
+body main {
 	width: 100%;
 	flex: 1 1 auto;
 	border-top: $headerheight solid transparent;
@@ -733,6 +736,17 @@ nav.breadcrumbs {
 		&:hover {
 			color: $white;
 			transform: scale(1.08);
+		}
+		span.whatsapp {
+			content: "";
+			padding: 0 0 #{$lh*1.4}em 0;
+			height: 0;
+			width: #{$lh*1.4}em;
+			display: inline-block;
+			background-size: 100% auto;
+			background-repeat: no-repeat;
+			background-image: svg-load('../images/svg/whatsapp.svg', stroke="#{$white}");
+			background-position: center bottom 40%;
 		}
 	}
 }

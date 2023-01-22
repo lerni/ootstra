@@ -25,6 +25,8 @@
   "php.validate.executablePath": "./docker/php",
   "php.executablePath": "./docker/php",
   "php.validate.run": "onSave",
+  "search.useIgnoreFiles": false,
+  "telemetry.enableTelemetry": false,
   "[php]": {
     "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
   }

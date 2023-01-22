@@ -7,11 +7,9 @@
 		<% end_if %>
 		<div class="txt">
 			<h2>{$Firstname} {$Lastname}</h2>
-			<p>
-				<% if $Position %>
-					<span class="position">$Position.Markdowned</span>
-				<% end_if %>
-			</p>
+			<% if $Position %>
+				<span class="position">$Position.Markdowned</span>
+			<% end_if %>
 			<span class="link forth"><%t App\Elements\ElementPerso.MORE "Curriculum Vitae" %></span>
 		</div>
 		<div class="arrow--up"></div>
