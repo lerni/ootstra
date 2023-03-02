@@ -13,7 +13,7 @@ class BlogInitExtension extends Extension
         $additionalLinkHeaders = [
             sprintf(
                 '<%s>; rel=preload; as=style',
-                ModuleResourceLoader::resourceURL('/_resources/themes/default/dist/css/blog.css')
+                ModuleResourceLoader::resourceURL('themes/default/dist/css/blog.css')
 
             )
         ];
@@ -25,6 +25,6 @@ class BlogInitExtension extends Extension
             $linkHeaders = $additionalLinkHeaders;
         }
         $this->owner->response->addHeader('link', implode(',', $linkHeaders));
-        Requirements::css(ModuleResourceLoader::resourceURL('/_resources/themes/default/dist/css/blog.css'));
+        Requirements::css(ModuleResourceLoader::resourceURL('themes/default/dist/css/blog.css'));
     }
 }

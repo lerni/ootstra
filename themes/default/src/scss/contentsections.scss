@@ -1,8 +1,8 @@
 @use "sass:math";
-@import 'includes/variables';
-@import 'includes/defaults';
-@import 'includes/mixins';
-@import '~breakpoint-sass/stylesheets/breakpoint';
+@import "includes/variables";
+@import "includes/defaults";
+@import "includes/mixins";
+@import "~breakpoint-sass/stylesheets/breakpoint";
 .element.elementcontentsection {
 	.content-parts.accordion {
 		// border-bottom: 2px solid $text-color
@@ -10,7 +10,7 @@
 
 		dt.flip {
 			$trigger-size: 1;
-			$trigger-stroke-width: .15;
+			$trigger-stroke-width: 0.15;
 			$trigger-color: $text-color;
 			$spacing-factor: 1.5;
 			padding: #{$lh}em 0;
@@ -38,7 +38,7 @@
 						right: -#{$trigger-size * $spacing-factor}em;
 						transform: rotate(0deg);
 						transform-origin: 50% 50%;
-						transition: transform .1s ease-in-out;
+						transition: transform 0.1s ease-in-out;
 
 						// cross-close variant
 						&::before,
@@ -50,20 +50,18 @@
 							width: #{$trigger-stroke-width}em;
 							height: 100%;
 							bottom: 0;
-
 						}
 						&::before {
 							left: 50%;
 							transform-origin: 0% 100%;
 							transform: rotate(-45deg);
-							transition: left .1s ease-in-out;
-
+							transition: left 0.1s ease-in-out;
 						}
 						&::after {
 							right: 50%;
 							transform-origin: 100% 100%;
 							transform: rotate(45deg);
-							transition: right .1s ease-in-out;
+							transition: right 0.1s ease-in-out;
 						}
 
 						// rotating plus variant
@@ -124,20 +122,28 @@
 						// cross-close variant
 						&::before {
 							// left: calc(50% - #{math.div($trigger-stroke-width,2) *.707}em + (50% * math.div(math.sqrt(2),2)));
-							left: calc(50% - #{math.div($trigger-stroke-width,2) * .707106781186548}em + (50% * .707106781186548));
+							left: calc(
+								50% - #{math.div($trigger-stroke-width, 2) *
+									0.707106781186548}em +
+									(50% * 0.707106781186548)
+							);
 						}
 						&::after {
 							// right: calc(50% - #{math.div($trigger-stroke-width,2) *.707}em + (50% * math.div(math.sqrt(2),2)));
-							right: calc(50% - #{math.div($trigger-stroke-width,2) * .707106781186548}em + (50% * .707106781186548));
+							right: calc(
+								50% - #{math.div($trigger-stroke-width, 2) *
+									0.707106781186548}em +
+									(50% * 0.707106781186548)
+							);
 						}
 					}
 				}
 			}
 		}
-		>dd.flip {
-			padding: 0 #{$lh*2}em #{$lh * 1.5}em 0;
+		> dd.flip {
+			padding: 0 #{$lh * 2}em #{$lh * 1.5}em 0;
 			margin-left: 0;
-			>p:last-child {
+			> p:last-child {
 				margin-bottom: 0;
 			}
 		}
@@ -160,11 +166,11 @@
 			h2 {
 				color: $white;
 			}
-			*  {
+			* {
 				color: $white;
 			}
 			@include breakpoint($Lplus) {
-				&:nth-of-type(4n+1),
+				&:nth-of-type(4n + 1),
 				&:nth-of-type(4n) {
 					background-color: $blue;
 				}
@@ -187,11 +193,11 @@
 		// }
 		li {
 			display: grid;
-			grid-template-columns: #{$lh*3}em 1fr;
+			grid-template-columns: #{$lh * 3}em 1fr;
 			column-gap: #{$lh}em;
 			padding: 0;
 			@include breakpoint($Mneg) {
-				grid-template-columns: #{$lh*2}em 1fr;
+				grid-template-columns: #{$lh * 2}em 1fr;
 				column-gap: #{math.div($lh, 2)}em;
 			}
 		}
@@ -203,7 +209,7 @@
 			display: flex;
 			aspect-ratio: 1/1;
 			font-size: 2em;
-			border-radius: .1em;
+			border-radius: 0.1em;
 			justify-content: center;
 			text-align: center;
 			align-items: center;
@@ -212,15 +218,17 @@
 			@include bold;
 			line-height: 1;
 			@include breakpoint($Mneg) {
-				font-size:1.6em;
+				font-size: 1.6em;
 			}
 		}
 		.txt {
-			h1, h2, h3 {
-				margin-bottom: #{math.div($lh,4)}em;
+			h1,
+			h2,
+			h3 {
+				margin-bottom: #{math.div($lh, 4)}em;
 				line-height: 1;
 			}
-			>*:last-child {
+			> *:last-child {
 				margin-bottom: 0;
 			}
 		}

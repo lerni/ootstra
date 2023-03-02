@@ -27,11 +27,11 @@ namespace {
                 $additionalLinkHeaders = [
                     sprintf(
                         '<%s>; rel=preload; as=script',
-                        ModuleResourceLoader::resourceURL('/_resources/themes/default/dist/js/app.js')
+                        ModuleResourceLoader::resourceURL('themes/default/dist/js/app.js')
                     ),
                     sprintf(
                         '<%s>; rel=preload; as=style',
-                        ModuleResourceLoader::resourceURL('/_resources/themes/default/dist/css/style.css')
+                        ModuleResourceLoader::resourceURL('themes/default/dist/css/style.css')
                     )
                 ];
                 $headers = $this->response->getHeaders();

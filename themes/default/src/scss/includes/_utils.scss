@@ -15,7 +15,8 @@
 %h-hide-visually {
 	position: absolute;
 	overflow: hidden;
-	width: 1px; height: 1px;
+	width: 1px;
+	height: 1px;
 	margin: -1px;
 	padding: 0;
 	border: 0;
@@ -38,17 +39,21 @@
 	&::before {
 		display: inline-block;
 		content: "";
-		width: .9em;
+		width: 0.9em;
 		height: 1em;
 		background-size: auto 70%;
 		background-repeat: no-repeat;
 		background-position: bottom 40% right 0;
-		background-image: svg-load('../images/svg/arrow-forward.svg', stroke-width=4, stroke=#{$link-color});
+		background-image: svg-load(
+			"../images/svg/arrow-forward.svg",
+			stroke-width=4,
+			stroke=#{$link-color}
+		);
 		transform: rotate(180deg);
-		margin-right: .3em;
-		vertical-align: -.1em;
+		margin-right: 0.3em;
+		vertical-align: -0.1em;
 		transition: all;
-		transition-duration: .12s;
+		transition-duration: 0.12s;
 	}
 	&:hover {
 		&::after {
@@ -61,16 +66,20 @@
 	&::after {
 		display: inline-block;
 		content: "";
-		width: .9em;
+		width: 0.9em;
 		height: 1em;
 		background-size: auto 70%;
 		background-repeat: no-repeat;
 		background-position: bottom 30% right 0;
-		background-image: svg-load('../images/svg/arrow-forward.svg', stroke-width=4, stroke=#{$link-color});
-		margin-left: .3em;
+		background-image: svg-load(
+			"../images/svg/arrow-forward.svg",
+			stroke-width=4,
+			stroke=#{$link-color}
+		);
+		margin-left: 0.3em;
 		// vertical-align: -.1em;
 		transition: all;
-		transition-duration: .12s;
+		transition-duration: 0.12s;
 	}
 	&:hover {
 		&::after {

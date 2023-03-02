@@ -41,6 +41,7 @@ mix
   .sass('src/scss/logo.scss', 'dist/css')
   .sass('src/scss/metaoverviewpage.scss', 'dist/css')
   .sass('src/scss/perso.scss', 'dist/css')
+//  .sass('src/scss/perso-simple.scss', 'dist/css')
   .sass('src/scss/style.scss', 'dist/css')
   .sass('src/scss/teaser.scss', 'dist/css')
   .sass('src/scss/jobs.scss', 'dist/css')
@@ -89,7 +90,7 @@ const sitepath = path.join(__dirname, '/../../');
 const parent = path.basename(path.join(sitepath, '../'));
 if (parent === 'webroot') {
   mix.browserSync({
-    files: ['dist/**/*'],// , 'templates/**/*'
+    files: ['dist/**/*', 'templates/**/*'],
 //  proxy: `http://${path.basename(sitepath)}.lodev`
 //  docker
     proxy: `http://localhost:8080`

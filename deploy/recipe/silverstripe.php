@@ -147,6 +147,7 @@ task('silverstripe:download_assets', function () {
     download('{{deploy_path}}/shared/public/assets/', 'public/assets', [
         'options' => [
             "--exclude={'error-*.html','_tinymce','.htaccess','.DS_Store','._*'}",
+            "--omit-dir-times",
             "--delete"
         ]
     ]);
@@ -269,9 +270,10 @@ desc('Creates a DB-dump in dumps-dir and delete older dumps with "auto" as prefi
 task('silverstripe:remote_dump', function ($prefix = 'auto') {
     $stage = get('labels')['stage'];
 
+    invoke('silverstripe:create_dump_dir');
+
     $releaseNo = basename(get('release_path'));
     if($releaseNo) {
-
 
         $filename = get('application') . '-' . $stage . '-' . $releaseNo . '-db-' . date('Y-m-d-H-i-s') . '.sql.gz';
         $filename = $prefix . '-' . $filename;

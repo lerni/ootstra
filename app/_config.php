@@ -14,15 +14,10 @@ use SilverStripe\Core\Manifest\ModuleResourceLoader;
 
 Email::config()->set('admin_email', Environment::getEnv('SS_ADMIN_EMAIL'));
 
-Cookie::config()->set('samesite', 'Lax'); // new configuration property for Cookie
-Session::config()->set('cookie_samesite', 'Lax'); // new configuration property for Session
-
 // Set the site locale
 i18n::set_locale('en_100');
 
 // TinyMCE Config
-
-// styleselect
 $styles = [
     [
         // Wrap selected content in a div with class of .split-2
@@ -71,7 +66,7 @@ $styles = [
         'selector' => 'p,h1,h2,h3'
     ],
     [
-        // add .halvelinish - no margin-bottom
+        // add .halvelinish - halve-line margin-bottom
         'title' => '½ bottom-margin',
         'attributes' => ['class' => 'halvelinish'],
         'selector' => 'p,h1,h2,h3'
@@ -105,10 +100,11 @@ $EditorConfig->setOptions($editorOptions);
 $EditorConfig->setButtonsForLine(1, ['formatselect styleselect pastetext ssmedia ssembed | bold bullist numlist | alignleft aligncenter alignright alignjustify | sslink unlink | charmap hr code removeformat blockquote | outdent indent | undo redo']);
 $EditorConfig->setButtonsForLine(2, '');
 
-// $EditorConfig->setOption(
-//     'extended_valid_elements',
-//     'div[data-capture-embed]' // 'div[*]'
-// );
+$EditorConfig->setOption(
+    'extended_valid_elements',
+    'span[data-feather]'
+    // 'div[*]'
+);
 
 // $SimpleCfg = TinyMCEConfig::get('inlite');
 // $SimpleCfg->disablePlugins(['importcss']);

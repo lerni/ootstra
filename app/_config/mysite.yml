@@ -123,7 +123,7 @@ SilverStripe\Blog\Model\BlogPost:
     # - App\Elements\ElementIframe
 
 App\Models\ElementPage:
-  icon: '_resources/themes/default/dist/images/svg/icon-elements.svg'
+  icon: 'themes/default/dist/images/svg/icon-elements.svg'
   extensions:
     - DNADesign\Elemental\Extensions\ElementalPageExtension
   allowed_elements:

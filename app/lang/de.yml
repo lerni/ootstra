@@ -199,7 +199,7 @@ de:
   \Page:
     MENU: Menu
     OGDescriptionCustomDescription: 'Defaultwert ist Meta-Description oder Summary bei einem Blog-Post'
-    MetaTitleRightTitle: 'Wird als Titel im Browsertab und für Suchmaschinen Resultate verwendet. Wichtig für SEO!'
+    MetaTitleRightTitle: 'Wird als Titel im Browser und für Suchmaschinen Resultate verwendet. Wichtig für SEO!'
     MetaDescriptionRightTitle: 'Wird in Suchmaschinen-Ergebnissen verwendet, wenn Länge passt und Relevanz gegeben ist; beeinflusst die SEO-Position kaum. Ansprechende Meta-Descripton (besonders die ersten ~55 Zeichen -> Sitelinks) beeinflussen die Klickrate jedoch stark.'
   SilverStripe\Blog\Model\Blog:
     Allcategories: Alle
@@ -243,3 +243,8 @@ de:
   # SilverStripe\UserForms\Model\UserDefinedForm:
   Kraftausdruck\KlaroCookie:
     MODALLINK: 'Cookies'
+  UndefinedOffset\NoCaptcha\Forms\NocaptchaField:
+    ReCaptchaTermsTextStart: 'Diese Website ist durch reCAPTCHA geschützt und es gelten die'
+    ReCaptchaTermsTextEnd: 'von Google.'
+    ReCaptchaPrivacyPolicy: 'Datenschutzerklärung'
+    ReCaptchaTermsOfService: 'Nutzungsbedingungen'

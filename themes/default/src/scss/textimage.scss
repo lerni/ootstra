@@ -1,8 +1,8 @@
 @use "sass:math";
-@import 'includes/variables';
-@import 'includes/defaults';
-@import 'includes/mixins';
-@import '~breakpoint-sass/stylesheets/breakpoint';
+@import "includes/variables";
+@import "includes/defaults";
+@import "includes/mixins";
+@import "~breakpoint-sass/stylesheets/breakpoint";
 
 .element.elementtextimage {
 	display: flex;
@@ -33,19 +33,20 @@
 		.inner-txt {
 			position: relative;
 			width: 100%;
-			background-color: rgba($white, .86);
+			background-color: rgba($white, 0.86);
 			padding: #{$lh}em;
 			margin: auto 0 auto auto;
 			@include breakpoint($Mplus) {
 				margin-right: -50%;
 				width: 150%;
-				box-shadow: -#{math.div($lh, 2)}em 0 #{$lh}em rgba($black, .1);
+				box-shadow: -#{math.div($lh, 2)}em 0 #{$lh}em rgba($black, 0.1);
 			}
-			h1, h2 {
+			h1,
+			h2 {
 				text-align: left;
 				font-size: 1.41em;
 			}
-			>*:last-child {
+			> *:last-child {
 				margin-bottom: 0;
 			}
 		}
@@ -81,7 +82,7 @@
 			margin: auto auto auto 0;
 			@include breakpoint($Mplus) {
 				margin-left: -50%;
-				box-shadow: -#{math.div($lh, 2)}em 0 #{$lh}em rgba($black, .1);
+				box-shadow: -#{math.div($lh, 2)}em 0 #{$lh}em rgba($black, 0.1);
 			}
 		}
 	}

@@ -67,7 +67,6 @@ class BlogPostExtension extends DataExtension
 
     public function BlogThumbnail()
     {
-        // todo exists
         if (is_object($this->owner->getDefaultOGImage(1)) && $this->owner->getDefaultOGImage()->exists()) {
             return $this->owner->getDefaultOGImage()->CMSThumbnail();
         }

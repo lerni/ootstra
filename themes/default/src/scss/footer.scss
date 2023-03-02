@@ -1,8 +1,8 @@
 @use "sass:math";
-@import 'includes/variables';
-@import 'includes/defaults';
-@import 'includes/mixins';
-@import '~breakpoint-sass/stylesheets/breakpoint';
+@import "includes/variables";
+@import "includes/defaults";
+@import "includes/mixins";
+@import "~breakpoint-sass/stylesheets/breakpoint";
 
 /* Layout: footer
 ---------------------------------------------------------------------------------- */
@@ -10,7 +10,7 @@ body > footer {
 	flex-shrink: 0;
 	padding: 0;
 	background-color: $blue;
-	padding: #{$lh*1.5}em 0;
+	padding: #{$lh * 1.5}em 0;
 	a {
 		text-decoration: none;
 		color: $white;
@@ -30,7 +30,8 @@ body > footer {
 		@include breakpoint($XLneg) {
 			flex: 0 0 100% !important;
 		}
-		span, a {
+		span,
+		a {
 			color: $white;
 		}
 		a {

@@ -54,7 +54,7 @@
 			grid-column: 2/4;
 			margin: auto 0 0 0;
 			column-gap: #{$lh}em;
-			padding-left: #{$lh*2}em;
+			padding-left: #{$lh * 2}em;
 			@include breakpoint($Lneg) {
 				grid-column: 1/4;
 				grid-row: 2/3;
@@ -62,7 +62,7 @@
 			@include breakpoint($Mneg) {
 				grid-template-columns: 1fr;
 			}
-			>li {
+			> li {
 				margin: auto 0 0 0;
 				display: flex;
 				@include breakpoint($XLneg) {
@@ -77,7 +77,7 @@
 					line-height: 1;
 					flex: 0 0 auto;
 					position: relative;
-					padding-bottom: .7em;
+					padding-bottom: 0.7em;
 				}
 				.menu2 {
 					visibility: hidden;
@@ -88,7 +88,7 @@
 					&::after {
 						background-color: $gold;
 						bottom: 0;
-						box-shadow: 0 0 1em rgba(0,0,0,.1);
+						box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);
 						content: "";
 						left: -1000%;
 						right: -1000%;
@@ -96,23 +96,23 @@
 						top: 0;
 						z-index: -2;
 						opacity: 0;
-						transition: opacity .1s linear;
+						transition: opacity 0.1s linear;
 					}
 					// @include breakpoint($Mneg) {
 					// 	padding: #{math.div($lh, 3)}em 0 0 0;
 					// }
 					li {
 						height: 0;
-						transition: height linear .1s;
+						transition: height linear 0.1s;
 						a {
-							line-height: #{$lh*1.5}em;
+							line-height: #{$lh * 1.5}em;
 							// color: $text-color;
 							display: flex;
 						}
 					}
 				}
 				&.has-children {
-					>a::after {
+					> a::after {
 						background-color: $text-color;
 						bottom: 0;
 						content: "";
@@ -121,20 +121,20 @@
 						left: 0;
 						right: 0;
 						transform: translateY(0);
-						transition: bottom .1s ease-out,height .1s linear;
+						transition: bottom 0.1s ease-out, height 0.1s linear;
 						z-index: -1;
 					}
 					&.current,
 					&.section {
-						>a::after {
+						> a::after {
 							background-color: $red;
 						}
 					}
 					&:focus-within,
 					&:hover {
-						>a::after {
+						> a::after {
 							bottom: -6px;
-							transition: bottom .1s ease-out,height .1s linear;
+							transition: bottom 0.1s ease-out, height 0.1s linear;
 							z-index: -1;
 						}
 						ul.menu2 {
@@ -146,7 +146,7 @@
 								opacity: 1;
 							}
 							li {
-								height: #{$lh*1.5}em;
+								height: #{$lh * 1.5}em;
 							}
 						}
 					}
@@ -195,7 +195,9 @@ html.mobile-nav--active {
 			transform: translateY(0%) !important;
 			height: auto;
 			.inner {
-				grid-template-rows: #{$lh*1.2}em calc(#{$headerheight--smaller} - #{$lh*1.2}em) auto 1fr;
+				grid-template-rows: #{$lh * 1.2}em calc(
+						#{$headerheight--smaller} - #{$lh * 1.2}em
+					) auto 1fr;
 			}
 			ul.service-nav {
 				margin: 0 auto auto 0;
@@ -204,29 +206,27 @@ html.mobile-nav--active {
 				justify-content: flex-start;
 				display: flex;
 				flex-direction: column;
-				>li >a {
+				> li > a {
 					color: $text-color;
 					font-size: 1em;
 				}
 			}
 			nav.nav {
 				display: flex;
-				padding: #{$lh*2}em 0;
-				@include breakpoint($Lneg) {
-					grid-column: 1/3;
-					grid-row: 3/4;
-				}
+				padding: #{$lh * 2}em 0;
+				grid-column: 1/3;
+				grid-row: 3/4;
 				ul.menu1 {
 					display: flex;
 					flex-wrap: wrap;
 					gap: #{$lh}em;
 					padding-left: 0;
 					font-size: 1.1em;
-					>li {
+					> li {
 						min-width: 280px;
 						flex-direction: column;
 						margin: 0 0 auto 0;
-						>a {
+						> a {
 							&::after {
 								display: none;
 							}
@@ -235,14 +235,14 @@ html.mobile-nav--active {
 							visibility: visible;
 							position: inherit;
 							padding-top: 0;
-							padding-left: #{$lh*.5}em;
+							padding-left: #{$lh * 0.5}em;
 							&::after {
 								display: none;
 							}
 							li {
 								height: inherit;
 								a {
-									@include normal
+									@include normal;
 								}
 							}
 						}

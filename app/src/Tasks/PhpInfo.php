@@ -11,7 +11,6 @@ class PhpInfo extends BuildTask
 {
     protected $description = 'Show `phpinfo();`';
     private static $segment = 'phpinfo';
-    // protected $description = '';
 
 	public function run($request)
     {

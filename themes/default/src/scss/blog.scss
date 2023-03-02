@@ -1,8 +1,8 @@
 @use "sass:math";
-@import 'includes/variables';
-@import 'includes/defaults';
-@import 'includes/mixins';
-@import '~breakpoint-sass/stylesheets/breakpoint';
+@import "includes/variables";
+@import "includes/defaults";
+@import "includes/mixins";
+@import "~breakpoint-sass/stylesheets/breakpoint";
 
 body.blogpost,
 body.blog {
@@ -17,12 +17,16 @@ body.blog {
 		gap: #{$lh}em;
 	}
 	.post-summary {
-		flex: 0 0 calc(#{percentage(math.div(1, 3))} - #{math.div($lh*2, 3)}em);
+		flex: 0 0
+			calc(#{percentage(math.div(1, 3))} - #{math.div($lh * 2, 3)}em);
 		display: flex;
 		flex-direction: column;
 		color: $text-color;
 		@include breakpoint($Lneg) {
-			flex: 0 0 calc(#{percentage(math.div(1, 2))} - #{math.div($lh*1, 1.9)}em);
+			flex: 0 0
+				calc(
+					#{percentage(math.div(1, 2))} - #{math.div($lh * 1, 1.9)}em
+				);
 		}
 		@include breakpoint($Mneg) {
 			flex: 0 0 100%;
@@ -47,7 +51,7 @@ body.blog {
 			}
 		}
 		.txt {
-			margin: #{$lh}em auto #{$lh*2}em;
+			margin: #{$lh}em auto #{$lh * 2}em;
 			max-width: 700px;
 			p {
 				margin: #{math.div($lh, 2)}em 0;
@@ -59,27 +63,27 @@ body.blog {
 	}
 	.prev-all-next {
 		display: grid;
-		grid-template-columns: 1fr #{$lh*3}em 1fr;
+		grid-template-columns: 1fr #{$lh * 3}em 1fr;
 		grid-gap: #{$lh}em;
 		align-items: center;
-		margin: #{$lh*2}em auto #{$lh*2}em;
+		margin: #{$lh * 2}em auto #{$lh * 2}em;
 		@include breakpoint($Lneg) {
 			grid-template-columns: 1fr;
 		}
-		>a {
+		> a {
 			color: $text-color;
 		}
 		.prev,
 		.next {
 			display: block;
-			height: #{$lh*3}em;
+			height: #{$lh * 3}em;
 			margin: 0 auto;
 			display: flex;
 			background-color: $gray--lighter;
 			// min-width: 300px;
-			>img {
-				width: #{$lh*3}em;
-				height: #{$lh*3}em;
+			> img {
+				width: #{$lh * 3}em;
+				height: #{$lh * 3}em;
 			}
 			span {
 				margin: auto 0;
@@ -87,7 +91,7 @@ body.blog {
 				&::after {
 					will-change: background-position;
 					transition: background-position;
-					transition-duration: .12s;
+					transition-duration: 0.12s;
 				}
 			}
 		}
@@ -101,11 +105,14 @@ body.blog {
 				display: inline-block;
 				background-size: auto 80%;
 				background-repeat: no-repeat;
-				background-image: svg-load('../images/svg/forth.svg', fill=#{$text-color});
+				background-image: svg-load(
+					"../images/svg/forth.svg",
+					fill=#{$text-color}
+				);
 				background-position: bottom 100% right 50%;
 				transform: rotate(180deg);
 			}
-			>img {
+			> img {
 				margin-right: 1em;
 			}
 			&:hover {
@@ -124,10 +131,13 @@ body.blog {
 				display: inline-block;
 				background-size: auto 80%;
 				background-repeat: no-repeat;
-				background-image: svg-load('../images/svg/forth.svg', fill=#{$text-color});
+				background-image: svg-load(
+					"../images/svg/forth.svg",
+					fill=#{$text-color}
+				);
 				background-position: top 100% right 50%;
 			}
-			>img {
+			> img {
 				margin-left: 1em;
 			}
 			&:hover {
@@ -144,11 +154,13 @@ body.blog {
 		.all-posts {
 			margin: auto;
 			display: block;
-			width: #{$lh*2.4}em;
-			height: #{$lh*2.4}em;
-			background-image: svg-load('../images/svg/grid.svg', fill=#{$gray--light});
+			width: #{$lh * 2.4}em;
+			height: #{$lh * 2.4}em;
+			background-image: svg-load(
+				"../images/svg/grid.svg",
+				fill=#{$gray--light}
+			);
 			background-size: 100% auto;
 		}
 	}
-
 }

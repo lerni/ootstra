@@ -225,7 +225,6 @@ class UrlifyExtension extends Extension
     public function AbsoluteLink($action = null)
     {
         return Director::absoluteURL($this->Link($action));
-
     }
 
     public function Breadcrumbs($maxDepth = 20, $unlinked = false, $stopAtPageType = false, $showHidden = false)

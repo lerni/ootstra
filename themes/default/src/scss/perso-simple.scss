@@ -1,0 +1,90 @@
+@use "sass:math";
+@import "includes/variables";
+@import "includes/defaults";
+@import "includes/mixins";
+@import "~breakpoint-sass/stylesheets/breakpoint";
+
+// https://www.sitepoint.com/recreating-google-images-search-layout-css/
+// https://codepen.io/SitePoint/pen/bNYBZX
+
+// the below SASS will calculate media queries based
+// on the info entered below
+
+.element.elementperso {
+	display: grid;
+
+	.persos {
+		display: grid;
+		gap: #{$lh}em;
+		grid-template-columns: repeat(auto-fit, minmax(256px, 1fr));
+		grid-template-rows: repeat(auto-fit, minmax(#{$lh}em, 1fr));
+	}
+
+	.perso {
+		margin: 0;
+		position: relative;
+		overflow: hidden;
+		img {
+			width: 100%;
+			margin-bottom: 0;
+			display: flex;
+			// padding-bottom: #{$lh}em;
+			&.default {
+				background-color: $gray--light;
+			}
+		}
+		.txt {
+			position: absolute;
+			background-color: rgba($white, .9);
+			top: auto;
+			right: -1px;
+			bottom: -1px;
+			left: -1px;
+			padding: 1px;
+			z-index: 1;
+			display: flex;
+			flex-direction: column;
+			transition: transform .1s linear;
+			will-change: transform;
+			padding: 0 4px;
+			transform: translateY(calc(100% - #{$lh*1.5}em));
+			>* {
+				font-size: 1em;
+			}
+			h2 {
+				margin: #{math.div($lh, 4)}em 0;
+			}
+			.position {
+				margin: 0 0  #{math.div($lh, 4)}em 0;
+			}
+			p {
+				margin-bottom: 0;
+			}
+			.coordinates {
+				display: flex;
+				margin-bottom:  #{math.div($lh, 4)}em;
+				a {
+					color: $text-color;
+					display: flex;
+					&:not(:last-of-type) {
+						margin-right: #{$lh}em;
+					}
+				}
+			}
+			a.vcard {
+				padding-left: #{$lh}em;
+				display: inline-block;
+				background-repeat: no-repeat;
+				background-size: auto .78em;
+				background-position: left 100%;
+				background-image: svg-load('../images/svg/vcard.svg', fill=#{$text-color}, stroke=#{$text-color});
+			}
+
+		}
+		&:hover {
+			.txt {
+				transform: translateY(0);
+			}
+		}
+	}
+}

@@ -6,7 +6,7 @@ ul.doc {
 		display: block;
 		width: 100%;
 		list-style: none;
-		padding: #{$lh*.35}em 0;
+		padding: #{$lh * 0.35}em 0;
 		margin: 0;
 		border-bottom: 1px solid $gray-light;
 		&.first {
@@ -16,14 +16,14 @@ ul.doc {
 }
 
 a.download {
-	color: $text-color
+	color: $text-color;
 	display: inline-block;
 	width: 100%;
-	line-height: #{$lh*1.4}em;
-	height: #{$lh*1.4}em;
-	padding-left: #{$lh*1.7}em;
+	line-height: #{$lh * 1.4}em;
+	height: #{$lh * 1.4}em;
+	padding-left: #{$lh * 1.7}em;
 	background-repeat: no-repeat;
-	background-size: #{$lh*1.4}em #{$lh*1.4}em;
+	background-size: #{$lh * 1.4}em #{$lh * 1.4}em;
 	background-image: url(../images/svg/default.svg);
 	&:hover {
 		filter: brightness(90%);

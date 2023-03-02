@@ -4,7 +4,6 @@
 @import "includes/mixins";
 @import "~breakpoint-sass/stylesheets/breakpoint";
 
-
 .element.elementlocalvideo {
 	display: flex;
 	flex-direction: column;
@@ -34,15 +33,15 @@
 		}
 		.play-wrapper {
 			position: absolute;
-			left: calc(50% - #{$play-size*.5}px);
-			top: calc(50% - #{$play-size*.5}px);
+			left: calc(50% - #{$play-size * 0.5}px);
+			top: calc(50% - #{$play-size * 0.5}px);
 			height: #{$play-size}px;
 			width: #{$play-size}px;
 			&::after {
 				content: "";
 				display: block;
 				position: absolute;
-				background-color: rgba($gray, .14);
+				background-color: rgba($gray, 0.14);
 				width: 200%;
 				height: 200%;
 				border-radius: 50%;
@@ -73,14 +72,15 @@
 
 			// play state
 			border-style: solid;
-			border-width: calc(#{$play-size*.5}px + 1px) 0 calc(#{$play-size*.5}px + 1px) #{math.div($play-size, 6) * 5}px;
+			border-width: calc(#{$play-size * 0.5}px + 1px) 0
+				calc(#{$play-size * 0.5}px + 1px) #{math.div($play-size, 6) * 5}px;
 			&:hover {
-				opacity: .8;
+				opacity: 0.8;
 			}
 		}
 		button.mute {
-			width: 3*$mute-size;
-			height: 3*$mute-size;
+			width: 3 * $mute-size;
+			height: 3 * $mute-size;
 			position: absolute;
 			right: #{math.div($mute-size, 1)};
 			bottom: #{math.div($mute-size, 2)};
@@ -113,9 +113,8 @@
 		// 	}
 		// }
 	}
-	>a.button {
+	> a.button {
 		margin-left: auto;
 		margin-top: calc(#{math.div($lh, 6)}em + #{math.div($lh, 1)}em);
 	}
 }
-

@@ -4,13 +4,13 @@
 	box-sizing: border-box;
 }
 
-.clear{
-	clear:both;
+.clear {
+	clear: both;
 }
 
 table {
-	border-collapse:collapse;
-	border-spacing:0;
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
 // links with no href wouldn't -> onclick like cookie-consent
@@ -19,16 +19,17 @@ a {
 }
 
 a img {
-	border:none;
+	border: none;
 }
 
 a:visited,
 a:focus,
-a, a img {
-	text-decoration:none;
+a,
+a img {
+	text-decoration: none;
 }
 
-a[href^=tel],
+a[href^="tel"],
 a[href^="x-apple-data-detectors:"] {
 	color: inherit;
 	text-decoration: inherit;
@@ -38,15 +39,15 @@ a[href^="x-apple-data-detectors:"] {
 @page {
 	size: A4;
 	margin: 1cm;
-	width:$inner-width
+	width: $inner-width;
 }
 @media print {
-	html, body {
+	html,
+	body {
 		width: 210mm;
 		height: 297mm;
-		max-width:100% !important;
-		min-height:0;
-
+		max-width: 100% !important;
+		min-height: 0;
 	}
 	body {
 		color: #000;

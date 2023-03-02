@@ -1,6 +1,6 @@
 @use "sass:math";
 
-$labelfontsize: .9em;
+$labelfontsize: $font-size--small;
 
 form {
 	&#Form_Form {
@@ -12,9 +12,12 @@ form {
 		border: 0;
 		margin: 0;
 		padding: 0;
+		.form-step {
+			display: flex;
+		}
 		// userform groups
 		fieldset.userformsgroup {
-			padding: 0;
+			padding: #{$lh}em 0 0 0;
 			border: none;
 			border-radius: 0;
 			margin-bottom: 0;
@@ -22,14 +25,18 @@ form {
 				@include bold;
 				padding: #{math.div($lh, 2)}em 0;
 			}
-			>.middleColumn>div {
-				margin-bottom: #{$lh}em;
+			> .middleColumn > div {
+				margin-bottom: #{math.div($lh, 2)}em;
 				padding-bottom: #{$lh}em;
 			}
-			>.middleColumn {
+			> .middleColumn {
 				// since we add 1px height (border) with the ::before element flow would be screwed
 				margin-bottom: -1px;
-				&>div:first-child {
+				display: flex;
+				flex-wrap: wrap;
+				column-gap: #{$lh}em;
+				flex: 0 0 100%;
+				& > div:first-child {
 					&::before {
 						// position: absolute;
 						content: "";
@@ -54,7 +61,25 @@ form {
 			}
 			&.auto-width {
 				flex: 1 1 auto;
-				margin-right: .3em;
+				margin-right: 0.3em;
+				@include breakpoint($Mneg) {
+					flex: 0 0 100%;
+				}
+			}
+			// &.checkbox.quarter-width-checkbox {
+			// 	flex: 0 0 calc(
+			// 			#{percentage(math.div(1, 4))} - #{math.div(($lh * 4), 3)}em
+			// 		);
+			// }
+			// &.checkbox.third-width-checkbox {
+			// 	flex: 0 0 calc(
+			// 			#{percentage(math.div(1, 3))} - #{math.div(($lh * 3), 2)}em
+			// 		);
+			// }
+			&.checkbox.halv-width-checkbox {
+				flex: 0 0 calc(
+						#{percentage(math.div(1, 2))} - #{math.div(($lh * 1), 2)}em
+					);
 				@include breakpoint($Mneg) {
 					flex: 0 0 100%;
 				}
@@ -65,20 +90,32 @@ form {
 					display: flex;
 					flex-wrap: wrap;
 					gap: #{math.div($lh, 2)}em;
-					>div {
-						flex: 1 0 calc(#{percentage(math.div(1, 4))} - #{math.div($lh, 2)}em);
+					> div {
+						flex: 1 0
+							calc(
+								#{percentage(math.div(1, 4))} - #{math.div(
+										$lh,
+										2
+									)}em
+							);
 					}
 				}
 				@include breakpoint($Mneg) {
 					.middleColumn {
-						>div {
-							flex: 0 0 calc(percentage(math.div(1, 2)) - #{math.div($lh, 2)}em);
+						> div {
+							flex: 0 0
+								calc(
+									percentage(math.div(1, 2)) - #{math.div(
+											$lh,
+											2
+										)}em
+								);
 						}
 					}
 				}
 				@include breakpoint($Sneg) {
 					.middleColumn {
-						>div {
+						> div {
 							flex: 0 0 100%;
 						}
 					}
@@ -92,14 +129,15 @@ form {
 					font-weight: normal;
 					font-size: $labelfontsize;
 				}
-				&.right {}
+				&.right {
+				}
 				&.required {
 					display: none !important;
 				}
 			}
 			.middleColumn {
 				float: left;
-				width:100% !important;
+				width: 100% !important;
 				background: none;
 				input.text,
 				textarea,
@@ -107,8 +145,8 @@ form {
 				select {
 					width: 100%;
 					padding: #{math.div($lh, 2)}em #{math.div($lh, 3)}em;
-					background-color: $gray--lighter;
-					border: 1px solid $gray--lighter;
+					background-color: $gray--light;
+					border: 1px solid $gray--light;
 					color: $text-color;
 					@include normal; // dropdown needs this
 				}
@@ -118,14 +156,16 @@ form {
 				select:focus {
 					outline: none;
 				}
-				input[disabled], form textarea[disabled] {
+				input[disabled],
+				form textarea[disabled] {
 					background-color: #f7f7f7;
 					border: 1px solid #dad9d9;
 				}
 				textarea {
 					resize: vertical;
 				}
-				.checkbox, .radio {
+				.checkbox,
+				.radio {
 					input {
 						float: left;
 						width: 13px;
@@ -152,7 +192,7 @@ form {
 					}
 				}
 			}
-			&.dropdown .middleColumn select  {
+			&.dropdown .middleColumn select {
 				@include dropdown;
 				// font-size: $labelfontsize;
 				// line-height: 1.5;
@@ -165,14 +205,14 @@ form {
 				.middleColumn div {
 					position: relative;
 					label {
-						padding-left: #{$size*1.3}em;
+						padding-left: #{$lh}em;
 						font-size: $labelfontsize;
 					}
-					input[type=radio] {
+					input[type="radio"] {
 						position: absolute;
 						visibility: hidden;
 						&:checked ~ .radio-check {
-							border: #{math.div($size, 5)}em solid $link-color;
+							border: 10% solid $link-color;
 						}
 						&:checked ~ .radio-check::before {
 							background-color: $link-color;
@@ -191,17 +231,17 @@ form {
 						top: #{math.div($size, 5)}em;
 						left: 0;
 						z-index: 5;
-						transition: border .25s linear;
-						border: #{math.div($size, 5)}em solid $text-color;
+						transition: border 0.25s linear;
+						border: #{math.div($size, 5)}em solid $gray;
 						&::before {
 							display: block;
 							position: absolute;
-							content: '';
+							content: "";
 							border-radius: 100%;
-							height: #{math.div($size, 2)}em;
-							width: #{math.div($size, 2)}em;
-							top: #{math.div($size, 20)}em;
-							left: #{math.div($size, 20)}em;
+							height: 70%;
+							width: 70%;
+							top: 15%;
+							left: 15%;
 							margin: auto;
 							transition: background-color 0.25s linear;
 						}
@@ -218,7 +258,7 @@ form {
 	}
 	label.error,
 	.message {
-		background-color: rgba($link-color, .1);
+		background-color: rgba($link-color, 0.1);
 		padding: 5px 10px;
 		border: 1px solid rgba($link-color, 1);
 		border-radius: 3px;
@@ -227,7 +267,8 @@ form {
 		background-color: #ecf9d0;
 		border-color: #8fbe00;
 	}
-	.bad, .required {
+	.bad,
+	.required {
 		background-color: lighten($red, 45%) !important;
 		border-color: $red !important;
 		color: $text-color !important;
@@ -248,7 +289,7 @@ form {
 		background: $link-color;
 		color: $white;
 		display: inline-block;
-		padding: #{math.div($lh,4)}em #{math.div($lh,2)}em;
+		padding: #{math.div($lh, 4)}em #{math.div($lh, 2)}em;
 		border: none;
 		@include bold;
 	}
@@ -264,7 +305,7 @@ form {
 		margin-bottom: 10px;
 	}
 	a.btn::after {
-		content: '\2192';
+		content: "\2192";
 		padding-left: 10px;
 	}
 	input.action[class] {
@@ -272,7 +313,7 @@ form {
 	}
 
 	.Actions::after {
-		color: #B94A48;
+		color: #b94a48;
 		content: "* Pflichtfeld";
 		display: inline-block;
 		font-weight: normal;
@@ -283,16 +324,15 @@ form {
 	}
 }
 
-
-	#Remember {
-		min-height: 20px;
-	}
-	#ForgotPassword {
-		clear: left;
-	}
-	#MemberLoginForm_LostPasswordForm .Actions::after {
-		display: none;
-	}
+#Remember {
+	min-height: 20px;
+}
+#ForgotPassword {
+	clear: left;
+}
+#MemberLoginForm_LostPasswordForm .Actions::after {
+	display: none;
+}
 
 .FormHeading {
 	clear: both;
@@ -324,26 +364,26 @@ form .checkboxset ul,
 form .optionset ul {
 	margin: 0;
 }
-	form .checkboxset li,
-	form .optionset li {
-		margin-bottom: 5px;
-		list-style-type: none;
-	}
-	form div.checkbox::after {
-		content: ".";
-		display: block;
-		height: 0;
-		clear: both;
-		visibility: hidden;
-	}
-	form .checkbox .checkbox {
-		float:left;
-		margin: .2em .3em 0 0;
-	}
-	form .checkbox label p {
-		margin-bottom: 0;
-		line-height: 1;
-	}
+form .checkboxset li,
+form .optionset li {
+	margin-bottom: 5px;
+	list-style-type: none;
+}
+form div.checkbox::after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+form .checkbox .checkbox {
+	float: left;
+	margin: 0.2em 0.3em 0 0;
+}
+form .checkbox label p {
+	margin-bottom: 0;
+	line-height: 1;
+}
 
 label.error,
 span.message {
@@ -367,9 +407,9 @@ textarea:invalid {
 }
 .no-boxshadow input:invalid,
 .no-boxshadow textarea:invalid {
-	background-color: #f0dddd
+	background-color: #f0dddd;
 }
-.ss-uploadfield-item-info button{
+.ss-uploadfield-item-info button {
 	margin-top: 4px !important;
 	float: left;
 }
@@ -384,7 +424,7 @@ form .file {
 	}
 	form label.left,
 	#MemberLoginForm_LoginForm label {
-		margin-bottom: 8px
+		margin-bottom: 8px;
 	}
 }
 
@@ -395,7 +435,6 @@ form .file {
 }
 
 @media only screen and (min-width: 700px) {
-
 }
 [type="submit"],
 .action:not(.action-detail),
@@ -407,10 +446,10 @@ form .file {
 	color: $white;
 	background-color: $link-color;
 	text-align: center;
-	transition: .2s ease-out;
+	transition: 0.2s ease-out;
 	cursor: pointer;
 	display: inline-block;
-	padding: #{math.div($lh,4)}em #{math.div($lh,2)}em;
+	padding: #{math.div($lh, 4)}em #{math.div($lh, 2)}em;
 	border: none;
 	-webkit-appearance: none;
 	&:hover {

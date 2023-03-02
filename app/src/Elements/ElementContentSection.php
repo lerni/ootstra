@@ -46,14 +46,13 @@ class ElementContentSection extends BaseElement
         $fields = parent::getCMSFields();
 
         $fields->removeByName([
-            'isFullWidth'
+            'isFullWidth',
+            'ContentParts'
         ]);
 
         if ($LayoutField = $fields->dataFieldByName('Layout')) {
             $fields->addFieldToTab('Root.Main', $LayoutField);
         }
-
-        $fields->removeByName('ContentParts');
 
         // hack around unsaved relations
         if ($this->isInDB()) {

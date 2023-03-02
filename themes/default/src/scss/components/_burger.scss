@@ -6,108 +6,98 @@
 // [---] middle -> &
 // (---) bottom -> &::after
 
-
 // Vendor prefixes
-$sass-burger-add-vendor-prefixes: false !default;
 $burger-height: 0 !default;
 $burger-gutter: 0 !default;
 
 // Burger
-@mixin burger($width: 30px, $height: 5px, $gutter: 3px, $color: #000, $border-radius: 0, $transition-duration: .3s) {
-    $burger-height: $height !global;
-    $burger-gutter: $gutter !global;
+@mixin burger(
+	$width: 30px,
+	$height: 5px,
+	$gutter: 3px,
+	$color: #000,
+	$border-radius: 0,
+	$transition-duration: 0.3s
+) {
+	$burger-height: $height !global;
+	$burger-gutter: $gutter !global;
 
-    position: relative;
-    margin-top: $height + $gutter;
-    margin-bottom: $height + $gutter;
+	position: relative;
+	margin-top: $height + $gutter;
+	margin-bottom: $height + $gutter;
+	user-select: none;
 
-    @if $sass-burger-add-vendor-prefixes {
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-    }
-    user-select: none;
+	// 1. Fixes jagged edges in Firefox, see issue #10.
+	&,
+	&::before,
+	&::after {
+		width: $width;
+		height: $height;
+		background-color: $color;
+		outline: 1px solid transparent; // 1
+		@if $border-radius != 0 {
+			border-radius: $border-radius;
+		}
+		transition-property: background-color, transform;
+		transition-duration: $transition-duration;
+	}
 
-    // 1. Fixes jagged edges in Firefox, see issue #10.
-    &, &::before, &::after {
-        width: $width;
-        height: $height;
-        background-color: $color;
-        outline: 1px solid transparent; // 1
-        @if $border-radius != 0 {
-            border-radius: $border-radius;
-        }
+	&::before,
+	&::after {
+		position: absolute;
+		content: "";
+	}
+	&::before {
+		top: -($height + $gutter);
+	}
 
-        @if $sass-burger-add-vendor-prefixes {
-            -webkit-transition-property: background-color, -webkit-transform;
-            -moz-transition-property: background-color, -moz-transform;
-            -o-transition-property: background-color, -o-transform;
-        }
-        transition-property: background-color, transform;
-
-        @if $sass-burger-add-vendor-prefixes {
-            -webkit-transition-duration: $transition-duration;
-            -moz-transition-duration: $transition-duration;
-            -o-transition-duration: $transition-duration;
-        }
-        transition-duration: $transition-duration;
-    }
-
-    &::before, &::after {
-        position: absolute;
-        content: "";
-    }
-
-    &::before {
-        top: -($height + $gutter);
-    }
-
-    &::after {
-        top: $height + $gutter;
-    }
+	&::after {
+		top: $height + $gutter;
+	}
 }
-
 
 // Select parts of the burger
 @mixin burger-parts {
-    &, &::before, &::after {
-        @content;
-    }
+	&,
+	&::before,
+	&::after {
+		@content;
+	}
 }
 
 @mixin burger-top {
-    &::before {
-        @content;
-    }
+	&::before {
+		@content;
+	}
 }
 
 @mixin burger-middle {
-    & {
-        @content;
-    }
+	& {
+		@content;
+	}
 }
 
 @mixin burger-bottom {
-    &::after {
-        @content;
-    }
+	&::after {
+		@content;
+	}
 }
-
 
 // Burger animations
 @mixin burger-to-cross($color: auto) {
-    & {
-        background-color: transparent;
-    }
-    @if ($color != auto) {
-        &::before, &::after {
-            background-color: $color;
-        }
-    }
-    &::before {
-        transform: translateY($burger-gutter + $burger-height) rotate(45deg);
-    }
-    &::after {
-        transform: translateY(-($burger-gutter + $burger-height)) rotate(-45deg);
-    }
+	& {
+		background-color: transparent;
+	}
+	@if ($color != auto) {
+		&::before,
+		&::after {
+			background-color: $color;
+		}
+	}
+	&::before {
+		transform: translateY($burger-gutter + $burger-height) rotate(45deg);
+	}
+	&::after {
+		transform: translateY(-($burger-gutter + $burger-height)) rotate(-45deg);
+	}
 }

@@ -91,46 +91,19 @@ or
 
 Docker makes a local webserver available on [http://localhost:8080/](http://localhost:8080/), watcher/browsersync runs on [http://localhost:3000/](http://localhost:3000/), `phpMyAdmin` on [http://localhost:8081/](http://localhost:8081/), MailHog on [http://localhost:8025/](http://localhost:8025/). Default login into [/admin](http://localhost:8080/admin) is `admin` & `password`.
 
-`docker ps` shows `<CONTAINER IDs>` for all running instances. To run a shell in a container do either `docker exec -it <CONTAINER_ID> zsh` or `docker-compose exec silverstripe zsh` -> containers are named in `docker-compose.yml`. You may add an alias to your rcfile (`~/.zshrc` on Mac) like: `alias dshell="docker-compose exec silverstripe zsh"` to just type `dshell` in order to run `zsh` in the silverstripe container.
+`docker ps` shows `<CONTAINER IDs>` for all running instances. To run a shell in a container do either `docker exec -it <CONTAINER_ID> zsh` or `docker-compose exec silverstripe zsh` -> containers are named in `docker-compose.yml`. To stop all containers use `docker-compose down`. There are a few aliases in the silverstripe docker container and a bunch of tasks in `.vscode/tasks.json` available per `Command+Shift+B`:
+- `docker-compose up` (magenta)
+- `docker-compose down` (magenta)
+- `npm watch` (green)
+- `npm prod` (green)
+- `download database from live` (cyan)
+- `download assets from live` (cyan)
+- `flush` (blue) -> `flush` instead of `$DOCUMENT_ROOT/vendor/silverstripe/framework/sake flush`
+- `flushh` (blue) -> `flushh` (flush hard) instead of `rm -rf $DOCUMENT_ROOT/silverstripe-cache/*`
+- `dev/build` (blue) -> `dbuild` instead of `$DOCUMENT_ROOT/vendor/silverstripe/framework/sake dev/build`
+- -> `dep` instead `$DOCUMENT_ROOT/vendor/bin/dep` (Deployer)
 
 Database, credentials etc. are provided per environment Variables. **For local development with docker no `.env` file is needed! EnvVars are set in `docker-compose.yml`.**
-
-The first time you deploy to a given stage, you’ll be asked to provide database credentials etc. to populate `.env`. A file similar as bellow 'll be created.
-
-```
-# For a complete list of core environment variables see
-# https://docs.silverstripe.org/en/4/getting_started/environment_management/#core-environment-variables
-
-# Environment dev/stage/live
-SS_ENVIRONMENT_TYPE="dev"
-# SS_BASE_URL=""
-
-# SS_DEFAULT_ADMIN_USERNAME=""
-# SS_DEFAULT_ADMIN_PASSWORD=""
-
-SS_ERROR_EMAIL=""
-SS_ADMIN_EMAIL=""
-
-## Database {#database}
-# SS_DATABASE_NAME=""
-SS_DATABASE_CHOOSE_NAME=true
-SS_DATABASE_CLASS="MySQLDatabase"
-SS_DATABASE_USERNAME=""
-SS_DATABASE_PASSWORD=""
-SS_DATABASE_SERVER="127.0.0.1"
-
-SS_ERROR_LOG="silverstripe.log"
-
-GHOSTSCRIPT_PATH="/usr/local/bin/gs"
-
-# SS_NOCAPTCHA_SITE_KEY=""
-# SS_NOCAPTCHA_SECRET_KEY=""
-```
-See also:
-
-https://www.silverstripe.org/learn/lessons/v4/up-and-running-setting-up-a-local-silverstripe-dev-environment-1
-
-
 
 ## Debugging
 In order to use Xdebug with this setup, a browser-extensions like [Xdebug Helper for Firefox](https://addons.mozilla.org/de/firefox/addon/xdebug-helper-for-firefox/) or [Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc) is needed to control/trigger debugging behaviour.
@@ -180,12 +153,6 @@ Deployment is based on [Deployer](https://deployer.org/), a php based cli-tool, 
 
 You need to [add your public key on the remote server](https://www.google.com/search?q=add+public+key+to+server) in ~/.ssh/authorized_keys. On nix-based systems you can use [ssh-copy-id](https://www.ssh.com/ssh/copy-id) to do so.
 
-There are a few aliases in silverstripe docker container:
-- `dep` instead `$DOCUMENT_ROOT/vendor/bin/dep` (Deployer)
-- `flush` instead `$DOCUMENT_ROOT/vendor/silverstripe/framework/sake flush`
-- `flushh` (flush hard) instead `rm -rf $DOCUMENT_ROOT/silverstripe-cache/*`
-- `dbuild` instead `$DOCUMENT_ROOT/vendor/silverstripe/framework/sake dev/build`
-
 ## Configuration
 
 Rename `config.example.php` to `deploy/config.php` and configure things to your needs. Usually `.htaccess` in public comes from the repo but if needed, it can be overwritten with a stage specific version. Just create `./deploy/test.htaccess` or `./deploy/live.htaccess`, which than 'll overwrite `public/.htaccess` from the repo during deployment according to the stage in use.
@@ -202,7 +169,40 @@ or
 ```bash
     ./vendor/bin/dep deploy live
 ```
+The first time you deploy to a given stage, you’ll be asked to provide database credentials etc. to populate `.env`. A file similar as bellow 'll be created.
 
+```
+# For a complete list of core environment variables see
+# https://docs.silverstripe.org/en/4/getting_started/environment_management/#core-environment-variables
+
+# Environment dev/stage/live
+SS_ENVIRONMENT_TYPE="dev"
+# SS_BASE_URL=""
+
+# SS_DEFAULT_ADMIN_USERNAME=""
+# SS_DEFAULT_ADMIN_PASSWORD=""
+
+SS_ERROR_EMAIL=""
+SS_ADMIN_EMAIL=""
+
+## Database {#database}
+# SS_DATABASE_NAME=""
+SS_DATABASE_CHOOSE_NAME=true
+SS_DATABASE_CLASS="MySQLDatabase"
+SS_DATABASE_USERNAME=""
+SS_DATABASE_PASSWORD=""
+SS_DATABASE_SERVER="127.0.0.1"
+
+SS_ERROR_LOG="silverstripe.log"
+
+GHOSTSCRIPT_PATH="/usr/local/bin/gs"
+
+# SS_NOCAPTCHA_SITE_KEY=""
+# SS_NOCAPTCHA_SECRET_KEY=""
+```
+See also:
+
+https://www.silverstripe.org/learn/lessons/v4/up-and-running-setting-up-a-local-silverstripe-dev-environment-1
 
 ## Deploy a branch/tag/revison
 

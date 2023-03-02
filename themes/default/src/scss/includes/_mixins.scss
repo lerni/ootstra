@@ -3,8 +3,8 @@
 
 /* Media queries
 ---------------------------------------------------------------------------------- */
-@mixin respond($width, $minMax: 'min') {
-	@if(type-of($width) == 'string') {
+@mixin respond($width, $minMax: "min") {
+	@if (type-of($width) == "string") {
 		$width: unquote($width);
 	}
 
@@ -51,9 +51,13 @@
 	appearance: none;
 	border-radius: 0;
 	background-repeat: no-repeat;
-	background-position: top .7em right .7em;
-	background-image: svg-load('../images/svg/arrow-down.svg', stroke=#{$text-color}, stroke-width=20);
-	background-size: 1.2em  .6em;
+	background-position: top 0.7em right 0.7em;
+	background-image: svg-load(
+		"../images/svg/arrow-down.svg",
+		stroke=#{$text-color},
+		stroke-width=20
+	);
+	background-size: 1.2em 0.6em;
 	&:-moz-focusring {
 		text-shadow: 0 0 0 #000;
 	}
@@ -61,7 +65,7 @@
 		display: none;
 	}
 	option {
-		@include normal
+		@include normal;
 	}
 }
 
@@ -96,9 +100,9 @@
 
 @mixin sliderpagination($size, $color) {
 	.swiper-pagination {
-		$size: $lh*.7 !default;
+		$size: $lh * 0.7 !default;
 		$color: $white !default;
-		height: #{$size*2}em;
+		height: #{$size * 2}em;
 		display: flex;
 		justify-content: center;
 		position: absolute;
@@ -114,13 +118,13 @@
 			$i1: $i + 1;
 		}
 		.swiper-pagination-bullet {
-			width:  #{$size}em;
+			width: #{$size}em;
 			height: #{$size}em;
 			display: inline-block;
 			border-radius: 100%;
 			background-color: rgba($color, 0);
 			border: 2px solid $color;
-			opacity: .7;
+			opacity: 0.7;
 			margin-bottom: #{$size}em;
 			&:not(:last-of-type) {
 				margin-right: #{$size}em;

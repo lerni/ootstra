@@ -1,0 +1,156 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "dev/build",
+      "type": "shell",
+      "command": "./docker/php ./vendor/silverstripe/framework/cli-script.php dev/build flush",
+      "windows": {
+        "command": ".\\docker\\php .\\vendor\\silverstripe\\framework\\cli-script.php dev/build"
+      },
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "icon": {
+        "color": "terminal.ansiBlue"
+      }
+    },
+    {
+      "label": "flush",
+      "type": "shell",
+      "command": "./docker/php ./vendor/silverstripe/framework/cli-script.php flush",
+      "windows": {
+        "command": ".\\docker\\php .\\vendor\\silverstripe\\framework\\cli-script.php flush"
+      },
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "icon": {
+        "color": "terminal.ansiBlue"
+      }
+    },
+    {
+      "label": "flushh",
+      "type": "shell",
+      "command": "docker-compose exec silverstripe rm -rf ./silverstripe-cache/*",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "icon": {
+        "color": "terminal.ansiBlue"
+      }
+    },
+    {
+      "label": "npm prod",
+      "type": "shell",
+      "command": "cd ./themes/default && npm run production && cd ../..",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "icon": {
+        "color": "terminal.ansiGreen"
+      }
+    },
+    {
+      "label": "npm watch",
+      "type": "shell",
+      "command": "cd ./themes/default && npm run watch && cd ../..",
+      "group": "build",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+      },
+      "icon": {
+        "color": "terminal.ansiGreen"
+      }
+    },
+    {
+      "label": "docker compose up",
+      "type": "shell",
+      "command": "docker-compose up",
+      "group": "build",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "icon": {
+        "color": "terminal.ansiMagenta"
+      }
+    },
+    {
+      "label": "docker compose down",
+      "type": "shell",
+      "command": "docker-compose down",
+      "group": "build",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "icon": {
+        "color": "terminal.ansiMagenta"
+      }
+    },
+    {
+      "label": "dshell",
+      "type": "shell",
+      "command": "docker-compose exec silverstripe zsh",
+      "group": "build",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "icon": {
+        "color": "terminal.ansiYellow"
+      }
+    },
+    {
+      "label": "download assets from live",
+      "type": "shell",
+      "command": "docker-compose exec silverstripe dep silverstripe:download_assets live",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "icon": {
+        "color": "terminal.ansiCyan"
+      }
+    },
+    {
+      "label": "download database from live",
+      "type": "shell",
+      "command": "docker-compose exec silverstripe dep silverstripe:download_database live",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "icon": {
+        "color": "terminal.ansiCyan"
+      }
+    }
+  ]
+}

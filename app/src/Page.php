@@ -60,7 +60,7 @@ namespace {
                 if ($MetaTitleField = $MetaToggle->fieldByName('MetaTitle')) {
                     $MetaTitleField->setTargetLength(60, 50, 60);
                     $MetaTitleField->setAttribute('placeholder', $this->DefaultMetaTitle());
-                    $MetaTitleField->setRightTitle(_t('\Page.MetaTitleRightTitle', 'Used as a title in the browser tab and for search engine results. Important for SEO!'));
+                    $MetaTitleField->setRightTitle(_t('\Page.MetaTitleRightTitle', 'Used as a title in the browser and for search engine results. Important for SEO!'));
                 }
 
                 if ($MetaDescriptionField = $MetaToggle->fieldByName('MetaDescription')) {
@@ -184,7 +184,7 @@ namespace {
                 if ($req->param('Action') == 'job' && $req->param('ID')) {
                     $URLSegment = $req->param('ID');
                     $job = JobPosting::get()->filter('URLSegment', $URLSegment)->first();
-                    if ($job && $job->Description) {
+                    if ($job && $job->MetaDescription) {
                         $descreturn = trim($job->MetaDescription);
                     }
                 }

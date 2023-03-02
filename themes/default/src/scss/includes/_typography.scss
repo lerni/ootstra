@@ -1,10 +1,10 @@
 /* Styles for HtmlEditorFields
 ---------------------------------------------------------------------------------- */
 @use "sass:math";
-@import '~breakpoint-sass/stylesheets/breakpoint';
-@import 'mixins';
+@import "~breakpoint-sass/stylesheets/breakpoint";
+@import "mixins";
 // @import 'documents';
-@import 'utils';
+@import "utils";
 
 /* Typography
 ---------------------------------------------------------------------------------- */
@@ -69,7 +69,7 @@
 	ul {
 		// margin-left & -right may be affected by $inner-width--reduced
 		margin: 0 0 #{$lh}em 0;
-		padding: 0 0 0 #{$lh*.666}em;
+		padding: 0 0 0 #{$lh * 0.666}em;
 		li {
 			line-height: $lh;
 			padding: 0 0 #{math.div($lh, 4)}em #{math.div($lh, 2)}em;
@@ -150,7 +150,7 @@
 		font-family: "Courier New", Courier, monospace;
 		display: block;
 		font-size: 1.1em;
-		padding: #{$lh*.5}em;
+		padding: #{$lh * 0.5}em;
 	}
 
 	// * TABLE STYLING
@@ -162,7 +162,7 @@
 		tr {
 			td {
 				font-size: $font-size--small;
-				padding: .1em .2em .2em;
+				padding: 0.1em 0.2em 0.2em;
 				vertical-align: top;
 				border-top: 1px solid $gray--light;
 				border-bottom: 1px solid $gray--light;
@@ -211,10 +211,16 @@
 		&.right {
 			text-align: right;
 			margin-left: #{math.div($lh, 2)}em;
+			&.ss-htmleditorfield-file {
+				float: right;
+			}
 		}
 		&.left {
 			text-align: left;
 			margin-right: #{math.div($lh, 2)}em;
+			&.ss-htmleditorfield-file {
+				float: left;
+			}
 		}
 		&.leftAlone {
 			margin-right: 100%;
@@ -231,14 +237,14 @@
 			display: table;
 		}
 	}
-	div.embed {
+	div.embed.ss-htmleditorfield-file {
 		width: auto !important;
 		margin-bottom: #{$lh}em;
-		>p {
+		> p {
 			// video caption
 			padding: #{math.div($lh, 2)}em;
 			background-color: $gray--lighter;
-			font-size: .8em;
+			font-size: $font-size--small;
 			display: table;
 			width: 100%;
 		}
@@ -253,13 +259,13 @@
 		}
 		@include breakpoint($Mplus) {
 			column-count: 2;
-			column-gap: #{$lh*2}em;
+			column-gap: #{$lh * 2}em;
 		}
 	}
 
 	blockquote {
 		margin-bottom: #{$lh}em;
-		margin-left: #{$lh*1}em;
+		margin-left: #{$lh * 1}em;
 		border: 0;
 		padding: 0;
 		p {
@@ -267,21 +273,27 @@
 			&::after {
 				display: inline-block;
 				background-repeat: no-repeat;
-				background-size: 0.68376em .8em;
+				background-size: 0.68376em 0.8em;
 				background-position: center center;
 				width: 0.68376em;
 				height: 1em;
-				content:"";
-				vertical-align: -.2em;
+				content: "";
+				vertical-align: -0.2em;
 			}
 			&::before {
-				width: #{$lh*1}em;
-				margin-left: #{-$lh*1}em;
-				background-image: svg-load('../images/svg/quote-before.svg', fill=#{$text-color});
+				width: #{$lh * 1}em;
+				margin-left: #{-$lh * 1}em;
+				background-image: svg-load(
+					"../images/svg/quote-before.svg",
+					fill=#{$text-color}
+				);
 			}
 			&::after {
-				margin-left: .2em;
-				background-image: svg-load('../images/svg/quote-after.svg', fill=#{$text-color});
+				margin-left: 0.2em;
+				background-image: svg-load(
+					"../images/svg/quote-after.svg",
+					fill=#{$text-color}
+				);
 			}
 			&:last-child {
 				margin-bottom: 0;
@@ -304,22 +316,22 @@
 			content: "";
 			display: inline-block;
 			width: 1.6em;
-			height: #{$lh*2}em;
+			height: #{$lh * 2}em;
 			$color: $link-color;
 			background-repeat: no-repeat;
 			background-size: 1.4em auto;
 			background-position: center bottom;
-			background-image: svg-load('../images/svg/marker.svg');
+			background-image: svg-load("../images/svg/marker.svg");
 		}
 	}
 	.boxed {
 		background-color: $gray--lighter;
-		padding: #{$lh*1}em #{$lh*2}em #{$lh*1.1}em #{$lh*2}em;
+		padding: #{$lh * 1}em #{$lh * 2}em #{$lh * 1.1}em #{$lh * 2}em;
 		margin: 0 0 #{$lh}em 0;
 		@include breakpoint($Mneg) {
 			padding: #{$lh}em #{math.div($lh, 2)}em;
 		}
-		>*:last-child {
+		> *:last-child {
 			margin-bottom: 0;
 		}
 	}

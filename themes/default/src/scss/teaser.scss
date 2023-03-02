@@ -1,8 +1,8 @@
 @use "sass:math";
-@import 'includes/variables';
-@import 'includes/defaults';
-@import 'includes/mixins';
-@import '~breakpoint-sass/stylesheets/breakpoint';
+@import "includes/variables";
+@import "includes/defaults";
+@import "includes/mixins";
+@import "~breakpoint-sass/stylesheets/breakpoint";
 
 .element.elementteaser,
 .element.elementfeedteaser {
@@ -14,7 +14,8 @@
 		width: 100%;
 		.teaser {
 			color: $text-color;
-			flex: 1 1 calc(#{percentage(math.div(1, 3))} - #{math.div($lh*2, 3)}em);
+			flex: 1 1
+				calc(#{percentage(math.div(1, 3))} - #{math.div($lh * 2, 3)}em);
 			position: relative;
 			figure {
 				width: 100%;
@@ -56,7 +57,10 @@
 				display: flex;
 				flex-direction: column;
 				@include breakpoint($Lneg) {
-					flex: 1 1 calc(#{percentage(math.div(1, 2))} - #{math.div($lh, 2)}em);
+					flex: 1 1
+						calc(
+							#{percentage(math.div(1, 2))} - #{math.div($lh, 2)}em
+						);
 				}
 				@include breakpoint($Mneg) {
 					flex: 0 0 100%;
@@ -83,7 +87,8 @@
 		}
 		&.halve {
 			.teaser {
-				flex: 1 1 calc(#{percentage(math.div(1, 2))} - #{math.div($lh, 2)}em);
+				flex: 1 1
+					calc(#{percentage(math.div(1, 2))} - #{math.div($lh, 2)}em);
 				@include breakpoint($Lneg) {
 					flex: 0 0 100%;
 				}
@@ -91,8 +96,8 @@
 					right: 0;
 					bottom: 0;
 					padding: #{math.div($lh, 2)}em #{$lh}em 0;
-					max-width: calc(100% - #{$lh*3}em);
-					min-width: calc(100% - #{$lh*3}em);
+					max-width: calc(100% - #{$lh * 3}em);
+					min-width: calc(100% - #{$lh * 3}em);
 					@include breakpoint($Mneg) {
 						width: 100%;
 						padding-left: 0;

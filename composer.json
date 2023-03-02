@@ -12,10 +12,10 @@
 			"type": "vcs",
 			"url": "https://github.com/lerni/silverstripe-webp-image"
 		},
-		{
-			"type": "vcs",
-			"url": "https://github.com/lerni/silverstripe-csp"
-		}
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:kraftausdruck/jobpostings.git"
+        }
 	],
 	"require": {
 		"php": "^7.1 || ^8.0",
@@ -50,7 +50,7 @@
 		"spatie/schema-org": "^3",
 		"heyday/silverstripe-colorpalette": "^2",
 		"betterbrief/silverstripe-googlemapfield": "^2",
-		"giggsey/libphonenumber-for-php": "^8.10",
+		"giggsey/libphonenumber-for-php": "^8",
 		"kinglozzer/htmleditorstylinghook": "^2",
 		"jeroendesloovere/vcard": "dev-master#baff586cd57f197060bc9e0c8c49573b894e264c",
 		"silverstripe/selectupload": "dev-master",
