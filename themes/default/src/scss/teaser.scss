@@ -15,7 +15,8 @@
 		.teaser {
 			color: $text-color;
 			flex: 1 1
-				calc(#{percentage(math.div(1, 3))} - #{math.div($lh * 2, 3)}em);
+			calc(#{percentage(math.div(1, 3))} - #{math.div($lh * 2, 3)}em);
+			background-color: rgba($gray--lighter, 1);
 			position: relative;
 			figure {
 				width: 100%;
@@ -33,7 +34,6 @@
 			.txt {
 				position: absolute;
 				z-index: 1;
-				background-color: rgba($gray--lighter, 1);
 				h3 {
 					// @include normal;
 					// font-size: 1.25em;
@@ -67,13 +67,15 @@
 				}
 				figure {
 					flex: 0 0 auto;
-					margin-bottom: #{math.div($lh, 2)}em;
 				}
 				.txt {
+					padding: #{math.div($lh, 2)}em;
+					padding-bottom: 0;
 					position: inherit;
 					flex: 0 0 auto;
 				}
 				.link.forth {
+					padding: #{math.div($lh, 2)}em;
 					margin: auto 0 0;
 				}
 			}
@@ -149,8 +151,8 @@
 				.txt {
 					right: 0;
 					bottom: 0;
-					// width: calc(50% - #{$lh*.5}em);
-					width: 50%;
+					width: calc(50% + #{math.div($lh, 2)}em);
+					// width: 50%;
 					padding: #{$lh}em #{$lh}em 0;
 					@include breakpoint($Mneg) {
 						width: 100%;

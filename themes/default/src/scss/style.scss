@@ -133,7 +133,7 @@ strong {
 	}
 }
 
-body main {
+body > main {
 	width: 100%;
 	flex: 1 1 auto;
 	border-top: $headerheight solid transparent;
@@ -244,28 +244,38 @@ nav.breadcrumbs {
 		max-width: $inner-width--reduced;
 		margin-left: 0;
 		margin-right: auto;
-		> *:last-child {
-			margin-bottom: 0;
-		}
+	}
+}
+
+.vertical-spacing {
+	padding-top: #{$lh}em;
+	padding-bottom: #{$lh}em;
+	> *:last-child {
+		margin-bottom: 0;
+	}
+	@include breakpoint($Mneg) {
+		padding-top: #{math.div($lh, 2)}em;
+		padding-bottom: #{math.div($lh, 2)}em;
+	}
+}
+
+.horizontal-spacing {
+	padding-left: #{$lh}em;
+	padding-right: #{$lh}em;
+	@include breakpoint($Mneg) {
+		padding-left: #{math.div($lh, 2)}em;
+		padding-right: #{math.div($lh, 2)}em;
 	}
 }
 
 .element {
-	position: relative;
-	width: 100%;
-	margin-left: auto;
-	margin-right: auto;
 	&:not(.full-width) {
 		max-width: $inner-width;
 	}
-	&:not(.elementhero):not(.full-width) {
-		padding-left: #{$lh}em;
-		padding-right: #{$lh}em;
-		@include breakpoint($Mneg) {
-			padding-left: #{math.div($lh, 2)}em;
-			padding-right: #{math.div($lh, 2)}em;
-		}
-	}
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
 	&::after {
 		content: "";
 		position: absolute;
@@ -280,6 +290,16 @@ nav.breadcrumbs {
 			right: 0;
 		}
 	}
+	&.background--transparent {
+		&::after {
+			background-color: transparent;
+		}
+	}
+	&.background--white {
+		&::after {
+			background-color: $white;
+		}
+	}
 	&.background--gray--lighter {
 		&::after {
 			background-color: $gray--lighter;
@@ -288,19 +308,20 @@ nav.breadcrumbs {
 	.element-title {
 		flex: 0 0 100%;
 	}
-	// todo: use reduced-width
-	&.elementjobs.show,
-	&.elementcontent,
-	&.elementcontentsection,
-	.page & {
-		.inner {
-			> *:not(.embed) {
-				max-width: $inner-width--reduced;
-				margin-left: 0;
-				margin-right: auto;
-			}
-		}
-	}
+
+	// &.elementjobs.show,
+	// &.elementform,
+	// &.elementcontent,
+	// &.elementcontentsection,
+	// .page & {
+	// 	.inner {
+	// 		> *:not(.embed) {
+	// 			max-width: $inner-width--reduced;
+	// 			margin-left: 0;
+	// 			margin-right: auto;
+	// 		}
+	// 	}
+	// }
 	&.elementcontent {
 		.typography {
 			> *:last-child {
@@ -323,31 +344,51 @@ nav.breadcrumbs {
 			img {
 				height: 100%;
 				width: 100%;
-				display: table; // testing to have image tihght in container
 				object-fit: cover;
 				max-width: none;
 				margin-bottom: 0;
-				// max-height: 500px;
-				@include breakpoint($Mneg) {
-					height: 180px;
+			}
+		}
+		.hero--small,
+		.hero--medium {
+			figure {
+				height: 0;
+				img {
+					position: absolute;
+					max-width: none;
+					// @include breakpoint($Mplus) {
+					// 	min-height: 100% !important;
+					// }
 				}
 			}
 		}
-		.medium figure {
-			padding: 0 0 45.1388888888889% 0;
-			height: 0;
-			@include breakpoint($Mneg) {
-				padding: 0 0 56.25% 0;
+		.hero--small {
+			max-height: 500px;
+			figure {
+				padding: 0 0 25% 0;
+				@include breakpoint($Mneg) {
+					padding: 0 0 30% 0;
+				}
+				@include breakpoint($Sneg) {
+					padding: 0 0 40% 0;
+				}
+				img {
+					max-height: 500px;
+				}
 			}
-			@include breakpoint($Sneg) {
-				padding: 0 0 80% 0;
-			}
-			img {
-				position: absolute;
-				max-width: none;
-				// width: 100% !important;
-				@include breakpoint($Mplus) {
-					min-height: 100% !important;
+		}
+		.hero--medium {
+			max-height: 700px;
+			figure {
+				padding: 0 0 45.1388888888889% 0;
+				@include breakpoint($Mneg) {
+					padding: 0 0 56.25% 0;
+				}
+				@include breakpoint($Sneg) {
+					padding: 0 0 80% 0;
+				}
+				img {
+					max-height: 700px;
 				}
 			}
 		}
@@ -381,7 +422,6 @@ nav.breadcrumbs {
 				h1,
 				h2,
 				h3 {
-					// @include medium;
 					margin: 0;
 				}
 				p {
@@ -552,13 +592,10 @@ nav.breadcrumbs {
 		}
 		.swiper-container.hero {
 			overflow: hidden;
-			&.medium figure img {
-				max-height: 700px;
-			}
 			&.hero--fullscreen {
-				height: calc(100vh - var(--vh-offset));
-				figure img {
-					max-height: none;
+				height: calc(100vh - $headerheight);
+				@include breakpoint($Lneg) {
+					height: calc(100vh - $headerheight--small);
 				}
 			}
 			.swiper-wrapper {
@@ -570,11 +607,12 @@ nav.breadcrumbs {
 			}
 		}
 
-		.swiper-container.do-not-crop.medium {
+		.swiper-container.do-not-crop.hero--small,
+		.swiper-container.do-not-crop.hero--medium {
+			max-height: initial;
 			figure {
 				img {
 					max-height: initial;
-					object-fit: initial;
 				}
 			}
 		}

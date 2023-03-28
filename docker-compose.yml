@@ -2,11 +2,11 @@ version: "3.8"
 services:
   silverstripe:
     # image: brettt89/silverstripe-web:8.0-apache
-    image: silverstripe:refined80
+    image: silverstripe:refined81
     ports:
       - 8080:80
     volumes:
-      - ${PWD}/docker/config/php/80/custom.php.ini:/usr/local/etc/php/conf.d/custom.php.ini
+      - ${PWD}/docker/config/php/81/custom.php.ini:/usr/local/etc/php/conf.d/custom.php.ini
       - ${PWD}:/var/www/html
       # using local composer cache to save a bit of bandwidth - depending on your hostplattform you need to adapt paths
       # Defaults to C:\Users\<user>\AppData\Local\Composer on Windows,
@@ -46,6 +46,7 @@ services:
       - SS_ERROR_LOG=silverstripe.log
       - SS_ADMIN_EMAIL=docker@sends.me
       - GHOSTSCRIPT_PATH=/usr/bin/gs
+      # - XDEBUG_TRIGGER=yes
       # - CSP_REPORT_ONLY='enabled'
     extra_hosts:
       - "host.docker.internal:host-gateway"
@@ -79,8 +80,3 @@ services:
     ports:
       - 1025:1025
       - 8025:8025
-    # networks:
-    #   - mailhog
-
-# volumes:
-#      db-data:

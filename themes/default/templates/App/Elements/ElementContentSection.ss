@@ -1,6 +1,7 @@
 <% require themedCSS("dist/css/contentsections") %>
 <% include App/Includes/ElementTitle %>
 <% if $ContentParts %>
+<div class="typography">
 	<% if $Layout == "NumberedList" %>
 		<ol class="content-part numbered-list">
 			<% loop $ContentParts.Sort("SortOrder") %>
@@ -39,5 +40,6 @@
 			<% end_loop %>
 		</dl>
 	<% end_if %>
+</div>
 <% end_if %>
 <% if $FAQParts %>$FAQSchema.RAW<% end_if %>

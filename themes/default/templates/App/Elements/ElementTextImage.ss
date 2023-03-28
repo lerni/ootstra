@@ -1,21 +1,25 @@
 <% require themedCSS("dist/css/textimage") %>
-<% include App/Includes/ElementTitle %>
-<div class="txt {$ElementLayout}">
-	<div class="relativizer">
-		<% if $HTML %>
-			<div class="inner-txt">
-				$HTML
+<div class="typography">
+	<% include App/Includes/ElementTitle %>
+	<div class="container">
+		<div class="txt {$ElementLayout}">
+			<div class="relativizer">
+				<% if $HTML %>
+					<div class="inner-txt">
+						$HTML
+					</div>
+				<% end_if %>
 			</div>
-		<% end_if %>
+		</div>
+		<figure class="{$ElementLayout}<% if $ImageCover %> image-cover<% end_if %>">
+			<% if $ImageID %>
+				<% with $Image %>
+					<img loading="lazy" alt="$Title" width="{$ScaleMaxWidth(800).Width()}" height="{$ScaleMaxWidth(800).Height()}"
+						style="object-position: {$ScaleMaxWidth(800).FocusPoint.PercentageX}% {$ScaleMaxWidth(800).FocusPoint.PercentageY}%;"
+						src="$ScaleMaxWidth(800).URL"
+						srcset="$ScaleMaxWidth(800).URL 1x, $ScaleMaxWidth(1600).URL 2x" />
+				<% end_with %>
+			<% end_if %>
+		</figure>
 	</div>
 </div>
-<figure class="{$ElementLayout}<% if $ImageCover %> image-cover<% end_if %>">
-	<% if $ImageID %>
-		<% with $Image %>
-			<img loading="lazy" alt="$Title" width="{$ScaleMaxWidth(800).Width()}" height="{$ScaleMaxWidth(800).Height()}"
-				style="object-position: {$ScaleMaxWidth(800).FocusPoint.PercentageX}% {$ScaleMaxWidth(800).FocusPoint.PercentageY}%;"
-				src="$ScaleMaxWidth(800).URL"
-				srcset="$ScaleMaxWidth(800).URL 1x, $ScaleMaxWidth(1600).URL 2x" />
-		<% end_with %>
-	<% end_if %>
-</figure>

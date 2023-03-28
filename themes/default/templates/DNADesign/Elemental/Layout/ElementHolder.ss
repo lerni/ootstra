@@ -2,6 +2,7 @@
 	<% if $ClassName == 'DNADesign\ElementalVirtual\Model\ElementVirtual' %>
 		$ClassName.ShortName.LowerCase $LinkedElement.ShortClassName.LowerCase
 		<% if $LinkedElement.isFullWidth %>full-width<% end_if %>
+		<% if $LinkedElement.ClassName != App\Elements\ElementHero %>horizontal-spacing<% end_if %>
 		<% if $LinkedElement.WidthReduced %>width-reduced<% end_if %>
 		spacing-top-{$LinkedElement.SpacingTop}
 		spacing-bottom-{$LinkedElement.SpacingBottom}
@@ -11,6 +12,7 @@
 	<% else %>
 		$ShortClassName.LowerCase
 		<% if $isFullWidth %>full-width<% end_if %>
+		<% if $ClassName != App\Elements\ElementHero %>horizontal-spacing<% end_if %>
 		<% if $WidthReduced %>width-reduced<% end_if %>
 		spacing-top-{$SpacingTop}
 		spacing-bottom-{$SpacingBottom}

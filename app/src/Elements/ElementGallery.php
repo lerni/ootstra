@@ -13,8 +13,8 @@ use SilverStripe\View\Parsers\URLSegmentFilter;
 class ElementGallery extends BaseElement
 {
     private static $db = [
-        'CropGalleryThumbsByWidth' => 'Boolean',
-        'Layout' => 'Enum("left,center,right,slider", "center")',
+        'Layout' => 'Enum("grid,slider,flex", "grid")',
+        'Alignment' => 'Enum("left,center,right", "left")',
         'SitemapImageExpose' => 'Boolean'
     ];
 
@@ -47,12 +47,10 @@ class ElementGallery extends BaseElement
 
     private static $icon = 'font-icon-block-file';
 
-    private static $inline_editable = false;
-
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['CropGalleryThumbsByWidth'] = _t(__CLASS__ . '.CROPGALLERYTHUMBSBYWIDTH', 'keep aspectratio for thumbnails');
+        $labels['Alignment'] = _t(__CLASS__ . '.ALIGNMENT', 'Alignment (flex only)');
         $labels['SitemapImageExpose'] = _t(__CLASS__ . '.SITEMAPIMAGEEXPOSE', 'expose images in sitemap.xml');
 
         return $labels;
@@ -71,7 +69,7 @@ class ElementGallery extends BaseElement
 
         $FolderField = FolderDropdownField::create(
             'GalleryFolderID',
-            'Folder',
+            _t(__CLASS__ . '.FOLDER', 'Folder'),
             Folder::class
         );
         $fields->addFieldToTab('Root.Main', $FolderField);

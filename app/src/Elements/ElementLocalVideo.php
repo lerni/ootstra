@@ -37,8 +37,6 @@ class ElementLocalVideo extends BaseElement
 
     private static $icon = 'font-icon-block-video';
 
-    private static $inline_editable = false;
-
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);

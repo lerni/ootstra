@@ -61,9 +61,12 @@ class Department extends DataObject
     {
 
         $fields = parent::getCMSFields();
-        $fields->removeByName('Sort');
-        $fields->removeByName('Persos');
-        $fields->removeByName('PersoElement');
+
+        $fields->removeByName([
+            'Sort',
+            'Persos',
+            'PersoElement'
+        ]);
 
         $PersoGFConfig = GridFieldConfig_RecordEditor::create(20);
         $PersoGFConfig->removeComponentsByType(GridFieldPageCount::class);

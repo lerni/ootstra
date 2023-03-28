@@ -32,8 +32,6 @@ class ElementTextImage extends BaseElement
 
     private static $icon = 'font-icon-block-layout-8';
 
-    private static $inline_editable = false;
-
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);

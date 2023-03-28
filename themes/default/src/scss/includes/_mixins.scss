@@ -15,10 +15,10 @@
 
 // mixin cos depending on webfont-setup things are easier that way
 @mixin bold {
-	font-weight: $font-weight-bold;
+	font-weight: $font-weight--bold;
 }
 @mixin normal {
-	font-weight: $font-weight-normal;
+	font-weight: $font-weight--normal;
 }
 /* Strip 'px', 'rem' etc units from a number
 ---------------------------------------------------------------------------------- */

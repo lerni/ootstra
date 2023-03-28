@@ -58,8 +58,6 @@ class ElementMaps extends BaseElement
 
     private static $icon = 'font-icon-block-globe';
 
-    private static $inline_editable = false;
-
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();

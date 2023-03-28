@@ -46,7 +46,6 @@ class PageSchemaExtension extends Extension
                     ->addressCountry(Schema::Country()
                         ->name($country));
 
-
                 $locations[$i] = Schema::LocalBusiness()
                     ->name($location->Title)
                     ->address($PushLocation);

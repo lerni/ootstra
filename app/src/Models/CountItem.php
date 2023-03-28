@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use SilverStripe\ORM\DataObject;
+use SilverStripe\Forms\TextField;
 
 class CountItem extends DataObject
 {
@@ -36,7 +37,17 @@ class CountItem extends DataObject
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();
-        $fields->removeByName('ElementCounterID');
+
+        $fields->removeByName([
+            'ElementCounterID'
+        ]);
+
+        if ($valueFields = $fields->dataFieldByName('Value')) {
+            // https://github.com/silverstripe/silverstripe-framework/issues/10626
+            $stringField = TextField::create('Value', _t(__CLASS__ . '.VALUE', 'Value'));
+            $fields->replaceField('Value', $stringField);
+        }
+
         return $fields;
     }
 }

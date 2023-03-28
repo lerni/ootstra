@@ -13,8 +13,9 @@ de:
     HowText: 'Es werden Unterseiten (Kinder) der gewählten Seiten (Eltern/Holders) z.B. News mit den gewählten Kategorien angeteasert. Bild & Text kann auf jeweiligen Seiten im Tab "Feeds & Share" gewählt werden.'
     HowTitle: 'Was wird angezeigt?'
   App\Elements\ElementGallery:
+    ALIGNMENT: 'Ausrichtung (flex)'
     BlockType: Gallery
-    CROPGALLERYTHUMBSBYWIDTH: 'Seitenverhältnis für Miniaturansichten beibehalten'
+    FOLDER: Ordner
     SITEMAPIMAGEEXPOSE: 'Bilder in sitemap.xml zeigen'
     GalleryImagesDescription: 'Breite getrimmt auf 1224px'
     OneOrTheOther: 'Bilder per Ordner (alle enthaltenen) oder einzeln wählen & sortieren'
@@ -22,7 +23,7 @@ de:
     BlockType: Hero
     DONOTCROP: 'Höhe nicht begrenzen'
     SITEMAPIMAGEEXPOSE: 'Bilder in sitemap.xml zeigen'
-    DoNotCropDescription: 'Keine maximale Höhe in der Größe "mittel"'
+    DoNotCropDescription: 'Keine maximale Höhe für Grösse/Höhe "small" und "medium"'
     SIZE: 'Grösse/Höhe Header'
     SizeDescription: 'medium entspricht 16:9, "fullscreen" erfordert "full width"!'
   App\Elements\ElementLogo:

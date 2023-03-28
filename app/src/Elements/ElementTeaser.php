@@ -44,8 +44,6 @@ class ElementTeaser extends BaseElement
 
     private static $icon = 'font-icon-block-layout-2';
 
-    private static $inline_editable = false;
-
     function getCMSFields()
     {
         $fields = parent::getCMSFields();
@@ -53,6 +51,7 @@ class ElementTeaser extends BaseElement
         $fields->removeByName([
             'BackgroundColor',
             'Teasers',
+            'WidthReduced',
             'isFullWidth'
         ]);
 

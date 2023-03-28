@@ -1,10 +1,12 @@
+@import "includes/variables";
+
 /* For CMS HtmlEditorField
 ---------------------------------------------------------------------------------- */
 
 @font-face {
-	font-family: "IBM Plex Sans";
+	font-family: $font-family;
 	font-style: normal;
-	font-weight: 200;
+	font-weight: $font-weight--normal;
 	font-display: swap;
 	src: local(""),
 		url("/_resources/themes/default/dist/fonts/ibm-plex-sans-v9-latin-200.woff2")
@@ -13,9 +15,9 @@
 			format("woff");
 }
 @font-face {
-	font-family: "IBM Plex Sans";
+	font-family: $font-family;
 	font-style: normal;
-	font-weight: 400;
+	font-weight: $font-weight--bold;
 	font-display: swap;
 	src: local(""),
 		url("/_resources/themes/default/dist/fonts/ibm-plex-sans-v9-latin-regular.woff2")

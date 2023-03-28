@@ -35,15 +35,14 @@ class ElementCounter extends BaseElement
 
     private static $icon = 'font-icon-block-reports';
 
-    private static $inline_editable = false;
-
     function getCMSFields()
     {
         $fields = parent::getCMSFields();
 
         $fields->removeByName([
+            'BackgroundColor',
             'CountItems',
-            'BackgroundColor'
+            'WidthReduced'
         ]);
 
         // hack around unsaved relations

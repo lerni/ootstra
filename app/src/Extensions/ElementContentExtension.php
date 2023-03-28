@@ -10,8 +10,6 @@ class ElementContentExtension extends Extension
 
     private static $db = [];
 
-    private static $inline_editable = false;
-
     private static $defaults = [
         'WidthReduced' => 1
     ];

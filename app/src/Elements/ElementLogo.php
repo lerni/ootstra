@@ -45,8 +45,6 @@ class ElementLogo extends BaseElement
 
     private static $icon = 'font-icon-block-layout-2';
 
-    private static $inline_editable = false;
-
     function getCMSFields()
     {
         $fields = parent::getCMSFields();

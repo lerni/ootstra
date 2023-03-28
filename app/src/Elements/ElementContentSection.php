@@ -39,8 +39,6 @@ class ElementContentSection extends BaseElement
 
     private static $icon = 'font-icon-block-table-data';
 
-    private static $inline_editable = false;
-
     function getCMSFields()
     {
         $fields = parent::getCMSFields();
@@ -49,10 +47,6 @@ class ElementContentSection extends BaseElement
             'isFullWidth',
             'ContentParts'
         ]);
-
-        if ($LayoutField = $fields->dataFieldByName('Layout')) {
-            $fields->addFieldToTab('Root.Main', $LayoutField);
-        }
 
         // hack around unsaved relations
         if ($this->isInDB()) {

@@ -1,4 +1,4 @@
-FROM brettt89/silverstripe-web:8.0-apache
+FROM brettt89/silverstripe-web:8.1-apache
 ENV DOCUMENT_ROOT /var/www/html
 
 COPY . $DOCUMENT_ROOT

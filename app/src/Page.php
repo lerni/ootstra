@@ -80,7 +80,7 @@ namespace {
                 $CategoryField = TagField::create(
                     'PageCategories',
                     _t('SilverStripe\Blog\Model\Blog.Categories', 'Categories'),
-                    BlogCategory::get(), //
+                    BlogCategory::get(),
                     $this->PageCategories()
                 );
 

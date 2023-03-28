@@ -1,6 +1,6 @@
 <%-- require themedCSS("dist/css/blog") - those sytes are (pre)loaded per BlogInitExtension --%>
 <% include App/Includes/Header %>
-<main class="typography">
+<main>
 	<% if $Slides %>
 		<article class="element elementhero spacing-bottom-2<% if $SiteConfig.GlobalAlert %>> global-alert<% end_if %>"><% include App/Includes/Slides %></article>
 	<% else_if $SiteConfig.DefaultHeaderImage %>
@@ -14,12 +14,14 @@
 	</article><% end_if %>
 	<% if $CategoriesWithState %>
 		<nav class="element blog-post-meta">
-			<p class="cat-tag">
-				<a href="$Link" <%-- up-target="#main >.typography" --%>class="all<% if not $getCurrentCategory %> current<% end_if %>" title="<%t SilverStripe\Blog\Model\Blog.Allcategories %>"><%t SilverStripe\Blog\Model\Blog.Allcategories %></a>
-				<% loop $CategoriesWithState %>
-					<a href="$Link" class="$CustomLinkingMode" title="$Title" <%-- up-target="#main >.typography" href="$Link" --%>data-segment="$URLSegment">$Title</a>
-				<% end_loop %>
-			</p>
+			<div class="typography horizontal-spacing">
+				<p class="cat-tag">
+					<a href="$Link" <%-- up-target="#main >.typography" --%>class="all<% if not $getCurrentCategory %> current<% end_if %>" title="<%t SilverStripe\Blog\Model\Blog.Allcategories %>"><%t SilverStripe\Blog\Model\Blog.Allcategories %></a>
+					<% loop $CategoriesWithState %>
+						<a href="$Link" class="$CustomLinkingMode" title="$Title" <%-- up-target="#main >.typography" href="$Link" --%>data-segment="$URLSegment">$Title</a>
+					<% end_loop %>
+				</p>
+			</div>
 		</nav>
 	<% end_if %>
 	<article class="element posts">

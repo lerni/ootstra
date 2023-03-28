@@ -49,8 +49,6 @@ class ElementHero extends BaseElement
 
     private static $icon = 'font-icon-block-carousel';
 
-    private static $inline_editable = false;
-
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
@@ -97,7 +95,7 @@ class ElementHero extends BaseElement
         }
 
         if ($DoNotCropField = $fields->dataFieldByName('DoNotCrop')) {
-            $DoNotCropField->setDescription(_t(__CLASS__ . '.DoNotCropDescription', 'No maximum height in size "medium"'));
+            $DoNotCropField->setDescription(_t(__CLASS__ . '.DoNotCropDescription', 'No maximum height for "small" and "medium" size.'));
             $fields->addFieldToTab('Root.Settings', $DoNotCropField);
         }
 

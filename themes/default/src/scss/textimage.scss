@@ -5,11 +5,11 @@
 @import "~breakpoint-sass/stylesheets/breakpoint";
 
 .element.elementtextimage {
-	display: flex;
-	@include breakpoint($Mneg) {
-		flex-wrap: wrap;
-		padding-left: 0;
-		padding-right: 0;
+	.container {
+		display: flex;
+		@include breakpoint($Mneg) {
+			flex-wrap: wrap;
+		}
 	}
 	.txt {
 		flex: 0 0 percentage(math.div(1, 3));
@@ -40,6 +40,9 @@
 				margin-right: -50%;
 				width: 150%;
 				box-shadow: -#{math.div($lh, 2)}em 0 #{$lh}em rgba($black, 0.1);
+			}
+			@include breakpoint($Mneg) {
+				padding: #{math.div($lh, 2)}em 0 0 0;
 			}
 			h1,
 			h2 {

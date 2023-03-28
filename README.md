@@ -72,7 +72,7 @@ Node/npm runs locally. There is an `.nvmrc` file in `themes/default/`. If [nvm](
 For development ootstra comes with a Docker-Setup with Apache/PHP/MySQL/phpMyAdmin/MailHog. Run the commands bellow in the project directory:
 ```bash
     cd PROJECT/
-    docker build --tag silverstripe:refined80 .
+    docker build --tag silverstripe:refined81 .
     docker-compose up
  ```
 ### Docker zsh, composer
@@ -111,7 +111,7 @@ In order to use Xdebug with this setup, a browser-extensions like [Xdebug Helper
 To debug JS inside VSCode with Firefox [Debugger for Firefox](https://marketplace.visualstudio.com/items?itemName=firefox-devtools.vscode-firefox-debug) is used. With Chrome & Edge you may need to tweak config in `.vscode/launch.json` :shrug:
 
 ## PHP Version
-Current used PHP-Version is 8.0. It's set in following places:
+Current used PHP-Version is 8.1. It's set in following places:
 - `Dockerfile`
 - `deploy/config.php`
 - `public/.htaccess` -> watch out if you maintain stage specific versions in `deploy/`

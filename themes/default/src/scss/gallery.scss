@@ -10,11 +10,20 @@
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 		gap: #{$lh}em;
-		justify-content: center;
 		padding: #{$lh}em 0 0 0;
+		margin: 0;
 		@include breakpoint($Mneg) {
 			gap: #{math.div($lh, 2)}em;
 			grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+		}
+		&.left {
+			justify-content: start;
+		}
+		&.center {
+			justify-content: center;
+		}
+		&.right {
+			justify-content: end;
 		}
 		li {
 			padding: 0;
@@ -24,8 +33,26 @@
 				img {
 					margin: 0;
 					width: 100%;
+					height: auto;
 					&:hover {
 						opacity: 0.9;
+					}
+				}
+			}
+		}
+	}
+	ul.gallery.flex {
+		display: flex;
+		flex-wrap: wrap;
+		li {
+			flex: 0 0 auto;
+			a {
+				display: flex;
+				width: 100%;
+				img {
+					width: 100%;
+					@include breakpoint($Mneg) {
+						max-width: 125px;
 					}
 				}
 			}

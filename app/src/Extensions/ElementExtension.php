@@ -23,7 +23,7 @@ class ElementExtension extends DataExtension
         'SpacingTop' => 'Int',
         'SpacingBottom' => 'Int',
         'BackgroundColor' => 'Varchar',
-        'TitleLevel' => 'Enum("1,2,3","1")'
+        'TitleLevel' => 'Enum("1,2,3","2")'
     ];
 
     private static $defaults = [

@@ -67,7 +67,10 @@ class ContentPart extends DataObject
         }
 
         // Add a combined field for "Title" and "Displayed" checkbox in a Bootstrap input group
-        $fields->removeByName('ShowTitle');
+        $fields->removeByName([
+            'ElementContentSection',
+            'ShowTitle'
+        ]);
         $fields->replaceField(
             'Title',
             TextCheckboxGroupField::create()

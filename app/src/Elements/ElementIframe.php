@@ -23,8 +23,6 @@ class ElementIframe extends BaseElement
 
     private static $icon = 'font-icon-block-external-link';
 
-    private static $inline_editable = false;
-
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();

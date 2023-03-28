@@ -1,4 +1,5 @@
-<% cached 'navigation', $ID, $List('SilverStripe\CMS\Model\SiteTree').max('LastEdited'), $List('SilverStripe\CMS\Model\SiteTree').count() %><% if $Menu(1) %><nav class="nav">
+<% cached 'navigation', $ID, $List('SilverStripe\CMS\Model\SiteTree').max('LastEdited'), $List('SilverStripe\CMS\Model\SiteTree').count() %><% if $Menu(1) %>
+<nav class="nav">
 	<ul class="menu1">
 		<% loop $Menu(1) %>
 			<li class="$LinkingMode<% if $Childrenexcluded %> has-children<% end_if %><% if $LinkingMode == section %> expanded<% end_if %>">

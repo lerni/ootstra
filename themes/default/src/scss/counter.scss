@@ -5,42 +5,51 @@
 @import "~breakpoint-sass/stylesheets/breakpoint";
 
 .element.elementcounter {
+	text-align: center;
+	// .inner {
+	// 	max-width: $XXL;
+	// }
+	@include breakpoint($Mplus) {
+		// padding-left: #{$lh}em;
+		// padding-right: #{$lh}em;
+		margin-left: auto;
+		margin-right: auto;
+	}
 	ul.graphs {
 		padding: 0;
 		margin: 0;
 		list-style: none;
-		display: grid;
-		grid-gap: #{$lh}em;
-		grid-template-columns: 1fr 1fr 1fr 1fr;
-		@include breakpoint($Lneg) {
-			grid-template-columns: 1fr 1fr;
-		}
-		@include breakpoint($Sneg) {
-			grid-template-columns: 1fr;
-		}
+		display: flex;
+		flex-wrap: wrap;
+		align-items: stretch;
+		justify-content: center;
 		li.graph {
-			margin: #{$lh}em 0;
+			flex: 0 0 calc(#{percentage(math.div(1, 3))} - #{$lh}em);
+			margin: 0 #{math.div($lh, 2)}em #{$lh}em #{math.div($lh, 2)}em;
 			display: flex;
 			flex-direction: column;
 			padding: 0;
-			text-align: center;
+			@include breakpoint($Lneg) {
+				flex: 0 0 calc(#{percentage(math.div(1, 2))} - #{$lh}em);
+			}
+			@include breakpoint($Mneg) {
+				flex: 0 0 calc(100% - #{$lh}em);
+			}
 			.counter {
 				flex: 0 0 auto;
-				font-size: 3em;
+				color: $link-color;
+				font-size: 4em;
 				@include bold;
-				line-height: 1em;
-				margin: auto;
-				color: $current-color;
-				// @include breakpoint($XLneg) {
-				// 	font-size: 5em;
-				// }
-				// @include breakpoint($Mneg) {
-				// 	font-size: 4em;
-				// }
+				// line-height: 1em;
+				margin-bottom: 0;
 			}
 			p {
-				font-size: 1.41em;
+				flex: 1 1 auto;
 				margin: 0;
+				&.what {
+					color: $link-color;
+					@include bold;
+				}
 			}
 		}
 	}

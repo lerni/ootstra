@@ -15,7 +15,7 @@ use SilverStripe\Core\Manifest\ModuleResourceLoader;
 Email::config()->set('admin_email', Environment::getEnv('SS_ADMIN_EMAIL'));
 
 // Set the site locale
-i18n::set_locale('en_100');
+i18n::set_locale('de_CH');
 
 // TinyMCE Config
 $styles = [

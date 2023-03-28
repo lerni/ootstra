@@ -56,8 +56,6 @@ class ElementPerso extends BaseElement
 
     private static $icon = 'font-icon-block-group';
 
-    private static $inline_editable = false;
-
     function getCMSFields()
     {
         $fields = parent::getCMSFields();

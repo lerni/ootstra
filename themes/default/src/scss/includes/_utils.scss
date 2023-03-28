@@ -36,6 +36,7 @@
 }
 
 %back {
+	display: inline-block;
 	&::before {
 		display: inline-block;
 		content: "";
@@ -43,7 +44,7 @@
 		height: 1em;
 		background-size: auto 70%;
 		background-repeat: no-repeat;
-		background-position: bottom 40% right 0;
+		background-position: bottom .3em right 0; // rotated > top/bottom inverted
 		background-image: svg-load(
 			"../images/svg/arrow-forward.svg",
 			stroke-width=4,
@@ -63,6 +64,7 @@
 }
 
 %forth {
+	display: inline-block;
 	&::after {
 		display: inline-block;
 		content: "";
@@ -70,7 +72,7 @@
 		height: 1em;
 		background-size: auto 70%;
 		background-repeat: no-repeat;
-		background-position: bottom 30% right 0;
+		background-position: bottom .1em right 0;
 		background-image: svg-load(
 			"../images/svg/arrow-forward.svg",
 			stroke-width=4,

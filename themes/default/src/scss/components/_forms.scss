@@ -7,6 +7,11 @@ form {
 		padding: 0px 0 50px 0;
 		width: 100%;
 	}
+	> fieldset {
+		display: flex;
+		flex-wrap: wrap;
+		column-gap: #{$lh}em;
+	}
 	.userform-fields,
 	fieldset {
 		border: 0;
@@ -122,7 +127,6 @@ form {
 				}
 			}
 			label {
-				color: $text-color;
 				margin-bottom: #{math.div($lh, 4)}em;
 				&.left {
 					display: block;
@@ -258,7 +262,9 @@ form {
 	}
 	label.error,
 	.message {
-		background-color: rgba($link-color, 0.1);
+		width: 100%;
+		color: $white;
+		background-color: rgba($link-color, 1);
 		padding: 5px 10px;
 		border: 1px solid rgba($link-color, 1);
 		border-radius: 3px;
@@ -351,7 +357,6 @@ form {
 	color: $text-color;
 	float: left;
 }
-
 form .requiredField label.left::after {
 	color: $text-color;
 	content: "*";

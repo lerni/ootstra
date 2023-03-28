@@ -15,10 +15,18 @@
         {
             "type": "vcs",
             "url": "git@bitbucket.org:kraftausdruck/jobpostings.git"
-        }
+        },
+		{
+			"type": "vcs",
+			"url": "git@bitbucket.org:kraftausdruck/simplebasket.git"
+		},
+		{
+			"type": "vcs",
+			"url": "git@bitbucket.org:kraftausdruck/emaildownload.git"
+		}
 	],
 	"require": {
-		"php": "^7.1 || ^8.0",
+		"php": ">=7.1 <=8.2",
 		"silverstripe/recipe-plugin": "^1",
 		"silverstripe/recipe-core": "^4",
 		"silverstripe/cms": "^4",
@@ -54,15 +62,14 @@
 		"kinglozzer/htmleditorstylinghook": "^2",
 		"jeroendesloovere/vcard": "dev-master#baff586cd57f197060bc9e0c8c49573b894e264c",
 		"silverstripe/selectupload": "dev-master",
-		"endroid/qr-code": "^4.4",
+		"endroid/qr-code": "^4",
 		"gorriecoe/silverstripe-link": "^1",
 		"nomidi/silverstripe-webp-image": "dev-master as 1.0",
 		"lerni/klaro-cookie-consent": "v2.x-dev",
 		"league/commonmark": "^2",
-		"eluceo/ical": "^2.2",
+		"eluceo/ical": "^2",
 		"jonom/silverstripe-someconfig": "^1",
-		"hamaka/userforms-cleanupsubmissions": "^2",
-		"silverstripe/admin": "1.11.3"
+		"hamaka/userforms-cleanupsubmissions": "^2"
 	},
 	"require-dev": {
 		"deployer/deployer": "^7",
@@ -108,7 +115,8 @@
 			"composer/installers": true,
 			"silverstripe/vendor-plugin": true,
 			"silverstripe/recipe-plugin": true,
-			"netresearch/composer-patches-plugin": true
+			"netresearch/composer-patches-plugin": true,
+			"php-http/discovery": true
 		}
 	}
 }

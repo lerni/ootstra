@@ -13,7 +13,7 @@ define('DEP_SERVER', 'IP.IP.IP.IP');
 define('DEP_WEBDIR', 'public_html');
 
 // PHP Version/Path
-define('DEP_PHP_PATH', '/usr/local/bin/php80');
+define('DEP_PHP_PATH', '/usr/local/bin/php81');
 
 // PHP TIMEZONE
 define('DEP_TIMEZONE', 'Europe/Zurich');

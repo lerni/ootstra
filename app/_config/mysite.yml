@@ -121,6 +121,10 @@ SilverStripe\Blog\Model\BlogPost:
     - App\Elements\ElementTextImage
     # - App\Elements\ElementLocalVideo
     # - App\Elements\ElementIframe
+    # - Kraftausdruck\Elements\ElementProduct
+    # - Kraftausdruck\Elements\ElementCheckout
+    # - Kraftausdruck\Elements\ElementProductAdder
+    # - Kraftausdruck\Elements\ElementDownloadForm
 
 App\Models\ElementPage:
   icon: 'themes/default/dist/images/svg/icon-elements.svg'
@@ -144,10 +148,15 @@ App\Models\ElementPage:
     - App\Elements\ElementTextImage
     # - App\Elements\ElementLocalVideo
     # - App\Elements\ElementIframe
+    # - Kraftausdruck\Elements\ElementProduct
+    # - Kraftausdruck\Elements\ElementCheckout
+    # - Kraftausdruck\Elements\ElementProductAdder
+    # - Kraftausdruck\Elements\ElementDownloadForm
 
 DNADesign\Elemental\Models\BaseElement:
   extensions:
     - App\Extensions\ElementExtension
+  inline_editable: false
 
 DNADesign\Elemental\Models\ElementContent:
   extensions:
@@ -180,6 +189,9 @@ SilverStripe\UserForms\Model\Recipient\EmailRecipient:
   extensions:
     - App\Extensions\EmailRecipientExtension
   allow_unbound_recipient_fields: true
+
+SilverStripe\UserForms\Control:
+  maximum_email_attachment_size: 5M
 
 SilverStripe\i18n\i18n:
   default_locale: de_CH
