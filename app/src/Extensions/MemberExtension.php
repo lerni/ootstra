@@ -11,12 +11,16 @@ class MemberExtension extends Extension
     public function updateCMSFields(FieldList $fields)
     {
         if (!Permission::check('ADMIN')) {
-            $fields->removeByName('FailedLoginCount');
-            $fields->removeByName('Locale');
+            $fields->removeByName([
+                'FailedLoginCount',
+                'Locale'
+            ]);
         }
-        $fields->removeByName('BlogProfileSummary');
-        $fields->removeByName('BlogProfileImage');
-        $fields->removeByName('Root.BlogPosts');
-        $fields->removeByName('BlogPosts');
+        $fields->removeByName([
+            'BlogProfileSummary',
+            'BlogProfileImage',
+            'Root.BlogPosts',
+            'BlogPosts'
+        ]);
     }
 }

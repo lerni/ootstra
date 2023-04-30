@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   silverstripe:
-    # image: brettt89/silverstripe-web:8.0-apache
+    # image: brettt89/silverstripe-web:8.1-apache
     image: silverstripe:refined81
     ports:
       - 8080:80
@@ -46,6 +46,9 @@ services:
       - SS_ERROR_LOG=silverstripe.log
       - SS_ADMIN_EMAIL=docker@sends.me
       - GHOSTSCRIPT_PATH=/usr/bin/gs
+      # - ALGOLIA_ADMIN_API_KEY=
+      # - ALGOLIA_SEARCH_API_KEY=
+      # - ALGOLIA_SEARCH_APP_ID=
       # - XDEBUG_TRIGGER=yes
       # - CSP_REPORT_ONLY='enabled'
     extra_hosts:

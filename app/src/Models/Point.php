@@ -50,8 +50,11 @@ class Point extends DataObject
             $PointURLField->setDescription('Link (short form) to business entry from Google-Map');
         }
 
-        $fields->removeByName('Latitude');
-        $fields->removeByName('Longitude');
+        $fields->removeByName([
+            'Latitude',
+            'Longitude'
+        ]);
+
         $googleMapField = GoogleMapField::create($this, 'Google-Map');
         $fields->addFieldToTab('Root.Main', $googleMapField);
 

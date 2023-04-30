@@ -1,10 +1,10 @@
 <% cached 'navigation', $ID, $List('SilverStripe\CMS\Model\SiteTree').max('LastEdited'), $List('SilverStripe\CMS\Model\SiteTree').count() %><% if $Menu(1) %>
-<nav class="nav">
+<nav class="nav" aria-label="<%t Page.NavAriaLabel 'primary navigation' %>">
 	<ul class="menu1">
 		<% loop $Menu(1) %>
 			<li class="$LinkingMode<% if $Childrenexcluded %> has-children<% end_if %><% if $LinkingMode == section %> expanded<% end_if %>">
-				<a href="$Link">$MenuTitle.XML</a><% if $Childrenexcluded %><span class="trigger"></span><% end_if %>
-				<% if $Childrenexcluded %>
+				<a href="$Link">$MenuTitle.XML</a>
+				<% if $Childrenexcluded %><span class="trigger"></span>
 					<ul class="menu2">
 						<% loop $Childrenexcluded %>
 							<li class="$LinkingMode">

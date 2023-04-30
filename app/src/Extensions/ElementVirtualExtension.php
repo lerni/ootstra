@@ -10,7 +10,9 @@ class ElementVirtualExtension extends Extension
 
     public function updateCMSFields(FieldList $fields)
     {
-        $fields->removeByName('Settings');
-        $fields->removeByName('TitleLevel');
+        $fields->removeByName([
+            'Settings',
+            'TitleLevel'
+        ]);
     }
 }

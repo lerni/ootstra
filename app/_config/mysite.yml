@@ -81,6 +81,10 @@ Page:
     metaoverview:
       - App\Models\MetaOverviewPage
 
+# PageController:
+#   extensions:
+#     - Kraftausdruck\Extensions\AlgoliaControllerExtension
+
 SilverStripe\Blog\Model\BlogCategory:
   extensions:
     - App\Extensions\BlogCategoryExtension

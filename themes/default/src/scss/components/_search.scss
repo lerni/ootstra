@@ -1,0 +1,226 @@
+// $size: 2;
+// $size-width: 240px;
+
+// .search-wrapper {
+// 	grid-row: 2 / 3;
+// 	grid-column: 3 / 4;
+// 	display: flex;
+// 	flex-direction: column;
+// 	justify-content: center;
+// 	margin: auto 0 auto 1em;
+// 	z-index: 99;
+// 	align-items: flex-end;
+// 	padding-bottom: 1.3em;
+// 	// #header.headroom--not-top & {
+// 	// 	grid-row: 1 / 3;
+// 	// }
+// 	@include breakpoint($XLneg) {
+// 		grid-row: 1 / 3;
+// 		padding-bottom: 0;
+// 		// margin: auto 0 auto auto;
+// 	}
+// 	@include breakpoint($XXLneg) {
+// 		width: 45px;
+// 	}
+// 	// @include breakpoint($XLneg) {
+// 	// 	margin-right: #{$lh}em;
+// 	// }
+// 	label.txt {
+// 		display: none;
+// 		line-height: 1;
+// 		text-align: center;
+// 		font-size: $font-size--small;
+// 		width: 100%;
+// 		margin: 0.4em 0 0 auto;
+// 		color: mix($blue, $gray--light, 40%);
+// 		// @include breakpoint($Lneg) {
+// 		// 	display: none;
+// 		// }
+// 		#header.headroom--not-top & {
+// 			display:none;
+// 		}
+// 	}
+// 	#Form_SearchForm {
+// 		width: $size-width;
+// 		max-width: none;
+// 		margin: 0;
+// 		height: #{$size}rem;
+// 		will-change: width;
+// 		transition: width 0.2s ease-out;
+// 		// @include breakpoint($M $L) {
+// 		// 	header.headroom--top & {
+// 		// 		margin-top: 1.6em;
+// 		// 	}
+// 		// }
+// 		fieldset {
+// 			width: 100%;
+// 			height: #{$size}rem;
+// 			flex: 0 0 #{$size}rem;
+// 			max-width: $size-width;
+// 			overflow: hidden;
+// 			border-radius: #{math.div($size, 2)}rem;
+// 			background-color: $blue;
+// 			will-change: width;
+// 			transition: width 0.2s ease-out;
+// 			#Form_SearchForm_Search_Holder {
+// 				width: calc(100% - #{$size}rem);
+// 				height: 0;
+// 				margin: 0;
+// 				display: block;
+// 				will-change: width;
+// 				transition: width 0.2s ease-out;
+// 				.middleColumn {
+// 					height: #{$size}rem;
+// 					input {
+// 						height: #{$size}rem;
+// 						background: none;
+// 						border: none;
+// 						width: 100%;
+// 						padding: 0.4em #{math.div($size, 2)}rem 0;
+// 						outline: none;
+// 						color: $white;
+// 						font-size: 0.8em;
+// 						&::placeholder {
+// 							color: $gray;
+// 						}
+// 					}
+// 				}
+// 			}
+// 			.action {
+// 				width: #{$size}rem;
+// 				height: #{$size}rem;
+// 				margin: 0;
+// 				padding: 0;
+// 				overflow: hidden;
+// 				border-radius: #{math.div($size, 2)}rem;
+// 				background-color: $blue;
+// 				input[type="submit"] {
+// 					background-image: svg-load("../images/svg/search.svg", fill="#{$white}");
+// 					background-size: #{$size * 0.5}rem #{$size * 0.5}rem;
+// 					background-position: center center;
+// 					background-repeat: no-repeat;
+// 					box-shadow: none;
+// 					padding: 0;
+// 					width: 100%;
+// 					border: none;
+// 					text-indent: 999em;
+// 				}
+// 			}
+// 		}
+// 	}
+// 	&:not(.search-collapsed) {
+// 		@include breakpoint($Sneg) {
+// 			&::after {
+// 				content: "";
+// 				background-color: white;
+// 				position: absolute;
+// 				top: 0;
+// 				right: 0;
+// 				bottom: 0;
+// 				left: 0;
+// 				z-index: 901;
+// 			}
+// 			// html.mobile-nav--active &::after {
+// 			// 	bottom: calc(100% - #{$headerheight--small});
+// 			// }
+// 			#Form_SearchForm {
+// 				z-index: 1000;
+// 			}
+// 			label.txt {
+// 				display: none;
+// 			}
+// 		}
+// 	}
+// 	&.search-collapsed {
+// 		&::after {
+// 			display: none;
+// 		}
+// 		#Form_SearchForm {
+// 			width: #{$size}em;
+// 			fieldset {
+// 				#Form_SearchForm_Search_Holder {
+// 					width: calc(#{$size-width} - #{$size}em);
+// 					width: 0;
+// 				}
+// 				.action {
+// 					input[type="submit"] {
+// 						background-color: $blue;
+// 					}
+// 				}
+// 			}
+// 		}
+// 	}
+// }
+
+// header.search-results {
+// 	h1 {
+// 		margin-bottom: 0;
+// 	}
+// }
+
+// body.search-results main > .inner {
+// 	@include breakpoint($XLneg) {
+// 		overflow-x: hidden;
+// 	}
+// }
+
+// ul.search-results {
+// 	list-style: none;
+// 	display: flex;
+// 	flex-direction: column;
+// 	list-style: none;
+// 	padding: 0 0 #{$lh * 2}em 0;
+// 	margin-left: 0 !important;
+// 	li.item {
+// 		padding: 0 0 #{$lh}em;
+// 		position: relative;
+// 		margin-bottom: #{$lh}em;
+// 		a {
+// 			display: flex;
+// 			flex-wrap: wrap;
+// 			&:hover {
+// 				color: $blue;
+// 			}
+// 			.txt,
+// 			figure {
+// 				flex: 0 0 auto;
+// 				padding: 0#{math.div($lh, 2)}em;
+// 				@include breakpoint($Mneg) {
+// 					flex: 0 0 100%;
+// 					padding: 0;
+// 					flex-basis: 100%;
+// 				}
+// 			}
+// 			// figure {
+// 			// 	flex: 0 0 calc(280px + #{$lh}em);
+// 			// 	margin: 0;
+// 			// 	padding: 0#{math.div($lh, 2)}em;
+// 			// 	img {
+// 			// 		width: 100%;
+// 			// 	}
+// 			// 	@include breakpoint($Mneg) {
+// 			// 		order: 0;
+// 			// 		padding-left: 0;
+// 			// 		padding-right: 0;
+// 			// 		flex-basis: 100%;
+// 			// 	}
+// 			// }
+// 			.txt {
+// 				// flex: 0 0 calc(100% - (280px + #{$lh}em));
+// 				flex: 0 0 100%;
+// 				padding: 0#{math.div($lh, 2)}em 0 0;
+// 				@include normal;
+// 				ul {
+// 					li {
+// 						padding-bottom: 0;
+// 					}
+// 				}
+// 				@include breakpoint($Mneg) {
+// 					order: 1;
+// 					padding-right: 0;
+// 					flex-basis: 100%;
+// 				}
+// 			}
+// 		}
+// 	}
+// }

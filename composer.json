@@ -23,6 +23,10 @@
 		{
 			"type": "vcs",
 			"url": "git@bitbucket.org:kraftausdruck/emaildownload.git"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/lerni/silverstripe-embedfield"
 		}
 	],
 	"require": {
@@ -69,7 +73,8 @@
 		"league/commonmark": "^2",
 		"eluceo/ical": "^2",
 		"jonom/silverstripe-someconfig": "^1",
-		"hamaka/userforms-cleanupsubmissions": "^2"
+		"hamaka/userforms-cleanupsubmissions": "^2",
+		"nathancox/embedfield": "dev-attrquerystring"
 	},
 	"require-dev": {
 		"deployer/deployer": "^7",
@@ -115,7 +120,6 @@
 			"composer/installers": true,
 			"silverstripe/vendor-plugin": true,
 			"silverstripe/recipe-plugin": true,
-			"netresearch/composer-patches-plugin": true,
 			"php-http/discovery": true
 		}
 	}

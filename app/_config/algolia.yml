@@ -1,0 +1,58 @@
+---
+Name: algolia
+After: silverstripe-algolia
+---
+SilverStripe\Core\Injector\Injector:
+  Wilr\SilverStripe\Algolia\Service\AlgoliaService:
+    properties:
+      adminApiKey: '`ALGOLIA_ADMIN_API_KEY`'
+      searchApiKey: '`ALGOLIA_SEARCH_API_KEY`'
+      applicationId: '`ALGOLIA_SEARCH_APP_ID`'
+      indexes:
+        YOURINDEXNAME:
+          includeClasses:
+            - SilverStripe\CMS\Model\SiteTree
+
+
+# Setting up Algolia-Search
+# add AlgoliaControllerExtension (before -> mysite or so)
+# PageController:
+#   extensions:
+#     - Kraftausdruck\Extensions\AlgoliaControllerExtension
+
+# rename algolia.txt algolia.yml
+# install "wilr/silverstripe-algolia": "^1.4"
+# create an Applications https://www.algolia.com/ - you need Grow plan - free probable wont index
+#     adapt YOURINDEXNAME "dev_" prefix 'll be added automatically
+#     add (ALGOLIA_ADMIN_API_KEY, ALGOLIA_SEARCH_API_KEY, ALGOLIA_SEARCH_APP_ID) in .env
+
+# may add themes/default/src/js/include/search.js into themes/default/src/js/app.js
+# uncomment & teak _search.scss & build
+
+# Header.ss
+# <div class="search-wrapper SearchForm search-collapsed">
+# 	{$SearchForm}
+# </div>
+
+# Page.ss
+# 	<% if $Query %>
+# 		<% if $Results %>
+# 			<% include App/Includes/SearchResults Results=$Results %>
+# 		<% else %>
+# 			<% include App/Includes/Header %>
+# 			<main>
+# 				<article class="element width-reduced spacing-top-2 spacing-bottom-1">
+# 					<div class="typography">
+# 						<h1 class="dafault-title">Suchergebnisse für {$Query}</h1>
+# 						<p class="large">Keine Suchergebnisse!</p>
+# 					</div>
+# 				</article>
+# 			</main>
+# 		<% end_if %>
+# 	<% else %>
+# 		{$Layout}
+# 	<% end_if %>
+
+# php ./vendor/silverstripe/framework/cli-script.php dev/tasks/AlgoliaConfigure
+# php ./vendor/silverstripe/framework/cli-script.php dev/tasks/AlgoliaInspect
+# php ./vendor/silverstripe/framework/cli-script.php dev/tasks/AlgoliaReindex

@@ -53,6 +53,7 @@ RUN apt-get update
 ### --- vips-end ---
 
 RUN apt-get install -y \
+    ghostscript \
     git \
     gnupg \
     less \

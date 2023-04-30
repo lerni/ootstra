@@ -3,8 +3,8 @@
 namespace {
 
     use App\Models\Perso;
-    use SilverStripe\CMS\Controllers\ContentController;
     use SilverStripe\View\Requirements;
+    use SilverStripe\CMS\Controllers\ContentController;
     use SilverStripe\Core\Manifest\ModuleResourceLoader;
 
     class PageController extends ContentController

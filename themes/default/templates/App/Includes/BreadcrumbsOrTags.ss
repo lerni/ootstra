@@ -3,7 +3,6 @@
         <nav class="breadcrumbs">
             <div class="inner">{$Breadcrumbs}</div>
         </nav>
-        $BreadcrumbListSchema.RAW
     <% end_with %>
 <% end_if %>
 <% if ($Page.ClassName == 'SilverStripe\Blog\Model\BlogPost' || $Page.ClassName == 'SilverStripe\Blog\Model\Blog') && $ClassName == 'App\Elements\ElementHero' %>

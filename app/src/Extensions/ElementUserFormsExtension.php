@@ -14,7 +14,9 @@ class ElementUserFormsExtension extends DataExtension
 
     public function updateCMSFields(FieldList $fields)
     {
-        $fields->removeByName('isFullWidth');
-        $fields->removeByName('AvailableGlobally');
+        $fields->removeByName([
+            'isFullWidth',
+            'AvailableGlobally'
+        ]);
     }
 }

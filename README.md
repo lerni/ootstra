@@ -22,8 +22,6 @@ This project is inspired from [Bigfork’s quickstart recipe](https://github.com
 
 Optional, separate modules:
 - [InstagramFeed](https://github.com/lerni/instagram-basic-display-feed-element)
-- EMail-/LinkDownload (not yet published), Contact collector
-- [ElementPodcast](https://github.com/lerni/podcast)
 - ElementJobs (privat), schema.org & sitemap.xml integration
 - EasyShop (privat), Google Shoppingfeed with local Inventory & Omnipay
 
@@ -42,7 +40,7 @@ As editor/IDE [VSCode](https://code.visualstudio.com/) is recommended. Per `.vsc
 - [Silverstripe](https://marketplace.visualstudio.com/items?itemName=adrianhumphreys.silverstripe)
 - [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client)
 - [PHP Debug](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug)
-- [Log Viewer](https://marketplace.visualstudio.com/items?itemName=berublan.vscode-log-viewer)
+- [Log Viewer](https://marketplace.visualstudio.com/items?itemName=berublan.vscode-log-viewer) Side-Bar Debug -> Log Viewer
 - [Debugger for Firefox](https://marketplace.visualstudio.com/items?itemName=firefox-devtools.vscode-firefox-debug)
 - [EditorConfig for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
 - [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)

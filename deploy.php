@@ -104,6 +104,7 @@ host('live')
     ->set('labels', ['stage' => 'live'])
     ->set('hostname', DEP_SERVER)
     ->set('remote_user', DEP_SERVER_USER)
+    // ->set('branch', 'live')
     ->set('git_ssh_command', 'ssh') // https://github.com/deployphp/deployer/issues/2908#issuecomment-1022748724 - we mount ~/.ssh/known_hosts
     ->set('writable_mode', 'chmod')
     ->set('deploy_path', function () {
@@ -117,6 +118,7 @@ host('test')
     ->set('labels', ['stage' => 'test'])
     ->set('hostname', DEP_SERVER)
     ->set('remote_user', DEP_SERVER_USER)
+    // ->set('branch', 'test')
     ->set('git_ssh_command', 'ssh') // https://github.com/deployphp/deployer/issues/2908#issuecomment-1022748724 - we mount ~/.ssh/known_hosts
     ->set('writable_mode', 'chmod')
     ->set('deploy_path', function () {
@@ -126,6 +128,7 @@ host('test')
         return '/home/{{user}}/public_html/0test';
     });
 
+Deployer::get()->tasks->remove('deploy');
 desc('Deploy your project');
 task('deploy', function () {
     invoke('deploy:prepare');

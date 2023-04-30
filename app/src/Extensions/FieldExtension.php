@@ -53,7 +53,9 @@ class FieldExtension extends Extension
             $i = 0;
             foreach ($lines as $l) {
                 if ($start <= ($i + 1)) {
-                    $r->push(ArrayData::create(['Item' => $l]));
+                    if ($l != "") {
+                        $r->push(ArrayData::create(['Item' => $l]));
+                    }
                 }
                 $i++;
             }

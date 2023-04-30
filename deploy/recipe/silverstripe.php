@@ -10,6 +10,7 @@ use Symfony\Component\Console\Input\InputOption;
 desc('Populate .env file');
 task('silverstripe:create_dotenv', function () {
     $stage = get('labels')['stage'];
+    run("cd {{deploy_path}} && if [ ! -d shared ]; then mkdir shared; fi");
     $envPath = "{{deploy_path}}/shared/.env";
     $hasEnvFile = run("if [ -e {{deploy_path}}/shared/.env ]; then echo 'true'; fi");
     if ($hasEnvFile) {
@@ -87,11 +88,15 @@ task('silverstripe:vendor_expose', function () {
 // https://deployer.org/docs/7.x/avoid-php-fpm-reloading
 desc('Run pkill to reset php process');
 task('pkill', function () {
-    try {
-        run('pkill lsphp');
-    } catch (\Exception $ex) {
-        writeln($ex->getMessage());
-    }
+    // try {
+    //     run('pkill lsphp');
+    // } catch (\Exception $ex) {
+    //     writeln($ex->getMessage());
+    // }
+
+    set('env', [
+        'SCRIPT_FILENAME' => '{{release_path}}'
+    ]);
 });
 
 

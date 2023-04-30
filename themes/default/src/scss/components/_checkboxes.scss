@@ -27,10 +27,6 @@ body > *:not(#klaro) {
 			display: inline-block;
 			//   height: 25px;
 			line-height: 25px;
-			-webkit-user-select: none; /* webkit (safari, chrome) browsers */
-			-moz-user-select: none; /* mozilla browsers */
-			-khtml-user-select: none; /* webkit (konqueror) browsers */
-			-ms-user-select: none; /* IE10+ */
 		}
 
 		/* checkbox aspect */
@@ -138,10 +134,7 @@ body > *:not(#klaro) {
 			border: 3px solid transparent;
 			left: 6px;
 			top: 10px;
-
-			-webkit-transform: rotateZ(37deg);
 			transform: rotateZ(37deg);
-			-webkit-transform-origin: 20% 40%;
 			transform-origin: 100% 100%;
 		}
 
@@ -165,10 +158,7 @@ body > *:not(#klaro) {
 				border-left: 2px solid transparent;
 				border-right: 2px solid $input-background;
 				border-bottom: 2px solid $input-background;
-				-webkit-transform: rotateZ(37deg);
 				transform: rotateZ(37deg);
-
-				-webkit-transform-origin: 100% 100%;
 				transform-origin: 100% 100%;
 			}
 
