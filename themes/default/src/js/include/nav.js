@@ -2,21 +2,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // burger
   document.getElementById('menuButton').addEventListener('click', function (event) {
+    window.scrollTo(0, 0);
     document.querySelector('html').classList.toggle('mobile-nav--active');
-    event.preventDefault();
   });
 
   // toggle expanded-class
-  // open and do not navigate on collapsed:not(.expanded) navi-items
+  // open and do not navigate on collapsed:not(.expanded) navi-items on mobile nav (touch)
   document.querySelector('.menu1').addEventListener('click', (event) => {
     if (event.target.closest('li.has-children.expanded >a')) {
       window.location = event.target.getAttribute('href');
-    }
-    if (event.target.closest('li.has-children >a')) {
+    } else if (document.querySelector('html').classList.contains('mobile-nav--active') &&
+        event.target.closest('li.has-children >a'))
+    {
       event.preventDefault();
-      if (!event.target.closest('li.has-children').classList.contains('expanded')) {
-        event.target.parentElement.classList.toggle('expanded');
-      }
+      event.target.parentElement.classList.toggle('expanded');
     }
   });
 

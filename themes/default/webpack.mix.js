@@ -36,6 +36,7 @@ mix
   .sass('src/scss/contentsections.scss', 'dist/css')
   .sass('src/scss/editor.scss', 'dist/css')
   .sass('src/scss/fancy.scss', 'dist/css')
+  .sass('src/scss/swiper.scss', 'dist/css')
   .sass('src/scss/footer.scss', 'dist/css')
   .sass('src/scss/gallery.scss', 'dist/css')
   .sass('src/scss/logo.scss', 'dist/css')

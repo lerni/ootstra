@@ -6,6 +6,7 @@
 <% if isFullWidth %></div><% end_if %>
 <% if $Items %>
 	<% if $Layout == "slider" %>
+		<% require themedCSS("dist/css/swiper") %>
 		<div class="swiper-container multiple" data-id="{$ID}" id="multiple-swiper-{$ID}">
 			<div class="swiper-wrapper multiple">
 				<% loop $Items %>

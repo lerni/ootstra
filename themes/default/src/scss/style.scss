@@ -4,7 +4,6 @@
 @import "includes/defaults";
 @import "includes/mixins";
 @import "includes/utils";
-@import "swiper";
 @import "includes/typography";
 
 // Many styles
@@ -101,7 +100,7 @@ strong {
 			justify-content: center;
 			width: 280px;
 			grid-row: 1 / 3;
-			grid-column: 1/2;
+			grid-column: 1 / 2;
 			@include breakpoint($Lneg) {
 				width: 180px;
 			}
@@ -149,12 +148,15 @@ body > main {
 	width: 100%;
 	max-width: $inner-width;
 	margin: 0 auto;
-	padding-left: #{$lh * 1}em;
-	padding-right: #{$lh * 1}em;
-	@include breakpoint($Mneg) {
-		padding-left: #{math.div($lh, 2)}em;
-		padding-right: #{math.div($lh, 2)}em;
-	}
+	@include horizontal-spacing;
+}
+
+.vertical-spacing {
+	@include vertical-spacing;
+}
+
+.horizontal-spacing {
+	@include horizontal-spacing;
 }
 
 nav.breadcrumbs {
@@ -244,27 +246,6 @@ nav.breadcrumbs {
 		max-width: $inner-width--reduced;
 		margin-left: 0;
 		margin-right: auto;
-	}
-}
-
-.vertical-spacing {
-	padding-top: #{$lh}em;
-	padding-bottom: #{$lh}em;
-	> *:last-child {
-		margin-bottom: 0;
-	}
-	@include breakpoint($Mneg) {
-		padding-top: #{math.div($lh, 2)}em;
-		padding-bottom: #{math.div($lh, 2)}em;
-	}
-}
-
-.horizontal-spacing {
-	padding-left: #{$lh}em;
-	padding-right: #{$lh}em;
-	@include breakpoint($Mneg) {
-		padding-left: #{math.div($lh, 2)}em;
-		padding-right: #{math.div($lh, 2)}em;
 	}
 }
 
@@ -854,6 +835,7 @@ html .klaro {
 				.cm-btn.cn-decline {
 					background-color: $gray;
 					order: 1;
+					// display: none;
 				}
 				// accept all
 				.cm-btn.cm-btn-success {

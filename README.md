@@ -114,7 +114,8 @@ Current used PHP-Version is 8.1. It's set in following places:
 - `deploy/config.php`
 - `public/.htaccess` -> watch out if you maintain stage specific versions in `deploy/`
 - `composer.json`
-- `docker-compose.yml` -> custom.php.ini
+- `docker-compose.yml` -> path custom.php.ini
+- `.vscode/settings.json`
 Don't forget to rebuild/restart docker and reinstall vendors per composer after changing!
 
 # Hosting & Deployment
@@ -205,7 +206,7 @@ https://www.silverstripe.org/learn/lessons/v4/up-and-running-setting-up-a-local-
 ## Deploy a branch/tag/revison
 
 ```
-# Deploy the dev branch to test
+# Deploy revision (git SAH) to test
 dep deploy --revision=ca5fcd330910234f63bf7d5417ab6835e5a57b81 test
 
 # Deploy the dev branch to test

@@ -27,6 +27,7 @@
   "php.validate.run": "onSave",
   "search.useIgnoreFiles": false,
   "telemetry.enableTelemetry": false,
+  "intelephense.environment.phpVersion": "8.1.0",
   "[php]": {
     "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
   }

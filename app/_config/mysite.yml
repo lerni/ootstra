@@ -16,7 +16,7 @@ SilverStripe\Assets\File:
   extensions:
     - App\Extensions\FileExtension
     # needs GHOSTSCRIPT_PATH="/usr/local/bin/gs"
-    # - App\Extensions\PdfThumbnailerExtension
+    - App\Extensions\PdfThumbnailerExtension
   allowed_extensions:
     svg: true
     webp: true
@@ -71,6 +71,12 @@ SilverStripe\Forms\HTMLEditor\HTMLEditorField:
   default_classes:
     stacked: stacked
 
+nathancox\EmbedField\Model\EmbedObject:
+  queryStringsFromConfig:
+    - rel: 0
+    - controls: 0
+    - showinfo: 0
+
 Page:
   extensions:
     - App\Extensions\PageSchemaExtension
@@ -123,6 +129,7 @@ SilverStripe\Blog\Model\BlogPost:
     - App\Elements\ElementTeaser
     - App\Elements\ElementFeedTeaser
     - App\Elements\ElementTextImage
+    # - App\Elements\ElementPDFDocument
     # - App\Elements\ElementLocalVideo
     # - App\Elements\ElementIframe
     # - Kraftausdruck\Elements\ElementProduct
@@ -150,6 +157,7 @@ App\Models\ElementPage:
     - App\Elements\ElementTeaser
     - App\Elements\ElementFeedTeaser
     - App\Elements\ElementTextImage
+    # - App\Elements\ElementPDFDocument
     # - App\Elements\ElementLocalVideo
     # - App\Elements\ElementIframe
     # - Kraftausdruck\Elements\ElementProduct
@@ -171,8 +179,9 @@ DNADesign\ElementalVirtual\Model\ElementVirtual:
     - App\Extensions\ElementVirtualExtension
 
 DNADesign\ElementalUserForms\Model\ElementForm:
-  # block_default_userforms_js: true
   block_default_userforms_css: true
+  block_default_userforms_js: true
+  disable_multi_step_forms: true
   extensions:
     - App\Extensions\ElementUserFormsExtension
 
@@ -182,8 +191,10 @@ SilverStripe\UserForms\Model\UserDefinedForm:
   extensions:
     - App\Extensions\CannotCreateExtension
 
-Hamaka\Tasks\UserFormsCleanupOldEntriesTask:
-  days_retention: 180
+App\Tasks\CleanUpObjects:
+  days_retention: 365
+  objects_to_clean_up:
+    - 'SilverStripe\UserForms\Model\Submission\SubmittedForm\SubmittedForm'
 
 SilverStripe\CMS\Model\VirtualPage:
   extensions:
@@ -194,8 +205,8 @@ SilverStripe\UserForms\Model\Recipient\EmailRecipient:
     - App\Extensions\EmailRecipientExtension
   allow_unbound_recipient_fields: true
 
-SilverStripe\UserForms\Control:
-  maximum_email_attachment_size: 5M
+SilverStripe\UserForms\Control\UserDefinedFormController:
+  maximum_email_attachment_size: 8M
 
 SilverStripe\i18n\i18n:
   default_locale: de_CH
@@ -294,6 +305,11 @@ Kraftausdruck\Webmanifest\Webmanifest:
     description: 'SiteConfig'
     background_color: 'SiteConfig'
     theme_color: 'SiteConfig'
+    icons:
+      - src: '/icon-mask.svg'
+        sizes: '150x150'
+        type: 'image/svg+xml'
+        purpose: 'maskable'
 ---
 Name: mysharecare
 After: 'opengraphextensions'

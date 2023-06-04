@@ -65,7 +65,7 @@ class ElementGallery extends BaseElement
             'WidthReduced'
         ]);
 
-        $fields->addFieldToTab('Root.Main', HeaderField::create('OneOrTheOther', _t(__CLASS__ . '.OneOrTheOther', 'Select and sort images per folder (all included) or individually')));
+        $fields->addFieldToTab('Root.Main', HeaderField::create('OneOrTheOther', _t(__CLASS__ . '.OneOrTheOther', 'Choose pictures by folder (all included) or pick & sort individually')));
 
         $FolderField = FolderDropdownField::create(
             'GalleryFolderID',

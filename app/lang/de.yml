@@ -208,11 +208,6 @@ de:
     MORE: Weiterlesen
     NoPosts: 'Kein Artikel vorhanden'
   SilverStripe\Blog\Model\BlogPost:
-    ALTERNATIVTEXTEVENTDATE: 'Alternative Text Datum'
-    AlternativTextEventDateDescription: 'Falls kein exaktes Datum resp. Zeitspanne. z.B. 14.10.2020 bis 4.11.2020, jeden Mittwoch, 16 Uhr'
-    EventDateDescription: 'Termin & Zeit z.B. 01.01.2020, 19:00<br /><strong>Um ein Datum zu erfassen, ist die Angabe einer Uhrzeit zwingend -> 00:00</strong>'
-    LOCATION: Veranstaltungsort
-    PastEventsHeaderField: 'Beiträge mit der Kategorie "Termine" werden nur angezeigt, wenn End- und Datum in der Zukunft liegt.'
     PublishDateDescription: 'geplante Veröffentlichung'
   SilverStripe\CMS\Controllers\CMSMain:
     SaveFirst: 'Bitte Element erst speichern, danach können Sub-Elemente erfasst werden.'
@@ -252,6 +247,7 @@ de:
     SUBMISSIONS: Nachrichten
   Kraftausdruck\KlaroCookie:
     MODALLINK: 'Cookies'
+    Decline: 'Nur Notwendige'
   UndefinedOffset\NoCaptcha\Forms\NocaptchaField:
     ReCaptchaTermsTextStart: 'Diese Website ist durch reCAPTCHA geschützt und es gelten die'
     ReCaptchaTermsTextEnd: 'von Google.'

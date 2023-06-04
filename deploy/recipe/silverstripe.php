@@ -88,15 +88,15 @@ task('silverstripe:vendor_expose', function () {
 // https://deployer.org/docs/7.x/avoid-php-fpm-reloading
 desc('Run pkill to reset php process');
 task('pkill', function () {
-    // try {
-    //     run('pkill lsphp');
-    // } catch (\Exception $ex) {
-    //     writeln($ex->getMessage());
-    // }
+    try {
+        run('pkill lsphp');
+    } catch (\Exception $ex) {
+        writeln($ex->getMessage());
+    }
 
-    set('env', [
-        'SCRIPT_FILENAME' => '{{release_path}}'
-    ]);
+    // set('env', [
+    //     'SCRIPT_FILENAME' => '{{release_path}}'
+    // ]);
 });
 
 

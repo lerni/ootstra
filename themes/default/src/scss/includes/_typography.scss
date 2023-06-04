@@ -248,7 +248,7 @@
 	}
 	.split-2 {
 		margin-bottom: #{$lh}em;
-		p {
+		p:not([class]) {
 			margin-bottom: 0;
 		}
 		li {

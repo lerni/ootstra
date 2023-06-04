@@ -38,6 +38,24 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+@mixin vertical-spacing {
+	padding-top: #{$lh}em;
+	padding-bottom: #{$lh}em;
+	@include breakpoint($Mneg) {
+		padding-top: #{math.div($lh, 2)}em;
+		padding-bottom: #{math.div($lh, 2)}em;
+	}
+}
+
+@mixin horizontal-spacing {
+	padding-left: #{$lh}em;
+	padding-right: #{$lh}em;
+	@include breakpoint($Mneg) {
+		padding-left: #{math.div($lh, 2)}em;
+		padding-right: #{math.div($lh, 2)}em;
+	}
+}
+
 @mixin smoothFonts {
 	-webkit-text-size-adjust: none;
 	-webkit-font-smoothing: antialiased;

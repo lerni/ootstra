@@ -2,6 +2,7 @@
 
 namespace {
 
+    use SilverStripe\CMS\Model\VirtualPage;
     use SilverStripe\TagField\TagField;
     use SilverStripe\Assets\Image;
     use App\Elements\ElementHero;
@@ -213,35 +214,10 @@ namespace {
         // $origin = 1 -> not resized
         public function getDefaultOGImage($origin = 0)
         {
-            // todo: It appears getDefaultOGImage() could use first of ImagesForSitemap()
-            // but than we do not get images from virtual elements
-
-            // if ($this->ImagesForSitemap() && $this->ImagesForSitemap()->count()) {
-            //     $i = $this->ImagesForSitemap()->first();
-            // } else {
-            //     $i = null;
-            // }
-
             $i = null;
 
-            if ($this->hasExtension(ElementalPageExtension::class)) {
-                $FE = $this->ElementalArea()->Elements()->first();
-                if ($FE) {
-                    if ($FE->ClassName === ElementHero::class) {
-                        $EH = $FE;
-                    } elseif ($FE->ClassName === ElementVirtual::class) {
-                        if ($FE->LinkedElement->ClassName === ElementHero::class) {
-                            $EH = $FE->LinkedElement;
-                        }
-                    }
-                    if (isset($EH) && $EH->Slides()->Count()) {
-                        if ($SI = $EH->Slides()->Sort('SortOrder ASC')->first()) {
-                            if ($SI->SlideImage->exists()) {
-                                $i = $SI->SlideImage;
-                            }
-                        }
-                    }
-                }
+            if ($this->ImagesForSitemap() && $this->ImagesForSitemap()->count()) {
+                $i = $this->ImagesForSitemap()->first();
             }
 
             if ($this->ClassName == Blog::class) {
@@ -285,7 +261,7 @@ namespace {
             }
         }
 
-        public function Childrenexcluded($set = 'default')
+        public function Childrenexcluded($set = 'default', $all = 0)
         {
 
             $conf = $this->config()->get('childrenexcluded');
@@ -298,7 +274,11 @@ namespace {
                 }
             }
 
-            $children = $this->AllChildren();
+            if ($all) {
+                $children = $this->AllChildren();
+            } else {
+                $children = $this->Children();
+            }
 
             if (isset($exclude) && is_array($exclude)) {
                 $children = $children->exclude('ClassName', $exclude);
@@ -319,60 +299,20 @@ namespace {
 
         public function hasHero()
         {
-            if ($this->hasExtension('DNADesign\Elemental\Extensions\ElementalPageExtension')) {
-                if ($this->ElementalArea()->Elements()->Count() && $this->ElementalArea()->Elements()->first()->ClassName == 'App\Elements\ElementHero') {
+            if ($this->hasExtension(ElementalPageExtension::class)) {
+                if ($this->ElementalArea()->Elements()->Count() && $this->ElementalArea()->Elements()->first()->ClassName == ElementHero::class) {
                     return true;
                 }
-                if ($this->ElementalArea()->Elements()->Count() && $this->ElementalArea()->Elements()->first()->ClassName == 'DNADesign\ElementalVirtual\Model\ElementVirtual') {
-                    if ($this->ElementalArea()->Elements()->first()->LinkedElement()->ClassName == 'App\Elements\ElementHero') {
+                if ($this->ElementalArea()->Elements()->Count() && $this->ElementalArea()->Elements()->first()->ClassName == ElementVirtual::class) {
+                    if ($this->ElementalArea()->Elements()->first()->LinkedElement()->ClassName == ElementHero::class) {
                         return true;
                     }
                 }
-            } elseif ($this->ClassName == 'SilverStripe\CMS\Model\VirtualPage' && $this->CopyContentFrom()->hasExtension('DNADesign\Elemental\Extensions\ElementalPageExtension')) {
-                if ($this->CopyContentFrom()->ElementalArea()->Elements()->Count() && $this->CopyContentFrom()->ElementalArea()->Elements()->first()->ClassName == 'App\Elements\ElementHero') {
+            } elseif($this->ClassName == VirtualPage::class && $this->CopyContentFrom()->hasExtension(ElementalPageExtension::class))
+            {
+                if ($this->CopyContentFrom()->ElementalArea()->Elements()->Count() && $this->CopyContentFrom()->ElementalArea()->Elements()->first()->ClassName == ElementHero::class) {
                     return true;
                 }
-            }
-        }
-
-        // overwriting this form GoogleSitemapSiteTreeExtension,
-        // since we do not want to get related pics in automatically
-        public function ImagesForSitemap()
-        {
-            $IDList = [];
-            if ($this->hasExtension(ElementalPageExtension::class)) {
-                // Images from Heroes
-                if ($elementHeros = $this->ElementalArea()->Elements()->filter('ClassName', ElementHero::class)) {
-                    foreach ($elementHeros as $hero) {
-                        if ($hero->Slides()->count() && $hero->SitemapImageExpose) {
-                            if ($slides = $hero->Slides()->Sort('SortOrder ASC')) {
-                                foreach ($slides as $slide) {
-                                    if ($slide->SlideImage->exists() && !$slide->SlideImage->NoFileIndex()) {
-                                        array_push($IDList, $slide->SlideImageID);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                // Images from ElementGallery
-                if ($elementGallery = $this->ElementalArea()->Elements()->filter('ClassName', ElementGallery::class)) {
-                    foreach ($elementGallery as $gallery) {
-                        if ($gallery->Items()->count() && $gallery->SitemapImageExpose) {
-                            if ($images = $gallery->Items()) {
-                                foreach ($images as $image) {
-                                    if ($image->exists() && !$image->NoFileIndex()) {
-                                        array_push($IDList, $image->ID);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            $IDList = array_unique($IDList);
-            if (count($IDList)) {
-                return Image::get()->filter(['ID' => $IDList]);
             }
         }
 

@@ -159,11 +159,9 @@ class UrlifyExtension extends Extension
         $dmd = '';
         if ($this->owner->MetaDescription) {
             $dmd = $this->owner->MetaDescription;
-        } else {
-            if ($this->owner->Parent() && $this->owner->Parent()->getPage()) {
-                $page = $this->owner->Parent()->getPage();
-                $dmd = $page->MetaDescription;
-            }
+        } elseif ($this->owner->Parent() && $this->owner->Parent()->getPage()) {
+            $page = $this->owner->Parent()->getPage();
+            $dmd = $page->MetaDescription;
         }
         return $dmd;
     }

@@ -28,6 +28,13 @@ class Logo extends DataObject
         'Link' => 'Link'
     ];
 
+    // defining searchable_fields circumvents a problem on searching/linking existing records with thumbnails in summary_fields
+    // https://github.com/silverstripe/silverstripe-framework/issues/10761
+    private static $searchable_fields = [
+        'Title',
+        'Link'
+    ];
+
     private static $table_name = 'Logo';
 
     private static $default_sort = 'Title ASC';

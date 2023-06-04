@@ -3,6 +3,8 @@
 namespace App\Extensions;
 
 use App\Elements\ElementHero;
+use SilverStripe\Assets\Image;
+use App\Elements\ElementGallery;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\HeaderField;
@@ -13,12 +15,7 @@ use DNADesign\Elemental\Extensions\ElementalPageExtension;
 
 class BlogPostExtension extends DataExtension
 {
-    private static $db = [
-        'EventDate' => 'DBDatetime',
-        'EventDateEnd' => 'DBDatetime',
-        'Location' => 'Varchar',
-        'AlternativTextEventDate' => 'Varchar'
-    ];
+    private static $db = [];
 
     private static $has_one = [];
 
@@ -38,27 +35,9 @@ class BlogPostExtension extends DataExtension
         $SummaryField->fieldByName('Summary')->setRows(10);
         $SummaryField->setAttribute('data-mce-body-class', $this->owner->ClassName);
 
-        // $EventDateField = DatetimeField::create('EventDate', 'Datum');
-        // $EventDateField->setHTML5(true);
-        // $EventDateField->setDescription(_t('SilverStripe\Blog\Model\BlogPost.EventDateDescription', 'Termin & Zeit z.B. 01.01.2020, 19:00<br /><strong>Um ein Datum zu erfassen, ist die Angabe einer Uhrzeit zwingend -> 00:00</strong>'));
-        // $fields->addFieldToTab('Root.Termin', $EventDateField);
-
-        // $EventDateEndField = DatetimeField::create("EventDateEnd", "End-Datum");
-        // //$EventDateField->setHTML5(true);
-        // $fields->insertAfter($EventDateEndField, 'EventDate');
-
-        // $fields->insertBefore(HeaderField::create('PastEvents', _t('SilverStripe\Blog\Model\BlogPost.PastEventsHeaderField', 'Beiträge mit der Kategorie "Termine" werden nur angezeigt, wenn End- und Datum in der Zukunft liegt.')), 'EventDate');
-
-        // $LocationField = TextField::create('Location', _t('SilverStripe\Blog\Model\BlogPost.LOCATION', 'Veranstaltungsort'));
-        // $fields->insertAfter($LocationField, 'EventDateEnd');
-
         if ($CategoriesField = $fields->dataFieldByName('Categories')) {
             $CategoriesField->setShouldLazyLoad(false);
         }
-
-        // $AlternativTextEventDateField = TextField::create('AlternativTextEventDate', _t('SilverStripe\Blog\Model\BlogPost.ALTERNATIVTEXTEVENTDATE', 'Alternative Text Datum'));
-        // $AlternativTextEventDateField->setDescription(_t('SilverStripe\Blog\Model\BlogPost.AlternativTextEventDateDescription', 'Falls kein exaktes Datum resp. Zeitspanne. z.B. 14.10.2020 bis 4.11.2020, jeden Mittwoch, 16 Uhr'));
-        // $fields->insertAfter($AlternativTextEventDateField, 'EventDateEnd');
 
         if ($PublishDateField = $fields->fieldByName('Root.PostOptions.PublishDate')) {
             $PublishDateField->setDescription(_t('SilverStripe\Blog\Model\BlogPost.PublishDateDescription', 'geplante Veröffentlichung'));
@@ -93,6 +72,47 @@ class BlogPostExtension extends DataExtension
         }
         if ($Mode == 'prev') {
             return $list->filter(["Sort:LessThan" => $this->owner->Sort])->sort("Sort DESC")->limit(1)->first();
+        }
+    }
+
+    // overwriting this form GoogleSitemapSiteTreeExtension,
+    // since we do not want to get related pics in automatically
+    public function ImagesForSitemap()
+    {
+        $IDList = [];
+        if ($this->owner->hasExtension(ElementalPageExtension::class)) {
+            // Images from Heroes
+            if ($elementHeros = $this->owner->ElementalArea()->Elements()->filter('ClassName', ElementHero::class)) {
+                foreach ($elementHeros as $hero) {
+                    if ($hero->Slides()->count() && $hero->SitemapImageExpose) {
+                        if ($slides = $hero->Slides()->Sort('SortOrder ASC')) {
+                            foreach ($slides as $slide) {
+                                if ($slide->SlideImage->exists() && !$slide->SlideImage->NoFileIndex()) {
+                                    array_push($IDList, $slide->SlideImageID);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            // Images from ElementGallery
+            if ($elementGallery = $this->owner->ElementalArea()->Elements()->filter('ClassName', ElementGallery::class)) {
+                foreach ($elementGallery as $gallery) {
+                    if ($gallery->Items()->count() && $gallery->SitemapImageExpose) {
+                        if ($images = $gallery->Items()) {
+                            foreach ($images as $image) {
+                                if ($image->exists() && !$image->NoFileIndex()) {
+                                    array_push($IDList, $image->ID);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        $IDList = array_unique($IDList);
+        if (count($IDList)) {
+            return Image::get()->filter(['ID' => $IDList]);
         }
     }
 }

@@ -1,7 +1,11 @@
+@use "sass:math";
+@import "~breakpoint-sass/stylesheets/breakpoint";
 @import "includes/variables";
+@import "includes/mixins";
 
-.fancybox__container {
-	--fancybox-accent-color: #{$link-color};
+@import "../../node_modules/@fancyapps/ui/dist/fancybox/fancybox.css";
+
+.fancybox__slide {
+	@include vertical-spacing;
+	@include horizontal-spacing;
 }
-
-@import "../../node_modules/@fancyapps/ui/dist/fancybox.css";

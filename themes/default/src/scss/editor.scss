@@ -1,4 +1,7 @@
 @import "includes/variables";
+@import "includes/mixins";
+@import "includes/defaults";
+@import "includes/typography";
 
 /* For CMS HtmlEditorField
 ---------------------------------------------------------------------------------- */
@@ -26,10 +29,6 @@
 			format("woff");
 }
 
-@import "includes/variables";
-@import "includes/mixins";
-@import "includes/typography";
-
 body.mce-content-body {
 	@include smoothFonts;
 	@include normal;
@@ -37,6 +36,12 @@ body.mce-content-body {
 	color: $text-color;
 	font-size: $font-size;
 	line-height: $lh;
+	// todo reevaluate with ss5 or admin 2
+	// preventing line-height: 1.2em from
+	// vendor/silverstripe/admin/thirdparty/tinymce/skins/silverstripe/content.min.css
+	p, div, h1, h2, h3, h4, h5, h6 {
+		line-height: inherit;
+	}
 	&.typography {
 		max-width: $inner-width--reduced;
 	}

@@ -73,7 +73,6 @@
 		"league/commonmark": "^2",
 		"eluceo/ical": "^2",
 		"jonom/silverstripe-someconfig": "^1",
-		"hamaka/userforms-cleanupsubmissions": "^2",
 		"nathancox/embedfield": "dev-attrquerystring"
 	},
 	"require-dev": {

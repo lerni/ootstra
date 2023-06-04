@@ -12,8 +12,10 @@ class PdfThumbnailerExtension extends Extension
 
     public function PDFThumbnail($page = 1)
     {
-
         $ghost_path = Environment::getEnv('GHOSTSCRIPT_PATH');
+        if (empty($ghost_path)) {
+            $ghost_path = 'gs';
+        }
 
         // Only thumbnail PDF files
         if (strtolower($this->owner->getExtension()) != 'pdf') {
