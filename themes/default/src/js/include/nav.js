@@ -1,14 +1,14 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", () => {
 
   // burger
-  document.getElementById('menuButton').addEventListener('click', function (event) {
-    window.scrollTo(0, 0);
+  document.querySelector('#menuButton').addEventListener('click', event => {
     document.querySelector('html').classList.toggle('mobile-nav--active');
+    document.getElementById('header').scrollIntoView();
   });
 
   // toggle expanded-class
   // open and do not navigate on collapsed:not(.expanded) navi-items on mobile nav (touch)
-  document.querySelector('.menu1').addEventListener('click', (event) => {
+  document.querySelector('.menu1').addEventListener('click', event => {
     if (event.target.closest('li.has-children.expanded >a')) {
       window.location = event.target.getAttribute('href');
     } else if (document.querySelector('html').classList.contains('mobile-nav--active') &&
@@ -20,17 +20,17 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   // collapse/expand navi per .trigger
-  triggers = document.querySelectorAll('span.trigger');
+  const triggers = document.querySelectorAll('span.trigger');
   triggers.forEach(trigger => {
-    trigger.addEventListener('click', (event) => {
+    trigger.addEventListener('click', event => {
       event.stopPropagation();
       event.target.parentElement.classList.toggle('expanded');
     });
   });
 
-  document.querySelector('.menu1').addEventListener('mouseleave', (event) => {
+  document.querySelector('.menu1').addEventListener('mouseleave', event => {
     if (!document.querySelector('html').classList.contains('mobile-nav--active')) {
-      items = document.querySelectorAll('.menu1 li');
+      const items = document.querySelectorAll('.menu1 li');
       items.forEach(i => {
         i.classList.remove('expanded');
       });
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 // we need to prevent loading from cache if back-button is used, cos ios-safari would apply the fadeTo-effect to the destination not the original
-window.onpageshow = function(event) {
+window.onpageshow = event => {
   if (event.persisted) {
     window.location.reload()
   }

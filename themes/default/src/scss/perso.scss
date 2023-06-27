@@ -297,7 +297,11 @@
 		right: 0;
 		width: #{$pad};
 		height: #{$pad};
-		background-image: svg-load("../images/svg/close.svg");
+		background-image: svg-load(
+			"../images/svg/close.svg",
+			stroke-width=2,
+			stroke=#{$text-color}
+		);
 		background-repeat: no-repeat;
 		background-size: #{$pad} #{$pad};
 		cursor: pointer;

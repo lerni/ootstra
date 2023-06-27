@@ -11,14 +11,15 @@
 <% require themedCSS("dist/css/fancy") %>
 <% require javascript("themes/default/dist/js/fancy.js") %>
 <main class="typography">
-	<article class="element">
+	<article class="element horizontal-spacing">
 		<% with $SiteConfig %>
 			<div id="default-meta" class="item default">
-				<%-- todo: once we have default slide on SiteConfig add it here as default --%>
-				<figure>
-					<img src="$DefaultHeaderImage().Link" alt="$DefaultHeaderImage().Title">
-					<figcaption class="label"><strong><%t App\Models\MetaOverviewPage.OGImageLabel 'OG Image' %>:</strong> $DefaultHeaderImage.Title</figcaption>
-				</figure>
+				<% loop $DefaultHeaderSlides() %>
+					<figure>
+						<img src="$SlideImage.Link" alt="$SlideImage.Title">
+						<figcaption class="label"><strong><%t App\Models\MetaOverviewPage.OGImageLabel 'OG Image' %>:</strong> $SlideImage.Title</figcaption>
+					</figure>
+				<% end_loop %>
 				<div class="txt">
 					<a class="edit" alt="edit {$Title}" href="/admin/settings/"></a>
 					<h3><%t App\Models\MetaOverviewPage.DefaultItemTitle 'Default values in $SiteConfig' %><a target="_blank" href="$Link">$Link</a></h3>

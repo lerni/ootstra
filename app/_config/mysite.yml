@@ -186,8 +186,6 @@ DNADesign\ElementalUserForms\Model\ElementForm:
     - App\Extensions\ElementUserFormsExtension
 
 SilverStripe\UserForms\Model\UserDefinedForm:
-  # block_default_userforms_js: true
-  block_default_userforms_css: true
   extensions:
     - App\Extensions\CannotCreateExtension
 
@@ -305,6 +303,7 @@ Kraftausdruck\Webmanifest\Webmanifest:
     description: 'SiteConfig'
     background_color: 'SiteConfig'
     theme_color: 'SiteConfig'
+    # icon-mask are doubtable, but having it stops Google Lighthouse from complaining
     icons:
       - src: '/icon-mask.svg'
         sizes: '150x150'

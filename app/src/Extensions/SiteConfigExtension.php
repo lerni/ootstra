@@ -2,19 +2,20 @@
 
 namespace App\Extensions;
 
+use App\Models\Slide;
 use App\Models\Location;
 use App\Models\SocialLink;
-use SilverStripe\Assets\Image;
 use gorriecoe\Link\Models\Link;
-use SilverStripe\ORM\DataExtension;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\HeaderField;
+use SilverStripe\ORM\DataExtension;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Forms\LiteralField;
+use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\TextareaField;
+use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\Forms\GridField\GridField;
-use SilverStripe\AssetAdmin\Forms\UploadField;
 use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
 use SilverStripe\Forms\GridField\GridFieldEditButton;
@@ -31,12 +32,11 @@ class SiteConfigExtension extends DataExtension
         'MetaDescription' => 'Varchar',
         'legalName' => 'Varchar',
         'foundingDate' => 'Varchar',
-        'GlobalAlert' => 'HTMLText'
+        'GlobalAlert' => 'HTMLText',
+        'DefaultHeaderSize' => 'Enum("small,medium","small")'
     ];
 
-    private static $has_one = [
-        'DefaultHeaderImage' => Image::class
-    ];
+    private static $has_one = [];
 
     private static $has_many = [
         'Locations' => Location::class
@@ -45,7 +45,8 @@ class SiteConfigExtension extends DataExtension
     private static $many_many = [
         'ServiceNavigationItems' => Link::class,
         'TermsNavigationItems' => SiteTree::class,
-        'SocialLinks' => SocialLink::class
+        'SocialLinks' => SocialLink::class,
+        'DefaultHeaderSlides' => Slide::class
     ];
 
     private static $many_many_extraFields = [
@@ -57,11 +58,14 @@ class SiteConfigExtension extends DataExtension
         ],
         'SocialLinks' => [
             'SortOrder' => 'Int'
+        ],
+        'DefaultHeaderSlides' => [
+            'SortOrder' => 'Int'
         ]
     ];
 
     private static $owns = [
-        'DefaultHeaderImage'
+        'DefaultHeaderSlides'
     ];
 
     private static $translate = [
@@ -89,17 +93,23 @@ class SiteConfigExtension extends DataExtension
         $GlobalAlertField->setRows(14);
         $GlobalAlertField->setAttribute('data-mce-body-class', 'global-alert');
 
-        $fields->addFieldToTab(
-            'Root.Main',
-            $DefaultHeaderImageField = UploadField::create(
-                $name = 'DefaultHeaderImage',
-                $title = _t('SilverStripe\SiteConfig\SiteConfig.DEFAULTHEADERIMAGE', 'Displayed if no Hero in ElementPage')
-            )
+        $SlideGridFieldConfig = GridFieldConfig_Base::create(20);
+        $SlideGridFieldConfig->addComponents(
+            new GridFieldEditButton(),
+            new GridFieldDeleteAction(false),
+            new GridFieldDeleteAction(true),
+            new GridFieldDetailForm(),
+            new GridFieldAddNewButton('toolbar-header-right'),
+            new GridFieldAddExistingAutocompleter('toolbar-header-right')
         );
-        $DefaultHeaderImageField->setFolderName('Slides');
-        $size = 5 * 1024 * 1024;
-        $DefaultHeaderImageField->getValidator()->setAllowedMaxFileSize($size);
-        $DefaultHeaderImageField->setDescription(_t('SilverStripe\SiteConfig\SiteConfig.DefaultHeaderImageDescription', '2600x993px'));
+        $SlideGridFieldConfig->addComponent(new GridFieldOrderableRows('SortOrder'));
+        $gridField = new GridField('DefaultHeaderSlides', _t('SilverStripe\SiteConfig\SiteConfig.DEFAULTHEADERSLIDES'), $this->owner->DefaultHeaderSlides(), $SlideGridFieldConfig);
+        $fields->addFieldToTab('Root.Main', $gridField, 'Content');
+
+        $sizes = singleton(SiteConfig::class)->dbObject('DefaultHeaderSize')->enumValues();
+        $SizeField = DropdownField::create('DefaultHeaderSize', _t('SilverStripe\SiteConfig\SiteConfig.DEFAULTHEADERSIZE', 'Size default slides'), $sizes);
+        $fields->addFieldToTab('Root.Main', $SizeField, 'Content', true);
+
 
         $ServiceNavigationGridFieldConfig = GridFieldConfig_Base::create(20);
         $ServiceNavigationGridFieldConfig->addComponents(
@@ -143,7 +153,7 @@ class SiteConfigExtension extends DataExtension
         $fields->addFieldToTab('Root.Main', $LocationGridField);
         $fields->addFieldToTab(
             'Root.Main',
-            LiteralField::create('SortImpact', '<p>'. _t('SilverStripe\SiteConfig\SiteConfig.SortImpact', 'The "Location" in 1st place is displayed in the footer. For "schema data", all are used.') .'</p>')
+            LiteralField::create('SortImpact', '<p>' . _t('SilverStripe\SiteConfig\SiteConfig.SortImpact', 'The "Location" in 1st place is displayed in the footer. For "schema data", all are used.') .'</p>')
         );
 
 

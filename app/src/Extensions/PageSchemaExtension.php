@@ -72,8 +72,8 @@ class PageSchemaExtension extends Extension
                     $locations[$i]->hasMap($location->PointURL);
                 }
 
-                // if ($siteConfig->DefaultHeaderImage()->exists()) {
-                //     $locations[$i]->image(rtrim(Director::absoluteBaseURL(), '/') . $siteConfig->DefaultHeaderImage()->Link());
+                // if ($siteConfig->DefaultHeaderSlides()->count() && $siteConfig->DefaultHeaderSlides()->first()->exists()) {
+                //     $locations[$i]->image(rtrim(Director::absoluteBaseURL(), '/') . $siteConfig->DefaultHeaderSlides()->firts()->Link());
                 // }
 
                 $i++;
@@ -86,8 +86,8 @@ class PageSchemaExtension extends Extension
             $schemaOrganisation->sameAs($sameAsLinks);
         }
 
-        if ($siteConfig->DefaultHeaderImage()->exists()) {
-            $schemaOrganisation->image(rtrim(Director::absoluteBaseURL(), '/') . $siteConfig->DefaultHeaderImage()->Link());
+        if ($siteConfig->DefaultHeaderSlides()->count() && $siteConfig->DefaultHeaderSlides()->first()->exists()) {
+            $schemaOrganisation->image(rtrim(Director::absoluteBaseURL(), '/') . $siteConfig->DefaultHeaderSlides()->first()->Link());
         }
 
         return $schemaOrganisation->toScript();

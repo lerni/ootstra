@@ -40,7 +40,7 @@ class BlogExtension extends DataExtension
 
     public function populateDefaults()
     {
-        $this->owner->PostsPerPage = (int)100;
+        $this->owner->PostsPerPage = (int)30; // watch out memory!
         parent::populateDefaults();
     }
 

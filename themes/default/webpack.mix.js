@@ -31,6 +31,7 @@ let productionSourceMaps = false;
 mix
   .js('src/js/app.js', 'dist/js')
   .js('src/js/fancy.js', 'dist/js')
+  .js('src/js/swiper.js', 'dist/js')
   .js('src/js/countup.js', 'dist/js')
   .sass('src/scss/blog.scss', 'dist/css')
   .sass('src/scss/contentsections.scss', 'dist/css')

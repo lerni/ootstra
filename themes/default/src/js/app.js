@@ -9,7 +9,6 @@
 
 import './include/nav';
 import './include/headroom';
-import './include/swiper';
 import './include/flip';
 import './include/feather-icons';
 import './include/expandable-grid';

@@ -51,6 +51,9 @@ GHOSTSCRIPT_PATH='/usr/bin/gs'
 
 # SS_NOCAPTCHA_SITE_KEY=""
 # SS_NOCAPTCHA_SECRET_KEY=""
+# MAIL_HOST=""
+# MAIL_USERNAME=""
+# MAIL_PASSWORD=""
 ENV;
 
 // heredoc is a mess with this setup

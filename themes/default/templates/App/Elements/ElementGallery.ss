@@ -7,6 +7,7 @@
 <% if $Items %>
 	<% if $Layout == "slider" %>
 		<% require themedCSS("dist/css/swiper") %>
+		<% require javascript("themes/default/dist/js/swiper.js") %>
 		<div class="swiper-container multiple" data-id="{$ID}" id="multiple-swiper-{$ID}">
 			<div class="swiper-wrapper multiple">
 				<% loop $Items %>

@@ -216,8 +216,8 @@ de:
     TABMAIN: Main
     SITETAGLINE: 'Claim / Beschreibung'
     SortImpact: 'Die "Location" an 1. Stelle wird im Footer angezeigt. Für "Schemadaten" werden alle verwendet.'
-    DEFAULTHEADERIMAGE: 'Wird angezeigt, falls kein Hero in ElementPage'
-    DefaultHeaderImageDescription: 2600x993px
+    DEFAULTHEADERSLIDES: 'Default Hero wird angezeigt, falls kein Hero in ElementPage'
+    DEFAULTHEADERSIZE: 'Grösse default Hero'
     FOUNDINGDATE: 'Gründungsdatum'
     LEGALNAME: 'Offizieller Name (rechtlich)'
     METADESCRIPTION: 'Meta Description'

@@ -7,10 +7,10 @@ import {
   Autoplay,
   // EffectFade,
   Keyboard,
-  Thumbs
+  // Thumbs
 } from 'swiper';
 
-Swiper.use([Navigation, Pagination, Autoplay, Keyboard, Thumbs]);
+Swiper.use([Navigation, Pagination, Autoplay, Keyboard]);
 
 var heroSwiper = document.querySelectorAll('.swiper-container.hero');
 Array.prototype.forEach.call(heroSwiper, function (slider) {
@@ -32,6 +32,7 @@ Array.prototype.forEach.call(heroSwiper, function (slider) {
       delay: 4500,
       disableOnInteraction: true,
     },
+    // effect: 'fade',
     fadeEffect: {
       crossFade: true
     },

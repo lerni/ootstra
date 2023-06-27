@@ -238,7 +238,7 @@ html.mobile-nav--active {
 						ul.menu2 {
 							visibility: visible;
 							position: inherit;
-							padding: 0 0 0 #{$lh * 0.5}em;
+							padding: 0 0 0 #{math.div($lh, 2)}em;
 							&::after {
 								display: none;
 							}

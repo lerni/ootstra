@@ -5,6 +5,7 @@
 
 @import "../../node_modules/@fancyapps/ui/dist/fancybox/fancybox.css";
 
+.is-compact .fancybox__footer .fancybox__caption,
 .fancybox__slide {
 	@include vertical-spacing;
 	@include horizontal-spacing;

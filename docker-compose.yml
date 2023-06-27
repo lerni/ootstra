@@ -49,6 +49,9 @@ services:
       # - ALGOLIA_ADMIN_API_KEY=
       # - ALGOLIA_SEARCH_API_KEY=
       # - ALGOLIA_SEARCH_APP_ID=
+      # - MAIL_HOST=mail.cyon.ch
+      # - MAIL_USERNAME=
+      # - MAIL_PASSWORD=
       # - XDEBUG_TRIGGER=yes
       # - CSP_REPORT_ONLY='enabled'
     extra_hosts:

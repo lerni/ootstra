@@ -198,6 +198,9 @@ GHOSTSCRIPT_PATH="/usr/local/bin/gs"
 
 # SS_NOCAPTCHA_SITE_KEY=""
 # SS_NOCAPTCHA_SECRET_KEY=""
+# MAIL_HOST=""
+# MAIL_USERNAME=""
+# MAIL_PASSWORD=""
 ```
 See also:
 
@@ -206,10 +209,10 @@ https://www.silverstripe.org/learn/lessons/v4/up-and-running-setting-up-a-local-
 ## Deploy a branch/tag/revison
 
 ```
-# Deploy revision (git SAH) to test
+# Deploy revision (git SHA) to test
 dep deploy --revision=ca5fcd330910234f63bf7d5417ab6835e5a57b81 test
 
-# Deploy the dev branch to test
+# Deploy dev branch to test
 dep deploy --branch=dev test
 
 # Deploy tag 1.0.1 to live

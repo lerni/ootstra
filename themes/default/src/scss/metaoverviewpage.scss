@@ -23,10 +23,10 @@
 				&.default {
 					background-color: $gray--lighter;
 					h3 {
-						margin-bottom: #{$lh * 0.5}em;
+						margin-bottom: #{math.div($lh, 2)}em;
 					}
 					.edit {
-						top: #{$lh * 0.5}em;
+						top: #{math.div($lh, 2)}em;
 					}
 				}
 				&.no-images {
@@ -51,7 +51,7 @@
 				}
 				.edit:not(.og-edit) {
 					position: absolute;
-					right: #{$lh * 0.5}em;
+					right: #{math.div($lh, 2)}em;
 				}
 				figure {
 					margin: 0;

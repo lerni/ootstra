@@ -818,19 +818,19 @@ FileETag None
     ExpiresByType text/markdown                         "access plus 0 seconds"
 
 
-  # Media files
+  # Media files - 1y exp avif, jpeg, webp should have cachebuster
 
     ExpiresByType audio/ogg                             "access plus 1 month"
     ExpiresByType image/apng                            "access plus 1 month"
-    ExpiresByType image/avif                            "access plus 1 month"
+    ExpiresByType image/avif                            "access plus 1 year"
     ExpiresByType image/avif-sequence                   "access plus 1 month"
     ExpiresByType image/bmp                             "access plus 1 month"
     ExpiresByType image/gif                             "access plus 1 month"
-    ExpiresByType image/jpeg                            "access plus 1 month"
+    ExpiresByType image/jpeg                            "access plus 1 year"
     ExpiresByType image/jxl                             "access plus 1 month"
     ExpiresByType image/png                             "access plus 1 month"
     ExpiresByType image/svg+xml                         "access plus 1 month"
-    ExpiresByType image/webp                            "access plus 1 month"
+    ExpiresByType image/webp                            "access plus 1 year"
     ExpiresByType video/mp4                             "access plus 1 month"
     ExpiresByType video/ogg                             "access plus 1 month"
     ExpiresByType video/webm                            "access plus 1 month"

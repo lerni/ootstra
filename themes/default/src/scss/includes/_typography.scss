@@ -147,7 +147,7 @@
 		font-family: "Courier New", Courier, monospace;
 		display: block;
 		font-size: 1.1em;
-		padding: #{$lh * 0.5}em;
+		padding: #{math.div($lh, 2)}em;
 	}
 
 	// * TABLE STYLING

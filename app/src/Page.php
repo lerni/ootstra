@@ -101,6 +101,8 @@ namespace {
 
         public function DefaultMetaDescription()
         {
+            $metaDescription = $this->getSiteConfig()->MetaDescription;
+
             if ($this->ClassName == 'SilverStripe\Blog\Model\BlogPost') {
                 if ($this->Summary) {
                     $metaDescription = strip_tags($this->Summary);
@@ -161,7 +163,7 @@ namespace {
 
         public function getDefaultOGDescription($limitChar = 0, $limitWordCount = 20)
         {
-            $descreturn = '';
+            $descreturn = $this->getSiteConfig()->MetaDescription;
 
             // Use MetaDescription if set
             if ($this->MetaDescription) {
@@ -226,18 +228,6 @@ namespace {
                         if ($SI->SlideImage->exists()) {
                             $i = $SI->SlideImage;
                         }
-                    }
-                }
-            }
-
-            // JobPosting
-            if (Controller::has_curr()) {
-                $req = Controller::curr()->getRequest();
-                if ($req->param('Action') == 'job' && $req->param('ID')) {
-                    $URLSegment = $req->param('ID');
-                    $job = JobPosting::get()->filter('URLSegment', $URLSegment)->first();
-                    if ($job && $job->HeaderImage->exists()) {
-                        $i = $job->HeaderImage();
                     }
                 }
             }
