@@ -93,8 +93,6 @@ const parent = path.basename(path.join(sitepath, '../'));
 if (parent === 'webroot') {
   mix.browserSync({
     files: ['dist/**/*', 'templates/**/*'],
-//  proxy: `http://${path.basename(sitepath)}.lodev`
-//  docker
     proxy: `http://localhost:8080`
   });
 }

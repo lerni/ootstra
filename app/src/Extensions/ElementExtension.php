@@ -17,7 +17,7 @@ use DNADesign\Elemental\Forms\TextCheckboxGroupField;
 class ElementExtension extends DataExtension
 {
     private static $db = [
-        'isFullWidth' => 'Boolean',
+        'isFullWidth' => 'Boolean', // full or reduced - both is paradox!
         'WidthReduced' => 'Boolean',
         'AnchorLink' => 'Varchar',
         'SpacingTop' => 'Int',

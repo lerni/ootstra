@@ -88,7 +88,7 @@ set('bin/composer', function () {
 
 // set('composer_options', '--no-dev --verbose --prefer-dist --optimize-autoloader --no-interaction');
 set('http_user', DEP_SERVER_USER);
-set('default_timeout', 6000); // default is 300 - sspak sometimes needs more. With this we at least see the truncated (size-limit) error :(
+set('default_timeout', 600); // default is 300 - sspak sometimes needs more. With this we at least see the truncated (size-limit) error :(
 
 // Server user
 set('remote_user', function () {

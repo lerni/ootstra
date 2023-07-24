@@ -72,7 +72,8 @@ class ElementFeedTeaser extends BaseElement
 
         $fields->removeByName([
             'FeedTeaserParents',
-            'Categories'
+            'Categories',
+            'WidthReduced'
         ]);
 
         $fields->addFieldToTab('Root.Main', LiteralField::create('How', '

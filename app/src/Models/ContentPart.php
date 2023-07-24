@@ -121,7 +121,7 @@ class ContentPart extends DataObject
                     GridFieldSortableHeader::class
                 ]);
 
-            $fields->fieldByName('Root.ElementContentSection.ElementContentSection')->setTitle(_t(__CLASS__ . '.IsUsedOnComment', 'This Slide is used on following Elements'));
+            $fields->fieldByName('Root.ElementContentSection.ElementContentSection')->setTitle(_t(__CLASS__ . '.IsUsedOnComment', 'This element is used on following Elements'));
 
             $fields
                 ->fieldByName('Root.ElementContentSection.ElementContentSection')

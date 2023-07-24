@@ -9,6 +9,7 @@ use SilverStripe\Core\Extension;
 use SilverStripe\View\ArrayData;
 use libphonenumber\PhoneNumberUtil;
 use libphonenumber\PhoneNumberFormat;
+use SilverStripe\SiteConfig\SiteConfig;
 use libphonenumber\NumberParseException;
 use SilverStripe\View\Parsers\URLSegmentFilter;
 use League\CommonMark\GithubFlavoredMarkdownConverter;
@@ -18,6 +19,7 @@ class FieldExtension extends Extension
 
     private static $casting = [
         'Markdowned' => 'HTMLFragment',
+        'TrimEmbed' => 'HTMLFragment'
     ];
 
     public function CountLink()
@@ -104,6 +106,69 @@ class FieldExtension extends Extension
             $converter = new GithubFlavoredMarkdownConverter();
             $html = $converter->convertToHtml($this->owner->value);
             return $html->getContent();
+        }
+    }
+
+    // Use {$Content.TrimEmbed} in template, for this to trigger
+    // themes/default/templates/SilverStripe/View/Shortcodes/EmbedShortcodeProvider_video.ss
+    public function TrimEmbed() {
+        if ($vidSrc = $this->owner->value) {
+
+            $dom = new DOMDocument();
+            $dom->loadHTML($vidSrc);
+            $iframe = $dom->getElementsByTagName("iframe");
+            $iFrameSrc = $iframe->item(0)->getAttribute('src');
+
+            // trim youtube embeds
+            if (str_contains($iFrameSrc, 'youtube')) {
+
+                // lazy load anyways
+                $iframe->item(0)->setAttribute('loading', 'lazy');
+
+                // set aspect ratio
+                $iFrameWidth = $iframe->item(0)->getAttribute('width');
+                $iframe->item(0)->removeAttribute('width');
+                $iFrameHeight = $iframe->item(0)->getAttribute('height');
+                $iframe->item(0)->removeAttribute('height');
+                $iFrameStyle = 'width: 100%; aspect-ratio: ' . $iFrameWidth . '/' . $iFrameHeight . ' !important;';
+                $iframe->item(0)->setAttribute('style', $iFrameStyle);
+
+                $url_parts = parse_url($iFrameSrc);
+                if (isset($url_parts['query'])) {
+                    parse_str($url_parts['query'], $params);
+                } else {
+                    $params = [];
+                }
+
+                $queryStrings = [
+                    "rel" => 0,
+                    "controls" => 0,
+                    "showinfo" => 0
+                ];
+
+                foreach ($queryStrings as $key => $value) {
+                    $params[$key] = $value;
+                }
+
+                $queryString =  http_build_query($params);
+
+                $iFrameSrc = (isset($url_parts['scheme']) ? "{$url_parts['scheme']}:" : '') .
+                    ((isset($url_parts['user']) || isset($url_parts['host'])) ? '//' : '') .
+                    (isset($url_parts['user']) ? "{$url_parts['user']}" : '') .
+                    (isset($url_parts['pass']) ? ":{$url_parts['pass']}" : '') .
+                    (isset($url_parts['user']) ? '@' : '') .
+                    (isset($url_parts['host']) ? "{$url_parts['host']}" : '') .
+                    (isset($url_parts['port']) ? ":{$url_parts['port']}" : '') .
+                    (isset($url_parts['path']) ? "{$url_parts['path']}" : '') .
+                    '?' . $queryString .
+                    (isset($url_parts['fragment']) ? "#{$url_parts['fragment']}" : '');
+
+                $iframe->item(0)->setAttribute('src', $iFrameSrc);
+            }
+
+            $vidSrc = $dom->saveHTML($iframe->item(0));
+
+            return $vidSrc;
         }
     }
 }

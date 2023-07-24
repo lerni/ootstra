@@ -206,7 +206,7 @@ de:
   SilverStripe\Blog\Model\Blog:
     Allcategories: Alle
     MORE: Weiterlesen
-    NoPosts: 'Kein Artikel vorhanden'
+    NoPosts: 'Kein Artikel'
   SilverStripe\Blog\Model\BlogPost:
     PublishDateDescription: 'geplante Veröffentlichung'
   SilverStripe\CMS\Controllers\CMSMain:
@@ -253,3 +253,5 @@ de:
     ReCaptchaTermsTextEnd: 'von Google.'
     ReCaptchaPrivacyPolicy: 'Datenschutzerklärung'
     ReCaptchaTermsOfService: 'Nutzungsbedingungen'
+  App\Models\EditableFormField\EditableCheckboxTerms:
+    DefaultTitle: 'Ich akzeptiere die &lt;a rel=&quot;noopener noreferrer&quot; href=&quot;[sitetree_link,id={id}]&quot; target=&quot;_blank&quot;&gt;AGBs und Datenschutzbestimmungen&lt;/a&gt;.<br/><strong>{id}</strong> ist die PageID welche Klaro linkt.'

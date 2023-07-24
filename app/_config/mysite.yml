@@ -5,10 +5,6 @@ After:
   - 'mysharecare'
   - 'blogconfig'
 ---
-DNADesign\Populate\Populate:
-  include_yaml_fixtures:
-    - 'app/fixtures/populate.yml'
-
 SilverStripe\Assets\InterventionBackend:
   flush_enabled: false
 
@@ -192,7 +188,7 @@ SilverStripe\UserForms\Model\UserDefinedForm:
 App\Tasks\CleanUpObjects:
   days_retention: 365
   objects_to_clean_up:
-    - 'SilverStripe\UserForms\Model\Submission\SubmittedForm\SubmittedForm'
+    - 'SilverStripe\UserForms\Model\Submission\SubmittedForm'
 
 SilverStripe\CMS\Model\VirtualPage:
   extensions:

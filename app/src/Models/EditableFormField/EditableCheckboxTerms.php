@@ -28,8 +28,9 @@ class EditableCheckboxTerms extends EditableFormField
     ];
 
     private static $singular_name = 'Checkbox Terms Field';
-
     private static $plural_name = 'Terms checkboxes';
+
+    private static $table_name = 'EditableCheckboxTerms';
 
     public function getCMSFields()
     {
@@ -40,7 +41,7 @@ class EditableCheckboxTerms extends EditableFormField
                 $id = $siteConfig->CookieLinkPrivacyID;
             }
             if ($TitleField = $fields->dataFieldByName('Title')) {
-                $TitleField->setDescription(_t(__CLASS__ . '.DefaultTitle', 'Ich akzeptiere die &lt;a rel=&quot;noopener noreferrer&quot; href=&quot;[sitetree_link,id={id}]&quot; target=&quot;_blank&quot;&gt;AGBs und Datenschutzbestimmungen&lt;/a&gt;.<br/>Für <strong>{id}</strong> die PageID der entsprechenden Seite verwenden!', ['id' => $id]));
+                $TitleField->setDescription(_t(__CLASS__ . '.DefaultTitle', 'I accept &lt;a rel=&quot;noopener noreferrer&quot; href=&quot;[sitetree_link,id={id}]&quot; target=&quot;_blank&quot;&gt;Terms and  Privacy policy&lt;/a&gt;.<br/><strong>{id}</strong> is the PageID which Klaro links.', ['id' => $id]));
             }
         });
 

@@ -145,6 +145,8 @@ form {
 				textarea,
 				.textajaxuniquetext,
 				select {
+					font-family: inherit;
+					font-size: $font-size--small;
 					width: 100%;
 					padding: #{math.div($lh, 2)}em #{math.div($lh, 3)}em;
 					background-color: $gray--light;

@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Models\Point;
-use TractorCow\Fluent\Model\Locale;
 use SilverStripe\i18n\i18n;
 use BetterBrief\GoogleMapField;
 use SilverStripe\ORM\ArrayList;
@@ -24,11 +23,7 @@ class ElementMapsController extends ElementController
     {
         parent::init();
 
-        if (class_exists('TractorCow\Fluent\Model\Locale')) {
-            $Lang = Locale::getCurrentLocale();
-        } else {
-            $Lang = i18n::get_locale();
-        }
+        $Lang = i18n::get_locale();
         $Lang = substr($Lang, 0, 2);
 
         $gmapDefaultConfig = Config::inst()->get(GoogleMapField::class, 'default_options');
@@ -37,7 +32,7 @@ class ElementMapsController extends ElementController
             // Requirements::javascript('https://maps.google.com/maps/api/js?language='. $Lang .'&key='. $key, [ 'defer' => true, 'async' => true ]);
             Requirements::javascript('https://maps.google.com/maps/api/js?language=' . $Lang . '&key=' . $key);
         } else {
-            Requirements::javascript('https://maps.google.com/maps/api/js?language=' . $Lang, ['defer' => true, 'async' => true]);
+            Requirements::javascript('https://maps.google.com/maps/api/js?language=' . $Lang);
         }
 
         Requirements::javascriptTemplate("themes/default/src/js/include/google-map.js", [

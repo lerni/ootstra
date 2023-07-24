@@ -11,19 +11,19 @@ This project is inspired from [Bigfork’s quickstart recipe](https://github.com
 - ElementHero               (Slider, YouTube Video)
 - ElementMaps               (Google)
 - ElementPerso              (URLs Perso, vCard)
-- ElementPersoCFA
+- ElementPersoCFA           (linked persos)
 - ElementContentSection     (accordion with FAQ schema)
 - ElementCounter
 - ElementLogo               (partner/sponsor)
 - ElementGallery            (lightbox, slider)
 - ElementTeaser
-- ElementFeedTeaser         (holder concept per element with tags)
+- ElementFeedTeaser         (holder concept with multiple parents & filtering per tags)
 - ElementTextImage
 
 Optional, separate modules:
 - [InstagramFeed](https://github.com/lerni/instagram-basic-display-feed-element)
-- ElementJobs (privat), schema.org & sitemap.xml integration
-- EasyShop (privat), Google Shoppingfeed with local Inventory & Omnipay
+- ElementJobs lerni/jobpostings (privat), schema.org & sitemap.xml integration
+- EasyShop lerni/simplebasket (privat), Google Shoppingfeed with local Inventory, swissQR bill or Omnipay
 
 Other features:
 - [DSGVO GDPR ready, Cookie Consent with klaro!](https://github.com/lerni/klaro-cookie-consent)
@@ -36,7 +36,7 @@ Other features:
 - etc.
 
 ## Getting started
-As editor/IDE [VSCode](https://code.visualstudio.com/) is recommended. Per `.vscode/extensions.json` extensions 'll be suggested and `.vscode/settings.json` contains settings for debugging, making Logviewer work out of the box etc.
+As editor/IDE [VSCode](https://code.visualstudio.com/) is recommended. Per `.vscode/extensions.json` extensions 'll be suggested. `.vscode/settings.json` makes Logviewer work and contains settings for debugging etc.
 - [Silverstripe](https://marketplace.visualstudio.com/items?itemName=adrianhumphreys.silverstripe)
 - [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client)
 - [PHP Debug](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug)
@@ -67,24 +67,22 @@ Node/npm runs locally. There is an `.nvmrc` file in `themes/default/`. If [nvm](
     npm install
 ```
 ### Docker dev-env
-For development ootstra comes with a Docker-Setup with Apache/PHP/MySQL/phpMyAdmin/MailHog. Run the commands bellow in the project directory:
+For development ootstra comes with a Docker-Setup with Apache/PHP/MySQL/phpMyAdmin/MailHog. For a proper user-mapping (same uid gid inside docker), it's recommended to export those in your rc-file. In case of zsh, add below to `~/.zshrc`:
+```bash
+    export UID=$(id -u)
+    export GID=$(id -g)
+```
+To build & start docker run commands bellow in the project directory:
 ```bash
     cd PROJECT/
     docker build --tag silverstripe:refined81 .
-    docker-compose up
- ```
+    docker-compose up # or use VSCode tasks `docker-compose up` per Command+Shift+B
+```
 ### Docker zsh, composer
 ```bash
     cd PROJECT/
-    docker-compose exec silverstripe zsh
+    docker-compose exec silverstripe zsh # or use VSCode tasks `dshell` per Command+Shift+B
     composer install
-```
-### Laravel Mix watch & build
-[Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([webpack](https://webpack.js.org/) based) is used as build environment. In `themes/default/webpack.mix.js` host is set to be proxied to http://localhost:3000/ for browsersync. See also scripts section in `themes/default/package.json` and [Mix CLI](https://laravel-mix.com/docs/6.0/cli).
-```bash
-    cd themes/default && npm run watch
-or
-    cd themes/default && npm run production
 ```
 
 Docker makes a local webserver available on [http://localhost:8080/](http://localhost:8080/), watcher/browsersync runs on [http://localhost:3000/](http://localhost:3000/), `phpMyAdmin` on [http://localhost:8081/](http://localhost:8081/), MailHog on [http://localhost:8025/](http://localhost:8025/). Default login into [/admin](http://localhost:8080/admin) is `admin` & `password`.
@@ -103,6 +101,14 @@ Docker makes a local webserver available on [http://localhost:8080/](http://loca
 
 Database, credentials etc. are provided per environment Variables. **For local development with docker no `.env` file is needed! EnvVars are set in `docker-compose.yml`.**
 
+### Laravel Mix watch & build
+[Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([webpack](https://webpack.js.org/) based) is used as build environment. In `themes/default/webpack.mix.js` host is set to be proxied to http://localhost:3000/ for browsersync. See also scripts section in `themes/default/package.json` and [Mix CLI](https://laravel-mix.com/docs/6.0/cli).
+```bash
+    cd themes/default && npm run watch # or use VSCode tasks `npm watch` per Command+Shift+B
+or
+    cd themes/default && npm run production # or use VSCode tasks `npm prod` per Command+Shift+B
+```
+
 ## Debugging
 In order to use Xdebug with this setup, a browser-extensions like [Xdebug Helper for Firefox](https://addons.mozilla.org/de/firefox/addon/xdebug-helper-for-firefox/) or [Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc) is needed to control/trigger debugging behaviour.
 
@@ -116,7 +122,8 @@ Current used PHP-Version is 8.1. It's set in following places:
 - `composer.json`
 - `docker-compose.yml` -> path custom.php.ini
 - `.vscode/settings.json`
-Don't forget to rebuild/restart docker and reinstall vendors per composer after changing!
+
+Don't forget to rebuild/restart docker and reinstall packages in vendors per composer after changing!
 
 # Hosting & Deployment
 
@@ -160,13 +167,13 @@ Rename `config.example.php` to `deploy/config.php` and configure things to your 
 
 The setup uses key-forwarding, so deployment can be done from inside the silverstripe docker container. Before first deployment ssh into remote servers like `dep ssh test` or `dep ssh live` and make sure ssh-fingerprint from the git repo is accepted. You may just do a git clone into a test directory to verify things work as expected. If so, deployment is done like:
 ```bash
-    ./vendor/bin/dep deploy test
+    dep deploy test
 ```
 
 or
 
 ```bash
-    ./vendor/bin/dep deploy live
+    dep deploy live
 ```
 The first time you deploy to a given stage, you’ll be asked to provide database credentials etc. to populate `.env`. A file similar as bellow 'll be created.
 
@@ -242,6 +249,7 @@ dep silverstripe:upload_database test
 dep silverstripe:download_database live
 
 etc.
+or use VSCode tasks Command+Shift+B
 ```
 ## Uploading/downloading assets from live/test utilizing rsync
 ```bash
@@ -252,6 +260,7 @@ dep silverstripe:download_assets live
 dep silverstripe:upload_assets test
 
 etc.
+or use VSCode tasks Command+Shift+B
 ```
 
 # Manual remote dev/build

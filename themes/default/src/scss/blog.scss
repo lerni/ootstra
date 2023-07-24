@@ -41,12 +41,12 @@ body.blog {
 		figure {
 			flex: 0 0 auto;
 			margin: 0;
-			display: table;
+			display: flex;
 			width: 100%;
 			img {
 				width: 100%;
+				height: auto;
 				margin-bottom: 0;
-				float: left;
 			}
 		}
 		.txt {

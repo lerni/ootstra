@@ -235,8 +235,14 @@
 		}
 	}
 	div.embed.ss-htmleditorfield-file {
-		width: auto !important;
+		width: 100% !important;
 		margin-bottom: #{$lh}em;
+		// for klaro contextual consent
+		position: relative;
+		iframe {
+			display: block !important;
+			width: 100%;
+		}
 		> p {
 			// video caption
 			padding: #{math.div($lh, 2)}em;

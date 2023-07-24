@@ -69,7 +69,7 @@ ENV;
 });
 
 
-desc('install composer & sspak in ~/bin');
+desc('install composer in ~/bin');
 task('silverstripe:installtools', function () {
     $hasComposer = run("if [ -e ~/bin/composer.phar ]; then echo 'true'; fi");
     if ('true' != $hasComposer) {
@@ -96,10 +96,6 @@ task('pkill', function () {
     } catch (\Exception $ex) {
         writeln($ex->getMessage());
     }
-
-    // set('env', [
-    //     'SCRIPT_FILENAME' => '{{release_path}}'
-    // ]);
 });
 
 
@@ -127,7 +123,7 @@ task('silverstripe:focu_hydrate', function () {
 });
 
 
-desc('Create directory for sspak dumps');
+desc('Create directory for dumps');
 task('silverstripe:create_dump_dir', function () {
     run("cd {{deploy_path}} && if [ ! -d dumps ]; then mkdir dumps; fi");
 });

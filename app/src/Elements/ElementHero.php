@@ -2,23 +2,24 @@
 
 namespace App\Elements;
 
-use DNADesign\Elemental\Models\BaseElement;
 use App\Models\Slide;
+use SilverStripe\Forms\LiteralField;
+use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\ORM\FieldType\DBHTMLText;
+use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Forms\GridField\GridField;
-use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
 use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\GridField\GridFieldConfig_Base;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
-use SilverStripe\Forms\LiteralField;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
+use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
 class ElementHero extends BaseElement
 {
     private static $db = [
-        'Size' => 'Enum("small,medium,fullscreen","small")',
+        'Size' => 'Enum("small,medium,fullscreen")',
         'DoNotCrop' => 'Boolean',
         'SitemapImageExpose' => 'Boolean'
     ];
@@ -44,6 +45,15 @@ class ElementHero extends BaseElement
         'Size' => 'medium',
         'SitemapImageExpose' => 1
     ];
+
+    public function populateDefaults()
+    {
+        $siteConfig = SiteConfig::current_site_config();
+        if ($size = $siteConfig->DefaultHeaderSize) {
+            $this->Size = $size;
+        }
+        parent::populateDefaults();
+    }
 
     private static $description = 'Hero Element';
 

@@ -46,7 +46,8 @@ class ElementTextImage extends BaseElement
         $fields = parent::getCMSFields();
 
         $fields->removeByName([
-            'BackgroundColor'
+            'BackgroundColor',
+            'WidthReduced'
         ]);
 
         if ($uploadField = $fields->dataFieldByName('Image')) {

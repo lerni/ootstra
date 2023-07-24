@@ -139,7 +139,7 @@
 		<% require themedCSS("dist/css/swiper") %>
 		<% require javascript("themes/default/dist/js/swiper.js") %>
 		<div class="swiper-pagination hero spacing-bottom-{$SpacingBottom}" id="hero-swiper-pagination{$ID}"></div>
-		<div class="swiper-button-prev hero" id="hero-swiper-prev{$ID}"></div>
-		<div class="swiper-button-next hero" id="hero-swiper-next{$ID}"></div>
+		<div class="swiper-button-prev hero spacing-bottom-{$SpacingBottom}" id="hero-swiper-prev{$ID}"></div>
+		<div class="swiper-button-next hero spacing-bottom-{$SpacingBottom}" id="hero-swiper-next{$ID}"></div>
 	<% end_if %>
 <% end_if %>

@@ -192,12 +192,12 @@ nav.breadcrumbs {
 	}
 }
 
-.typography p.cat-tag {
+p.cat-tag {
 	display: flex;
 	gap: #{math.div($lh, 1)}em;
 	flex-wrap: wrap;
 	justify-content: flex-start;
-	margin-bottom: 0;
+	margin: 0;
 	padding-top: #{$lh}em;
 	padding-bottom: #{$lh * 2}em;
 	> span,
@@ -840,7 +840,7 @@ html .klaro {
 				.cm-btn.cn-decline {
 					background-color: $gray;
 					order: 1;
-					// display: none;
+					display: none;
 				}
 				// accept all
 				.cm-btn.cm-btn-success {
@@ -853,7 +853,7 @@ html .klaro {
 				display: block;
 				margin-top: 0.6em;
 				order: 2;
-				flex: 0 0 100%;
+				flex: 0 0 auto;
 			}
 		}
 	}
@@ -899,6 +899,46 @@ html .klaro {
 		// klaro link
 		.cm-modal .cm-footer .cm-powered-by {
 			display: none;
+		}
+	}
+}
+// klaro! contextual consent
+[data-type="placeholder"] {
+	position: absolute;
+	background-color: $gray--light;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding: #{$lh}em;
+	.context-notice {
+		&:last-child {
+			margin-bottom: 0;
+		}
+		button {
+			display: inline-block;
+			padding: #{math.div($lh, 4)}em #{math.div($lh, 2)}em;
+			border: none;
+			text-transform: uppercase;
+			color: $white;
+			font-size: 1em;
+			@include bold;
+			cursor: pointer;
+			&:first-of-type {
+				background-color: $red;
+			}
+			&:last-of-type {
+				background-color: mix($darkblue, $gray--light, 70%);
+			}
+			&:not(:last-of-type) {
+				margin-right: #{$lh}em;
+			}
 		}
 	}
 }

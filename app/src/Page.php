@@ -4,9 +4,7 @@ namespace {
 
     use SilverStripe\CMS\Model\VirtualPage;
     use SilverStripe\TagField\TagField;
-    use SilverStripe\Assets\Image;
     use App\Elements\ElementHero;
-    use App\Elements\ElementGallery;
     use JonoM\ShareCare\ShareCareFields;
     use Kraftausdruck\Models\JobPosting;
     use SilverStripe\Core\ClassInfo;
@@ -141,26 +139,6 @@ namespace {
             return $r;
         }
 
-        public function getDefaultOGTitle()
-        {
-
-            $title_return = $this->getTitle();
-
-            // JobPosting
-            if (Controller::has_curr()) {
-                $req = Controller::curr()->getRequest();
-                if ($req->param('Action') == 'job' && $req->param('ID')) {
-                    $URLSegment = $req->param('ID');
-                    $job = JobPosting::get()->filter('URLSegment', $URLSegment)->first();
-                    if ($job && $job->Title) {
-                        $title_return = trim($job->Title);
-                    }
-                }
-            }
-
-            return $title_return;
-        }
-
         public function getDefaultOGDescription($limitChar = 0, $limitWordCount = 20)
         {
             $descreturn = $this->getSiteConfig()->MetaDescription;
@@ -220,16 +198,6 @@ namespace {
 
             if ($this->ImagesForSitemap() && $this->ImagesForSitemap()->count()) {
                 $i = $this->ImagesForSitemap()->first();
-            }
-
-            if ($this->ClassName == Blog::class) {
-                if ($this->Slides()->Count()) {
-                    if ($SI = $this->Slides()->Sort('SortOrder ASC')->first()) {
-                        if ($SI->SlideImage->exists()) {
-                            $i = $SI->SlideImage;
-                        }
-                    }
-                }
             }
 
             // OGImageCustom

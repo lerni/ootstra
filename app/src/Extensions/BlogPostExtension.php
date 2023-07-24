@@ -51,18 +51,6 @@ class BlogPostExtension extends DataExtension
         }
     }
 
-    // returns false if an event is past and ended
-    public function inFuture()
-    {
-        if ($this->owner->obj('EventDateEnd')->value && $this->owner->obj('EventDateEnd')->value >= DBDatetime::now()->value) {
-            return true;
-        }
-        if ($this->owner->obj('EventDate')->value && $this->owner->obj('EventDate')->value >= DBDatetime::now()->value) {
-            return true;
-        }
-        return false;
-    }
-
     public function PrevNext($Mode = 'next')
     {
         $list = $this->owner->Parent()->getBlogPosts();

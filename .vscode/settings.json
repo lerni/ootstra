@@ -28,6 +28,12 @@
   "search.useIgnoreFiles": false,
   "telemetry.enableTelemetry": false,
   "intelephense.environment.phpVersion": "8.1.0",
+  "terminal.integrated.profiles.osx": {
+    "zsh": {
+        "path": "/bin/zsh",
+        "args": ["-l", "-i"]
+    }
+  },
   "[php]": {
     "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
   }

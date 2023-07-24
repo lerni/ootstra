@@ -1,0 +1,7 @@
+DNADesign\Populate\Populate:
+  truncate_objects:
+    - App\Models\ElementPage
+    - DNADesign\Elemental\Models\ElementalArea
+    - DNADesign\Elemental\Models\ElementContent
+  include_yaml_fixtures:
+    - 'app/fixtures/populate.yml'

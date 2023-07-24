@@ -12,10 +12,10 @@
 			"type": "vcs",
 			"url": "https://github.com/lerni/silverstripe-webp-image"
 		},
-        {
-            "type": "vcs",
-            "url": "git@bitbucket.org:kraftausdruck/jobpostings.git"
-        },
+		{
+			"type": "vcs",
+			"url": "git@bitbucket.org:kraftausdruck/jobpostings.git"
+		},
 		{
 			"type": "vcs",
 			"url": "git@bitbucket.org:kraftausdruck/simplebasket.git"
@@ -74,7 +74,7 @@
 		"eluceo/ical": "^2",
 		"jonom/silverstripe-someconfig": "^1",
 		"nathancox/embedfield": "dev-attrquerystring",
-		"lerni/folderindex": "^0.0.6"
+		"lerni/folderindex": "^0"
 	},
 	"require-dev": {
 		"deployer/deployer": "^7",

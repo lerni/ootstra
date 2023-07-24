@@ -176,3 +176,9 @@ ul#Form_ItemEditForm_BackgroundColor li label[for$="transparent"] {
 	background-repeat: repeat;
 	background-size: 400% auto;
 }
+
+/* https://github.com/silverstripe/silverstripe-admin/issues/1430#issuecomment-1625840199 */
+.preview-mode-selector .chosen-drop {
+	width: inherit;
+	right: 0;
+}
