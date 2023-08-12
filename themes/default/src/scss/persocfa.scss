@@ -1,0 +1,63 @@
+@use "sass:math";
+@import "includes/variables";
+@import "includes/mixins";
+@import "~breakpoint-sass/stylesheets/breakpoint";
+
+.element.elementpersocfa {
+	.typography {
+		.persos .perso {
+			display: grid;
+			grid-template-columns: minmax(300px, 4fr) minmax(300px, 6fr);
+			grid-auto-rows: auto;
+			gap: #{$lh}em;
+			@include breakpoint($Mneg) {
+				grid-template-columns: 1fr;
+				width: 100%;
+			}
+		}
+		figure {
+			margin: 0;
+			img {
+				width: 100%;
+				margin: 0;
+				display: flex;
+			}
+		}
+		.txt {
+			display: flex;
+			flex-direction: column;
+			.element-title {
+				flex: 0 0 auto;
+			}
+			.name {
+				margin-top: auto;
+			}
+			p {
+				margin-bottom: #{$lh*.5}em;
+				&:last-of-type {
+					margin-bottom: 0;
+				}
+			}
+		}
+	}
+	.persos {
+		display: grid;
+		gap: #{$lh}em;
+		grid-template-columns: minmax(200px, 1fr);
+	}
+	.coordinates {
+		margin-bottom: 0;
+		a {
+			display: block;
+			// svg {
+			// 	display: inline-block;
+			// 	height: 1em;
+			// 	width: 1em;
+			// 	margin: .2em .4em -.2em 0;
+			// }
+		}
+		a + a {
+			margin-top: #{$lh*.5}em;
+		}
+	}
+}

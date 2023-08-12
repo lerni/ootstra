@@ -1,0 +1,88 @@
+DNADesign\Elemental\Models\ElementalArea:
+  impressumArea:
+    OwnerClassName: 'App\Models\ElementPage'
+  rechtlichesArea:
+    OwnerClassName: 'App\Models\ElementPage'
+  kontaktArea:
+    OwnerClassName: 'App\Models\ElementPage'
+
+DNADesign\Elemental\Models\ElementContent:
+  impressum:
+    Title: 'Impressum'
+    ParentID: =>DNADesign\Elemental\Models\ElementalArea.impressumArea
+    HTML: '<h2 class="inlinish"><strong>Inhalte und Redaktion:</strong></h2><p class="halvelinish">Kunde AG<br />Adresse 0<br />0000 Niergens</p><p><a class="button" href="[sitetree_link,id=4]">Kontakt</a></p><p class="halvelinish">&nbsp;</p><h2 class="inlinish"><strong>Beratung, Design &amp; Code</strong></h2><p class="halvelinish"><a title="kraftausdruck.ch" href="https://kraftausdruck.ch/">kraftausdruck.ch</a><br />Hellb&uuml;hlerstrasse 36<br />6017 Ruswil</p><p><a title="Telefon Kraftausdruck" href="tel:00414950833">041 495 08 33</a></p>'
+  rechtiches:
+    Title: 'Rechtliches'
+    Parent: =>DNADesign\Elemental\Models\ElementalArea.rechtlichesArea
+    HTML: '<h2>Haftungshinweis</h2><p>Der Inhalt dieser Webseite wird sorgf&auml;ltig gepflegt. Trotzdem wird f&uuml;r den Inhalt keine Haftung &uuml;bernommen. Druckfehler, Irrt&uuml;mer und &Auml;nderungen vorbehalten. F&uuml;r die Inhalte externer Links wird keine Haftung &uuml;bernommen.</p><h2>Urheberrechte</h2><p>Der gesamte Inhalt ist urheberrechtlich gesch&uuml;tzt, alle Rechte vorbehalten. Jegliche (auch auszugsweise) Verwertung, Verbreitung, Wiedergabe, Vervielf&auml;ltigung oder Speicherung, ob elektronisch, mechanisch, durch Kopie oder Aufzeichnung, bedarf der vorherigen, schriftlichen Genehmigung des Herausgebers.</p><h2>Datenschutzerkl&auml;rung, Geltungsbereich</h2><p>Diese Datenschutzerkl&auml;rung kl&auml;rt Nutzer &uuml;ber die Art, den Umfang und Zwecke der Erhebung und Verwendung personenbezogener Daten durch den Anbieter auf dieser Website (im folgenden &ldquo;Angebot&rdquo;) auf.</p><h2>Zugriffsdaten/Server-Logfiles</h2><p>Der Anbieter erhebt Daten &uuml;ber jeden Zugriff auf das Angebot (so genannte Server&shy;logfiles).</p><p>Zu den Zugriffsdaten geh&ouml;ren:</p><ul class="split-2"><li>Name der abgerufenen Webseite, Datei(en)</li><li>Datum und Uhrzeit des Abrufs</li><li>&uuml;bertragene Datenmenge</li><li>Meldung &uuml;ber erfolgreichen Abruf</li><li>Browsertyp und Version des Betriebssystem vom Nutzer</li><li>Referrer URL (die zuvor besuchte Seite) und Exit Seiten</li><li>IP-Adresse und der anfragende Provider</li><li>Standortdaten (insb. bei Verwendung von Mobilger&auml;ten)</li><li>Informationen zur Interaktion zwischen Seiten (z.B. Scrolling, Klicken, Mouse&shy;overs)</li></ul><p>Der Anbieter verwendet die Protokolldaten nur f&uuml;r statistische Auswertungen zum Zweck des Betriebs, der Sicherheit und der Optimierung des Angebotes. Der Anbieter beh&auml;lt sich jedoch vor, die Protokolldaten nachtr&auml;glich zu &uuml;berpr&uuml;fen, wenn aufgrund konkreter Anhaltspunkte der berechtigte Verdacht einer rechtswidrigen Nutzung besteht.</p><h2>Umgang mit personenbezogenen Daten</h2><p>Personenbezogene Daten sind Informationen, mit deren Hilfe eine Person bestimmbar ist, also Angaben, die zur&uuml;ck zu einer Person verfolgt werden k&ouml;nnen. Dazu geh&ouml;ren der Name, die E-Mail Adresse oder die Telefonnummer. Aber auch Daten &uuml;ber Vorlieben, Hobbies, Mitgliedschaften oder welche Webseiten von jemandem angesehen wurden z&auml;hlen zu personenbezogenen Daten.</p><p>Personenbezogene Daten werden von dem Anbieter nur dann erhoben, genutzt und weiter gegeben, wenn dies gesetzlich erlaubt ist oder die Nutzer in die Datenerhebung einwilligen.</p><h2>Kontaktaufnahme</h2><p>Bei der Kontaktaufnahme mit dem Anbieter (zum Beispiel per Kontaktformular oder E-Mail) werden Angaben des Nutzers zwecks Bearbeitung sowie f&uuml;r Anschlussfragen gespeichert.</p><h2>Widerruf, &Auml;nderungen, Berichtigungen und Aktualisierungen</h2><p>Der Nutzer hat das Recht, auf Antrag unentgeltlich Auskunft zu erhalten &uuml;ber die personenbezogenen Daten, die &uuml;ber ihn gespeichert wurden. Zus&auml;tzlich hat der Nutzer das Recht auf Berichtigung unrichtiger Daten, Sperrung und L&ouml;schung seiner personenbezogenen Daten, soweit dem keine gesetzliche Aufbewahrungspflicht entgegensteht.</p><h2>Cookies</h2><p>Cookies sind kleine Dateien, die es erm&ouml;glichen, auf dem Zugriffsger&auml;t der Nutzer (PC, Smartphone o.&auml;.) spezifische, auf das Ger&auml;t bezogene Informationen zu speichern. Sie dienen zum einen der Benutzerfreundlichkeit von Webseiten und damit den Nutzern (z.B. Speicherung der gewählten Sprache). Zum anderen werden sie verwendet, um die statistische Daten der Webseitennutzung zu erfassen und diese zum Zweck der Verbesserung des Angebotes analysieren zu k&ouml;nnen. Nutzer k&ouml;nnen auf den Einsatz von Cookies Einfluss nehmen. Die meisten Browser verf&uuml;gen über eine Option mit der das Speichern von Cookies eingeschr&auml;nkt oder komplett verhindert werden kann. Allerdings wird darauf hingewiesen, dass die Nutzung und insbesondere der Nutzungskomfort ohne Cookies eingeschr&auml;nkt werden. [ConsentLink, beforeText = "Die Verwendung von Cookies auf dieser Webseite kann per ", afterText=" verwaltet werden."]</p><h2>Einbindung von Diensten und Inhalten Dritter</h2><p>Innerhalb dieses Angebots k&ouml;nnen Inhalte Dritter, wie zum Beispiel Videos von YouTube, Kartenmaterial von Google-Maps, Google Web-Fonts, RSS-Feeds, Spamschutz per reCAPTCHA oder Grafiken von anderen Webseiten eingebunden werden. Dies setzt voraus, dass die Anbieter dieser Inhalte (nachfolgend bezeichnet als &ldquo;Dritt-Anbieter&rdquo;) die IP-Adresse der Nutzer kennen. Ohne IP-Adresse, w&auml;re keine Verbindung m&ouml;glich und somit k&ouml;nnten die Inhalte nicht im Browser des jeweiligen Nutzers angezeigt werden. Die IP-Adresse ist f&uuml;r die Darstellung dieser Inhalte erforderlich. Wir bem&uuml;hen uns nur solche Inhalte zu verwenden, deren jeweilige Anbieter die IP-Adresse lediglich zur Auslieferung der Inhalte verwenden. Jedoch haben wir keinen Einfluss darauf, falls die Dritt-Anbieter die IP-Adresse und weitere Informationen z.B. f&uuml;r statistische Zwecke speichern.</p><h2>Webfonts von myfonts.com</h2><p>Diese Website nutzt Schriftarten von MyFonts. Aufgrund der Lizenzbestimmungen von MyFonts wird ein Page-View-Tracking durch einen Counter Webanalysedienst der Monotype Imaging Holdings Inc., 600 Unicorn Park Drive, Woburn, Massachusetts 01801 USA durchgeführt. Bei jedem Aufruf einer Seite dieser Website, wird eine Anfrage an hello.myfonts.net gesendet. MyFonts erhebt dabei anonymisierte Daten und erlangt Kenntnis über die vom Nutzer verwendete IP-Adresse. https://www.monotype.com/legal/privacy-policy/web-font-tracking-privacy-policy</p><h2>Google Tag Manager</h2><p>Mit dem Google Tag Manager k&ouml;nnen Vermarkter Website-Tags &uuml;ber eine Oberfl&auml;che verwalten. DerTag Manager selbst, der die Tags einsetzt, funktioniert jedoch ohne Cookies und erfasst keine personenbezogenen Daten. Der Tag Manager sorgt lediglich f&uuml;r die Ausl&ouml;sung anderer Tags, die ihrerseits unter Umst&auml;nden Daten erfassen. Zu diesen jeweiligen Drittanbietern finden sich entsprechende Erkl&auml;rungen in dieser Datenschutzerkl&auml;rung. Der Google Tag Manager verwendet diese Daten aber nicht. Haben Sie eine Deaktivierung von Cookies eingestellt oder sonst vorgenommen, wird diese f&uuml;r alle Tracking-Tags beachtet, die mit dem Google Tag Manager eingesetzt wurden, das Tool &auml;ndert also Ihre Cookie-Einstellungen nicht.</p><h2>Google Maps</h2><p>Diese Webseite verwendet das Produkt Google Maps von Google Inc. Durch Nutzung dieser Webseite erkl&auml;ren Sie sich mit der Erfassung, Bearbeitung sowie Nutzung der automatisiert erhobenen Daten durch Google Inc., deren Vertreter sowie Dritter einverstanden. Die Nutzungsbedingungen finden sie unter "Nutzungsbedingungen von Google Maps".</p><h2>Google Analytics</h2><p>Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Inc. (&bdquo;Google&ldquo;). Google Analytics verwendet sog. &bdquo;Cookies&ldquo;, Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der Benutzung der Website durch Sie erm&ouml;glichen. Die durch den Cookie erzeugten Informationen &uuml;ber Ihre Benutzung dieser Website werden in der Regel an einen Server von Google in den USA &uuml;bertragen und dort gespeichert. Im Falle der Aktivierung der IP-Anonymisierung auf dieser Webseite wird Ihre IP-Adresse von Google jedoch innerhalb von Mitgliedstaaten der Europ&auml;ischen Union oder in anderen Vertragsstaaten des Abkommens &uuml;ber den Europ&auml;ischen Wirtschaftsraum zuvor gek&uuml;rzt.</p><p>Nur in Ausnahmef&auml;llen wird die volle IP-Adresse an einen Server von Google in den USA &uuml;bertragen und dort gek&uuml;rzt. Google wird diese Informationen benutzen, um Ihre Nutzung der Website auszuwerten, um Reports &uuml;ber die Websiteaktivit&auml;ten f&uuml;r die Websitebetreiber zusammenzustellen und um weitere mit der Websitenutzung und der Internetnutzung verbundene Dienstleistungen zu erbringen. Auch wird Google diese Informationen gegebenenfalls an Dritte &uuml;bertragen, sofern dies gesetzlich vorgeschrieben oder soweit Dritte diese Daten im Auftrag von Google verarbeiten. Die im Rahmen von Google Analytics von Ihrem Browser &uuml;bermittelte IP-Adresse wird nicht mit anderen Daten von Google zusammengef&uuml;hrt.</p><h2>Microsoft Clarity</h2><p>Diese Webseite verwendet Microsoft "Clarity". Clarity ermöglicht das Nutzungsverhalten zu analysieren. Es entsteht ein Protokoll von Mausbewegungen und Klicks um potentielle Verbesserungen für das Angebot daraus abzuleiten. Die erhobenen Informationen werden an Clarity übermittelt und dort gespeichert. [ConsentLink, beforeText = "Die Verwendung von Clarity auf dieser Webseite kann per ", afterText=" verwaltet werden."]</p><p>Weitere Informationen über Clarity und die damit gesammelten Daten sind per <a target="_blank" rel="noopener" href="https://clarity.microsoft.com/terms">Datenschutzhinweis von Clarity</a> verfügbar.</p>'
+
+App\Models\ElementPage:
+  home:
+    Title: 'Home'
+    URLSegment: 'home'
+    ParentID: 0
+    Sort: 1
+    ShowInMenus: 0
+  impressum:
+    Title: 'Impressum'
+    ParentID: 0
+    Sort: 2
+    ShowInMenus: 0
+    ShowInSearch: 1
+    ElementalArea: =>DNADesign\Elemental\Models\ElementalArea.impressumArea
+  rechtliches:
+    Title: 'Rechtliches'
+    ParentID: 0
+    Sort: 3
+    ShowInMenus: 0
+    ShowInSearch: 0
+    ElementalAreaID: =>DNADesign\Elemental\Models\ElementalArea.rechtlichesArea
+  kontakt:
+    Title: 'Kontakt'
+    ParentID: 0
+    Sort: 4
+    ElementalAreaID: =>DNADesign\Elemental\Models\ElementalArea.kontaktArea
+
+App\Models\MetaOverviewPage:
+  meta:
+    Title: 'Meta'
+    URLSegment: 'meta'
+    ParentID: 0
+    Sort: 5
+
+
+SilverStripe\SiteConfig\SiteConfig:
+  default:
+    ID: 1
+    Title: "Test Website"
+    DefaultHeroSize: "medium"
+    TermsNavigationItems:
+      - =>App\Models\ElementPage.impressum
+      - =>App\Models\ElementPage.rechtliches
+    #   - Title: 'Impressum'
+    #     Link: 'impressum'
+    #   - Title: 'Rechtliches'
+    #     Link: 'rechtliches'
+    # SocialLinks
+    # ServiceNavigationItems
+    #   kontakt
+
+App\Models\Location:
+  location1:
+    Title: 'Ruswil'
+    Address: 'Hellbühlstrasse 36'
+    PostalCode: '6017'
+    Town: 'Ruswil'
+    Country: 'Schweiz'
+    Telephone: '0041 41 495 08 33'
+    AddressRegion: 'Luzern'
+    Email: 'le@kraftausdruck.ch'
+    SiteConfigID: 1
+
+App\Models\Point:
+  point1:
+    Latitude: 47.079
+    Longitude: 8.155
+    Title: 'Ruswil'
+    PointURL: 'https://www.google.ch/maps/place/Ruswil/'
+    LocationID: =>App\Models\Location.location1

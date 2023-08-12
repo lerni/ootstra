@@ -33,7 +33,7 @@ class SiteConfigExtension extends DataExtension
         'legalName' => 'Varchar',
         'foundingDate' => 'Varchar',
         'GlobalAlert' => 'HTMLText',
-        'DefaultHeaderSize' => 'Enum("small,medium","small")'
+        'DefaultHeroSize' => 'Enum("small,medium","small")'
     ];
 
     private static $has_one = [];
@@ -106,8 +106,8 @@ class SiteConfigExtension extends DataExtension
         $gridField = new GridField('DefaultHeaderSlides', _t('SilverStripe\SiteConfig\SiteConfig.DEFAULTHEADERSLIDES'), $this->owner->DefaultHeaderSlides(), $SlideGridFieldConfig);
         $fields->addFieldToTab('Root.Main', $gridField, 'Content');
 
-        $sizes = singleton(SiteConfig::class)->dbObject('DefaultHeaderSize')->enumValues();
-        $SizeField = DropdownField::create('DefaultHeaderSize', _t('SilverStripe\SiteConfig\SiteConfig.DEFAULTHEADERSIZE', 'Size default slides'), $sizes);
+        $sizes = singleton(SiteConfig::class)->dbObject('DefaultHeroSize')->enumValues();
+        $SizeField = DropdownField::create('DefaultHeroSize', _t('SilverStripe\SiteConfig\SiteConfig.DEFAULTHEROSIZE', 'Size default slides'), $sizes);
         $fields->addFieldToTab('Root.Main', $SizeField, 'Content', true);
 
 

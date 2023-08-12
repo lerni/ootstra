@@ -29,6 +29,7 @@ class ElementFeedTeaser extends BaseElement
 {
     private static $db = [
         'Layout' => 'Enum("third,halve,full", "third")',
+        'ShowAsSlider' => 'Boolean',
         'FirstLinkAction' => 'Varchar',
         'CountMax' => 'Int'
     ];
@@ -62,6 +63,7 @@ class ElementFeedTeaser extends BaseElement
     {
         $labels = parent::fieldLabels($includerelations);
         $labels['CountMax'] = _t(__CLASS__ . '.COUNTMAX', 'Number of teasers (default 3)');
+        $labels['ShowAsSlider'] = _t(__CLASS__ . '.SHOWASSLIDER', 'Show as slider');
         $labels['FirstLinkAction'] = _t(__CLASS__ . '.FIRSTLINKACTION', 'Text link parent (first)');
         return $labels;
     }
@@ -104,6 +106,11 @@ class ElementFeedTeaser extends BaseElement
             'Categories',
             'BlogPosts'
         );
+
+        $CatGFConfig->removeComponentsByType([
+            GridFieldDeleteAction::class,
+            GridFieldEditButton::class
+        ]);
 
         $CatGFConfig->addComponents([
             new GridFieldAddExistingAutocompleter('toolbar-header-right'),

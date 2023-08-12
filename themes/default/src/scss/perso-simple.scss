@@ -23,6 +23,7 @@
 		margin: 0;
 		position: relative;
 		overflow: hidden;
+		scroll-margin-top: $headerheight;
 		img {
 			width: 100%;
 			margin-bottom: 0;

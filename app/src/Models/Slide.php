@@ -8,6 +8,7 @@ use SilverStripe\ORM\DataObject;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\CompositeField;
+use SilverStripe\Forms\RequiredFields;
 use SilverStripe\Forms\TreeDropdownField;
 use nathancox\EmbedField\Forms\EmbedField;
 use nathancox\EmbedField\Model\EmbedObject;
@@ -54,11 +55,6 @@ class Slide extends DataObject
         'SlideImage.CMSThumbnail' => 'Thumbnail',
         'Title' => 'Titel',
         'Text' => 'Claim auf Bild'
-    ];
-
-    private static $searchable_fields = [
-        'Title',
-        'Text'
     ];
 
     public function fieldLabels($includerelations = true)
@@ -152,4 +148,11 @@ class Slide extends DataObject
 
         return $fields;
     }
+
+    // public function getCMSValidator()
+    // {
+    //     return new RequiredFields([
+    //         'Title'
+    //     ]);
+    // }
 }

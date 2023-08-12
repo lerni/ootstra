@@ -25,7 +25,7 @@ use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 class BlogExtension extends DataExtension
 {
     private static $db = [
-        'Size' => 'Enum("small,medium,fullscreen")'
+        'HeroSize' => 'Enum("small,medium,fullscreen")'
     ];
 
     private static $many_many = [
@@ -45,8 +45,8 @@ class BlogExtension extends DataExtension
     public function populateDefaults()
     {
         $siteConfig = SiteConfig::current_site_config();
-        if ($size = $siteConfig->DefaultHeaderSize) {
-            $this->owner->Size = $size;
+        if ($heroSize = $siteConfig->DefaultHeroSize) {
+            $this->owner->HeroSize = $heroSize;
         }
         $this->owner->PostsPerPage = (int)30;
         parent::populateDefaults();
@@ -76,10 +76,10 @@ class BlogExtension extends DataExtension
             $gridField = new GridField('Slides', 'Slides', $this->owner->Slides(), $SlideGridFieldConfig);
             $fields->addFieldToTab('Root.Main', $gridField, 'Content');
 
-            // size is respected if slides are present, otherwise default of SiteConfig is used
+            // HeroSize is respected if slides are present, otherwise default of SiteConfig is used
             if ($this->owner->Slides()->count()) {
-                $sizes = singleton(Blog::class)->dbObject('Size')->enumValues();
-                $SizeField = DropdownField::create('Size', _t('App\Elements\ElementHero.SIZE', 'Size/Height Header'), $sizes);
+                $sizes = singleton(Blog::class)->dbObject('HeroSize')->enumValues();
+                $SizeField = DropdownField::create('HeroSize', _t('App\Elements\ElementHero.HEROSIZE', 'Size/Height Header'), $sizes);
                 $SizeField->setDescription(_t('App\Elements\ElementHero.SizeDescription', '"fullscreen" requires "full width"!'));
                 $fields->addFieldToTab('Root.Main', $SizeField, 'Content', true);
             }

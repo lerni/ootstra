@@ -10,6 +10,9 @@
 	ul {
 		list-style: none;
 		padding-left: 0;
+		li {
+			scroll-margin-top: $headerheight;
+		}
 	}
 	.content-parts.accordion {
 		// border-bottom: 2px solid $text-color;

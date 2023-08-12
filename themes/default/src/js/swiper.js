@@ -5,12 +5,12 @@ import {
   Navigation,
   Pagination,
   Autoplay,
-  // EffectFade,
+  EffectFade,
   Keyboard,
   // Thumbs
 } from 'swiper';
 
-Swiper.use([Navigation, Pagination, Autoplay, Keyboard]);
+Swiper.use([Navigation, Pagination, Autoplay, Keyboard, EffectFade]);
 
 var heroSwiper = document.querySelectorAll('.swiper-container.hero');
 Array.prototype.forEach.call(heroSwiper, function (slider) {
@@ -32,7 +32,7 @@ Array.prototype.forEach.call(heroSwiper, function (slider) {
       delay: 4500,
       disableOnInteraction: true,
     },
-    // effect: 'fade',
+    effect: 'fade',
     fadeEffect: {
       crossFade: true
     },
@@ -56,14 +56,11 @@ Array.prototype.forEach.call(heroSwiper, function (slider) {
 // 	'slow');
 // });
 
-var multipleSwiper = document.querySelectorAll('.swiper-container.multiple');
+var multipleSwiper = document.querySelectorAll('.swiper-container.teaser, .swiper-container.multiple');
 Array.prototype.forEach.call(multipleSwiper, function (slider) {
   var sliderID = slider.getAttribute('id');
-  var sliderPrev = '#multiple-swiper-prev' + slider.getAttribute('data-id');
-  var sliderNext = '#multiple-swiper-next' + slider.getAttribute('data-id');
-  var sliderPagination = '#multiple-swiper-pagination' + slider.getAttribute('data-id');
-  var multipleSwiperInstance = new Swiper ('#'+sliderID, {
-    spaceBetween: 25, // // $text-size times $lineheight
+  var generalSwiperInstance = new Swiper ('#'+sliderID, {
+    spaceBetween: 25, // $text-size times $lineheight
     freeMode: true,
     slidesPerView: 'auto',
     speed: 1000,

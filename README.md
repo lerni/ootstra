@@ -20,10 +20,10 @@ This project is inspired from [Bigfork’s quickstart recipe](https://github.com
 - ElementFeedTeaser         (holder concept with multiple parents & filtering per tags)
 - ElementTextImage
 
-Optional, separate modules:
+Optional, separate modules/elements:
 - [InstagramFeed](https://github.com/lerni/instagram-basic-display-feed-element)
 - ElementJobs lerni/jobpostings (privat), schema.org & sitemap.xml integration
-- EasyShop lerni/simplebasket (privat), Google Shoppingfeed with local Inventory, swissQR bill or Omnipay
+- lerni/simplebasket (privat), Google Shoppingfeed with local Inventory, swissQR bill or Omnipay
 
 Other features:
 - [DSGVO GDPR ready, Cookie Consent with klaro!](https://github.com/lerni/klaro-cookie-consent)

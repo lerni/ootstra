@@ -3,7 +3,7 @@
 	<% if not $hasHero %>
 		<% include App/Includes/DefaultHero Page=$Me %>
 	<% end_if %>
-	<nav class="breadcrumbs"><div class="typography horizontal-spacing">{$Breadcrumbs}</div></nav>
+	<nav class="breadcrumbs"><div class="inner">{$Breadcrumbs}</div></nav>
 	<article class="element elementperso horizontal-spacing spacing-top-0 spacing-bottom-2 after-hero">
 		<div class="typography">
 			<% with $Product %>

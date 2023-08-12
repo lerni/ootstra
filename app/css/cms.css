@@ -171,10 +171,8 @@ html .field.embed button.action {
 }
 
 ul#Form_ItemEditForm_BackgroundColor li label[for$="transparent"] {
-	background-color: transparent !important;
-	background-image: url("/_resources/themes/default/dist/images/transparent.png");
-	background-repeat: repeat;
-	background-size: 400% auto;
+	background: url("/_resources/themes/default/dist/images/transparent.png") transparent repeat !important;
+	background-size: 400% auto !important;
 }
 
 /* https://github.com/silverstripe/silverstripe-admin/issues/1430#issuecomment-1625840199 */

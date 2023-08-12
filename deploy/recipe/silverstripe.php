@@ -292,4 +292,3 @@ task('silverstripe:remote_dump', function ($prefix = 'auto') {
         writeln('dumps directory size: ' . $dumpsdirsize);
     }
 });
-before('silverstripe:remote_dump', 'silverstripe:create_dump_dir');

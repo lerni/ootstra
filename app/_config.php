@@ -79,6 +79,7 @@ $EditorConfig->enablePlugins([
     'contextmenu' => null,
     'image' => null,
     'anchor' => null,
+    'sslinkanchor' => null,
     'sslink',
     'sslinkinternal',
     // 'definitionlists' => ModuleResourceLoader::resourceURL('/app/thirdparty/tinymce-definitionlist-master/definitionlist/plugin.js') // needs Buttons: ToggleDefinitionList ToggleDefinitionItem
@@ -97,7 +98,7 @@ $editorOptions = [
 $EditorConfig->setOptions($editorOptions);
 
 // $EditorConfig->setButtonsForLine(1, ['formatselect styleselect pastetext ssmedia ssembed | bold bullist numlist ToggleDefinitionList ToggleDefinitionItem | alignleft aligncenter alignright alignjustify | sslink unlink | charmap hr code removeformat blockquote | outdent indent | undo redo']);
-$EditorConfig->setButtonsForLine(1, ['formatselect styleselect pastetext ssmedia ssembed | bold bullist numlist | alignleft aligncenter alignright alignjustify | sslink unlink | charmap hr code removeformat blockquote | outdent indent | undo redo']);
+$EditorConfig->setButtonsForLine(1, ['formatselect styleselect pastetext ssmedia ssembed | bold bullist numlist | alignleft aligncenter alignright alignjustify | sslink unlink anchor | charmap hr code removeformat blockquote | outdent indent | undo redo']);
 $EditorConfig->setButtonsForLine(2, '');
 
 $EditorConfig->setOption(

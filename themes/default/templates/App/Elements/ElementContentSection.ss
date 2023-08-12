@@ -5,7 +5,7 @@
 	<% if $Layout == "NumberedList" %>
 		<ol class="content-parts numbered-list">
 			<% loop $ContentParts.Sort("SortOrder") %>
-				<li>
+				<li<% if $Title %> id="$Title.URLEnc"<% end_if %>>
 					<span class="number">{$Pos}</span>
 					<div class="txt">
 						<% if $ShowTitle %><h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %>>$Title</h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %>><% end_if %>
@@ -17,7 +17,7 @@
 	<% else_if $Layout == "Textblocks" %>
 		<ul class="content-parts text-blocks">
 			<% loop $ContentParts.Sort("SortOrder") %>
-				<li>
+				<li<% if $Title %> id="$Title.URLEnc"<% end_if %>>
 					<% if $ShowTitle %><h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %>>$Title</h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %>><% end_if %>
 					$Text
 				</li>
@@ -27,7 +27,7 @@
 		<%-- <details><summary></summary></details> --%>
 		<ul class="content-parts accordion" role="presentation">
 			<% loop $ContentParts.Sort("SortOrder") %>
-				<li>
+				<li<% if $Title %> id="$Title.URLEnc"<% end_if %>>
 					<h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %> id="{$Title.URLEnc}" class="flip">
 						<button aria-expanded="<% if $DefaultOpen %>true<% else %>false<% end_if %>">
 							{$Title}

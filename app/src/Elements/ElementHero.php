@@ -19,7 +19,7 @@ use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 class ElementHero extends BaseElement
 {
     private static $db = [
-        'Size' => 'Enum("small,medium,fullscreen")',
+        'HeroSize' => 'Enum("small,medium,fullscreen")',
         'DoNotCrop' => 'Boolean',
         'SitemapImageExpose' => 'Boolean'
     ];
@@ -42,15 +42,15 @@ class ElementHero extends BaseElement
 
     private static $defaults = [
         'isFullWidth' => 1,
-        'Size' => 'medium',
+        'HeroSize' => 'medium',
         'SitemapImageExpose' => 1
     ];
 
     public function populateDefaults()
     {
         $siteConfig = SiteConfig::current_site_config();
-        if ($size = $siteConfig->DefaultHeaderSize) {
-            $this->Size = $size;
+        if ($heroSize = $siteConfig->DefaultHeroSize) {
+            $this->HeroSize = $heroSize;
         }
         parent::populateDefaults();
     }
@@ -62,8 +62,8 @@ class ElementHero extends BaseElement
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['Size'] = _t(__CLASS__ . '.SIZE', 'Size / height header');
-        $labels['DoNotCrop'] = _t(__CLASS__ . '.DONOTCROP', 'Do not limit height');
+        $labels['HeroSize'] = _t(__CLASS__ . '.HEROSIZE', 'Size / height header');
+        $labels['DoNotCrop'] = _t(__CLASS__ . '.DONOTCROP', 'Do not limit height with wide viewport → "small" & "medium".');
         $labels['SitemapImageExpose'] = _t(__CLASS__ . '.SITEMAPIMAGEEXPOSE', 'expose images in sitemap.xml');
 
         return $labels;
@@ -81,9 +81,9 @@ class ElementHero extends BaseElement
             'WidthReduced'
         ]);
 
-        if ($SizeField = $fields->dataFieldByName('Size')) {
-            $fields->addFieldToTab('Root.Settings', $SizeField, 'isFullWidth');
-            $SizeField->setDescription(_t(__CLASS__ . '.SizeDescription', '"fullscreen" requires "full width"!'));
+        if ($HeroSizeField = $fields->dataFieldByName('HeroSize')) {
+            $fields->addFieldToTab('Root.Settings', $HeroSizeField, 'isFullWidth');
+            $HeroSizeField->setDescription(_t(__CLASS__ . '.HeroSizeDescription', '"fullscreen" requires "full width"!'));
         }
 
         // hack around unsaved relations

@@ -8,9 +8,6 @@
 		<title>$DefaultMetaTitle</title>
 	<% end_if %>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<% if not $MetaDescription %>
-		<% if $DefaultMetaDescription %><meta name="Description" content="$DefaultMetaDescription" /><% end_if %>
-	<% end_if %>
 	<% include App/Includes/Favicon %>
 	<% require themedCSS('dist/css/style') %>
 	<style type="text/css" nonce="{$Nonce}">

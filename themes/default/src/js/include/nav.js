@@ -23,8 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const triggers = document.querySelectorAll('span.trigger');
   triggers.forEach(trigger => {
     trigger.addEventListener('click', event => {
-      event.stopPropagation();
-      event.target.parentElement.classList.toggle('expanded');
+      event.target.closest('li').classList.toggle('expanded');
     });
   });
 

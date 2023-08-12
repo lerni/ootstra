@@ -15,7 +15,7 @@ $themeColor: $link-color !default;
 }
 
 // @import "../../node_modules/swiper/modules/navigation/navigation";
-// @import "../../node_modules//swiper/modules/effect-fade/effect-fade";
+@import "../../node_modules/swiper/modules/effect-fade/effect-fade";
 // @import "~swiper/modules/navigation/navigation";
 @import "../../node_modules/swiper/swiper";
 // @import "~swiper/swiper";
@@ -72,8 +72,6 @@ $themeColor: $link-color !default;
 // 	right: 10px;
 // 	left: auto;
 // }
-
-
 
 // @at-root {
 //   :root {

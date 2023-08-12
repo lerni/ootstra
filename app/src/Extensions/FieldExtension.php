@@ -41,28 +41,36 @@ class FieldExtension extends Extension
         }
     }
 
-    public function PerLineText($start = 0)
+    public function PerLineText($start = 0, $max = 0, $string = 0)
     {
         $r = ArrayList::create();
-
-        if (is_numeric($start) && $start) {
-            $start = (int)$start;
-        }
 
         if ($this->owner->value) {
             $stringwithnoemptylines = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $this->owner->value);
             $lines = explode(PHP_EOL, $stringwithnoemptylines);
             $i = 0;
+            $c = 0;
             foreach ($lines as $l) {
-                if ($start <= ($i + 1)) {
-                    if ($l != "") {
-                        $r->push(ArrayData::create(['Item' => $l]));
-                    }
+                if (
+                    $l != "" &&
+                    (int)$start <= ($i + 1) &&
+                    ($c < (int)$max || (int)$max == 0)
+                ) {
+                    $r->push(ArrayData::create(['Item' => $l]));
+                    $c++;
                 }
                 $i++;
             }
         }
-        return $r;
+        if ($string !== 0) {
+            $string = '';
+            foreach ($r as $line) {
+                $string .= $line->Item . PHP_EOL;
+            }
+            return (string)$string;
+        } else {
+            return $r;
+        }
     }
 
     public function URLEnc()

@@ -140,4 +140,15 @@ class ContentPart extends DataObject
 
         return $fields;
     }
+
+    // public function validate()
+    // {
+    //     $result = parent::validate();
+
+    //     if (!$this->Title) {
+    //         $result->addError(_t(__CLASS__ . '.TitleRequired', 'Title is required'));
+    //     }
+
+    //     return $result;
+    // }
 }

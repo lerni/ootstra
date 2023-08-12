@@ -99,8 +99,6 @@ namespace {
 
         public function DefaultMetaDescription()
         {
-            $metaDescription = $this->getSiteConfig()->MetaDescription;
-
             if ($this->ClassName == 'SilverStripe\Blog\Model\BlogPost') {
                 if ($this->Summary) {
                     $metaDescription = strip_tags($this->Summary);
@@ -197,7 +195,9 @@ namespace {
             $i = null;
 
             if ($this->ImagesForSitemap() && $this->ImagesForSitemap()->count()) {
-                $i = $this->ImagesForSitemap()->first();
+                if ($this->ImagesForSitemap()->first()->exists()) {
+                    $i = $this->ImagesForSitemap()->first();
+                }
             }
 
             // OGImageCustom

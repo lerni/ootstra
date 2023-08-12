@@ -12,6 +12,8 @@ use SilverStripe\ORM\DataObject;
 use SilverStripe\View\ArrayData;
 use SilverStripe\Forms\EmailField;
 use SilverStripe\Control\Controller;
+use SilverStripe\Forms\LiteralField;
+use SilverStripe\Forms\RequiredFields;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\View\Parsers\URLSegmentFilter;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
@@ -62,11 +64,6 @@ class Perso extends DataObject
         'Lastname' => 'Nachname'
     ];
 
-    private static $searchable_fields = [
-        'Firstname',
-        'Lastname'
-    ];
-
     private static $translate = [
         'Position',
         'Motivation'
@@ -108,6 +105,7 @@ class Perso extends DataObject
         // $fields->insertAfter($MAuploadField, 'Title');
         $fields->insertBefore($MAuploadField, 'Motivation');
 
+        // hack around unsaved relations
         if ($this->isInDB()) {
             $fields
                 ->fieldByName('Root.Departments.Departments')
@@ -116,22 +114,20 @@ class Perso extends DataObject
                     GridFieldEditButton::class,
                     GridFieldAddNewButton::class
                 ]);
-        }
 
-        $SocialConf = GridFieldConfig_Base::create(20);
-        $SocialConf->removeComponentsByType([
-            GridFieldFilterHeader::class
-        ]);
-        $SocialConf->addComponents(
-            new GridFieldEditButton(),
-            new GridFieldDeleteAction(false),
-            new GridFieldDetailForm(),
-            new GridFieldAddNewButton('toolbar-header-right')
-        );
-        if ($this->isInDB()) {
-            $SocialConf->addComponents(
-                new GridFieldOrderableRows('SortOrder')
-            );
+                $SocialConf = GridFieldConfig_Base::create(20);
+                $SocialConf->removeComponentsByType([
+                    GridFieldFilterHeader::class
+                ]);
+                $SocialConf->addComponents(
+                    new GridFieldEditButton(),
+                    new GridFieldDeleteAction(false),
+                    new GridFieldDetailForm(),
+                    new GridFieldAddNewButton('toolbar-header-right'),
+                    new GridFieldOrderableRows('SortOrder')
+                );
+        } else {
+            $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
         }
 
         return $fields;
@@ -185,5 +181,13 @@ class Perso extends DataObject
                 return $link;
             }
         }
+    }
+
+    public function getCMSValidator()
+    {
+        return new RequiredFields([
+            'Firstname',
+            'Lastname'
+        ]);
     }
 }

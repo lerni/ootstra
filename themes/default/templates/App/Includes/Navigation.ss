@@ -5,11 +5,11 @@
 			<% loop $Menu(1) %>
 				<li class="$LinkingMode<% if $Childrenexcluded %> has-children<% end_if %><% if $LinkingMode == section %> expanded<% end_if %>">
 					<a href="$Link">$MenuTitle.XML</a>
-					<% if $Childrenexcluded %><span class="trigger"></span>
+					<% if $Childrenexcluded %><span class="trigger"><span></span></span>
 						<ul class="menu2">
 							<% loop $Childrenexcluded %>
 								<li class="$LinkingMode">
-									<a class="$LinkingMode" href="$Link">$MenuTitle</a>
+									<a href="$Link">$MenuTitle</a>
 								</li>
 							<% end_loop %>
 						</ul>

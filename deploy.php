@@ -55,6 +55,16 @@ set('timezone', function () {
     return DEP_TIMEZONE;
 });
 
+// Server user
+set('remote_user', function () {
+    if (!defined('DEP_SERVER_USER')) {
+        writeln("<error>Please define DEP_SERVER_USER in deploy/config.php</error>");
+        exit;
+    }
+
+    return DEP_SERVER_USER;
+});
+
 // Number of releases to keep
 set('keep_releases', 5);
 
@@ -90,16 +100,6 @@ set('bin/composer', function () {
 set('http_user', DEP_SERVER_USER);
 set('default_timeout', 600); // default is 300 - sspak sometimes needs more. With this we at least see the truncated (size-limit) error :(
 
-// Server user
-set('remote_user', function () {
-    if (!defined('DEP_SERVER_USER')) {
-        writeln("<error>Please define DEP_SERVER_USER in deploy/config.php</error>");
-        exit;
-    }
-
-    return DEP_SERVER_USER;
-});
-
 host('live')
     ->set('labels', ['stage' => 'live'])
     ->set('hostname', DEP_SERVER)
@@ -133,11 +133,9 @@ desc('Deploy your project');
 task('deploy', function () {
     invoke('deploy:prepare');
     invoke('silverstripe:installtools');
-    // invoke('deploy:release');
     invoke('deploy:update_code');
     invoke('silverstripe:create_dotenv');
     invoke('deploy:shared');
-    invoke('deploy:writable');
     invoke('deploy:vendors');
     invoke('silverstripe:vendor_expose');
     invoke('silverstripe:remote_dump');

@@ -87,9 +87,9 @@
 					top: 100%;
 					padding: #{math.div($lh, 3) * 2}em 0;
 					&::after {
-						background-color: $gold;
+						background-color: rgba($white, 1);
 						bottom: 0;
-						box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);
+						box-shadow: 0 1em 1em rgba(0, 0, 0, .1);
 						content: "";
 						left: -100vw;
 						right: -100vw;
@@ -99,9 +99,6 @@
 						opacity: 0;
 						transition: opacity 0.1s linear;
 					}
-					// @include breakpoint($Mneg) {
-					// 	padding: #{math.div($lh, 3)}em 0 0 0;
-					// }
 					li {
 						height: 0;
 						transition: height linear 0.1s;
@@ -183,7 +180,7 @@
 				}
 			}
 			// values need to be passed in px
-			@include burger(63px, 4px, 12px, $text-color, 20px);
+			@include burger(56px, 4px, 12px, $text-color, 20px);
 		}
 	}
 }
@@ -223,29 +220,60 @@ html.mobile-nav--active {
 					flex-wrap: wrap;
 					gap: #{$lh}em;
 					padding-left: 0;
-					font-size: 1.1em;
 					> li {
+						flex-wrap: wrap;
 						flex: 1 0 auto;
-						min-width: 280px;
-						flex-direction: column;
+						width: 100%;
+						flex-direction: row;
 						margin: 0 0 auto 0;
 						> a {
-							padding-bottom: #{math.div($lh, 2)}em;
+							padding-bottom: 0;
+							line-height: $lh;
+							flex: 1 0 auto;
 							&::after {
 								display: none;
 							}
 						}
-						ul.menu2 {
-							visibility: visible;
-							position: inherit;
-							padding: 0 0 0 #{math.div($lh, 2)}em;
-							&::after {
-								display: none;
+						.trigger {
+							width: #{$lh*2}em;
+							display: flex;
+							flex-direction: column;
+							justify-content: center;
+							cursor: pointer;
+							>span {
+								height: 100%;
+								background-image: svg-load("../images/svg/arrow-down.svg", stroke=#{$text-color}, stroke-width=20);
+								background-size: auto 0.7em;
+								background-repeat: no-repeat;
+								background-position: center;
+								transition: transform 0.1s linear;
+								transform: rotate(-90deg);
 							}
-							li {
-								height: inherit;
-								a {
-									@include normal;
+						}
+						&.has-children {
+							ul.menu2 {
+								display: none;
+								flex: 0 0 100%;
+								position: inherit;
+								padding: #{math.div($lh, 2)}em 0 0 #{math.div($lh, 2)}em;
+								&::after {
+									display: none;
+								}
+								li {
+									height: inherit;
+									a {
+										@include normal;
+										line-height: $lh;
+									}
+								}
+							}
+							&.expanded {
+								.trigger >span {
+									transform: rotate(0deg);
+								}
+								ul.menu2 {
+									visibility: visible;
+									display: flex;
 								}
 							}
 						}

@@ -1,7 +1,5 @@
 @use "sass:math";
 
-$labelfontsize: $font-size--small;
-
 form {
 	&#Form_Form {
 		padding: 0px 0 50px 0;
@@ -131,7 +129,7 @@ form {
 				&.left {
 					display: block;
 					font-weight: normal;
-					font-size: $labelfontsize;
+					font-size: $font-size--small;
 				}
 				&.required {
 					display: none !important;
@@ -198,7 +196,7 @@ form {
 			}
 			&.dropdown .middleColumn select {
 				@include dropdown;
-				// font-size: $labelfontsize;
+				// font-size: $font-size--small;
 				// line-height: 1.5;
 			}
 			&.hide {
@@ -210,7 +208,7 @@ form {
 					position: relative;
 					label {
 						padding-left: #{$lh}em;
-						font-size: $labelfontsize;
+						font-size: $font-size--small;
 					}
 					input[type="radio"] {
 						position: absolute;
@@ -253,7 +251,7 @@ form {
 				}
 			}
 			.right-title {
-				font-size: $labelfontsize;
+				font-size: $font-size--small;
 			}
 		}
 		fieldset.field {
@@ -281,7 +279,7 @@ form {
 	}
 	body &.userform .left {
 		@include normal;
-		font-size: $labelfontsize;
+		font-size: $font-size--small;
 	}
 }
 
@@ -353,7 +351,7 @@ form {
 }
 
 .checkbox label.right {
-	font-size: $labelfontsize;
+	font-size: $font-size--small;
 	color: $text-color;
 	float: left;
 }
@@ -392,7 +390,7 @@ form .checkbox label p {
 
 label.error,
 span.message {
-	font-size: $labelfontsize;
+	font-size: $font-size--small;
 	margin: 10px 0;
 	display: block;
 	clear: left;

@@ -4,11 +4,18 @@
 		<% include App/Includes/ElementTitle %>
 	<% if $isFullWidth && $ShowTitle %></div><% end_if %>
 	<% if $Teasers %>
-		<% if $Layout == "third" %>
-			<div class="teasers third">
+		<% if $ShowAsSlider %>
+			<% require themedCSS("dist/css/swiper") %>
+			<% require javascript("themes/default/dist/js/swiper.js") %>
+			<div class="swiper-container teaser" id="general-swiper-{$ID}">
+				<div class="swiper-wrapper teasers {$Layout}">
+		<% else %>
+			<div class="teasers {$Layout}">
+		<% end_if %>
+			<% if $Layout == "third" %>
 				<% loop $Teasers.Sort(TeaserSortOrder) %>
-					<% if $RelatedPageID %><a href="$RelatedPage.Link" <% else %><div <% end_if %>class="teaser">
-						<% if $Image %><figure><img <% if not $First %>loading="lazy" <% end_if %>width="$Image.FocusFillMax(340,170).Width()" height="$Image.FocusFillMax(340,170).Height()" src="$Image.FocusFillMax(340,170).URL" srcset="$Image.FocusFillMax(340,170).URL 1x, $Image.FocusFillMax(680,340).URL 2x" alt="$Title" /></figure><% end_if %>
+					<% if $RelatedPageID %><a href="$RelatedPage.Link" <% else %><div <% end_if %>class="teaser<% if $Up.Up.ShowAsSlider %> swiper-slide<% end_if %>">
+						<% if $Image %><figure><img <% if not $First %>loading="lazy" <% end_if %>width="$Image.FocusFillMax(380,190).Width()" height="$Image.FocusFillMax(380,190).Height()" src="$Image.FocusFillMax(380,190).URL" srcset="$Image.FocusFillMax(380,190).URL 1x, $Image.FocusFillMax(680,340).URL 2x" alt="$Title" /></figure><% end_if %>
 						<div class="txt">
 							<% if $Title %><h3>$Title</h3><% end_if %>
 							<% if $Text %>$Text.Markdowned<% end_if %>
@@ -16,13 +23,11 @@
 						<% if $RelatedPageID %><span class="link forth"><% if $Action %>{$Action}<% else %><%t App\Models\Teaser.MORE "Learn more" %><% end_if %></span><% end_if %>
 					<% if $RelatedPageID %></a><% else %></div><% end_if %>
 				<% end_loop %>
-			</div>
-		<% end_if %>
-		<% if $Layout == "halve" %>
-			<div class="teasers halve">
+			<% end_if %>
+			<% if $Layout == "halve" %>
 				<% loop $Teasers.Sort(TeaserSortOrder) %>
-					<% if $RelatedPageID %><a href="$RelatedPage.Link" <% else %><div <% end_if %>class="teaser $Layout">
-						<% if $Image %><figure><img <% if not $First %>loading="lazy" <% end_if %>width="$Image.FocusFillMax(480,400).Width()" height="$Image.FocusFillMax(480,400).Height()" src="$Image.FocusFillMax(480,400).URL" srcset="$Image.FocusFillMax(480,400).URL 1x, $Image.FocusFillMax(960,800).URL 2x" alt="$Title" /></figure><% end_if %>
+					<% if $RelatedPageID %><a href="$RelatedPage.Link" <% else %><div <% end_if %>class="teaser<% if $Up.Up.ShowAsSlider %> swiper-slide<% end_if %>">
+						<% if $Image %><figure><img <% if not $First %>loading="lazy" <% end_if %>width="$Image.FocusFillMax(600,500).Width()" height="$Image.FocusFillMax(600,500).Height()" src="$Image.FocusFillMax(600,500).URL" srcset="$Image.FocusFillMax(600,500).URL 1x, $Image.FocusFillMax(1200,1000).URL 2x" alt="$Title" /></figure><% end_if %>
 						<div class="txt">
 							<% if $Title %><h3>$Title</h3><% end_if %>
 							<div class="accordion">
@@ -32,13 +37,11 @@
 						</div>
 					<% if $RelatedPageID %></a><% else %></div><% end_if %>
 				<% end_loop %>
-			</div>
-		<% end_if %>
-		<% if $Layout == "full" %>
-			<div class="teasers full">
+			<% end_if %>
+			<% if $Layout == "full" %>
 				<% loop $Teasers.Sort(TeaserSortOrder) %>
-					<% if $RelatedPageID %><a href="$RelatedPage.Link" <% else %><div <% end_if %>class="teaser $Layout">
-						<% if $Image %><figure><img <% if not $First %>loading="lazy" <% end_if %>width="$Image.FocusFillMax(1400,600).Width()" height="$Image.FocusFillMax(1400,600).Height()" src="$Image.FocusFillMax(1400,600).URL" srcset="$Image.FocusFillMax(1400,600).URL 1x, $Image.FocusFillMax(2800,1200).URL 2x" alt="$Title" /></figure><% end_if %>
+					<% if $RelatedPageID %><a href="$RelatedPage.Link" <% else %><div <% end_if %>class="teaser<% if $Up.Up.ShowAsSlider %> swiper-slide<% end_if %>">
+						<% if $Image %><figure><img <% if not $First %>loading="lazy" <% end_if %>width="$Image.FocusFillMax(1400,700).Width()" height="$Image.FocusFillMax(1400,700).Height()" src="$Image.FocusFillMax(1400,700).URL" srcset="$Image.FocusFillMax(1400,700).URL 1x, $Image.FocusFillMax(2800,1400).URL 2x" alt="$Title" /></figure><% end_if %>
 						<div class="txt">
 							<% if $Title %><h3>$Title</h3><% end_if %>
 							<div class="accordion">
@@ -48,7 +51,12 @@
 						</div>
 					<% if $RelatedPageID %></a><% else %></div><% end_if %>
 				<% end_loop %>
+			<% end_if %>
+		<% if $ShowAsSlider %>
 			</div>
+		</div>
+		<% else %>
+		</div>
 		<% end_if %>
 	<% end_if %>
 </div>

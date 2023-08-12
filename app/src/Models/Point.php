@@ -5,6 +5,7 @@ namespace App\Models;
 use BetterBrief\GoogleMapField;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Core\Config\Config;
+use SilverStripe\Forms\RequiredFields;
 use SilverStripe\ORM\FieldType\DBHTMLText;
 
 class Point extends DataObject
@@ -88,5 +89,12 @@ class Point extends DataObject
     public function canView($member = null)
     {
         return true;
+    }
+
+    public function getCMSValidator()
+    {
+        return new RequiredFields([
+            'Title'
+        ]);
     }
 }

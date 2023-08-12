@@ -47,11 +47,6 @@ class Location extends DataObject
         'Telephone' => 'Telefon',
     ];
 
-    private static $searchable_fields = [
-        'Title',
-        'Town'
-    ];
-
     private static $translate = [
         'Title'
     ];

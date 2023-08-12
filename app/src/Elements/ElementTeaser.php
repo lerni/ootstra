@@ -17,7 +17,8 @@ use SilverStripe\Forms\LiteralField;
 class ElementTeaser extends BaseElement
 {
     private static $db = [
-        'Layout' => 'Enum("third,halve,full", "third")'
+        'Layout' => 'Enum("third,halve,full", "third")',
+        'ShowAsSlider' => 'Boolean'
     ];
 
     private static $has_one = [];
@@ -34,15 +35,18 @@ class ElementTeaser extends BaseElement
         ]
     ];
 
-    private static $field_labels = [
-        'Title' => 'Titel',
-    ];
-
     private static $table_name = 'ElementTeaser';
 
     private static $title = 'Teaser Element';
 
     private static $icon = 'font-icon-block-layout-2';
+
+    public function fieldLabels($includerelations = true)
+    {
+        $labels = parent::fieldLabels($includerelations);
+        $labels['ShowAsSlider'] = _t(__CLASS__ . '.SHOWASSLIDER', 'Show as slider');
+        return $labels;
+    }
 
     function getCMSFields()
     {

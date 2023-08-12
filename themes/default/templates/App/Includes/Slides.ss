@@ -1,5 +1,5 @@
 <% if $Slides %>
-	<div class="swiper-container hero hero--{$Size}<% if $DoNotCrop %> do-not-crop<% end_if %>" data-id="{$ID}" id="hero-swiper-{$ID}">
+	<div class="swiper-container hero hero--{$HeroSize}<% if $DoNotCrop %> do-not-crop<% end_if %>" data-id="{$ID}" id="hero-swiper-{$ID}">
 		<div class="swiper-wrapper hero">
 			<% loop $Slides.Sort('SortOrder') %>
 				<% if $SlideImage || $EmbedVideo %>
@@ -28,7 +28,7 @@
 									$SlideImage.FocusFillMax(2000,903).URL 2000w,
 									$SlideImage.FocusFillMax(2600,1174).URL 2600w<% end_if %>" />
 							</figure>
-						<% else_if $Up.Up.Size == "small" %>
+						<% else_if $Up.Up.HeroSize == "small" %>
 							<figure <% if $LinkID %>class="linked"<% end_if %>><img sizes="100vw"
 								height="$SlideImage.FocusFillMax(1440,360).Height()"
 								width="$SlideImage.FocusFillMax(1440,360).Width()"
@@ -47,7 +47,7 @@
 									$SlideImage.FocusFillMax(2000,500).URL 2000w,
 									$SlideImage.FocusFillMax(2600,650).URL 2600w<% end_if %>" />
 							</figure>
-						<% else_if $Up.Up.Size == "medium" %>
+						<% else_if $Up.Up.HeroSize == "medium" %>
 							<figure <% if $LinkID %>class="linked"<% end_if %>><img sizes="100vw"
 								height="$SlideImage.FocusFillMax(1440,650).Height()"
 								width="$SlideImage.FocusFillMax(1440,650).Width()"
@@ -66,7 +66,7 @@
 									$SlideImage.FocusFillMax(2000,903).URL 2000w,
 									$SlideImage.FocusFillMax(2600,1174).URL 2600w<% end_if %>" />
 							</figure>
-						<% else_if $Up.Up.Size == "fullscreen" %>
+						<% else_if $Up.Up.HeroSize == "fullscreen" %>
 							<figure><picture>
 								<%-- 8:5 is like macbook pro display--%>
 								<source media="(min-width: 640px) and (min-aspect-ratio: 8/5)"

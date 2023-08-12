@@ -10,11 +10,16 @@
 // on the info entered below
 
 .element.elementperso {
-	$pad: 20px; // enter desired padding between images
-	$img-width: 305px; // enter max-width of images
-	$min-per-row: 1; // enter minimum items per row
-	$max-per-row: 4; // enter maximum items per row
+	$pad: 28px; // desired padding between images
+	$img-width: 305px; // max-width of images
+	$min-per-row: 1; // minimum items per row
+	$max-per-row: 4; // maximum items per row
 	$transition-time: 0.3s;
+	&,
+	.typography {
+		display: flex;
+		width: 100%;
+	}
 
 	@mixin mq($min-width, $max-width) {
 		@if $min-width and $max-width {
@@ -38,7 +43,6 @@
 	.expandable-grid {
 		width: 100%;
 		float: left;
-		margin-bottom: #{$lh}em;
 		// overflow: hidden;
 	}
 
@@ -47,6 +51,7 @@
 		position: relative;
 		z-index: 0;
 		margin: 0 $pad 0 0;
+		scroll-margin-top: $headerheight;
 		// loop through instances of no. of items per row
 		@for $i from $max-per-row through $min-per-row {
 			// init vars
@@ -105,11 +110,6 @@
 				visibility: visible;
 				opacity: 1;
 			}
-			& .txt {
-				> span:hover::after {
-					padding-left: 4em;
-				}
-			}
 		}
 
 		&.is--expanded {
@@ -137,7 +137,7 @@
 			bottom: -3px;
 			top: -1px;
 			transform: translateY(100%);
-			padding: 0.5em 0.5em 0.1em;
+			padding: 0.1em;
 			background-color: rgba($white, 0.92);
 			opacity: 0;
 			margin-bottom: -0.25em;
@@ -149,7 +149,7 @@
 			flex-direction: column;
 			h2 {
 				flex: 0 0 auto;
-				margin-bottom: 0.3em;
+				margin-bottom: auto;
 				font-size: 1em;
 				letter-spacing: 0.06em;
 			}
@@ -160,7 +160,6 @@
 				font-size: 0.9em;
 			}
 			> span {
-				margin-top: auto;
 				flex: 0 0 auto;
 			}
 		}

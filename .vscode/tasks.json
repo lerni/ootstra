@@ -82,7 +82,7 @@
     {
       "label": "docker compose up",
       "type": "shell",
-      "command": "docker-compose up",
+      "command": "docker-compose up --force-recreate",
       "group": "build",
       "isBackground": true,
       "presentation": {

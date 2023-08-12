@@ -2,7 +2,7 @@
 <% include App/Includes/Header %>
 <% include App/Includes/Navigation %>
 <main class="typography">
-	<nav class="breadcrumbs"><div class="typography horizontal-spacing">{$Breadcrumbs}</div></nav>
+	<nav class="breadcrumbs"><div class="inner">{$Breadcrumbs}</div></nav>
 	<article class="element elementperso horizontal-spacing spacing-top-0 spacing-bottom-2 after-hero">
 		<div class="typography">
 			<% with $Perso %>

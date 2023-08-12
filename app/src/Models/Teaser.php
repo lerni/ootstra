@@ -6,6 +6,7 @@ use SilverStripe\Assets\Image;
 use App\Elements\ElementTeaser;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\CMS\Model\SiteTree;
+use SilverStripe\Forms\RequiredFields;
 use SilverStripe\Forms\TreeDropdownField;
 use SilverStripe\Versioned\GridFieldArchiveAction;
 use SilverStripe\Forms\GridField\GridFieldDataColumns;
@@ -105,5 +106,12 @@ class Teaser extends DataObject
         }
 
         return $fields;
+    }
+
+    public function getCMSValidator()
+    {
+        return new RequiredFields([
+            'Title'
+        ]);
     }
 }

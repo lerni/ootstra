@@ -4,19 +4,19 @@
 	<% include App/Includes/ElementTitle %>
 	<% if $Everybody %>
 		<% if $Sorting == "random" %>
-			<article class="expandable-grid persos">
+			<div class="expandable-grid persos">
 			<% loop $Everybody.sort('RAND()') %>
-				<% include App/Includes/PersoItem ElementID=$Top.ID, Element=$Top %>
+				<% include App/Includes/PersoItem Element=$Top %>
 			<% end_loop %>
-			</article>
+			</div>
 		<% else %>
 			<% loop $Departments.Sort("Sort") %>
 				<h2>$Title</h2>
-				<article class="expandable-grid persos">
+				<div class="expandable-grid persos">
 				<% loop $Persos.sort('SortOrder') %>
-					<% include App/Includes/PersoItem ElementID=$Top.ID, Element=$Top %>
+					<% include App/Includes/PersoItem Element=$Top %>
 				<% end_loop %>
-				</article>
+				</div>
 			<% end_loop %>
 		<% end_if %>
 	<% end_if %>

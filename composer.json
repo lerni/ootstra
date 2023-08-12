@@ -6,10 +6,6 @@
 	"repositories": [
 		{
 			"type": "vcs",
-			"url": "https://github.com/lerni/silverstripe-sitetreeimporter"
-		},
-		{
-			"type": "vcs",
 			"url": "https://github.com/lerni/silverstripe-webp-image"
 		},
 		{
@@ -27,6 +23,10 @@
 		{
 			"type": "vcs",
 			"url": "https://github.com/lerni/silverstripe-embedfield"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/sunnysideup/silverstripe-share-care"
 		}
 	],
 	"require": {
@@ -48,8 +48,8 @@
 		"axllent/silverstripe-email-obfuscator": "^2",
 		"jonom/silverstripe-text-target-length": "^2",
 		"lerni/silverstripe-googleanalytics": "4.x-dev as 4.0",
-		"gorriecoe/silverstripe-robots": "^1",
-		"jonom/silverstripe-share-care": "^4",
+		"tractorcow/silverstripe-robots": "^4",
+		"jonom/silverstripe-share-care": "dev-patch-1",
 		"dorsetdigital/silverstripe-canonical": "^1",
 		"silverstripe/sharedraftcontent": "^2",
 		"dnadesign/silverstripe-elemental": "^4",
@@ -78,7 +78,6 @@
 	},
 	"require-dev": {
 		"deployer/deployer": "^7",
-		"silverstripe/sitetreeimporter": "dev-master",
 		"dnadesign/silverstripe-populate": "^2"
 	},
 	"extra": {

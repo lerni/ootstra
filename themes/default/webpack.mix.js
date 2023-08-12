@@ -43,6 +43,7 @@ mix
   .sass('src/scss/logo.scss', 'dist/css')
   .sass('src/scss/metaoverviewpage.scss', 'dist/css')
   .sass('src/scss/perso.scss', 'dist/css')
+  .sass('src/scss/persocfa.scss', 'dist/css')
 //  .sass('src/scss/perso-simple.scss', 'dist/css')
   .sass('src/scss/style.scss', 'dist/css')
   .sass('src/scss/teaser.scss', 'dist/css')

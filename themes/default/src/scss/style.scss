@@ -33,9 +33,9 @@ html {
 	overflow-y: scroll;
 	overflow-x: hidden;
 	scroll-behavior: smooth;
-	@include breakpoint($Lneg) {
-		font-size: #{$font-size * 0.9};
-	}
+	// @include breakpoint($Lneg) {
+	// 	font-size: #{$font-size * 0.9};
+	// }
 }
 
 body {
@@ -56,9 +56,9 @@ strong {
 	@include bold;
 }
 
-// #BetterNavigator {
-// 	display:none !important;
-// }
+#BetterNavigator {
+	display:none !important;
+}
 
 #header {
 	display: flex;
@@ -74,7 +74,7 @@ strong {
 	transition-timing-function: ease-out;
 	transform: translateY(0%);
 	box-shadow: none;
-	background-color: rgba($white, 0.97);
+	background-color: $white;
 	height: $headerheight;
 	@include breakpoint($Lneg) {
 		height: $headerheight--small;
@@ -778,7 +778,6 @@ p.cat-tag {
 .global-alert:not(.elementhero) {
 	background-color: $blue;
 	padding: #{math.div($lh, 2)}em 0;
-	margin-bottom: #{$lh}em;
 	.inner > * {
 		color: $white;
 		&:last-child {
@@ -934,7 +933,7 @@ html .klaro {
 				background-color: $red;
 			}
 			&:last-of-type {
-				background-color: mix($darkblue, $gray--light, 70%);
+				background-color: mix($blue, $gray--light, 70%);
 			}
 			&:not(:last-of-type) {
 				margin-right: #{$lh}em;

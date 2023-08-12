@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Models\Perso;
 use App\Elements\ElementPerso;
 use SilverStripe\ORM\DataObject;
+use SilverStripe\Forms\LiteralField;
+use SilverStripe\Forms\RequiredFields;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\View\Parsers\URLSegmentFilter;
 use SilverStripe\Forms\GridField\GridFieldPageCount;
@@ -68,29 +70,23 @@ class Department extends DataObject
             'PersoElement'
         ]);
 
-        $PersoGFConfig = GridFieldConfig_RecordEditor::create(20);
-        $PersoGFConfig->removeComponentsByType(GridFieldPageCount::class);
-        $PersoGFConfig->removeComponentsByType(GridFieldAddNewButton::class);
-
-        $PersoGFConfig->addComponents(
-            new GridFieldDeleteAction(true),
-            new GridFieldAddNewButton('toolbar-header-right')
-        );
-
         // hack around unsaved relations
         if ($this->isInDB()) {
+            $PersoGFConfig = GridFieldConfig_RecordEditor::create(100);
+            $PersoGFConfig->removeComponentsByType(GridFieldPageCount::class);
+            $PersoGFConfig->removeComponentsByType(GridFieldAddNewButton::class);
+
             $PersoGFConfig->addComponents(
+                new GridFieldDeleteAction(true),
+                new GridFieldAddNewButton('toolbar-header-right'),
                 new GridFieldOrderableRows('SortOrder'),
                 new GridFieldAddExistingAutocompleter('toolbar-header-right')
             );
-            $PersoGFConfig->getComponentByType(GridFieldPaginator::class)->setItemsPerPage(100);
+            $GFPerso = new GridField('Persos', _t(__CLASS__ . '.PERSOS', 'Employees'), $this->Persos(), $PersoGFConfig);
+            $fields->push($GFPerso);
+        } else {
+            $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
         }
-
-        $GFPerso = new GridField('Persos', _t(__CLASS__ . '.PERSOS', 'Employees'), $this->Persos(), $PersoGFConfig);
-        $fields->push($GFPerso);
-
-        // $fields->addFieldToTab('Root.Main', LiteralField::create('PersosInDep', '<h2>Personen in ' . $this->Title . '</h2><p>' . $this->PersoString() . '</p>'));
-        // $fields->addFieldToTab('Root.Main', LiteralField::create('DescDeleteIfEmptyOnly', '<p><strong>Nur Abteilungen ohne Personen können gelöscht werden!</strong></p>'));
 
         return $fields;
     }
@@ -105,11 +101,6 @@ class Department extends DataObject
         }
     }
 
-    // public function onBeforeWrite() {
-    // 	$this->generateURLSegment();
-    // 	parent::onBeforeWrite();
-    // }
-
     public function generateURLSegment()
     {
         $filter = new URLSegmentFilter();
@@ -123,5 +114,12 @@ class Department extends DataObject
             $dep = implode(", ", $dep);
             return $dep;
         }
+    }
+
+    public function getCMSValidator()
+    {
+        return new RequiredFields([
+            'Title'
+        ]);
     }
 }

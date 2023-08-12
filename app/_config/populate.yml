@@ -3,5 +3,8 @@ DNADesign\Populate\Populate:
     - App\Models\ElementPage
     - DNADesign\Elemental\Models\ElementalArea
     - DNADesign\Elemental\Models\ElementContent
+    - App\Models\Point
+    - App\Models\Location
+    - SilverStripe\SiteConfig\SiteConfig
   include_yaml_fixtures:
     - 'app/fixtures/populate.yml'

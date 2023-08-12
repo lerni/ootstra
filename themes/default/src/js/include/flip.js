@@ -1,19 +1,13 @@
 (function() {
-
   const headings = document.querySelectorAll('h1.flip, h2.flip, h3.flip');
 
-  Array.prototype.forEach.call(headings, definitionTitle => {
-
-    let btn = definitionTitle.querySelector('button');
-    let target = definitionTitle.nextElementSibling;
+  Array.prototype.forEach.call(headings, title => {
+    let btn = title.querySelector('button');
+    let target = title.nextElementSibling;
 
     btn.onclick = (event) => {
-
-      // bail-out if clicked element doesn't have .flip class
-      if (!event.target.classList.contains('flip')) return;
-
       let expanded = btn.getAttribute('aria-expanded') === 'true';
-      let heading = definitionTitle.id;
+      let heading = title.id;
       let hash = window.location.hash.substr(1);
 
       btn.setAttribute('aria-expanded', !expanded);
@@ -27,17 +21,16 @@
       }
     }
   });
-
   // open per hash
   document.addEventListener('DOMContentLoaded', function(event) {
     let hash = window.location.hash.substr(1);
 
     if (hash) {
-      Array.prototype.forEach.call(headings, definitionTitle => {
-        let btn = definitionTitle.querySelector('button');
-        let target = definitionTitle.nextElementSibling;
+      Array.prototype.forEach.call(headings, title => {
+        let btn = title.querySelector('button');
+        let target = title.nextElementSibling;
 
-        if (hash === definitionTitle.id) {
+        if (hash === title.id) {
           btn.setAttribute('aria-expanded', 'true')
           target.removeAttribute('hidden')
           btn.focus()
@@ -45,5 +38,4 @@
       });
     }
   });
-
 })();

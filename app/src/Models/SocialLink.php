@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use SilverStripe\ORM\DataObject;
+use SilverStripe\Forms\RequiredFields;
 
 class SocialLink extends DataObject
 {
@@ -54,7 +55,7 @@ class SocialLink extends DataObject
         $labels = parent::fieldLabels($includerelations);
         $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Title');
         $labels['IconName'] = _t(__CLASS__ . '.ICONNAME', 'Icon name');
-        $labels['sameAs'] = _t(__CLASS__ . '.sameAs', '"sameAs" in schema verwenden');
+        $labels['sameAs'] = _t(__CLASS__ . '.SAMEAS', '"sameAs" use in schema');
 
         return $labels;
     }
@@ -65,20 +66,17 @@ class SocialLink extends DataObject
 
         if ($TitleField = $fields->dataFieldByName('IconName')) {
             $feathericonURL = 'https://feathericons.com/';
-            $TitleField->setDescription(_t(__CLASS__ . '.IconNameDescription', 'Just use names from <a href="{link}" target="_blank">{link}</a>!', [ 'link' => $feathericonURL ]));
+            $TitleField->setDescription(_t(__CLASS__ . '.IconNameDescription', 'Icon names from <a href="{link}" target="_blank">{link}</a>!', [ 'link' => $feathericonURL ]));
         }
 
         return $fields;
     }
 
-    public function validate()
+    public function getCMSValidator()
     {
-        $result = parent::validate();
-
-        if (!$this->Title) {
-            $result->addError('Title ist zwingend erforderlich!');
-        }
-
-        return $result;
+        return new RequiredFields([
+            'Title',
+            'IconName'
+        ]);
     }
 }

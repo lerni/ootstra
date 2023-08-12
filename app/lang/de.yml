@@ -12,6 +12,7 @@ de:
     FIRSTLINKACTION: 'Text link parent (first)'
     HowText: 'Es werden Unterseiten (Kinder) der gewählten Seiten (Eltern/Holders) z.B. News mit den gewählten Kategorien angeteasert. Bild & Text kann auf jeweiligen Seiten im Tab "Feeds & Share" gewählt werden.'
     HowTitle: 'Was wird angezeigt?'
+    SHOWASSLIDER: 'Als Slider anzeigen'
   App\Elements\ElementGallery:
     ALIGNMENT: 'Ausrichtung (flex)'
     BlockType: Gallery
@@ -21,11 +22,11 @@ de:
     OneOrTheOther: 'Bilder per Ordner (alle enthaltenen) oder einzeln wählen & sortieren'
   App\Elements\ElementHero:
     BlockType: Hero
-    DONOTCROP: 'Höhe nicht begrenzen'
     SITEMAPIMAGEEXPOSE: 'Bilder in sitemap.xml zeigen'
-    DoNotCropDescription: 'Keine maximale Höhe für Grösse/Höhe "small" und "medium"'
-    SIZE: 'Grösse/Höhe Header'
-    SizeDescription: 'medium entspricht 16:9, "fullscreen" erfordert "full width"!'
+    DONOTCROP: 'Höhe nicht begrenzen'
+    DoNotCropDescription: 'Keine maximale Höhe für breite viewports → "small" & "medium"'
+    HEROSIZE: 'Grösse/Höhe Header'
+    HeroSizeDescription: 'medium entspricht 16:9, "fullscreen" erfordert "full width"!'
   App\Elements\ElementLogo:
     BlockType: 'Logos (Partner)'
   App\Elements\ElementMaps:
@@ -56,6 +57,7 @@ de:
     SINGULARNAME: Contact
   App\Elements\ElementTeaser:
     BlockType: Teaser
+    SHOWASSLIDER: 'Als Slider anzeigen'
   App\Elements\ElementTextImage:
     BlockType: 'Text Bild'
     ELEMENTLAYOUT: 'Anordnung links...'
@@ -76,6 +78,7 @@ de:
       other: '{count} Content Parts'
     SINGULARNAME: 'Content Part'
     TITLE: Titel
+    TitleRequired: 'Titel ist erforderlich!'
     FAQTITLE: 'Titel/Frage'
     FAQTitleDescription: 'Übersteuert "Titel" für FAQ Schema'
     DEFAULTOPEN: 'Beim Laden öffnen'
@@ -90,11 +93,11 @@ de:
     TITLE: Titel
     VALUE: Wert
   App\Models\Department:
-    PLURALNAME: departments
+    PLURALNAME: Abteilungen
     PLURALS:
-      one: 'A department'
-      other: '{count} departments'
-    SINGULARNAME: department
+      one: 'Eine Abteilung'
+      other: '{count} Abteilungen'
+    SINGULARNAME: Abteilung
     TITLE: Titel
   App\Models\ElementPage:
     DESCRIPTION: 'Erlaubt modulare Inhaltskomposition mit Elementen'
@@ -168,6 +171,7 @@ de:
     TEXT: 'Claim auf Bild'
     TEXTALIGNMENT: 'Anordnung Text'
     TITLE: Titel
+    TitleRequired: 'Titel ist erforderlich!'
     IsUsedOnComment: 'Slide wird in folgenden Elementen verwendet'
   App\Models\SocialLink:
     PLURALNAME: Social-Links
@@ -175,9 +179,11 @@ de:
       one: 'A Social-Link'
       other: '{count} Social-Links'
     SINGULARNAME: Social-Link
-    TITLE: Title
-    IconNameDescription: 'Namen der Icons von <a href="{link}" target="_blank">{link}</a>!'
-    sameAs: '"sameAs" in schema verwenden'
+    TITLE: Titel
+    ICONNAME: 'Icon Name'
+    IconNameDescription: 'Namen Icons von <a href="{link}" target="_blank">{link}</a>!'
+    SAMEAS: '"sameAs" in schema verwenden'
+    TitleRequired: 'Titel ist erforderlich!'
   App\Models\Teaser:
     ImageDescription: 'min. 600x600px'
     MORE: 'Mehr&nbsp;erfahren'
@@ -217,7 +223,7 @@ de:
     SITETAGLINE: 'Claim / Beschreibung'
     SortImpact: 'Die "Location" an 1. Stelle wird im Footer angezeigt. Für "Schemadaten" werden alle verwendet.'
     DEFAULTHEADERSLIDES: 'Default Hero wird angezeigt, falls kein Hero in ElementPage'
-    DEFAULTHEADERSIZE: 'Grösse default Hero'
+    DEFAULTHEROSIZE: 'Grösse default Hero'
     FOUNDINGDATE: 'Gründungsdatum'
     LEGALNAME: 'Offizieller Name (rechtlich)'
     METADESCRIPTION: 'Meta Description'
