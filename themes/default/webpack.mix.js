@@ -57,7 +57,7 @@ mix
 // Glob loading for SASS ("@import dir/**/*.scss")
 mix.webpackConfig({
   module: {
-    rules: [{ test: /\.scss$/, loader: 'import-glob-loader' }]
+    rules: [{ test: /\.scss$/, loader: 'glob-import-loader' }]
   }
 });
 
@@ -89,14 +89,21 @@ mix.webpackConfig({
 // });
 
 // Configure browsersync
-const sitepath = path.join(__dirname, '/../../');
-const parent = path.basename(path.join(sitepath, '../'));
-if (parent === 'webroot') {
-  mix.browserSync({
-    files: ['dist/**/*', 'templates/**/*'],
-    proxy: `http://localhost:8080`
-  });
-}
+const url = process.env.DDEV_HOSTNAME;
+mix.browserSync({
+  files: [
+    'dist/**/*',
+    'templates/**/*'
+  ],
+  ignore: [
+    'dist/images/.gitkeep',
+    'dist/webfonts/.gitkeep'
+  ],
+  proxy: 'localhost',
+  host: url,
+  open: false,
+  ui: false
+});
 
 // Remove stale assets from folders which are blindly copied
 mix.webpackConfig({
@@ -125,7 +132,8 @@ mix.webpackConfig({
       {
         patterns: [
           {
-            from: 'src/images', to: 'dist/images',
+            from: 'src/images',
+            to: 'dist/images',
             globOptions: {
               dot: true,
               gitignore: true,

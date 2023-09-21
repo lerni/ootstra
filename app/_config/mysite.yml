@@ -1,7 +1,6 @@
 ---
 Name: app
 After:
-  - 'framework'
   - 'mysharecare'
   - 'blogconfig'
 ---
@@ -68,9 +67,11 @@ SilverStripe\Forms\HTMLEditor\HTMLEditorField:
     stacked: stacked
 
 nathancox\EmbedField\Model\EmbedObject:
-  queryStringsFromConfig:
+  YTEnhancedPrivacy: true
+  YTEnhancedPrivacyLink: 'www.youtube-nocookie.com'
+  YTqueryStringsDefaults:
     - rel: 0
-    - controls: 0
+    - controls: 1
     - showinfo: 0
 
 Page:
@@ -126,7 +127,7 @@ SilverStripe\Blog\Model\BlogPost:
     - App\Elements\ElementFeedTeaser
     - App\Elements\ElementTextImage
     # - App\Elements\ElementPDFDocument
-    # - App\Elements\ElementLocalVideo
+    - App\Elements\ElementLocalVideo
     # - App\Elements\ElementIframe
     # - Kraftausdruck\Elements\ElementProduct
     # - Kraftausdruck\Elements\ElementCheckout
@@ -154,7 +155,7 @@ App\Models\ElementPage:
     - App\Elements\ElementFeedTeaser
     - App\Elements\ElementTextImage
     # - App\Elements\ElementPDFDocument
-    # - App\Elements\ElementLocalVideo
+    - App\Elements\ElementLocalVideo
     # - App\Elements\ElementIframe
     # - Kraftausdruck\Elements\ElementProduct
     # - Kraftausdruck\Elements\ElementCheckout
@@ -267,7 +268,7 @@ TractorCow\Robots\Robots:
 
 # opt-in is status quo - no need to preconnect
 # Kraftausdruck\Extensions\PageTrackingExtension:
-#   preconnect: 'true'
+#   preconnect: true
 
 App\Controller\ElementPersoController:
   expose_vcards: true

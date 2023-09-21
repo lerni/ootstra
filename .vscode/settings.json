@@ -26,8 +26,9 @@
   "php.executablePath": "./docker/php",
   "php.validate.run": "onSave",
   "search.useIgnoreFiles": false,
-  "telemetry.enableTelemetry": false,
-  "intelephense.environment.phpVersion": "8.1.0",
+  "telemetry.telemetryLevel": "off",
+  "intelephense.environment.phpVersion": "8.2.8",
+  "intelephense.telemetry.enabled": false,
   "terminal.integrated.profiles.osx": {
     "zsh": {
         "path": "/bin/zsh",

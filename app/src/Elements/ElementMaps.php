@@ -75,7 +75,7 @@ class ElementMaps extends BaseElement
 
         if ($TextEditorField = $fields->dataFieldByName('HTML')) {
             $TextEditorField->setRows(16);
-            $TextEditorField->setAttribute('data-mce-body-class', $this->ShortClassName($this));
+            $TextEditorField->getEditorConfig()->setOption('body_class', 'typography '. $this->ShortClassName($this, true));
             $TextEditorField->setDescription(_t(__CLASS__ . '.HTMLFieldDescription', 'If content, it \'ll be shown side by side to "map"'));
         }
 

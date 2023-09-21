@@ -111,7 +111,13 @@ task('silverstripe:htaccessperstage', function() {
 	// upload htaccess, if a specific version for the current stage exist
     if(file_exists('deploy/' . $stage . '.htaccess')) {
         writeln('Overwriting .htaccess with deploy/' . $stage . '.htaccess');
-        upload('deploy/' . $stage . '.htaccess', "{{release_path}}/public/.htaccess", ['delete' => true]);
+        upload('deploy/' . $stage . '.htaccess', "{{release_path}}/public/.htaccess", [
+            'options' => [
+                "--perms",
+                "--delete",
+                "--chmod=605"
+            ]
+        ]);
     }
 })->desc('upload/replace .htaccess stage specific');
 
@@ -151,8 +157,8 @@ task('silverstripe:download_assets', function () {
     download('{{deploy_path}}/shared/public/assets/', 'public/assets', [
         'options' => [
             "--exclude={'error-*.html','_tinymce','.htaccess','.DS_Store','._*'}",
-            "--omit-dir-times",
-            "--delete"
+            "--delete",
+            "--bwlimit=4096" // for whatever reason, this is needed on some boxes to successfully download
         ]
     ]);
 });

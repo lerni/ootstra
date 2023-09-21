@@ -3,15 +3,12 @@
 namespace App\Models;
 
 use Page;
-use App\Elements\ElementHero;
-use SilverStripe\Assets\Image;
-use App\Elements\ElementGallery;
+
 use SilverStripe\Control\Director;
 use SilverStripe\Control\Controller;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\SiteConfig\SiteConfig;
 use App\Controller\ElementPageController;
-use DNADesign\Elemental\Extensions\ElementalPageExtension;
 
 class ElementPage extends Page
 {
@@ -71,46 +68,5 @@ class ElementPage extends Page
         }
 
         return $fields;
-    }
-
-    // overwriting this form GoogleSitemapSiteTreeExtension,
-    // since we do not want to get related pics in automatically
-    public function ImagesForSitemap()
-    {
-        $IDList = [];
-        if ($this->hasExtension(ElementalPageExtension::class)) {
-            // Images from Heroes
-            if ($elementHeros = $this->ElementalArea()->Elements()->filter('ClassName', ElementHero::class)) {
-                foreach ($elementHeros as $hero) {
-                    if ($hero->Slides()->count() && $hero->SitemapImageExpose) {
-                        if ($slides = $hero->Slides()->Sort('SortOrder ASC')) {
-                            foreach ($slides as $slide) {
-                                if ($slide->SlideImage->exists() && !$slide->SlideImage->NoFileIndex()) {
-                                    array_push($IDList, $slide->SlideImageID);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            // Images from ElementGallery
-            if ($elementGallery = $this->ElementalArea()->Elements()->filter('ClassName', ElementGallery::class)) {
-                foreach ($elementGallery as $gallery) {
-                    if ($gallery->Items()->count() && $gallery->SitemapImageExpose) {
-                        if ($images = $gallery->Items()) {
-                            foreach ($images as $image) {
-                                if ($image->exists() && !$image->NoFileIndex()) {
-                                    array_push($IDList, $image->ID);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        $IDList = array_unique($IDList);
-        if (count($IDList)) {
-            return Image::get()->filter(['ID' => $IDList]);
-        }
     }
 }

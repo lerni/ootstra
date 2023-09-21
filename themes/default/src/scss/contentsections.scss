@@ -4,15 +4,12 @@
 @import "~breakpoint-sass/stylesheets/breakpoint";
 
 .element.elementcontentsection {
-	$trigger-size: 1;
+	$trigger-size: .75;
 	$trigger-color: $text-color;
 	$spacing-factor: 1.5;
 	ul {
 		list-style: none;
 		padding-left: 0;
-		li {
-			scroll-margin-top: $headerheight;
-		}
 	}
 	.content-parts.accordion {
 		// border-bottom: 2px solid $text-color;
@@ -29,6 +26,7 @@
 			h2.flip,
 			h3.flip {
 				margin-bottom: 0;
+				scroll-padding-top: $headerheight;
 				// padding-right: #{math.div($trigger-size, 2) * $spacing-factor}em;
 				button {
 					display: flex;

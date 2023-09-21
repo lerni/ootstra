@@ -41,7 +41,7 @@ class EditableCheckboxTerms extends EditableFormField
                 $id = $siteConfig->CookieLinkPrivacyID;
             }
             if ($TitleField = $fields->dataFieldByName('Title')) {
-                $TitleField->setDescription(_t(__CLASS__ . '.DefaultTitle', 'I accept &lt;a rel=&quot;noopener noreferrer&quot; href=&quot;[sitetree_link,id={id}]&quot; target=&quot;_blank&quot;&gt;Terms and  Privacy policy&lt;/a&gt;.<br/><strong>{id}</strong> is the PageID which Klaro links.', ['id' => $id]));
+                $TitleField->setDescription(_t(__CLASS__ . '.DefaultDescription', 'I accept &lt;a rel=&quot;noopener noreferrer&quot; href=&quot;[sitetree_link,id={id}]&quot; target=&quot;_blank&quot;&gt;Terms and  Privacy policy&lt;/a&gt;.<br/><strong>{id}</strong> is the PageID which Klaro links.', ['id' => $id]));
             }
         });
 

@@ -252,7 +252,7 @@ de:
     RECIPIENTS: Empfänger
     SUBMISSIONS: Nachrichten
   Kraftausdruck\KlaroCookie:
-    MODALLINK: 'Cookies'
+    MODALLINK: 'Datenschutz-Einstellungen'
     Decline: 'Nur Notwendige'
   UndefinedOffset\NoCaptcha\Forms\NocaptchaField:
     ReCaptchaTermsTextStart: 'Diese Website ist durch reCAPTCHA geschützt und es gelten die'
@@ -260,4 +260,5 @@ de:
     ReCaptchaPrivacyPolicy: 'Datenschutzerklärung'
     ReCaptchaTermsOfService: 'Nutzungsbedingungen'
   App\Models\EditableFormField\EditableCheckboxTerms:
-    DefaultTitle: 'Ich akzeptiere die &lt;a rel=&quot;noopener noreferrer&quot; href=&quot;[sitetree_link,id={id}]&quot; target=&quot;_blank&quot;&gt;AGBs und Datenschutzbestimmungen&lt;/a&gt;.<br/><strong>{id}</strong> ist die PageID welche Klaro linkt.'
+    DefaultDescription: 'Ich akzeptiere &lt;a rel=&quot;noopener noreferrer&quot; href=&quot;[sitetree_link,id={id}]&quot; target=&quot;_blank&quot;&gt;AGBs und Datenschutzbestimmungen.<br/><strong>{id}</strong> ist die PageID welche Klaro linkt.'
+    DefaultTitle: 'Ich akzeptiere <a rel="noopener noreferrer" href="[sitetree_link,id={id}]" target="_blank">AGBs und Datenschutzbestimmungen</a>.'

@@ -73,7 +73,7 @@
 				$i1: $i + 1;
 				// divide spacing between items and subtract it with calc
 				width: calc(
-					#{math.div(100, $i)}% - #{math.div(($i - 1) * $pad, $i)}
+					#{percentage(math.div(1, $i))} - #{math.div(($i - 1) * $pad, $i)}
 				);
 				// inner loop to populate nth-of-types but not 1st
 				@for $j from 2 through $i1 {

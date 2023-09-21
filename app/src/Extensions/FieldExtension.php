@@ -11,6 +11,7 @@ use libphonenumber\PhoneNumberUtil;
 use libphonenumber\PhoneNumberFormat;
 use SilverStripe\SiteConfig\SiteConfig;
 use libphonenumber\NumberParseException;
+use nathancox\EmbedField\Model\EmbedObject;
 use SilverStripe\View\Parsers\URLSegmentFilter;
 use League\CommonMark\GithubFlavoredMarkdownConverter;
 
@@ -119,7 +120,8 @@ class FieldExtension extends Extension
 
     // Use {$Content.TrimEmbed} in template, for this to trigger
     // themes/default/templates/SilverStripe/View/Shortcodes/EmbedShortcodeProvider_video.ss
-    public function TrimEmbed() {
+    public function TrimEmbed()
+    {
         if ($vidSrc = $this->owner->value) {
 
             $dom = new DOMDocument();
@@ -148,28 +150,24 @@ class FieldExtension extends Extension
                     $params = [];
                 }
 
-                $queryStrings = [
-                    "rel" => 0,
-                    "controls" => 0,
-                    "showinfo" => 0
-                ];
+                $embedCFG = EmbedObject::config();
 
-                foreach ($queryStrings as $key => $value) {
-                    $params[$key] = $value;
+                $queryStrings = $embedCFG->get('YTqueryStringsDefaults');
+                if (is_array($queryStrings)) {
+                    foreach ($queryStrings as $key => $value) {
+                        $params[key($value)] = $value[key($value)];
+                    }
+                    $queryString =  http_build_query($params);
+                    $url_parts['query'] = $queryString;
                 }
 
-                $queryString =  http_build_query($params);
+                $YTEnhancedPrivacy = $embedCFG->get('YTEnhancedPrivacy');
+                if ($YTEnhancedPrivacy) {
+                    $YTEnhancedPrivacyLink = $embedCFG->get('YTEnhancedPrivacyLink');
+                    $url_parts['host'] = $YTEnhancedPrivacyLink;
+                }
 
-                $iFrameSrc = (isset($url_parts['scheme']) ? "{$url_parts['scheme']}:" : '') .
-                    ((isset($url_parts['user']) || isset($url_parts['host'])) ? '//' : '') .
-                    (isset($url_parts['user']) ? "{$url_parts['user']}" : '') .
-                    (isset($url_parts['pass']) ? ":{$url_parts['pass']}" : '') .
-                    (isset($url_parts['user']) ? '@' : '') .
-                    (isset($url_parts['host']) ? "{$url_parts['host']}" : '') .
-                    (isset($url_parts['port']) ? ":{$url_parts['port']}" : '') .
-                    (isset($url_parts['path']) ? "{$url_parts['path']}" : '') .
-                    '?' . $queryString .
-                    (isset($url_parts['fragment']) ? "#{$url_parts['fragment']}" : '');
+                $iFrameSrc = $this->unparse_url($url_parts);
 
                 $iframe->item(0)->setAttribute('src', $iFrameSrc);
             }
@@ -178,5 +176,20 @@ class FieldExtension extends Extension
 
             return $vidSrc;
         }
+    }
+
+    function unparse_url($parsed_url)
+    {
+        $scheme   = isset($parsed_url['scheme']) ? $parsed_url['scheme'] . '://' : '';
+        $host     = isset($parsed_url['host']) ? $parsed_url['host'] : '';
+        $port     = isset($parsed_url['port']) ? ':' . $parsed_url['port'] : '';
+        $user     = isset($parsed_url['user']) ? $parsed_url['user'] : '';
+        $pass     = isset($parsed_url['pass']) ? ':' . $parsed_url['pass']  : '';
+        $pass     = ($user || $pass) ? "$pass@" : '';
+        $path     = isset($parsed_url['path']) ? $parsed_url['path'] : '';
+        $query    = isset($parsed_url['query']) ? '?' . $parsed_url['query'] : '';
+        $fragment = isset($parsed_url['fragment']) ? '#' . $parsed_url['fragment'] : '';
+
+        return "$scheme$user$pass$host$port$path$query$fragment";
     }
 }

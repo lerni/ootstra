@@ -62,7 +62,7 @@ class ElementTextImage extends BaseElement
         }
 
         if ($TextEditor = $fields->dataFieldByName('HTML')) {
-            $TextEditor->setAttribute('data-mce-body-class', $this->owner->ShortClassName('true') . ' background--' . $this->BackgroundColor);
+            $TextEditor->getEditorConfig()->setOption('body_class', 'typography '. $this->ShortClassName($this, true) . ' background--' . $this->BackgroundColor);
         }
 
         return $fields;

@@ -56,9 +56,9 @@ strong {
 	@include bold;
 }
 
-#BetterNavigator {
-	display:none !important;
-}
+// #BetterNavigator {
+// 	display:none !important;
+// }
 
 #header {
 	display: flex;
@@ -666,7 +666,11 @@ p.cat-tag {
 			padding-bottom: 0 !important;
 		}
 	}
-	&.elementmaps {
+	&.elementform {
+		#uff {
+			scroll-margin: calc(#{$headerheight} + #{$lh}em);
+		}
+	}&.elementmaps {
 		display: flex;
 		flex-wrap: wrap;
 		gap: #{$lh}em;
@@ -933,7 +937,7 @@ html .klaro {
 				background-color: $red;
 			}
 			&:last-of-type {
-				background-color: mix($blue, $gray--light, 70%);
+				background-color: mix($link-color, $gray--light, 70%);
 			}
 			&:not(:last-of-type) {
 				margin-right: #{$lh}em;

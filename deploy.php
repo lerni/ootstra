@@ -88,6 +88,16 @@ set('writable_dirs', [
     'graphql-generated/'
 ]);
 
+set('clear_paths', [
+    '.ddev/',
+    '.dockerignore',
+    '.editorconfig',
+    '.gitignore',
+    '.vscode/',
+    'deploy.php',
+    'deploy/'
+]);
+
 set('allow_anonymous_stats', false);
 
 // also set specified php version for composer

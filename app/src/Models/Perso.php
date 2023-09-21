@@ -92,7 +92,7 @@ class Perso extends DataObject
         }
 
         if ($MotivationField = $fields->dataFieldByName('Motivation')) {
-            $MotivationField->setAttribute('data-mce-body-class', 'persoeditor');
+            $MotivationField->getEditorConfig()->setOption('body_class', 'typography '. $this->owner->ShortClassName($this, true) . ' background--' . $this->owner->BackgroundColor);
             $MotivationField->setRows(10);
         }
 
@@ -103,7 +103,7 @@ class Perso extends DataObject
             $MAuploadField->setDescription(_t(__CLASS__ . '.PortraitDescription', 'min. 576x766px'));
         }
         // $fields->insertAfter($MAuploadField, 'Title');
-        $fields->insertBefore($MAuploadField, 'Motivation');
+        $fields->insertBefore('Motivation', $MAuploadField);
 
         // hack around unsaved relations
         if ($this->isInDB()) {

@@ -91,7 +91,7 @@ class SiteConfigExtension extends DataExtension
 
         $fields->addFieldsToTab('Root.Main', $GlobalAlertField = HTMLEditorField::create('GlobalAlert'));
         $GlobalAlertField->setRows(14);
-        $GlobalAlertField->setAttribute('data-mce-body-class', 'global-alert');
+        $GlobalAlertField->getEditorConfig()->setOption('body_class', 'typography global-alert');
 
         $SlideGridFieldConfig = GridFieldConfig_Base::create(20);
         $SlideGridFieldConfig->addComponents(

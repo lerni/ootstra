@@ -5,7 +5,7 @@
 	<% if $Everybody %>
 		<% if $Sorting == "random" %>
 			<div class="expandable-grid persos">
-			<% loop $Everybody.sort('RAND()') %>
+			<% loop $Everybody.Shuffle %>
 				<% include App/Includes/PersoItem Element=$Top %>
 			<% end_loop %>
 			</div>

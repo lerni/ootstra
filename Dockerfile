@@ -15,11 +15,12 @@ RUN curl -L https://github.com/mailhog/mhsendmail/releases/latest/download/mhsen
 
 RUN apt-get update
 
+# not build vips from source anymore, we use prebuild package instead, but keep code for reference
 ### --- building vips-start ---
 # RUN apt install --assume-yes openssh-client
 # WORKDIR /usr/local/src
-# ARG VIPS_URL=https://github.com/libvips/libvips/releases/download
-# ARG VIPS_VERSION=8.13.3
+# ARG VIPS_URL=https://github.com/libvips/libvips/archive/refs/tags
+# ARG VIPS_VERSION=8.14.4
 
 # RUN apt-get install -y \
 #     glib-2.0-dev \
@@ -34,6 +35,10 @@ RUN apt-get update
 #     liblcms2-dev \
 #     libtiff-dev \
 #     libwebp-dev \
+#     libffi-dev \
+#     libgirepository1.0-dev \
+#     libvips-dev \
+#     meson \
 #     wget \
 #     liborc-dev
 
@@ -41,15 +46,21 @@ RUN apt-get update
 #     build-essential \
 #     pkg-config
 
-# RUN wget $VIPS_URL/v$VIPS_VERSION/vips-$VIPS_VERSION.tar.gz \
-#     && tar xf vips-$VIPS_VERSION.tar.gz \
-#     && cd vips-$VIPS_VERSION \
-#     && ./configure --prefix=/usr/local \
-#     && make V=0 \
-#     && make install
+# RUN wget $VIPS_URL/v$VIPS_VERSION.tar.gz \
+#     && tar xf v$VIPS_VERSION.tar.gz \
+#     && cd libvips-$VIPS_VERSION \
+#     && meson setup build --prefix /my/install/prefix \
+#     && cd build \
+#     && meson compile \
+#     && meson test \
+#     && meson install
 
 # RUN pecl install vips \
+#     && docker-php-ext-configure ffi --with-ffi Path=/usr/local \
+#     && docker-php-ext-install ffi \
 #     && docker-php-ext-enable vips
+
+# WORKDIR $DOCUMENT_ROOT
 ### --- vips-end ---
 
 RUN apt-get install -y \
@@ -57,16 +68,30 @@ RUN apt-get install -y \
     git \
     gnupg \
     less \
+    libexif-dev \
+    libexpat-dev \
+    libffi-dev \
     libfreetype6-dev \
+    libgif-dev \
+    libheif-dev \
     libjpeg-dev \
     libjpeg62-turbo \
+    liblcms2-dev \
     libpng-dev \
+    libpoppler-glib-dev \
+    librsvg2-dev \
+    libtiff-dev \
+    libvips-dev \
+    libvips-tools \
+    libvips42 \
+    libwebp-dev \
     libxml2-dev \
     libxpm4 \
     libzip-dev \
+    mariadb-client \
     openssh-client \
     rsync \
-    mariadb-client \
+    sendmail \
     tzdata \
     unzip \
     vim \
@@ -77,7 +102,12 @@ RUN apt-get install -y \
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
 
-RUN install-php-extensions \
+RUN docker-php-ext-configure ffi --with-ffi \
+    && docker-php-ext-install \
+    ffi
+
+RUN install-php-extensions vips \
+    vips \
     imagick \
     yaml
 

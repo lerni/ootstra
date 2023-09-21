@@ -23,12 +23,12 @@
 									$SlideImage.FocusFillMax(800,361).URL 800w,
 									$SlideImage.FocusFillMax(1000,451).URL 1000w,
 									$SlideImage.FocusFillMax(1200,542).URL 1200w,
-									$SlideImage.FocusFillMax(1440,650).URL 1440w<% if $Up.Up.isFullWidth %>,
+									$SlideImage.FocusFillMax(1440,650).URL 1440w<% if $Hero.isFullWidth %>,
 									$SlideImage.FocusFillMax(1600,722).URL 1600w,
 									$SlideImage.FocusFillMax(2000,903).URL 2000w,
 									$SlideImage.FocusFillMax(2600,1174).URL 2600w<% end_if %>" />
 							</figure>
-						<% else_if $Up.Up.HeroSize == "small" %>
+						<% else_if $Hero.HeroSize == "small" %>
 							<figure <% if $LinkID %>class="linked"<% end_if %>><img sizes="100vw"
 								height="$SlideImage.FocusFillMax(1440,360).Height()"
 								width="$SlideImage.FocusFillMax(1440,360).Width()"
@@ -42,12 +42,12 @@
 									$SlideImage.FocusFillMax(800,200).URL 800w,
 									$SlideImage.FocusFillMax(1000,250).URL 1000w,
 									$SlideImage.FocusFillMax(1200,300).URL 1200w,
-									$SlideImage.FocusFillMax(1440,360).URL 1440w<% if $Up.Up.isFullWidth %>,
+									$SlideImage.FocusFillMax(1440,360).URL 1440w<% if $Hero.isFullWidth %>,
 									$SlideImage.FocusFillMax(1600,400).URL 1600w,
 									$SlideImage.FocusFillMax(2000,500).URL 2000w,
 									$SlideImage.FocusFillMax(2600,650).URL 2600w<% end_if %>" />
 							</figure>
-						<% else_if $Up.Up.HeroSize == "medium" %>
+						<% else_if $Hero.HeroSize == "medium" %>
 							<figure <% if $LinkID %>class="linked"<% end_if %>><img sizes="100vw"
 								height="$SlideImage.FocusFillMax(1440,650).Height()"
 								width="$SlideImage.FocusFillMax(1440,650).Width()"
@@ -61,12 +61,12 @@
 									$SlideImage.FocusFillMax(800,361).URL 800w,
 									$SlideImage.FocusFillMax(1000,452).URL 1000w,
 									$SlideImage.FocusFillMax(1200,542).URL 1200w,
-									$SlideImage.FocusFillMax(1440,650).URL 1440w<% if $Up.Up.isFullWidth %>,
+									$SlideImage.FocusFillMax(1440,650).URL 1440w<% if $Hero.isFullWidth %>,
 									$SlideImage.FocusFillMax(1600,722).URL 1600w,
 									$SlideImage.FocusFillMax(2000,903).URL 2000w,
 									$SlideImage.FocusFillMax(2600,1174).URL 2600w<% end_if %>" />
 							</figure>
-						<% else_if $Up.Up.HeroSize == "fullscreen" %>
+						<% else_if $Hero.HeroSize == "fullscreen" %>
 							<figure><picture>
 								<%-- 8:5 is like macbook pro display--%>
 								<source media="(min-width: 640px) and (min-aspect-ratio: 8/5)"

@@ -12,29 +12,25 @@ use SilverStripe\SpamProtection\EditableSpamProtectionField;
 class ElementUserFormsExtension extends DataExtension
 {
 
-    private static $defaults = [
-        'AvailableGlobally' => 0
-    ];
-
     public function updateCMSFields(FieldList $fields)
     {
         $fields->removeByName([
-            'isFullWidth',
-            'AvailableGlobally'
+            'isFullWidth'
         ]);
     }
 
     public function populateDefaults()
     {
         if (class_exists(KlaroSiteConfigExtension::class)) {
-            $id = 2;
             $siteConfig = SiteConfig::current_site_config();
             $id = $siteConfig->CookieLinkPrivacyID;
+        } else {
+            $id = 2;
         }
 
         $termsField = new EditableCheckboxTerms([
             'Name' => 'TermsAndConditions',
-            'Title' => _t(__CLASS__ . '.DefaultTitle', 'Ich akzeptiere die <a rel="noopener noreferrer" href="[sitetree_link,id={id}]" target="_blank">AGBs und Datenschutzbestimmungen</a>.', ['id' => $id]),
+            'Title' => _t('App\Models\EditableFormField\EditableCheckboxTerms.DefaultTitle', 'I accept <a rel="noopener noreferrer" href="[sitetree_link,id={id}]" target="_blank">Terms & Conditions and Privacy Policy</a>.', ['id' => $id]),
             'Required' => true,
             'ExtraClass' => 'half-width'
         ]);

@@ -8,7 +8,6 @@ use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\GridField\GridFieldPageCount;
 use SilverStripe\Forms\GridField\GridFieldPaginator;
-use SilverStripe\Forms\GridField\GridFieldConfig_Base;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
@@ -84,7 +83,6 @@ class ElementPersoCFA extends BaseElement
                 new GridFieldAddNewButton('toolbar-header-right')
             );
 
-            // hack around unsaved relations
             $PersoGFConfig->addComponents(
                 new GridFieldOrderableRows('SortOrder'),
                 new GridFieldAddExistingAutocompleter('toolbar-header-right')
@@ -103,7 +101,7 @@ class ElementPersoCFA extends BaseElement
     {
         $items = $this->Persos();
         if ($this->Sorting == 'random') {
-            $items = $items->sort('RAND()');
+            $items = $items->shuffle();
         } else {
             $items = $items->sort('SortOrder');
         }

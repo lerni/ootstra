@@ -3,7 +3,7 @@
 
 # Setup, Requirements & install
 
-This project is inspired from [Bigfork’s quickstart recipe](https://github.com/bigfork/silverstripe-recipe) for [Silverstripe](https://www.silverstripe.org/). It's an opinionated set of tools for a ready to run, build & deploy CMS instance in a minimal amount of time. To get it up and running you'll need [GIT](https://git-scm.com/), [Docker](https://www.docker.com/) (for local development), [NPM](https://nodejs.org/) preferred with [nvm](https://github.com/nvm-sh/nvm) and for deployment a server with [SSH](https://de.wikipedia.org/wiki/Secure_Shell) & git. It utilizes [dnadesign/silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) for a block/element based CMS experience and comes with the following set of elements:
+"ootstra" is inspired from [Bigfork’s quickstart recipe](https://github.com/bigfork/silverstripe-recipe) for [Silverstripe](https://www.silverstripe.org/). It's an opinionated set of tools for a ready to run, build & deploy CMS instance in a minimal amount of time. To get it up and running you'll need [GIT](https://git-scm.com/) and for deployment a server with [SSH](https://de.wikipedia.org/wiki/Secure_Shell) & git. It utilizes [dnadesign/silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) for a block/element based CMS experience and comes with the following set of elements:
 
 - ElementContent
 - ElementForm               (userforms)
@@ -23,7 +23,7 @@ This project is inspired from [Bigfork’s quickstart recipe](https://github.com
 Optional, separate modules/elements:
 - [InstagramFeed](https://github.com/lerni/instagram-basic-display-feed-element)
 - ElementJobs lerni/jobpostings (privat), schema.org & sitemap.xml integration
-- lerni/simplebasket (privat), Google Shoppingfeed with local Inventory, swissQR bill or Omnipay
+- lerni/simplebasket (privat), Google Shoppingfeed with local Inventory, swissQR bill and CAMT payment reconciliation or Datatrans Payments
 
 Other features:
 - [DSGVO GDPR ready, Cookie Consent with klaro!](https://github.com/lerni/klaro-cookie-consent)
@@ -49,8 +49,6 @@ As editor/IDE [VSCode](https://code.visualstudio.com/) is recommended. Per `.vsc
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 - [Sass](https://marketplace.visualstudio.com/items?itemName=Syler.sass-indented)
 
-Zsh with [agnoster.zsh-theme](https://github.com/agnoster/agnoster-zsh-theme) is used in the docker container. This needs [Powerline font](https://github.com/powerline/fonts) -> `Droid Sans Mono for Powerline` installed on the host machine to shine in it's full beauty.
-
 
 ### clone or fork lerni/ootstra
 ```bash
@@ -60,54 +58,30 @@ On the first Request database structure (tables) 'll automatically be generated 
 ```php
     i18n::set_locale('de_CH');
 ```
-### npm
-Node/npm runs locally. There is an `.nvmrc` file in `themes/default/`. If [nvm](https://github.com/nvm-sh/nvm) is set up, npm version switches automatically when changing directory into `themes/default/`.
-```bash
-    cd PROJECT/themes/default
-    npm install
-```
-### Docker dev-env
-For development ootstra comes with a Docker-Setup with Apache/PHP/MySQL/phpMyAdmin/MailHog. For a proper user-mapping (same uid gid inside docker), it's recommended to export those in your rc-file. In case of zsh, add below to `~/.zshrc`:
-```bash
-    export UID=$(id -u)
-    export GID=$(id -g)
-```
-To build & start docker run commands bellow in the project directory:
-```bash
-    cd PROJECT/
-    docker build --tag silverstripe:refined81 .
-    docker-compose up # or use VSCode tasks `docker-compose up` per Command+Shift+B
-```
-### Docker zsh, composer
-```bash
-    cd PROJECT/
-    docker-compose exec silverstripe zsh # or use VSCode tasks `dshell` per Command+Shift+B
-    composer install
-```
+### ddev/Docker dev-env
+ootstra comes with a ddev-config/setup for development. Install [ddev](https://ddev.readthedocs.io/en/stable/) and run `ddev start` & `ddev composer i` in the project directory. You'll than have a local webserver available on [https://oostra.ddev.site](https://oostra.ddev.site), watcher/browsersync runs on [https://oostra.ddev.site:3000/](https://oostra.ddev.site:3000/), [phpMyAdmin](http://oostra.ddev.site:8036),  [MailHog](https://oostra.ddev.site:8026/). Default login into [/admin](https://oostra.ddev.site/admin) is `admin` & `password`.
 
-Docker makes a local webserver available on [http://localhost:8080/](http://localhost:8080/), watcher/browsersync runs on [http://localhost:3000/](http://localhost:3000/), `phpMyAdmin` on [http://localhost:8081/](http://localhost:8081/), MailHog on [http://localhost:8025/](http://localhost:8025/). Default login into [/admin](http://localhost:8080/admin) is `admin` & `password`.
+### npm, Laravel Mix watch & build etc.
+[Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([webpack](https://webpack.js.org/) based) is used as build environment. You need to run `ddev theme install` to install npm packages. In `themes/default/webpack.mix.js` host is set to be proxied to http://localhost:3000/ for browsersync. See also scripts section in `themes/default/package.json` and [Mix CLI](https://laravel-mix.com/docs/6.0/cli). Run `ddev theme watch` or `ddev theme prod`.
 
-`docker ps` shows `<CONTAINER IDs>` for all running instances. To run a shell in a container do either `docker exec -it <CONTAINER_ID> zsh` or `docker-compose exec silverstripe zsh` -> containers are named in `docker-compose.yml`. To stop all containers use `docker-compose down`. There are a few aliases in the silverstripe docker container and a bunch of tasks in `.vscode/tasks.json` available per `Command+Shift+B`:
-- `docker-compose up` (magenta)
-- `docker-compose down` (magenta)
-- `npm watch` (green)
-- `npm prod` (green)
+### VSCode tasks
+There are a bunch of tasks in `.vscode/tasks.json` available per `Command+Shift+B`:
+- `ddev start` (magenta)
+- `ddev stop` (magenta)
+- `ddev restart` (magenta)
+- `ddev theme install` (green)
+- `ddev theme watch` (green)
+- `ddev theme prod` (green)
+- `flush` (blue)
+- `flushh` (blue - flush hard) instead of `ddev exec rm -rf ./silverstripe-cache/*`
+- `dev/build` (blue) instead of `ddev php ./vendor/silverstripe/framework/cli-script.php dev/build flush`
 - `download database from live` (cyan)
 - `download assets from live` (cyan)
-- `flush` (blue) -> `flush` instead of `$DOCUMENT_ROOT/vendor/silverstripe/framework/sake flush`
-- `flushh` (blue) -> `flushh` (flush hard) instead of `rm -rf $DOCUMENT_ROOT/silverstripe-cache/*`
-- `dev/build` (blue) -> `dbuild` instead of `$DOCUMENT_ROOT/vendor/silverstripe/framework/sake dev/build`
-- -> `dep` instead `$DOCUMENT_ROOT/vendor/bin/dep` (Deployer)
+- `ssh test` (cyan)
+- `ssh live` (cyan)
 
-Database, credentials etc. are provided per environment Variables. **For local development with docker no `.env` file is needed! EnvVars are set in `docker-compose.yml`.**
 
-### Laravel Mix watch & build
-[Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([webpack](https://webpack.js.org/) based) is used as build environment. In `themes/default/webpack.mix.js` host is set to be proxied to http://localhost:3000/ for browsersync. See also scripts section in `themes/default/package.json` and [Mix CLI](https://laravel-mix.com/docs/6.0/cli).
-```bash
-    cd themes/default && npm run watch # or use VSCode tasks `npm watch` per Command+Shift+B
-or
-    cd themes/default && npm run production # or use VSCode tasks `npm prod` per Command+Shift+B
-```
+Database, credentials etc. are provided per environment Variables (`/.env` file).
 
 ## Debugging
 In order to use Xdebug with this setup, a browser-extensions like [Xdebug Helper for Firefox](https://addons.mozilla.org/de/firefox/addon/xdebug-helper-for-firefox/) or [Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc) is needed to control/trigger debugging behaviour.
@@ -115,15 +89,14 @@ In order to use Xdebug with this setup, a browser-extensions like [Xdebug Helper
 To debug JS inside VSCode with Firefox [Debugger for Firefox](https://marketplace.visualstudio.com/items?itemName=firefox-devtools.vscode-firefox-debug) is used. With Chrome & Edge you may need to tweak config in `.vscode/launch.json` :shrug:
 
 ## PHP Version
-Current used PHP-Version is 8.1. It's set in following places:
-- `Dockerfile`
+Current used PHP-Version is 8.2. It's set in following places:
+- `.ddev/config.yaml`
 - `deploy/config.php`
 - `public/.htaccess` -> watch out if you maintain stage specific versions in `deploy/`
 - `composer.json`
-- `docker-compose.yml` -> path custom.php.ini
 - `.vscode/settings.json`
 
-Don't forget to rebuild/restart docker and reinstall packages in vendors per composer after changing!
+Don't forget to `ddev restart` and update packages `ddev composer u` after changing!
 
 # Hosting & Deployment
 
@@ -167,13 +140,13 @@ Rename `config.example.php` to `deploy/config.php` and configure things to your 
 
 The setup uses key-forwarding, so deployment can be done from inside the silverstripe docker container. Before first deployment ssh into remote servers like `dep ssh test` or `dep ssh live` and make sure ssh-fingerprint from the git repo is accepted. You may just do a git clone into a test directory to verify things work as expected. If so, deployment is done like:
 ```bash
-    dep deploy test
+    ddev php ./vendor/bin/dep deploy test
 ```
 
 or
 
 ```bash
-    dep deploy live
+    ddev php ./vendor/bin/dep deploy live
 ```
 The first time you deploy to a given stage, you’ll be asked to provide database credentials etc. to populate `.env`. A file similar as bellow 'll be created.
 
@@ -192,22 +165,28 @@ SS_ERROR_EMAIL=""
 SS_ADMIN_EMAIL=""
 
 ## Database {#database}
-# SS_DATABASE_NAME=""
-SS_DATABASE_CHOOSE_NAME=true
+SS_DATABASE_NAME="db"
+# SS_DATABASE_CHOOSE_NAME=true
 SS_DATABASE_CLASS="MySQLDatabase"
-SS_DATABASE_USERNAME=""
-SS_DATABASE_PASSWORD=""
-SS_DATABASE_SERVER="127.0.0.1"
+SS_DATABASE_USERNAME="db"
+SS_DATABASE_PASSWORD="db"
+SS_DATABASE_SERVER="db"
+SS_DATABASE_PORT="3306"
 
 SS_ERROR_LOG="silverstripe.log"
+
+MAIL_MAILER=smtp
+MAIL_HOST=localhost
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAILER_DSN="smtp://localhost:1025"
 
 GHOSTSCRIPT_PATH="/usr/local/bin/gs"
 
 # SS_NOCAPTCHA_SITE_KEY=""
 # SS_NOCAPTCHA_SECRET_KEY=""
-# MAIL_HOST=""
-# MAIL_USERNAME=""
-# MAIL_PASSWORD=""
 ```
 See also:
 
@@ -217,18 +196,18 @@ https://www.silverstripe.org/learn/lessons/v4/up-and-running-setting-up-a-local-
 
 ```
 # Deploy revision (git SHA) to test
-dep deploy --revision=ca5fcd330910234f63bf7d5417ab6835e5a57b81 test
+ddev php ./vendor/bin/dep deploy --revision=ca5fcd330910234f63bf7d5417ab6835e5a57b81 test
 
 # Deploy dev branch to test
-dep deploy --branch=dev test
+ddev php ./vendor/bin/dep deploy --branch=dev test
 
 # Deploy tag 1.0.1 to live
-dep deploy live --tag=1.0.1 live
+ddev php ./vendor/bin/dep deploy live --tag=1.0.1 live
 ```
 
 ## Show deployed revision
 ```bash
-dep releases live
+dep ddev php ./vendor/bin/dep releases live
 
 task releases
 +----------------------+-------------+-------- live ---+------------------------------------------+
@@ -267,7 +246,7 @@ or use VSCode tasks Command+Shift+B
 DevelopmentAdmin over HTTP is disabled in Live-Mode per yml-config. Following deployer-tasks 'll do.
 ```bash
 # dev/build on live
-dep silverstripe:dev_build live
+ddev php ./vendor/bin/dep silverstripe:dev_build live -v
 # dev/build on test
-dep silverstripe:dev_build test
+ddev php ./vendor/bin/dep silverstripe:dev_build test -v
 ```

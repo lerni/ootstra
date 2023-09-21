@@ -20,8 +20,10 @@ namespace {
     use SilverStripe\Core\Manifest\ModuleResourceLoader;
     use SilverStripe\Blog\Model\BlogPost;
     use SilverStripe\Control\Controller;
-    use DNADesign\Elemental\Extensions\ElementalPageExtension;
     use DNADesign\ElementalVirtual\Model\ElementVirtual;
+    use SilverStripe\Assets\Image;
+    use App\Elements\ElementGallery;
+    use DNADesign\Elemental\Extensions\ElementalPageExtension;
 
     class Page extends SiteTree
     {
@@ -48,7 +50,7 @@ namespace {
 
                 if ($TextEditor = $fields->dataFieldByName('Content')) {
                     $TextEditor->setRows(30);
-                    $TextEditor->setAttribute('data-mce-body-class', $this->ShortClassName($this));
+                    $TextEditor->getEditorConfig()->setOption('body_class', 'typography '. $this->ShortClassName($this, 'true'));
                 }
             });
 
@@ -315,6 +317,47 @@ namespace {
         {
             $defaultHomepage = RootURLController::config()->get('default_homepage_link');
             return SiteTree::get()->filter('URLSegment', $defaultHomepage)->first();
+        }
+
+        // overwriting this form GoogleSitemapSiteTreeExtension,
+        // since we do not want to get related pics in automatically
+        public function ImagesForSitemap()
+        {
+            $IDList = [];
+            if ($this->hasExtension(ElementalPageExtension::class)) {
+                // Images from Heroes
+                if ($elementHeros = $this->ElementalArea()->Elements()->filter('ClassName', ElementHero::class)) {
+                    foreach ($elementHeros as $hero) {
+                        if ($hero->Slides()->count() && $hero->SitemapImageExpose) {
+                            if ($slides = $hero->Slides()->Sort('SortOrder ASC')) {
+                                foreach ($slides as $slide) {
+                                    if ($slide->SlideImage->exists() && !$slide->SlideImage->NoFileIndex()) {
+                                        array_push($IDList, $slide->SlideImageID);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                // Images from ElementGallery
+                if ($elementGallery = $this->ElementalArea()->Elements()->filter('ClassName', ElementGallery::class)) {
+                    foreach ($elementGallery as $gallery) {
+                        if ($gallery->Items()->count() && $gallery->SitemapImageExpose) {
+                            if ($images = $gallery->Items()) {
+                                foreach ($images as $image) {
+                                    if ($image->exists() && !$image->NoFileIndex()) {
+                                        array_push($IDList, $image->ID);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            $IDList = array_unique($IDList);
+            if (count($IDList)) {
+                return Image::get()->filter(['ID' => $IDList]);
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-AddHandler application/x-httpd-php81 .php
+AddHandler application/x-httpd-php82 .php
 
 # <IfModule LiteSpeed>
 #     SmartPush no-cookie
@@ -818,7 +818,7 @@ FileETag None
     ExpiresByType text/markdown                         "access plus 0 seconds"
 
 
-  # Media files - 1y exp avif, jpeg, webp should have cachebuster
+  # Media files - 1y exp avif, jpeg, webp, svg should have cachebuster
 
     ExpiresByType audio/ogg                             "access plus 1 month"
     ExpiresByType image/apng                            "access plus 1 month"
@@ -829,7 +829,7 @@ FileETag None
     ExpiresByType image/jpeg                            "access plus 1 year"
     ExpiresByType image/jxl                             "access plus 1 month"
     ExpiresByType image/png                             "access plus 1 month"
-    ExpiresByType image/svg+xml                         "access plus 1 month"
+    ExpiresByType image/svg+xml                         "access plus 1 year"
     ExpiresByType image/webp                            "access plus 1 year"
     ExpiresByType video/mp4                             "access plus 1 month"
     ExpiresByType video/ogg                             "access plus 1 month"
@@ -864,8 +864,9 @@ FileETag None
     ExpiresByType font/woff                             "access plus 1 month"
 
     # Web Open Font Format (WOFF) 2.0
-    ExpiresByType application/font-woff2                "access plus 1 month"
-    ExpiresByType font/woff2                            "access plus 1 month"
+    # woff should have cachebuster
+    ExpiresByType application/font-woff2                "access plus 1 year"
+    ExpiresByType font/woff2                            "access plus 1 year"
 
 
   # Other

@@ -79,7 +79,7 @@ class ElementExtension extends DataExtension
                 TextCheckboxGroupField::create()
                     ->setName('Title')
             );
-            $fields->addFieldToTab('Root.Main', $TitleFieldGroup, true);
+            $fields->unshift($TitleFieldGroup);
         }
 
         if ($ElementAnchorLinkField = $fields->dataFieldByName('AnchorLink')) {
@@ -240,6 +240,18 @@ class ElementExtension extends DataExtension
         if ($this->owner->ElementAnchor()) {
             $anchors = array_diff($anchors, ['e' . $this->owner->ID]);
             array_push($anchors, $this->owner->ElementAnchor());
+        }
+        if ($this->owner->hasMethod('ContentParts') && $this->owner->ContentParts()->count()) {
+            foreach ($this->owner->ContentParts() as $part) {
+                $filter = new URLSegmentFilter();
+                array_push($anchors, $filter->filter($part->Title));
+            }
+        }
+        if ($this->owner->hasMethod('Everybody') && $this->owner->Everybody()->count()) {
+            foreach ($this->owner->Everybody() as $perso) {
+                $filter = new URLSegmentFilter();
+                array_push($anchors, $filter->filter($perso->Anchor()));
+            }
         }
     }
 }

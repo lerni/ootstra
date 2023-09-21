@@ -2,14 +2,13 @@
 
 use SilverStripe\i18n\i18n;
 use SilverStripe\Admin\CMSMenu;
+use SilverStripe\Control\Session;
+use SilverStripe\Core\Environment;
+use SilverStripe\Control\Email\Email;
 use Wilr\GoogleSitemaps\GoogleSitemap;
 use SilverStripe\View\Parsers\URLSegmentFilter;
 use SilverStripe\Forms\HTMLEditor\TinyMCEConfig;
 use SilverStripe\CMS\Controllers\CMSPagesController;
-use SilverStripe\Control\Cookie;
-use SilverStripe\Control\Session;
-use SilverStripe\Core\Environment;
-use SilverStripe\Control\Email\Email;
 use SilverStripe\Core\Manifest\ModuleResourceLoader;
 
 Email::config()->set('admin_email', Environment::getEnv('SS_ADMIN_EMAIL'));
@@ -76,7 +75,6 @@ $styles = [
 $EditorConfig = TinyMCEConfig::get('cms');
 
 $EditorConfig->enablePlugins([
-    'contextmenu' => null,
     'image' => null,
     'anchor' => null,
     'sslinkanchor' => null,
@@ -93,12 +91,13 @@ $editorOptions = [
     'paste_as_text' => true,
     'paste_text_sticky_default' => true,
     'paste_text_sticky' => true,
-    'statusbar' => true
+    'statusbar' => true,
+    'contextmenu' => "searchreplace | sslink anchor ssmedia ssembed"
 ];
 $EditorConfig->setOptions($editorOptions);
 
 // $EditorConfig->setButtonsForLine(1, ['formatselect styleselect pastetext ssmedia ssembed | bold bullist numlist ToggleDefinitionList ToggleDefinitionItem | alignleft aligncenter alignright alignjustify | sslink unlink | charmap hr code removeformat blockquote | outdent indent | undo redo']);
-$EditorConfig->setButtonsForLine(1, ['formatselect styleselect pastetext ssmedia ssembed | bold bullist numlist | alignleft aligncenter alignright alignjustify | sslink unlink anchor | charmap hr code removeformat blockquote | outdent indent | undo redo']);
+$EditorConfig->setButtonsForLine(1, ['blocks styles pastetext ssmedia ssembed | bold bullist numlist | alignleft aligncenter alignright alignjustify | sslink unlink anchor | charmap hr code removeformat blockquote | outdent indent | undo redo']);
 $EditorConfig->setButtonsForLine(2, '');
 
 $EditorConfig->setOption(

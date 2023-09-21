@@ -21,7 +21,7 @@ class ElementContentExtension extends Extension
 
         if ($TextEditor = $fields->dataFieldByName('HTML')) {
             $TextEditor->setRows(30);
-            $TextEditor->setAttribute('data-mce-body-class', $this->owner->ShortClassName('true') . ' background--' . $this->owner->BackgroundColor);
+            $TextEditor->getEditorConfig()->setOption('body_class', 'typography '. $this->owner->ShortClassName($this, true) . ' background--' . $this->owner->BackgroundColor);
         }
     }
 }

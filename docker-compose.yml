@@ -1,12 +1,18 @@
 version: "3.8"
 services:
   silverstripe:
+    # we set UID & GID in rcfile like: export UID=$(id -u) && export GID=$(id -g)
+    # user: $UID:$GID
+    # build:
+    #   args:
+    #     USER_ID: $UID
+    #     GROUP_ID: $GID
     # image: brettt89/silverstripe-web:8.1-apache
-    image: silverstripe:refined81
+    image: silverstripe:refined82
     ports:
       - 8080:80
     volumes:
-      - ${PWD}/docker/config/php/81/custom.php.ini:/usr/local/etc/php/conf.d/custom.php.ini
+      - ${PWD}/docker/config/php/82/custom.php.ini:/usr/local/etc/php/conf.d/custom.php.ini
       - ${PWD}:/var/www/html
       # using local composer cache to save a bit of bandwidth - depending on your hostplattform you need to adapt paths
       # Defaults to C:\Users\<user>\AppData\Local\Composer on Windows,
@@ -17,18 +23,12 @@ services:
       - /run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock
       - ~/.ssh/known_hosts:/root/.ssh/known_hosts
       - ${PWD}/docker/log/apache2/error.log:/var/log/apache2/error.log
-      # - type: bind
-      #   source: ./docker/log/apache2/error.log
-      #   target: /var/log/apache2/error.log
       - ${PWD}/docker/log/apache2/other_vhosts_access.log:/var/log/apache2/other_vhosts_access.log
-      # - type: bind
-      #   source: ./docker/log/apache2/other_vhosts_access.log
-      #   target: /var/log/apache2/other_vhosts_access.log
     depends_on:
       - database
       - mailhog
     # env_file:
-    #     - .env
+    #   - .env
     environment:
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/var/www/html/vendor/bin
       - SSH_AUTH_SOCK=/run/host-services/ssh-auth.sock
