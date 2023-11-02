@@ -1,29 +1,15 @@
 {
   "logViewer.watch": [
     {
-      "groupName": "apache2",
-      "watches": [
-        {
-          "title": "error",
-          "pattern": "docker/log/apache2/error.log"
-        },
-        {
-          "title": "access",
-          "pattern": "docker/log/apache2/other_vhosts_access.log"
-        }
-      ]
-    },
-    {
         "title": "Silverstripe",
         "pattern": "silverstripe.log"
     }
   ],
   "editor.stickyScroll.enabled": true,
   "editor.linkedEditing": true,
-  "terminal.integrated.fontFamily": "Droid Sans Mono for Powerline",
   "php.suggest.basic": false,
-  "php.validate.executablePath": "./docker/php",
-  "php.executablePath": "./docker/php",
+  "php.validate.executablePath": "ddev php",
+  "php.executablePath": "ddev php",
   "php.validate.run": "onSave",
   "search.useIgnoreFiles": false,
   "telemetry.telemetryLevel": "off",

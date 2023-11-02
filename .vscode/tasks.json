@@ -32,7 +32,7 @@
       }
     },
     {
-      "label": "flushh",
+      "label": "flushh (hard)",
       "type": "shell",
       "command": "ddev exec rm -rf ./silverstripe-cache/*",
       "group": "build",
@@ -121,6 +121,36 @@
       "label": "ddev restart",
       "type": "shell",
       "command": "ddev restart",
+      "group": "build",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "icon": {
+        "color": "terminal.ansiMagenta"
+      }
+    },
+    {
+      "label": "ddev logs",
+      "type": "shell",
+      "command": "ddev logs -f",
+      "group": "build",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "icon": {
+        "color": "terminal.ansiMagenta"
+      }
+    },
+    {
+      "label": "composer update",
+      "type": "shell",
+      "command": "ddev composer u",
       "group": "build",
       "isBackground": true,
       "presentation": {

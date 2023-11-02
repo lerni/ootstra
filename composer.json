@@ -82,7 +82,9 @@
 		"lerni/folderindex": "^0"
 	},
 	"require-dev": {
-		"deployer/deployer": "^7"
+		"deployer/deployer": "^7",
+		"dnadesign/silverstripe-populate": "^3",
+		"lekoala/silverstripe-debugbar": "^3.0@dev"
 	},
 	"extra": {
 		"expose": [

@@ -101,7 +101,7 @@ de:
     TITLE: Titel
   App\Models\ElementPage:
     DESCRIPTION: 'Erlaubt modulare Inhaltskomposition mit Elementen'
-    HeroNeeded: 'Wenn kein "Hero" als oberstes Element vorhanden ist, wird <a href="/admin/settings/">default HeadeImage</a> verwendet.'
+    HeroNeeded: 'Wenn kein "Hero" als oberstes Element vorhanden ist, werden <a href="/admin/settings/">default Header Slides</a> verwendet.'
     PLURALNAME: 'Element Pages'
     PLURALS:
       one: 'An Element Page'
@@ -222,7 +222,8 @@ de:
     TABMAIN: Main
     SITETAGLINE: 'Claim / Beschreibung'
     SortImpact: 'Die "Location" an 1. Stelle wird im Footer angezeigt. Für "Schemadaten" werden alle verwendet.'
-    DEFAULTHEADERSLIDES: 'Default Hero wird angezeigt, falls kein Hero in ElementPage'
+    DEFAULTHEADERSLIDES: 'Default Header Slides'
+    DEFAULTHEADERSLIDESDESCRIPTION: 'Wird auf Pages ohne Hero angezeigt'
     DEFAULTHEROSIZE: 'Grösse default Hero'
     FOUNDINGDATE: 'Gründungsdatum'
     LEGALNAME: 'Offizieller Name (rechtlich)'
@@ -238,7 +239,7 @@ de:
   DNADesign\Elemental\Forms\TextCheckboxGroupField:
     TitleLabel: Titel
   SilverStripe\Forms\GridField\GridField:
-    PlaceHolderWithLabels: 'Suche {name} % für Alle'
+    PlaceHolderWithLabels: 'Tippe "%" um alle Datensätze anzuzeigen.'
   App\Models\Marke:
     LogoDescription: 'freigestellt PNG<br />min. 130px breit'
   # userform duplicate de_DE.yml

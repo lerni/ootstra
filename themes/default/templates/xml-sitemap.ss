@@ -52,17 +52,13 @@
                           <xsl:variable name="imageURL">
                             <xsl:value-of select="image:loc"/>
                           </xsl:variable>
-                          <xsl:variable name="editlink">
-                            <xsl:value-of select="image:editlink"/>
-                          </xsl:variable>
                           <tr>
                             <td>
                               <img src="{\$imageURL}" width="40px"/>
                             </td>
                             <td>
-                              <xsl:value-of select="image:title"/>
-                              <a href="{\$editlink}" target="_blank"> &#x3C;- edit</a><br/>
-                              <xsl:value-of select="image:caption"/><br/>
+                              <xsl:value-of select="image:title"/><br/>
+                              <xsl:value-of select="image:caption"/>
                               <a href="{\$imageURL}">
                                 <xsl:value-of select="image:loc"/>
                               </a>

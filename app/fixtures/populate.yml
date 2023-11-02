@@ -74,7 +74,7 @@ App\Models\Location:
     PostalCode: '6017'
     Town: 'Ruswil'
     Country: 'Schweiz'
-    Telephone: '0041 41 495 08 33'
+    Telephone: '041 495 08 33'
     AddressRegion: 'Luzern'
     Email: 'le@kraftausdruck.ch'
     SiteConfigID: 1

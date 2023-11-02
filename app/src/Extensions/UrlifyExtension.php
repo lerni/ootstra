@@ -86,8 +86,8 @@ class UrlifyExtension extends Extension
         $MetaDescriptionField->setRightTitle(_t('\Page.MetaDescriptionRightTitle', 'Wird in Suchmaschinen-Ergebnissen verwendet, wenn Länge passt und Relevanz gegeben ist; beeinflusst die SEO-Position kaum. Ansprechende Meta-Descripton (besonders die ersten ~55 Zeichen -> Sitelinks) beeinflussen die Klickrate jedoch stark.'));
 
         $fields->insertAfter(
+            'Title',
             $MetaToggle,
-            'Title'
         );
 
         if ($page = $this->owner->Parent()) {
@@ -112,11 +112,12 @@ class UrlifyExtension extends Extension
             );
 
             $fields->insertAfter(
+                'Title',
                 SiteTreeURLSegmentField::create('URLSegment')
                     ->setURLPrefix($topLink . '/')
                     ->setURLSuffix('?stage=Live')
-                    ->setDefaultURL($this->owner->generateURLSegment()),
-                'Title'
+                    ->setDefaultURL($this->owner->generateURLSegment())
+
             );
         } else {
             $uiElement = _t('Kraftausdruck\Elements\ElementPodcast.BlockType', 'Podcast Element');

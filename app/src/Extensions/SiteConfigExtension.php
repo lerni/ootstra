@@ -104,11 +104,12 @@ class SiteConfigExtension extends DataExtension
         );
         $SlideGridFieldConfig->addComponent(new GridFieldOrderableRows('SortOrder'));
         $gridField = new GridField('DefaultHeaderSlides', _t('SilverStripe\SiteConfig\SiteConfig.DEFAULTHEADERSLIDES'), $this->owner->DefaultHeaderSlides(), $SlideGridFieldConfig);
-        $fields->addFieldToTab('Root.Main', $gridField, 'Content');
+        $gridField->setDescription(_t('SilverStripe\SiteConfig\SiteConfig.DEFAULTHEADERSLIDESDESCRIPTION', 'Displayed on Pages without Hero'));
+        $fields->addFieldToTab('Root.Main', $gridField, 'GlobalAlert');
 
         $sizes = singleton(SiteConfig::class)->dbObject('DefaultHeroSize')->enumValues();
         $SizeField = DropdownField::create('DefaultHeroSize', _t('SilverStripe\SiteConfig\SiteConfig.DEFAULTHEROSIZE', 'Size default slides'), $sizes);
-        $fields->addFieldToTab('Root.Main', $SizeField, 'Content', true);
+        $fields->addFieldToTab('Root.Main', $SizeField, 'GlobalAlert', true);
 
 
         $ServiceNavigationGridFieldConfig = GridFieldConfig_Base::create(20);

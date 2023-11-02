@@ -33,7 +33,7 @@ class PageSchemaExtension extends Extension
             $i = 0;
             foreach ($siteConfig->Locations() as $location) {
 
-                $country = strtoupper($location->Country);
+                $country = strtoupper($location->Country ?? '');
 
                 $PushLocation = Schema::postalAddress()
                     ->email($location->EMail)

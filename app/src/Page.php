@@ -211,7 +211,7 @@ namespace {
 
             if ($i != null) {
                 if (!$origin) {
-                    return ($i->getWidth() > 1200) ? $i->scaleWidth(1200) : $i;
+                    return $i->FocusFillMax(1200, 630);
                 } else {
                     return $i;
                 }
@@ -301,16 +301,6 @@ namespace {
                 $r->push($Cat);
             }
             return $r;
-        }
-
-        // link without parameter
-        public function LinkNoParam()
-        {
-            if (Controller::has_curr()) {
-                $req = Controller::curr()->getRequest();
-                $url = $req->getURL(FALSE);
-                return $url;
-            }
         }
 
         public function getHomePage()

@@ -157,3 +157,31 @@
 		}
 	}
 }
+
+@mixin buttonstyle {
+	font-size: 1em;
+	cursor: pointer;
+	padding: #{math.div($lh, 4)}em #{math.div($lh, 2)}em;
+	border: none;
+	-webkit-appearance: none;
+	color: $white;
+	background-color: $blue;
+	background-image: linear-gradient(
+		130deg,
+		$blue,
+		$red,
+		$blue
+	);
+	background-size: 300% 100%;
+	filter: contrast(100%) saturate(100%);
+	transition-duration: .6s;
+	transition-property: background-position filter;
+	transition-timing-function: ease-in-out;
+	box-shadow: none;
+	background-position: 0% 0;
+	display: block;
+	&:hover {
+		background-position: 100% 20%;
+		filter: contrast(110%) saturate(110%);
+	}
+}

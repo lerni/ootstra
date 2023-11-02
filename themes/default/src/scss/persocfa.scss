@@ -38,6 +38,12 @@
 					margin-bottom: 0;
 				}
 			}
+			a {
+				display: block;
+			}
+			a + a {
+				margin-top: #{math.div($lh, 2)}em;
+			}
 		}
 	}
 	.persos {

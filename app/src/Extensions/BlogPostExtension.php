@@ -25,7 +25,7 @@ class BlogPostExtension extends DataExtension
 
         $SummaryField = $fields->fieldByName('Root.Main.CustomSummary');
         $SummaryField->fieldByName('Summary')->setRows(10);
-        $SummaryField->getEditorConfig()->setOption('body_class', 'typography '. $this->owner->ShortClassName($this, true));
+        $SummaryField->fieldByName('Summary')->getEditorConfig()->setOption('body_class', 'typography '. $this->owner->ShortClassName($this, true));
 
         if ($CategoriesField = $fields->dataFieldByName('Categories')) {
             $CategoriesField->setShouldLazyLoad(false);

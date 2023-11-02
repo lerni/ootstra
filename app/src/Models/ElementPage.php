@@ -55,7 +55,7 @@ class ElementPage extends Page
         $fields = parent::getCMSFields();
 
         if (!$this->hasHero()) {
-            $message = _t(__CLASS__ . '.HeroNeeded', 'If there is no "Hero" as top element, <a href="/admin/settings/">default HeadeImage</a> is used.');
+            $message = _t(__CLASS__ . '.HeroNeeded', 'If there is no "Hero" as top element, <a href="/admin/settings/">default Header Slides</a> are used.');
             $fields->unshift(
                 LiteralField::create(
                     'HeroNeeded',

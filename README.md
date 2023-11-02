@@ -59,7 +59,7 @@ On the first Request database structure (tables) 'll automatically be generated 
     i18n::set_locale('de_CH');
 ```
 ### ddev/Docker dev-env
-ootstra comes with a ddev-config/setup for development. Install [ddev](https://ddev.readthedocs.io/en/stable/) and run `ddev start` & `ddev composer i` in the project directory. You'll than have a local webserver available on [https://oostra.ddev.site](https://oostra.ddev.site), watcher/browsersync runs on [https://oostra.ddev.site:3000/](https://oostra.ddev.site:3000/), [phpMyAdmin](http://oostra.ddev.site:8036),  [MailHog](https://oostra.ddev.site:8026/). Default login into [/admin](https://oostra.ddev.site/admin) is `admin` & `password`.
+ootstra comes with a ddev-config/setup for development. Install [ddev](https://ddev.readthedocs.io/en/stable/) and run `ddev start` & `ddev composer i` in the project directory. You'll than have a local webserver available on [https://oostra.ddev.site](https://oostra.ddev.site), watcher/browsersync runs on [https://oostra.ddev.site:3000/](https://oostra.ddev.site:3000/), [phpMyAdmin](https://oostra.ddev.site:8037),  [MailHog](https://oostra.ddev.site:8026/). Default login into [/admin](https://oostra.ddev.site/admin) is `admin` & `password`.
 
 ### npm, Laravel Mix watch & build etc.
 [Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([webpack](https://webpack.js.org/) based) is used as build environment. You need to run `ddev theme install` to install npm packages. In `themes/default/webpack.mix.js` host is set to be proxied to http://localhost:3000/ for browsersync. See also scripts section in `themes/default/package.json` and [Mix CLI](https://laravel-mix.com/docs/6.0/cli). Run `ddev theme watch` or `ddev theme prod`.
@@ -103,15 +103,16 @@ Don't forget to `ddev restart` and update packages `ddev composer u` after chang
 Deployment is based on [Deployer](https://deployer.org/), a php based cli-tool, which is included as dev-requirement per `composer.json`. It uses symlinks to the current release. It's easy to use, offers zero downtime deployments and rollback. `/assets`, `.env` are shared resources, this means they are symlinked into each release-folder.
 
 ```
-~/public_html/0live        or ~/public_html/0test
+~/public_html/0live     or ~/public_html/0test
 |
 |--.dep
-|  |--releases             deployers internal notes
+|  |--releases          deployers internal notes
 |
 |--current              -> ~/public_html/0live/releases/3 for example
-|  |--public               actual webroot but symlinked per parent-dir (current)
-|  |  |--assets         -> ~/public_html/0live/shared/assets
-|  |  |--...
+|  |--.env              -> ~/public_html/0live/shared/.env
+|  |--...               all the files from repo & vendors
+|  |--public            actual webroot but symlinked per parent-dir (current)
+|  |  |--assets/        -> ~/public_html/0live/shared/assets
 |
 |--releases
 |  |--1
@@ -122,7 +123,7 @@ Deployment is based on [Deployer](https://deployer.org/), a php based cli-tool, 
 |  |  |--.env           -> ~/public_html/0live/shared/.env
 |  |  |...
 |  |
-|  |--...                  as many as defined in keep_releases
+|  |--...               as many as defined in keep_releases
 |
 |--shared
    |--public/assets
@@ -207,7 +208,7 @@ ddev php ./vendor/bin/dep deploy live --tag=1.0.1 live
 
 ## Show deployed revision
 ```bash
-dep ddev php ./vendor/bin/dep releases live
+ddev php ./vendor/bin/dep releases live
 
 task releases
 +----------------------+-------------+-------- live ---+------------------------------------------+
@@ -222,10 +223,10 @@ task releases
 ## Uploading/downloading database from live/test
 ```bash
 # Upload database to test
-dep silverstripe:upload_database test
+ddev php ./vendor/bin/dep silverstripe:upload_database test
 
 # Download database from live
-dep silverstripe:download_database live
+ddev php ./vendor/bin/dep silverstripe:download_database live
 
 etc.
 or use VSCode tasks Command+Shift+B

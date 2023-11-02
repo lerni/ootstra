@@ -2,7 +2,6 @@
 
 namespace Deployer;
 
-use Symfony\Component\Console\Input\InputOption;
 require 'recipe/common.php';
 require 'deploy/config.php';
 require 'deploy/recipe/silverstripe.php';
@@ -98,6 +97,7 @@ set('clear_paths', [
     'deploy/'
 ]);
 
+// prevent sending usage statistics
 set('allow_anonymous_stats', false);
 
 // also set specified php version for composer

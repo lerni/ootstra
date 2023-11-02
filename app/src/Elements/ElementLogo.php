@@ -86,7 +86,7 @@ class ElementLogo extends BaseElement
             if ($this->Sorting == 'manual') {
                 $items = $this->Logos()->sort('SortOrder ASC');
             } else {
-                $items = $this->Logos()->sort('RAND()');
+                $items = $this->Logos()->shuffle();
             }
             return $items;
         }

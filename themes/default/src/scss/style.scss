@@ -670,7 +670,8 @@ p.cat-tag {
 		#uff {
 			scroll-margin: calc(#{$headerheight} + #{$lh}em);
 		}
-	}&.elementmaps {
+	}
+	&.elementmaps {
 		display: flex;
 		flex-wrap: wrap;
 		gap: #{$lh}em;
@@ -828,6 +829,7 @@ html .klaro {
 		.cm-btn {
 			cursor: pointer;
 			font-size: 14px;
+			border-radius: .1em;
 		}
 	}
 

@@ -2,16 +2,16 @@
 
 namespace App\Models\EditableFormField;
 
-use SilverStripe\SiteConfig\SiteConfig;
-use Kraftausdruck\Controller\KlaroConfigController;
-use Kraftausdruck\Extensions\KlaroSiteConfigExtension;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\CheckboxField;
-use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
-use SilverStripe\UserForms\Model\EditableFormField;
-use SilverStripe\UserForms\Model\EditableFormField\EditableCheckbox;
-use SilverStripe\View\Parsers\ShortcodeParser;
+use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\View\Parsers\HTMLValue;
+use SilverStripe\View\Parsers\ShortcodeParser;
+use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
+use Kraftausdruck\Controller\KlaroConfigController;
+use SilverStripe\UserForms\Model\EditableFormField;
+use Kraftausdruck\Extensions\KlaroSiteConfigExtension;
+use SilverStripe\UserForms\Model\EditableFormField\EditableCheckbox;
 
 class EditableCheckboxTerms extends EditableFormField
 {
@@ -48,7 +48,8 @@ class EditableCheckboxTerms extends EditableFormField
         return parent::getCMSFields();
     }
 
-    public function TitleParsed() {
+    public function TitleParsed()
+    {
         $text = $this->getField('Title');
         return ShortcodeParser::get_active()->parse($text);
     }
