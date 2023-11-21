@@ -576,10 +576,10 @@ AddDefaultCharset utf-8
         DirectorySlash On
     </IfModule>
 
-	# RewriteCond %{HTTP_HOST} !^www\.domain\.tld [NC]
-	# RewriteRule ^(.*)$ https://www.domain.tld/$1 [r=301,L]
-	# RewriteCond %{SERVER_PORT} !^443 [NC]
-	# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [r=301,L]
+    # RewriteCond %{HTTP_HOST} !^www\.domain\.tld [NC]
+    # RewriteRule ^(.*)$ https://www.domain.tld/$1 [r=301,L]
+    # RewriteCond %{SERVER_PORT} !^443 [NC]
+    # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [r=301,L]
 
     # Process through SilverStripe if no file with the requested name exists.
     # Pass through the original path as a query parameter, and retain the existing parameters.

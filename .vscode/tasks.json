@@ -217,6 +217,92 @@
       "icon": {
         "color": "terminal.ansiCyan"
       }
+    },
+    {
+      "label": "deploy test",
+      "type": "shell",
+      "command": "ddev php ./vendor/bin/dep deploy test",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "icon": {
+        "color": "terminal.ansiCyan"
+      }
+    },
+    {
+      "label": "deploy live",
+      "type": "shell",
+      "command": "ddev php ./vendor/bin/dep deploy live",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "icon": {
+        "color": "terminal.ansiCyan"
+      }
+    },
+    {
+      "label": "xdebug on",
+      "type": "shell",
+      "command": "ddev xdebug true",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "focus": false,
+        "close": true
+      },
+      "icon": {
+        "color": "terminal.ansiMagenta"
+      }
+    },
+    {
+      "label": "xdebug off",
+      "type": "shell",
+      "command": "ddev xdebug false",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "focus": false,
+        "close": true
+      },
+      "icon": {
+        "color": "terminal.ansiMagenta"
+      }
+    },
+    {
+      "label": "dep releases test",
+      "type": "shell",
+      "command": "ddev php ./vendor/bin/dep releases test",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "icon": {
+        "color": "terminal.ansiCyan"
+      }
+    },
+    {
+      "label": "dep releases live",
+      "type": "shell",
+      "command": "ddev php ./vendor/bin/dep releases live",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "icon": {
+        "color": "terminal.ansiCyan"
+      }
     }
   ]
 }

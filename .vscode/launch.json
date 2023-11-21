@@ -34,7 +34,7 @@
       "request": "launch",
       "reAttach": true,
       "reloadOnAttach": true,
-      "url": "http://localhost:8080/",
+      "url": "https://ootstra.ddev.site/",
       "webRoot": "${workspaceFolder}/public",
       "port": 9222,
       "pathMappings": [

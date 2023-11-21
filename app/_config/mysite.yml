@@ -89,6 +89,7 @@ Page:
 #     - Kraftausdruck\Extensions\AlgoliaControllerExtension
 
 SilverStripe\Blog\Model\BlogCategory:
+  allow_urlsegment_multibyte: true
   extensions:
     - App\Extensions\BlogCategoryExtension
 
@@ -300,7 +301,8 @@ Kraftausdruck\Webmanifest\Webmanifest:
     description: 'SiteConfig'
     background_color: 'SiteConfig'
     theme_color: 'SiteConfig'
-    # icon-mask are doubtable, but having it stops Google Lighthouse from complaining
+    # icon-mask are doubtable, having it stops Google Lighthouse from complaining ;)
+    # https://web.dev/articles/maskable-icon
     icons:
       - src: '/icon-mask.svg'
         sizes: '150x150'

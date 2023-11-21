@@ -6,9 +6,9 @@ use App\Models\Point;
 use SilverStripe\i18n\i18n;
 use BetterBrief\GoogleMapField;
 use SilverStripe\ORM\ArrayList;
+use SilverStripe\ORM\DataObject;
 use SilverStripe\Control\Director;
 use SilverStripe\View\Requirements;
-use SilverStripe\View\ViewableData;
 use SilverStripe\Control\Controller;
 use SilverStripe\Core\Config\Config;
 use DNADesign\Elemental\Controllers\ElementController;
@@ -55,7 +55,7 @@ class ElementMapsController extends ElementController
 
             $r = ArrayList::create();
             foreach ($list as $item) {
-                $d = ViewableData::create();
+                $d = DataObject::create();
 
                 $d->Title = $item->Title;
                 $d->Latitude = $item->Latitude;

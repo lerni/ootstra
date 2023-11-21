@@ -10,18 +10,6 @@
 		},
 		{
 			"type": "vcs",
-			"url": "git@bitbucket.org:kraftausdruck/jobpostings.git"
-		},
-		{
-			"type": "vcs",
-			"url": "git@bitbucket.org:kraftausdruck/simplebasket.git"
-		},
-		{
-			"type": "vcs",
-			"url": "git@bitbucket.org:kraftausdruck/emaildownload.git"
-		},
-		{
-			"type": "vcs",
 			"url": "https://github.com/lerni/silverstripe-embedfield"
 		},
 		{
@@ -77,8 +65,6 @@
 		"eluceo/ical": "^2",
 		"jonom/silverstripe-someconfig": "^1",
 		"nathancox/embedfield": "dev-attrquerystring",
-		"jcupitt/vips": "^v2",
-		"osiemsiedem/intervention-image-vips-driver": "^v0",
 		"lerni/folderindex": "^0"
 	},
 	"require-dev": {

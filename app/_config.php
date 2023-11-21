@@ -2,7 +2,6 @@
 
 use SilverStripe\i18n\i18n;
 use SilverStripe\Admin\CMSMenu;
-use SilverStripe\Control\Session;
 use SilverStripe\Core\Environment;
 use SilverStripe\Control\Email\Email;
 use Wilr\GoogleSitemaps\GoogleSitemap;
@@ -96,7 +95,7 @@ $editorOptions = [
 ];
 $EditorConfig->setOptions($editorOptions);
 
-// $EditorConfig->setButtonsForLine(1, ['formatselect styleselect pastetext ssmedia ssembed | bold bullist numlist ToggleDefinitionList ToggleDefinitionItem | alignleft aligncenter alignright alignjustify | sslink unlink | charmap hr code removeformat blockquote | outdent indent | undo redo']);
+// $EditorConfig->setButtonsForLine(1, ['blocks styles pastetext ssmedia ssembed | bold bullist numlist ToggleDefinitionList ToggleDefinitionItem | alignleft aligncenter alignright alignjustify | sslink unlink amchor | charmap hr code removeformat blockquote | outdent indent | undo redo| subscript superscript']);
 $EditorConfig->setButtonsForLine(1, ['blocks styles pastetext ssmedia ssembed | bold bullist numlist | alignleft aligncenter alignright alignjustify | sslink unlink anchor | charmap hr code removeformat blockquote | outdent indent | undo redo']);
 $EditorConfig->setButtonsForLine(2, '');
 

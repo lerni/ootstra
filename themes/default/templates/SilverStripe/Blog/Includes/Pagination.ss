@@ -16,7 +16,6 @@
                 <% end_if %>
             <% end_if %>
         <% end_loop %>
-
         <% if $NotLastPage %>
             <a class="next" href="{$NextLink}">&rarr;</a>
         <% end_if %>

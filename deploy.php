@@ -141,11 +141,9 @@ host('test')
 Deployer::get()->tasks->remove('deploy');
 desc('Deploy your project');
 task('deploy', function () {
-    invoke('deploy:prepare');
     invoke('silverstripe:installtools');
-    invoke('deploy:update_code');
     invoke('silverstripe:create_dotenv');
-    invoke('deploy:shared');
+    invoke('deploy:prepare');
     invoke('deploy:vendors');
     invoke('silverstripe:vendor_expose');
     invoke('silverstripe:remote_dump');
@@ -153,7 +151,7 @@ task('deploy', function () {
     invoke('silverstripe:dev_build');
     invoke('deploy:clear_paths');
     invoke('deploy:symlink');
-    invoke('pkill');
+    invoke('silverstripe:set_script_filename');
     invoke('deploy:unlock');
     invoke('deploy:cleanup');
     invoke('deploy:success');

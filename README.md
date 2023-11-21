@@ -1,9 +1,9 @@
 # Status - WIP
-**This was published as part of a lightning talk at virtual StripeCon 2020. Unfortunately it wasn't ready at the time of the conference and still is work in progress. As much as I like it to be finished product - so far its not. Time will tell, how things progress.**
+**This is work in progress!**
 
 # Setup, Requirements & install
 
-"ootstra" is inspired from [Bigfork’s quickstart recipe](https://github.com/bigfork/silverstripe-recipe) for [Silverstripe](https://www.silverstripe.org/). It's an opinionated set of tools for a ready to run, build & deploy CMS instance in a minimal amount of time. To get it up and running you'll need [GIT](https://git-scm.com/) and for deployment a server with [SSH](https://de.wikipedia.org/wiki/Secure_Shell) & git. It utilizes [dnadesign/silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) for a block/element based CMS experience and comes with the following set of elements:
+"ootstra" is inspired from [Bigfork’s quickstart recipe](https://github.com/bigfork/silverstripe-recipe) for [Silverstripe](https://www.silverstripe.org/). It's an opinionated set of tools for a ready to run, build & deploy CMS instance. To get it up and running you'll need [GIT](https://git-scm.com/), an editor like [VSCode](https://code.visualstudio.com/) (recommended), [ddev](https://ddev.readthedocs.io/en/stable/) and for deployment a server with [SSH](https://de.wikipedia.org/wiki/Secure_Shell) & git. It utilizes [dnadesign/silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) for a block/element based CMS experience and comes with the following set of elements:
 
 - ElementContent
 - ElementForm               (userforms)
@@ -36,7 +36,7 @@ Other features:
 - etc.
 
 ## Getting started
-As editor/IDE [VSCode](https://code.visualstudio.com/) is recommended. Per `.vscode/extensions.json` extensions 'll be suggested. `.vscode/settings.json` makes Logviewer work and contains settings for debugging etc.
+Per `.vscode/extensions.json` extensions 'll be suggested. `.vscode/settings.json` makes Logviewer work and contains settings for debugging etc.
 - [Silverstripe](https://marketplace.visualstudio.com/items?itemName=adrianhumphreys.silverstripe)
 - [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client)
 - [PHP Debug](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug)
@@ -59,16 +59,20 @@ On the first Request database structure (tables) 'll automatically be generated 
     i18n::set_locale('de_CH');
 ```
 ### ddev/Docker dev-env
-ootstra comes with a ddev-config/setup for development. Install [ddev](https://ddev.readthedocs.io/en/stable/) and run `ddev start` & `ddev composer i` in the project directory. You'll than have a local webserver available on [https://oostra.ddev.site](https://oostra.ddev.site), watcher/browsersync runs on [https://oostra.ddev.site:3000/](https://oostra.ddev.site:3000/), [phpMyAdmin](https://oostra.ddev.site:8037),  [MailHog](https://oostra.ddev.site:8026/). Default login into [/admin](https://oostra.ddev.site/admin) is `admin` & `password`.
+If the project is renamed, reflect this in `.ddev/config.yaml` and rerun `ddev config`. Run `ddev start` & `ddev composer i` in the project directory. This provides a webserver at [https://ootstra.ddev.site](https://ootstra.ddev.site), with watcher/browsersync at [https://ootstra.ddev.site:3000/](https://ootstra.ddev.site:3000/), phpMyAdmin at [https://ootstra.ddev.site:8037](https://ootstra.ddev.site:8037), and MailHog at [https://ootstra.ddev.site:8026/](https://ootstra.ddev.site:8026/). The default login at [/admin](https://ootstra.ddev.site/admin) is `admin` & `password`.
+
+This setup omits `ddev-ssh-agent` and exposes `SSH_AUTH_SOCK` via environment variable. To use items from your home directory (e.g., `~/.composer`, `~/.gitconfig`, `~/.ssh`) in ddev, create symlinks in `~/.ddev/homeadditions`. This allows you to use your local SSH keys. For more information, refer to the [ddev documentation](https://ddev.readthedocs.io/en/stable/users/extend/in-container-configuration/).
 
 ### npm, Laravel Mix watch & build etc.
-[Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([webpack](https://webpack.js.org/) based) is used as build environment. You need to run `ddev theme install` to install npm packages. In `themes/default/webpack.mix.js` host is set to be proxied to http://localhost:3000/ for browsersync. See also scripts section in `themes/default/package.json` and [Mix CLI](https://laravel-mix.com/docs/6.0/cli). Run `ddev theme watch` or `ddev theme prod`.
+[Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([webpack](https://webpack.js.org/) based) is used as build environment. You need to run `ddev theme install` to install npm packages. In `themes/default/webpack.mix.js` host is set to be proxied to https://ootstra.ddev.site:3000/ for browsersync. See also scripts section in `themes/default/package.json` and [Mix CLI](https://laravel-mix.com/docs/6.0/cli). Run `ddev theme watch` or `ddev theme prod`.
 
-### VSCode tasks
+### VSCode tasks - remember all the commands :information_desk_person:
 There are a bunch of tasks in `.vscode/tasks.json` available per `Command+Shift+B`:
 - `ddev start` (magenta)
 - `ddev stop` (magenta)
 - `ddev restart` (magenta)
+- `composer update` (magenta)
+- `ddev logs` (magenta)
 - `ddev theme install` (green)
 - `ddev theme watch` (green)
 - `ddev theme prod` (green)
@@ -77,16 +81,16 @@ There are a bunch of tasks in `.vscode/tasks.json` available per `Command+Shift+
 - `dev/build` (blue) instead of `ddev php ./vendor/silverstripe/framework/cli-script.php dev/build flush`
 - `download database from live` (cyan)
 - `download assets from live` (cyan)
-- `ssh test` (cyan)
-- `ssh live` (cyan)
+- `ssh test / live` (cyan)
+- `deploy test / live` (cyan)
+- `xdebug on / off` (magenta)
+- `dep releases test / live` (cyan)
 
 
 Database, credentials etc. are provided per environment Variables (`/.env` file).
 
 ## Debugging
-In order to use Xdebug with this setup, a browser-extensions like [Xdebug Helper for Firefox](https://addons.mozilla.org/de/firefox/addon/xdebug-helper-for-firefox/) or [Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc) is needed to control/trigger debugging behaviour.
-
-To debug JS inside VSCode with Firefox [Debugger for Firefox](https://marketplace.visualstudio.com/items?itemName=firefox-devtools.vscode-firefox-debug) is used. With Chrome & Edge you may need to tweak config in `.vscode/launch.json` :shrug:
+To debug JS inside VSCode with Firefox [Debugger for Firefox](https://marketplace.visualstudio.com/items?itemName=firefox-devtools.vscode-firefox-debug) is used. You may need to tweak URL/config in `.vscode/launch.json` :shrug:
 
 ## PHP Version
 Current used PHP-Version is 8.2. It's set in following places:
@@ -139,7 +143,7 @@ Rename `config.example.php` to `deploy/config.php` and configure things to your 
 
 # Deploy
 
-The setup uses key-forwarding, so deployment can be done from inside the silverstripe docker container. Before first deployment ssh into remote servers like `dep ssh test` or `dep ssh live` and make sure ssh-fingerprint from the git repo is accepted. You may just do a git clone into a test directory to verify things work as expected. If so, deployment is done like:
+The setup uses key-forwarding, so deployment can be done from inside the ddev-web container. Before first deployment ssh into remote servers like `dep ssh test` or `dep ssh live` and make sure ssh-fingerprint from the git repo is accepted. You may just do a git clone into a test directory to verify things work as expected. If so, deployment is done like:
 ```bash
     ddev php ./vendor/bin/dep deploy test
 ```
@@ -156,25 +160,25 @@ The first time you deploy to a given stage, you’ll be asked to provide databas
 # https://docs.silverstripe.org/en/4/getting_started/environment_management/#core-environment-variables
 
 # Environment dev/stage/live
-SS_ENVIRONMENT_TYPE="dev"
-# SS_BASE_URL=""
+SS_ENVIRONMENT_TYPE='dev'
+# SS_BASE_URL=''
 
-# SS_DEFAULT_ADMIN_USERNAME=""
-# SS_DEFAULT_ADMIN_PASSWORD=""
+# SS_DEFAULT_ADMIN_USERNAME=''
+# SS_DEFAULT_ADMIN_PASSWORD=''
 
-SS_ERROR_EMAIL=""
-SS_ADMIN_EMAIL=""
+SS_ERROR_EMAIL=''
+SS_ADMIN_EMAIL=''
 
 ## Database {#database}
-SS_DATABASE_NAME="db"
+SS_DATABASE_NAME='db'
 # SS_DATABASE_CHOOSE_NAME=true
-SS_DATABASE_CLASS="MySQLDatabase"
-SS_DATABASE_USERNAME="db"
-SS_DATABASE_PASSWORD="db"
-SS_DATABASE_SERVER="db"
-SS_DATABASE_PORT="3306"
+SS_DATABASE_CLASS='MySQLDatabase'
+SS_DATABASE_USERNAME='db'
+SS_DATABASE_PASSWORD='db'
+SS_DATABASE_SERVER='db'
+SS_DATABASE_PORT='3306'
 
-SS_ERROR_LOG="silverstripe.log"
+SS_ERROR_LOG='silverstripe.log'
 
 MAIL_MAILER=smtp
 MAIL_HOST=localhost
@@ -182,12 +186,12 @@ MAIL_PORT=1025
 MAIL_USERNAME=null
 MAIL_PASSWORD=null
 MAIL_ENCRYPTION=null
-MAILER_DSN="smtp://localhost:1025"
+MAILER_DSN='smtp://localhost:1025'
 
-GHOSTSCRIPT_PATH="/usr/local/bin/gs"
+GHOSTSCRIPT_PATH='/usr/local/bin/gs'
 
-# SS_NOCAPTCHA_SITE_KEY=""
-# SS_NOCAPTCHA_SECRET_KEY=""
+# SS_NOCAPTCHA_SITE_KEY=''
+# SS_NOCAPTCHA_SECRET_KEY=''
 ```
 See also:
 
@@ -251,3 +255,5 @@ ddev php ./vendor/bin/dep silverstripe:dev_build live -v
 # dev/build on test
 ddev php ./vendor/bin/dep silverstripe:dev_build test -v
 ```
+# License
+`ootstra` is licensed under the [BSD license](LICENSE). Third-party modules have different licenses. Check with `composer licenses` and `npx license-checker --summary` in `themes/default`. Installation implies acceptance of all licenses. Note that [@fancyapps/ui](https://fancyapps.com/) is commercial software requiring a [purchased license](https://fancyapps.com/pricing/).

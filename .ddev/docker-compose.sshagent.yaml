@@ -1,0 +1,4 @@
+services:
+    web:
+        volumes:
+            - /run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock

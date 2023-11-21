@@ -20,8 +20,7 @@
     "/dist/css/logo.css": "/dist/css/logo.css",
     "/dist/css/gallery.css": "/dist/css/gallery.css",
     "/dist/css/footer.css": "/dist/css/footer.css",
-    "/dist/fonts/ibm-plex-sans-v9-latin-200.woff": "/dist/fonts/ibm-plex-sans-v9-latin-200.woff",
-    "/dist/fonts/ibm-plex-sans-v9-latin-200.woff2": "/dist/fonts/ibm-plex-sans-v9-latin-200.woff2",
-    "/dist/fonts/ibm-plex-sans-v9-latin-regular.woff": "/dist/fonts/ibm-plex-sans-v9-latin-regular.woff",
-    "/dist/fonts/ibm-plex-sans-v9-latin-regular.woff2": "/dist/fonts/ibm-plex-sans-v9-latin-regular.woff2"
+    "/dist/fonts/figtree-v5-latin-300.woff2": "/dist/fonts/figtree-v5-latin-300.woff2",
+    "/dist/fonts/figtree-v5-latin-700.woff2": "/dist/fonts/figtree-v5-latin-700.woff2",
+    "/dist/fonts/figtree-v5-latin-regular.woff2": "/dist/fonts/figtree-v5-latin-regular.woff2"
 }

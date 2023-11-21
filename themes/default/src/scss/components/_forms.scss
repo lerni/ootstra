@@ -152,11 +152,13 @@ form {
 					color: $text-color;
 					@include normal; // dropdown needs this
 				}
-				input.text:focus,
-				textarea:focus,
-				.textajaxuniquetext:focus,
-				select:focus {
-					outline: none;
+				input,
+				textarea,
+				.textajaxuniquetext,
+				select {
+					&:focus {
+						outline: 2px solid $link-color;
+					}
 				}
 				input[disabled],
 				form textarea[disabled] {

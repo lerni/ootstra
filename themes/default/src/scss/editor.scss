@@ -12,10 +12,7 @@
 	font-weight: $font-weight--normal;
 	font-display: swap;
 	src: local(""),
-		url("/_resources/themes/default/dist/fonts/ibm-plex-sans-v9-latin-200.woff2")
-			format("woff2"),
-		url("/_resources/themes/default/dist/fonts/ibm-plex-sans-v9-latin-200.woff")
-			format("woff");
+		url("/_resources/themes/default/dist/fonts/figtree-v5-latin-300.woff2") format('woff2');
 }
 @font-face {
 	font-family: $font-family;
@@ -23,10 +20,7 @@
 	font-weight: $font-weight--bold;
 	font-display: swap;
 	src: local(""),
-		url("/_resources/themes/default/dist/fonts/ibm-plex-sans-v9-latin-regular.woff2")
-			format("woff2"),
-		url("/_resources/themes/default/dist/fonts/ibm-plex-sans-v9-latin-regular.woff")
-			format("woff");
+		url("/_resources/themes/default/dist/fonts/figtree-v5-latin-700.woff2") format('woff2');
 }
 
 body.mce-content-body {

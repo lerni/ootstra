@@ -2,8 +2,7 @@
 -------------------------------------------------------------------------------- */
 @font-face {
 	font-family: "icons";
-	src: url("/_resources/app/fonts/icons.woff2") format("woff2"),
-	url("/_resources/app/fonts/icons.woff") format("woff");
+	src: url("/_resources/app/fonts/icons.woff2") format("woff2");
 	font-weight: normal;
 	font-style: normal;
 }
@@ -71,7 +70,7 @@ fieldset.grid {
 }
 
 /* no UserformPage creation -> ElementPages */
-.valSilverStripe_UserForms_Model_UserDefinedForm,
+.valSilverStripe_UserForms_Model_UserDefinedForm
 /* .valSilverStripe_Blog_Model_BlogPost,
 .valSilverStripe_Blog_Model_Blog  */
 {
@@ -175,8 +174,7 @@ ul#Form_ItemEditForm_BackgroundColor li label[for$="transparent"] {
 	background-size: 400% auto !important;
 }
 
-/* https://github.com/silverstripe/silverstripe-admin/issues/1430#issuecomment-1625840199 */
-.preview-mode-selector .chosen-drop {
-	width: inherit;
-	right: 0;
+/* adding categories has unnecessary icons from data-icon="add" */
+.input-group-append button::before {
+	content: none;
 }

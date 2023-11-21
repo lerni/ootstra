@@ -95,7 +95,7 @@ class ContentPart extends DataObject
                 TextCheckboxGroupField::create()
                     ->setName('Title')
             );
-            $fields->addFieldToTab('Root.Main', $TitleFieldGroup, true);
+            $fields->unshift($TitleFieldGroup);
         }
 
         if ($FAQTitleField = $fields->dataFieldByName('FAQTitle')) {
@@ -103,10 +103,10 @@ class ContentPart extends DataObject
         }
 
         if ($DefaultOpenField = $fields->dataFieldByName('DefaultOpen')) {
-            $fields->insertBefore($DefaultOpenField, 'Text');
+            $fields->insertBefore('Text', $DefaultOpenField);
         }
         if ($FAQSchemaField = $fields->dataFieldByName('FAQSchema')) {
-            $fields->insertBefore($FAQSchemaField, 'Text');
+            $fields->insertBefore('Text', $FAQSchemaField);
         }
 
         if ($this->isInDB() && $this->ElementContentSection()->count() > 1) {

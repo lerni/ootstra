@@ -110,7 +110,8 @@ class FieldExtension extends Extension
         }
     }
 
-    public function Markdowned() {
+    public function Markdowned()
+    {
         if ($this->owner->value) {
             $converter = new GithubFlavoredMarkdownConverter();
             $html = $converter->convertToHtml($this->owner->value);
@@ -129,21 +130,21 @@ class FieldExtension extends Extension
             $iframe = $dom->getElementsByTagName("iframe");
             $iFrameSrc = $iframe->item(0)->getAttribute('src');
 
-            // trim youtube embeds
+            // lazy load anyways
+            $iframe->item(0)->setAttribute('loading', 'lazy');
+
+            // set aspect ratio
+            $iFrameWidth = $iframe->item(0)->getAttribute('width');
+            $iframe->item(0)->removeAttribute('width');
+            $iFrameHeight = $iframe->item(0)->getAttribute('height');
+            $iframe->item(0)->removeAttribute('height');
+            $iFrameStyle = 'width: 100%; aspect-ratio: ' . $iFrameWidth . '/' . $iFrameHeight . ' !important;';
+            $iframe->item(0)->setAttribute('style', $iFrameStyle);
+
+            $url_parts = parse_url($iFrameSrc);
+
+            // parm trimming form youtube embeds
             if (str_contains($iFrameSrc, 'youtube')) {
-
-                // lazy load anyways
-                $iframe->item(0)->setAttribute('loading', 'lazy');
-
-                // set aspect ratio
-                $iFrameWidth = $iframe->item(0)->getAttribute('width');
-                $iframe->item(0)->removeAttribute('width');
-                $iFrameHeight = $iframe->item(0)->getAttribute('height');
-                $iframe->item(0)->removeAttribute('height');
-                $iFrameStyle = 'width: 100%; aspect-ratio: ' . $iFrameWidth . '/' . $iFrameHeight . ' !important;';
-                $iframe->item(0)->setAttribute('style', $iFrameStyle);
-
-                $url_parts = parse_url($iFrameSrc);
                 if (isset($url_parts['query'])) {
                     parse_str($url_parts['query'], $params);
                 } else {
@@ -166,11 +167,12 @@ class FieldExtension extends Extension
                     $YTEnhancedPrivacyLink = $embedCFG->get('YTEnhancedPrivacyLink');
                     $url_parts['host'] = $YTEnhancedPrivacyLink;
                 }
-
-                $iFrameSrc = $this->unparse_url($url_parts);
-
-                $iframe->item(0)->setAttribute('src', $iFrameSrc);
             }
+
+            $iFrameSrc = $this->unparse_url($url_parts);
+
+            $iframe->item(0)->setAttribute('src', $iFrameSrc);
+
 
             $vidSrc = $dom->saveHTML($iframe->item(0));
 

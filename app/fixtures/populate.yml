@@ -69,7 +69,7 @@ SilverStripe\SiteConfig\SiteConfig:
 
 App\Models\Location:
   location1:
-    Title: 'Ruswil'
+    Title: 'Kraftausdruck GmbH'
     Address: 'Hellbühlstrasse 36'
     PostalCode: '6017'
     Town: 'Ruswil'

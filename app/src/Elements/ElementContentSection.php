@@ -7,7 +7,6 @@ use Spatie\SchemaOrg\Schema;
 use SilverStripe\Forms\LiteralField;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Forms\GridField\GridField;
-use SilverStripe\Forms\GridField\GridFieldPaginator;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
 use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\GridField\GridFieldConfig_Base;
@@ -60,7 +59,6 @@ class ElementContentSection extends BaseElement
                 new GridFieldAddNewButton('toolbar-header-right'),
                 new GridFieldAddExistingAutocompleter('toolbar-header-right'),
                 new GridFieldOrderableRows('SortOrder')
-                // new GridFieldDuplicateAction()
             );
             $GridField = new GridField('ContentParts', 'Content Parts', $this->ContentParts(), $ContentPartsGridFieldConfig);
             $fields->addFieldToTab('Root.Main', $GridField);

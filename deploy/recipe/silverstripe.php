@@ -2,10 +2,6 @@
 
 namespace Deployer;
 
-use Deployer\Task\Context;
-use RuntimeException;
-use Symfony\Component\Console\Input\InputOption;
-
 // Tasks
 desc('Populate .env file');
 task('silverstripe:create_dotenv', function () {
@@ -30,7 +26,7 @@ task('silverstripe:create_dotenv', function () {
     $contents = <<<ENV
 # Environment dev/stage/live
 SS_ENVIRONMENT_TYPE='{$type}'
-# SS_BASE_URL=""
+# SS_BASE_URL=''
 
 SS_DEFAULT_ADMIN_USERNAME='{$cmsDefaultUser}'
 SS_DEFAULT_ADMIN_PASSWORD='{$cmsDefaultPass}'
@@ -49,11 +45,13 @@ SS_ERROR_LOG='silverstripe.log'
 
 GHOSTSCRIPT_PATH='/usr/bin/gs'
 
-# SS_NOCAPTCHA_SITE_KEY=""
-# SS_NOCAPTCHA_SECRET_KEY=""
-# MAIL_HOST=""
-# MAIL_USERNAME=""
-# MAIL_PASSWORD=""
+# SS_NOCAPTCHA_SITE_KEY=''
+# SS_NOCAPTCHA_SECRET_KEY=''
+# MAIL_HOST=''
+# MAIL_USERNAME=''
+# MAIL_PASSWORD=''
+
+SCRIPT_FILENAME=''
 ENV;
 
 // heredoc is a mess with this setup
@@ -66,6 +64,18 @@ ENV;
 
     run('echo "'. $contents .'" &> '. $envPath);
 
+});
+
+
+desc('Sets SCRIPT_FILENAME to the current path in .env file');
+task('silverstripe:set_script_filename', function () {
+    $hasEnvFile = run("if [ -e {{deploy_path}}/shared/.env ]; then echo 'true'; fi");
+    if (!$hasEnvFile) {
+        return;
+    }
+    $deploy_path = get('deploy_path');
+    $path = run("realpath {{release_or_current_path}}");
+    run("sed -i -e \"/SCRIPT_FILENAME/ s|=.*|='\\" . $path . "'|\" $deploy_path/shared/.env");
 });
 
 
@@ -83,19 +93,6 @@ task('silverstripe:installtools', function () {
 desc('Run composer vendor-expose');
 task('silverstripe:vendor_expose', function () {
     run('cd {{release_path}} && {{bin/composer}} vendor-expose');
-});
-
-
-// Reset lsphp/php-fpm process on server (symlink-caching)
-// todo: probable a better fix:
-// https://deployer.org/docs/7.x/avoid-php-fpm-reloading
-desc('Run pkill to reset php process');
-task('pkill', function () {
-    try {
-        run('pkill lsphp');
-    } catch (\Exception $ex) {
-        writeln($ex->getMessage());
-    }
 });
 
 
@@ -276,7 +273,7 @@ function getImportDatabaseCommand($envPath, $source) {
 }
 
 
-desc('Creates a DB-dump in dumps-dir and delete older dumps with "auto" as prefix to to the number specified in keep_releases.');
+desc('Creates a DB-dump in dumps-dir and delete older dumps with "auto" as prefix to to two times the number specified in keep_releases.');
 task('silverstripe:remote_dump', function ($prefix = 'auto') {
     $stage = get('labels')['stage'];
 
@@ -289,7 +286,7 @@ task('silverstripe:remote_dump', function ($prefix = 'auto') {
         $filename = $prefix . '-' . $filename;
 
         // delete older dumps
-        run('rm -f $(ls -1t {{deploy_path}}/dumps/auto-' . get('application') . '-' . $stage . '* | tail -n +' . get('keep_releases') . ')');
+        run('rm -f $(ls -1t {{deploy_path}}/dumps/auto-' . get('application') . '-' . $stage . '* | tail -n +' . (get('keep_releases') * 2) . ')');
 
         // Dump database remote DB
         run(getExportDatabaseCommand('{{deploy_path}}/shared/.env', "{{deploy_path}}/dumps/{$filename}"));

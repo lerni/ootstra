@@ -97,7 +97,7 @@ mix.browserSync({
   ],
   ignore: [
     'dist/images/.gitkeep',
-    'dist/webfonts/.gitkeep'
+    'dist/fonts/.gitkeep'
   ],
   proxy: 'localhost',
   host: url,
