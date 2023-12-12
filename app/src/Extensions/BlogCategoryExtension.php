@@ -4,7 +4,6 @@ namespace App\Extensions;
 
 use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\DataExtension;
-use SilverStripe\Blog\Model\BlogPost;
 
 class BlogCategoryExtension extends DataExtension
 {

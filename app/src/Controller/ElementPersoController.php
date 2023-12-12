@@ -105,13 +105,14 @@ class ElementPersoController extends ElementController
 
         $perso = Perso::get()->byID($ID);
 
-        if ($perso->ID) {
+        if ($perso->exists()) {
             // if a current-folder exists, we assume a symlinked baseFolder like with PHP deployer
-            $current = dirname(dirname(Director::baseFolder())) . '/current';
+            $base = Director::baseFolder();
+            $current = dirname(dirname($base)) . '/current';
             if (is_dir($current)) {
-                $basePath = dirname(dirname(Director::baseFolder())) . '/shared';
+                $basePath = dirname(dirname($base)) . '/shared';
             } else {
-                $basePath = Director::baseFolder();
+                $basePath = $base;
             }
 
             $baseURL = Director::absoluteBaseURL();
@@ -138,10 +139,9 @@ class ElementPersoController extends ElementController
                     $obsoletRecord->delete();
                     $obsoletRecord->revokeFile();
                     $obsoletRecord->deleteFile(true);
+                } else {
+                    $file = File::get()->filter(['FileFilename' => $relative_filepath])->first();
                 }
-                $file = File::get()->filter(['FileFilename' => $relative_filepath])->first();
-                if ($file) return $file;
-
             }
 
             if (!isset($file)) {
@@ -156,7 +156,7 @@ class ElementPersoController extends ElementController
                     ->setBackgroundColor(new Color(255, 255, 255, 0));
 
                 // Create generic logo
-                // // $logo = Logo::create(rtrim(Director::absoluteBaseURL(), '/') . ModuleResourceLoader::resourceURL('themes/default/dist/images/svg/scanme.svg'))
+                // $logo = Logo::create(rtrim(Director::absoluteBaseURL(), '/') . ModuleResourceLoader::resourceURL('themes/default/dist/images/svg/scanme.svg'))
                 // $logo = Logo::create('_resources/themes/default/dist/images/svg/scanme.svg')
                 //     ->setResizeToWidth(68)
                 //     ->setResizeToHeight(68);
@@ -172,8 +172,10 @@ class ElementPersoController extends ElementController
                 $file->Title = $perso->getTitle();
                 $file->setFromLocalFile($tmp_filename, 'qr/' . $perso->ID . '.svg');
                 $file->write();
-                return $file;
+                $file->publishSingle();
             }
+
+            return $file;
         }
     }
 }

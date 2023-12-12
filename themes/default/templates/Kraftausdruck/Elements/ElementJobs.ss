@@ -11,7 +11,7 @@
 				<% end_if %>
 				<div class="txt">
 					<% if $Title %><h2>$Title</h2><% end_if %>
-					<%-- <p><% loop $JobLocations %>$Town<% if not $Last %>, <% end_if %><% end_loop %></p> --%>
+					<%-- <p><% loop $JobLocations %>$Town<% if not $IsLast %>, <% end_if %><% end_loop %></p> --%>
 					<p class="link forth"><%t Kraftausdruck\Elements\ElementJobs.MORE "Read more" %></p>
 				</div>
 			</a>

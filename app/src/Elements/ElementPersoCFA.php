@@ -124,4 +124,11 @@ class ElementPersoCFA extends BaseElement
     {
         return _t(__CLASS__ . '.BlockType', 'Contact (CFA)');
     }
+
+    public function PrimaryElementPersoController() {
+        $elementPerso = ElementPerso::get()->filter(['Primary' => 1])->first();
+        if ($elementPerso) {
+            return $elementPerso->getController();
+        }
+    }
 }

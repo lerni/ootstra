@@ -48,7 +48,7 @@ class Page extends SiteTree
 
             if ($TextEditor = $fields->dataFieldByName('Content')) {
                 $TextEditor->setRows(30);
-                $TextEditor->getEditorConfig()->setOption('body_class', 'typography '. $this->ShortClassName($this, 'true'));
+                $TextEditor->getEditorConfig()->setOption('body_class', 'typography ' . $this->ShortClassName($this, 'true'));
             }
         });
 
@@ -266,8 +266,7 @@ class Page extends SiteTree
                     return true;
                 }
             }
-        } elseif($this->ClassName == VirtualPage::class && $this->CopyContentFrom()->hasExtension(ElementalPageExtension::class))
-        {
+        } elseif ($this->ClassName == VirtualPage::class && $this->CopyContentFrom()->hasExtension(ElementalPageExtension::class)) {
             if ($this->CopyContentFrom()->ElementalArea()->Elements()->Count() && $this->CopyContentFrom()->ElementalArea()->Elements()->first()->ClassName == ElementHero::class) {
                 return true;
             }

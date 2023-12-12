@@ -29,6 +29,17 @@ a img {
 	text-decoration: none;
 }
 
+/*	sometimes referred to as .sr-only
+	https://www.scottohara.me/blog/2023/03/21/visually-hidden-hack.html */
+.visually-hidden:not(:focus):not(:active):not(:focus-within) {
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
 a[href^="tel"],
 a[href^="x-apple-data-detectors:"] {
 	color: inherit;

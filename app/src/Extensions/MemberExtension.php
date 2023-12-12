@@ -2,8 +2,8 @@
 
 namespace App\Extensions;
 
-use SilverStripe\Forms\FieldList;
 use SilverStripe\Core\Extension;
+use SilverStripe\Forms\FieldList;
 use SilverStripe\Security\Permission;
 
 class MemberExtension extends Extension

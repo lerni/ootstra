@@ -95,8 +95,7 @@
       "isBackground": true,
       "presentation": {
         "reveal": "always",
-        "panel": "new",
-        "focus": true
+        "panel": "new"
       },
       "icon": {
         "color": "terminal.ansiMagenta"
@@ -110,8 +109,7 @@
       "isBackground": true,
       "presentation": {
         "reveal": "always",
-        "panel": "new",
-        "focus": true
+        "panel": "new"
       },
       "icon": {
         "color": "terminal.ansiMagenta"
@@ -121,6 +119,35 @@
       "label": "ddev restart",
       "type": "shell",
       "command": "ddev restart",
+      "group": "build",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "icon": {
+        "color": "terminal.ansiMagenta"
+      }
+    },
+    {
+      "label": "ddev ssh",
+      "type": "shell",
+      "command": "ddev ssh",
+      "group": "build",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "icon": {
+        "color": "terminal.ansiMagenta"
+      }
+    },
+    {
+      "label": "ddev ssh thems/default",
+      "type": "shell",
+      "command": "ddev ssh -d /var/www/html/themes/default",
       "group": "build",
       "isBackground": true,
       "presentation": {

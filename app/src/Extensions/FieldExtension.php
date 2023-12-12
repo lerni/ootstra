@@ -158,7 +158,7 @@ class FieldExtension extends Extension
                     foreach ($queryStrings as $key => $value) {
                         $params[key($value)] = $value[key($value)];
                     }
-                    $queryString =  http_build_query($params);
+                    $queryString = http_build_query($params);
                     $url_parts['query'] = $queryString;
                 }
 

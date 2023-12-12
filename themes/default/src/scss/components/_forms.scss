@@ -267,7 +267,6 @@ form {
 		background-color: rgba($link-color, 1);
 		padding: 5px 10px;
 		border: 1px solid rgba($link-color, 1);
-		border-radius: 3px;
 	}
 	.good {
 		background-color: #ecf9d0;
@@ -285,109 +284,51 @@ form {
 	}
 }
 
-.Actions {
-	margin-bottom: #{$lh}em;
-	display: flex;
-	a.btn,
-	button,
-	input[type="submit"],
-	.Actions .action {
-		background: $link-color;
-		color: $white;
-		display: inline-block;
-		padding: #{math.div($lh, 4)}em #{math.div($lh, 2)}em;
-		border: none;
-		@include bold;
-	}
-	a.btn:hover,
-	button:hover,
-	input[type="submit"]:hover,
-	.Actions .action:hover {
-		background: darken($link-color, 5%);
-		color: $white;
-	}
-	a.btn {
-		line-height: 18px;
-		margin-bottom: 10px;
-	}
-	a.btn::after {
-		content: "\2192";
-		padding-left: 10px;
-	}
-	input.action[class] {
-		width: auto;
-	}
-
-	.Actions::after {
-		color: #b94a48;
-		content: "* Pflichtfeld";
-		display: inline-block;
+form {
+	.requiredField label.left::after {
+		color: $text-color;
+		content: "*";
 		font-weight: normal;
-		margin-top: 9px;
+		padding-left: 3px;
 	}
-	#MemberLoginForm_LoginForm .Actions::after {
-		display: none;
+	/* Radio / Checkbox */
+	.checkboxset,
+	.optionset {
+		ul {
+			margin: 0;
+		}
+		li {
+			margin-bottom: 5px;
+			list-style-type: none;
+		}
 	}
-}
-
-#Remember {
-	min-height: 20px;
-}
-#ForgotPassword {
-	clear: left;
-}
-#MemberLoginForm_LostPasswordForm .Actions::after {
-	display: none;
-}
-
-.FormHeading {
-	clear: both;
-	padding-top: 15px;
-}
-.Actions input.resetformaction {
-	float: left;
-	background-color: #888;
-}
-.Actions input.resetformaction:hover {
-	background-color: #aaa;
-}
-
-.checkbox label.right {
-	font-size: $font-size--small;
-	color: $text-color;
-	float: left;
-}
-form .requiredField label.left::after {
-	color: $text-color;
-	content: "*";
-	font-weight: normal;
-	padding-left: 3px;
-}
-
-/* Radio / Checkbox */
-form .checkboxset ul,
-form .optionset ul {
-	margin: 0;
-}
-form .checkboxset li,
-form .optionset li {
-	margin-bottom: 5px;
-	list-style-type: none;
-}
-form div.checkbox::after {
-	content: ".";
-	display: block;
-	height: 0;
-	clear: both;
-	visibility: hidden;
-}
-form .checkbox .checkbox {
-	float: left;
-	margin: 0.2em 0.3em 0 0;
-}
-form .checkbox label p {
-	margin-bottom: 0;
-	line-height: 1;
+	div.checkbox::after {
+		content: ".";
+		display: block;
+		height: 0;
+		clear: both;
+		visibility: hidden;
+	}
+	.checkbox {
+		label {
+			&.right {
+				font-size: $font-size--small;
+				color: $text-color;
+				float: left;
+			}
+			p {
+				margin-bottom: 0;
+				line-height: 1;
+			}
+		}
+		&:focus-within {
+			outline: 2px solid $link-color;
+		}
+		.checkbox {
+			float: left;
+			margin: 0.2em 0.3em 0 0;
+		}
+	}
 }
 
 label.error,
@@ -407,9 +348,6 @@ form input.holder-required {
 	border: 1px solid #cf0000;
 }
 
-input:invalid,
-textarea:invalid {
-}
 .no-boxshadow input:invalid,
 .no-boxshadow textarea:invalid {
 	background-color: #f0dddd;
@@ -422,41 +360,17 @@ form .file {
 	color: $text-color;
 }
 
-@media only screen and (max-width: 700px) {
-	.header form .middleColumn {
-		float: none;
-		width: 100% !important;
-	}
-	form label.left,
-	#MemberLoginForm_LoginForm label {
-		margin-bottom: 8px;
-	}
+.Actions {
+	margin-bottom: #{$lh}em;
+	display: flex;
 }
 
-@media only screen and (max-width: 900px) {
-	form {
-		max-width: 100%;
-	}
-}
-
-@media only screen and (min-width: 700px) {
-}
 [type="submit"],
 .action:not(.action-detail),
 .action.new-link,
 .btn,
 .btn-large {
-	font-size: 1em;
-	text-decoration: none;
-	color: $white;
-	background-color: $link-color;
-	text-align: center;
-	transition: 0.2s ease-out;
-	cursor: pointer;
-	display: inline-block;
-	padding: #{math.div($lh, 4)}em #{math.div($lh, 2)}em;
-	border: none;
-	-webkit-appearance: none;
+	@include buttonstyle;
 	&:hover {
 		background-color: $link-color;
 	}

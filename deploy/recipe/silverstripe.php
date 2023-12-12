@@ -96,6 +96,19 @@ task('silverstripe:vendor_expose', function () {
 });
 
 
+// Reset lsphp/php-fpm process on server realpath/symlink-caching)
+// https://deployer.org/docs/7.x/avoid-php-fpm-reloading
+// silverstripe:set_script_filename *should* fix above, but...
+desc('Run pkill to reset php process');
+task('pkill', function () {
+    try {
+        run('pkill lsphp');
+    } catch (\Exception $ex) {
+        writeln($ex->getMessage());
+    }
+});
+
+
 desc('Run dev/build');
 task('silverstripe:dev_build', function () {
     run('cd {{release_or_current_path}} && {{bin/php}} ./vendor/silverstripe/framework/cli-script.php dev/build flush');
@@ -154,6 +167,7 @@ task('silverstripe:download_assets', function () {
     download('{{deploy_path}}/shared/public/assets/', 'public/assets', [
         'options' => [
             "--exclude={'error-*.html','_tinymce','.htaccess','.DS_Store','._*'}",
+            // "--omit-dir-times",
             "--delete",
             "--bwlimit=4096" // for whatever reason, this is needed on some boxes to successfully download
         ]

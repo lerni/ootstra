@@ -1,5 +1,5 @@
 <% loop $Pages %>
-	<% if $Last %>
+	<% if $IsLast %>
 		<span class="breadcrumb-$Pos">$MenuTitle.XML</span>
 	<% else %>
 		<% if not $Up.Unlinked %><a href="$Link" class="breadcrumb-$Pos"><% end_if %>

@@ -291,6 +291,9 @@ App\Models\Perso:
 #     - JobPosting: 'Kraftausdruck\Models\JobPosting'
 #     - Perso: 'App\Models\Perso'
 
+# we install DebugBar in require-dev, so it's OK to have it available in live & dev mode
+LeKoala\DebugBar\DebugBar:
+  check_local_ip: false
 ---
 Name: mywebmanifestconfig
 After: webmanifestconfig

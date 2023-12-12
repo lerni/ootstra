@@ -21,6 +21,7 @@
 					<span class="links">
 						<% if $EMail %><a href="mailto:{$EMail}">{$EMail}</a><% end_if %>
 						<% if $Telephone %><a href="tel:{$Telephone.TelEnc}">{$Telephone}</a><% end_if %>
+						<% if $EMail && $Telephone %><a class="vcard" href="{$Top.Element.PrimaryElementPersoController.Link}/vcard/{$ID}" title="vCard">vCard</a><% end_if %>
 					</span>
 				</p>
 			</div>

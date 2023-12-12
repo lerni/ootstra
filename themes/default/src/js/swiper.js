@@ -1,30 +1,32 @@
 // import Swiper from 'swiper/bundle';
 
+import Swiper from "swiper/core";
+
 import {
-  Swiper,
-  Navigation,
-  Pagination,
   Autoplay,
   EffectFade,
   Keyboard,
+  Navigation,
+  Pagination
   // Thumbs
-} from 'swiper';
+} from "swiper/modules";
 
-Swiper.use([Navigation, Pagination, Autoplay, Keyboard, EffectFade]);
+Swiper.use([Autoplay, EffectFade, Keyboard, Navigation, Pagination]);
 
-var heroSwiper = document.querySelectorAll('.swiper-container.hero');
+var heroSwiper = document.querySelectorAll(".swiper-container.hero");
 Array.prototype.forEach.call(heroSwiper, function (slider) {
-  var sliderID = slider.getAttribute('id');
-  var sliderPrev = '#hero-swiper-prev' + slider.getAttribute('data-id');
-  var sliderNext = '#hero-swiper-next' + slider.getAttribute('data-id');
-  var sliderPagination = '#hero-swiper-pagination' + slider.getAttribute('data-id');
+  var sliderID = slider.getAttribute("id");
+  var sliderPrev = "#hero-swiper-prev" + slider.getAttribute("data-id");
+  var sliderNext = "#hero-swiper-next" + slider.getAttribute("data-id");
+  var sliderPagination =
+    "#hero-swiper-pagination" + slider.getAttribute("data-id");
 
-  var heroSwiperInstance = new Swiper ('#'+sliderID, {
+  var heroSwiperInstance = new Swiper("#" + sliderID, {
     spaceBetween: 0,
-    direction: 'horizontal',
+    direction: "horizontal",
     CSSWidthAndHeight: true,
     speed: 2000,
-    height: 'auto',
+    height: "auto",
     keyboard: {
       enabled: true,
     },
@@ -32,19 +34,19 @@ Array.prototype.forEach.call(heroSwiper, function (slider) {
       delay: 4500,
       disableOnInteraction: true,
     },
-    effect: 'fade',
+    effect: "fade",
     fadeEffect: {
-      crossFade: true
+      crossFade: true,
     },
     navigation: {
       nextEl: sliderNext,
-      prevEl: sliderPrev
+      prevEl: sliderPrev,
     },
     pagination: {
       el: sliderPagination,
-      type: 'bullets',
-      clickable: true
-    }
+      type: "bullets",
+      clickable: true,
+    },
   });
 });
 
@@ -56,13 +58,15 @@ Array.prototype.forEach.call(heroSwiper, function (slider) {
 // 	'slow');
 // });
 
-var multipleSwiper = document.querySelectorAll('.swiper-container.teaser, .swiper-container.multiple');
+var multipleSwiper = document.querySelectorAll(
+  ".swiper-container.teaser, .swiper-container.multiple"
+);
 Array.prototype.forEach.call(multipleSwiper, function (slider) {
-  var sliderID = slider.getAttribute('id');
-  var generalSwiperInstance = new Swiper ('#'+sliderID, {
+  var sliderID = slider.getAttribute("id");
+  var generalSwiperInstance = new Swiper("#" + sliderID, {
     spaceBetween: 25, // $text-size times $lineheight
     freeMode: true,
-    slidesPerView: 'auto',
+    slidesPerView: "auto",
     speed: 1000,
     // loop: true,
     keyboard: {
@@ -75,6 +79,6 @@ Array.prototype.forEach.call(multipleSwiper, function (slider) {
     keyboard: {
       enabled: true,
       onlyInViewport: false,
-    }
+    },
   });
 });

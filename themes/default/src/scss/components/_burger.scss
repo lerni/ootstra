@@ -46,6 +46,7 @@ $burger-gutter: 0 !default;
 	&::after {
 		position: absolute;
 		content: "";
+		right: 0;
 	}
 	&::before {
 		top: -($height + $gutter);

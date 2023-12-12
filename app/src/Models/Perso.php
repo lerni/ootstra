@@ -177,8 +177,8 @@ class Perso extends DataObject
     {
         if ($this->Departments()) {
             if ($this->Departments()->first()->PersoElement()) {
-                $link = $this->Departments()->first()->PersoElement()->first()->getController()->qrvc($this->ID);
-                return $link;
+                $file = $this->Departments()->first()->PersoElement()->first()->getController()->qrvc($this->ID);
+                return $file;
             }
         }
     }

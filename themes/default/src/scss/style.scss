@@ -316,7 +316,7 @@ p.cat-tag {
 		}
 	}
 	&.elementhero {
-		display: block; // swiper.js shouldn't life in a display: table element otherwise layout breaks
+		display: flex; // swiper.js shouldn't life in a display: table element otherwise layout breaks
 		// with DefaultHero the image isn't wrapped with swiper divs
 		position: relative;
 		&:not(.full-width) {
@@ -643,13 +643,6 @@ p.cat-tag {
 			display: block;
 			animation: bounce 1.6s ease-in-out infinite;
 		}
-
-		@include sliderpagination(1, $white);
-
-		.swiper-button-prev,
-		.swiper-button-next {
-			color: $white;
-		}
 		&.default {
 			figure {
 				display: flex;
@@ -668,7 +661,7 @@ p.cat-tag {
 	}
 	&.elementform {
 		#uff {
-			scroll-margin: calc(#{$headerheight} + #{$lh}em);
+			scroll-margin-top: calc(#{$headerheight} + #{$lh}em);
 		}
 	}
 	&.elementmaps {

@@ -9,7 +9,7 @@
 			alt="{$Title} {$Caption}" />
 	</figure><% end_if %>
 	<div class="txt">
-		<p>$PublishDate.Format('d. LLLL y')<% if $Authors %> | <% loop $Authors %>{$Name}<% if not $Last %>, <% end_if %><% end_loop %><% end_if %></p>
+		<p>$PublishDate.Format('d. LLLL y')<% if $Authors %> | <% loop $Authors %>{$Name}<% if not $IsLast %>, <% end_if %><% end_loop %><% end_if %></p>
 		<h3>
 			<% if $MenuTitle %>
 				$MenuTitle

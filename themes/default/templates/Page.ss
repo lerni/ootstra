@@ -26,7 +26,7 @@
 			font-family: 'Figtree';
 			font-style: normal;
 			font-weight: 700;
-			src: url("$resourceURL('themes/default/dist/fonts/figtree-v5-latin-700.woff2')") format('woff2');
+			src: url("$resourceURL('themes/default/dist/fonts/figtree-v5-latin-600.woff2')") format('woff2');
 		}
 		@font-face {
 			font-family: "icons";

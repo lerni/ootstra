@@ -9,7 +9,7 @@
 			<% with $Product %>
 				<div class="product item is-visible" id="$Title.URLEnc" data-tags="<% loop $Categories %>$Title.URLEnc <% end_loop %>">
 					<div class="txt">
-						<% if $Categories.Count %><span class="tags"><% loop $Categories %>$Title<% if not $last %> | <% end_if %><% end_loop %></span><% end_if %>
+						<% if $Categories.Count %><span class="tags"><% loop $Categories %>$Title<% if not $IsLast %> | <% end_if %><% end_loop %></span><% end_if %>
 						<% if $RelatedPage %>
 							<a href="$RelatedPage.Link"><h4>$Title</h4></a>
 						<% else %>

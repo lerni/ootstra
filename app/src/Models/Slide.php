@@ -72,17 +72,9 @@ class Slide extends DataObject
 
         $fields = parent::getCMSFields();
 
-        // Add a combined field for "Title" and "Displayed" checkbox in a Bootstrap input group
-
         $fields->removeByName([
-            'Hero',
             'ShowTitle'
         ]);
-        $fields->replaceField(
-            'Title',
-            TextCheckboxGroupField::create()
-                ->setName('Title')
-        );
 
         $TitleField = $fields->dataFieldByName('Title');
         if ($TitleField) {

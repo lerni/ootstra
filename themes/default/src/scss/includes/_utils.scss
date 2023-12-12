@@ -37,14 +37,16 @@
 
 %back {
 	display: inline-block;
+	$arrow-width-hover: 2em;
+	$arrow-width-small: 1.1em;
 	&::before {
 		display: inline-block;
 		content: "";
-		width: 0.9em;
+		width: ($arrow-width-hover - $arrow-width-small);
 		height: 1em;
 		background-size: auto 70%;
 		background-repeat: no-repeat;
-		background-position: bottom .3em right 0; // rotated > top/bottom inverted
+		background-position: bottom .2em right 0; // rotated > top/bottom inverted
 		background-image: svg-load(
 			"../images/svg/arrow-forward.svg",
 			stroke-width=4,
@@ -55,25 +57,29 @@
 		vertical-align: -0.1em;
 		transition: all;
 		transition-duration: 0.12s;
-	}
+		margin-left: $arrow-width-small;
+		}
 	&:hover {
-		&::after {
-			width: 2em;
+	&::before {
+				width: $arrow-width-hover;
+			margin-right: 0;
 		}
 	}
 }
 
 %forth {
 	display: inline-block;
+	$arrow-width-hover: 2em;
+	$arrow-width-small: 1.1em;
 	&::after {
 		display: inline-block;
 		content: "";
-		width: 0.9em;
+		width: ($arrow-width-hover - $arrow-width-small);
 		height: 1em;
 		background-size: auto 70%;
 		background-repeat: no-repeat;
-		background-position: bottom .1em right 0;
-		background-image: svg-load(
+background-position: top .3em right 0;
+				background-image: svg-load(
 			"../images/svg/arrow-forward.svg",
 			stroke-width=4,
 			stroke=#{$link-color}
@@ -82,10 +88,12 @@
 		// vertical-align: -.1em;
 		transition: all;
 		transition-duration: 0.12s;
+		margin-right: $arrow-width-small
 	}
 	&:hover {
 		&::after {
-			width: 2em;
+			width: $arrow-width-hover;
+			margin-right: 0;
 		}
 	}
 }

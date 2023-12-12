@@ -3,7 +3,7 @@
 
 # Setup, Requirements & install
 
-"ootstra" is inspired from [Bigfork’s quickstart recipe](https://github.com/bigfork/silverstripe-recipe) for [Silverstripe](https://www.silverstripe.org/). It's an opinionated set of tools for a ready to run, build & deploy CMS instance. To get it up and running you'll need [GIT](https://git-scm.com/), an editor like [VSCode](https://code.visualstudio.com/) (recommended), [ddev](https://ddev.readthedocs.io/en/stable/) and for deployment a server with [SSH](https://de.wikipedia.org/wiki/Secure_Shell) & git. It utilizes [dnadesign/silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) for a block/element based CMS experience and comes with the following set of elements:
+"ootstra" is inspired from [Bigfork’s quickstart recipe](https://github.com/bigfork/silverstripe-recipe) for [Silverstripe](https://www.silverstripe.org/). It's an opinionated set of tools for a ready to run, build & deploy CMS instance. To get it up and running you'll need [GIT](https://git-scm.com/), an editor like [VSCode](https://code.visualstudio.com/) (recommended), [ddev](https://ddev.readthedocs.io/en/stable/). It utilizes [dnadesign/silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) for a block/element based CMS experience and comes with the following set of elements:
 
 - ElementContent
 - ElementForm               (userforms)
@@ -61,7 +61,6 @@ On the first Request database structure (tables) 'll automatically be generated 
 ### ddev/Docker dev-env
 If the project is renamed, reflect this in `.ddev/config.yaml` and rerun `ddev config`. Run `ddev start` & `ddev composer i` in the project directory. This provides a webserver at [https://ootstra.ddev.site](https://ootstra.ddev.site), with watcher/browsersync at [https://ootstra.ddev.site:3000/](https://ootstra.ddev.site:3000/), phpMyAdmin at [https://ootstra.ddev.site:8037](https://ootstra.ddev.site:8037), and MailHog at [https://ootstra.ddev.site:8026/](https://ootstra.ddev.site:8026/). The default login at [/admin](https://ootstra.ddev.site/admin) is `admin` & `password`.
 
-This setup omits `ddev-ssh-agent` and exposes `SSH_AUTH_SOCK` via environment variable. To use items from your home directory (e.g., `~/.composer`, `~/.gitconfig`, `~/.ssh`) in ddev, create symlinks in `~/.ddev/homeadditions`. This allows you to use your local SSH keys. For more information, refer to the [ddev documentation](https://ddev.readthedocs.io/en/stable/users/extend/in-container-configuration/).
 
 ### npm, Laravel Mix watch & build etc.
 [Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([webpack](https://webpack.js.org/) based) is used as build environment. You need to run `ddev theme install` to install npm packages. In `themes/default/webpack.mix.js` host is set to be proxied to https://ootstra.ddev.site:3000/ for browsersync. See also scripts section in `themes/default/package.json` and [Mix CLI](https://laravel-mix.com/docs/6.0/cli). Run `ddev theme watch` or `ddev theme prod`.
@@ -89,9 +88,6 @@ There are a bunch of tasks in `.vscode/tasks.json` available per `Command+Shift+
 
 Database, credentials etc. are provided per environment Variables (`/.env` file).
 
-## Debugging
-To debug JS inside VSCode with Firefox [Debugger for Firefox](https://marketplace.visualstudio.com/items?itemName=firefox-devtools.vscode-firefox-debug) is used. You may need to tweak URL/config in `.vscode/launch.json` :shrug:
-
 ## PHP Version
 Current used PHP-Version is 8.2. It's set in following places:
 - `.ddev/config.yaml`
@@ -104,7 +100,7 @@ Don't forget to `ddev restart` and update packages `ddev composer u` after chang
 
 # Hosting & Deployment
 
-Deployment is based on [Deployer](https://deployer.org/), a php based cli-tool, which is included as dev-requirement per `composer.json`. It uses symlinks to the current release. It's easy to use, offers zero downtime deployments and rollback. `/assets`, `.env` are shared resources, this means they are symlinked into each release-folder.
+Deployment is based on [Deployer](https://deployer.org/), a php based cli-tool, which is included as dev-requirement per `composer.json`. It uses symlinks to the current release. It's easy to use, offers zero downtime deployments and rollback. `/assets`, `.env` are shared resources, this means they are symlinked into each release-folder. On the remote server you'll need [SSH](https://de.wikipedia.org/wiki/Secure_Shell) & git, composer, same php-version on CLI as httpd, ln, readlink, realpath, rsync, sed, & xargs.
 
 ```
 ~/public_html/0live     or ~/public_html/0test
@@ -143,7 +139,7 @@ Rename `config.example.php` to `deploy/config.php` and configure things to your 
 
 # Deploy
 
-The setup uses key-forwarding, so deployment can be done from inside the ddev-web container. Before first deployment ssh into remote servers like `dep ssh test` or `dep ssh live` and make sure ssh-fingerprint from the git repo is accepted. You may just do a git clone into a test directory to verify things work as expected. If so, deployment is done like:
+The setup uses key-forwarding, so deployment can be done from inside the ddev-web container. Before first deployment ssh into remote servers like `ddev php ./vendor/bin/dep ssh test` or `ddev php ./vendor/bin/dep ssh live` and make sure ssh-fingerprint from the git repo is accepted. You may just do a git clone into a test directory to verify things work as expected. If so, deployment is done like:
 ```bash
     ddev php ./vendor/bin/dep deploy test
 ```
@@ -222,6 +218,8 @@ task releases
 | 2022-12-01 16:06:45  | 2           | user   | HEAD   | 007300b9e054675050d0d1de7000000444918000 |
 | 2022-12-02 10:41:18  | 3 (current) | user   | HEAD   | 0d2f7df3fbbc53f666366c3cf000000a392f3000 |
 +----------------------+-------------+--------+--------+------------------------------------------+
+
+... or use VSCode tasks Command+Shift+B
 ```
 
 ## Uploading/downloading database from live/test
@@ -243,8 +241,7 @@ dep silverstripe:download_assets live
 # Upload assets to test
 dep silverstripe:upload_assets test
 
-etc.
-or use VSCode tasks Command+Shift+B
+... or use VSCode tasks Command+Shift+B
 ```
 
 # Manual remote dev/build
@@ -256,4 +253,4 @@ ddev php ./vendor/bin/dep silverstripe:dev_build live -v
 ddev php ./vendor/bin/dep silverstripe:dev_build test -v
 ```
 # License
-`ootstra` is licensed under the [BSD license](LICENSE). Third-party modules have different licenses. Check with `composer licenses` and `npx license-checker --summary` in `themes/default`. Installation implies acceptance of all licenses. Note that [@fancyapps/ui](https://fancyapps.com/) is commercial software requiring a [purchased license](https://fancyapps.com/pricing/).
+`ootstra` is licensed under the [BSD license](LICENSE). Third-party modules have different licenses (0BSD, Apache 2.0, Apache-2.0, BSD*, BSD-2-Clause, BSD-3-Clause, CC-BY-3.0, CC-BY-4.0, CC0-1.0, GPL-2.0, GPL-3.0+, GPL-3.0-or-later, ISC, MIT, MIT*, Zlib). Check with `composer licenses` and `npx license-checker --summary` in `themes/default`. Installation implies acceptance of all licenses. Note that [@fancyapps/ui](https://fancyapps.com/) is commercial software requiring a [purchased license](https://fancyapps.com/pricing/).

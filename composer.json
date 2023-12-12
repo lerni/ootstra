@@ -47,7 +47,7 @@
 		"dnadesign/silverstripe-elemental": "^5",
 		"dnadesign/silverstripe-elemental-userforms": "^4",
 		"dnadesign/silverstripe-elemental-virtual": "^2",
-		"bummzack/sortablefile": "^2.1",
+		"bummzack/sortablefile": "^2",
 		"silverstripe/redirectedurls": "^3",
 		"undefinedoffset/silverstripe-nocaptcha": "^2",
 		"lerni/silverstripe-webmanifest": "dev-master",

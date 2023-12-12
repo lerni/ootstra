@@ -7,7 +7,7 @@
 					<span><strong>$Title</strong></span>
 					<span>$Address</span>
 					<span>$PostalCode $Town</span>
-					<% if $Telephone %><a href="tel:{$Telephone.TelEnc}"><%t Page.TELEPHONE "T" %>&nbsp;$Telephone</a><% end_if %>
+					<% if $Telephone %><a href="tel:{$Telephone.TelEnc}"><%-- t Page.TELEPHONE "T" &nbsp;--%>$Telephone</a><% end_if %>
 					<% if $EMail %><a href="mailto:{$EMail}">$EMail</a><% end_if %>
 				<% end_with %>
 			<% end_if %>

@@ -12,8 +12,15 @@ set('alias', function () {
         writeln("<error>Please define DEP_SERVER in deploy/config.php</error>");
         exit;
     }
-
     return DEP_SERVER;
+});
+
+// Server port
+set('alias', function () {
+    if (!defined('DEP_SERVER_PORT')) {
+        define('DEP_SERVER_PORT', 22);
+    }
+    return DEP_SERVER_PORT;
 });
 
 // Project name
@@ -22,7 +29,6 @@ set('application', function () {
         writeln("<error>Please define DEP_APPLICATION in deploy/config.php</error>");
         exit;
     }
-
     return DEP_APPLICATION;
 });
 
@@ -32,7 +38,6 @@ set('repository', function () {
         writeln("<error>Please define DEP_REPOSITORY in deploy/config.php</error>");
         exit;
     }
-
     return DEP_REPOSITORY;
 });
 
@@ -48,8 +53,11 @@ set('bin/php', function () {
 // TZ for relevant deployment timestamps
 set('timezone', function () {
     if (!defined('DEP_TIMEZONE')) {
-        writeln("<error>Please define DEP_TIMEZONE in deploy/config.php</error>");
-        exit;
+        if (defined('TZ')) {
+            define('DEP_TIMEZONE', TZ);
+        } else {
+            define('DEP_TIMEZONE', 'Europe/Zurich');
+        }
     }
     return DEP_TIMEZONE;
 });
@@ -60,7 +68,6 @@ set('remote_user', function () {
         writeln("<error>Please define DEP_SERVER_USER in deploy/config.php</error>");
         exit;
     }
-
     return DEP_SERVER_USER;
 });
 
@@ -114,6 +121,7 @@ host('live')
     ->set('labels', ['stage' => 'live'])
     ->set('hostname', DEP_SERVER)
     ->set('remote_user', DEP_SERVER_USER)
+    ->set('port', DEP_SERVER_PORT)
     // ->set('branch', 'live')
     ->set('git_ssh_command', 'ssh') // https://github.com/deployphp/deployer/issues/2908#issuecomment-1022748724 - we mount ~/.ssh/known_hosts
     ->set('writable_mode', 'chmod')
@@ -128,6 +136,7 @@ host('test')
     ->set('labels', ['stage' => 'test'])
     ->set('hostname', DEP_SERVER)
     ->set('remote_user', DEP_SERVER_USER)
+    ->set('port', DEP_SERVER_PORT)
     // ->set('branch', 'test')
     ->set('git_ssh_command', 'ssh') // https://github.com/deployphp/deployer/issues/2908#issuecomment-1022748724 - we mount ~/.ssh/known_hosts
     ->set('writable_mode', 'chmod')
@@ -152,6 +161,7 @@ task('deploy', function () {
     invoke('deploy:clear_paths');
     invoke('deploy:symlink');
     invoke('silverstripe:set_script_filename');
+    invoke('pkill');
     invoke('deploy:unlock');
     invoke('deploy:cleanup');
     invoke('deploy:success');

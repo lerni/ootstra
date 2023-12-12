@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // burger
   document.querySelector('#menuButton').addEventListener('click', event => {
     document.querySelector('html').classList.toggle('mobile-nav--active');
+    document.querySelector('#menuButton').toggleAttribute('aria-expanded');
     document.getElementById('header').scrollIntoView();
   });
 

@@ -18,6 +18,11 @@ i18n::set_locale('de_CH');
 // TinyMCE Config
 $styles = [
     [
+        // https://github.com/tinymce/tinymce/issues/9186
+        'title' => 'Format',
+        'selector' => '*'
+    ],
+    [
         // Wrap selected content in a div with class of .split-2
         'title' => '2 Spalten (auto-flow)',
         'attributes' => ['class' => 'split-2'],
@@ -118,7 +123,6 @@ CMSMenu::remove_menu_item('SilverStripe-CampaignAdmin-CampaignAdmin');
 CMSMenu::remove_menu_item('SilverStripe-Admin-SecurityAdmin');
 CMSMenu::remove_menu_item('SilverStripe-VersionedAdmin-ArchiveAdmin');
 // CMSMenu::remove_menu_item('SilverStripe-SiteConfig-SiteConfigLeftAndMain');
-
 CMSPagesController::config()->help_links = [];
 
 // SilverStripe\ORM\DB::query("SET SESSION sql_mode='REAL_AS_FLOAT,PIPES_AS_CONCAT,ANSI_QUOTES,IGNORE_SPACE';");
