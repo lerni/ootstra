@@ -2,12 +2,38 @@
 
 namespace App\Extensions;
 
-use DNADesign\Elemental\Models\ElementalArea;
 use SilverStripe\View\SSViewer;
 use SilverStripe\Core\Extension;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\LiteralField;
+use SilverStripe\Forms\CheckboxField;
+use DNADesign\Elemental\Models\ElementalArea;
 
 class ElementalPageExtension extends Extension
 {
+    private static $db = [
+        'PreventHero' => 'Boolean'
+    ];
+
+    public function updateCMSFields(FieldList $fields)
+    {
+        if (!$this->owner->hasHero()) {
+            if (!$this->owner->PreventHero) {
+                $message = _t('App\Models\ElementPage.HeroNeeded', 'If there is no "Hero" as top element, <a href="/admin/settings/">default Header Slides</a> are used.');
+                $fields->fieldByName('Root.Main')->unshift(
+                    LiteralField::create(
+                        'HeroNeeded',
+                        sprintf(
+                            '<p class="alert alert-warning">%s</p>',
+                            $message
+                        )
+                    )
+                );
+            }
+            $fields->addFieldToTab('Root.Main', CheckboxField::create('PreventHero', _t('App\Models\ElementPage.PREVENTHERO', 'prevent default Header Slides')), 'ElementalArea');
+        }
+    }
+
     // this is a tewaked version of ElementalPageExtension::getElementsForSearch
     public function getElementsForSummary()
     {

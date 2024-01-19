@@ -1,4 +1,4 @@
-<% if $LinkedElement %><article class="element $ClassName.ShortName.LowerCase $LinkedElement.ShortClassName.LowerCase
+<% if $LinkedElement %><article class="element $ClassName.ShortName($this, 0).LowerCase
 		<% if $LinkedElement.isFullWidth %>full-width<% end_if %>
 		<% if $LinkedElement.ClassName != App\Elements\ElementHero %>horizontal-spacing<% end_if %>
 		<% if $LinkedElement.WidthReduced %>width-reduced<% end_if %>

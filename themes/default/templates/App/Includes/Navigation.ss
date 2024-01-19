@@ -5,22 +5,22 @@
 		<span class="burger-icon" aria-hidden="true"></span>
 	</button>
 	<nav class="nav" aria-label="<%t Page.NavAriaLabel 'Menu' %>">
-		<ul id="menu1" class="menu1">
+		<menu id="menu1" class="menu1">
 			<% loop $Menu(1) %>
 				<li class="$LinkingMode<% if $Childrenexcluded %> has-children<% end_if %><% if $LinkingMode == section %> expanded<% end_if %>">
-					<a href="$Link">$MenuTitle.XML</a>
+					<a href="$Link"<% if $NewWindow %> target="_blank" rel="noopener"<% end_if %>>$MenuTitle.XML</a>
 					<% if $Childrenexcluded %><span class="trigger"><span></span></span>
-						<ul class="menu2">
+						<menu class="menu2">
 							<% loop $Childrenexcluded %>
 								<li class="$LinkingMode">
-									<a href="$Link">$MenuTitle</a>
+									<a href="$Link"<% if $NewWindow %> target="_blank" rel="noopener"<% end_if %>>$MenuTitle</a>
 								</li>
 							<% end_loop %>
-						</ul>
+						</menu>
 					<% end_if %>
 				</li>
 			<% end_loop %>
-		</ul>
+		</menu>
 	</nav>
 	<% end_if %>
 <% end_cached %>

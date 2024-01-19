@@ -43,6 +43,12 @@ $styles = [
         'selector' => 'a'
     ],
     [
+        // add .forth to a a
+        'title' => 'Arrow-Link',
+        'attributes' => ['class' => 'forth'],
+        'selector' => 'a'
+    ],
+    [
         // add .button to a a
         'title' => 'Button-Link',
         'attributes' => ['class' => 'button'],
@@ -84,7 +90,9 @@ $EditorConfig->enablePlugins([
     'sslinkanchor' => null,
     'sslink',
     'sslinkinternal',
-    // 'definitionlists' => ModuleResourceLoader::resourceURL('/app/thirdparty/tinymce-definitionlist-master/definitionlist/plugin.js') // needs Buttons: ToggleDefinitionList ToggleDefinitionItem
+    'emoticons',
+    'charmap',
+    // 'definitionlists' => ModuleResourceLoader::resourceURL('app/thirdparty/tinymce-definitionlist-master/definitionlist/plugin.js') // needs Buttons: ToggleDefinitionList ToggleDefinitionItem
 ]);
 $EditorConfig->disablePlugins(['importcss']);
 
@@ -100,8 +108,8 @@ $editorOptions = [
 ];
 $EditorConfig->setOptions($editorOptions);
 
-// $EditorConfig->setButtonsForLine(1, ['blocks styles pastetext ssmedia ssembed | bold bullist numlist ToggleDefinitionList ToggleDefinitionItem | alignleft aligncenter alignright alignjustify | sslink unlink amchor | charmap hr code removeformat blockquote | outdent indent | undo redo| subscript superscript']);
-$EditorConfig->setButtonsForLine(1, ['blocks styles pastetext ssmedia ssembed | bold bullist numlist | alignleft aligncenter alignright alignjustify | sslink unlink anchor | charmap hr code removeformat blockquote | outdent indent | undo redo']);
+// $EditorConfig->setButtonsForLine(1, ['blocks styles pastetext ssmedia ssembed | bold bullist numlist ToggleDefinitionList ToggleDefinitionItem | alignleft aligncenter alignright alignjustify | sslink unlink anchor | charmap hr code removeformat blockquote emoticons | outdent indent | undo redo | subscript superscript']);
+$EditorConfig->setButtonsForLine(1, ['blocks styles pastetext ssmedia ssembed | bold bullist numlist | alignleft aligncenter alignright alignjustify | sslink unlink anchor | charmap hr code removeformat blockquote emoticons | outdent indent | undo redo']);
 $EditorConfig->setButtonsForLine(2, '');
 
 $EditorConfig->setOption(
@@ -110,13 +118,10 @@ $EditorConfig->setOption(
     // 'div[*]'
 );
 
-// $SimpleCfg = TinyMCEConfig::get('inlite');
-// $SimpleCfg->disablePlugins(['importcss']);
-// $SimpleCfg->enablePlugins(['sslinkanchor','sslink','sslinkexternal','sslinkemail','sslinkinternal']);
-// $SimpleCfg->setButtonsForLine(1, array('formatselect pastetext ssmedia ssembed | bold bullist numlist ToggleDefinitionList ToggleDefinitionItem | alignleft aligncenter alignright alignjustify | sslink unlink | charmap hr code removeformat | outdent indent | undo redo'));
-// $SimpleCfg->setButtonsForLine(2,'');
-// $SimpleCfg->setOptions($editorOptions);
-
+$SimpleCfg = TinyMCEConfig::get('inlite');
+$SimpleCfg->setOptions($editorOptions);
+$SimpleCfg->setButtonsForLine(1, ['blocks pastetext | bold bullist numlist | alignleft aligncenter alignright alignjustify | sslink unlink anchor | charmap hr code removeformat emoticons | undo redo']);
+$SimpleCfg->setButtonsForLine(2,'');
 
 CMSMenu::remove_menu_item('SilverStripe-Reports-ReportAdmin');
 CMSMenu::remove_menu_item('SilverStripe-CampaignAdmin-CampaignAdmin');
@@ -140,3 +145,4 @@ URLSegmentFilter::config()->default_replacements = [
 ];
 
 // GoogleSitemap::register_dataobjects(['App\Models\Perso'], 'weekly', '1');
+// GoogleSitemap::register_dataobjects(['App\Models\JobPosting'], 'weekly', '1');

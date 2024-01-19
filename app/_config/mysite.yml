@@ -44,13 +44,16 @@ SilverStripe\ORM\FieldType\DBField:
     - App\Extensions\FieldExtension
 
 SilverStripe\ORM\FieldType\DBText:
-  summarySentenceSeparators:
+  summary_sentence_separators:
     - '.'
     - '?'
     - '!'
     - ':'
   extensions:
     - App\Extensions\TabTableExtension
+
+gorriecoe\Link\View\Phone:
+    default_country: CH
 
 SilverStripe\Admin\LeftAndMain:
   extra_requirements_css:
@@ -76,6 +79,7 @@ nathancox\EmbedField\Model\EmbedObject:
 
 Page:
   extensions:
+    - App\Extensions\PageExtension
     - App\Extensions\PageSchemaExtension
   childrenexcluded:
     default:
@@ -87,6 +91,14 @@ Page:
 # PageController:
 #   extensions:
 #     - Kraftausdruck\Extensions\AlgoliaControllerExtension
+
+SilverStripe\CMS\Model\RedirectorPage:
+  extensions:
+    - App\Extensions\RedirectorPageExtension
+
+SilverStripe\ORM\DataObject:
+  extensions:
+    - App\Extensions\DataObjectExtension
 
 SilverStripe\Blog\Model\BlogCategory:
   allow_urlsegment_multibyte: true
@@ -183,6 +195,7 @@ DNADesign\ElementalUserForms\Model\ElementForm:
   extensions:
     - App\Extensions\ElementUserFormsExtension
 
+# todo remove on 5.2
 SilverStripe\UserForms\Model\UserDefinedForm:
   extensions:
     - App\Extensions\CannotCreateExtension
@@ -192,6 +205,7 @@ App\Tasks\CleanUpObjects:
   objects_to_clean_up:
     - 'SilverStripe\UserForms\Model\Submission\SubmittedForm'
 
+# todo remove on 5.2
 SilverStripe\CMS\Model\VirtualPage:
   extensions:
     - App\Extensions\CannotCreateExtension
@@ -212,6 +226,13 @@ SilverStripe\i18n\i18n:
 
 SilverStripe\CMS\Model\SiteTree:
   create_default_pages: false
+  # todo enable on 5.2
+  # hide_pagetypes:
+  #   - Page
+  #   - SilverStripe\CMS\Model\VirtualPage
+  #   - SilverStripe\UserForms\Model\UserDefinedForm
+    # - SilverStripe\Blog\Model\Blog
+    # - SilverStripe\Blog\Model\BlogPost
   extensions:
     - App\Extensions\HeritageExtension
     - DorsetDigital\SilverStripeCanonical\SiteTreeCanonicalExtension
@@ -221,6 +242,10 @@ SilverStripe\CMS\Model\SiteTree:
 SilverStripe\SiteConfig\SiteConfig:
   extensions:
     - App\Extensions\SiteConfigExtension
+
+SilverStripe\Assets\Upload_Validator:
+  default_max_file_size:
+    '[image]': '5m'
 
 SilverStripe\Security\Member:
   extensions:
@@ -235,8 +260,8 @@ SilverStripe\SpamProtection\Extension\FormSpamProtectionExtension:
   default_spam_protector: UndefinedOffset\NoCaptcha\Forms\NocaptchaProtector
 
 UndefinedOffset\NoCaptcha\Forms\NocaptchaField:
-  site_key: '`SS_NOCAPTCHA_SITE_KEY`' #Your site key (required)
-  secret_key: '`SS_NOCAPTCHA_SECRET_KEY`' #Your secret key (required)
+  # site_key: '' # set per .env - see Injector
+  # secret_key: '' # set per .env - see Injector
   recaptcha_version: 3 # 2 or 3
   minimum_score: 0.2 # minimum spam score to achieve. Any less is blocked
   verify_ssl: true #Allows you to disable php-curl's SSL peer verification by setting this to false (optional, defaults to true)
@@ -250,6 +275,10 @@ UndefinedOffset\NoCaptcha\Forms\NocaptchaField:
   proxy_auth: "" #Your proxy server authentication information (optional)
 
 SilverStripe\Core\Injector\Injector:
+  UndefinedOffset\NoCaptcha\Forms\NocaptchaField:
+    properties:
+      SiteKey: '`SS_NOCAPTCHA_SITE_KEY`'
+      SecretKey: '`SS_NOCAPTCHA_SECRET_KEY`'
   Intervention\Image\ImageManager:
     constructor:
       - { driver: imagick }
@@ -340,7 +369,7 @@ TractorCow\OpenGraph\OpenGraph:
 # ---
 # BetterBrief\GoogleMapField:
 #   default_options:
-#     api_key: ''
+#     # api_key: '' # set per .env - APP_GOOGLE_MAPS_KEY
 #   map:
 #     zoom: 14
 #   default_field_values:

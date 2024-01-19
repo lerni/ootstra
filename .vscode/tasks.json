@@ -190,6 +190,21 @@
       }
     },
     {
+      "label": "composer vendor-expose",
+      "type": "shell",
+      "command": "ddev composer vendor-expose",
+      "group": "build",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "icon": {
+        "color": "terminal.ansiMagenta"
+      }
+    },
+    {
       "label": "download assets from live",
       "type": "shell",
       "command": "ddev php ./vendor/bin/dep silverstripe:download_assets live",

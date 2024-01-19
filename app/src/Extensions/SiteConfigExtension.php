@@ -91,6 +91,7 @@ class SiteConfigExtension extends DataExtension
 
         $fields->addFieldsToTab('Root.Main', $GlobalAlertField = HTMLEditorField::create('GlobalAlert'));
         $GlobalAlertField->setRows(14);
+        $GlobalAlertField->setEditorConfig('inlite'); // we need to use a different config, otherwise the "body_class" is overwritten also for editors with bigfork/silverstripe-fail-whale
         $GlobalAlertField->getEditorConfig()->setOption('body_class', 'typography global-alert');
 
         $SlideGridFieldConfig = GridFieldConfig_Base::create(20);

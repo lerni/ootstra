@@ -40,6 +40,10 @@ class ElementPerso extends BaseElement
         'Departments'
     ];
 
+    private static $defaults = [
+        'AvailableGlobally' => 0
+    ];
+
     private static $table_name = 'ElementPerso';
 
     private static $field_labels = [];
@@ -65,6 +69,10 @@ class ElementPerso extends BaseElement
             'isFullWidth',
             'Departments'
         ]);
+
+        if ($AvailableGloballyField = $fields->dataFieldByName('AvailableGlobally')) {
+            $AvailableGloballyField->setDisabled(true);
+        }
 
         $DepGFConfig = GridFieldConfig_RecordEditor::create(20);
         $DepGFConfig->removeComponentsByType('SilverStripe\Forms\GridField\GridFieldPageCount');

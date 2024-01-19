@@ -52,6 +52,10 @@ GHOSTSCRIPT_PATH='/usr/bin/gs'
 # MAIL_PASSWORD=''
 
 SCRIPT_FILENAME=''
+
+# APP_GOOGLE_MAPS_KEY=''
+# SS_NOCAPTCHA_SITE_KEY=''
+# SS_NOCAPTCHA_SECRET_KEY=''
 ENV;
 
 // heredoc is a mess with this setup
@@ -125,7 +129,7 @@ task('silverstripe:htaccessperstage', function() {
             'options' => [
                 "--perms",
                 "--delete",
-                "--chmod=605"
+                // "--chmod=605"
             ]
         ]);
     }

@@ -65,7 +65,8 @@
 		"eluceo/ical": "^2",
 		"jonom/silverstripe-someconfig": "^1",
 		"nathancox/embedfield": "dev-attrquerystring",
-		"lerni/folderindex": "^0"
+		"lerni/folderindex": "^0",
+		"simple-icons/simple-icons": "^11.0"
 	},
 	"require-dev": {
 		"deployer/deployer": "^7",
@@ -77,7 +78,10 @@
 			"app/css",
 			"app/fonts",
 			"app/thirdparty",
-			"themes/default/dist"
+			"themes/default/dist",
+			"themes/default/thirdparty",
+			"vendor/simple-icons/simple-icons/icons",
+			"vendor/simple-icons/simple-icons/_data"
 		],
 		"project-files-installed": [
 			".htaccess",

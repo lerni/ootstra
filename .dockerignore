@@ -1,2 +1,4 @@
 silverstripe-cache/
+.vscode/
 .graphql-generated/
+themes/default/node_modules

@@ -19,6 +19,7 @@
 			padding: #{$lh}em 0 0 0;
 			cursor: pointer;
 			position: relative;
+			scroll-margin-top: $headerheight;
 			@include breakpoint($Lneg) {
 				flex: 0 0 100%;
 			}
@@ -26,19 +27,19 @@
 			h2.flip,
 			h3.flip {
 				margin-bottom: 0;
-				scroll-padding-top: $headerheight;
 				// padding-right: #{math.div($trigger-size, 2) * $spacing-factor}em;
 				button {
 					display: flex;
 					width: 100%;
 					all: inherit;
 					padding-right: 0;
-					padding-bottom: #{$lh}em;
+					padding-bottom: #{$lh * .8}em;
 					.trigger {
-						width: #{$trigger-size * 2}em;
+						width: #{$trigger-size * 2}em; // #{$trigger-size * 1}em
 						height: #{$trigger-size * 1}em;
 						flex: 0 0 #{$trigger-size * 2}em;
 						margin: auto 0 auto auto;
+						// margin: -0.2em 0 auto auto;
 						// transition: transform 0.1s ease-in-out;
 						// transform: rotate(0deg);
 						.line {

@@ -53,7 +53,6 @@ class ElementTeaser extends BaseElement
         $fields = parent::getCMSFields();
 
         $fields->removeByName([
-            'BackgroundColor',
             'Teasers',
             'WidthReduced',
             'isFullWidth'
@@ -68,9 +67,9 @@ class ElementTeaser extends BaseElement
                 new GridFieldDeleteAction(true),
                 new GridFieldDetailForm(),
                 new GridFieldAddNewButton('toolbar-header-right'),
-                new GridFieldAddExistingAutocompleter('toolbar-header-right')
+                new GridFieldAddExistingAutocompleter('toolbar-header-right'),
+                new GridFieldOrderableRows('TeaserSortOrder')
             );
-            $TeaserGridFieldConfig->addComponent(new GridFieldOrderableRows('TeaserSortOrder'));
             $gridField = new GridField('Teasers', 'Teasers', $this->Teasers(), $TeaserGridFieldConfig);
             $fields->addFieldToTab('Root.Main', $gridField);
         } else {

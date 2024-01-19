@@ -77,7 +77,6 @@ class ElementHero extends BaseElement
         $fields->removeByName([
             'Slides',
             'AnchorLink',
-            'BackgroundColor',
             'WidthReduced'
         ]);
 

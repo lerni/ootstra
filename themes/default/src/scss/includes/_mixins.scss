@@ -134,6 +134,9 @@
 			}
 			$i1: $i + 1;
 		}
+		.global-alert & {
+			bottom: 0 !important;
+		}
 		.swiper-pagination-bullet {
 			width: #{$size}em;
 			height: #{$size}em;

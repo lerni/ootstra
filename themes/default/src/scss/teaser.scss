@@ -6,7 +6,7 @@
 .element.elementteaser,
 .element.elementfeedteaser {
 	.teasers {
-		display: flex;
+		display: flex; // we use flex (not grid) cos ShowAsSlider would otherwise break swiper.js
 		flex-wrap: wrap;
 		gap: #{$lh}em;
 		width: 100%;

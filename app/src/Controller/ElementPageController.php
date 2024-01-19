@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use PageController;
+// use Kraftausdruck\Models\JobPosting;
 
 class ElementPageController extends PageController
 {
@@ -10,4 +11,14 @@ class ElementPageController extends PageController
     {
         parent::init();
     }
+
+        // public function BetterNavigatorEditLink() {
+        //     $URLSegment = $this->getRequest()->param('ID');
+        //     $product = JobPosting::get()->filter('URLSegment', $URLSegment)->first();
+        //     if ($product) {
+        //         return $product->CMSEditLink();
+        //     } else {
+        //         return $this->data()->CMSEditLink();
+        //     }
+        // }
 }

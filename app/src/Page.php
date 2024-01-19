@@ -89,7 +89,6 @@ class Page extends SiteTree
         return $fields;
     }
 
-    // todo: relay on get magic or not?
     public function DefaultMetaTitle()
     {
         if (!$this->MetaTitle) {
@@ -121,21 +120,6 @@ class Page extends SiteTree
     //        return parent::getSettingsFields();
     //    }
 
-    // we use this in template & WYSIWYGs for css classes
-    // todo: similar function is on ElementExtension
-    public function ShortClassName($obj, $lowercase = false)
-    {
-        if (!is_object($obj)) {
-            $r = ClassInfo::shortName($this);
-        } else {
-            $r = ClassInfo::shortName($obj);
-        }
-
-        if ($lowercase) {
-            $r = strtolower($r);
-        }
-        return $r;
-    }
 
     public function getDefaultOGDescription($limitChar = 0, $limitWordCount = 20)
     {

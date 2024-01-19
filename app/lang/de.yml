@@ -181,7 +181,7 @@ de:
     SINGULARNAME: Social-Link
     TITLE: Titel
     ICONNAME: 'Icon Name'
-    IconNameDescription: 'Namen Icons von <a href="{link}" target="_blank">{link}</a>!'
+    IconNameDescription: 'Icon Name von <a href="{link}" target="_blank">{link}</a>!'
     SAMEAS: '"sameAs" in schema verwenden'
     TitleRequired: 'Titel ist erforderlich!'
   App\Models\Teaser:

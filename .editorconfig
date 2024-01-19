@@ -25,11 +25,6 @@ indent_style = space
 indent_size = 4
 indent_style = tab
 
-# Don't perform any clean-up on thirdparty files
-[thirdparty/**]
-trim_trailing_whitespace = false
-insert_final_newline = false
-
-[admin/thirdparty/**]
+[app/thirdparty/**]
 trim_trailing_whitespace = false
 insert_final_newline = false

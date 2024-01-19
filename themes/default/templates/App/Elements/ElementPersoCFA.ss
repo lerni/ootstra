@@ -1,8 +1,14 @@
 <% require themedCSS("dist/css/persocfa") %>
 <div class="typography">
 	<div class="persos">
-	<% with $Items.First() %>
-		<div class="perso">
+		<% if $Items.Count > 1 %>
+			<% require themedCSS("dist/css/swiper") %>
+			<% require javascript("themes/default/dist/js/swiper.js") %>
+			<div class="swiper-container perso-cfa" id="general-swiper-{$ID}">
+				<div class="swiper-wrapper perso-cfa {$Layout}">
+		<% end_if %>
+		<% loop $Items %>
+		<div class="swiper-slide perso">
 			<figure>
 				<% if $Portrait %>
 					<img loading="lazy" height="$Portrait.FocusFillMax(305,400).Height()" width="$Portrait.FocusFillMax(305,400).Width()" src="$Portrait.FocusFillMax(305,400).URL" srcset="$Portrait.FocusFillMax(305,400).URL 1x, $Portrait.FocusFillMax(610,800).URL 2x" alt="{$Firstname} {$Lastname}" />
@@ -11,8 +17,7 @@
 				<% end_if %>
 			</figure>
 			<div class="txt">
-				<% include App/Includes/ElementTitle %>
-				<h2>{$Firstname} {$Lastname}</h2>
+				<% with $Up %><% include App/Includes/ElementTitle %><% end_with %>
 				<p class="name inlinish"><strong>{$Firstname} {$Lastname}</strong></p>
 				<% if $Position %>
 					<span class="position">$Position</span>
@@ -21,11 +26,15 @@
 					<span class="links">
 						<% if $EMail %><a href="mailto:{$EMail}">{$EMail}</a><% end_if %>
 						<% if $Telephone %><a href="tel:{$Telephone.TelEnc}">{$Telephone}</a><% end_if %>
-						<% if $EMail && $Telephone %><a class="vcard" href="{$Top.Element.PrimaryElementPersoController.Link}/vcard/{$ID}" title="vCard">vCard</a><% end_if %>
+						<% if $EMail && $Telephone %><a href="{$Up.PrimaryElementPersoController.Link}/vcard/{$ID}" title="vCard">vCard</a><% end_if %>
 					</span>
 				</p>
 			</div>
 		</div>
-	<% end_with %>
+	<% end_loop %>
+	<% if $Items.Count >= 1 %>
+		</div>
+	</div>
+	<% end_if %>
 	</div>
 </div>

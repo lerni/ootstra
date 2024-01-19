@@ -3,15 +3,17 @@
 namespace App\Models;
 
 use Page;
-
 use SilverStripe\Control\Director;
 use SilverStripe\Control\Controller;
 use SilverStripe\Forms\LiteralField;
+use SilverStripe\Forms\CheckboxField;
 use SilverStripe\SiteConfig\SiteConfig;
 use App\Controller\ElementPageController;
 
 class ElementPage extends Page
 {
+    private static $db = [];
+
     private static $has_one = [];
 
     private static $has_many = [];
@@ -53,19 +55,6 @@ class ElementPage extends Page
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();
-
-        if (!$this->hasHero()) {
-            $message = _t(__CLASS__ . '.HeroNeeded', 'If there is no "Hero" as top element, <a href="/admin/settings/">default Header Slides</a> are used.');
-            $fields->unshift(
-                LiteralField::create(
-                    'HeroNeeded',
-                    sprintf(
-                        '<p class="alert alert-warning">%s</p>',
-                        $message
-                    )
-                )
-            );
-        }
 
         return $fields;
     }

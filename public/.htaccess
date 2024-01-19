@@ -4,8 +4,6 @@ AddHandler application/x-httpd-php82 .php
 #     SmartPush no-cookie
 # </IfModule>
 
-
-
 # Apache Server Configs v5.0.0 | MIT License
 # https://github.com/h5bp/server-configs-apache
 

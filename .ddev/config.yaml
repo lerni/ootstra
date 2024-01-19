@@ -19,6 +19,7 @@ web_environment:
     - LANG=de_CH.UTF-8
     - TZ=Europe/Zurich
     # - SSH_AUTH_SOCK=/run/host-services/ssh-auth.sock
+    - SS_BASE_URL=${DDEV_PRIMARY_URL} # help CMS find URL per browsersync
 nodejs_version: "18"
 
 # Key features of ddev's config.yaml:

@@ -3,6 +3,7 @@
 namespace App\Elements;
 
 use App\Models\Perso;
+use App\Elements\ElementPerso;
 use SilverStripe\Forms\LiteralField;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Forms\GridField\GridField;

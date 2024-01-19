@@ -3,7 +3,7 @@
 
 # Setup, Requirements & install
 
-"ootstra" is inspired from [Bigfork’s quickstart recipe](https://github.com/bigfork/silverstripe-recipe) for [Silverstripe](https://www.silverstripe.org/). It's an opinionated set of tools for a ready to run, build & deploy CMS instance. To get it up and running you'll need [GIT](https://git-scm.com/), an editor like [VSCode](https://code.visualstudio.com/) (recommended), [ddev](https://ddev.readthedocs.io/en/stable/). It utilizes [dnadesign/silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) for a block/element based CMS experience and comes with the following set of elements:
+"ootstra" is inspired from [Bigfork’s quickstart recipe](https://github.com/bigfork/silverstripe-recipe) for [Silverstripe](https://www.silverstripe.org/). It's an opinionated set of tools for a ready to run, build & deploy CMS instance. To get it up and running you'll need [GIT](https://git-scm.com/), an editor like [VSCode](https://code.visualstudio.com/) (recommended) & [ddev](https://ddev.readthedocs.io/en/stable/). It utilizes [dnadesign/silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) for a block/element based CMS experience and comes with the following set of elements:
 
 - ElementContent
 - ElementForm               (userforms)
@@ -184,8 +184,11 @@ MAIL_PASSWORD=null
 MAIL_ENCRYPTION=null
 MAILER_DSN='smtp://localhost:1025'
 
-GHOSTSCRIPT_PATH='/usr/local/bin/gs'
+GHOSTSCRIPT_PATH='/usr/bin/gs'
 
+SCRIPT_FILENAME=''
+
+# APP_GOOGLE_MAPS_KEY=''
 # SS_NOCAPTCHA_SITE_KEY=''
 # SS_NOCAPTCHA_SECRET_KEY=''
 ```
@@ -241,7 +244,8 @@ dep silverstripe:download_assets live
 # Upload assets to test
 dep silverstripe:upload_assets test
 
-... or use VSCode tasks Command+Shift+B
+etc.
+or use VSCode tasks Command+Shift+B
 ```
 
 # Manual remote dev/build

@@ -5,16 +5,14 @@ namespace App\Models;
 use App\Elements\ElementHero;
 use SilverStripe\Assets\Image;
 use SilverStripe\ORM\DataObject;
+use SilverStripe\Forms\FieldGroup;
 use SilverStripe\CMS\Model\SiteTree;
-use SilverStripe\Forms\LiteralField;
-use SilverStripe\Forms\CompositeField;
 use SilverStripe\Forms\RequiredFields;
 use SilverStripe\Forms\TreeDropdownField;
 use nathancox\EmbedField\Forms\EmbedField;
 use nathancox\EmbedField\Model\EmbedObject;
 use SilverStripe\Versioned\GridFieldArchiveAction;
 use DNADesign\Elemental\Forms\TextCheckboxGroupField;
-use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\GridField\GridFieldDataColumns;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
@@ -84,7 +82,7 @@ class Slide extends DataObject
             $fields->removeByName('TitleLevel');
             $TitleLevelField->setTitle(_t('DNADesign\Elemental\Models\BaseElement.TITLELEVEL', 'H1, H2, H3'));
 
-            $TitleFieldGroup = new CompositeField(
+            $TitleFieldGroup = new FieldGroup(
                 $TitleLevelField,
                 $TitleField
             );
@@ -141,10 +139,10 @@ class Slide extends DataObject
         return $fields;
     }
 
-    // public function getCMSValidator()
-    // {
-    //     return new RequiredFields([
-    //         'Title'
-    //     ]);
-    // }
+    public function getCMSValidator()
+    {
+        return new RequiredFields([
+            'Title'
+        ]);
+    }
 }

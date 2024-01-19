@@ -61,7 +61,7 @@
 		}
 	&:hover {
 	&::before {
-				width: $arrow-width-hover;
+			width: $arrow-width-hover;
 			margin-right: 0;
 		}
 	}
@@ -78,8 +78,8 @@
 		height: 1em;
 		background-size: auto 70%;
 		background-repeat: no-repeat;
-background-position: top .3em right 0;
-				background-image: svg-load(
+		background-position: top .3em right 0;
+		background-image: svg-load(
 			"../images/svg/arrow-forward.svg",
 			stroke-width=4,
 			stroke=#{$link-color}

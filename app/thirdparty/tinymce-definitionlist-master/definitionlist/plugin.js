@@ -24,11 +24,12 @@ function definitionListsPlugin(editor, url) {
 
 	editor.on('keydown', changeKeyBehavior);
 
-	editor.addButton('ToggleDefinitionItem', {
+	editor.ui.registry.addButton('ToggleDefinitionItem', {
 		text: 'DT↔DD',
 		tooltip: 'Switch Between Term and Definition',
-		icon: false,
-		cmd: 'ToggleDefinitionItem',
+    onAction: function() {
+      editor.execCommand('ToggleDefinitionItem');
+    },
 		onPostRender: function() {
 			var self = this;
 			editor.on('NodeChange', function(e) {
@@ -37,11 +38,12 @@ function definitionListsPlugin(editor, url) {
 		}
 	});
 
-	editor.addButton('ToggleDefinitionList', {
+  editor.ui.registry.addMenuItem('ToggleDefinitionList', {
 		text: 'DL',
 		tooltip: 'Definition List',
-		icon: false,
-		cmd: 'ToggleDefinitionList',
+    onAction: function() {
+      editor.execCommand('ToggleDefinitionList');
+    },
 		stateSelector: 'dl'
 	});
 

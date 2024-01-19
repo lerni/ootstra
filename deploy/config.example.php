@@ -9,17 +9,14 @@ define('DEP_SERVER_USER', 'USER');
 // IP or host
 define('DEP_SERVER', 'IP.IP.IP.IP');
 
-// Port - optional defaults to 22
-// define('DEP_SERVER_PORT', 52839);
+// Port - default 22
+define('DEP_SERVER_PORT', 22);
 
 // WEBDIR - just use if it fits to suggested DEP_DEPLOY_PATH & DEP_DEPLOY_TEST_PATH
 define('DEP_WEBDIR', 'public_html');
 
 // PHP Version/Path
 define('DEP_PHP_PATH', '/usr/local/bin/php82');
-
-// PHP TIMEZONE - optional, defaults to TZ and falls back to Europe/Zurich
-// define('DEP_TIMEZONE', 'Europe/Zurich');
 
 // The repository URL for this project
 if (!defined('DEP_REPOSITORY')) {

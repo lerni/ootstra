@@ -371,6 +371,7 @@ form .file {
 .btn,
 .btn-large {
 	@include buttonstyle;
+	line-height: $lh;
 	&:hover {
 		background-color: $link-color;
 	}

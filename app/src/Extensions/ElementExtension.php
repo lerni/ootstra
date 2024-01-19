@@ -5,8 +5,10 @@ namespace App\Extensions;
 use App\Elements\ElementHero;
 use SilverStripe\Core\ClassInfo;
 use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\FieldGroup;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\Forms\CompositeField;
+use SilverStripe\Forms\RequiredFields;
 use SilverStripe\ORM\FieldType\DBField;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\View\Parsers\URLSegmentFilter;
@@ -69,7 +71,7 @@ class ElementExtension extends DataExtension
             $fields->removeByName('TitleLevel');
             $TitleLevelField->setTitle(_t('DNADesign\Elemental\Models\BaseElement.TITLELEVEL', 'H1, H2, H3'));
 
-            $TitleFieldGroup = new CompositeField(
+            $TitleFieldGroup = new FieldGroup(
                 $TitleLevelField,
                 $TitleField
             );
@@ -79,7 +81,7 @@ class ElementExtension extends DataExtension
                 TextCheckboxGroupField::create()
                     ->setName('Title')
             );
-            $fields->unshift($TitleFieldGroup);
+            $fields->fieldByName('Root.Main')->unshift($TitleFieldGroup);
         }
 
         if ($ElementAnchorLinkField = $fields->dataFieldByName('AnchorLink')) {
@@ -132,24 +134,6 @@ class ElementExtension extends DataExtension
                 }
             }
         }
-    }
-
-    // we use this in template & WYSIWYGs for css classes
-    // similar function is on page ;-(
-    public function ShortClassName($lowercase = false)
-    {
-        if ($this->owner->ClassName != ElementVirtual::class) {
-            $r = ClassInfo::shortName($this->owner);
-        } else {
-            // todo may return both?
-            $r = ClassInfo::shortName($this->owner->LinkedElement());
-        }
-
-        if ($lowercase) {
-            $r = strtolower($r);
-        }
-
-        return $r;
     }
 
     public function ElementAnchor()
@@ -253,5 +237,12 @@ class ElementExtension extends DataExtension
                 array_push($anchors, $filter->filter($perso->Anchor()));
             }
         }
+    }
+
+    public function getCMSValidator()
+    {
+        return new RequiredFields([
+            'Title'
+        ]);
     }
 }

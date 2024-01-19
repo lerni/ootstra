@@ -163,14 +163,14 @@ body > main {
 }
 
 nav.breadcrumbs {
-	padding-top: #{math.div($lh, 2)}em;
+	padding-top: #{$lh}em;
 	padding-bottom: #{math.div($lh, 1)}em;
 	text-align: left;
-	.typography {
-		max-width: $inner-width;
-		margin-left: auto;
-		margin-right: auto;
-	}
+	// .typography {
+	// 	max-width: $inner-width;
+	// 	margin-left: auto;
+	// 	margin-right: auto;
+	// }
 	a,
 	span,
 	.delimiter {
@@ -202,9 +202,8 @@ p.cat-tag {
 	padding-bottom: #{$lh * 2}em;
 	> span,
 	> a {
-		font-size: 0.9em;
 		display: inline-block;
-		padding: 0.14em #{math.div($lh, 1)}em 0.1em;
+		padding: calc(#{math.div($lh, 4)}em - 2px) calc(#{math.div($lh, 2)}em - 2px); // same spacing as @buttonstyle
 		border-width: 2px;
 		border-style: solid;
 		border-color: $text-color;
@@ -224,12 +223,13 @@ p.cat-tag {
 	> a.all:not(.current) {
 		border-color: transparent;
 		padding-left: 0;
+		padding-right: 0;
 		&::before {
 			display: inline-block;
 			content: "";
-			width: #{$lh * 0.7}em;
+			width: #{$lh * 0.6}em;
 			height: 1em;
-			background-size: auto 0.7em;
+			background-size: auto 0.6em;
 			background-repeat: no-repeat;
 			background-position: right 0 center;
 			background-image: svg-load(
@@ -237,7 +237,7 @@ p.cat-tag {
 				fill=#{$text-color}
 			);
 			transform: rotate(180deg);
-			margin-right: #{$lh * 0.3}em;
+			margin-right: #{math.div($lh, 4)}em;
 			vertical-align: -0.1em;
 		}
 	}
@@ -321,6 +321,9 @@ p.cat-tag {
 		position: relative;
 		&:not(.full-width) {
 			max-width: calc(#{$inner-width + 300px});
+		}
+		.swiper-container {
+			width: 100%;
 		}
 		figure {
 			height: 100%;
@@ -649,7 +652,7 @@ p.cat-tag {
 			}
 		}
 		&.breadcrumbs {
-			padding-bottom: #{math.div($lh, 2)}em;
+			padding-bottom: 0;
 			margin-bottom: 0;
 			.swiper-pagination {
 				bottom: #{math.div($lh, 2)}em;
@@ -789,25 +792,18 @@ p.cat-tag {
 	display: flex;
 	gap: #{$lh}em;
 	a {
-		color: $white;
 		transition: transform 0.05s linear;
-		&:hover {
-			color: $white;
-			transform: scale(1.08);
+		// coloring svg with https://codepen.io/sosuke/pen/Pjoqqp
+		img {
+			width: 1em;
+			height: auto;
+			filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(252deg) brightness(101%) contrast(102%);
 		}
-		span.whatsapp {
-			content: "";
-			padding: 0 0 #{$lh * 1.4}em 0;
-			height: 0;
-			width: #{$lh * 1.4}em;
-			display: inline-block;
-			background-size: 100% auto;
-			background-repeat: no-repeat;
-			background-image: svg-load(
-				"../images/svg/whatsapp.svg",
-				stroke= "#{$white}"
-			);
-			background-position: center bottom 40%;
+		&:hover {
+			img {
+				filter: invert(36%) sepia(58%) saturate(6458%) hue-rotate(327deg) brightness(96%) contrast(85%);
+				transform: scale(1.08);
+			}
 		}
 	}
 }

@@ -174,15 +174,14 @@ ul#Form_ItemEditForm_BackgroundColor li label[for$="transparent"] {
 	background-size: 400% auto !important;
 }
 
-/* adding categories has unnecessary icons from data-icon="add" */
-.input-group-append button::before {
-	content: none;
-}
-
 /* in 5.x we need to revert #7b430d4 and add the previous snippet
 https://github.com/silverstripe/silverstripe-admin/commit/7b430d4171da9608918190109b85e15260e0d626 */
 .chosen-container:not(.chosen-container-active) {
+	overflow-x: hidden;
+}
+html .chosen-container:not(.chosen-container-active) .chosen-drop {
 	overflow: hidden;
+	height: 0;
 }
 .preview-mode-selector .chosen-drop {
 	width: inherit;

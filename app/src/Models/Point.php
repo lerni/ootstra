@@ -4,6 +4,7 @@ namespace App\Models;
 
 use BetterBrief\GoogleMapField;
 use SilverStripe\ORM\DataObject;
+use SilverStripe\Core\Environment;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Forms\RequiredFields;
 use SilverStripe\ORM\FieldType\DBHTMLText;
@@ -66,9 +67,8 @@ class Point extends DataObject
     public function getThunbnail()
     {
         $url =  'https://maps.googleapis.com/maps/api/staticmap?center=' . $this->Latitude . ',' . $this->Longitude . '&zoom=16&size=140x140&maptype=hybrid&markers=color:red%7C' . $this->Latitude . ',' . $this->Longitude;
-        $gmapDefaultConfig = Config::inst()->get(GoogleMapField::class, 'default_options');
-        if (isset($gmapDefaultConfig['api_key'])) {
-            $key = $gmapDefaultConfig['api_key'];
+        $key = Environment::getEnv('APP_GOOGLE_MAPS_KEY') ?: Config::inst()->get(GoogleMapField::class, 'api_key');
+        if ($key) {
             $url = $url . '&key=' . $key;
         }
         $tag = '<img src="' . $url . '" title="' . $this->Title . '">';

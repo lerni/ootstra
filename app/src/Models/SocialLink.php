@@ -3,7 +3,11 @@
 namespace App\Models;
 
 use SilverStripe\ORM\DataObject;
+use SilverStripe\Control\Director;
+use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\RequiredFields;
+use SilverStripe\View\Parsers\URLSegmentFilter;
+use SilverStripe\Core\Manifest\ModuleResourceLoader;
 
 class SocialLink extends DataObject
 {
@@ -65,11 +69,36 @@ class SocialLink extends DataObject
         $fields = parent::getCMSFields();
 
         if ($TitleField = $fields->dataFieldByName('IconName')) {
-            $feathericonURL = 'https://feathericons.com/';
-            $TitleField->setDescription(_t(__CLASS__ . '.IconNameDescription', 'Icon names from <a href="{link}" target="_blank">{link}</a>!', [ 'link' => $feathericonURL ]));
+            $iconURL = 'https://simpleicons.org/';
+            $TitleField->setDescription(_t(__CLASS__ . '.IconNameDescription', 'Icon names from <a href="{link}" target="_blank">{link}</a>!', [ 'link' => $iconURL ]));
         }
 
+        $valueArray = $this->getAvailableIconNames();
+
+        $iconNameField = DropdownField::create(
+            'IconName',
+            _t(__CLASS__ . '.ICONNAME', 'Icon name'),
+            $valueArray
+        );
+        $iconNameField->setDescription(_t(__CLASS__ . '.IconName', 'Icon names from <a href="{link}" target="_blank">{link}</a>!', [ 'link' => $iconURL ]));
+        $fields->replaceField('IconName', $iconNameField);
+
         return $fields;
+    }
+
+    public function getAvailableIconNames() {
+        $jsonFilePath = ModuleResourceLoader::resourcePath('vendor/simple-icons/simple-icons/_data/simple-icons.json');
+        $base = Director::baseFolder();
+        $fullPath = $base . '/public/_resources/' . $jsonFilePath;
+        $jsonString = file_get_contents($fullPath);
+        $data = json_decode($jsonString, true);
+
+        $result = [];
+        foreach($data['icons'] as $item) {
+            $titleSanitized = preg_replace( '/[^a-z0-9]+/', '', strtolower($item['title']) );
+            $result[$titleSanitized] = $item['title'];
+        }
+        return $result;
     }
 
     public function getCMSValidator()

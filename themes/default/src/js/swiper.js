@@ -7,7 +7,7 @@ import {
   EffectFade,
   Keyboard,
   Navigation,
-  Pagination
+  Pagination,
   // Thumbs
 } from "swiper/modules";
 
@@ -18,8 +18,7 @@ Array.prototype.forEach.call(heroSwiper, function (slider) {
   var sliderID = slider.getAttribute("id");
   var sliderPrev = "#hero-swiper-prev" + slider.getAttribute("data-id");
   var sliderNext = "#hero-swiper-next" + slider.getAttribute("data-id");
-  var sliderPagination =
-    "#hero-swiper-pagination" + slider.getAttribute("data-id");
+  var sliderPagination = "#hero-swiper-pagination" + slider.getAttribute("data-id");
 
   var heroSwiperInstance = new Swiper("#" + sliderID, {
     spaceBetween: 0,

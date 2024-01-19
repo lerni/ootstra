@@ -8,6 +8,7 @@ use BetterBrief\GoogleMapField;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Control\Director;
+use SilverStripe\Core\Environment;
 use SilverStripe\View\Requirements;
 use SilverStripe\Control\Controller;
 use SilverStripe\Core\Config\Config;
@@ -26,10 +27,8 @@ class ElementMapsController extends ElementController
 
         $Lang = i18n::get_locale();
         $Lang = substr($Lang, 0, 2);
-
-        $gmapDefaultConfig = Config::inst()->get(GoogleMapField::class, 'default_options');
-        if (isset($gmapDefaultConfig['api_key'])) {
-            $key = $gmapDefaultConfig['api_key'];
+        $key = Environment::getEnv('APP_GOOGLE_MAPS_KEY') ?: Config::inst()->get(GoogleMapField::class, 'api_key');
+        if ($key) {
             // Requirements::javascript('https://maps.google.com/maps/api/js?language='. $Lang .'&key='. $key, [ 'defer' => true, 'async' => true ]);
             Requirements::javascript('https://maps.google.com/maps/api/js?language=' . $Lang . '&key=' . $key);
         } else {

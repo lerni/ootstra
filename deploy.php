@@ -15,14 +15,6 @@ set('alias', function () {
     return DEP_SERVER;
 });
 
-// Server port
-set('alias', function () {
-    if (!defined('DEP_SERVER_PORT')) {
-        define('DEP_SERVER_PORT', 22);
-    }
-    return DEP_SERVER_PORT;
-});
-
 // Project name
 set('application', function () {
     if (!defined('DEP_APPLICATION')) {
@@ -48,18 +40,6 @@ set('bin/php', function () {
         exit;
     }
     return DEP_PHP_PATH;
-});
-
-// TZ for relevant deployment timestamps
-set('timezone', function () {
-    if (!defined('DEP_TIMEZONE')) {
-        if (defined('TZ')) {
-            define('DEP_TIMEZONE', TZ);
-        } else {
-            define('DEP_TIMEZONE', 'Europe/Zurich');
-        }
-    }
-    return DEP_TIMEZONE;
 });
 
 // Server user
@@ -115,7 +95,7 @@ set('bin/composer', function () {
 
 // set('composer_options', '--no-dev --verbose --prefer-dist --optimize-autoloader --no-interaction');
 set('http_user', DEP_SERVER_USER);
-set('default_timeout', 600); // default is 300 - sspak sometimes needs more. With this we at least see the truncated (size-limit) error :(
+set('default_timeout', 600); // default is 300 - asset transfer can take some more time
 
 host('live')
     ->set('labels', ['stage' => 'live'])
@@ -148,7 +128,7 @@ host('test')
     });
 
 Deployer::get()->tasks->remove('deploy');
-desc('Deploy your project');
+desc('Deploy project');
 task('deploy', function () {
     invoke('silverstripe:installtools');
     invoke('silverstripe:create_dotenv');

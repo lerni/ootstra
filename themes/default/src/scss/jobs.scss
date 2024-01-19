@@ -6,20 +6,35 @@
 .element.elementjobs {
 	.jobs {
 		.job {
-			color: $text-color;
 			display: grid;
 			gap: #{$lh}em;
 			grid-template-columns: auto 1fr;
-			margin: #{$lh}em 0;
+			color: $text-color;
 			box-shadow: 0 0 .2em rgba($black, .25);
-			padding: #{$lh*.5}em #{$lh*1}em;
-			border-left: solid $link-color #{$lh*.333}em;
+			padding: #{$lh}em #{$lh}em #{$lh}em #{math.div($lh, 3) * 2}em;
+			border-left: solid $link-color #{math.div($lh, 3)}em;
+			@include breakpoint($Lneg) {
+				grid-template-columns: 1fr;
+				grid-template-rows: auto 1fr;
+			}
 			figure {
 				margin: 0;
 				grid-column: 1 / 2;
+				@include breakpoint($Lneg) {
+					grid-row: 1 / 2;
+				}
+				img {
+					margin-bottom: 0;
+					display: table;
+					width: 100%;
+				}
 			}
 			.txt {
 				grid-column: 2 / 3;
+				@include breakpoint($Lneg) {
+					grid-column: 1 / 2;
+					grid-row: 2 / 3;
+				}
 				h3 {
 					margin-bottom: 0;
 				}
@@ -27,20 +42,13 @@
 					margin-bottom: 0;
 				}
 			}
-			.forth {
-				margin: auto 0 auto auto;
-				&::after {
-					margin-right: 1.1em;
-				}
-				&:hover {
-					&::after {
-						margin-right: 0;
-					}
-				}
-			}
+			// hover effect -> block-linked
 			&:hover {
 				.forth {
-					color: $link-color;
+					&::after {
+						width: 2em;
+						margin-right: 0;
+					}
 				}
 			}
 		}

@@ -3,6 +3,7 @@
 @use "sass:math";
 @import "~breakpoint-sass/stylesheets/breakpoint";
 @import "mixins";
+// @import 'documents';
 @import "utils";
 
 /* Typography
@@ -181,6 +182,7 @@
 	.text-left {
 		text-align: left;
 	}
+	.center,
 	.text-center {
 		text-align: center;
 	}
@@ -302,14 +304,16 @@
 			}
 		}
 	}
-	.button {
+	.forth {
 		@extend %forth;
 		display: inline-block;
 		color: #{$link-color};
+	}
+	.button {
+		@include buttonstyle;
+		display: inline-block;
 		&:hover {
-			&::after {
-				margin-left: 1em;
-			}
+			background-color: $current-color;
 		}
 	}
 	.marker {

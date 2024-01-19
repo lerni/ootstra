@@ -21,4 +21,7 @@ $themeColor: $white;
 		}
 		$i1: $i + 1;
 	}
+	.global-alert & {
+		margin-top: calc(0px - (var(--swiper-navigation-size) / 2)) !important;
+	}
 }

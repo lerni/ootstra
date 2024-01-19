@@ -10,6 +10,7 @@ use SilverStripe\ORM\ArrayList;
 use SilverStripe\View\SSViewer;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\View\ArrayData;
+use App\Elements\ElementPersoCFA;
 use SilverStripe\Forms\EmailField;
 use SilverStripe\Control\Controller;
 use SilverStripe\Forms\LiteralField;
@@ -19,8 +20,10 @@ use SilverStripe\View\Parsers\URLSegmentFilter;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
 use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\GridField\GridFieldConfig_Base;
+use SilverStripe\Forms\GridField\GridFieldDataColumns;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
+use SilverStripe\Forms\GridField\GridFieldFilterHeader;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 
 class Perso extends DataObject
@@ -126,6 +129,19 @@ class Perso extends DataObject
                     new GridFieldAddNewButton('toolbar-header-right'),
                     new GridFieldOrderableRows('SortOrder')
                 );
+
+            // show where associated per CFAElement
+            $persoOnCFAElementConfig = GridFieldConfig_Base::create(20);
+            $persoOnCFAElementConfig->addComponents([]);
+            $persoOnCFAElementConfig->getComponentByType(GridFieldDataColumns::class)
+                ->setDisplayFields([
+                    'getTypeBreadcrumb' => 'Element',
+                    'getPage.CMSEditLink' => 'Edit-Link'
+                ]);
+            $persoCFAElements = ElementPersoCFA::get()->filter(["Persos.EMail" => $this->EMail]);
+            $persoOnCFAElementWithMEGridField = new GridField('PersoOnCFAElement', 'PersoOnCFAElement', $persoCFAElements, $persoOnCFAElementConfig);
+            $persoOnCFAElementWithMEGridField->setTitle(_t(__CLASS__ . '.IsUsedOnComment', $this->getTitle() . ' is associated on...'));
+            $fields->addFieldToTab('Root.Main', $persoOnCFAElementWithMEGridField);
         } else {
             $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
         }

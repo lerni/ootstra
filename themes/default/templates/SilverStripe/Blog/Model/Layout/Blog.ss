@@ -3,12 +3,12 @@
 <main>
 	<% if $Slides %>
 		<article class="element elementhero spacing-bottom-2 full-width<% if $SiteConfig.GlobalAlert %>> global-alert<% end_if %>"><% include App/Includes/Slides %></article>
+		<% if $SiteConfig.GlobalAlert %><article class="global-alert">
+			<div class="typography inner">$SiteConfig.GlobalAlert</div>
+		</article><% end_if %>
 	<% else_if $SiteConfig.DefaultHeaderSlides.Count() %>
 		<% include App/Includes/DefaultHero Page=$Me %>
 	<% end_if %>
-	<% if $SiteConfig.GlobalAlert %><article class="global-alert">
-		<div class="typography inner">$SiteConfig.GlobalAlert</div>
-	</article><% end_if %>
 	<% if $Content %><article class="element horizontal-spacing elementcontent">
 		<div class="typography">$Content</div>
 	</article><% end_if %>
@@ -28,7 +28,7 @@
 				<% include SilverStripe/Blog/PostSummary %>
 			<% end_loop %>
 		<% else %>
-			<div class="post-summary nopost">
+			<div class="typography nopost">
 				<p><%t SilverStripe\Blog\Model\Blog.NoPosts 'There are no posts' %></p>
 			</div>
 		<% end_if %>
