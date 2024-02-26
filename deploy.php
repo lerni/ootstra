@@ -52,7 +52,7 @@ set('remote_user', function () {
 });
 
 // Number of releases to keep
-set('keep_releases', 5);
+set('keep_releases', 3);
 
 // [Optional] Allocate tty for git clone. Default value is false
 set('git_tty', true);
@@ -81,7 +81,9 @@ set('clear_paths', [
     '.gitignore',
     '.vscode/',
     'deploy.php',
-    'deploy/'
+    'deploy/',
+    'silverstripe-cache/readme.txt',
+    'blacklist.txt'
 ]);
 
 // prevent sending usage statistics
@@ -109,7 +111,6 @@ host('live')
         if (defined('DEP_DEPLOY_LIVE_PATH')) {
             return DEP_DEPLOY_LIVE_PATH;
         }
-        return '/home/{{remote_user}}/public_html/0live';
     });
 
 host('test')
@@ -124,7 +125,6 @@ host('test')
         if (defined('DEP_DEPLOY_TEST_PATH')) {
             return DEP_DEPLOY_TEST_PATH;
         }
-        return '/home/{{user}}/public_html/0test';
     });
 
 Deployer::get()->tasks->remove('deploy');

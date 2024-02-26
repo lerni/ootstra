@@ -66,7 +66,9 @@
 		"jonom/silverstripe-someconfig": "^1",
 		"nathancox/embedfield": "dev-attrquerystring",
 		"lerni/folderindex": "^0",
-		"simple-icons/simple-icons": "^11.0"
+		"simple-icons/simple-icons": "^11.0",
+		"jcupitt/vips": "^v2",
+		"osiemsiedem/intervention-image-vips-driver": "^v0"
 	},
 	"require-dev": {
 		"deployer/deployer": "^7",

@@ -1,5 +1,5 @@
 // import { CountUp } from './js/countUp.min.js';
-import { CountUp } from 'countUp.js';
+import { CountUp } from 'countup.js';
 
 window.onload = function() {
   var ElementCounters = document.querySelectorAll('.graphs .graph .counter-digit');

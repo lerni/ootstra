@@ -25,23 +25,16 @@ class ElementUserFormsExtension extends DataExtension
             $siteConfig = SiteConfig::current_site_config();
             $id = $siteConfig->CookieLinkPrivacyID;
         } else {
-            $id = 2;
+            $id = 2; // ID we get with default fixtures
         }
 
-        $termsField = new EditableCheckboxTerms([
-            'Name' => 'TermsAndConditions',
-            'Title' => _t('App\Models\EditableFormField\EditableCheckboxTerms.DefaultTitle', 'I accept <a rel="noopener noreferrer" href="[sitetree_link,id={id}]" target="_blank">Terms & Conditions and Privacy Policy</a>.', ['id' => $id]),
-            'Required' => true,
-            'ExtraClass' => 'half-width'
-        ]);
+        $termsField = new EditableCheckboxTerms();
         $this->owner->Fields()->add($termsField);
 
         $spamProtectionField = new EditableSpamProtectionField([
             'Name' => 'SpamProtection',
-            'Title' => _t(__CLASS__ . '.DefaultTitle', ''),
-            'ExtraClass' => 'half-width'
+            'Title' => _t(__CLASS__ . '.DefaultTitle', '')
         ]);
-
         $this->owner->Fields()->add($spamProtectionField);
     }
 }

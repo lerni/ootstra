@@ -3,7 +3,6 @@
 @import "includes/variables";
 @import "includes/defaults";
 @import "includes/mixins";
-@import "includes/utils";
 @import "includes/typography";
 
 // Many styles
@@ -86,6 +85,7 @@ strong {
 		display: grid;
 		grid-template-rows: #{$lh * 1.2}em auto;
 		grid-template-columns: auto 1fr;
+		// max-width: calc(#{$inner-width + 200px});
 		// max-width: calc(#{$inner-width + 200px});
 		@include breakpoint($Lneg) {
 			// min-height: 100vh;
@@ -203,7 +203,8 @@ p.cat-tag {
 	> span,
 	> a {
 		display: inline-block;
-		padding: calc(#{math.div($lh, 4)}em - 2px) calc(#{math.div($lh, 2)}em - 2px); // same spacing as @buttonstyle
+		padding: calc(#{math.div($lh, 4)}em - 2px)
+			calc(#{math.div($lh, 2)}em - 2px); // same spacing as @buttonstyle
 		border-width: 2px;
 		border-style: solid;
 		border-color: $text-color;
@@ -261,6 +262,25 @@ p.cat-tag {
 	margin-right: auto;
 	position: relative;
 	scroll-margin-top: $headerheight;
+	>a.preview {
+		position: absolute;
+		top: 0em;
+		right: 0em;
+		width: #{$lh}em;
+		height: #{$lh}em;
+		justify-content: center;
+		align-items: center;
+		border-radius: #{$lh}em;
+		background-color: $link-color;
+		color: $text-color;
+		display: none;
+		span {
+			margin: auto;
+		}
+		@include breakpoint($XLplus) {
+			display: flex;
+		}
+	}
 	&::after {
 		content: "";
 		position: absolute;
@@ -767,13 +787,13 @@ p.cat-tag {
 .link.forth {
 	display: inline-block;
 	color: #{$link-color};
-	@extend %forth;
+	@include arrow-after($link-color);
 }
 
 .parent-link.back {
 	display: inline-block;
 	color: #{$link-color};
-	@extend %back;
+	@include arrow-before($link-color);
 }
 
 .global-alert:not(.elementhero) {
@@ -797,11 +817,13 @@ p.cat-tag {
 		img {
 			width: 1em;
 			height: auto;
-			filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(252deg) brightness(101%) contrast(102%);
+			filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(252deg)
+				brightness(101%) contrast(102%);
 		}
 		&:hover {
 			img {
-				filter: invert(36%) sepia(58%) saturate(6458%) hue-rotate(327deg) brightness(96%) contrast(85%);
+				filter: invert(36%) sepia(58%) saturate(6458%)
+					hue-rotate(327deg) brightness(96%) contrast(85%);
 				transform: scale(1.08);
 			}
 		}
@@ -818,7 +840,7 @@ html .klaro {
 		.cm-btn {
 			cursor: pointer;
 			font-size: 14px;
-			border-radius: .1em;
+			border-radius: 0.1em;
 		}
 	}
 
@@ -953,5 +975,45 @@ html div.nocaptcha {
 		p.terms-legend {
 			display: block;
 		}
+	}
+}
+
+$loader-color: $link-color;
+$loader-size: 4;
+.loader,
+.loader:after {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 100;
+	border-radius: 50%;
+	width: #{$loader-size}em;
+	height: #{$loader-size}em;
+	pointer-events: none;
+	transition: opacity linear .3s;
+}
+.loader {
+	margin: #{math.div($loader-size, 2)}em auto  auto;
+	text-indent: -9999em;
+	border: #{math.div($loader-size, 6)}em solid rgba($loader-color, 0.1);
+	border-left: #{math.div($loader-size, 6)}em solid $loader-color;
+	transform: translateZ(0);
+	animation: load8 1s infinite linear;
+ 	display: none;
+	flex: 1 1 100%;
+	align-self: center;
+	justify-self: center;
+	&.htmx-request {
+		display: flex;
+	}
+}
+@keyframes load8 {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
 	}
 }

@@ -29,10 +29,9 @@ class ElementMapsController extends ElementController
         $Lang = substr($Lang, 0, 2);
         $key = Environment::getEnv('APP_GOOGLE_MAPS_KEY') ?: Config::inst()->get(GoogleMapField::class, 'api_key');
         if ($key) {
-            // Requirements::javascript('https://maps.google.com/maps/api/js?language='. $Lang .'&key='. $key, [ 'defer' => true, 'async' => true ]);
-            Requirements::javascript('https://maps.google.com/maps/api/js?language=' . $Lang . '&key=' . $key);
+            Requirements::javascript('https://maps.google.com/maps/api/js?language='. $Lang .'&key='. $key . '&callback=init', [ 'defer' => true ]);
         } else {
-            Requirements::javascript('https://maps.google.com/maps/api/js?language=' . $Lang);
+            Requirements::javascript('https://maps.google.com/maps/api/js?language='. $Lang . '&callback=init', [ 'defer' => true ]);
         }
 
         Requirements::javascriptTemplate("themes/default/src/js/include/google-map.js", [

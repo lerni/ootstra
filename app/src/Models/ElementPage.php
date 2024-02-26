@@ -58,4 +58,18 @@ class ElementPage extends Page
 
         return $fields;
     }
+
+    public function IsPreview()
+    {
+        if (!Controller::has_curr()) {
+            return;
+        }
+        $controller = Controller::curr();
+        $request = $controller->getRequest();
+        if ($request->getVar('CMSPreview')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

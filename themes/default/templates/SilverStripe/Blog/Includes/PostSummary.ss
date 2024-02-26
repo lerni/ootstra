@@ -1,4 +1,4 @@
-<a href="$Link" class="post-summary">
+<a href="$Link" class="post-summary" title="$OGTitle" data-hx-boost="true">
 	<% if $getDefaultOGImage(1).Exists() %><figure>
 		<img
 			height="$getDefaultOGImage(1).FocusFillMax(340,170).Height()"

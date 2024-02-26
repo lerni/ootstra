@@ -92,7 +92,7 @@ class Slide extends DataObject
                 TextCheckboxGroupField::create()
                     ->setName('Title')
             );
-            $fields->unshift($TitleFieldGroup);
+            $fields->fieldByName('Root.Main')->unshift($TitleFieldGroup);
         }
 
         $RelatedPage = TreeDropdownField::create('LinkID', 'Link', SiteTree::class);

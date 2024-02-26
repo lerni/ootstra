@@ -588,6 +588,18 @@ AddDefaultCharset utf-8
 </IfModule>
 
 # ----------------------------------------------------------------------
+# | prevent font leaching / hotlinking                                 |
+# | some font licences require something like this                     |
+# ----------------------------------------------------------------------
+# RewriteCond %{HTTP_HOST} ^(.+)$
+# SetEnvIfNoCase Referer "^https?://([^/]*)?%1/" local_ref=1
+# SetEnvIf Referer ^$ local_ref=1
+# <FilesMatch "\.(eot|svg|ttf|woff)$">
+#   Order Allow,Deny
+#   Allow from env=local_ref
+# </FilesMatch>
+
+# ----------------------------------------------------------------------
 # | Server software information                                        |
 # ----------------------------------------------------------------------
 

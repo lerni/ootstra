@@ -31,7 +31,8 @@ class MetaOverviewPage extends Page
         $fields->removeByName([
             'Content',
             'Metadata',
-            'PageCategories'
+            'PageCategories',
+            'Feed & Share'
         ]);
 
         return $fields;

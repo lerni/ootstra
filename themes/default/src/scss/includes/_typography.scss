@@ -4,7 +4,6 @@
 @import "~breakpoint-sass/stylesheets/breakpoint";
 @import "mixins";
 // @import 'documents';
-@import "utils";
 
 /* Typography
 ---------------------------------------------------------------------------------- */
@@ -305,7 +304,7 @@
 		}
 	}
 	.forth {
-		@extend %forth;
+		@include arrow-after($link-color);
 		display: inline-block;
 		color: #{$link-color};
 	}

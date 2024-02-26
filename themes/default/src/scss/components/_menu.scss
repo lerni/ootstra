@@ -12,8 +12,9 @@
 				color: $text-color;
 				z-index: 1;
 				@include bold;
-				&:focus-within {
-					outline: 2px solid $current-color;
+				&:focus,
+				&:focus-visible {
+					outline: none;
 				}
 			}
 			&.current,
@@ -21,6 +22,9 @@
 				> a {
 					color: $current-color;
 				}
+			}
+			&:has(> a:focus-visible) {
+				outline: 2px solid $link-color;
 			}
 		}
 	}
@@ -163,6 +167,9 @@
 		margin: auto 0 auto auto;
 		font-size: 1em;
 		&:focus-within {
+			outline: none;
+		}
+		&:focus-within:focus-visible {
 			outline: 2px solid $link-color;
 		}
 		@include breakpoint($Lneg) {

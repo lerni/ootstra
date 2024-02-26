@@ -294,7 +294,7 @@ class Page extends SiteTree
     // since we do not want to get related pics in automatically
     public function ImagesForSitemap()
     {
-        $IDList = [];
+        $siteMapImages = ArrayList::create();
         if ($this->hasExtension(ElementalPageExtension::class)) {
             // Images from Heroes
             if ($elementHeros = $this->ElementalArea()->Elements()->filter('ClassName', ElementHero::class)) {
@@ -303,7 +303,7 @@ class Page extends SiteTree
                         if ($slides = $hero->Slides()->Sort('SortOrder ASC')) {
                             foreach ($slides as $slide) {
                                 if ($slide->SlideImage->exists() && !$slide->SlideImage->NoFileIndex()) {
-                                    array_push($IDList, $slide->SlideImageID);
+                                    $siteMapImages->push($slide->SlideImage());
                                 }
                             }
                         }
@@ -317,7 +317,7 @@ class Page extends SiteTree
                         if ($images = $gallery->Items()) {
                             foreach ($images as $image) {
                                 if ($image->exists() && !$image->NoFileIndex()) {
-                                    array_push($IDList, $image->ID);
+                                    $siteMapImages->push($image);
                                 }
                             }
                         }
@@ -325,9 +325,8 @@ class Page extends SiteTree
                 }
             }
         }
-        $IDList = array_unique($IDList);
-        if (count($IDList)) {
-            return Image::get()->filter(['ID' => $IDList]);
+        if ($siteMapImages->count()) {
+            return $siteMapImages->removeDuplicates('ID');
         }
     }
 }

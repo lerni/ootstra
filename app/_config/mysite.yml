@@ -200,6 +200,10 @@ SilverStripe\UserForms\Model\UserDefinedForm:
   extensions:
     - App\Extensions\CannotCreateExtension
 
+SilverStripe\UserForms\Model\EditableFormField:
+  extensions:
+    - App\Extensions\EditableFormFieldExtension
+
 App\Tasks\CleanUpObjects:
   days_retention: 365
   objects_to_clean_up:

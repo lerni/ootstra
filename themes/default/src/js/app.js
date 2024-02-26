@@ -3,8 +3,8 @@
  * ---------------------------------------------------------------------------------
  */
 
+// import './include/htmx';
 // jQuery available globally
-// import '../../node_modules/jquery/dist/jquery';
 // import './include/jquery';
 import './include/nav';
 import './include/headroom';

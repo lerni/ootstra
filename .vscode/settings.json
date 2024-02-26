@@ -1,33 +1,34 @@
 {
-  "logViewer.watch": [
-    {
-        "title": "Silverstripe",
-        "pattern": "silverstripe.log"
-    }
-  ],
-  "search.followSymlinks": false,
-  "editor.stickyScroll.enabled": true,
-  "editor.linkedEditing": true,
-  "vscode.php-language-features": false,
-  "php.validate.enable": true,
-  "php.suggest.basic": true,
-  "php.validate.executablePath": "ddev php",
-  "php.executablePath": "ddev php",
-  "php.validate.run": "onSave",
-  "search.useIgnoreFiles": false,
-  "telemetry.telemetryLevel": "off",
-  "intelephense.environment.phpVersion": "8.2.8",
-  "intelephense.files.exclude": ["/.ddev/**", "/.graphql-generated/**", "/docker/**", "/silverstripe-cache/**", "/themes/**"],
-  "intelephense.diagnostics.undefinedSymbols": true,
-  "intelephense.format.braces": "psr12",
-  "intelephense.telemetry.enabled": false,
-  "terminal.integrated.profiles.osx": {
-    "zsh": {
-        "path": "/bin/zsh",
-        "args": ["-l", "-i"]
-    }
-  },
   "[php]": {
     "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
-  }
+  },
+  "editor.linkedEditing": true,
+  "editor.stickyScroll.enabled": true,
+  "intelephense.diagnostics.undefinedSymbols": true,
+  "intelephense.environment.phpVersion": "8.2.8",
+  "intelephense.files.exclude": ["/.ddev/**", "/.graphql-generated/**", "/docker/**", "/silverstripe-cache/**", "/themes/**"],
+  "intelephense.format.braces": "psr12",
+  "intelephense.telemetry.enabled": false,
+  "logViewer.watch": [
+    {
+      "title": "Silverstripe",
+      "pattern": "silverstripe.log"
+    }
+  ],
+  "php.executablePath": "ddev php",
+  "php.suggest.basic": true,
+  "php.validate.enable": true,
+  "php.validate.executablePath": "ddev php",
+  "php.validate.run": "onSave",
+  "search.followSymlinks": false,
+  "search.useIgnoreFiles": false,
+  "telemetry.telemetryLevel": "off",
+  "terminal.integrated.profiles.osx": {
+    "zsh": {
+      "path": "/bin/zsh",
+      "args": ["-l", "-i"]
+    }
+  },
+  "vscode.php-language-features": false,
+  "workbench.tree.enableStickyScroll": true
 }

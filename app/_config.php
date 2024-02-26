@@ -108,8 +108,8 @@ $editorOptions = [
 ];
 $EditorConfig->setOptions($editorOptions);
 
-// $EditorConfig->setButtonsForLine(1, ['blocks styles pastetext ssmedia ssembed | bold bullist numlist ToggleDefinitionList ToggleDefinitionItem | alignleft aligncenter alignright alignjustify | sslink unlink anchor | charmap hr code removeformat blockquote emoticons | outdent indent | undo redo | subscript superscript']);
-$EditorConfig->setButtonsForLine(1, ['blocks styles pastetext ssmedia ssembed | bold bullist numlist | alignleft aligncenter alignright alignjustify | sslink unlink anchor | charmap hr code removeformat blockquote emoticons | outdent indent | undo redo']);
+// $EditorConfig->setButtonsForLine(1, ['blocks styles pastetext ssmedia ssembed | bold bullist numlist ToggleDefinitionList ToggleDefinitionItem | alignleft aligncenter alignright alignjustify | sslink unlink anchor | emoticons charmap blockquote hr code removeformat visualblocks | outdent indent | undo redo | subscript superscript']);
+$EditorConfig->setButtonsForLine(1, ['blocks styles pastetext ssmedia ssembed | bold bullist numlist | alignleft aligncenter alignright alignjustify | outdent indent | sslink unlink anchor | emoticons charmap blockquote hr code removeformat visualblocks | undo redo']);
 $EditorConfig->setButtonsForLine(2, '');
 
 $EditorConfig->setOption(
@@ -120,7 +120,7 @@ $EditorConfig->setOption(
 
 $SimpleCfg = TinyMCEConfig::get('inlite');
 $SimpleCfg->setOptions($editorOptions);
-$SimpleCfg->setButtonsForLine(1, ['blocks pastetext | bold bullist numlist | alignleft aligncenter alignright alignjustify | sslink unlink anchor | charmap hr code removeformat emoticons | undo redo']);
+$SimpleCfg->setButtonsForLine(1, ['blocks pastetext | bold bullist numlist | alignleft aligncenter alignright alignjustify | sslink unlink anchor | emoticons charmap hr code removeformat visualblocks | undo redo']);
 $SimpleCfg->setButtonsForLine(2,'');
 
 CMSMenu::remove_menu_item('SilverStripe-Reports-ReportAdmin');

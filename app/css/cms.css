@@ -1,6 +1,6 @@
 /* CMS tweaks
 -------------------------------------------------------------------------------- */
-@font-face {
+/* @font-face {
 	font-family: "icons";
 	src: url("/_resources/app/fonts/icons.woff2") format("woff2");
 	font-weight: normal;
@@ -23,7 +23,7 @@
 [action*="SocialLinks/item"] #Form_ItemEditForm_Icon_chosen a span {
 	vertical-align: -6px;
 	display: inline;
-}
+} */
 
 .cms-edit-form .form-group.htmleditor.stacked .form__field-holder,
 .form--inline .form-group.htmleditor.stacked .form__field-holder,
@@ -58,7 +58,7 @@ fieldset.grid {
 
 /* Title-Level Field in Elements */
 #Form_ItemEditForm_TitleLevelTitle {
-	display:flex;
+	display: flex;
 	width: 100%;
 }
 #Form_ItemEditForm_TitleLevel_Holder {
@@ -125,7 +125,6 @@ fieldset.grid {
 	width: 100%;
 }
 
-/* thumbnail preview marke used if GF on ProductPage */
 /* preview ElementLogo */
 .col-LogoImage-PreviewThumbnail img,
 .col-Logo-PreviewThumbnail img {
@@ -138,52 +137,59 @@ fieldset.grid {
 	width: 100%;
 }
 
-/*
-EmbedField
-https://github.com/nathancox/silverstripe-embedfield/pull/10
------------------------------------------------------------------------------*/
-
-html .field.embed .form__field-holder {
-	border: none;
-	background: none;
-	padding: initial;
-	width: initial;
+/* We've put title in a FieldGroup instead of a CompositeField in order to show validation errors */
+#Form_ItemEditForm_TitleLevelTitle {
+	flex-wrap: wrap;
 }
 
-html .field.embed .embed-thumbnail {
-	width: 113px;
-	min-height: 79px;
+#Form_ItemEditForm_TitleLevelTitle .alert {
+	flex: 1 1 100%;
 }
 
-html .field.embed .fieldholder-small {
-    margin-left: 130px;
+#Form_ItemEditForm_Title_Holder.CompositeField {
+	margin: 0;
 }
 
-html .field.embed button.action {
-    margin-top: 16px;
-}
-
-/* Insert Media - we place things always 100% width  */
-#Form_remoteEditForm_Placement_Holder,
-#Form_remoteEditForm_Dimensions_Holder {
+#Form_ItemEditForm_Title_Holder.CompositeField > [for="Form_ItemEditForm_Title"] {
 	display: none;
 }
 
-ul#Form_ItemEditForm_BackgroundColor li label[for$="transparent"] {
-	background: url("/_resources/themes/default/dist/images/transparent.png") transparent repeat !important;
-	background-size: 400% auto !important;
+#Form_ItemEditForm_Title_Holder.CompositeField .form__fieldgroup {
+	position: relative;
+	display: flex;
+	flex: 1 1 auto;
+	align-items: stretch;
+	width: 100%;
+	max-width: initial;
+	padding: 0;
 }
 
-/* in 5.x we need to revert #7b430d4 and add the previous snippet
-https://github.com/silverstripe/silverstripe-admin/commit/7b430d4171da9608918190109b85e15260e0d626 */
-.chosen-container:not(.chosen-container-active) {
-	overflow-x: hidden;
+#Form_ItemEditForm_Title_Holder.CompositeField .form__fieldgroup-item {
+	margin-right: 0;
+	padding-left: 0;
+	margin-left: -1px;
+	min-width: initial;
 }
-html .chosen-container:not(.chosen-container-active) .chosen-drop {
-	overflow: hidden;
-	height: 0;
+
+#Form_ItemEditForm_Title {
+	margin-left: 0;
 }
-.preview-mode-selector .chosen-drop {
-	width: inherit;
-	right: 0;
+
+#Form_ItemEditForm_Title_Holder.CompositeField .form-check-label {
+	display: flex;
+	align-items: center;
+	padding: .5385rem .7692rem;
+	margin-bottom: 0;
+	margin-top: 25px;
+	padding-left: 30px;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5384;
+	color: #566b8d;
+	text-align: center;
+	white-space: nowrap;
+	background-color: #eef0f4;
+	border: 1px solid #ced5e1;
+	border-top-right-radius: .23rem;
+	border-bottom-right-radius: .23rem;
 }

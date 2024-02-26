@@ -2,10 +2,10 @@
 
 namespace App\Extensions;
 
-use SilverStripe\Forms\CheckboxField;
-use SilverStripe\Forms\FieldGroup;
 use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\FieldGroup;
 use SilverStripe\ORM\DataExtension;
+use SilverStripe\Forms\CheckboxField;
 
 class RedirectorPageExtension extends DataExtension
 {

@@ -4,7 +4,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "dev/build",
+      "label": "dev/build - local",
       "type": "shell",
       "command": "ddev php ./vendor/silverstripe/framework/cli-script.php dev/build flush",
       "group": "build",
@@ -18,7 +18,7 @@
       }
     },
     {
-      "label": "flush",
+      "label": "flush - local",
       "type": "shell",
       "command": "ddev php ./vendor/silverstripe/framework/cli-script.php flush",
       "group": "build",
@@ -32,9 +32,9 @@
       }
     },
     {
-      "label": "flushh (hard)",
+      "label": "flushh (hard) - local",
       "type": "shell",
-      "command": "ddev exec rm -rf ./silverstripe-cache/*",
+      "command": "ddev exec \"rm -rf /var/www/html/silverstripe-cache/*\" && php -r 'opcache_reset();'",
       "group": "build",
       "presentation": {
         "reveal": "always",
@@ -160,9 +160,9 @@
       }
     },
     {
-      "label": "ddev logs",
+      "label": "ddev log web",
       "type": "shell",
-      "command": "ddev logs -f",
+      "command": "ddev logs -f -s web",
       "group": "build",
       "isBackground": true,
       "presentation": {

@@ -160,6 +160,56 @@
 	}
 }
 
+@mixin arrow-before($color: $link-color, $arrow-width-hover: 2em, $arrow-width-small: 1.1em) {
+	&::before {
+		@include arrow($color, $arrow-width-hover, $arrow-width-small);
+		background-position: bottom .3em right 0;
+		transform: rotate(180deg);
+		margin-left: $arrow-width-small;
+		margin-right: 0.3em;
+	}
+	&:hover {
+		filter: contrast(110%) saturate(110%);
+		&::before {
+			margin-left: 0;
+			width: $arrow-width-hover;
+		}
+	}
+}
+
+@mixin arrow-after($color: $link-color, $arrow-width-hover: 2em, $arrow-width-small: 1.1em) {
+	&::after {
+		@include arrow($color, $arrow-width-hover, $arrow-width-small);
+	}
+	&:hover {
+		filter: contrast(110%) saturate(110%);
+		&::after {
+			margin-right: 0;
+			width: $arrow-width-hover;
+		}
+	}
+}
+
+// this is meant to be used with arrow-before & arrow-after, not directly
+@mixin arrow($color, $arrow-width-hover, $arrow-width-small) {
+	content: "";
+	display: inline-block;
+	width: ($arrow-width-hover - $arrow-width-small);
+	height: 1em;
+	margin-left: 0.3em;
+	margin-right: $arrow-width-small;
+	background-size: auto 70%;
+	background-repeat: no-repeat;
+	background-position: top .3em right 0;
+	background-image: svg-load(
+		"../images/svg/arrow-forward.svg",
+		stroke-width=4,
+		stroke=#{$color}
+	);
+	transition: all;
+	transition-duration: .12s;
+}
+
 @mixin buttonstyle {
 	text-decoration: none;
 	text-align: center;
@@ -187,5 +237,8 @@
 	&:hover {
 		background-position: 100% 20%;
 		filter: contrast(110%) saturate(110%);
+	}
+	&:focus-visible {
+		outline: 2px solid $link-color;
 	}
 }

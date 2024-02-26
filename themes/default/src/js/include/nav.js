@@ -3,7 +3,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // burger
   document.querySelector('#menuButton').addEventListener('click', event => {
     document.querySelector('html').classList.toggle('mobile-nav--active');
-    document.querySelector('#menuButton').toggleAttribute('aria-expanded');
+    let menuButton = document.querySelector('#menuButton');
+    let isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+    menuButton.setAttribute('aria-expanded', !isExpanded);
     document.getElementById('header').scrollIntoView();
   });
 

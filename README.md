@@ -54,13 +54,19 @@ Per `.vscode/extensions.json` extensions 'll be suggested. `.vscode/settings.jso
 ```bash
     git clone git@github.com:lerni/ootstra.git "PROJECT"
 ```
-On the first Request database structure (tables) 'll automatically be generated - it runs `dev/build`. Before you do so, set the correct default locale in `app/_config.php` like:
+On the first Request database structure 'll automatically be generated - it runs `dev/build`. Before you do so, set the correct default locale in `app/_config.php` like:
 ```php
     i18n::set_locale('de_CH');
 ```
 ### ddev/Docker dev-env
-If the project is renamed, reflect this in `.ddev/config.yaml` and rerun `ddev config`. Run `ddev start` & `ddev composer i` in the project directory. This provides a webserver at [https://ootstra.ddev.site](https://ootstra.ddev.site), with watcher/browsersync at [https://ootstra.ddev.site:3000/](https://ootstra.ddev.site:3000/), phpMyAdmin at [https://ootstra.ddev.site:8037](https://ootstra.ddev.site:8037), and MailHog at [https://ootstra.ddev.site:8026/](https://ootstra.ddev.site:8026/). The default login at [/admin](https://ootstra.ddev.site/admin) is `admin` & `password`.
+If the project is renamed, reflect this in `.ddev/config.yaml` and rerun `ddev config`. Run `ddev start` & `ddev composer i` in the project directory. This provides a webserver at [https://ootstra.ddev.site](https://ootstra.ddev.site), with watcher/browsersync at [https://ootstra.ddev.site:3000/](https://ootstra.ddev.site:3000/), phpMyAdmin at [https://ootstra.ddev.site:8037](https://ootstra.ddev.site:8037), and Mailpit at [https://ootstra.ddev.site:8026/](https://ootstra.ddev.site:8026/). The default login at [/admin](https://ootstra.ddev.site/admin) is `admin` & `password`.
 
+<!-- ### ddev-ssh-agent
+This setup omits `ddev-ssh-agent` and exposes `SSH_AUTH_SOCK` via environment variable and mounting per `RUN --mount=type=ssh` into the web container. To use certain files or whole directories from your hosts home directory (e.g., `~/.composer`, `~/.gitconfig`, `~/.ssh`) in ddev, create symlinks in `~/.ddev/homeadditions` in order to use your local SSH keys. For more information, refer to the [ddev documentation](https://ddev.readthedocs.io/en/stable/users/extend/in-container-configuration/). Note the path of `/home/.ssh-agent/known_hosts`. A separate/copied `~/.ddev/homeadditions/.ssh/config` as bellow seems to properly locate ssh-config.
+```bash
+UserKnownHostsFile=~/.ssh/known_hosts
+StrictHostKeyChecking=accept-new
+``` -->
 
 ### npm, Laravel Mix watch & build etc.
 [Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([webpack](https://webpack.js.org/) based) is used as build environment. You need to run `ddev theme install` to install npm packages. In `themes/default/webpack.mix.js` host is set to be proxied to https://ootstra.ddev.site:3000/ for browsersync. See also scripts section in `themes/default/package.json` and [Mix CLI](https://laravel-mix.com/docs/6.0/cli). Run `ddev theme watch` or `ddev theme prod`.
@@ -71,6 +77,7 @@ There are a bunch of tasks in `.vscode/tasks.json` available per `Command+Shift+
 - `ddev stop` (magenta)
 - `ddev restart` (magenta)
 - `composer update` (magenta)
+- `composer vendor-expose` (blue)
 - `ddev logs` (magenta)
 - `ddev theme install` (green)
 - `ddev theme watch` (green)
@@ -78,6 +85,7 @@ There are a bunch of tasks in `.vscode/tasks.json` available per `Command+Shift+
 - `flush` (blue)
 - `flushh` (blue - flush hard) instead of `ddev exec rm -rf ./silverstripe-cache/*`
 - `dev/build` (blue) instead of `ddev php ./vendor/silverstripe/framework/cli-script.php dev/build flush`
+- `dev/build` (cyan) `dev/build flush on test / live`
 - `download database from live` (cyan)
 - `download assets from live` (cyan)
 - `ssh test / live` (cyan)
@@ -85,6 +93,11 @@ There are a bunch of tasks in `.vscode/tasks.json` available per `Command+Shift+
 - `xdebug on / off` (magenta)
 - `dep releases test / live` (cyan)
 
+Colors group tasks like:
+- magenta: local ddev
+- blue: local silverstripe specific
+- green: local npm
+- cyan: remote server
 
 Database, credentials etc. are provided per environment Variables (`/.env` file).
 
@@ -257,4 +270,4 @@ ddev php ./vendor/bin/dep silverstripe:dev_build live -v
 ddev php ./vendor/bin/dep silverstripe:dev_build test -v
 ```
 # License
-`ootstra` is licensed under the [BSD license](LICENSE). Third-party modules have different licenses (0BSD, Apache 2.0, Apache-2.0, BSD*, BSD-2-Clause, BSD-3-Clause, CC-BY-3.0, CC-BY-4.0, CC0-1.0, GPL-2.0, GPL-3.0+, GPL-3.0-or-later, ISC, MIT, MIT*, Zlib). Check with `composer licenses` and `npx license-checker --summary` in `themes/default`. Installation implies acceptance of all licenses. Note that [@fancyapps/ui](https://fancyapps.com/) is commercial software requiring a [purchased license](https://fancyapps.com/pricing/).
+`ootstra` is licensed under the [BSD license](LICENSE). Third-party modules have different licenses like (0BSD, Apache 2.0, Apache-2.0, BSD*, BSD-2-Clause, BSD-3-Clause, CC-BY-3.0, CC-BY-4.0, CC0-1.0, GPL-2.0, GPL-3.0+, GPL-3.0-or-later, ISC, MIT, MIT*, Zlib, etc.). Check with `composer licenses`, `npx license-checker --summary` in `themes/default` and be aware of the suggested plugins for VSCode. Use implies acceptance of all licenses. Note that [@fancyapps/ui](https://fancyapps.com/) is commercial software requiring a [purchased license](https://fancyapps.com/pricing/).

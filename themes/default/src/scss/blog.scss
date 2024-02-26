@@ -14,6 +14,26 @@ body.blog {
 		flex-wrap: wrap;
 		padding-bottom: #{$lh}em;
 		gap: #{$lh}em;
+		&::after {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			content: "";
+			z-index: 99;
+			background-color: $white;
+			opacity: 0;
+			pointer-events: none;
+		}
+		&:has(.loader.htmx-request) {
+			.post-summary {
+				filter: grayscale(80%);
+			}
+			&::after {
+				opacity: .3;
+			}
+		}
 	}
 	.post-summary {
 		flex: 0 0
@@ -21,6 +41,8 @@ body.blog {
 		display: flex;
 		flex-direction: column;
 		color: $text-color;
+		transition: filter linear .3s;
+		filter: grayscale(0%);
 		@include breakpoint($Lneg) {
 			flex: 0 0
 				calc(
@@ -29,10 +51,6 @@ body.blog {
 		}
 		@include breakpoint($Mneg) {
 			flex: 0 0 100%;
-		}
-		&.nopost {
-			flex: 0 0 100%;
-			text-align: center;
 		}
 		&:visited,
 		&:hover {
@@ -58,6 +76,9 @@ body.blog {
 		}
 		&:focus {
 			outline: none;
+		}
+		&:focus-visible {
+			outline: 2px solid $link-color;
 		}
 	}
 	.prev-all-next {

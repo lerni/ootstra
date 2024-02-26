@@ -20,6 +20,7 @@
 /public/_resources/
 /silverstripe-cache/*
 !/silverstripe-cache/.gitignore
+!/silverstripe-cache/readme.txt
 /vendor/
 /app/todo**
 # docker

@@ -73,7 +73,7 @@ class PageSchemaExtension extends Extension
                 }
 
                 // if ($siteConfig->DefaultHeaderSlides()->count() && $siteConfig->DefaultHeaderSlides()->first()->exists()) {
-                //     $locations[$i]->image(rtrim(Director::absoluteBaseURL(), '/') . $siteConfig->DefaultHeaderSlides()->firts()->Link());
+                //     $locations[$i]->image(rtrim(Director::absoluteBaseURL(), '/') . $siteConfig->DefaultHeaderSlides()->first()->Link());
                 // }
 
                 $i++;

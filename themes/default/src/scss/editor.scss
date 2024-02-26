@@ -30,12 +30,6 @@ body.mce-content-body {
 	color: $text-color;
 	font-size: $font-size;
 	line-height: $lh;
-	// no need with ss5 / admin 2
-	// preventing line-height: 1.2em from
-	// vendor/silverstripe/admin/thirdparty/tinymce/skins/silverstripe/content.min.css
-	// p, div, h1, h2, h3, h4, h5, h6 {
-	// 	line-height: inherit;
-	// }
 	&.typography {
 		max-width: $inner-width--reduced;
 	}
