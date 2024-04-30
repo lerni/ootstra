@@ -16,14 +16,14 @@
 	<style type="text/css" nonce="{$Nonce}">
 		@font-face {<%-- https://gwfh.mranftl.com/fonts --%>
 			font-display: swap;
-			font-family: 'Figtree';
+			font-family: "Figtree";
 			font-style: normal;
 			font-weight: 400;
 			src: url("$resourceURL('themes/default/dist/fonts/figtree-v5-latin-regular.woff2')") format('woff2');
 		}
 		@font-face {
 			font-display: swap;
-			font-family: 'Figtree';
+			font-family: "Figtree";
 			font-style: normal;
 			font-weight: 700;
 			src: url("$resourceURL('themes/default/dist/fonts/figtree-v5-latin-600.woff2')") format('woff2');

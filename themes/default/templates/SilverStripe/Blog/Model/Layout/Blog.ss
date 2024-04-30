@@ -1,7 +1,7 @@
 <%-- require themedCSS("dist/css/blog") - those sytes are (pre)loaded per BlogInitExtension, but with htmX we laod em anyway --%>
 <% require themedCSS("dist/css/blog") %>
 <% include App/Includes/Header %>
-<main>
+<main class="typography">
 	<% if $Slides %>
 		<article class="element elementhero spacing-bottom-2 full-width<% if $SiteConfig.GlobalAlert %>> global-alert<% end_if %>"><% include App/Includes/Slides %></article>
 		<% if $SiteConfig.GlobalAlert %><article class="global-alert">
@@ -15,7 +15,7 @@
 	</article><% end_if %>
 	<% if $CategoriesWithState %>
 		<nav class="element blog-post-meta horizontal-spacing">
-			<p class="cat-tag" data-hx-boost="true" data-hx-indicator=".loader" data-hx-swap="outerHTML show:no-scroll">
+			<p class="cat-tag" data-hx-boost="true" data-hx-indicator=".loader">
 				<a href="$Link" class="all<% if not $getCurrentCategory %> current<% end_if %>" title="<%t SilverStripe\Blog\Model\Blog.Allcategories %>"><%t SilverStripe\Blog\Model\Blog.Allcategories %></a>
 				<% loop $CategoriesWithState %>
 					<a href="$Link" class="$CustomLinkingMode" title="$Title" data-segment="$URLSegment">$Title</a>

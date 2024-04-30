@@ -46,14 +46,14 @@
       }
     },
     {
-      "label": "npm install",
+      "label": "npm install & update update-browserslist-db",
       "type": "shell",
-      "command": "ddev theme install",
+      "command": "ddev theme install && ddev exec -d /var/www/html/themes/default npx update-browserslist-db@latest",
       "group": "build",
       "isBackground": true,
       "presentation": {
         "reveal": "always",
-        "panel": "new",
+        "panel": "new"
       },
       "icon": {
         "color": "terminal.ansiGreen"
@@ -81,7 +81,7 @@
       "isBackground": true,
       "presentation": {
         "reveal": "always",
-        "panel": "new",
+        "panel": "new"
       },
       "icon": {
         "color": "terminal.ansiGreen"
@@ -289,7 +289,7 @@
       }
     },
     {
-      "label": "xdebug on",
+      "label": "DDEV: Enable Xdebug",
       "type": "shell",
       "command": "ddev xdebug true",
       "group": "build",
@@ -304,7 +304,7 @@
       }
     },
     {
-      "label": "xdebug off",
+      "label": "DDEV: Disable Xdebug",
       "type": "shell",
       "command": "ddev xdebug false",
       "group": "build",

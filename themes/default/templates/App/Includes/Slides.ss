@@ -13,7 +13,7 @@
 							<figure class="video<% if $LinkID %> linked<% end_if %>"><img sizes="100vw"
 								height="$SlideImage.FocusFillMax(1440,650).Height()"
 								width="$SlideImage.FocusFillMax(1440,650).Width()"
-								<% if not $First %>loading="lazy" <% end_if %>
+								<% if not $IsFirst %>loading="lazy" <% end_if %>
 								alt="$SlideImage.Title"
 								style="object-position: {$SlideImage.FocusFillMax(1440,650).FocusPoint.PercentageX}% {$SlideImage.FocusFillMax(1440,650).FocusPoint.PercentageY}%;"
 								src="$SlideImage.FocusFillMax(1440,650).URL"
@@ -32,7 +32,7 @@
 							<figure <% if $LinkID %>class="linked"<% end_if %>><img sizes="100vw"
 								height="$SlideImage.FocusFillMax(1440,360).Height()"
 								width="$SlideImage.FocusFillMax(1440,360).Width()"
-								<% if not $First %>loading="lazy" <% end_if %>
+								<% if not $IsFirst %>loading="lazy" <% end_if %>
 								alt="$SlideImage.Title"
 								style="object-position: {$SlideImage.FocusFillMax(1440,360).FocusPoint.PercentageX}% {$SlideImage.FocusFillMax(1440,360).FocusPoint.PercentageY}%;"
 								src="$SlideImage.FocusFillMax(1440,360).URL"
@@ -51,7 +51,7 @@
 							<figure <% if $LinkID %>class="linked"<% end_if %>><img sizes="100vw"
 								height="$SlideImage.FocusFillMax(1440,650).Height()"
 								width="$SlideImage.FocusFillMax(1440,650).Width()"
-								<% if not $First %>loading="lazy" <% end_if %>
+								<% if not $IsFirst %>loading="lazy" <% end_if %>
 								alt="$SlideImage.Title"
 								style="object-position: {$SlideImage.FocusFillMax(1440,650).FocusPoint.PercentageX}% {$SlideImage.FocusFillMax(1440,650).FocusPoint.PercentageY}%;"
 								src="$SlideImage.FocusFillMax(1440,650).URL"

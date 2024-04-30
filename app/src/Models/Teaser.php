@@ -59,8 +59,6 @@ class Teaser extends DataObject
 
         if ($uploadField = $fields->dataFieldByName('Image')) {
             $uploadField->setFolderName('Teasers');
-            $size = 5 * 1024 * 1024;
-            $uploadField->getValidator()->setAllowedMaxFileSize($size);
             $uploadField->setDescription(_t(__CLASS__ . '.ImageDescription', 'min. 600x600px'));
         }
 

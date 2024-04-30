@@ -6,6 +6,7 @@ use App\Elements\ElementHero;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\FieldGroup;
 use SilverStripe\ORM\DataExtension;
+use SilverStripe\ORM\CMSPreviewable;
 use SilverStripe\Forms\RequiredFields;
 use SilverStripe\ORM\FieldType\DBField;
 use DNADesign\Elemental\Models\BaseElement;
@@ -14,7 +15,7 @@ use Heyday\ColorPalette\Fields\ColorPaletteField;
 use DNADesign\ElementalVirtual\Model\ElementVirtual;
 use DNADesign\Elemental\Forms\TextCheckboxGroupField;
 
-class ElementExtension extends DataExtension
+class ElementExtension extends DataExtension implements CMSPreviewable
 {
     private static $db = [
         'isFullWidth' => 'Boolean', // full or reduced - both is paradox!
@@ -242,5 +243,32 @@ class ElementExtension extends DataExtension
         return new RequiredFields([
             'Title'
         ]);
+    }
+
+    public function Link($action = null) {
+        return $this->owner->Link();
+    }
+
+    public function CMSEditLink() {
+        return $this->owner->CMSEditLink();
+    }
+
+    public function PreviewLink($action = null) {
+        return $this->owner->PreviewLink();
+    }
+
+    public function getMimeType() {
+        return $this->owner->getMimeType();
+    }
+
+    public function updatePreviewLink(&$link) {
+        if ($link) {
+            $parts = parse_url($link);
+            if (isset($parts['fragment'])) {
+                unset($parts['fragment']);
+            }
+            $parts['fragment'] = $this->ElementAnchor();
+            $link = $this->unparse_url($parts);
+        }
     }
 }

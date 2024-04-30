@@ -27,7 +27,7 @@
 		<%-- <details><summary></summary></details> --%>
 		<ul class="content-parts accordion" role="presentation">
 			<% loop $ContentParts.Sort("SortOrder") %>
-				<li<% if $Title %> id="$Title.URLEnc"<% end_if %>>
+				<li>
 					<h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %> id="{$Title.URLEnc}" class="flip">
 						<button aria-expanded="<% if $DefaultOpen %>true<% else %>false<% end_if %>">
 							{$Title}

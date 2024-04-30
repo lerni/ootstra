@@ -1,4 +1,4 @@
-AddHandler application/x-httpd-php82 .php
+AddHandler application/x-httpd-php83 .php
 
 # <IfModule LiteSpeed>
 #     SmartPush no-cookie

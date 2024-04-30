@@ -68,10 +68,17 @@ body.blog {
 			}
 		}
 		.txt {
-			margin: #{$lh}em auto #{$lh * 2}em;
+			margin: #{math.div($lh, 2)}em auto #{$lh * 2}em;
 			max-width: 700px;
+			h2 {
+				margin: 0 0 #{math.div($lh, 2)}rem 0;
+			}
 			p {
 				margin: #{math.div($lh, 2)}em 0;
+				&.pre {
+					font-size: $font-size--small;
+					margin: 0;
+				}
 			}
 		}
 		&:focus {

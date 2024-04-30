@@ -2,13 +2,13 @@
 
 namespace App\Elements;
 
-use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Assets\Image;
-use Bummzack\SortableFile\Forms\SortableUploadField;
 use SilverStripe\Assets\Folder;
 use SilverStripe\Forms\HeaderField;
-use SilverStripe\SelectUpload\FolderDropdownField;
+use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\View\Parsers\URLSegmentFilter;
+use SilverStripe\SelectUpload\FolderDropdownField;
+use Bummzack\SortableFile\Forms\SortableUploadField;
 
 class ElementGallery extends BaseElement
 {
@@ -38,7 +38,8 @@ class ElementGallery extends BaseElement
     ];
 
     private static $defaults = [
-        'SitemapImageExpose' => 1
+        'SitemapImageExpose' => 1,
+        'isFullWidth' => 1
     ];
 
     private static $table_name = 'ElementGallery';
@@ -86,8 +87,6 @@ class ElementGallery extends BaseElement
         $Subfolder = $filter->filter($this->Title);
         $uploadField->setFolderName('Gallery/' . $Subfolder);
         $uploadField->setSortColumn('SortOrder');
-        $size = 5 * 1024 * 1024;
-        $uploadField->getValidator()->setAllowedMaxFileSize($size);
         $uploadField->setDescription(_t(__CLASS__ . '.GalleryImagesDescription', 'Width trimmed to  1224px'));
 
         return $fields;

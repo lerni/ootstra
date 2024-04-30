@@ -1,0 +1,90 @@
+@use "sass:math";
+@import "includes/variables";
+@import "includes/mixins";
+@import "~breakpoint-sass/stylesheets/breakpoint";
+
+.element.elementinstagramfeed {
+	overflow-x: hidden;
+	.instafeed {
+		margin-left: -1px;
+		margin-right: -1px;
+		width: calc(100% + 2px);
+		a {
+			outline: none;
+			// float: left;
+			overflow: hidden;
+			position: relative;
+			// margin: 0 2px 2px 0;
+			display: block;
+			// width: calc(#{math.div(100,4)}% - 2px);
+			// padding: 0 0 calc(#{math.div(100,4)}% - 2px) 0;
+			// aspect-ratio: 1 / 1;
+			width: auto;
+			height: 500px;
+			@include breakpoint($Lneg) {
+				height: 400px;
+				// width: calc(#{math.div(100,2)}% - 2px);
+				// padding: 0 0 calc(#{math.div(100,2)}% - 2px) 0;
+			}
+			@include breakpoint($Sneg) {
+				height: 300px;
+			}
+			// @include breakpoint($Sneg) {
+			// 	width: calc(#{math.div(100,1)}% - 2px);
+			// 	padding: 0 0 calc(#{math.div(100,1)}% - 2px) 0;
+			// }
+			figure {
+				// position: absolute;
+				// top: 0;
+				// right: 0;
+				// bottom: 0;
+				// left: 0;
+				height: 100%;
+				margin: 0;
+				img {
+					object-fit: cover;
+					margin-bottom: 0;
+					max-width: none;
+					width: auto;
+					height: 100%;
+				}
+				figcaption {
+					position: absolute;
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					opacity: 0;
+					transition: opacity 120ms linear;
+					z-index: 1;
+					color: $white;
+					font-size: .8em;
+					padding: #{math.div($lh,2)}em;
+					display: flex;
+					flex-direction: column;
+					background-color: rgba(0,0,0,.8);
+					span[data-feather="instagram"] {
+						transition: transform 120ms linear;
+						transform: scale(.4);
+						width: 1.4em;
+						height: 1.4em;
+						background-image: svg-load('../images/svg/instagram.svg', stroke=#{$white});
+						margin: auto auto 0 auto;
+					}
+				}
+				&:hover {
+					figcaption {
+						opacity: 1;
+						span[data-feather="instagram"] {
+							transform: scale(1);
+						}
+					}
+				}
+			}
+			video {
+				height: 100%;
+				width: auto;
+			}
+		}
+	}
+}

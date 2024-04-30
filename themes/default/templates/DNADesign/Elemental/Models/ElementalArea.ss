@@ -12,7 +12,7 @@
 			<% with $Page %>
 				<% if $CategoriesWithState %>
 					<nav class="element blog-post-meta horizontal-spacing">
-						<p class="cat-tag" data-hx-boost="true" data-hx-swap="innerHTML show:no-scroll">
+						<p class="cat-tag" data-hx-boost="true">
 							<a href="$Parent.Link" class="all" title="$Parent.Title"><%t SilverStripe\Blog\Model\Blog.Allcategories %></a>
 							<% loop $CategoriesWithState %>
 								<a href="$Link" class="$CustomLinkingMode" title="$Title" data-segment="$URLSegment">$Title</a>

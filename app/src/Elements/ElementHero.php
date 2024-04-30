@@ -5,7 +5,6 @@ namespace App\Elements;
 use App\Models\Slide;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\SiteConfig\SiteConfig;
-use SilverStripe\ORM\FieldType\DBHTMLText;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;

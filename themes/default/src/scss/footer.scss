@@ -7,6 +7,7 @@
 ---------------------------------------------------------------------------------- */
 body > footer {
 	flex-shrink: 0;
+	// font-size: $font-size--small;
 	background-color: $blue;
 	padding: #{$lh * 1.5}em 0;
 	a {
@@ -19,58 +20,76 @@ body > footer {
 	.inner {
 		display: flex;
 		flex-wrap: wrap;
-		gap: #{$lh}em;
+		align-items: flex-end;
+		row-gap: #{$lh}em;
+		column-gap: #{$lh * 3}rem;
+		@include breakpoint($XLneg) {
+			column-gap: #{$lh * 1.98}rem; // f'ing subpixels with FF
+		}
+		@include breakpoint($Lneg) {
+			row-gap: #{$lh}em;
+			column-gap: #{$lh}rem;
+		}
 	}
 	.column {
 		display: flex;
-		flex: 0 0 auto;
 		column-gap: #{$lh}em;
+		flex: 0 0
+			calc(#{percentage(math.div(1, 3))} - #{math.div($lh, 3) * 6}rem);
 		@include breakpoint($XLneg) {
-			flex: 0 0 100% !important;
+			flex: 0 0
+				calc(
+					#{percentage(math.div(1, 2))} - #{math.div($lh, 2) * 2}rem
+				);
+		}
+		@include breakpoint($Lneg) {
+			flex: 0 0 100%;
 		}
 		span,
 		a {
 			color: $white;
 		}
 		a {
+			text-decoration: none;
+			margin-top: #{math.div($lh, 2)}em;
+			margin-bottom: #{math.div($lh, 2)}em;
+			&.current,
 			&:hover {
 				color: $current-color;
 			}
-			@include breakpoint($XLneg) {
-				margin-top: #{math.div($lh, 2)}em;
-				margin-bottom: #{math.div($lh, 2)}em;
-			}
+		}
+		a + a {
+			margin-top: 0;
 		}
 	}
 	.coord {
-		flex-grow: 1;
-		@include breakpoint($XLneg) {
-			flex-direction: column;
-		}
+		// flex: 0 0 calc(#{percentage(math.div(4, 12))} - #{math.div($lh,3)*2}em);
+		flex-direction: column;
 	}
 	.inprint {
-		flex-basis: auto;
 		nav {
 			display: flex;
-			flex-wrap: wrap;
 			column-gap: #{$lh}em;
+			flex-direction: column;
 			a {
 				color: $white;
-				// flex-wrap: wrap;
-				@include bold;
 				// @include separated();
-				&.current {
-					color: $current-color;
-				}
 			}
 		}
 	}
 	.social {
 		justify-content: flex-end;
-		margin-right: 0;
-		margin-left: auto;
+		margin-bottom: #{math.div($lh, 2)}em;
+		@include breakpoint($Mneg) {
+			justify-content: flex-start;
+		}
 		@include breakpoint($XLneg) {
 			justify-content: flex-start;
+		}
+		.social-icons {
+			a {
+				margin: 0;
+			}
 		}
 	}
 }

@@ -1,10 +1,8 @@
 <?php
 
 use App\Elements\ElementHero;
-use SilverStripe\Assets\Image;
 use SilverStripe\ORM\ArrayList;
 use App\Elements\ElementGallery;
-use SilverStripe\Core\ClassInfo;
 use SilverStripe\Blog\Model\Blog;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Control\Director;
@@ -119,7 +117,6 @@ class Page extends SiteTree
     //
     //        return parent::getSettingsFields();
     //    }
-
 
     public function getDefaultOGDescription($limitChar = 0, $limitWordCount = 20)
     {

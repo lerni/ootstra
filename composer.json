@@ -14,15 +14,11 @@
 		},
 		{
 			"type": "vcs",
-			"url": "https://github.com/lerni/silverstripe-share-care"
-		},
-		{
-			"type": "vcs",
-			"url": "https://github.com/raise-digital/silverstripe-canonical"
+			"url": "https://github.com/lerni/silverstripe-canonical"
 		}
 	],
 	"require": {
-		"php": ">=7.1 <=8.3",
+		"php": ">=7.1 <=8.4",
 		"silverstripe/recipe-plugin": "^2",
 		"silverstripe/recipe-core": "^5",
 		"silverstripe/cms": "^5",
@@ -41,8 +37,8 @@
 		"jonom/silverstripe-text-target-length": "^2",
 		"lerni/silverstripe-googleanalytics": "4.x-dev as 4.0",
 		"tractorcow/silverstripe-robots": "^4",
-		"jonom/silverstripe-share-care": "dev-patch-1",
-		"dorsetdigital/silverstripe-canonical": "dev-silverstripe-5",
+		"jonom/silverstripe-share-care": "^4",
+		"dorsetdigital/silverstripe-canonical": "dev-metacomponnents",
 		"silverstripe/sharedraftcontent": "^3",
 		"dnadesign/silverstripe-elemental": "^5",
 		"dnadesign/silverstripe-elemental-userforms": "^4",
@@ -66,7 +62,7 @@
 		"jonom/silverstripe-someconfig": "^1",
 		"nathancox/embedfield": "dev-attrquerystring",
 		"lerni/folderindex": "^0",
-		"simple-icons/simple-icons": "^11.0",
+		"simple-icons/simple-icons": "^11",
 		"jcupitt/vips": "^v2",
 		"osiemsiedem/intervention-image-vips-driver": "^v0"
 	},

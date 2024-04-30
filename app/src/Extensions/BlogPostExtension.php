@@ -2,7 +2,6 @@
 
 namespace App\Extensions;
 
-
 use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\DataExtension;
 
@@ -33,13 +32,13 @@ class BlogPostExtension extends DataExtension
         }
 
         if ($PublishDateField = $fields->fieldByName('Root.PostOptions.PublishDate')) {
-            $PublishDateField->setDescription(_t('SilverStripe\Blog\Model\BlogPost.PublishDateDescription', 'geplante Veröffentlichung'));
+            $PublishDateField->setDescription(_t('SilverStripe\Blog\Model\BlogPost.PublishDateDescription', 'scheduled publication'));
         }
     }
 
     public function BlogThumbnail()
     {
-        if (is_object($this->owner->getDefaultOGImage(1))) {
+        if (is_object($this->owner->getDefaultOGImage(1)) && $this->owner->getDefaultOGImage()->exists()) {
             return $this->owner->getDefaultOGImage(1)->CMSThumbnail();
         }
     }

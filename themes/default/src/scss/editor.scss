@@ -7,7 +7,7 @@
 ---------------------------------------------------------------------------------- */
 
 @font-face {
-	font-family: $font-family;
+	font-family: "Figtree";
 	font-style: normal;
 	font-weight: $font-weight--normal;
 	font-display: swap;
@@ -15,7 +15,7 @@
 		url("/_resources/themes/default/dist/fonts/figtree-v5-latin-300.woff2") format('woff2');
 }
 @font-face {
-	font-family: $font-family;
+	font-family: "Figtree";
 	font-style: normal;
 	font-weight: $font-weight--bold;
 	font-display: swap;
@@ -26,7 +26,7 @@
 body.mce-content-body {
 	@include smoothFonts;
 	@include normal;
-	font-family: $font-family;
+	font-family: #{$font-family};
 	color: $text-color;
 	font-size: $font-size;
 	line-height: $lh;

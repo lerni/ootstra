@@ -3,13 +3,41 @@
 @import "includes/variables";
 @import "includes/mixins";
 
-$themeColor: $white;
+$themeColor: $white !default;
 
 @import "../../node_modules/swiper/swiper";
 @import "../../node_modules/swiper/modules/navigation";
 @import "../../node_modules/swiper/modules/effect-fade";
 
 @include sliderpagination(1, $white);
+
+.swiper-vertical {
+	overflow: hidden;
+	height: 500px;
+	@include breakpoint($Lneg) {
+		height: 400px;
+	}
+	@include breakpoint($Sneg) {
+		height: 300px;
+	}
+	.swiper-wrapper {
+		flex-direction: column;
+	}
+	.swiper-pagination {
+		right: 0;
+		width: -2em;
+		height: 100%;
+		left: auto;
+		bottom: 0;
+		flex-direction: column;
+	}
+}
+
+div.swiper-slide {
+	width: auto;
+	height: 100%;
+	overflow: hidden;
+}
 
 .swiper-button-prev,
 .swiper-button-next {

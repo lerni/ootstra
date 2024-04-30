@@ -15,6 +15,11 @@ class RedirectorPageExtension extends DataExtension
 
     public function updateCMSFields(FieldList $fields): void
     {
+
+        $fields->removeByName([
+            'Feed & Share'
+        ]);
+
         $fields->addFieldsToTab(
             'Root.Main',
             [

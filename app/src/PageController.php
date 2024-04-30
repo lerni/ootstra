@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Models\Perso;
 use SilverStripe\View\Requirements;
 use SilverStripe\CMS\Controllers\ContentController;

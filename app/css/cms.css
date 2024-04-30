@@ -69,19 +69,6 @@ fieldset.grid {
 	flex: 1 1 auto;
 }
 
-/* no UserformPage creation -> ElementPages */
-.valSilverStripe_UserForms_Model_UserDefinedForm
-/* .valSilverStripe_Blog_Model_BlogPost,
-.valSilverStripe_Blog_Model_Blog  */
-{
-	display: none;
-}
-
-/* no Blog Page creation */
-/* .valSilverStripe_Blog_Model_Blog {
-	display: none;
-} */
-
 /* Blog summary - https://github.com/silverstripe/silverstripe-blog/issues/485 */
 .custom-summary .ui-accordion-content .field {
 	margin-left: 0;
@@ -120,15 +107,21 @@ fieldset.grid {
 	margin-left: initial;
 }
 
+/* transparent background */
+ul#Form_ItemEditForm_BackgroundColor li label[for$="transparent"] {
+	background: url("/_resources/themes/default/dist/images/transparent.png") transparent repeat !important;
+	background-size: 200% auto !important;
+}
+
 /* prevent description being shown inline */
 #Form_ItemEditForm_Title_Holder .form__field-description {
 	width: 100%;
 }
 
-/* preview ElementLogo */
+/* thumbnail ElementLogo, ProductPage, etc. */
 .col-LogoImage-PreviewThumbnail img,
 .col-Logo-PreviewThumbnail img {
-	max-width: 200px;
+	max-width: 140px;
 	height: auto;
 }
 

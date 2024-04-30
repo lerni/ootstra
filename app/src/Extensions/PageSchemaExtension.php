@@ -71,9 +71,8 @@ class PageSchemaExtension extends Extension
                     // $locations[$i]->hasMap($location->GMapLatLngLink);
                     $locations[$i]->hasMap($location->PointURL);
                 }
-
-                // if ($siteConfig->DefaultHeaderSlides()->count() && $siteConfig->DefaultHeaderSlides()->first()->exists()) {
-                //     $locations[$i]->image(rtrim(Director::absoluteBaseURL(), '/') . $siteConfig->DefaultHeaderSlides()->first()->Link());
+                // if ($siteConfig->DefaultHeaderSlides()->count() && $siteConfig->DefaultHeaderSlides()->sort('SortOrder ASC')->first()->SlideImage()->exists()) {
+                //     $locations[$i]->image(rtrim(Director::absoluteBaseURL(), '/') . $siteConfig->DefaultHeaderSlides()->sort('SortOrder ASC')->first()->SlideImage()->Link());
                 // }
 
                 $i++;
@@ -86,8 +85,8 @@ class PageSchemaExtension extends Extension
             $schemaOrganisation->sameAs($sameAsLinks);
         }
 
-        if ($siteConfig->DefaultHeaderSlides()->count() && $siteConfig->DefaultHeaderSlides()->first()->exists()) {
-            $schemaOrganisation->image(rtrim(Director::absoluteBaseURL(), '/') . $siteConfig->DefaultHeaderSlides()->first()->Link());
+        if ($siteConfig->DefaultHeaderSlides()->count() && $siteConfig->DefaultHeaderSlides()->sort('SortOrder ASC')->first()->SlideImage()->exists()) {
+            $schemaOrganisation->image(rtrim(Director::absoluteBaseURL(), '/') . $siteConfig->DefaultHeaderSlides()->sort('SortOrder ASC')->first()->SlideImage()->Link());
         }
 
         return $schemaOrganisation->toScript();

@@ -18,6 +18,7 @@ SilverStripe\Assets\File:
     bmp: false
     vcf: true
     ics: true
+    avif: true
 
 # SilverStripe\AssetAdmin\Forms\FileFormFactory:
 SilverStripe\AssetAdmin\Forms\ImageFormFactory:
@@ -68,6 +69,9 @@ SilverStripe\Forms\HTMLEditor\TinyMCEConfig:
 SilverStripe\Forms\HTMLEditor\HTMLEditorField:
   default_classes:
     stacked: stacked
+
+SilverStripe\ORM\FieldType\DBForeignKey:
+  dropdown_field_threshold: 200
 
 nathancox\EmbedField\Model\EmbedObject:
   YTEnhancedPrivacy: true
@@ -123,6 +127,7 @@ SilverStripe\Blog\Model\BlogPost:
   extensions:
     - App\Extensions\BlogPostExtension
     - DNADesign\Elemental\Extensions\ElementalPageExtension
+    - App\Extensions\ElementalPageExtension
   allowed_elements:
     - DNADesign\Elemental\Models\ElementContent
     - DNADesign\ElementalUserForms\Model\ElementForm
@@ -151,6 +156,7 @@ App\Models\ElementPage:
   icon: 'themes/default/dist/images/svg/icon-elements.svg'
   extensions:
     - DNADesign\Elemental\Extensions\ElementalPageExtension
+    - App\Extensions\ElementalPageExtension
   allowed_elements:
     - DNADesign\Elemental\Models\ElementContent
     - DNADesign\ElementalUserForms\Model\ElementForm
@@ -195,7 +201,6 @@ DNADesign\ElementalUserForms\Model\ElementForm:
   extensions:
     - App\Extensions\ElementUserFormsExtension
 
-# todo remove on 5.2
 SilverStripe\UserForms\Model\UserDefinedForm:
   extensions:
     - App\Extensions\CannotCreateExtension
@@ -209,7 +214,6 @@ App\Tasks\CleanUpObjects:
   objects_to_clean_up:
     - 'SilverStripe\UserForms\Model\Submission\SubmittedForm'
 
-# todo remove on 5.2
 SilverStripe\CMS\Model\VirtualPage:
   extensions:
     - App\Extensions\CannotCreateExtension
@@ -230,11 +234,10 @@ SilverStripe\i18n\i18n:
 
 SilverStripe\CMS\Model\SiteTree:
   create_default_pages: false
-  # todo enable on 5.2
-  # hide_pagetypes:
-  #   - Page
-  #   - SilverStripe\CMS\Model\VirtualPage
-  #   - SilverStripe\UserForms\Model\UserDefinedForm
+  hide_pagetypes:
+    - Page
+    - SilverStripe\CMS\Model\VirtualPage
+    - SilverStripe\UserForms\Model\UserDefinedForm
     # - SilverStripe\Blog\Model\Blog
     # - SilverStripe\Blog\Model\BlogPost
   extensions:

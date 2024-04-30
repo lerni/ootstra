@@ -52,8 +52,6 @@ class ElementTextImage extends BaseElement
 
         if ($uploadField = $fields->dataFieldByName('Image')) {
             $uploadField->setFolderName('TextImageElement');
-            $size = 5 * 1024 * 1024;
-            $uploadField->getValidator()->setAllowedMaxFileSize($size);
             $uploadField->setDescription(_t(__CLASS__ . '.ImageDescription', 'min. 1400x1800px'));
         }
 

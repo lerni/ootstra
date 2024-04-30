@@ -47,6 +47,10 @@ class Location extends DataObject
         'Telephone' => 'Telefon',
     ];
 
+    private static $indexes = [
+        'Title' => true,
+    ];
+
     private static $translate = [
         'Title'
     ];
@@ -85,6 +89,13 @@ class Location extends DataObject
         $ContryDropdownField->setSource(i18n::getData()->getCountries());
         $ContryDropdownField->setEmptyString('--');
         $fields->replaceField('Country', $ContryDropdownField);
+
+        $dbFields = $this->config()->get('db');
+        foreach ($dbFields as $fieldName => $fieldType) {
+            if ($field = $fields->dataFieldByName($fieldName)) {
+                $field->setDescription('<p>[Location Title="' . $this->Title .'" Field="' . $fieldName . '"]</p>');
+            }
+        }
 
         return $fields;
     }

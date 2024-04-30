@@ -22,8 +22,24 @@ a img {
 	border: none;
 }
 
+a[href],
+area[href],
+input:not([disabled]),
+select:not([disabled]),
+textarea:not([disabled]),
+button:not([disabled]),
+iframe,
+[tabindex] {
+// [contentEditable=true] { adds outline also in TinyMCE
+	&:not([tabindex='-1']) {
+		outline: none;
+		&:focus-visible {
+			outline: 2px solid $link-color;
+		}
+	}
+}
+
 a:visited,
-a:focus,
 a,
 a img {
 	text-decoration: none;

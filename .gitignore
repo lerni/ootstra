@@ -23,6 +23,3 @@
 !/silverstripe-cache/readme.txt
 /vendor/
 /app/todo**
-# docker
-/docker/data/*
-/docker/log/*

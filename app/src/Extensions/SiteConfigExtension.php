@@ -6,6 +6,7 @@ use App\Models\Slide;
 use App\Models\Location;
 use App\Models\SocialLink;
 use gorriecoe\Link\Models\Link;
+use SilverStripe\Forms\DateField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\HeaderField;
@@ -14,6 +15,7 @@ use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\TextareaField;
+use SilverStripe\ORM\FieldType\DBDate;
 use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
@@ -31,7 +33,7 @@ class SiteConfigExtension extends DataExtension
     private static $db = [
         'MetaDescription' => 'Varchar',
         'legalName' => 'Varchar',
-        'foundingDate' => 'Varchar',
+        'foundingDate' => DBDate::class,
         'GlobalAlert' => 'HTMLText',
         'DefaultHeroSize' => 'Enum("small,medium","small")'
     ];
@@ -82,7 +84,7 @@ class SiteConfigExtension extends DataExtension
         $fields->renameField('Title', _t('SilverStripe\SiteConfig\SiteConfig.TITLE', 'Title / Name'));
 
         $fields->addFieldToTab('Root.Main', $legalNameField = TextField::create('legalName', _t('SilverStripe\SiteConfig\SiteConfig.LEGALNAME', 'Official name (legal)')));
-        $fields->addFieldToTab('Root.Main', $foundingDateField = TextField::create('foundingDate', _t('SilverStripe\SiteConfig\SiteConfig.FOUNDINGDATE', 'Date of foundation')));
+        $fields->addFieldToTab('Root.Main', $foundingDateField = DateField::create('foundingDate', _t('SilverStripe\SiteConfig\SiteConfig.FOUNDINGDATE', 'Date of foundation'))->setHTML5('true'));
 
         $fields->addFieldToTab('Root.Main', HeaderField::create('MetaData', 'Meta Daten'));
         $fields->addFieldToTab('Root.Main', $MetaDescriptionField = TextAreaField::create('MetaDescription', _t('SilverStripe\SiteConfig\SiteConfig.METADESCRIPTION', 'Meta Description')));

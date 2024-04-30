@@ -81,3 +81,46 @@ Array.prototype.forEach.call(multipleSwiper, function (slider) {
     },
   });
 });
+
+var instafeedSwiper = document.querySelectorAll(".swiper-container.instafeed");
+Array.prototype.forEach.call(instafeedSwiper, function (slider) {
+  var sliderID = slider.getAttribute("id");
+  var instafeedSwiperInstance = new Swiper("#" + sliderID, {
+    spaceBetween: 38, // $lineheight in px
+    freeMode: true,
+    slidesPerView: "auto",
+    speed: 1000,
+    // loop: true,
+    keyboard: {
+      enabled: true,
+    },
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: true,
+    },
+    keyboard: {
+      enabled: true,
+      onlyInViewport: false,
+    },
+  });
+});
+
+var instafeedVerticalSwiper = document.querySelectorAll('.swiper-container.swiper-v');
+Array.prototype.forEach.call(instafeedVerticalSwiper, function (slider) {
+  var sliderID = slider.getAttribute('id');
+  var sliderVerticalPagination = '#insta-vertical-swiper-pagination' + slider.getAttribute('data-id');
+  var instafeedVerticalSwiperInstance = new Swiper ('#'+sliderID, {
+    direction: "vertical",
+    spaceBetween: 38,
+    slidesPerView: 1,
+    pagination: {
+      el: sliderVerticalPagination,
+      type: 'bullets',
+      clickable: true
+    },
+    keyboard: {
+      enabled: true,
+      onlyInViewport: true,
+    },
+  });
+});

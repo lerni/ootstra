@@ -5,7 +5,7 @@
   "editor.linkedEditing": true,
   "editor.stickyScroll.enabled": true,
   "intelephense.diagnostics.undefinedSymbols": true,
-  "intelephense.environment.phpVersion": "8.2.8",
+  "intelephense.environment.phpVersion": "8.3",
   "intelephense.files.exclude": ["/.ddev/**", "/.graphql-generated/**", "/docker/**", "/silverstripe-cache/**", "/themes/**"],
   "intelephense.format.braces": "psr12",
   "intelephense.telemetry.enabled": false,
