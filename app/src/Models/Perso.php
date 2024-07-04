@@ -4,15 +4,11 @@ namespace App\Models;
 
 use App\Models\Department;
 use Spatie\SchemaOrg\Schema;
-use App\Elements\ElementPerso;
 use SilverStripe\Assets\Image;
-use SilverStripe\ORM\ArrayList;
-use SilverStripe\View\SSViewer;
 use SilverStripe\ORM\DataObject;
-use SilverStripe\View\ArrayData;
 use App\Elements\ElementPersoCFA;
 use SilverStripe\Forms\EmailField;
-use SilverStripe\Control\Controller;
+use SilverStripe\TagField\TagField;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\RequiredFields;
 use SilverStripe\Forms\GridField\GridField;
@@ -64,7 +60,8 @@ class Perso extends DataObject
     private static $summary_fields = [
         'Portrait.CMSThumbnail' => 'Thumbnail',
         'Firstname' => 'Vorname',
-        'Lastname' => 'Nachname'
+        'Lastname' => 'Nachname',
+        'DepartmentsString' => 'Abteilungen'
     ];
 
     private static $translate = [
@@ -108,13 +105,15 @@ class Perso extends DataObject
 
         // hack around unsaved relations
         if ($this->isInDB()) {
-            $fields
-                ->fieldByName('Root.Departments.Departments')
-                ->getConfig()
-                ->removeComponentsByType([
-                    GridFieldEditButton::class,
-                    GridFieldAddNewButton::class
-                ]);
+
+                $fields->removeByName('Departments');
+                $DepartmentsField = TagField::create(
+                    'Departments',
+                    _t('SilverStripe\Blog\Model\Blog.Departments', 'Departments'),
+                    Department::get(),
+                    $this->Departments()
+                );
+                $fields->addFieldToTab('Root.Main', $DepartmentsField);
 
                 $SocialConf = GridFieldConfig_Base::create(20);
                 $SocialConf->removeComponentsByType([
@@ -124,13 +123,13 @@ class Perso extends DataObject
                     new GridFieldEditButton(),
                     new GridFieldDeleteAction(false),
                     new GridFieldDetailForm(),
-                    new GridFieldAddNewButton('toolbar-header-right'),
+                    new GridFieldAddNewButton('toolbar-header-left'),
                     new GridFieldOrderableRows('SortOrder')
                 );
 
             // show where associated per CFAElement
             $persoOnCFAElementConfig = GridFieldConfig_Base::create(20);
-            $persoOnCFAElementConfig->addComponents([]);
+            $persoOnCFAElementConfig->removeComponentsByType(GridFieldFilterHeader::class);
             $persoOnCFAElementConfig->getComponentByType(GridFieldDataColumns::class)
                 ->setDisplayFields([
                     'getTypeBreadcrumb' => 'Element',
@@ -138,7 +137,7 @@ class Perso extends DataObject
                 ]);
             $persoCFAElements = ElementPersoCFA::get()->filter(["Persos.EMail" => $this->EMail]);
             $persoOnCFAElementWithMEGridField = new GridField('PersoOnCFAElement', 'PersoOnCFAElement', $persoCFAElements, $persoOnCFAElementConfig);
-            $persoOnCFAElementWithMEGridField->setTitle(_t(__CLASS__ . '.IsUsedOnComment', $this->getTitle() . ' is associated on...'));
+            $persoOnCFAElementWithMEGridField->setTitle(_t(__CLASS__ . '.IsUsedOnComment', '"{name}" is associated on', ['name' => $this->getTitle()]));
             $fields->addFieldToTab('Root.Main', $persoOnCFAElementWithMEGridField);
         } else {
             $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
@@ -151,6 +150,10 @@ class Perso extends DataObject
     {
         $title = implode(' ', [$this->Firstname, $this->Lastname]);
         return $title;
+    }
+
+     public function DepartmentsString() {
+        return implode(', ', $this->Departments()->Column('Title'));
     }
 
     public function Anchor()

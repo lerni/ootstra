@@ -51,10 +51,9 @@
 		"heyday/silverstripe-colorpalette": "^2",
 		"innoweb/silverstripe-googlemapfield": "^2",
 		"giggsey/libphonenumber-for-php": "^8",
-		"jeroendesloovere/vcard": "dev-master#baff586cd57f197060bc9e0c8c49573b894e264c",
+		"jeroendesloovere/vcard": "^1",
 		"silverstripe/selectupload": "^2",
 		"endroid/qr-code": "^4",
-		"gorriecoe/silverstripe-link": "^1",
 		"nomidi/silverstripe-webp-image": "dev-master as 1.0",
 		"lerni/klaro-cookie-consent": "v2.x-dev",
 		"league/commonmark": "^2",
@@ -64,7 +63,8 @@
 		"lerni/folderindex": "^0",
 		"simple-icons/simple-icons": "^11",
 		"jcupitt/vips": "^v2",
-		"osiemsiedem/intervention-image-vips-driver": "^v0"
+		"osiemsiedem/intervention-image-vips-driver": "^v0",
+		"silverstripe/linkfield": "^4"
 	},
 	"require-dev": {
 		"deployer/deployer": "^7",

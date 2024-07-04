@@ -348,7 +348,6 @@ p.cat-tag {
 			height: 100%;
 			width: 100%;
 			margin: 0;
-			position: relative;
 			img {
 				height: 100%;
 				width: 100%;
@@ -360,9 +359,7 @@ p.cat-tag {
 		.hero--small,
 		.hero--medium {
 			figure {
-				height: 0;
 				img {
-					position: absolute;
 					max-width: none;
 					// @include breakpoint($Mplus) {
 					// 	min-height: 100% !important;
@@ -373,12 +370,13 @@ p.cat-tag {
 		.hero--small {
 			max-height: 500px;
 			figure {
-				padding: 0 0 25% 0;
 				@include breakpoint($Mneg) {
-					padding: 0 0 30% 0;
+					// arbitrary ratio to prevent small (stripe alike )images on small viewports
+					aspect-ratio: 10 / 3;
 				}
 				@include breakpoint($Sneg) {
-					padding: 0 0 40% 0;
+					// arbitrary ratio to prevent small (stripe alike )images on small viewports
+					aspect-ratio: 5 / 2;
 				}
 				img {
 					max-height: 500px;
@@ -388,12 +386,9 @@ p.cat-tag {
 		.hero--medium {
 			max-height: 700px;
 			figure {
-				padding: 0 0 45.1388888888889% 0;
-				@include breakpoint($Mneg) {
-					padding: 0 0 56.25% 0;
-				}
 				@include breakpoint($Sneg) {
-					padding: 0 0 80% 0;
+					// arbitrary ratio to prevent small (stripe alike )images on small viewports
+					aspect-ratio: 3 / 2;
 				}
 				img {
 					max-height: 700px;
@@ -756,9 +751,6 @@ p.cat-tag {
 	footer {
 		display: none;
 	}
-	.header-pic .inner img {
-		left: 0;
-	}
 	.inner {
 		max-width: 100%;
 	}
@@ -831,6 +823,8 @@ p.cat-tag {
 
 // !klaro
 html .klaro {
+	--notice-right: #{$lh}em;
+    --notice-bottom: #{$lh}em;
 	.cookie-modal,
 	.cookie-notice {
 		a {
@@ -844,6 +838,13 @@ html .klaro {
 	}
 
 	.cookie-notice {
+		h2 {
+			font-size: 1.1em;
+  			margin-top: .6em;
+		}
+		p {
+			margin: .3em 0 !important;
+		}
 		.cn-ok {
 			display: flex;
 			flex-wrap: wrap;
@@ -855,7 +856,6 @@ html .klaro {
 				.cm-btn.cn-decline {
 					background-color: $gray;
 					order: 1;
-					display: none;
 				}
 				// accept all
 				.cm-btn.cm-btn-success {
@@ -867,6 +867,7 @@ html .klaro {
 			.cn-learn-more {
 				display: block;
 				margin-top: 0.6em;
+				margin-right: 0;
 				order: 2;
 				flex: 0 0 auto;
 			}
@@ -936,7 +937,7 @@ html .klaro {
 		&:last-child {
 			margin-bottom: 0;
 		}
-		button {
+		button.cm-btn {
 			display: inline-block;
 			padding: #{math.div($lh, 4)}em #{math.div($lh, 2)}em;
 			border: none;
@@ -944,9 +945,10 @@ html .klaro {
 			color: $white;
 			font-size: 1em;
 			@include bold;
+			border-radius: 0;
 			cursor: pointer;
 			&:first-of-type {
-				background-color: $red;
+				background-color: $link-color;
 			}
 			&:last-of-type {
 				background-color: mix($link-color, $gray--light, 70%);

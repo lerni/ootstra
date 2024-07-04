@@ -17,6 +17,7 @@
 		gap: #{$lh}em;
 		grid-template-columns: repeat(auto-fit, minmax(256px, 1fr));
 		grid-template-rows: repeat(auto-fit, minmax(#{$lh}em, 1fr));
+		margin-bottom: #{$lh * 2}em;
 	}
 
 	.perso {

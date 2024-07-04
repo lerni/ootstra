@@ -32,13 +32,6 @@ $styles = [
         'wrapper' => 1
     ],
     [
-        // Wrap selected content in a div with class of .boxed
-        'title' => 'Box',
-        'attributes' => ['class' => 'boxed'],
-        'block' => 'div',
-        'wrapper' => 1
-    ],
-    [
         // add .download to a a
         'title' => 'Download-Link',
         'attributes' => ['class' => 'download'],
@@ -48,6 +41,12 @@ $styles = [
         // add .forth to a a
         'title' => 'Arrow-Link',
         'attributes' => ['class' => 'forth'],
+        'selector' => 'a'
+    ],
+    [
+        // add .back to a a
+        'title' => 'Arrow-Back',
+        'attributes' => ['class' => 'back'],
         'selector' => 'a'
     ],
     [

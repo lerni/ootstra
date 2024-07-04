@@ -38,6 +38,8 @@ de:
     SINGULARNAME: Map
     ZoomDescription: 'Zoomstufe passt sich an, um alle Marker zu zeigen. Hier kann ein Minimalwert konfiguriert werden.'
     HTMLFieldDescription: 'Wenn Inhalt vorhanden, wird dieser auf dem Desktop neben der "Karte" angezeigt'
+  App\Elements\ElementPDFDocument:
+    AddDocument: 'Dokument hinzufügen...'
   App\Elements\ElementPerso:
     BlockType: Team
     PLURALNAME: Personal
@@ -46,6 +48,9 @@ de:
       other: '{count} Personal'
     SINGULARNAME: Personal
     PERSOS: 'Mitarbeiter'
+    CanDeleteExplanation: 'Nur Abteilungen ohne Personen können gelöscht werden!'
+    GROUPBYDEPARTMENT: 'Nach Abteilung gruppieren'
+    GroupByDepartmentDescription: 'Wenn angehakt, wird die Sortierung in der Abteilung angepasst'
   App\Elements\ElementPersoCFA:
     BlockType: 'Contact (CFA)'
     COUNTMAX: 'Anzahl Teasers (default 3)'
@@ -107,6 +112,7 @@ de:
       one: 'An Element Page'
       other: '{count} Element Pages'
     SINGULARNAME: 'Element Page'
+    PREVENTHERO: 'Default Hero nicht anzeigen'
   App\Models\Location:
     TITLE: Titel
     ADDRESS: Adresse
@@ -153,6 +159,7 @@ de:
     TELEPHONE: 'Telefon'
     TelephoneDescription: '+41 43 000 00 00'
     CLOSE: 'Details ausblenden'
+    IsUsedOnComment: '"{name}" wird in folgenden Elementen verwendet'
   App\Models\Point:
     PLURALNAME: Points
     PLURALS:
@@ -221,7 +228,7 @@ de:
     SITENAMEDEFAULT: 'Name Webseite'
     TABMAIN: Main
     SITETAGLINE: 'Claim / Beschreibung'
-    SortImpact: 'Die "Location" an 1. Stelle wird im Footer angezeigt. Für "Schemadaten" werden alle verwendet.'
+    SortImpact: '"Location" an 1. Stelle wird im Footer angezeigt.'
     DEFAULTHEADERSLIDES: 'Default Header Slides'
     DEFAULTHEADERSLIDESDESCRIPTION: 'Wird auf Pages ohne Hero angezeigt'
     DEFAULTHEROSIZE: 'Grösse default Hero'
@@ -230,7 +237,9 @@ de:
     METADESCRIPTION: 'Meta Description'
     MetaDescriptionDescription: 'Defaultwert, falls auf Seitenebene keine Beschreibung erfasst ist.'
     SERVICENAVIGATIONITEMS: 'Service Navigation'
-    TERMSNAVIGATIONITEMS: 'Terms (AGB, Rechtliches, Impressum)'
+    ServiceNavigationItemsDescription: 'Links über der Hauptnavigation im Header'
+    TERMSNAVIGATIONITEMS: 'Terms'
+    TermsNavigationItemsDescription: 'Footer (AGB, Datenschutz, Impressum etc.)'
     TITLE: 'Title / Name'
   JonoM\ShareCare\ShareCare:
     TabName: 'Feed & Share'
@@ -253,7 +262,7 @@ de:
     RECIPIENTS: Empfänger
     SUBMISSIONS: Nachrichten
   Kraftausdruck\KlaroCookie:
-    MODALLINK: 'Datenschutz-Einstellungen'
+    ConsentNoticeTitle: 'Datenschutz Einstellungen'
     Decline: 'Nur Notwendige'
   UndefinedOffset\NoCaptcha\Forms\NocaptchaField:
     ReCaptchaTermsTextStart: 'Diese Website ist durch reCAPTCHA geschützt und es gelten die'

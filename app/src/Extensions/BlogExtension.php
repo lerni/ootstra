@@ -19,6 +19,7 @@ use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\GridField\GridFieldConfig_Base;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
+use SilverStripe\Forms\GridField\GridFieldFilterHeader;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
@@ -69,10 +70,11 @@ class BlogExtension extends DataExtension
                 new GridFieldDeleteAction(false),
                 new GridFieldDeleteAction(true),
                 new GridFieldDetailForm(),
-                new GridFieldAddNewButton('toolbar-header-right'),
-                new GridFieldAddExistingAutocompleter('toolbar-header-right')
+                new GridFieldAddNewButton('toolbar-header-left'),
+                new GridFieldAddExistingAutocompleter('toolbar-header-right'),
+                new GridFieldOrderableRows('SortOrder')
             );
-            $SlideGridFieldConfig->addComponent(new GridFieldOrderableRows('SortOrder'));
+
             $gridField = new GridField('Slides', 'Slides', $this->owner->Slides(), $SlideGridFieldConfig);
             $fields->addFieldToTab('Root.Main', $gridField, 'Content');
 

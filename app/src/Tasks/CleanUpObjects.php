@@ -25,14 +25,14 @@ class CleanUpObjects extends BuildTask
 
         // $ObjClasses = $this->getClasses();
         $ObjClasses = $this->config()->get('objects_to_clean_up');
-        echo("***************<br/><br/>");
+        DB::alteration_message("***************");
         foreach ($ObjClasses as $ObjClass) {
             DB::alteration_message('Removing all ' . $ObjClass . ' before ' . $sThresholdDate);
             DB::alteration_message('Total entries in database (before cleanup): ' . $ObjClass::get()->count());
             $iClearedEntries = $this->cleanUpObject($sThresholdDate, $ObjClass);
             DB::alteration_message('Total entries to be deleted: ' . $iClearedEntries);
             DB::alteration_message("Done, total entries left after cleanup: " . $ObjClass::get()->count());
-            echo("<br/>***************<br/><br/>");
+            DB::alteration_message("***************");
         }
     }
 

@@ -16,10 +16,11 @@ class LocationShortCodeProvider
                     $offset = 0;
                 }
                 $loc = Location::get()->limit(1, $offset)->first();
+            } else {
+                $loc = Location::get()->filter('Title', $arguments['Title'])->first();
             }
             return $loc->{$arguments['Field']};
-        } else {
-            $loc = Location::get()->filter('Title', $arguments['Title'])->first();
         }
+        return false;
     }
 }

@@ -4,6 +4,7 @@ namespace App\Elements;
 
 use App\Models\Point;
 use SilverStripe\Forms\HeaderField;
+use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\DropdownField;
 use App\Controller\ElementMapsController;
 use DNADesign\Elemental\Models\BaseElement;
@@ -13,9 +14,9 @@ use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\GridField\GridFieldConfig_Base;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
+use SilverStripe\Forms\GridField\GridFieldFilterHeader;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
-use SilverStripe\Forms\LiteralField;
 
 class ElementMaps extends BaseElement
 {
@@ -104,10 +105,11 @@ class ElementMaps extends BaseElement
                 new GridFieldDeleteAction(false),
                 new GridFieldDeleteAction(true),
                 new GridFieldDetailForm(),
-                new GridFieldAddNewButton('toolbar-header-right'),
-                new GridFieldAddExistingAutocompleter('toolbar-header-right')
+                new GridFieldAddNewButton('toolbar-header-left'),
+                new GridFieldAddExistingAutocompleter('toolbar-header-right'),
+                new GridFieldOrderableRows('SortOrder')
             );
-            $PointGridFieldConfig->addComponent(new GridFieldOrderableRows('SortOrder'));
+            $PointGridFieldConfig->removeComponentsByType(GridFieldFilterHeader::class);
             $gridField = new GridField('Points', 'Points', $this->Points(), $PointGridFieldConfig);
             $fields->addFieldToTab('Root.Main', $gridField);
         } else {

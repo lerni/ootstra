@@ -7,6 +7,6 @@ use SilverStripe\ORM\DataExtension;
 class FileExtension extends DataExtension
 {
     private static $db = [
-        'Caption' => 'Varchar'
+        'Caption' => 'Text'
     ];
 }

@@ -117,7 +117,7 @@ class ElementExtension extends DataExtension implements CMSPreviewable
                 if ($firstTwo->count() == 2 && $firstTwo->last()->ID == $this->owner->ID) {
                     return true;
                 }
-            } elseif ($firstTwo->first()->ID == $this->owner->ID) {
+            } elseif ($firstTwo->first()->ID == $this->owner->ID && $this->owner->getPage()->PreventHero == 0) {
                 // we assume default Hero
                 return true;
             }

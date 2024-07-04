@@ -25,7 +25,7 @@ en:
   App\Models\Teaser:
     MORE: 'Read more'
   Kraftausdruck\KlaroCookie:
-    MODALLINK: 'Cookie settings'
+    ConsentNoticeTitle: 'Privacy settings'
   SilverStripe\CMS\Controllers\CMSMain:
     SaveFirst: 'Please save the element first, then sub-elements can be entered.'
   JonoM\ShareCare\ShareCare:

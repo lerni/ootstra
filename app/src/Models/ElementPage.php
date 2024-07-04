@@ -5,8 +5,6 @@ namespace App\Models;
 use Page;
 use SilverStripe\Control\Director;
 use SilverStripe\Control\Controller;
-use SilverStripe\Forms\LiteralField;
-use SilverStripe\Forms\CheckboxField;
 use SilverStripe\SiteConfig\SiteConfig;
 use App\Controller\ElementPageController;
 
@@ -57,19 +55,5 @@ class ElementPage extends Page
         $fields = parent::getCMSFields();
 
         return $fields;
-    }
-
-    public function IsPreview()
-    {
-        if (!Controller::has_curr()) {
-            return;
-        }
-        $controller = Controller::curr();
-        $request = $controller->getRequest();
-        if ($request->getVar('CMSPreview')) {
-            return true;
-        } else {
-            return false;
-        }
     }
 }

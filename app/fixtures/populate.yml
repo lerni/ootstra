@@ -10,7 +10,7 @@ DNADesign\Elemental\Models\ElementContent:
   impressum:
     Title: 'Impressum'
     ParentID: =>DNADesign\Elemental\Models\ElementalArea.impressumArea
-    HTML: '<h2 class="inlinish"><strong>Inhalte und Redaktion:</strong></h2><p class="halvelinish">Kunde AG<br />Adresse 0<br />0000 Niergens</p><p><a class="forth" href="[sitetree_link,id=4]">Kontakt</a></p><p class="halvelinish">&nbsp;</p><h2 class="inlinish"><strong>Beratung, Design &amp; Code</strong></h2><p class="halvelinish"><a title="kraftausdruck.ch" href="https://kraftausdruck.ch/">kraftausdruck.ch</a><br />Hellb&uuml;hlerstrasse 36<br />6017 Ruswil</p><p><a title="Telefon Kraftausdruck" href="tel:00414950833">041 495 08 33</a></p>'
+    HTML: '<h2 class="inlinish"><strong>Inhalte und Redaktion:</strong></h2><p class="halvelinish">Kunde AG<br />Adresse 0<br />0000 Niergens</p><p><a class="forth" href="[sitetree_link,id=4]">Kontakt</a></p><p class="halvelinish">&nbsp;</p><h2 class="inlinish"><strong>Beratung, Design &amp; Code</strong></h2><p class="halvelinish">[Location, Title="1", Field="Title"]<br />[Location, Title="1", Field="Address"]<br />[Location, Title="1", Field="PostalCode"] [Location, Title="1", Field="Town"]</p><p>[Location, Title="1", Field="Telephone"]</p>'
   rechtiches:
     Title: 'Rechtliches'
     Parent: =>DNADesign\Elemental\Models\ElementalArea.rechtlichesArea
@@ -27,21 +27,21 @@ App\Models\ElementPage:
   impressum:
     Title: 'Impressum'
     ParentID: 0
-    Sort: 2
+    Sort: 3
     ShowInMenus: 0
     ShowInSearch: 1
     ElementalArea: =>DNADesign\Elemental\Models\ElementalArea.impressumArea
   rechtliches:
-    Title: 'Rechtliches'
+    Title: 'Datenschutz & Rechtliches'
     ParentID: 0
-    Sort: 3
+    Sort: 4
     ShowInMenus: 0
     ShowInSearch: 0
-    ElementalAreaID: =>DNADesign\Elemental\Models\ElementalArea.rechtlichesArea
+    ElementalAreaID: =>DNADesign\Elemental\Models\ElementalArea.datenschutzArea
   kontakt:
     Title: 'Kontakt'
     ParentID: 0
-    Sort: 4
+    Sort: 2
     ElementalAreaID: =>DNADesign\Elemental\Models\ElementalArea.kontaktArea
 
 App\Models\MetaOverviewPage:
@@ -74,16 +74,9 @@ App\Models\Location:
     Address: 'Hellbühlstrasse 36'
     PostalCode: '6017'
     Town: 'Ruswil'
-    Country: 'Schweiz'
+    Country: 'ch'
     Telephone: '041 495 08 33'
     AddressRegion: 'Luzern'
-    Email: 'le@kraftausdruck.ch'
+    EMail: 'le@kraftausdruck.ch'
     SiteConfigID: 1
-
-App\Models\Point:
-  point1:
-    Latitude: 47.079
-    Longitude: 8.155
-    Title: 'Ruswil'
-    PointURL: 'https://www.google.ch/maps/place/Ruswil/'
-    LocationID: =>App\Models\Location.location1
+    GeoPointID: =>App\Models\Point.point1

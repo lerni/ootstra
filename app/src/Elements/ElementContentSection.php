@@ -12,6 +12,7 @@ use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\GridField\GridFieldConfig_Base;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
+use SilverStripe\Forms\GridField\GridFieldFilterHeader;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
@@ -56,10 +57,11 @@ class ElementContentSection extends BaseElement
                 new GridFieldDeleteAction(false),
                 new GridFieldDeleteAction(true),
                 new GridFieldDetailForm(),
-                new GridFieldAddNewButton('toolbar-header-right'),
+                new GridFieldAddNewButton('toolbar-header-left'),
                 new GridFieldAddExistingAutocompleter('toolbar-header-right'),
                 new GridFieldOrderableRows('SortOrder')
             );
+            $ContentPartsGridFieldConfig->removeComponentsByType(GridFieldFilterHeader::class);
             $GridField = new GridField('ContentParts', 'Content Parts', $this->ContentParts(), $ContentPartsGridFieldConfig);
             $fields->addFieldToTab('Root.Main', $GridField);
         } else {

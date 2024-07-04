@@ -92,7 +92,7 @@ class ElementHero extends BaseElement
                 new GridFieldDeleteAction(false),
                 new GridFieldDeleteAction(true),
                 new GridFieldDetailForm(),
-                new GridFieldAddNewButton('toolbar-header-right'),
+                new GridFieldAddNewButton('toolbar-header-left'),
                 new GridFieldAddExistingAutocompleter('toolbar-header-right')
             );
             $SlideGridFieldConfig->addComponent(new GridFieldOrderableRows('SortOrder'));

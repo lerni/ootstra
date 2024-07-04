@@ -3,7 +3,6 @@
 namespace App\Elements;
 
 use App\Models\ElementPage;
-use SilverStripe\TagField\TagField;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Control\Controller;
 use SilverStripe\Core\Config\Config;
@@ -91,6 +90,7 @@ class ElementFeedTeaser extends BaseElement
                 GridFieldArchiveAction::class,
                 GridFieldEditButton::class,
                 GridFieldAddNewButton::class,
+                GridFieldFilterHeader::class,
                 GridFieldFilterHeader::class
             ]);
             $gridField = new GridField('FeedTeaserParents', _t(__CLASS__ . '.FEEDTEASERPARENTS', 'Parents / Holders of Linked Pages'), $this->FeedTeaserParents(), $TeaserGridFieldConfig);

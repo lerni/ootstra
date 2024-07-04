@@ -5,19 +5,18 @@ namespace App\Extensions;
 use App\Models\Slide;
 use App\Models\Location;
 use App\Models\SocialLink;
-use gorriecoe\Link\Models\Link;
 use SilverStripe\Forms\DateField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\HeaderField;
 use SilverStripe\ORM\DataExtension;
-use SilverStripe\CMS\Model\SiteTree;
-use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\TextareaField;
 use SilverStripe\ORM\FieldType\DBDate;
+use SilverStripe\LinkField\Models\Link;
 use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\LinkField\Form\MultiLinkField;
 use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
 use SilverStripe\Forms\GridField\GridFieldEditButton;
@@ -41,23 +40,17 @@ class SiteConfigExtension extends DataExtension
     private static $has_one = [];
 
     private static $has_many = [
-        'Locations' => Location::class
+        'Locations' => Location::class,
+        'ServiceNavigationItems' => Link::class . '.Owner',
+        'TermsNavigationItems' => Link::class . '.Owner'
     ];
 
     private static $many_many = [
-        'ServiceNavigationItems' => Link::class,
-        'TermsNavigationItems' => SiteTree::class,
         'SocialLinks' => SocialLink::class,
         'DefaultHeaderSlides' => Slide::class
     ];
 
     private static $many_many_extraFields = [
-        'ServiceNavigationItems' => [
-            'SortOrder' => 'Int'
-        ],
-        'TermsNavigationItems' => [
-            'SortOrder' => 'Int'
-        ],
         'SocialLinks' => [
             'SortOrder' => 'Int'
         ],
@@ -67,7 +60,9 @@ class SiteConfigExtension extends DataExtension
     ];
 
     private static $owns = [
-        'DefaultHeaderSlides'
+        'DefaultHeaderSlides',
+        'ServiceNavigationItems',
+        'TermsNavigationItems'
     ];
 
     private static $translate = [
@@ -84,7 +79,7 @@ class SiteConfigExtension extends DataExtension
         $fields->renameField('Title', _t('SilverStripe\SiteConfig\SiteConfig.TITLE', 'Title / Name'));
 
         $fields->addFieldToTab('Root.Main', $legalNameField = TextField::create('legalName', _t('SilverStripe\SiteConfig\SiteConfig.LEGALNAME', 'Official name (legal)')));
-        $fields->addFieldToTab('Root.Main', $foundingDateField = DateField::create('foundingDate', _t('SilverStripe\SiteConfig\SiteConfig.FOUNDINGDATE', 'Date of foundation'))->setHTML5('true'));
+        $fields->addFieldToTab('Root.Main', $foundingDateField = DateField::create('foundingDate', _t('SilverStripe\SiteConfig\SiteConfig.FOUNDINGDATE', 'Date of foundation'))->setHTML5(true));
 
         $fields->addFieldToTab('Root.Main', HeaderField::create('MetaData', 'Meta Daten'));
         $fields->addFieldToTab('Root.Main', $MetaDescriptionField = TextAreaField::create('MetaDescription', _t('SilverStripe\SiteConfig\SiteConfig.METADESCRIPTION', 'Meta Description')));
@@ -102,10 +97,11 @@ class SiteConfigExtension extends DataExtension
             new GridFieldDeleteAction(false),
             new GridFieldDeleteAction(true),
             new GridFieldDetailForm(),
-            new GridFieldAddNewButton('toolbar-header-right'),
-            new GridFieldAddExistingAutocompleter('toolbar-header-right')
+            new GridFieldAddNewButton('toolbar-header-left'),
+            new GridFieldAddExistingAutocompleter('toolbar-header-right'),
+            new GridFieldOrderableRows('SortOrder')
         );
-        $SlideGridFieldConfig->addComponent(new GridFieldOrderableRows('SortOrder'));
+        $SlideGridFieldConfig->removeComponentsByType(GridFieldFilterHeader::class);
         $gridField = new GridField('DefaultHeaderSlides', _t('SilverStripe\SiteConfig\SiteConfig.DEFAULTHEADERSLIDES'), $this->owner->DefaultHeaderSlides(), $SlideGridFieldConfig);
         $gridField->setDescription(_t('SilverStripe\SiteConfig\SiteConfig.DEFAULTHEADERSLIDESDESCRIPTION', 'Displayed on Pages without Hero'));
         $fields->addFieldToTab('Root.Main', $gridField, 'GlobalAlert');
@@ -114,51 +110,31 @@ class SiteConfigExtension extends DataExtension
         $SizeField = DropdownField::create('DefaultHeroSize', _t('SilverStripe\SiteConfig\SiteConfig.DEFAULTHEROSIZE', 'Size default slides'), $sizes);
         $fields->addFieldToTab('Root.Main', $SizeField, 'GlobalAlert', true);
 
-
-        $ServiceNavigationGridFieldConfig = GridFieldConfig_Base::create(20);
-        $ServiceNavigationGridFieldConfig->addComponents(
-            new GridFieldEditButton(),
-            new GridFieldDeleteAction(false),
-            new GridFieldDetailForm(),
-            new GridFieldAddNewButton('toolbar-header-right'),
-            new GridFieldOrderableRows('SortOrder')
+        $fields->addFieldsToTab(
+            'Root.Main',
+            [
+                MultiLinkField::create('ServiceNavigationItems', _t('SilverStripe\SiteConfig\SiteConfig.SERVICENAVIGATIONITEMS', 'Service Navigation'))
+                    ->setDescription(_t('SilverStripe\SiteConfig\SiteConfig.ServiceNavigationItemsDescription', 'Links above main navigation in header')),
+                MultiLinkField::create('TermsNavigationItems', _t('SilverStripe\SiteConfig\SiteConfig.TERMSNAVIGATIONITEMS', 'Terms Navigation'))
+                    ->setDescription(_t('SilverStripe\SiteConfig\SiteConfig.TermsNavigationItemsDescription', 'Links footer (AGB, Legal, Imprint etc.)'))
+            ]
         );
-
-        $gridField = new GridField('ServiceNavigationItems', _t('SilverStripe\SiteConfig\SiteConfig.SERVICENAVIGATIONITEMS', 'Service Navigation'), $this->owner->ServiceNavigationItems(), $ServiceNavigationGridFieldConfig);
-
-        $fields->addFieldToTab('Root.Main', $gridField);
-
-
-        $TermsNavigationGridFieldConfig = GridFieldConfig_Base::create(20);
-        $TermsNavigationGridFieldConfig->removeComponentsByType([
-            GridFieldFilterHeader::class
-        ]);
-        $TermsNavigationGridFieldConfig->addComponents(
-            new GridFieldAddExistingAutocompleter('toolbar-header-right'),
-            new GridFieldDeleteAction(true), // this is unlink
-            new GridFieldOrderableRows('SortOrder')
-        );
-
-        $gridField = new GridField('TermsNavigationItems', _t('SilverStripe\SiteConfig\SiteConfig.TERMSNAVIGATIONITEMS', 'Terms (AGB, Legal, Imprint)'), $this->owner->TermsNavigationItems(), $TermsNavigationGridFieldConfig);
-
-        $fields->addFieldToTab('Root.Main', $gridField);
-
 
         $LocationConf = GridFieldConfig_Base::create(20);
+        $LocationConf->removeComponentsByType([
+            GridFieldFilterHeader::class
+        ]);
         $LocationConf->addComponents(
             new GridFieldEditButton(),
             new GridFieldDeleteAction(false),
             new GridFieldDetailForm(),
             new GridFieldOrderableRows('Sort'),
-            new GridFieldAddNewButton('toolbar-header-right')
+            new GridFieldAddNewButton('toolbar-header-left')
         );
 
         $LocationGridField = new GridField('Locations', 'Locations', $this->owner->Locations(), $LocationConf);
+        $LocationGridField->setDescription(_t('SilverStripe\SiteConfig\SiteConfig.SortImpact', 'The "Location" in 1st place is displayed in the footer.'));
         $fields->addFieldToTab('Root.Main', $LocationGridField);
-        $fields->addFieldToTab(
-            'Root.Main',
-            LiteralField::create('SortImpact', '<p>' . _t('SilverStripe\SiteConfig\SiteConfig.SortImpact', 'The "Location" in 1st place is displayed in the footer. For "schema data", all are used.') .'</p>')
-        );
 
 
         $SocialConf = GridFieldConfig_Base::create(20);
@@ -170,7 +146,7 @@ class SiteConfigExtension extends DataExtension
             new GridFieldDeleteAction(false),
             new GridFieldDetailForm(),
             new GridFieldOrderableRows('SortOrder'),
-            new GridFieldAddNewButton('toolbar-header-right')
+            new GridFieldAddNewButton('toolbar-header-left')
         );
 
         $SocialGridField = new GridField('SocialLinks', 'SocialLinks', $this->owner->SocialLinks(), $SocialConf);

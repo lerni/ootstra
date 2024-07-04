@@ -2,9 +2,8 @@
 
 namespace App\Elements;
 
-use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Assets\Image;
-use SilverStripe\ORM\FieldType\DBHTMLText;
+use DNADesign\Elemental\Models\BaseElement;
 
 class ElementTextImage extends BaseElement
 {
@@ -60,7 +59,7 @@ class ElementTextImage extends BaseElement
         }
 
         if ($TextEditor = $fields->dataFieldByName('HTML')) {
-            $TextEditor->getEditorConfig()->setOption('body_class', 'typography '. $this->ShortClassName($this, true) . ' background--' . $this->BackgroundColor);
+            $TextEditor->getEditorConfig()->setOption('body_class', 'typography ' . $this->ShortClassName($this, true) . ' background--' . $this->BackgroundColor);
         }
 
         return $fields;

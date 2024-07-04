@@ -8,18 +8,21 @@ use SilverStripe\Forms\LiteralField;
 use App\Controller\ElementPersoController;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\GridField\GridFieldDetailForm;
+use SilverStripe\Forms\GridField\GridFieldEditButton;
+use SilverStripe\Forms\GridField\GridFieldConfig_Base;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
+use SilverStripe\Forms\GridField\GridFieldFilterHeader;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
-use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
 use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
-
 
 class ElementPerso extends BaseElement
 {
     private static $db = [
         'Primary' => 'Boolean',
-        'Sorting' => 'Enum("random,manual","random")',
+        'GroupByDepartment' => 'Boolean',
+        'Sorting' => 'Enum("random,manual,alphabetically","random")',
     ];
 
     private static $has_one = [];
@@ -27,14 +30,18 @@ class ElementPerso extends BaseElement
     private static $has_many = [];
 
     private static $many_many = [
-        'Departments' => Department::class
+        'Departments' => Department::class,
+        'Persos' => Perso::class
     ];
 
-    // static $many_many_extraFields = [
-    // 	'Departments' => [
-    // 		'SortOrder' => 'Int'
-    // 	]
-    // ];
+    private static $many_many_extraFields = [
+        'Departments' => [
+            'DepartmentsSortOrder' => 'Int'
+        ],
+        'Persos' => [
+            'PersosSortOrder' => 'Int'
+        ]
+    ];
 
     private static $owns = [
         'Departments'
@@ -60,7 +67,14 @@ class ElementPerso extends BaseElement
 
     private static $icon = 'font-icon-block-group';
 
-    function getCMSFields()
+    public function fieldLabels($includerelations = true)
+    {
+        $labels = parent::fieldLabels($includerelations);
+        $labels['GroupByDepartment'] = _t(__CLASS__ . '.GROUPBYDEPARTMENT', 'Group by department');
+        return $labels;
+    }
+
+    public function getCMSFields()
     {
         $fields = parent::getCMSFields();
 
@@ -74,26 +88,55 @@ class ElementPerso extends BaseElement
             $AvailableGloballyField->setDisabled(true);
         }
 
-        $DepGFConfig = GridFieldConfig_RecordEditor::create(20);
-        $DepGFConfig->removeComponentsByType('SilverStripe\Forms\GridField\GridFieldPageCount');
-        $DepGFConfig->removeComponentsByType('SilverStripe\Forms\GridField\GridFieldAddNewButton');
-
         // hack around unsaved relations
         if ($this->isInDB()) {
+            $DepGFConfig = GridFieldConfig_Base::create(20);
             $DepGFConfig->addComponents(
-                new GridFieldDeleteAction(true),
+                new GridFieldEditButton(),
+                new GridFieldDeleteAction(false),
+                new GridFieldDetailForm(),
+                new GridFieldAddNewButton('toolbar-header-left'),
                 new GridFieldAddExistingAutocompleter('toolbar-header-right'),
-                new GridFieldAddNewButton('toolbar-header-right')
+                new GridFieldOrderableRows('DepartmentsSortOrder')
             );
-            $DepGFConfig->addComponent(new GridFieldOrderableRows('Sort'));
+            $DepGFConfig->removeComponentsByType(GridFieldFilterHeader::class);
+            $GFDep = new GridField('Departments', 'Abteilungen', $this->Departments(), $DepGFConfig);
+            $GFDep->setDescription('<p><strong>' . _t(__CLASS__ . '.CanDeleteExplanation', 'Only departments without people can be deleted!') . '</strong></p>');
+            $fields->addFieldToTab('Root.Main', $GFDep);
         } else {
             $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
         }
 
-        $GFDep = new GridField('Departments', 'Abteilungen', $this->Departments(), $DepGFConfig);
-        $fields->addFieldToTab('Root.Main', $GFDep);
+        // hack around unsaved relations
+        if ($this->isInDB()) {
+            $PersoGFConfig = GridFieldConfig_Base::create(100);
+            $PersoGFConfig->addComponents(
+                new GridFieldEditButton(),
+                new GridFieldDeleteAction(false),
+                new GridFieldDeleteAction(true),
+                new GridFieldDetailForm(),
+                new GridFieldAddNewButton('toolbar-header-left'),
+                new GridFieldAddExistingAutocompleter('toolbar-header-right')
+            );
+            if ($this->Sorting == 'manual' && $this->GroupByDepartment == 0) {
+                $PersoGFConfig->addComponent(new GridFieldOrderableRows('PersosSortOrder'));
+            }
+            $PersoGFConfig->removeComponentsByType(GridFieldFilterHeader::class);
+            $GFPerso = new GridField('Persos', _t(__CLASS__ . '.PERSOS', 'Employees'), $this->Everybody(), $PersoGFConfig);
+            $fields->addFieldToTab('Root.Main', $GFPerso);
+        } else {
+            $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
+        }
 
-        $fields->addFieldToTab('Root.Main', LiteralField::create('DescDeleteIfEmptyOnly', '<p><strong>Nur Abteilungen ohne Personen können gelöscht werden!</strong></p>'));
+        if ($GroupByDepartmentField = $fields->dataFieldByName('GroupByDepartment')) {
+            $GroupByDepartmentField->setDescription(_t(__CLASS__ . '.GroupByDepartmentDescription', 'If checked, adjust sorting in department'));
+        }
+
+        if ($SortingField = $fields->dataFieldByName('Sorting')) {
+            if ($this->GroupByDepartment) {
+                $SortingField->setDisabled(true);
+            }
+        }
 
         if ($PrimaryField = $fields->dataFieldByName('Primary')) {
             if (!$this->Primary && $this->ClassName::get()->filter(['Primary' => 1])->count()) {
@@ -115,18 +158,25 @@ class ElementPerso extends BaseElement
 
     public function Everybody()
     {
-        if ($this->Departments()->count()) {
-            $departmentIDs = $this->Departments()->column('ID');
-            // -> distinct() is a bitch
-            $all = Perso::get()
-                ->filter('Departments.ID', $departmentIDs)
-                ->alterDataQuery(
-                    function ($query) {
-                        $query->groupby('"Perso"."ID"');
-                    }
-                );
-            return $all;
+        $all = $this->Persos();
+//         if ($this->Departments()->count() && $this->JustListedDepartments) {
+//             $departmentIDs = $this->Departments()->column('ID');
+//             // -> distinct() is a bitch
+//             $all->filter('Departments.ID', $departmentIDs)
+//                 ->alterDataQuery(function ($query) {
+//                     $query->groupby('"Perso"."ID"');
+//                 });
+//         }
+        if ($this->Sorting == 'random') {
+            $all = $all->shuffle();
         }
+        if ($this->Sorting == 'manual') {
+            $all = $all->sort('PersosSortOrder ASC');
+        }
+        if ($this->Sorting == 'alphabetically') {
+            $all = $all->sort(['Lastname' => 'ASC', 'Firstname' => 'ASC']);
+        }
+        return $all;
     }
 
     // first one should be primary unless selected differently

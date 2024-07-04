@@ -1,8 +1,18 @@
 <% include App/Includes/ElementTitle %>
 <div class="typography">
-	<% if $Document %>
-		<a target="_blank" rel="noopener" class="pdf-download" href="$Document.Link">
-			<img src="$Document.PDFThumbnail(1).FocusFillMax(300,424).URL" srcset="$Document.PDFThumbnail(1).FocusFillMax(300,424).URL 1x, $Document.PDFThumbnail(1).FocusFillMax(600,848).URL 2x" alt="Vorschau Seite 1 $Document.Title - $Document.Caption">
-		</a>
-	<% end_if %>
+<% if $Items %>
+	<% require themedCSS("dist/css/swiper") %>
+	<% require javascript("themes/default/dist/js/swiper.js") %>
+	<div class="swiper-container multiple" id="general-swiper-{$ID}">
+		<div class="swiper-wrapper">
+			<% loop $Items %>
+				<a class="swiper-slide" href="$URL" title="{$Title}" target="_blank">
+					<% with $PDFImage().ScaleMaxWidth(600) %>
+						<img src="$URL" width="$Width()" height="$Height()" alt="{$Title}" />
+					<% end_with %>
+				</a>
+			<% end_loop %>
+		</div>
+	</div>
+<% end_if %>
 </div>

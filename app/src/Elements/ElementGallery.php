@@ -114,7 +114,7 @@ class ElementGallery extends BaseElement
 
     public function FancyGroupRand()
     {
-        return(rand(1,9999));
+        return (rand(1, 9999));
     }
 
     public function getType()

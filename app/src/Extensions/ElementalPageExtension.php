@@ -30,7 +30,7 @@ class ElementalPageExtension extends Extension
                     )
                 );
             }
-            $fields->addFieldToTab('Root.Main', CheckboxField::create('PreventHero', _t('App\Models\ElementPage.PREVENTHERO', 'prevent default Header Slides')), 'ElementalArea');
+            $fields->addFieldToTab('Root.Main', CheckboxField::create('PreventHero', _t('App\Models\ElementPage.PREVENTHERO', 'Do not show default Hero-Slides')), 'ElementalArea');
         }
     }
 

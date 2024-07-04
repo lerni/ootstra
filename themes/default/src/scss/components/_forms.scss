@@ -155,6 +155,9 @@ form {
 					}
 				}
 			}
+			span.description {
+				font-size: $font-size--small;
+			}
 			label,
 			legend {
 				margin-bottom: #{math.div($lh, 4)}em;
@@ -396,8 +399,15 @@ form .file {
 .action:not(.action-detail),
 .action.new-link,
 .btn,
-.btn-large {
+.btn-large,
+button {
 	@include buttonstyle;
 	text-transform: uppercase;
 	line-height: $lh;
+	&.forth {
+		@include arrow-after(#{$white});
+	}
+	&.back {
+		@include arrow-before(#{$white});
+	}
 }

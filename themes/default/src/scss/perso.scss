@@ -18,7 +18,11 @@
 	&,
 	.typography {
 		display: flex;
+		flex-wrap: wrap;
 		width: 100%;
+		> h2 {
+			flex: 0 0 100%;
+		}
 	}
 
 	@mixin mq($min-width, $max-width) {

@@ -54,6 +54,7 @@ fieldset.grid {
 
 .grid-field__title {
 	font-weight: 500;
+	margin-bottom: .7em;
 }
 
 /* Title-Level Field in Elements */

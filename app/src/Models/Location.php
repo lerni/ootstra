@@ -6,6 +6,7 @@ use App\Models\Point;
 use SilverStripe\i18n\i18n;
 use BetterBrief\GoogleMapField;
 use SilverStripe\ORM\DataObject;
+use SilverStripe\Control\Director;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\RequiredFields;
@@ -98,6 +99,33 @@ class Location extends DataObject
         }
 
         return $fields;
+    }
+
+    // this needs "wnx/php-swiss-cantons": "^4", in composer.json
+    // function Canton() {
+    //     $base = Director::baseFolder();
+    //     $zipcodes = json_decode(file_get_contents($base . '/vendor/wnx/php-swiss-cantons/src/data/zipcodes.json'), true);
+    //     $cantons = json_decode(file_get_contents($base . '/vendor/wnx/php-swiss-cantons/src/data/cantons.json'), true);
+
+    //     foreach ($zipcodes as $zipcode) {
+    //         if ($zipcode['city'] == $this->Town) {
+    //             foreach ($cantons as $canton) {
+    //                 if ($canton['abbreviation'] == $zipcode['canton']) {
+    //                     return $canton['name']['de'];
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     return null;
+    // }
+
+    public function CountryCodeUppercase() {
+        return strtoupper($this->Country);
+    }
+
+    public function CountryName() {
+        $countries = i18n::getData()->getCountries();
+        return $countries[$this->Country];
     }
 
     public function getCMSValidator()

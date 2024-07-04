@@ -18,20 +18,6 @@
       }
     },
     {
-      "label": "flush - local",
-      "type": "shell",
-      "command": "ddev php ./vendor/silverstripe/framework/cli-script.php flush",
-      "group": "build",
-      "presentation": {
-        "reveal": "always",
-        "panel": "new",
-        "focus": true
-      },
-      "icon": {
-        "color": "terminal.ansiBlue"
-      }
-    },
-    {
       "label": "flushh (hard) - local",
       "type": "shell",
       "command": "ddev exec \"rm -rf /var/www/html/silverstripe-cache/*\" && php -r 'opcache_reset();'",

@@ -4,14 +4,16 @@ namespace App\Elements;
 
 use App\Models\CountItem;
 use SilverStripe\Forms\LiteralField;
-use SilverStripe\Forms\GridField\GridField;
-use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use DNADesign\Elemental\Models\BaseElement;
-use SilverStripe\Forms\GridField\GridFieldConfig_Base;
-use SilverStripe\Forms\GridField\GridFieldDeleteAction;
+use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
 use SilverStripe\Forms\GridField\GridFieldEditButton;
+use SilverStripe\Forms\GridField\GridFieldConfig_Base;
+use SilverStripe\Forms\GridField\GridFieldAddNewButton;
+use SilverStripe\Forms\GridField\GridFieldDeleteAction;
+use SilverStripe\Forms\GridField\GridFieldFilterHeader;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
+use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
 class ElementCounter extends BaseElement
 {
@@ -51,10 +53,13 @@ class ElementCounter extends BaseElement
             $CountBitsGridFieldConfig->addComponents(
                 new GridFieldEditButton(),
                 new GridFieldDeleteAction(false),
+                new GridFieldDeleteAction(true),
                 new GridFieldDetailForm(),
-                new GridFieldAddNewButton('toolbar-header-right')
+                new GridFieldAddNewButton('toolbar-header-left'),
+                new GridFieldAddExistingAutocompleter('toolbar-header-right'),
+                new GridFieldOrderableRows('SortOrder')
             );
-            $CountBitsGridFieldConfig->addComponent(new GridFieldOrderableRows('SortOrder'));
+            $CountBitsGridFieldConfig->removeComponentsByType(GridFieldFilterHeader::class);
             $GridField = new GridField('CountBits', 'Graphs', $this->CountItems(), $CountBitsGridFieldConfig);
             $fields->addFieldToTab('Root.Main', $GridField);
         } else {

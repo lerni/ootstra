@@ -84,7 +84,3 @@ function resize() {
     map.setZoom($Zoom);
   }
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-  init();
-});

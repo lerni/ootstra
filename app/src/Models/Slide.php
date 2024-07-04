@@ -71,7 +71,6 @@ class Slide extends DataObject
         $fields = parent::getCMSFields();
 
         $fields->removeByName([
-            'Hero',
             'ShowTitle'
         ]);
 

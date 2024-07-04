@@ -80,9 +80,6 @@ body > footer {
 	.social {
 		justify-content: flex-end;
 		margin-bottom: #{math.div($lh, 2)}em;
-		@include breakpoint($Mneg) {
-			justify-content: flex-start;
-		}
 		@include breakpoint($XLneg) {
 			justify-content: flex-start;
 		}

@@ -97,7 +97,7 @@ class FieldExtension extends Extension
                 $NumberProto = $phoneUtil->parse($trimedTel, $schema);
                 // if ($phoneUtil->isValidNumber($numberProto)) {
             } catch (NumberParseException $e) {
-                user_error('Tel Number parse exception ' . $e, E_USER_WARNING);
+                // user_error('Tel Number parse exception ' . $e, E_USER_WARNING);
                 return false;
             }
         }

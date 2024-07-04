@@ -24,6 +24,10 @@ task('silverstripe:create_dotenv', function () {
     $cmsDefaultPass = str_replace("'", "\\'", askHiddenResponse('Please enter the CMS password'));
 
     $contents = <<<ENV
+# APP_GOOGLE_MAPS_KEY=''
+# SS_NOCAPTCHA_SITE_KEY=''
+# SS_NOCAPTCHA_SECRET_KEY=''
+
 # Environment dev/stage/live
 SS_ENVIRONMENT_TYPE='{$type}'
 # SS_BASE_URL=''
@@ -45,17 +49,12 @@ SS_ERROR_LOG='silverstripe.log'
 
 GHOSTSCRIPT_PATH='/usr/bin/gs'
 
-# SS_NOCAPTCHA_SITE_KEY=''
-# SS_NOCAPTCHA_SECRET_KEY=''
 # MAIL_HOST=''
 # MAIL_USERNAME=''
 # MAIL_PASSWORD=''
 
 SCRIPT_FILENAME=''
 
-# APP_GOOGLE_MAPS_KEY=''
-# SS_NOCAPTCHA_SITE_KEY=''
-# SS_NOCAPTCHA_SECRET_KEY=''
 ENV;
 
 // heredoc is a mess with this setup
@@ -285,7 +284,9 @@ function getImportDatabaseCommand($envPath, $source) {
     $createDbArg = "--execute='create database if not exists `'{$databaseArg}'`;'";
     $createDbCmd = "mysql {{mysql_args}} {$usernameArg} {$passwordArg} {$hostArg} {$createDbArg}";
 
-    $importDbCmd = "gunzip < {$source} | mysql {{mysql_args}} {$usernameArg} {$passwordArg} {$hostArg} {$databaseArg}";
+    // https://gorannikolovski.com/blog/mariadb-import-issue-error-at-line-1-unknown-command
+    // $importDbCmd = "gunzip < {$source} | mysql {{mysql_args}} {$usernameArg} {$passwordArg} {$hostArg} {$databaseArg}";
+    $importDbCmd = "gunzip < {$source} | mysql {{mysql_args}} {$usernameArg} {$passwordArg} {$hostArg} {$databaseArg} --force";
 
     return "{$loadEnvCmd} && {$createDbCmd} && {$importDbCmd}";
 }

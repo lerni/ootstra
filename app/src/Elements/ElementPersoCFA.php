@@ -7,12 +7,13 @@ use App\Elements\ElementPerso;
 use SilverStripe\Forms\LiteralField;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Forms\GridField\GridField;
-use SilverStripe\Forms\GridField\GridFieldPageCount;
-use SilverStripe\Forms\GridField\GridFieldPaginator;
+use SilverStripe\Forms\GridField\GridFieldDetailForm;
+use SilverStripe\Forms\GridField\GridFieldEditButton;
+use SilverStripe\Forms\GridField\GridFieldConfig_Base;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
+use SilverStripe\Forms\GridField\GridFieldFilterHeader;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
-use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
 use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
 class ElementPersoCFA extends BaseElement
@@ -75,23 +76,20 @@ class ElementPersoCFA extends BaseElement
 
         // hack around unsaved relations
         if ($this->isInDB()) {
-            $PersoGFConfig = GridFieldConfig_RecordEditor::create(20);
-            $PersoGFConfig->removeComponentsByType(GridFieldPageCount::class);
-            $PersoGFConfig->removeComponentsByType(GridFieldAddNewButton::class);
-
+            $PersoGFConfig = GridFieldConfig_Base::create(100);
             $PersoGFConfig->addComponents(
+                new GridFieldEditButton(),
                 new GridFieldDeleteAction(true),
-                new GridFieldAddNewButton('toolbar-header-right')
-            );
-
-            $PersoGFConfig->addComponents(
-                new GridFieldOrderableRows('SortOrder'),
+                new GridFieldDetailForm(),
+                new GridFieldAddNewButton('toolbar-header-left'),
                 new GridFieldAddExistingAutocompleter('toolbar-header-right')
             );
-            $PersoGFConfig->getComponentByType(GridFieldPaginator::class)->setItemsPerPage(100);
-
+            if ($this->Sorting == 'manual') {
+                $PersoGFConfig->addComponent(new GridFieldOrderableRows('SortOrder'));
+            }
+            $PersoGFConfig->removeComponentsByType(GridFieldFilterHeader::class);
             $GFPerso = new GridField('Persos', _t(__CLASS__ . '.PERSOS', 'Employees'), $this->Persos(), $PersoGFConfig);
-            $fields->push($GFPerso);
+            $fields->addFieldToTab('Root.Main', $GFPerso);
         } else {
             $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
         }
@@ -126,7 +124,8 @@ class ElementPersoCFA extends BaseElement
         return _t(__CLASS__ . '.BlockType', 'Contact (CFA)');
     }
 
-    public function PrimaryElementPersoController() {
+    public function PrimaryElementPersoController()
+    {
         $elementPerso = ElementPerso::get()->filter(['Primary' => 1])->first();
         if ($elementPerso) {
             return $elementPerso->getController();

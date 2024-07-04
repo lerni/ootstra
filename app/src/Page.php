@@ -46,7 +46,7 @@ class Page extends SiteTree
 
             if ($TextEditor = $fields->dataFieldByName('Content')) {
                 $TextEditor->setRows(30);
-                $TextEditor->getEditorConfig()->setOption('body_class', 'typography ' . $this->ShortClassName($this, 'true'));
+                $TextEditor->getEditorConfig()->setOption('body_class', 'typography ' . $this->ShortClassName($this, true));
             }
         });
 
@@ -175,16 +175,13 @@ class Page extends SiteTree
     {
         $i = null;
 
-        if ($this->ImagesForSitemap() && $this->ImagesForSitemap()->count()) {
+        // OGImageCustom
+        if ($this->hasExtension(ShareCareFields::class) && $this->OGImageCustom->exists()) {
+            $i = $this->OGImageCustom;
+        // first image in page that is indexed
+        } elseif ($this->ImagesForSitemap() && $this->ImagesForSitemap()->count()) {
             if ($this->ImagesForSitemap()->first()->exists()) {
                 $i = $this->ImagesForSitemap()->first();
-            }
-        }
-
-        // OGImageCustom
-        if ($this->hasExtension(ShareCareFields::class)) {
-            if ($this->OGImageCustom->exists()) {
-                $i = $this->OGImageCustom;
             }
         }
 
@@ -287,7 +284,7 @@ class Page extends SiteTree
         return SiteTree::get()->filter('URLSegment', $defaultHomepage)->first();
     }
 
-    // overwriting this form GoogleSitemapSiteTreeExtension,
+    // overwriting from GoogleSitemapSiteTreeExtension,
     // since we do not want to get related pics in automatically
     public function ImagesForSitemap()
     {
@@ -324,6 +321,20 @@ class Page extends SiteTree
         }
         if ($siteMapImages->count()) {
             return $siteMapImages->removeDuplicates('ID');
+        }
+    }
+
+    public function IsPreview()
+    {
+        if (!Controller::has_curr()) {
+            return;
+        }
+        $controller = Controller::curr();
+        $request = $controller->getRequest();
+        if ($request->getVar('CMSPreview')) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

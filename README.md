@@ -3,7 +3,7 @@
 
 # Setup, Requirements & install
 
-"ootstra" is inspired from [Bigfork’s quickstart recipe](https://github.com/bigfork/silverstripe-recipe) for [Silverstripe](https://www.silverstripe.org/). It's an opinionated set of tools for a ready to run, build & deploy CMS instance. To get it up and running you'll need [GIT](https://git-scm.com/), an editor like [VSCode](https://code.visualstudio.com/) (recommended) & [ddev](https://ddev.readthedocs.io/en/stable/). It utilizes [dnadesign/silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) for a block/element based CMS experience and comes with the following set of elements:
+"ootstra" is inspired from [Bigfork’s quickstart recipe](https://github.com/bigfork/silverstripe-recipe) for [Silverstripe](https://www.silverstripe.org/). It's an opinionated set of tools for a ready to run, build & deploy a CMS instance. To get it up and running you'll need [GIT](https://git-scm.com/), an editor like [VSCode](https://code.visualstudio.com/) (recommended) & [ddev](https://ddev.readthedocs.io/en/stable/). It utilizes [dnadesign/silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) for a block/element based CMS experience and comes with the following set of elements:
 
 - ElementContent
 - ElementForm               (userforms)
@@ -26,7 +26,7 @@ Optional, separate modules/elements:
 - lerni/simplebasket (privat), Google Shoppingfeed with local Inventory, swissQR bill and CAMT payment reconciliation or Datatrans Payments
 
 Other features:
-- [DSGVO GDPR ready, Cookie Consent with klaro!](https://github.com/lerni/klaro-cookie-consent)
+- [DSGVO, GDPR, nDSG ready, Cookie Consent with klaro!](https://github.com/lerni/klaro-cookie-consent)
 - Multilingual ready in minutes with [fluent](https://github.com/tractorcow-farm/silverstripe-fluent)
 - Elemental based [Blog](https://github.com/silverstripe/silverstripe-blog)
 - [schema.org](https://schema.org/) integration with [spatie/schema-org](https://github.com/spatie/schema-org)
@@ -59,7 +59,7 @@ On the first Request database structure 'll automatically be generated - it runs
     i18n::set_locale('de_CH');
 ```
 ### ddev/Docker dev-env
-If the project is renamed, reflect this in `.ddev/config.yaml` and rerun `ddev config` - same as foldername is recommended because of `${workspaceFolderBasename}` in `.vscode/launch.json`. Run `ddev start` & `ddev composer i` in the project directory. This provides a webserver at [https://ootstra.ddev.site](https://ootstra.ddev.site), with watcher/browsersync at [https://ootstra.ddev.site:3000/](https://ootstra.ddev.site:3000/), phpMyAdmin at [https://ootstra.ddev.site:8037](https://ootstra.ddev.site:8037), and Mailpit at [https://ootstra.ddev.site:8026/](https://ootstra.ddev.site:8026/). The default login at [/admin](https://ootstra.ddev.site/admin) is `admin` & `password`.
+When renaming the project/folder, reflect this in `.ddev/config.yaml` and (re)run `ddev config` - same name in DDEV-config as the foldername is recommended, because of `${workspaceFolderBasename}` in `.vscode/launch.json`. Run `ddev start` & `ddev composer i` in the project directory. This provides a webserver at [https://ootstra.ddev.site](https://ootstra.ddev.site), with watcher/browsersync at [https://ootstra.ddev.site:3000/](https://ootstra.ddev.site:3000/), phpMyAdmin at [https://ootstra.ddev.site:8037](https://ootstra.ddev.site:8037), and Mailpit at [https://ootstra.ddev.site:8026/](https://ootstra.ddev.site:8026/). Default login at [/admin](https://ootstra.ddev.site/admin) is `admin` & `password`.
 
 <!-- ### ddev-ssh-agent
 This setup omits `ddev-ssh-agent` and exposes `SSH_AUTH_SOCK` via environment variable and mounting per `RUN --mount=type=ssh` into the web container. To use certain files or whole directories from your hosts home directory (e.g., `~/.composer`, `~/.gitconfig`, `~/.ssh`) in ddev, create symlinks in `~/.ddev/homeadditions` in order to use your local SSH keys. For more information, refer to the [ddev documentation](https://ddev.readthedocs.io/en/stable/users/extend/in-container-configuration/). Note the path of `/home/.ssh-agent/known_hosts`. A separate/copied `~/.ddev/homeadditions/.ssh/config` as bellow seems to properly locate ssh-config.
@@ -78,14 +78,12 @@ There are a bunch of tasks in `.vscode/tasks.json` available per `Command+Shift+
 - `ddev restart` (magenta)
 - `composer update` (magenta)
 - `composer vendor-expose` (blue)
-- `ddev logs` (magenta)
+- `ddev log web` (magenta)
 - `ddev theme install` (green)
 - `ddev theme watch` (green)
 - `ddev theme prod` (green)
-- `flush` (blue)
 - `flushh` (blue - flush hard) instead of `ddev exec rm -rf ./silverstripe-cache/*`
 - `dev/build` (blue) instead of `ddev php ./vendor/silverstripe/framework/cli-script.php dev/build flush`
-- `dev/build` (cyan) `dev/build flush on test / live`
 - `download database from live` (cyan)
 - `download assets from live` (cyan)
 - `ssh test / live` (cyan)
@@ -99,10 +97,10 @@ Colors group tasks like:
 - green: local npm
 - cyan: remote server
 
-Database, credentials etc. are provided per environment Variables (`/.env` file).
+Database, credentials etc. are provided as environment-variables from `.ddev/config.yaml` and populated in `/.env` during DDEV-start. Project specific env-vars should be set in `/.env` and therefor won't land in GIT! 
 
 ## PHP Version
-Current used PHP-Version is 8.2. It's set in following places:
+Current used PHP-Version is 8.3. It's set in following places:
 - `.ddev/config.yaml`
 - `deploy/config.php`
 - `public/.htaccess` -> watch out if you maintain stage specific versions in `deploy/`
@@ -113,7 +111,7 @@ Don't forget to `ddev restart` and update packages `ddev composer u` after chang
 
 # Hosting & Deployment
 
-Deployment is based on [Deployer](https://deployer.org/), a php based cli-tool, which is included as dev-requirement per `composer.json`. It uses symlinks to the current release. It's easy to use, offers zero downtime deployments and rollback. `/assets`, `.env` are shared resources, this means they are symlinked into each release-folder. On the remote server you'll need [SSH](https://de.wikipedia.org/wiki/Secure_Shell) & git, composer, same php-version on CLI as httpd, ln, readlink, realpath, rsync, sed, & xargs.
+Deployment is based on [Deployer](https://deployer.org/), a php based cli-tool, which is included as dev-requirement per `composer.json`. It uses symlinks to the current release. It's easy to use, offers zero downtime deployments and rollback. `/assets`, `.env` are shared resources, this means they are symlinked into each release-folder. On the remote server you'll need [SSH](https://de.wikipedia.org/wiki/Secure_Shell) & git, composer, same php-version on CLI as httpd, ln, readlink, realpath, rsync, sed & xargs.
 
 ```
 ~/public_html/0live     or ~/public_html/0test
@@ -148,11 +146,11 @@ You need to [add your public key on the remote server](https://www.google.com/se
 
 ## Configuration
 
-Rename `config.example.php` to `deploy/config.php` and configure things to your needs. Usually `.htaccess` in public comes from the repo but if needed, it can be overwritten with a stage specific version. Just create `./deploy/test.htaccess` or `./deploy/live.htaccess`, which than 'll overwrite `public/.htaccess` from the repo during deployment according to the stage in use.
+Rename `config.example.php` to `deploy/config.php` and configure things to your needs. Usually `.htaccess` in public comes from the repo but if needed, it can be overwritten with a stage specific version. Just create `./deploy/test.htaccess` or `./deploy/live.htaccess`, which than 'll overwrite `public/.htaccess` during deployment according to the stage in use.
 
 # Deploy
 
-The setup uses key-forwarding, so deployment can be done from inside the ddev-web container. Before first deployment ssh into remote servers like `ddev php ./vendor/bin/dep ssh test` or `ddev php ./vendor/bin/dep ssh live` and make sure ssh-fingerprint from the git repo is accepted. You may just do a git clone into a test directory to verify things work as expected. If so, deployment is done like:
+The setup uses key-forwarding, so deployment can be done from inside ddev-web container. Before first deployment ssh into remote servers like `ddev php ./vendor/bin/dep ssh test` or `ddev php ./vendor/bin/dep ssh live` and make sure ssh-fingerprint from the git repo is accepted. You may just do a git clone into a test directory to verify things work as expected. If so, deployment is done like:
 ```bash
     ddev php ./vendor/bin/dep deploy test
 ```
@@ -167,6 +165,10 @@ The first time you deploy to a given stage, you’ll be asked to provide databas
 ```
 # For a complete list of core environment variables see
 # https://docs.silverstripe.org/en/4/getting_started/environment_management/#core-environment-variables
+
+# APP_GOOGLE_MAPS_KEY=''
+# SS_NOCAPTCHA_SITE_KEY=''
+# SS_NOCAPTCHA_SECRET_KEY=''
 
 # Environment dev/stage/live
 SS_ENVIRONMENT_TYPE='dev'
@@ -189,21 +191,9 @@ SS_DATABASE_PORT='3306'
 
 SS_ERROR_LOG='silverstripe.log'
 
-MAIL_MAILER=smtp
-MAIL_HOST=localhost
-MAIL_PORT=1025
-MAIL_USERNAME=null
-MAIL_PASSWORD=null
-MAIL_ENCRYPTION=null
-MAILER_DSN='smtp://localhost:1025'
-
 GHOSTSCRIPT_PATH='/usr/bin/gs'
 
 SCRIPT_FILENAME=''
-
-# APP_GOOGLE_MAPS_KEY=''
-# SS_NOCAPTCHA_SITE_KEY=''
-# SS_NOCAPTCHA_SECRET_KEY=''
 ```
 See also:
 
