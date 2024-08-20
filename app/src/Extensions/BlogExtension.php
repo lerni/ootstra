@@ -10,6 +10,7 @@ use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\Control\Controller;
 use SilverStripe\Forms\LiteralField;
+use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\Forms\GridField\GridField;
@@ -26,7 +27,8 @@ use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 class BlogExtension extends DataExtension
 {
     private static $db = [
-        'HeroSize' => 'Enum("small,medium,fullscreen")'
+        'HeroSize' => 'Enum("small,medium,fullscreen")',
+        'PreventHero' => 'Boolean'
     ];
 
     private static $many_many = [
@@ -84,6 +86,8 @@ class BlogExtension extends DataExtension
                 $SizeField = DropdownField::create('HeroSize', _t('App\Elements\ElementHero.HEROSIZE', 'Size/Height Header'), $sizes);
                 $SizeField->setDescription(_t('App\Elements\ElementHero.SizeDescription', '"fullscreen" requires "full width"!'));
                 $fields->addFieldToTab('Root.Main', $SizeField, 'Content', true);
+            } else {
+                $fields->addFieldToTab('Root.Main', CheckboxField::create('PreventHero', _t('App\Models\ElementPage.PREVENTHERO', 'Do not show default Hero-Slides')), 'Content');
             }
 
         } else {

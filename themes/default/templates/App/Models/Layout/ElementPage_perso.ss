@@ -10,7 +10,7 @@
 					<div id="$Anchor" class="perso">
 						<figure>
 							<% if $Portrait %>
-								<img loading="lazy" height="$Portrait.FocusFillMax(400,480).Height()" width="$Portrait.FocusFillMax(400,480).Width()" src="$Portrait.FocusFillMax(400,480).URL" srcset="$Portrait.FocusFillMax(400,480).URL 1x, $Portrait.FocusFillMax(800,960).URL 2x" alt="{$Firstname} {$Lastname}" />
+								<img loading="lazy" height="$Portrait.FocusFillMax(400,480).Height()" width="$Portrait.FocusFillMax(400,480).Width()" src="$Portrait.FocusFillMax(400,480).WebP.URL" srcset="$Portrait.FocusFillMax(400,480).WebP.URL 1x, $Portrait.FocusFillMax(800,960).WebP.URL 2x" alt="{$Firstname} {$Lastname}" />
 							<% else %>
 								<img  class="default" src="$resourceURL('themes/default/dist/images/svg/perso-defalut.svg')" alt="" />
 							<% end_if %>

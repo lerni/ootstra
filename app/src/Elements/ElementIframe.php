@@ -37,6 +37,6 @@ class ElementIframe extends BaseElement
 
     public function getType()
     {
-        return _t(__CLASS__ . '.BlockType', 'iFrame');
+        return _t(__CLASS__ . '.BlockType', 'Embed / iFrame');
     }
 }

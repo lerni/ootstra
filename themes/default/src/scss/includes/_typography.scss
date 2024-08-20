@@ -3,7 +3,7 @@
 @use "sass:math";
 @import "~breakpoint-sass/stylesheets/breakpoint";
 @import "mixins";
-// @import 'documents';
+// @import "documents";
 
 /* Typography
 ---------------------------------------------------------------------------------- */
@@ -127,10 +127,10 @@
 		@include bold;
 	}
 	h1 {
-		font-size: 1.6em;
+		font-size: clamp(1.4em, 5vw, 1.6em);
 	}
 	h2 {
-		font-size: 1.41em;
+		font-size: clamp(1.2em, 4vw, 1.41em);
 	}
 	h3 {
 		font-size: 1em;
@@ -320,30 +320,17 @@
 			background-color: $current-color;
 		}
 	}
-	// .marker {
-	// 	&::before {
-	// 		content: "";
-	// 		display: inline-block;
-	// 		width: 1.6em;
-	// 		height: #{$lh * 2}em;
-	// 		$color: $link-color;
-	// 		background-repeat: no-repeat;
-	// 		background-size: 1.4em auto;
-	// 		background-position: center bottom;
-	// 		background-image: svg-load("../images/svg/marker.svg");
-	// 	}
-	// }
-	// .boxed {
-	// 	background-color: $gray--lighter;
-	// 	padding: #{$lh * 1}em #{$lh * 2}em #{$lh * 1.1}em #{$lh * 2}em;
-	// 	margin: 0 0 #{$lh}em 0;
-	// 	@include breakpoint($Mneg) {
-	// 		padding: #{$lh}em #{math.div($lh, 2)}em;
-	// 	}
-	// 	> *:last-child {
-	// 		margin-bottom: 0;
-	// 	}
-	// }
+	.boxed {
+		background-color: $gray--lighter;
+		padding: #{$lh * 1}em #{$lh * 2}em #{$lh * 1.1}em;
+		margin: 0 0 #{$lh}em 0;
+		@include breakpoint($Mneg) {
+			padding: #{$lh}em #{math.div($lh, 2)}em;
+		}
+		> *:last-child {
+			margin-bottom: 0;
+		}
+	}
 	.small {
 		font-size: $font-size--small;
 	}
@@ -355,7 +342,7 @@
 		display: inline-block;
 		height: 1em;
 		width: 1em;
-		margin: 0.1em 0.4em -0.1em 0;
+		margin: 0.24em 0.4em 0 0;
 	}
 }
 // placeholder feather-icons icons

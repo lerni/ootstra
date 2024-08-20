@@ -3,6 +3,7 @@
 namespace App\Elements;
 
 use App\Models\ElementPage;
+use SilverStripe\TagField\TagField;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Control\Controller;
 use SilverStripe\Core\Config\Config;
@@ -16,12 +17,8 @@ use SilverStripe\Versioned\GridFieldArchiveAction;
 use SilverStripe\Forms\GridField\GridFieldPageCount;
 use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
-use SilverStripe\Forms\GridField\GridFieldDeleteAction;
 use SilverStripe\Forms\GridField\GridFieldFilterHeader;
-use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
-use SilverStripe\Blog\Admin\GridFieldCategorisationConfig;
 use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
-use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
 
 class ElementFeedTeaser extends BaseElement
@@ -73,8 +70,7 @@ class ElementFeedTeaser extends BaseElement
 
         $fields->removeByName([
             'FeedTeaserParents',
-            'Categories',
-            'WidthReduced'
+            'Categories'
         ]);
 
         $fields->addFieldToTab('Root.Main', LiteralField::create('How', '
@@ -99,37 +95,14 @@ class ElementFeedTeaser extends BaseElement
             $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
         }
 
-        $CatGFConfig = GridFieldCategorisationConfig::create(
-            15,
-            $this->Categories()->sort('MMSortOrder'),
-            BlogCategory::class,
+        $CategoryField = TagField::create(
             'Categories',
-            'BlogPosts'
+            _t('SilverStripe\Blog\Model\Blog.Categories', 'Categories'),
+            BlogCategory::get(),
+            $this->Categories()
         );
 
-        $CatGFConfig->removeComponentsByType([
-            GridFieldDeleteAction::class,
-            GridFieldEditButton::class
-        ]);
-
-        $CatGFConfig->addComponents([
-            new GridFieldAddExistingAutocompleter('toolbar-header-right'),
-            new GridFieldDeleteAction(true)
-        ]);
-
-        // hack around unsaved relations
-        if ($this->isInDB()) {
-            $CatGFConfig->addComponent(new GridFieldOrderableRows('MMSortOrder'));
-        }
-
-        $categories = GridField::create(
-            'Categories',
-            _t('SilverStripe\Blog\Model\BlogPost.Categories', 'Categories'),
-            $this->Categories(),
-            $CatGFConfig
-        );
-
-        $fields->addFieldToTab('Root.' . _t('SilverStripe\Blog\Model\BlogPost.Categories', 'Categories'), $categories);
+        $fields->addFieldToTab('Root.Main', $CategoryField);
 
         return $fields;
     }
@@ -152,8 +125,13 @@ class ElementFeedTeaser extends BaseElement
                 $childrens = ElementPage::get()->filter('ParentID', $parentIDs);
             }
 
-            if ($filter = $this->getURLCategoryFilter()) {
-                $childrens = $childrens->filterAny('Categories.URLSegment', $filter);
+            if ($this->Categories()->Count()) {
+                $filter = $this->Categories()->Column('URLSegment');
+                if ($this->FeedTeaserParents()->first()->ClassName == 'SilverStripe\Blog\Model\Blog') {
+                    $childrens = $childrens->filterAny('Categories.URLSegment', $filter);
+                } else {
+                    $childrens = $childrens->filterAny('PageCategories.URLSegment', $filter);
+                }
             }
 
             if ($this->CountMax && $childrens->count()) {
@@ -212,6 +190,29 @@ class ElementFeedTeaser extends BaseElement
 
             return $tagsValid;
         }
+    }
+
+    public function ChildTitleLevel()
+    {
+        $l = (int)$this->TitleLevel;
+        $l++;
+        return 'h' . $l;
+    }
+
+    public function FeedTeaserParentsWithCategory()
+    {
+        $parents = $this->FeedTeaserParents();
+        $categories = $this->Categories();
+        $link = $parents->first()->AbsoluteLink();
+        // remove possible stage parameter
+        $parsedUrl = parse_url($link);
+        $link = $parsedUrl['scheme'] . '://' . $parsedUrl['host'] . $parsedUrl['path'];
+        if ($parents->count() &&
+            $parents->first()->ClassName == 'SilverStripe\Blog\Model\Blog' &&
+            $categories->count() == 1) {
+            $link .= '/category/' . $categories->first()->URLSegment;
+        }
+        return $link;
     }
 
     // protected function provideBlockSchema()

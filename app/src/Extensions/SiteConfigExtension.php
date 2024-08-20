@@ -34,7 +34,8 @@ class SiteConfigExtension extends DataExtension
         'legalName' => 'Varchar',
         'foundingDate' => DBDate::class,
         'GlobalAlert' => 'HTMLText',
-        'DefaultHeroSize' => 'Enum("small,medium","small")'
+        'DefaultHeroSize' => 'Enum("small,medium","small")',
+        'SchemaType' => "Enum(['Organization', 'LocalBusiness', 'NGO', 'EducationalOrganization', 'NewsMediaOrganization', 'Corporation'], 'Organization')"
     ];
 
     private static $has_one = [];
@@ -80,6 +81,8 @@ class SiteConfigExtension extends DataExtension
 
         $fields->addFieldToTab('Root.Main', $legalNameField = TextField::create('legalName', _t('SilverStripe\SiteConfig\SiteConfig.LEGALNAME', 'Official name (legal)')));
         $fields->addFieldToTab('Root.Main', $foundingDateField = DateField::create('foundingDate', _t('SilverStripe\SiteConfig\SiteConfig.FOUNDINGDATE', 'Date of foundation'))->setHTML5(true));
+        $schemaTypes = singleton(SiteConfig::class)->dbObject('SchemaType')->enumValues();
+        $fields->addFieldToTab('Root.Main',$schmeTypeField = DropdownField::create('SchemaType', _t('SilverStripe\SiteConfig\SiteConfig.SCHEMATYPE', 'Schema Type'), $schemaTypes));
 
         $fields->addFieldToTab('Root.Main', HeaderField::create('MetaData', 'Meta Daten'));
         $fields->addFieldToTab('Root.Main', $MetaDescriptionField = TextAreaField::create('MetaDescription', _t('SilverStripe\SiteConfig\SiteConfig.METADESCRIPTION', 'Meta Description')));

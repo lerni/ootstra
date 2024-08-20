@@ -90,7 +90,7 @@ class PDFImageExtension extends Extension
                 }
 
                 $backend = Injector::inst()->create(Image_Backend::class);
-                // TODO: It looks we need to set width and height here - at otherwise FocusFillMax errors while FillMax works
+                // Images/variants do not have a focuspoint!
                 $backend->loadFrom($tmp_filename);
                 $config = ['conflict' => AssetStore::CONFLICT_USE_EXISTING];
                 $tuple = $backend->writeToStore($store, $filename, $hash, $variant, $config);

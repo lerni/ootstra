@@ -17,7 +17,7 @@
 				<% loop $SiteConfig.TermsNavigationItems %>
 					<a class="{$Page.LinkingMode}" href="{$URL}"<% if $OpenInNew %> target="_blank" rel="noopener noreferrer"<% end_if %>>$Title</a>
 				<% end_loop %>
-				<% if $SiteConfig.CookieIsActive %><a href="#klaro" onClick="klaro.show();return false;"><%t Kraftausdruck\KlaroCookie.ConsentNoticeTitle "Cookie settings" %></a><% end_if %>
+				<% if $SiteConfig.CookieIsActive %><a href="#klaro" onClick="klaro.show();return false;">{$SiteConfig.ConsentNoticeTitle}</a><% end_if %>
 			</nav>
 		</div>
 		<div class="column social">

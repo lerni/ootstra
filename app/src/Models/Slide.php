@@ -9,8 +9,6 @@ use SilverStripe\Forms\FieldGroup;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Forms\RequiredFields;
 use SilverStripe\Forms\TreeDropdownField;
-use nathancox\EmbedField\Forms\EmbedField;
-use nathancox\EmbedField\Model\EmbedObject;
 use SilverStripe\Versioned\GridFieldArchiveAction;
 use DNADesign\Elemental\Forms\TextCheckboxGroupField;
 use SilverStripe\Forms\GridField\GridFieldDataColumns;
@@ -32,8 +30,7 @@ class Slide extends DataObject
 
     private static $has_one = [
         'SlideImage' => Image::class,
-        'Link' => SiteTree::class,
-        'EmbedVideo' => EmbedObject::class
+        'Link' => SiteTree::class
     ];
 
     private static $belongs_many_many = [
@@ -103,8 +100,6 @@ class Slide extends DataObject
             $SlideBildField->setDescription(_t(__CLASS__ . '.SlideImageDescription', 'small 4:1 // medium 16:9 // fullscreen 8:5 / 5:8 / 4:3 depending on client screensize (use focuspoint!)'));
         }
 
-        $fields->addFieldToTab('Root.Main', EmbedField::create('EmbedVideoID', 'Embed Video'));
-
         if ($this->isInDB() && $this->Hero()->count() > 1) {
             $fields
                 ->fieldByName('Root.Hero.Hero')
@@ -131,7 +126,7 @@ class Slide extends DataObject
             $fields->removeByName(['Hero']);
             $fields->addFieldsToTab('Root.Main', $usedGF);
         } else {
-            $fields->removeByName(['Main.Hero']);
+            $fields->removeByName(['Hero']);
         }
 
         return $fields;

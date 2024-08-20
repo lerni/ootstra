@@ -9,7 +9,6 @@ use SilverStripe\Core\Extension;
 use SilverStripe\View\ArrayData;
 use libphonenumber\PhoneNumberUtil;
 use libphonenumber\PhoneNumberFormat;
-use SilverStripe\SiteConfig\SiteConfig;
 use libphonenumber\NumberParseException;
 use nathancox\EmbedField\Model\EmbedObject;
 use SilverStripe\View\Parsers\URLSegmentFilter;
@@ -143,7 +142,7 @@ class FieldExtension extends Extension
 
             $url_parts = parse_url($iFrameSrc);
 
-            // parm trimming form youtube embeds
+            // parm trimming youtube embeds
             if (str_contains($iFrameSrc, 'youtube')) {
                 if (isset($url_parts['query'])) {
                     parse_str($url_parts['query'], $params);

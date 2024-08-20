@@ -58,7 +58,7 @@ Array.prototype.forEach.call(heroSwiper, function (slider) {
 // });
 
 var multipleSwiper = document.querySelectorAll(
-  ".swiper-container.teaser, .swiper-container.multiple"
+  ".swiper-container.teaser, .swiper-container.multiple, .swiper-container.perso-cfa"
 );
 Array.prototype.forEach.call(multipleSwiper, function (slider) {
   var sliderID = slider.getAttribute("id");

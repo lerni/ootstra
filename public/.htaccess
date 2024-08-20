@@ -592,9 +592,10 @@ AddDefaultCharset utf-8
 # | some font licences require something like this                     |
 # ----------------------------------------------------------------------
 # RewriteCond %{HTTP_HOST} ^(.+)$
-# SetEnvIfNoCase Referer "^https?://([^/]*)?%1/" local_ref=1
+# RewriteRule ^ - [E=MY_HOST:%1]
+# SetEnvIfNoCase Referer "^https?://([^/]*)?%{ENV:MY_HOST}/" local_ref=1
 # SetEnvIf Referer ^$ local_ref=1
-# <FilesMatch "\.(eot|svg|ttf|woff)$">
+# <FilesMatch "\.(eot|ttf|woff|woff2)$">
 #   Order Allow,Deny
 #   Allow from env=local_ref
 # </FilesMatch>

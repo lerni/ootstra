@@ -62,8 +62,7 @@ class ElementGallery extends BaseElement
         $fields = parent::getCMSFields();
 
         $fields->removeByName([
-            'GalleryFolder',
-            'WidthReduced'
+            'GalleryFolder'
         ]);
 
         $fields->addFieldToTab('Root.Main', HeaderField::create('OneOrTheOther', _t(__CLASS__ . '.OneOrTheOther', 'Choose pictures by folder (all included) or pick & sort individually')));

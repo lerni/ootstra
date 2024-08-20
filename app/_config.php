@@ -6,6 +6,7 @@ use SilverStripe\Core\Environment;
 use SilverStripe\Control\Email\Email;
 use Wilr\GoogleSitemaps\GoogleSitemap;
 use App\Utility\LocationShortCodeProvider;
+use SilverStripe\Core\Manifest\ModuleLoader;
 use SilverStripe\View\Parsers\ShortcodeParser;
 use SilverStripe\View\Parsers\URLSegmentFilter;
 use SilverStripe\Forms\HTMLEditor\TinyMCEConfig;
@@ -28,6 +29,13 @@ $styles = [
         // Wrap selected content in a div with class of .split-2
         'title' => '2 Spalten (auto-flow)',
         'attributes' => ['class' => 'split-2'],
+        'block' => 'div',
+        'wrapper' => 1
+    ],
+    [
+        // Wrap selected content in a div with class of .boxed
+        'title' => 'Box',
+        'attributes' => ['class' => 'boxed'],
         'block' => 'div',
         'wrapper' => 1
     ],
@@ -83,20 +91,20 @@ $styles = [
     ]
 ];
 
-$EditorConfig = TinyMCEConfig::get('cms');
-
-$EditorConfig->enablePlugins([
+$module = ModuleLoader::inst()->getManifest()->getModule('silverstripe/admin');
+$tinyPlugins = [
     'image' => null,
     'anchor' => null,
-    'sslinkanchor' => null,
-    'sslink',
-    'sslinkinternal',
+    'sslink' => $module->getResource('client/dist/js/TinyMCE_sslink.js'),
+    'sslinkexternal' => $module->getResource('client/dist/js/TinyMCE_sslink-external.js'),
+    'sslinkemail' => $module->getResource('client/dist/js/TinyMCE_sslink-email.js'),
     'emoticons',
     'charmap',
     // 'definitionlists' => ModuleResourceLoader::resourceURL('app/thirdparty/tinymce-definitionlist-master/definitionlist/plugin.js') // needs Buttons: ToggleDefinitionList ToggleDefinitionItem
-]);
+];
+$EditorConfig = TinyMCEConfig::get('cms');
+$EditorConfig->enablePlugins($tinyPlugins);
 $EditorConfig->disablePlugins(['importcss']);
-
 $editorOptions = [
     'style_formats' => $styles,
     'block_formats' => 'Paragraph=p;Heading 1=h1;Heading 2=h2;Heading 3=h3; Heading 4=h4',
@@ -110,9 +118,8 @@ $editorOptions = [
 $EditorConfig->setOptions($editorOptions);
 
 // $EditorConfig->setButtonsForLine(1, ['blocks styles pastetext ssmedia ssembed | bold bullist numlist ToggleDefinitionList ToggleDefinitionItem | alignleft aligncenter alignright alignjustify | sslink unlink anchor | emoticons charmap blockquote hr code removeformat visualblocks | outdent indent | undo redo | subscript superscript']);
-$EditorConfig->setButtonsForLine(1, ['blocks styles pastetext ssmedia ssembed | bold bullist numlist | alignleft aligncenter alignright alignjustify | outdent indent | sslink unlink anchor | emoticons charmap blockquote hr code removeformat visualblocks | undo redo']);
+$EditorConfig->setButtonsForLine(1, ['blocks styles pastetext ssmedia ssembed | bold bullist numlist | alignleft aligncenter alignright alignjustify | outdent indent | sslink anchor | emoticons charmap blockquote hr code removeformat visualblocks | undo redo']);
 $EditorConfig->setButtonsForLine(2, '');
-
 $EditorConfig->setOption(
     'extended_valid_elements',
     'span[data-feather]'
@@ -120,9 +127,21 @@ $EditorConfig->setOption(
 );
 
 $SimpleCfg = TinyMCEConfig::get('inlite');
+$SimpleCfg->enablePlugins($tinyPlugins);
 $SimpleCfg->setOptions($editorOptions);
-$SimpleCfg->setButtonsForLine(1, ['blocks pastetext | bold bullist numlist | alignleft aligncenter alignright alignjustify | sslink unlink anchor | emoticons charmap hr code removeformat visualblocks | undo redo']);
-$SimpleCfg->setButtonsForLine(2,'');
+$SimpleCfg->disablePlugins(['importcss']);
+$cmsModule = ModuleLoader::inst()->getManifest()->getModule('silverstripe/cms');
+$phoneModule = ModuleLoader::inst()->getManifest()->getModule('firebrandhq/silverstripe-phonelink');
+$SimpleCfg->enablePlugins([
+    'sslinkinternal' => $cmsModule
+        ->getResource('client/dist/js/TinyMCE_sslink-internal.js'),
+    'sslinkanchor' => $cmsModule
+        ->getResource('client/dist/js/TinyMCE_sslink-anchor.js'),
+    'sslinkphone' => $phoneModule
+        ->getResource('client/dist/js/TinyMCE_sslink-phone.js'),
+]);
+$SimpleCfg->setButtonsForLine(1, ['blocks pastetext | bold bullist numlist | alignleft aligncenter alignright alignjustify | sslink anchor | emoticons charmap hr code removeformat visualblocks | undo redo']);
+$SimpleCfg->setButtonsForLine(2, '');
 
 CMSMenu::remove_menu_item('SilverStripe-Reports-ReportAdmin');
 CMSMenu::remove_menu_item('SilverStripe-CampaignAdmin-CampaignAdmin');

@@ -15,7 +15,6 @@ use SilverStripe\Forms\GridField\GridFieldFilterHeader;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
-
 class Department extends DataObject
 {
     private static $db = [

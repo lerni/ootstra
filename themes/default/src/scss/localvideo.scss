@@ -39,13 +39,14 @@
 				content: "";
 				display: block;
 				position: absolute;
-				background-color: rgba($gray, 0.14);
+				background-color: rgba($gray, 0.3);
 				width: 200%;
 				height: 200%;
 				border-radius: 50%;
 				left: -71%;
 				top: -50%;
 				z-index: 0;
+				pointer-events: none;
 			}
 		}
 		&.play {
@@ -54,7 +55,7 @@
 			}
 			button.play {
 				border-style: double;
-				border-color: transparent $red;
+				border-color: transparent $white;
 				border-width: 0px 0 0px #{math.div($play-size, 6) * 5}px;
 				height: 100%;
 				transition: opacity 1s linear;
@@ -66,7 +67,8 @@
 			background: transparent;
 			box-sizing: border-box;
 			width: 0;
-			border-color: transparent transparent transparent $red;
+			padding: 0;
+			border-color: transparent transparent transparent $white;
 
 			// play state
 			border-style: solid;
@@ -86,7 +88,7 @@
 				width: 100%;
 				height: 100%;
 				path {
-					fill: $blue;
+					fill: $white;
 				}
 			}
 		}

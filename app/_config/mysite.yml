@@ -19,6 +19,7 @@ SilverStripe\Assets\File:
     bmp: false
     vcf: true
     ics: true
+    avif: true
 
 SilverStripe\Assets\Storage\DBFile:
   extensions:
@@ -56,9 +57,6 @@ SilverStripe\ORM\FieldType\DBText:
     - ':'
   extensions:
     - App\Extensions\TabTableExtension
-
-gorriecoe\Link\View\Phone:
-    default_country: CH
 
 SilverStripe\Admin\LeftAndMain:
   extra_requirements_css:
@@ -289,8 +287,7 @@ SilverStripe\Core\Injector\Injector:
       SecretKey: '`SS_NOCAPTCHA_SECRET_KEY`'
   Intervention\Image\ImageManager:
     constructor:
-      - { driver: imagick }
-      # - { driver: vips }
+      - driver: imagick
   SilverStripe\Assets\Image_Backend:
     properties:
       Quality: 84

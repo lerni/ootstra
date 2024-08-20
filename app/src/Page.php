@@ -16,6 +16,7 @@ use SilverStripe\Security\Permission;
 use SilverStripe\CMS\Model\VirtualPage;
 use TractorCow\Fluent\State\FluentState;
 use SilverStripe\Blog\Model\BlogCategory;
+use SilverStripe\CMS\Model\RedirectorPage;
 use SilverStripe\CMS\Controllers\RootURLController;
 use DNADesign\ElementalVirtual\Model\ElementVirtual;
 use SilverStripe\Core\Manifest\ModuleResourceLoader;
@@ -72,8 +73,9 @@ class Page extends SiteTree
             $fields->insertAfter('MenuTitle', $MetaToggle);
         }
 
-        if ($this->ClassName != Blog::class && $this->ClassName != BlogPost::class) {
-
+        if ($this->ClassName != Blog::class &&
+            $this->ClassName != BlogPost::class &&
+            $this->ClassName != RedirectorPage::class) {
             $CategoryField = TagField::create(
                 'PageCategories',
                 _t('SilverStripe\Blog\Model\Blog.Categories', 'Categories'),
@@ -118,13 +120,13 @@ class Page extends SiteTree
     //        return parent::getSettingsFields();
     //    }
 
-    public function getDefaultOGDescription($limitChar = 0, $limitWordCount = 20)
+    public function getDefaultOGDescription($limitChar = 0, $limitWordCount = 25)
     {
         $descreturn = $this->getSiteConfig()->MetaDescription;
 
         // Use MetaDescription if set
         if ($this->MetaDescription) {
-            $description = trim($this->obj('MetaDescription')->Summary($limitWordCount, 5));
+            $description = trim($this->obj('MetaDescription')->Summary($limitWordCount, '...', 5));
             if (!empty($description)) {
                 $descreturn = $description;
             }
@@ -132,7 +134,7 @@ class Page extends SiteTree
 
         // In case of BlogPost use Summary it set
         if ($this->ClassName == 'SilverStripe\Blog\Model\BlogPost' && $this->Summary) {
-            $description = trim($this->obj('Summary')->Summary($limitWordCount, 5));
+            $description = trim($this->obj('Summary')->Summary($limitWordCount, '...', 5));
             if (!empty($description)) {
                 $descreturn = strip_tags($description);
             }

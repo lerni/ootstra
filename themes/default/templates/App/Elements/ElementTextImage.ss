@@ -16,8 +16,8 @@
 				<% with $Image %>
 					<img loading="lazy" alt="$Title" width="{$ScaleMaxWidth(800).Width()}" height="{$ScaleMaxWidth(800).Height()}"
 						style="object-position: {$ScaleMaxWidth(800).FocusPoint.PercentageX}% {$ScaleMaxWidth(800).FocusPoint.PercentageY}%;"
-						src="$ScaleMaxWidth(800).URL"
-						srcset="$ScaleMaxWidth(800).URL 1x, $ScaleMaxWidth(1600).URL 2x" />
+						src="$ScaleMaxWidth(800).WebP.URL"
+						srcset="$ScaleMaxWidth(800).WebP.URL 1x, $ScaleMaxWidth(1600).WebP.URL 2x" />
 				<% end_with %>
 			<% end_if %>
 		</figure>

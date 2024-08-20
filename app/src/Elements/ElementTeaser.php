@@ -55,7 +55,6 @@ class ElementTeaser extends BaseElement
 
         $fields->removeByName([
             'Teasers',
-            'WidthReduced',
             'isFullWidth'
         ]);
 
@@ -79,6 +78,13 @@ class ElementTeaser extends BaseElement
         }
 
         return $fields;
+    }
+
+    public function ChildTitleLevel()
+    {
+        $l = (int)$this->TitleLevel;
+        $l++;
+        return 'h' . $l;
     }
 
     protected function provideBlockSchema()

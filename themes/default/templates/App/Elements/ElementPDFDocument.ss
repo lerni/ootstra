@@ -1,18 +1,30 @@
-<% include App/Includes/ElementTitle %>
+<% require themedCSS("dist/css/cards") %>
 <div class="typography">
-<% if $Items %>
-	<% require themedCSS("dist/css/swiper") %>
-	<% require javascript("themes/default/dist/js/swiper.js") %>
-	<div class="swiper-container multiple" id="general-swiper-{$ID}">
-		<div class="swiper-wrapper">
-			<% loop $Items %>
-				<a class="swiper-slide" href="$URL" title="{$Title}" target="_blank">
-					<% with $PDFImage().ScaleMaxWidth(600) %>
-						<img src="$URL" width="$Width()" height="$Height()" alt="{$Title}" />
-					<% end_with %>
-				</a>
-			<% end_loop %>
-		</div>
+	<div class="txt">
+		<% include App/Includes/ElementTitle %>
 	</div>
-<% end_if %>
+	<% if $PDFDocs %>
+		<% if $ShowAsSlider %>
+			<% require themedCSS("dist/css/swiper") %>
+			<% require javascript("themes/default/dist/js/swiper.js") %>
+			<div class="swiper-container teaser" id="general-swiper-{$ID}">
+				<div class="swiper-wrapper cards {$Layout}">
+		<% else %>
+			<div class="cards {$Layout}">
+		<% end_if %>
+		<% loop $PDFDocs.Sort(PDFSortOrder) %>
+			<a href="$Document.URL" class="card swiper-slide" title="{$Title}" target="_blank">
+				<figure>
+					<% with $ImageWithFallback.FillMax(414, 414) %>
+						<img src="$URL" width="$Width()" height="$Height()" alt="{$Up.Title}" />
+					<% end_with %>
+					<% if $Text %><figcaption>
+						<span class="lead-text">{$Text.XML}<span>
+					</figcaption><% end_if %>
+				</figure>
+				<header>{$Title}</header>
+			</a>
+		<% end_loop %>
+		</div><% if $ShowAsSlider %></div><% end_if %>
+	<% end_if %>
 </div>

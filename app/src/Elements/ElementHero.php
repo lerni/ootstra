@@ -75,8 +75,7 @@ class ElementHero extends BaseElement
 
         $fields->removeByName([
             'Slides',
-            'AnchorLink',
-            'WidthReduced'
+            'AnchorLink'
         ]);
 
         if ($HeroSizeField = $fields->dataFieldByName('HeroSize')) {
@@ -109,7 +108,6 @@ class ElementHero extends BaseElement
 
         return $fields;
     }
-
 
     protected function provideBlockSchema()
     {

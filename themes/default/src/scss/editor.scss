@@ -30,7 +30,8 @@ body.mce-content-body {
 	color: $text-color;
 	font-size: $font-size;
 	line-height: $lh;
-	&.typography {
+	max-width: $inner-width;
+	&.typography.width-reduced {
 		max-width: $inner-width--reduced;
 	}
 	div.embed {

@@ -18,8 +18,7 @@ use DNADesign\Elemental\Forms\TextCheckboxGroupField;
 class ElementExtension extends DataExtension implements CMSPreviewable
 {
     private static $db = [
-        'isFullWidth' => 'Boolean', // full or reduced - both is paradox!
-        'WidthReduced' => 'Boolean',
+        'isFullWidth' => 'Boolean',
         'AnchorLink' => 'Varchar',
         'SpacingTop' => 'Int',
         'SpacingBottom' => 'Int',
@@ -56,10 +55,6 @@ class ElementExtension extends DataExtension implements CMSPreviewable
         if ($FullWidthBox = $fields->dataFieldByName('isFullWidth')) {
             $FullWidthBox->setTitle(_t('DNADesign\Elemental\Models\BaseElement.ISFULLWIDTH', 'show in full width'));
             $fields->addFieldToTab('Root.Settings', $FullWidthBox);
-        }
-        if ($WidthReducedBox = $fields->dataFieldByName('WidthReduced')) {
-            $WidthReducedBox->setTitle(_t('DNADesign\Elemental\Models\BaseElement.WIDTHREDUCED', 'reduce width'));
-            $fields->addFieldToTab('Root.Settings', $WidthReducedBox);
         }
 
         $TitleField = $fields->dataFieldByName('Title');

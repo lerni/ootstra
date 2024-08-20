@@ -99,7 +99,7 @@ task('silverstripe:vendor_expose', function () {
 });
 
 
-// Reset lsphp/php-fpm process on server realpath/symlink-caching)
+// Reset lsphp/php-fpm process on server realpath/symlink-caching
 // https://deployer.org/docs/7.x/avoid-php-fpm-reloading
 // silverstripe:set_script_filename *should* fix above, but...
 desc('Run pkill to reset php process');

@@ -52,6 +52,13 @@ class Teaser extends DataObject
         'Text'
     ];
 
+    public function fieldLabels($includerelations = true)
+    {
+        $labels = parent::fieldLabels($includerelations);
+        $labels['Layout'] = _t(__CLASS__ . '.LAYOUT', 'Alignment text');
+        return $labels;
+    }
+
     public function getCMSFields()
     {
 
@@ -100,7 +107,7 @@ class Teaser extends DataObject
             $fields->removeByName(['TeaserElements']);
             $fields->addFieldsToTab('Root.Main', $usedGF);
         } else {
-            $fields->removeByName(['Main.TeaserElements']);
+            $fields->removeByName(['TeaserElements']);
         }
 
         return $fields;

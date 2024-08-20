@@ -3,26 +3,19 @@
 <% include App/Includes/Header %>
 <main class="typography">
 	<% if $Slides %>
-		<article class="element elementhero spacing-bottom-2 full-width<% if $SiteConfig.GlobalAlert %>> global-alert<% end_if %>"><% include App/Includes/Slides %></article>
+		<article class="element elementhero spacing-bottom-2 full-width<% if $CategoriesWithState %> breadcrumbs<% end_if %><% if $SiteConfig.GlobalAlert %> global-alert<% end_if %>">
+			<% include App/Includes/Slides %>
+		</article>
 		<% if $SiteConfig.GlobalAlert %><article class="global-alert">
 			<div class="typography inner">$SiteConfig.GlobalAlert</div>
 		</article><% end_if %>
+		<% include App/Includes/BlogCategories Page=$Me %>
 	<% else_if $SiteConfig.DefaultHeaderSlides.Count() %>
-		<% include App/Includes/DefaultHero Page=$Me %>
+		<% include App/Includes/DefaultHero %>
 	<% end_if %>
 	<% if $Content %><article class="element horizontal-spacing elementcontent">
 		<div class="typography">$Content</div>
 	</article><% end_if %>
-	<% if $CategoriesWithState %>
-		<nav class="element blog-post-meta horizontal-spacing">
-			<p class="cat-tag" data-hx-boost="true" data-hx-indicator=".loader">
-				<a href="$Link" class="all<% if not $getCurrentCategory %> current<% end_if %>" title="<%t SilverStripe\Blog\Model\Blog.Allcategories %>"><%t SilverStripe\Blog\Model\Blog.Allcategories %></a>
-				<% loop $CategoriesWithState %>
-					<a href="$Link" class="$CustomLinkingMode" title="$Title" data-segment="$URLSegment">$Title</a>
-				<% end_loop %>
-			</p>
-		</nav>
-	<% end_if %>
 	<article class="element posts horizontal-spacing">
 		<% if $PaginatedList.Exists %>
 			<div class="loader"><%t Page.Loader 'Loading...' %></div>

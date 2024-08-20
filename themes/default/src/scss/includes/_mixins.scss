@@ -219,22 +219,23 @@
 	-webkit-appearance: none;
 	color: $color;
 	background-color: $background;
-	background-image: linear-gradient(
-		130deg,
-		$blue,
-		$red,
-		$blue
-	);
-	background-size: 400% 100%;
+	// background-image: linear-gradient(
+	// 	130deg,
+	// 	$blue,
+	// 	$red,
+	// 	$blue
+	// );
+	// background-size: 400% 100%;
 	filter: contrast(100%) saturate(100%);
 	transition-duration: .3s;
-	transition-property: background-position filter;
+	// transition-property: background-position filter;
+	transition-property: filter;
 	transition-timing-function: ease-in-out;
 	box-shadow: none;
-	background-position: 0% 0;
+	// background-position: 0% 0;
 	display: block;
 	&:hover {
-		background-position: 100% 20%;
+		// background-position: 100% 20%;
 		filter: contrast(110%) saturate(110%);
 	}
 	&:focus-visible {

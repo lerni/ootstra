@@ -7,52 +7,40 @@
 ---------------------------------------------------------------------------------- */
 body > footer {
 	flex-shrink: 0;
-	// font-size: $font-size--small;
-	background-color: $blue;
-	padding: #{$lh * 1.5}em 0;
-	a {
-		text-decoration: none;
-		color: $white;
-	}
-	p {
-		margin: 0 0 #{$lh}em 0;
-	}
+	background-color: $black;
+	padding: #{$lh * 2}em 0;
 	.inner {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: flex-end;
-		row-gap: #{$lh}em;
-		column-gap: #{$lh * 3}rem;
+		// font-size: $font-size--small;
+		display: grid;
+		align-items: end;
+		grid-template-columns: 1fr 1fr 1fr;
+		gap: #{$lh * 2}em;
 		@include breakpoint($XLneg) {
-			column-gap: #{$lh * 1.98}rem; // f'ing subpixels with FF
+			grid-template-columns: 1fr 1fr;
 		}
-		@include breakpoint($Lneg) {
-			row-gap: #{$lh}em;
-			column-gap: #{$lh}rem;
+		@include breakpoint($Mneg) {
+			grid-template-columns: 1fr;
 		}
 	}
 	.column {
 		display: flex;
+		flex-direction: column;
 		column-gap: #{$lh}em;
-		flex: 0 0
-			calc(#{percentage(math.div(1, 3))} - #{math.div($lh, 3) * 6}rem);
-		@include breakpoint($XLneg) {
-			flex: 0 0
-				calc(
-					#{percentage(math.div(1, 2))} - #{math.div($lh, 2) * 2}rem
-				);
+		color: $white;
+		p {
+			margin: 0 0 #{$lh}em 0;
+			&:last-child {
+				margin-bottom: 0;
+			}
 		}
-		@include breakpoint($Lneg) {
-			flex: 0 0 100%;
-		}
-		span,
 		a {
 			color: $white;
-		}
-		a {
 			text-decoration: none;
 			margin-top: #{math.div($lh, 2)}em;
 			margin-bottom: #{math.div($lh, 2)}em;
+			&:last-child {
+				margin-bottom: 0;
+			}
 			&.current,
 			&:hover {
 				color: $current-color;
@@ -63,29 +51,23 @@ body > footer {
 		}
 	}
 	.coord {
-		// flex: 0 0 calc(#{percentage(math.div(4, 12))} - #{math.div($lh,3)*2}em);
-		flex-direction: column;
 	}
-	.inprint {
-		nav {
-			display: flex;
-			column-gap: #{$lh}em;
-			flex-direction: column;
-			a {
-				color: $white;
-				// @include separated();
+	nav.inprint {
+		display: flex;
+		column-gap: #{$lh}em;
+		flex-direction: column;
+		a {
+			&:last-of-type {
+				margin-bottom: 0;
 			}
 		}
 	}
-	.social {
-		justify-content: flex-end;
-		margin-bottom: #{math.div($lh, 2)}em;
-		@include breakpoint($XLneg) {
-			justify-content: flex-start;
-		}
-		.social-icons {
-			a {
-				margin: 0;
+	.social-icons {
+		margin-top: #{math.div($lh, 2) * 3}em;
+		a {
+			margin: 0;
+			img {
+				width: 1.2em;
 			}
 		}
 	}

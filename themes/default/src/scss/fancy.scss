@@ -5,6 +5,10 @@
 
 @import "../../node_modules/@fancyapps/ui/dist/fancybox/fancybox.css";
 
+.fancybox__container {
+	--fancybox-zIndex: 9001;
+}
+
 .is-compact .fancybox__footer .fancybox__caption,
 .fancybox__slide {
 	@include vertical-spacing;

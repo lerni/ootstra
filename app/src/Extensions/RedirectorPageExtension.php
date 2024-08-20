@@ -24,8 +24,8 @@ class RedirectorPageExtension extends DataExtension
             'Root.Main',
             [
                 FieldGroup::create(
-                    'Open in new window',
-                    CheckboxField::create('NewWindow', 'Check to open URL in a new window')
+                    _t('SilverStripe\CMS\Model\RedirectorPage.NEWWINDOW', 'target = "_blank"'),
+                    CheckboxField::create('NewWindow', _t('SilverStripe\CMS\Model\RedirectorPage.NewWindowLabel', 'Open URL in a new window'))
                 ),
             ]
         );

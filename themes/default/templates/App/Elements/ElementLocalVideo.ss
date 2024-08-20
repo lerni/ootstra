@@ -1,9 +1,10 @@
 <% require themedCSS("dist/css/localvideo") %>
 <% include App/Includes/ElementTitle %>
-<% if $LocalVideo || $Image %>
+<% if $LocalMP4Video || $LocalMP4VideoSmall || $Image %>
 	<div class="video-wrapper<% if $Autoplay %> play<% end_if %><% if $Autoplay || $Mute %> muted<% end_if %>" id="video-wrapper-{$LocalVideo.ID}">
 		<video onclick="togglePlay()" id="video-{$LocalVideo.ID}" poster="{$Image.FocusFillMax(1230,692).URL}" width="100%" <% if $Autoplay %> autoplay<% end_if %><% if $Autoplay || $Mute %> muted<% end_if %><% if $Loop %> loop<% end_if %> playsinline>
-			<source src="{$LocalMP4Video.Link}" type="{$LocalMP4Video.Mimetype}">
+			<% if $LocalMP4Video %><source src="{$LocalMP4Video.Link}" media="(min-width: 800px)" type="video/mp4"><% end_if %>
+			<% if $LocalMP4VideoSmall %><source src="{$LocalMP4VideoSmall.Link}" type="video/mp4"><% end_if %>
 		</video>
 		<div class="play-wrapper">
 			<button type="button" class="play" aria-label="play" onclick="togglePlay()"></button>
@@ -18,6 +19,9 @@
 		<script>
 			var video = document.getElementById("video-{$LocalVideo.ID}");
 			var videoWrapper = document.getElementById("video-wrapper-{$LocalVideo.ID}");
+			video.addEventListener('ended', function() {
+				videoWrapper.classList.remove('play');
+			});
 			function toggleMute() {
 				video.muted = !video.muted;
 				if (video.muted) {
@@ -32,5 +36,4 @@
 			}
 		</script>
 	</div>
-	<% if $ActionText && $RelatedPage %><a href="{$RelatedPage.Link}" class="button">{$ActionText}</a><% end_if %>
 <% end_if %>

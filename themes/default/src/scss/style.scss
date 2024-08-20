@@ -32,9 +32,6 @@ html {
 	overflow-y: scroll;
 	overflow-x: hidden;
 	scroll-behavior: smooth;
-	// @include breakpoint($Lneg) {
-	// 	font-size: #{$font-size * 0.9};
-	// }
 }
 
 body {
@@ -65,7 +62,7 @@ strong {
 	top: 0;
 	left: 0;
 	right: 0;
-	z-index: 200;
+	z-index: 9000;
 	width: 100%;
 	will-change: transform;
 	transition-duration: 0.2s;
@@ -162,8 +159,7 @@ body > main {
 }
 
 nav.breadcrumbs {
-	padding-top: #{$lh}em;
-	padding-bottom: #{math.div($lh, 1)}em;
+	padding: #{$lh}em 0 #{$lh * 2}em 0;
 	text-align: left;
 	// .typography {
 	// 	max-width: $inner-width;
@@ -197,8 +193,7 @@ p.cat-tag {
 	flex-wrap: wrap;
 	justify-content: flex-start;
 	margin: 0;
-	padding-top: #{$lh}em;
-	padding-bottom: #{$lh * 2}em;
+	padding: #{$lh}em 0 #{$lh * 2}em 0;
 	> span,
 	> a {
 		display: inline-block;
@@ -243,15 +238,6 @@ p.cat-tag {
 	}
 }
 
-// nav.breadcrumbs,
-.element.width-reduced {
-	.typography {
-		max-width: $inner-width--reduced;
-		margin-left: 0;
-		margin-right: auto;
-	}
-}
-
 .element {
 	&:not(.full-width) {
 		max-width: $inner-width;
@@ -261,23 +247,39 @@ p.cat-tag {
 	margin-right: auto;
 	position: relative;
 	scroll-margin-top: $headerheight;
-	>a.preview {
+	>a.preview-edit {
 		position: absolute;
-		top: 0em;
-		right: 0em;
+		z-index: 8000;
+		top: #{math.div($lh, 2)}em;
+		right: #{math.div($lh, 2)}em;
 		width: #{$lh}em;
 		height: #{$lh}em;
 		justify-content: center;
 		align-items: center;
 		border-radius: #{$lh}em;
 		background-color: $link-color;
-		color: $text-color;
+		color: $white;
 		display: none;
 		span {
 			margin: auto;
+			transform: scaleX(-1);
 		}
 		@include breakpoint($XLplus) {
 			display: flex;
+		}
+	}
+	&:has(a.preview-edit:hover) {
+		&::after {
+			content: "";
+			position: absolute;
+			top: 0;
+			right: -50vw;
+			bottom: 0;
+			left: -50vw;
+			z-index: 50;
+			background-color: rgba($link-color, 0.1);
+			mix-blend-mode: multiply;
+			pointer-events: none;
 		}
 	}
 	&::after {
@@ -327,6 +329,33 @@ p.cat-tag {
 	// 		}
 	// 	}
 	// }
+	.typography.width-reduced {
+		max-width: $inner-width--reduced;
+		margin-left: 0;
+		margin-right: auto;
+	}
+	&.elementcontent[class*='push-up-'] {
+		padding-top: #{math.div($lh, 3) * 2}em;
+		@include breakpoint($XLplus) {
+			position: relative;
+			z-index: 100;
+			&::after {
+				background-color: transparent;
+			}
+			&.background--transparent {
+				background-color: transparent;
+			}
+			&.background--white {
+				background-color: $white;
+			}
+			&.background--gray--lighter {
+				background-color: $gray--lighter;
+			}
+			.large {
+				font-size: clamp(1.2em, 5vw, 2em);
+			}
+		}
+	}
 	&.elementcontent {
 		.typography {
 			> *:last-child {
@@ -337,7 +366,6 @@ p.cat-tag {
 	&.elementhero {
 		display: flex; // swiper.js shouldn't life in a display: table element otherwise layout breaks
 		// with DefaultHero the image isn't wrapped with swiper divs
-		position: relative;
 		&:not(.full-width) {
 			max-width: calc(#{$inner-width + 300px});
 		}
@@ -361,9 +389,6 @@ p.cat-tag {
 			figure {
 				img {
 					max-width: none;
-					// @include breakpoint($Mplus) {
-					// 	min-height: 100% !important;
-					// }
 				}
 			}
 		}
@@ -542,57 +567,6 @@ p.cat-tag {
 				}
 			}
 		}
-		.embed-hero {
-			width: 100% !important;
-			padding: 0 0 45.1388888888889% 0;
-			margin-bottom: 0;
-			height: 0;
-			@include breakpoint($Mneg) {
-				padding: 0 0 56.25% 0;
-			}
-			@include breakpoint($Sneg) {
-				padding: 0 0 80% 0;
-			}
-			iframe {
-				margin-top: -8%;
-				margin-bottom: auto;
-				margin-left: auto;
-				margin-right: auto;
-				// pointer-events: none;
-				position: absolute;
-				width: 100% !important;
-				min-height: 100% !important;
-				transition-property: opacity;
-				transition: 0.3s linear;
-				transform-origin: 50% 50%;
-				@include breakpoint($Mneg) {
-					margin-top: 0;
-					margin-bottom: 0;
-					transform: scale(1.5); // mostly to hide youtube branding
-				}
-			}
-			&:not(.paused-mode):not(.playing-mode) iframe {
-				display: none;
-			}
-			&.playing-mode {
-				display: block !important; // we need to override inline style
-				.overlayer {
-					// background-color: rgba(yellowgreen, .099);
-				}
-			}
-			.overlayer {
-				position: absolute;
-				top: 0;
-				right: 0;
-				bottom: 0;
-				left: 0;
-				background-color: transparent;
-				// background-color: rgba(fuchsia, .098);
-			}
-		}
-		.embed-hero.playing-mode + figure {
-			display: none;
-		}
 		.swiper-container.hero {
 			overflow: hidden;
 			&.hero--fullscreen {
@@ -716,6 +690,64 @@ p.cat-tag {
 			}
 		}
 	}
+
+	&.elementpdfdocument {
+		.txt {
+			max-width: $inner-width--reduced;
+			padding-bottom: #{$lh}em;
+		}
+		div.swiper-container .swiper-wrapper {
+			margin: 0;
+		}
+		.card {
+			display: flex;
+			flex-direction: column;
+			width: auto;
+			header {
+				color: $text-color;
+				@include bold;
+				// font-size: 1.24em;
+				padding: #{math.div($lh, 4)}em 0;
+			}
+			figure {
+				display: flex;
+				// height: 600px;
+				width: auto;
+				position: relative;
+				overflow: hidden;
+				margin: 0;
+				// @include breakpoint($Lneg) {
+				// 	height: 500px;
+				// }
+				img {
+					display: table;
+					height: 100%;
+					width: auto;
+					margin-bottom: 0;
+				}
+				figcaption {
+					position: absolute;
+					top: 0;
+					right: 0;
+					bottom: 0;
+					left: 0;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					background-color: rgba($white, 1);
+					// padding: #{math.div($lh, 2)}em;
+					pointer-events: none;
+					transform: translateY(100%);
+					transition: transform .2s ease-in;
+					color: $text-color;
+				}
+				&:hover figcaption {
+					transform: translateY(0);
+				}
+			}
+		}
+	}
+
 	&.elementtextimage {
 		// this things are living in textimage.scss
 	}
@@ -733,6 +765,14 @@ p.cat-tag {
 	}
 	$min-spacing: 0;
 	$max-spacing: 6;
+	@for $i from $max-spacing through $min-spacing {
+		.element:not(.global-alert) + &.push-up-#{$i} {
+			@include breakpoint($XLplus) {
+				margin-top: #{(($lh * $i) + .2) * -1}em; // odd addition of .2 to better match line-height ;-/
+			}
+		}
+		$i1: $i + 1;
+	}
 	@for $i from $max-spacing through $min-spacing {
 		&.spacing-bottom-#{$i} {
 			padding-bottom: #{$lh * $i}em;
@@ -825,6 +865,7 @@ p.cat-tag {
 html .klaro {
 	--notice-right: #{$lh}em;
     --notice-bottom: #{$lh}em;
+	--notice-max-width: 420px;
 	.cookie-modal,
 	.cookie-notice {
 		a {
@@ -834,6 +875,7 @@ html .klaro {
 			cursor: pointer;
 			font-size: 14px;
 			border-radius: 0.1em;
+			margin-right: 1.2em;
 		}
 	}
 
@@ -866,10 +908,10 @@ html .klaro {
 			// modal link
 			.cn-learn-more {
 				display: block;
-				margin-top: 0.6em;
 				margin-right: 0;
 				order: 2;
 				flex: 0 0 auto;
+				padding: .5em 0;
 			}
 		}
 	}
@@ -883,7 +925,7 @@ html .klaro {
 		}
 		// switch disabled
 		.cm-list-label .slider {
-			background-color: $gray--light;
+			background-color: $gray;
 		}
 		// slider-switches
 		.cm-list-input:checked + .cm-list-label .slider {

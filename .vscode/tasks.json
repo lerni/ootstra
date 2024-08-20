@@ -161,6 +161,21 @@
       }
     },
     {
+      "label": "composer install",
+      "type": "shell",
+      "command": "ddev composer install",
+      "group": "build",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "icon": {
+        "color": "terminal.ansiMagenta"
+      }
+    },
+    {
       "label": "composer update",
       "type": "shell",
       "command": "ddev composer u",
@@ -322,6 +337,34 @@
       "label": "dep releases live",
       "type": "shell",
       "command": "ddev php ./vendor/bin/dep releases live",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "icon": {
+        "color": "terminal.ansiCyan"
+      }
+    },
+    {
+      "label": "deploy:unlock live",
+      "type": "shell",
+      "command": "ddev php ./vendor/bin/dep deploy:unlock live",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true
+      },
+      "icon": {
+        "color": "terminal.ansiCyan"
+      }
+    },
+    {
+      "label": "deploy:unlock test",
+      "type": "shell",
+      "command": "ddev php ./vendor/bin/dep deploy:unlock test",
       "group": "build",
       "presentation": {
         "reveal": "always",

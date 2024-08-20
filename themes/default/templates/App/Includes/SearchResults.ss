@@ -6,8 +6,8 @@
 		</div>
 		<div id="bgelement"></div>
 	</article>
-	<article class="element width-reduced spacing-top-2 spacing-bottom-1">
-		<div class="typography">
+	<article class="element spacing-top-2 spacing-bottom-1">
+		<div class="typography width-reduced">
 			<ul class="search-results">
 				<% loop $Results.Results %>
 					<% if $list('Page').Filter("ID", $ID).First().ClassName != 'SilverStripe\CMS\Model\RedirectorPage' %>
@@ -20,7 +20,7 @@
 							<%-- <figure>
 								<% if $list('Page').Filter("ID", $ID).First().getDefaultOGImage(1).exists() %>
 									<% with $list('Page').Filter("ID", $ID).First().getDefaultOGImage(1) %>
-										<img width="280" height="150" src="$Pad(280,150).URL" src="$Pad(280,150).URL 1x, $Pad(560,300).URL 2x" alt="$Title" />
+										<img width="280" height="150" src="$Pad(280,150).WebP.URL" src="$Pad(280,150).WebP.URL 1x, $Pad(560,300).WebP.URL 2x" alt="$Title" />
 									<% end_with %>
 								<% end_if %>
 							</figure> --%>

@@ -66,8 +66,7 @@ class ElementMaps extends BaseElement
         $fields->removeByName([
             'AnchorLink',
             'BackgroundColor',
-            'Points',
-            'WidthReduced'
+            'Points'
         ]);
 
         if ($AvailableGloballyField = $fields->dataFieldByName('AvailableGlobally')) {

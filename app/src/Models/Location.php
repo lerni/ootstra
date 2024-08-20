@@ -17,7 +17,7 @@ class Location extends DataObject
     private static $db = [
         'Title' => 'Varchar',
         'Address' => 'Varchar',
-        'PostOfficeBoxNumber' => 'Varchar',
+        'PostOfficeBoxNumber' => 'Varchar(32)',
         'PostalCode' => 'Varchar(32)',
         'Town' => 'Varchar',
         'Country' => 'Varchar(16)',

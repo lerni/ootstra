@@ -17,7 +17,29 @@ class PageSchemaExtension extends Extension
 
         $siteConfig = SiteConfig::current_site_config();
 
-        $schemaOrganisation = Schema::organization();
+        $schemaType = $siteConfig->SchemaType;
+        $schemaOrganisation = null;
+
+        switch ($schemaType) {
+            case 'LocalBusiness':
+                $schemaOrganisation = Schema::localBusiness();
+                break;
+            case 'NGO':
+                $schemaOrganisation = Schema::NGO();
+                break;
+            case 'EducationalOrganization':
+                $schemaOrganisation = Schema::educationalOrganization();
+                break;
+            case 'NewsMediaOrganization':
+                $schemaOrganisation = Schema::newsMediaOrganization();
+                break;
+            case 'Corporation':
+                $schemaOrganisation = Schema::corporation();
+                break;
+            default:
+                $schemaOrganisation = Schema::organization();
+                break;
+        }
 
         $schemaOrganisation
             ->name($siteConfig->Title)
@@ -43,10 +65,9 @@ class PageSchemaExtension extends Extension
                     ->postOfficeBoxNumber($location->PostOfficeBoxNumber)
                     ->telephone($location->Telephone)
                     ->addressRegion($location->AddressRegion)
-                    ->addressCountry(Schema::Country()
-                        ->name($country));
+                    ->addressCountry(Schema::Country()->name($country));
 
-                $locations[$i] = Schema::LocalBusiness()
+                $locations[$i] = Schema::Place()
                     ->name($location->Title)
                     ->address($PushLocation);
 
@@ -80,6 +101,7 @@ class PageSchemaExtension extends Extension
 
             $schemaOrganisation->location($locations);
         }
+
         if ($siteConfig->SocialLinks()->filter('sameAs', 1)->Count()) {
             $sameAsLinks = $siteConfig->SocialLinks()->filter('sameAs', 1)->Column('Url');
             $schemaOrganisation->sameAs($sameAsLinks);
@@ -103,7 +125,6 @@ class PageSchemaExtension extends Extension
             $pageObjs[$i] = Schema::ListItem()
                 ->position((int)$i + 1)
                 ->name($item->Title)
-                // ->item("Director::absoluteBaseURL() . ltrim($item->Link(), '/')");
                 ->item(
                     Schema::Thing()
                         ->setProperty('@id', Director::absoluteBaseURL() . ltrim($item->Link(), '/'))

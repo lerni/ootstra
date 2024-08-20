@@ -6,15 +6,7 @@
 	"repositories": [
 		{
 			"type": "vcs",
-			"url": "https://github.com/lerni/silverstripe-webp-image"
-		},
-		{
-			"type": "vcs",
 			"url": "https://github.com/lerni/silverstripe-embedfield"
-		},
-		{
-			"type": "vcs",
-			"url": "https://github.com/lerni/silverstripe-canonical"
 		}
 	],
 	"require": {
@@ -38,7 +30,7 @@
 		"lerni/silverstripe-googleanalytics": "4.x-dev as 4.0",
 		"tractorcow/silverstripe-robots": "^4",
 		"jonom/silverstripe-share-care": "^4",
-		"dorsetdigital/silverstripe-canonical": "dev-metacomponnents",
+		"dorsetdigital/silverstripe-canonical": "^2",
 		"silverstripe/sharedraftcontent": "^3",
 		"dnadesign/silverstripe-elemental": "^5",
 		"dnadesign/silverstripe-elemental-userforms": "^4",
@@ -54,7 +46,6 @@
 		"jeroendesloovere/vcard": "^1",
 		"silverstripe/selectupload": "^2",
 		"endroid/qr-code": "^4",
-		"nomidi/silverstripe-webp-image": "dev-master as 1.0",
 		"lerni/klaro-cookie-consent": "v2.x-dev",
 		"league/commonmark": "^2",
 		"eluceo/ical": "^2",
@@ -62,8 +53,7 @@
 		"nathancox/embedfield": "dev-attrquerystring",
 		"lerni/folderindex": "^0",
 		"simple-icons/simple-icons": "^11",
-		"jcupitt/vips": "^v2",
-		"osiemsiedem/intervention-image-vips-driver": "^v0",
+		"webbuilders-group/silverstripe-next-gen-images": "^2",
 		"silverstripe/linkfield": "^4"
 	},
 	"require-dev": {

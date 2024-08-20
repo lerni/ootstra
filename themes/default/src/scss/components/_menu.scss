@@ -23,7 +23,7 @@
 					color: $current-color;
 				}
 			}
-			&:has(> a:focus-visible) {
+			&:has(> a:focus-visible)  > a {
 				outline: 2px solid $link-color;
 			}
 		}
@@ -60,8 +60,12 @@
 			height: 100%;
 			grid-column: 2/4;
 			margin: auto 0 0 0;
-			column-gap: #{$lh}em;
+			column-gap: #{$lh * 2}em;
 			padding-left: #{$lh * 2}em;
+			@include breakpoint(0 $XXL) {
+				column-gap: #{$lh * 1.5}em;
+				padding-left: #{$lh}em;
+			}
 			@include breakpoint($Lneg) {
 				grid-column: 1/4;
 				grid-row: 2/3;
@@ -145,7 +149,6 @@
 							display: flex;
 							visibility: visible;
 							flex-direction: column;
-							top: 100%;
 							&::after {
 								opacity: 1;
 							}
@@ -167,6 +170,9 @@
 		margin: auto 0 auto auto;
 		font-size: 1em;
 		padding: 0;
+		// todo burger-size and vertical alignment of burger & trigger should not depend
+		// if there is span.txt MENU ($Splus) width varies and alignment relays on burger-size
+		// width: #{$lh * 2}em;
 		&:focus-within {
 			outline: none;
 		}
@@ -213,6 +219,7 @@ html.mobile-nav--active {
 					) auto 1fr;
 			}
 			menu.service-nav {
+				padding-bottom: #{$lh * 2}em;
 				margin: 0 auto auto 0;
 				grid-column: 1/3;
 				grid-row: 4/-1;
@@ -222,6 +229,8 @@ html.mobile-nav--active {
 				> li > a {
 					color: $text-color;
 					font-size: 1em;
+					@include normal;
+					display: block;
 				}
 			}
 			nav.nav {
@@ -274,6 +283,8 @@ html.mobile-nav--active {
 								flex: 0 0 100%;
 								position: inherit;
 								padding: #{math.div($lh, 2)}em 0 0 #{math.div($lh, 2)}em;
+								align-items: flex-start; // last item is flex-end on desktop
+								flex-direction: column;
 								&::after {
 									display: none;
 								}
@@ -281,7 +292,6 @@ html.mobile-nav--active {
 									height: inherit;
 									a {
 										@include normal;
-										line-height: $lh;
 									}
 								}
 							}
@@ -314,10 +324,6 @@ html.mobile-nav--active {
 		main {
 			height: 0;
 			overflow: hidden;
-			display: none;
-		}
-		// hide captcha but show klaro if nav--active
-		body > div:not([class]):not(#klaro) {
 			display: none;
 		}
 	}

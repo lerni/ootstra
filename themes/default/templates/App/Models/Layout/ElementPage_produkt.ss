@@ -1,7 +1,7 @@
 <% include App/Includes/Header %>
 <main>
 	<% if not $hasHero %>
-		<% include App/Includes/DefaultHero Page=$Me %>
+		<% include App/Includes/DefaultHero %>
 	<% end_if %>
 	<nav class="breadcrumbs"><div class="inner">{$Breadcrumbs}</div></nav>
 	<article class="element elementperso horizontal-spacing spacing-top-0 spacing-bottom-2 after-hero">
@@ -55,7 +55,7 @@
 								<div class="swiper-wrapper">
 									<% loop $Images.Sort("ImageSortOrder ASC") %>
 										<div class="swiper-slide">
-										<img <% if not $IsFirst %>loading="lazy" <% end_if %>height="480" width="480" src="$FocusFillMax(480,480).URL" srcset="$FocusFillMax(480,480).URL 1x, $FocusFillMax(960,960).URL 2x" alt="$Title" />
+										<img <% if not $IsFirst %>loading="lazy" <% end_if %>height="480" width="480" src="$FocusFillMax(480,480).WebP.URL" srcset="$FocusFillMax(480,480).WebP.URL 1x, $FocusFillMax(960,960).WebP.URL 2x" alt="$Title" />
 										</div>
 									<% end_loop %>
 								</div>
@@ -64,7 +64,7 @@
 							</div>
 						<% else %>
 							<% loop $Images %>
-								<img <% if not $IsFirst %>loading="lazy" <% end_if %>height="480" width="480" src="$FocusFillMax(480,480).URL" srcset="$FocusFillMax(480,480).URL 1x, $FocusFillMax(960,960).URL 2x" alt="$Title" />
+								<img <% if not $IsFirst %>loading="lazy" <% end_if %>height="480" width="480" src="$FocusFillMax(480,480).WebP.URL" srcset="$FocusFillMax(480,480).WebP.URL 1x, $FocusFillMax(960,960).WebP.URL 2x" alt="$Title" />
 							<% end_loop %>
 						<% end_if %>
 					</div>

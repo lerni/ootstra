@@ -2,43 +2,40 @@
 
 namespace App\Elements;
 
-use SilverStripe\Assets\File;
-use SilverStripe\Assets\Folder;
-use SilverStripe\Forms\HeaderField;
+use App\Models\PDFDoc;
+use SilverStripe\Forms\LiteralField;
 use DNADesign\Elemental\Models\BaseElement;
-use SilverStripe\View\Parsers\URLSegmentFilter;
-use SilverStripe\SelectUpload\FolderDropdownField;
-use Bummzack\SortableFile\Forms\SortableUploadField;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\GridField\GridFieldDetailForm;
+use SilverStripe\Forms\GridField\GridFieldEditButton;
+use SilverStripe\Forms\GridField\GridFieldConfig_Base;
+use SilverStripe\Forms\GridField\GridFieldAddNewButton;
+use SilverStripe\Forms\GridField\GridFieldDeleteAction;
+use SilverStripe\Forms\GridField\GridFieldFilterHeader;
+use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
+use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
 class ElementPDFDocument extends BaseElement
 {
     private static $db = [
-        'PreviewCount' => 'Int',
-    ];
-
-    private static $has_one = [
-        'DocumentFolder' => Folder::class
+        'Layout' => 'Enum("third,halve", "third")',
+        'ShowAsSlider' => 'Boolean'
     ];
 
     private static $has_many = [];
 
     private static $many_many = [
-        'Documents' => File::class
+        'PDFDocs' => PDFDoc::class
     ];
 
     private static $many_many_extraFields = [
-        'Documents' => [
-            'SortOrder' => 'Int'
+        'PDFDocs' => [
+            'PDFSortOrder' => 'Int'
         ]
     ];
 
     private static $owns = [
-        'Documents',
-        'DocumentFolder'
-    ];
-
-    private static $defaults = [
-        'PreviewCount' => 1
+        'PDFDocs'
     ];
 
     private static $table_name = 'ElementPDFDocument';
@@ -49,54 +46,47 @@ class ElementPDFDocument extends BaseElement
 
     private static $icon = 'font-icon-block-virtual-page';
 
+    public function fieldLabels($includerelations = true)
+    {
+        $labels = parent::fieldLabels($includerelations);
+        $labels['ShowAsSlider'] = _t(__CLASS__ . '.SHOWASSLIDER', 'Show as slider');
+        return $labels;
+    }
+
     function getCMSFields()
     {
         $fields = parent::getCMSFields();
 
         $fields->removeByName([
-            'WidthReduced',
-            'DocumentFolder'
+            'PDFDocs'
         ]);
 
-        $fields->addFieldToTab('Root.Main', HeaderField::create('OneOrTheOther', _t(__CLASS__ . '.OneOrTheOther', 'Dokumente per Ordner (alle eingeschlossen) oder einzeln wählen & sortieren')));
+        if ($TextEditorField = $fields->dataFieldByName('HTML')) {
+            $TextEditorField->setRows(10);
+        }
 
-        $FolderField = FolderDropdownField::create(
-            'DocumentFolderID',
-            _t(__CLASS__ . '.FOLDER', 'Ordner'),
-            Folder::class
-        );
-        $FolderField->setDescription(_t(__CLASS__ . '.FOLDER_DESCRIPTION', 'Wählen Sie einen übergeordneten Ordner für die PDF-Dokumente'));
-        $fields->addFieldToTab('Root.Main', $FolderField);
-
-
-        $fields->removeByName('Documents');
-        $fields->addFieldToTab(
-            'Root.Main',
-            $uploadField = new SortableUploadField(
-                $name = 'Documents',
-                $title = 'Dokumente'
-            )
-        );
-        $filter = new URLSegmentFilter();
-        $Subfolder = $filter->filter($this->Title);
-        $uploadField->setFolderName('Dokumente/' . $Subfolder);
-        $uploadField->setSortColumn('SortOrder');
-        $uploadField->setAllowedExtensions(['pdf']);
-        $size = 20 * 1024 * 1024;
-        $uploadField->getValidator()->setAllowedMaxFileSize($size);
-        $uploadField->setDescription(_t(__CLASS__ . '.DocumentsDescription', 'Nur PDF-Dateien sind erlaubt. Die Reihenfolge der Dokumente kann per Drag & Drop geändert werden.'));
+        // hack arround unsaved relations
+        if ($this->isInDB()) {
+            $DocumentGridFieldConfig = GridFieldConfig_Base::create(20);
+            $DocumentGridFieldConfig->addComponents(
+                new GridFieldEditButton(),
+                new GridFieldDeleteAction(false),
+                new GridFieldDeleteAction(true),
+                new GridFieldDetailForm(),
+                (new GridFieldAddNewButton('toolbar-header-left'))->setButtonName(_t(__CLASS__ . '.AddDocument', 'Add document...')),
+                new GridFieldAddExistingAutocompleter('toolbar-header-right'),
+                new GridFieldOrderableRows('PDFSortOrder')
+            );
+            $gridField = new GridField('PDFDocs', '', $this->PDFDocs(), $DocumentGridFieldConfig);
+            $fields->addFieldToTab('Root.Main', $gridField);
+            $DocumentGridFieldConfig->removeComponentsByType([
+                GridFieldFilterHeader::class,
+            ]);
+        } else {
+            $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
+        }
 
         return $fields;
-    }
-
-    public function Items()
-    {
-        if ($this->DocumentFolderID) {
-            $r = File::get()->filter(['ParentID' => $this->DocumentFolderID, 'FileFilename:EndsWith:nocase' => '.pdf'])->Sort('Name DESC');
-        } else {
-            $r = $this->Documents()->sort('SortOrder');
-        }
-        return $r;
     }
 
     public function getType()

@@ -40,6 +40,7 @@ de:
     HTMLFieldDescription: 'Wenn Inhalt vorhanden, wird dieser auf dem Desktop neben der "Karte" angezeigt'
   App\Elements\ElementPDFDocument:
     AddDocument: 'Dokument hinzufügen...'
+    SHOWASSLIDER: 'Als Slider anzeigen'
   App\Elements\ElementPerso:
     BlockType: Team
     PLURALNAME: Personal
@@ -200,6 +201,7 @@ de:
       other: '{count} Teasers'
     SINGULARNAME: Teaser
     IsUsedOnComment: 'Teaser wird in folgenden Elementen verwendet'
+    LAYOUT: 'Anordnung Text'
   DNADesign\Elemental\Models\BaseElement:
     AVAILABLEGLOBALLY: 'klonen mit virtuellem Element ermöglichen'
     AnchorLinkDescription: 'kein gültiger Anker'
@@ -216,6 +218,8 @@ de:
     MetaTitleRightTitle: 'Wird als Titel im Browser und für Suchmaschinen Resultate verwendet. Wichtig für SEO!'
     MetaDescriptionRightTitle: 'Wird in Suchmaschinen-Ergebnissen verwendet, wenn Länge passt und Relevanz gegeben ist; beeinflusst die SEO-Position kaum. Ansprechende Meta-Descripton (besonders die ersten ~55 Zeichen -> Sitelinks) beeinflussen die Klickrate jedoch stark.'
     NavAriaLabel: 'Hauptnavigation'
+  SilverStripe\CMS\Model\RedirectorPage:
+    NewWindowLabel: 'URL in einem neuen Fenster öffnen'
   SilverStripe\Blog\Model\Blog:
     Allcategories: Alle
     MORE: Weiterlesen

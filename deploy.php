@@ -81,9 +81,7 @@ set('clear_paths', [
     '.gitignore',
     '.vscode/',
     'deploy.php',
-    'deploy/',
-    'silverstripe-cache/readme.txt',
-    'blacklist.txt'
+    'deploy/'
 ]);
 
 // prevent sending usage statistics

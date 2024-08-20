@@ -51,8 +51,7 @@ class ElementLogo extends BaseElement
         $fields = parent::getCMSFields();
 
         $fields->removeByName([
-            'Logos',
-            'WidthReduced'
+            'Logos'
         ]);
 
         if ($GreyscaleField = $fields->dataFieldByName('Greyscale')) {

@@ -43,8 +43,7 @@ class ElementCounter extends BaseElement
 
         $fields->removeByName([
             'BackgroundColor',
-            'CountItems',
-            'WidthReduced'
+            'CountItems'
         ]);
 
         // hack around unsaved relations

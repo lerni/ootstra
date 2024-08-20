@@ -152,7 +152,7 @@ class Perso extends DataObject
         return $title;
     }
 
-     public function DepartmentsString() {
+    public function DepartmentsString() {
         return implode(', ', $this->Departments()->Column('Title'));
     }
 
@@ -165,11 +165,6 @@ class Perso extends DataObject
             $Anchor = $Anchor . '-' . $this->ID;
         }
         return $Anchor;
-    }
-
-    public function canView($member = null)
-    {
-        return true;
     }
 
     public function PersoSchema() {
