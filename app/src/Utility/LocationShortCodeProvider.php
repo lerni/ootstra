@@ -19,7 +19,11 @@ class LocationShortCodeProvider
             } else {
                 $loc = Location::get()->filter('Title', $arguments['Title'])->first();
             }
-            return $loc->{$arguments['Field']};
+            if (get_class($loc->dbObject($arguments['Field'])) == 'SilverStripe\ORM\FieldType\DBText') {
+                return nl2br($loc->{$arguments['Field']});
+            } else {
+                return $loc->{$arguments['Field']};
+            }
         }
         return false;
     }
