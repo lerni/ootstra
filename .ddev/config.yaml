@@ -1,4 +1,4 @@
-name: ootstra
+# name: ootstra # directory name as project name is used by default - we also use `${workspaceFolderBasename}` in `.vscode/launch.json` - make sure to update that if you change this
 type: silverstripe
 docroot: public
 php_version: "8.3"

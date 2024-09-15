@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Point;
+use App\Models\Vacation;
 use SilverStripe\i18n\i18n;
 use BetterBrief\GoogleMapField;
 use SilverStripe\ORM\DataObject;
@@ -33,7 +34,9 @@ class Location extends DataObject
         'GeoPoint' => Point::class
     ];
 
-    private static $belongs_many_many = [];
+    private static $belongs_many_many = [
+        'Vacations' => Vacation::class
+    ];
 
     private static $table_name = 'Location';
     private static $default_sort = 'Sort ASC';
@@ -49,12 +52,25 @@ class Location extends DataObject
     ];
 
     private static $indexes = [
-        'Title' => true,
+        'Title' => [
+            'type' => 'unique',
+            'columns' => ['Title']
+        ]
     ];
 
     private static $translate = [
         'Title'
     ];
+
+    public function singular_name()
+    {
+        return _t(__CLASS__ . '.SINGULARNAME', 'Location');
+    }
+
+    public function plural_name()
+    {
+        return _t(__CLASS__ . '.PLURALNAME', 'Locations');
+    }
 
     public function fieldLabels($includerelations = true)
     {
@@ -94,7 +110,7 @@ class Location extends DataObject
         $dbFields = $this->config()->get('db');
         foreach ($dbFields as $fieldName => $fieldType) {
             if ($field = $fields->dataFieldByName($fieldName)) {
-                $field->setDescription('<p>[Location Title="' . $this->Title .'" Field="' . $fieldName . '"]</p>');
+                $field->setDescription('<p>[Location Title="' . $this->Title . '" Field="' . $fieldName . '"]</p>');
             }
         }
 
@@ -119,11 +135,13 @@ class Location extends DataObject
     //     return null;
     // }
 
-    public function CountryCodeUppercase() {
+    public function CountryCodeUppercase()
+    {
         return strtoupper($this->Country);
     }
 
-    public function CountryName() {
+    public function CountryName()
+    {
         $countries = i18n::getData()->getCountries();
         return $countries[$this->Country];
     }

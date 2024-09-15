@@ -120,7 +120,8 @@ de:
     ADDRESSREGION: 'Kanton / Bundesland'
     EMAIL: E-Mail
     GEOPOINT: Koordinaten
-    PLURALNAME: Standort
+    SINGULARNAME: Standort
+    PLURALNAME: Standorte
     PLURALS:
       one: 'Standort'
       other: '{count} Standorte'
@@ -131,6 +132,13 @@ de:
     COUNTRY: Land
     OPENINGHOURS: Öffnungszeiten
     DescriptionGeoPointField: 'Koordinaten aus ElementMap verknüpfen'
+  App\Models\Vacation:
+    TITLE: Titel
+    STARTDATE: Startdatum
+    ENDDATE: Enddatum
+    LOCATIONS: Standorte
+    SINGULARNAME: Ferien
+    PLURALNAME: Ferien
   App\Models\Logo:
     LogoImageDescription: 'min. 120px hoch'
     PLURALNAME: Logos

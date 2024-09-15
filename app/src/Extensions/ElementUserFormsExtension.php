@@ -21,13 +21,6 @@ class ElementUserFormsExtension extends DataExtension
 
     public function populateDefaults()
     {
-        if (class_exists(KlaroSiteConfigExtension::class)) {
-            $siteConfig = SiteConfig::current_site_config();
-            $id = $siteConfig->CookieLinkPrivacyID;
-        } else {
-            $id = 2; // ID we get with default fixtures
-        }
-
         $termsField = new EditableCheckboxTerms();
         $this->owner->Fields()->add($termsField);
 

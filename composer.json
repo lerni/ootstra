@@ -59,7 +59,8 @@
 	"require-dev": {
 		"deployer/deployer": "^7",
 		"dnadesign/silverstripe-populate": "^3",
-		"lekoala/silverstripe-debugbar": "^3.0@dev"
+		"lekoala/silverstripe-debugbar": "^3.0@dev",
+		"pstaender/ssshell": "^0.1.2"
 	},
 	"extra": {
 		"expose": [

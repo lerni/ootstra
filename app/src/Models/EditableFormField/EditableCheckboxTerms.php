@@ -5,13 +5,9 @@ namespace App\Models\EditableFormField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\SiteConfig\SiteConfig;
-use SilverStripe\View\Parsers\HTMLValue;
 use SilverStripe\View\Parsers\ShortcodeParser;
-use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
-use Kraftausdruck\Controller\KlaroConfigController;
 use SilverStripe\UserForms\Model\EditableFormField;
 use Kraftausdruck\Extensions\KlaroSiteConfigExtension;
-use SilverStripe\UserForms\Model\EditableFormField\EditableCheckbox;
 
 class EditableCheckboxTerms extends EditableFormField
 {

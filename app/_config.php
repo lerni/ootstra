@@ -6,6 +6,7 @@ use SilverStripe\Core\Environment;
 use SilverStripe\Control\Email\Email;
 use Wilr\GoogleSitemaps\GoogleSitemap;
 use App\Utility\LocationShortCodeProvider;
+use App\Utility\VacationShortCodeProvider;
 use SilverStripe\Core\Manifest\ModuleLoader;
 use SilverStripe\View\Parsers\ShortcodeParser;
 use SilverStripe\View\Parsers\URLSegmentFilter;
@@ -168,3 +169,4 @@ URLSegmentFilter::config()->default_replacements = [
 // GoogleSitemap::register_dataobjects(['App\Models\JobPosting'], 'weekly', '1');
 
 ShortcodeParser::get('default')->register('Location', [LocationShortCodeProvider::class, 'parseLocationShortCodeProvider']);
+ShortcodeParser::get('default')->register('Vacation', [VacationShortCodeProvider::class, 'parseLocationShortCodeProvider']);

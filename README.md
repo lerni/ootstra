@@ -1,9 +1,9 @@
 # Status - WIP
 **This is work in progress!**
 
-# Setup, Requirements & install
+# Setup, Requirements & Install
 
-"ootstra" is inspired from [Bigfork’s quickstart recipe](https://github.com/bigfork/silverstripe-recipe) for [Silverstripe](https://www.silverstripe.org/). It's an opinionated set of tools for a ready to run, build & deploy a CMS instance. To get it up and running you'll need [GIT](https://git-scm.com/), an editor like [VSCode](https://code.visualstudio.com/) (recommended) & [ddev](https://ddev.readthedocs.io/en/stable/). It utilizes [dnadesign/silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) for a block/element based CMS experience and comes with the following set of elements:
+"ootstra" is inspired by [Bigfork’s quickstart recipe](https://github.com/bigfork/silverstripe-recipe) for [Silverstripe](https://www.silverstripe.org/). It's an opinionated set of tools for a ready to run, build & deploy a CMS instance. To get it up and running you'll need [GIT](https://git-scm.com/), an editor like [VSCode](https://code.visualstudio.com/) (recommended) & [ddev](https://ddev.readthedocs.io/en/stable/). It utilizes [dnadesign/silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) for a block/element based CMS experience and comes with the following set of elements:
 
 - ElementContent
 - ElementForm               (userforms)
@@ -63,17 +63,17 @@ On the first request database structure 'll automatically be generated - it runs
     i18n::set_locale('de_CH');
 ```
 ### ddev/Docker dev-env
-When renaming the project/folder, reflect this in `.ddev/config.yaml` and (re)run `ddev config` - same name in DDEV-config as the foldername is recommended, because of `${workspaceFolderBasename}` in `.vscode/launch.json`. Run `ddev start` & `ddev composer i` in the project directory. This provides a webserver at [https://ootstra.ddev.site](https://ootstra.ddev.site), phpMyAdmin at [https://ootstra.ddev.site:8037](https://ootstra.ddev.site:8037), and Mailpit at [https://ootstra.ddev.site:8026/](https://ootstra.ddev.site:8026/). Default login at [/admin](https://ootstra.ddev.site/admin) is `admin` & `password`.
+By default foldername is used as projectname, this is recommended because `.vscode/launch.json` uses `${workspaceFolderBasename}`. Run `ddev config` in the project directory. Now you're ready to run `ddev start` & `ddev composer i`. This provides a webserver at [https://PROJECTNAME.ddev.site](https://PROJECTNAME.ddev.site), phpMyAdmin at [https://PROJECTNAME.ddev.site:8037](https://PROJECTNAME.ddev.site:8037), and Mailpit at [https://PROJECTNAME.ddev.site:8026/](https://PROJECTNAME.ddev.site:8026/). Default login at [/admin](https://PROJECTNAME.ddev.site/admin) is `admin` & `password`.
 
 <!-- ### ddev-ssh-agent
-This setup omits `ddev-ssh-agent` and exposes `SSH_AUTH_SOCK` via environment variable and mounting per `RUN --mount=type=ssh` into the web container. To use certain files or whole directories from your hosts home directory (e.g., `~/.composer`, `~/.gitconfig`, `~/.ssh`) in ddev, create symlinks in `~/.ddev/homeadditions` in order to use your local SSH keys. For more information, refer to the [ddev documentation](https://ddev.readthedocs.io/en/stable/users/extend/in-container-configuration/). Note the path of `/home/.ssh-agent/known_hosts`. A separate/copied `~/.ddev/homeadditions/.ssh/config` as bellow seems to properly locate ssh-config.
+This setup omits `ddev-ssh-agent` and exposes `SSH_AUTH_SOCK` via environment variable and mounting per `RUN --mount=type=ssh` into the web container. To use certain files or whole directories from your hosts home directory (e.g., `~/.composer`, `~/.gitconfig`, `~/.ssh`) in ddev, create symlinks in `~/.ddev/homeadditions` in order to use your local SSH keys. For more information, refer to the [ddev documentation](https://ddev.readthedocs.io/en/stable/users/extend/in-container-configuration/). Note the path of `/home/.ssh-agent/known_hosts`. A separate/copied `~/.ddev/homeadditions/.ssh/config` as below seems to properly locate ssh-config.
 ```bash
 UserKnownHostsFile=~/.ssh/known_hosts
 StrictHostKeyChecking=accept-new
 ``` -->
 
 ### npm, Laravel Mix watch & build etc.
-[Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([webpack](https://webpack.js.org/) based) is used as build environment. You need to run `ddev theme install` to install npm packages.  Watcher browsersync/reload can be started with  `ddev theme watch` and 'll be available at [https://ootstra.ddev.site:3000/](https://ootstra.ddev.site:3000/). A production build can be done with `ddev theme prod`. See also scripts section in `themes/default/package.json` and [Mix CLI](https://laravel-mix.com/docs/6.0/cli).
+[Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([webpack](https://webpack.js.org/) based) is used as build environment. You need to run `ddev theme install` to install npm packages.  Watcher browsersync/reload can be started with  `ddev theme watch` and 'll be available at [https://PROJECTNAME.ddev.site:3000/](https://PROJECTNAME.ddev.site:3000/). A production build can be done with `ddev theme prod`. See also scripts section in `themes/default/package.json` and [Mix CLI](https://laravel-mix.com/docs/6.0/cli).
 
 ### VSCode tasks - remember all the commands :information_desk_person:
 There are a bunch of tasks in `.vscode/tasks.json` available per `Command+Shift+B`:
@@ -89,6 +89,7 @@ There are a bunch of tasks in `.vscode/tasks.json` available per `Command+Shift+
 - `ddev theme prod` (green)
 - `flushh` (blue - flush hard) instead of `ddev exec rm -rf ./silverstripe-cache/*`
 - `dev/build` (blue) instead of `ddev php ./vendor/silverstripe/framework/cli-script.php dev/build flush`
+- `ssshell` (blue) instead of `ddev php ./vendor/bin/ssshell`
 - `download database from live` (cyan)
 - `download assets from live` (cyan)
 - `ssh test / live` (cyan)
@@ -167,7 +168,7 @@ or
 ```bash
     ddev php ./vendor/bin/dep deploy live
 ```
-The first time you deploy to a given stage, you’ll be asked to provide database credentials etc. to populate `.env`. A file similar as bellow 'll be created.
+The first time you deploy to a given stage, you’ll be asked to provide database credentials etc. to populate `.env`. A file similar as below 'll be created.
 
 ```
 # For a complete list of core environment variables see

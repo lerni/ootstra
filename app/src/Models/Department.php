@@ -21,6 +21,7 @@ class Department extends DataObject
         'Title' => 'Varchar',
         'Sort' => 'Int'
     ];
+
     private static $many_many = [
         'Persos' => Perso::class
     ];

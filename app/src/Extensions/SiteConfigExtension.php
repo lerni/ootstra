@@ -4,6 +4,7 @@ namespace App\Extensions;
 
 use App\Models\Slide;
 use App\Models\Location;
+use App\Models\Vacation;
 use App\Models\SocialLink;
 use SilverStripe\Forms\DateField;
 use SilverStripe\Forms\FieldList;
@@ -43,7 +44,8 @@ class SiteConfigExtension extends DataExtension
     private static $has_many = [
         'Locations' => Location::class,
         'ServiceNavigationItems' => Link::class . '.Owner',
-        'TermsNavigationItems' => Link::class . '.Owner'
+        'TermsNavigationItems' => Link::class . '.Owner',
+        'Vacation' => Vacation::class
     ];
 
     private static $many_many = [
@@ -154,5 +156,18 @@ class SiteConfigExtension extends DataExtension
 
         $SocialGridField = new GridField('SocialLinks', 'SocialLinks', $this->owner->SocialLinks(), $SocialConf);
         $fields->addFieldToTab('Root.Main', $SocialGridField);
+
+        $VacationGFConf = GridFieldConfig_Base::create(20);
+        $VacationGFConf->removeComponentsByType([
+            GridFieldFilterHeader::class
+        ]);
+        $VacationGFConf->addComponents(
+            new GridFieldEditButton(),
+            new GridFieldDeleteAction(false),
+            new GridFieldDetailForm(),
+            new GridFieldAddNewButton('toolbar-header-left')
+        );
+        $VacttionGridField = new GridField('Vacation', 'Ferien & Feiertage', Vacation::get(), $VacationGFConf);
+        $fields->addFieldToTab('Root.Ferien & Feiertage', $VacttionGridField);
     }
 }

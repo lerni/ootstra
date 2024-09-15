@@ -975,9 +975,16 @@ html .klaro {
 	bottom: 0;
 	left: 0;
 	padding: #{$lh}em;
+	.cm-as-context-notice {
+		height: auto;
+	}
 	.context-notice {
 		&:last-child {
 			margin-bottom: 0;
+		}
+		.cm-buttons {
+			display: flex;;
+			gap: 1em;
 		}
 		button.cm-btn {
 			display: inline-block;
@@ -988,6 +995,7 @@ html .klaro {
 			font-size: 1em;
 			@include bold;
 			border-radius: 0;
+			margin: 0 !important;
 			cursor: pointer;
 			&:first-of-type {
 				background-color: $link-color;

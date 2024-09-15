@@ -18,6 +18,21 @@
       }
     },
     {
+      "label": "SilverStripe Shell",
+      "type": "shell",
+      "command": "ddev php ./vendor/bin/ssshell",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true,
+        "close": true // Add this line to close the panel after quitting
+      },
+      "icon": {
+        "color": "terminal.ansiBlue"
+      }
+    },
+    {
       "label": "flushh (hard) - local",
       "type": "shell",
       "command": "ddev exec \"rm -rf /var/www/html/silverstripe-cache/*\" && php -r 'opcache_reset();'",
@@ -36,10 +51,10 @@
       "type": "shell",
       "command": "ddev theme install && ddev exec -d /var/www/html/themes/default npx update-browserslist-db@latest",
       "group": "build",
-      "isBackground": true,
       "presentation": {
         "reveal": "always",
-        "panel": "new"
+        "panel": "new",
+        "focus": true
       },
       "icon": {
         "color": "terminal.ansiGreen"
@@ -78,7 +93,6 @@
       "type": "shell",
       "command": "ddev start",
       "group": "build",
-      "isBackground": true,
       "presentation": {
         "reveal": "always",
         "panel": "new"
@@ -92,7 +106,6 @@
       "type": "shell",
       "command": "ddev stop",
       "group": "build",
-      "isBackground": true,
       "presentation": {
         "reveal": "always",
         "panel": "new"
@@ -106,7 +119,6 @@
       "type": "shell",
       "command": "ddev restart",
       "group": "build",
-      "isBackground": true,
       "presentation": {
         "reveal": "always",
         "panel": "new"
@@ -120,26 +132,11 @@
       "type": "shell",
       "command": "ddev ssh",
       "group": "build",
-      "isBackground": true,
       "presentation": {
         "reveal": "always",
         "panel": "new",
-        "focus": true
-      },
-      "icon": {
-        "color": "terminal.ansiMagenta"
-      }
-    },
-    {
-      "label": "ddev ssh thems/default",
-      "type": "shell",
-      "command": "ddev ssh -d /var/www/html/themes/default",
-      "group": "build",
-      "isBackground": true,
-      "presentation": {
-        "reveal": "always",
-        "panel": "new",
-        "focus": true
+        "focus": true,
+        "close": true
       },
       "icon": {
         "color": "terminal.ansiMagenta"
@@ -150,11 +147,11 @@
       "type": "shell",
       "command": "ddev logs -f -s web",
       "group": "build",
-      "isBackground": true,
       "presentation": {
         "reveal": "always",
         "panel": "new",
-        "focus": true
+        "focus": true,
+        "close": true
       },
       "icon": {
         "color": "terminal.ansiMagenta"
@@ -165,7 +162,6 @@
       "type": "shell",
       "command": "ddev composer install",
       "group": "build",
-      "isBackground": true,
       "presentation": {
         "reveal": "always",
         "panel": "new",
@@ -180,7 +176,6 @@
       "type": "shell",
       "command": "ddev composer u",
       "group": "build",
-      "isBackground": true,
       "presentation": {
         "reveal": "always",
         "panel": "new",
@@ -195,7 +190,6 @@
       "type": "shell",
       "command": "ddev composer vendor-expose",
       "group": "build",
-      "isBackground": true,
       "presentation": {
         "reveal": "always",
         "panel": "new",
@@ -241,7 +235,8 @@
       "presentation": {
         "reveal": "always",
         "panel": "new",
-        "focus": true
+        "focus": true,
+        "close": true
       },
       "icon": {
         "color": "terminal.ansiCyan"
@@ -255,7 +250,8 @@
       "presentation": {
         "reveal": "always",
         "panel": "new",
-        "focus": true
+        "focus": true,
+        "close": true
       },
       "icon": {
         "color": "terminal.ansiCyan"

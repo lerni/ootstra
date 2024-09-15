@@ -11,9 +11,7 @@ use SilverStripe\Security\Permission;
 
 class MetaOverviewPage extends Page
 {
-    private static $db = [
-        'Title' => 'Varchar'
-    ];
+    private static $db = [];
 
     private static $table_name = 'MetaOverviewPage';
 
