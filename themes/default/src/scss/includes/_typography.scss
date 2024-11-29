@@ -27,9 +27,11 @@
 		margin: 0 0 #{$lh}em 0;
 	}
 	* {
+		&.inline,
 		&.inlinish {
 			margin-bottom: 0;
 		}
+		&.halveinline,
 		&.halvelinish {
 			margin-bottom: #{math.div($lh, 2)}em;
 		}
@@ -68,7 +70,7 @@
 	ul {
 		// margin-left & -right may be affected by $inner-width--reduced
 		margin: 0 0 #{$lh}em 0;
-		padding: 0 0 0 #{math.div($lh, 3)* 2}em;
+		padding: 0 0 0 #{math.div($lh, 3) * 2}em;
 		li {
 			line-height: $lh;
 			padding: 0 0 #{math.div($lh, 4)}em #{math.div($lh, 2)}em;
@@ -133,7 +135,7 @@
 		font-size: clamp(1.2em, 4vw, 1.41em);
 	}
 	h3 {
-		font-size: 1em;
+		font-size: clamp(1.1em, 3.6vw, 1.24em);
 	}
 	h4 {
 		font-size: 1em;
@@ -335,7 +337,7 @@
 		font-size: $font-size--small;
 	}
 	.large {
-		font-size: 1.3em;
+		font-size: clamp(1.1em, 4vw, 1.41em);
 	}
 	// feahter icons
 	svg.feather {

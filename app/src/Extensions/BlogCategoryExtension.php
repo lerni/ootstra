@@ -2,10 +2,10 @@
 
 namespace App\Extensions;
 
+use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
-use SilverStripe\ORM\DataExtension;
 
-class BlogCategoryExtension extends DataExtension
+class BlogCategoryExtension extends Extension
 {
     private static $db = [
         'SortOrder' => 'Int'

@@ -238,19 +238,21 @@ form {
 					label {
 						padding-left: #{$lh}em;
 						font-size: $font-size--small;
+						cursor: pointer;
 					}
 					input[type="radio"] {
 						position: absolute;
-						visibility: hidden;
+						opacity: 0;
+						&:focus + label {
+							outline: 2px solid $link-color;
+							outline-offset: 2px;
+						}
 						&:checked ~ .radio-check {
-							border: 10% solid $link-color;
+							border: 10% solid darken($gray--light, 16%);
 						}
 						&:checked ~ .radio-check::before {
-							background-color: $link-color;
+							background-color: darken($gray--light, 16%);
 						}
-						// &:checked ~ label {
-						// 	color: $link-color;
-						// }
 					}
 					.radio-check {
 						pointer-events: none;
@@ -263,7 +265,7 @@ form {
 						left: 0;
 						z-index: 5;
 						transition: border 0.25s linear;
-						border: #{math.div($size, 5)}em solid $gray;
+						border: #{math.div($size, 5)}em solid darken($gray--light, 16%);
 						&::before {
 							display: block;
 							position: absolute;
