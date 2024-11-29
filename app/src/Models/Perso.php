@@ -187,7 +187,7 @@ class Perso extends DataObject
 
     public function QRURL()
     {
-        if ($this->Departments()) {
+        if ($this->Departments()->count) {
             if ($this->Departments()->first()->PersoElement()) {
                 $file = $this->Departments()->first()->PersoElement()->first()->getController()->qrvc($this->ID);
                 return $file;

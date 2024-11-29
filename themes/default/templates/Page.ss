@@ -28,13 +28,6 @@
 			font-weight: 700;
 			src: url("$resourceURL('themes/default/dist/fonts/figtree-v5-latin-600.woff2')") format('woff2');
 		}
-		@font-face {
-			font-family: "icons";
-			src: url("$resourceURL('app/fonts/icons.woff2')") format('woff2'),
-			url("$resourceURL('app/fonts/icons.woff')") format('woff');
-			font-style: normal;
-			font-display: block;
-		}
 	</style>
 </head>
 <body class="{$ClassName.ShortName.LowerCase}">

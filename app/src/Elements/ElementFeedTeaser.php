@@ -126,11 +126,11 @@ class ElementFeedTeaser extends BaseElement
             }
 
             if ($this->Categories()->Count()) {
-                $filter = $this->Categories()->Column('URLSegment');
+                $filter = $this->Categories()->Column('ID');
                 if ($this->FeedTeaserParents()->first()->ClassName == 'SilverStripe\Blog\Model\Blog') {
-                    $childrens = $childrens->filterAny('Categories.URLSegment', $filter);
+                    $childrens = $childrens->filter('Categories.ID', $filter);
                 } else {
-                    $childrens = $childrens->filterAny('PageCategories.URLSegment', $filter);
+                    $childrens = $childrens->filter('PageCategories.ID', $filter);
                 }
             }
 
@@ -199,19 +199,26 @@ class ElementFeedTeaser extends BaseElement
         return 'h' . $l;
     }
 
-    public function FeedTeaserParentsWithCategory()
+    public function FeedTeaserParentsWithCategory(): ?string
     {
         $parents = $this->FeedTeaserParents();
-        $categories = $this->Categories();
-        $link = $parents->first()->AbsoluteLink();
-        // remove possible stage parameter
-        $parsedUrl = parse_url($link);
-        $link = $parsedUrl['scheme'] . '://' . $parsedUrl['host'] . $parsedUrl['path'];
-        if ($parents->count() &&
-            $parents->first()->ClassName == 'SilverStripe\Blog\Model\Blog' &&
-            $categories->count() == 1) {
-            $link .= '/category/' . $categories->first()->URLSegment;
+        if (!$parents->count()) {
+            return null;
         }
+
+        $parent = $parents->first();
+        $parsedUrl = parse_url($parent->AbsoluteLink());
+        $link = "{$parsedUrl['scheme']}://{$parsedUrl['host']}{$parsedUrl['path']}";
+
+        $categories = $this->Categories();
+        if (
+            $parent->ClassName == 'SilverStripe\Blog\Model\Blog' &&
+            $categories->count() == 1
+        ) {
+            $category = $categories->first();
+            $link .= "/category/{$category->URLSegment}";
+        }
+
         return $link;
     }
 

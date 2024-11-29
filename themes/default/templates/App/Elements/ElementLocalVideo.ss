@@ -2,7 +2,7 @@
 <% include App/Includes/ElementTitle %>
 <% if $LocalMP4Video || $LocalMP4VideoSmall || $Image %>
 	<div class="video-wrapper<% if $Autoplay %> play<% end_if %><% if $Autoplay || $Mute %> muted<% end_if %>" id="video-wrapper-{$LocalVideo.ID}">
-		<video onclick="togglePlay()" id="video-{$LocalVideo.ID}" poster="{$Image.FocusFillMax(1230,692).URL}" width="100%" <% if $Autoplay %> autoplay<% end_if %><% if $Autoplay || $Mute %> muted<% end_if %><% if $Loop %> loop<% end_if %> playsinline>
+		<video onclick="togglePlay()" id="video-{$LocalVideo.ID}" poster="{$Image.FocusFillMax(1230,692).Convert('webp').URL}" width="100%" <% if $Autoplay %> autoplay<% end_if %><% if $Autoplay || $Mute %> muted<% end_if %><% if $Loop %> loop<% end_if %> playsinline>
 			<% if $LocalMP4Video %><source src="{$LocalMP4Video.Link}" media="(min-width: 800px)" type="video/mp4"><% end_if %>
 			<% if $LocalMP4VideoSmall %><source src="{$LocalMP4VideoSmall.Link}" type="video/mp4"><% end_if %>
 		</video>

@@ -14,7 +14,7 @@ SilverStripe\Assets\File:
     # needs GHOSTSCRIPT_PATH="/usr/local/bin/gs"
     # - App\Extensions\PdfThumbnailerExtension
   allowed_extensions:
-    svg: true
+    svg: true # cos of perso QR-URL to vCard
     webp: true
     bmp: false
     vcf: true
@@ -145,7 +145,7 @@ SilverStripe\Blog\Model\BlogPost:
     - App\Elements\ElementTextImage
     - App\Elements\ElementPDFDocument
     - App\Elements\ElementLocalVideo
-    # - App\Elements\ElementIframe
+    # - App\Elements\ElementIframe # We may should encourage SnippetShortCodeProvider and drop this?
     # - Kraftausdruck\Elements\ElementProduct
     # - Kraftausdruck\Elements\ElementCheckout
     # - Kraftausdruck\Elements\ElementProductAdder
@@ -174,7 +174,7 @@ App\Models\ElementPage:
     - App\Elements\ElementTextImage
     - App\Elements\ElementPDFDocument
     - App\Elements\ElementLocalVideo
-    # - App\Elements\ElementIframe
+    # - App\Elements\ElementIframe # We may should encourage SnippetShortCodeProvider and drop this?
     # - Kraftausdruck\Elements\ElementProduct
     # - Kraftausdruck\Elements\ElementCheckout
     # - Kraftausdruck\Elements\ElementProductAdder
@@ -295,6 +295,10 @@ SilverStripe\Core\Injector\Injector:
     constructor:
       namespace: 'cacheblock'
       defaultLifetime: 0 # zero is infinit
+  SilverStripe\Security\PasswordValidator:
+    properties:
+      MinLength: 10
+      MinTestScore: 3
 
 TractorCow\Robots\Robots:
   disallowed_urls: []
@@ -342,11 +346,11 @@ Kraftausdruck\Webmanifest\Webmanifest:
     display: 'minimal-ui'
     # icon-mask are doubtable, having it stops Google Lighthouse from complaining ;)
     # https://web.dev/articles/maskable-icon
-    icons:
-      - src: '/icon-mask.svg'
-        sizes: '150x150'
-        type: 'image/svg+xml'
-        purpose: 'maskable'
+    # icons:
+    #   - src: '/icon-mask.svg'
+    #     sizes: '150x150'
+    #     type: 'image/svg+xml'
+    #     purpose: 'maskable'
 ---
 Name: mysharecare
 After: 'opengraphextensions'

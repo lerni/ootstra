@@ -33,20 +33,6 @@
       }
     },
     {
-      "label": "flushh (hard) - local",
-      "type": "shell",
-      "command": "ddev exec \"rm -rf /var/www/html/silverstripe-cache/*\" && php -r 'opcache_reset();'",
-      "group": "build",
-      "presentation": {
-        "reveal": "always",
-        "panel": "new",
-        "focus": true
-      },
-      "icon": {
-        "color": "terminal.ansiBlue"
-      }
-    },
-    {
       "label": "npm install & update update-browserslist-db",
       "type": "shell",
       "command": "ddev theme install && ddev exec -d /var/www/html/themes/default npx update-browserslist-db@latest",

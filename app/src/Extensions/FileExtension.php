@@ -2,9 +2,9 @@
 
 namespace App\Extensions;
 
-use SilverStripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 
-class FileExtension extends DataExtension
+class FileExtension extends Extension
 {
     private static $db = [
         'Caption' => 'Text'

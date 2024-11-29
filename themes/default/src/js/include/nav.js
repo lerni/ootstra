@@ -8,27 +8,41 @@ document.body.addEventListener("htmx:afterSettle", function (event) {
 
 function init() {
   // burger
-  document.querySelector("#menuButton").addEventListener("click", (event) => {
-    document.querySelector("html").classList.toggle("mobile-nav--active");
-    let menuButton = document.querySelector("#menuButton");
-    let isExpanded = menuButton.getAttribute("aria-expanded") === "true";
-    menuButton.setAttribute("aria-expanded", !isExpanded);
-    document.getElementById("header").scrollIntoView();
-  });
+  const menuButton = document.querySelector("#menuButton");
+  if (menuButton) {
+    menuButton.addEventListener("click", (event) => {
+      document.querySelector("html").classList.toggle("mobile-nav--active");
+      let isExpanded = menuButton.getAttribute("aria-expanded") === "true";
+      menuButton.setAttribute("aria-expanded", !isExpanded);
+      document.getElementById("header").scrollIntoView();
+    });
+  }
 
   // toggle expanded-class
   // open and do not navigate on collapsed:not(.expanded) navi-items on mobile nav (touch)
-  document.querySelector(".menu1").addEventListener("click", (event) => {
-    if (event.target.closest("li.has-children.expanded >a")) {
-      window.location = event.target.getAttribute("href");
-    } else if (
-      document.querySelector("html").classList.contains("mobile-nav--active") &&
-      event.target.closest("li.has-children >a")
-    ) {
-      event.preventDefault();
-      event.target.parentElement.classList.toggle("expanded");
-    }
-  });
+  const menu1 = document.querySelector(".menu1");
+  if (menu1) {
+    menu1.addEventListener("click", (event) => {
+      if (event.target.closest("li.has-children.expanded >a")) {
+        window.location = event.target.getAttribute("href");
+      } else if (
+        document.querySelector("html").classList.contains("mobile-nav--active") &&
+        event.target.closest("li.has-children >a")
+      ) {
+        event.preventDefault();
+        event.target.parentElement.classList.toggle("expanded");
+      }
+    });
+
+    menu1.addEventListener("mouseleave", (event) => {
+      if (!document.querySelector("html").classList.contains("mobile-nav--active")) {
+        const items = document.querySelectorAll(".menu1 li");
+        items.forEach((i) => {
+          i.classList.remove("expanded");
+        });
+      }
+    });
+  }
 
   // collapse/expand navi per .trigger
   const triggers = document.querySelectorAll("span.trigger");
@@ -38,22 +52,11 @@ function init() {
     });
   });
 
-  document.querySelector(".menu1").addEventListener("mouseleave", (event) => {
-    if (
-      !document.querySelector("html").classList.contains("mobile-nav--active")
-    ) {
-      const items = document.querySelectorAll(".menu1 li");
-      items.forEach((i) => {
-        i.classList.remove("expanded");
-      });
-    }
-  });
-
   // Arrow key navigation
-  var topLevelMenuItems = Array.prototype.slice.call(
+  const topLevelMenuItems = Array.prototype.slice.call(
     document.querySelectorAll(".menu1 > li > a")
   );
-  var allMenuItems = Array.prototype.slice.call(
+  const allMenuItems = Array.prototype.slice.call(
     document.querySelectorAll(".menu1 > li > a, .menu2 > li > a")
   );
 

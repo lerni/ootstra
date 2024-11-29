@@ -9,8 +9,7 @@
 	.cards {
 		display: flex; // we use flex (not grid) cos ShowAsSlider would otherwise break swiper.js
 		flex-wrap: wrap;
-		gap: #{$lh}em;
-		row-gap: #{$lh * 2}em;
+		gap: #{$lh * 2}em;
 		width: 100%;
 		.card {
 			color: $text-color;
