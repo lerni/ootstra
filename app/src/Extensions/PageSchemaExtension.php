@@ -12,34 +12,25 @@ use SilverStripe\Core\Manifest\ModuleResourceLoader;
 class PageSchemaExtension extends Extension
 {
 
+    // options in SiteConfig
+    public static function AvailableSchemaTypes() {
+        return [
+            'Corporation' => Schema::corporation(),
+            'EducationalOrganization' => Schema::educationalOrganization(),
+            'LocalBusiness' => Schema::localBusiness(),
+            'NGO' => Schema::NGO(),
+            'NewsMediaOrganization' => Schema::newsMediaOrganization(),
+            'Restaurant' => Schema::restaurant()
+        ];
+    }
+
     public function OrganisationSchema()
     {
 
         $siteConfig = SiteConfig::current_site_config();
-
         $schemaType = $siteConfig->SchemaType;
-        $schemaOrganisation = null;
-
-        switch ($schemaType) {
-            case 'LocalBusiness':
-                $schemaOrganisation = Schema::localBusiness();
-                break;
-            case 'NGO':
-                $schemaOrganisation = Schema::NGO();
-                break;
-            case 'EducationalOrganization':
-                $schemaOrganisation = Schema::educationalOrganization();
-                break;
-            case 'NewsMediaOrganization':
-                $schemaOrganisation = Schema::newsMediaOrganization();
-                break;
-            case 'Corporation':
-                $schemaOrganisation = Schema::corporation();
-                break;
-            default:
-                $schemaOrganisation = Schema::organization();
-                break;
-        }
+        $schemaOrganisation = $this->AvailableSchemaTypes();
+        $schemaOrganisation = $schemaOrganisation[$schemaType] ?? Schema::organization();
 
         $schemaOrganisation
             ->name($siteConfig->Title)

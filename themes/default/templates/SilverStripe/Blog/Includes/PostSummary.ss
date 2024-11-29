@@ -3,9 +3,9 @@
 		<img
 			height="$getDefaultOGImage(1).FocusFillMax(340,170).Height()"
 			width="$getDefaultOGImage(1).FocusFillMax(340,170).Width()"
-			src="$getDefaultOGImage(1).FocusFillMax(340,170).WebP.URL"
-			srcset="$getDefaultOGImage(1).FocusFillMax(340,170).WebP.URL 1x,
-				$getDefaultOGImage(1).FocusFillMax(680,340).WebP.URL 2x"
+			src="$getDefaultOGImage(1).FocusFillMax(340,170).Convert('webp').URL"
+			srcset="$getDefaultOGImage(1).FocusFillMax(340,170).Convert('webp').URL 1x,
+				$getDefaultOGImage(1).FocusFillMax(680,340).Convert('webp').URL 2x"
 			alt="{$Title} {$Caption}" />
 	</figure><% end_if %>
 	<div class="txt">

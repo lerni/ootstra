@@ -14,7 +14,7 @@ SilverStripe\Assets\File:
     # needs GHOSTSCRIPT_PATH="/usr/local/bin/gs"
     # - App\Extensions\PdfThumbnailerExtension
   allowed_extensions:
-    svg: true
+    svg: true # cos of perso QR-URL to vCard
     webp: true
     bmp: false
     vcf: true
@@ -145,7 +145,7 @@ SilverStripe\Blog\Model\BlogPost:
     - App\Elements\ElementTextImage
     - App\Elements\ElementPDFDocument
     - App\Elements\ElementLocalVideo
-    # - App\Elements\ElementIframe
+    # - App\Elements\ElementIframe # We may should encourage SnippetShortCodeProvider and drop this?
     # - Kraftausdruck\Elements\ElementProduct
     # - Kraftausdruck\Elements\ElementCheckout
     # - Kraftausdruck\Elements\ElementProductAdder
@@ -174,7 +174,7 @@ App\Models\ElementPage:
     - App\Elements\ElementTextImage
     - App\Elements\ElementPDFDocument
     - App\Elements\ElementLocalVideo
-    # - App\Elements\ElementIframe
+    # - App\Elements\ElementIframe # We may should encourage SnippetShortCodeProvider and drop this?
     # - Kraftausdruck\Elements\ElementProduct
     # - Kraftausdruck\Elements\ElementCheckout
     # - Kraftausdruck\Elements\ElementProductAdder

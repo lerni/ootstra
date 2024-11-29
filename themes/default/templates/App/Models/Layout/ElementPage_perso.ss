@@ -10,14 +10,14 @@
 					<div id="$Anchor" class="perso">
 						<figure>
 							<% if $Portrait %>
-								<img loading="lazy" height="$Portrait.FocusFillMax(400,480).Height()" width="$Portrait.FocusFillMax(400,480).Width()" src="$Portrait.FocusFillMax(400,480).WebP.URL" srcset="$Portrait.FocusFillMax(400,480).WebP.URL 1x, $Portrait.FocusFillMax(800,960).WebP.URL 2x" alt="{$Firstname} {$Lastname}" />
+								<img loading="lazy" height="$Portrait.FocusFillMax(400,480).Height()" width="$Portrait.FocusFillMax(400,480).Width()" src="$Portrait.FocusFillMax(400,480).Convert('webp').URL" srcset="$Portrait.FocusFillMax(400,480).Convert('webp').URL 1x, $Portrait.FocusFillMax(800,960).Convert('webp').URL 2x" alt="{$Firstname} {$Lastname}" />
 							<% else %>
 								<img  class="default" src="$resourceURL('themes/default/dist/images/svg/perso-defalut.svg')" alt="" />
 							<% end_if %>
 							<img class="qrcode" src="{$QRURL.URL}">
 						</figure>
 						<div class="txt">
-							<p class="name inlinish"><strong>{$Firstname} {$Lastname}</strong></p>
+							<p class="name inline"><strong>{$Firstname} {$Lastname}</strong></p>
 							<% if $Position %>
 								<span class="position">$Position.Markdowned</span>
 							<% end_if %>

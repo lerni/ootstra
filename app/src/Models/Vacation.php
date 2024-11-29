@@ -7,21 +7,20 @@ use SilverStripe\ORM\DataObject;
 use SilverStripe\TagField\TagField;
 use SilverStripe\Security\Permission;
 use SilverStripe\ORM\FieldType\DBDate;
-use SilverStripe\ORM\ValidationResult;
 use SilverStripe\Security\PermissionProvider;
 
 class Vacation extends DataObject implements PermissionProvider
 {
     private static $db = [
-        'Title' => 'Varchar(255)',
+        'Title' => 'Varchar',
         'StartDate' => DBDate::class,
         'EndDate' => DBDate::class
     ];
 
     private static $summary_fields = [
         'Title' => 'Title',
-        'startDate' => 'Start Date',
-        'endDate' => 'End Date',
+        'StartDate' => 'Start Date',
+        'EndDate' => 'End Date',
         'LocationsString' => 'Standorte'
     ];
 
@@ -31,7 +30,7 @@ class Vacation extends DataObject implements PermissionProvider
         'Locations' => Location::class
     ];
 
-    private static $default_sort = 'startDate ASC';
+    private static $default_sort = 'StartDate ASC';
 
     private static $table_name = 'Vacation';
 
@@ -79,8 +78,8 @@ class Vacation extends DataObject implements PermissionProvider
     {
         $labels = parent::fieldLabels($includerelations);
         $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Title');
-        $labels['startDate'] = _t(__CLASS__ . '.STARTDATE', 'start date');
-        $labels['endDate'] = _t(__CLASS__ . '.ENDDATE', 'end date');
+        $labels['StartDate'] = _t(__CLASS__ . '.STARTDATE', 'start date');
+        $labels['EndDate'] = _t(__CLASS__ . '.ENDDATE', 'end date');
         return $labels;
     }
 
@@ -112,12 +111,12 @@ class Vacation extends DataObject implements PermissionProvider
             $result->addError(_t(__CLASS__ . '.TITLEVALIDATION', 'Titel ist ein Pflichtfeld.'));
         }
 
-        if ($this->startDate && $this->endDate && $this->startDate > $this->endDate) {
-            $result->addError(_t(__CLASS__ . '.DATEVALIDATION', 'Das Enddatum muss nach oder am selben Tag wie das Startdatum liegen.'));
+        if ($this->StartDate && $this->EndDate && $this->StartDate > $this->EndDate) {
+            $result->addError(_t(__CLASS__ . '.DATEVALIDATION', 'Enddate must be after or on the same day as the start date.'));
         }
 
         if (!$this->Locations()->exists()) {
-            $result->addError(_t(__CLASS__ . '.LOCATIONVALIDATION', 'Es muss mindestens ein Standort ausgewählt werden.'));
+            $result->addError(_t(__CLASS__ . '.LOCATIONVALIDATION', 'One or more locations must be selected.'));
         }
 
         return $result;

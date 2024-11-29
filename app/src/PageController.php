@@ -21,6 +21,7 @@ class PageController extends ContentController
         if (!$this->data()->ShowInSearch && array_key_exists('ShowInSearch', $this->record)) {
             Requirements::insertHeadTags('<meta name="robots" content="noindex">');
         }
+        // Server Push preload headers for main assets
         if ($this->response) {
             $additionalLinkHeaders = [
                 sprintf(

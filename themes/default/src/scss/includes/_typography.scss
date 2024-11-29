@@ -27,9 +27,11 @@
 		margin: 0 0 #{$lh}em 0;
 	}
 	* {
+		&.inline,
 		&.inlinish {
 			margin-bottom: 0;
 		}
+		&.halveinline,
 		&.halvelinish {
 			margin-bottom: #{math.div($lh, 2)}em;
 		}

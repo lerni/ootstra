@@ -1,6 +1,5 @@
 {
   "recommendations": [
-    "biati.ddev-manager",
     "adrian.silverstripe",
     "mikestead.dotenv",
     "firefox-devtools.vscode-firefox-debug",

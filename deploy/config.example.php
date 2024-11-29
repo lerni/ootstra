@@ -18,6 +18,9 @@ define('DEP_WEBDIR', 'public_html');
 // PHP Version/Path
 define('DEP_PHP_PATH', '/usr/local/bin/php83');
 
+// Remote composer path
+define('DEP_COMPOSER_PATH', '~/bin/composer');
+
 // The repository URL for this project
 if (!defined('DEP_REPOSITORY')) {
     // define('DEP_REPOSITORY', 'git@bitbucket.org:YOURORG/' . DEP_APPLICATION . '.git');
