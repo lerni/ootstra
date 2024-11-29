@@ -121,6 +121,7 @@ ul#Form_ItemEditForm_BackgroundColor li label[for$="transparent"] {
 
 /* thumbnail ElementLogo, ProductPage, etc. */
 .col-LogoImage-PreviewThumbnail img,
+.col-PreviewThumbnail svg,
 .col-Logo-PreviewThumbnail img {
 	max-width: 140px;
 	height: auto;

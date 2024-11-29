@@ -2,14 +2,12 @@
 
 namespace App\Extensions;
 
-use SilverStripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 
-class EditableFormFieldExtension extends DataExtension
+class EditableFormFieldExtension extends Extension
 {
-
     public function populateDefaults()
     {
         $this->owner->ExtraClass = 'half-width';
-        parent::populateDefaults();
     }
 }

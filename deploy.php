@@ -42,6 +42,17 @@ set('bin/php', function () {
     return DEP_PHP_PATH;
 });
 
+// Remot composer path
+set('bin/composer', function () {
+    if (!defined('DEP_COMPOSER_PATH')) {
+        writeln("<error>Please define DEP_COMPOSER_PATH in deploy/config.php</error>");
+        exit;
+    }
+    // also set specified php version for composer
+    // https://stackoverflow.com/a/65850204/1938738
+    return '{{bin/php}} ' . DEP_COMPOSER_PATH;
+});
+
 // Server user
 set('remote_user', function () {
     if (!defined('DEP_SERVER_USER')) {
@@ -86,12 +97,6 @@ set('clear_paths', [
 
 // prevent sending usage statistics
 set('allow_anonymous_stats', false);
-
-// also set specified php version for composer
-// https://stackoverflow.com/a/65850204/1938738
-set('bin/composer', function () {
-    return '{{bin/php}} ~/bin/composer.phar';
-});
 
 // set('composer_options', '--no-dev --verbose --prefer-dist --optimize-autoloader --no-interaction');
 set('http_user', DEP_SERVER_USER);

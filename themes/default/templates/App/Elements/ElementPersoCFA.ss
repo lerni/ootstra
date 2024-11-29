@@ -11,14 +11,14 @@
 		<div class="swiper-slide perso">
 			<figure>
 				<% if $Portrait %>
-					<img loading="lazy" height="$Portrait.FocusFillMax(305,400).Height()" width="$Portrait.FocusFillMax(305,400).Width()" src="$Portrait.FocusFillMax(305,400).WebP.URL" srcset="$Portrait.FocusFillMax(305,400).WebP.URL 1x, $Portrait.FocusFillMax(610,800).WebP.URL 2x" alt="{$Firstname} {$Lastname}" />
+					<img loading="lazy" height="$Portrait.FocusFillMax(305,400).Height()" width="$Portrait.FocusFillMax(305,400).Width()" src="$Portrait.FocusFillMax(305,400).Convert('webp').URL" srcset="$Portrait.FocusFillMax(305,400).Convert('webp').URL 1x, $Portrait.FocusFillMax(610,800).Convert('webp').URL 2x" alt="{$Firstname} {$Lastname}" />
 				<% else %>
 					<img class="default" src="$resourceURL('themes/default/dist/images/svg/perso-defalut.svg')" alt="" />
 				<% end_if %>
 			</figure>
 			<div class="txt">
 				<% with $Up %><% include App/Includes/ElementTitle %><% end_with %>
-				<p class="name inlinish"><strong>{$Firstname} {$Lastname}</strong></p>
+				<p class="name inline"><strong>{$Firstname} {$Lastname}</strong></p>
 				<% if $Position %>
 					<span class="position">$Position</span>
 				<% end_if %>

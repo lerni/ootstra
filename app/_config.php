@@ -5,6 +5,7 @@ use SilverStripe\Admin\CMSMenu;
 use SilverStripe\Core\Environment;
 use SilverStripe\Control\Email\Email;
 use Wilr\GoogleSitemaps\GoogleSitemap;
+use App\Utility\SnippetShortCodeProvider;
 use App\Utility\LocationShortCodeProvider;
 use App\Utility\VacationShortCodeProvider;
 use SilverStripe\Core\Manifest\ModuleLoader;
@@ -79,15 +80,15 @@ $styles = [
         'wrapper' => 1
     ],
     [
-        // add .inlinish - no margin-bottom
+        // add .inline - no margin-bottom
         'title' => 'no bottom-margin',
-        'attributes' => ['class' => 'inlinish'],
+        'attributes' => ['class' => 'inline'],
         'selector' => 'p,h1,h2,h3'
     ],
     [
-        // add .halvelinish - halve-line margin-bottom
+        // add .halveinline - halve-line margin-bottom
         'title' => '½ bottom-margin',
-        'attributes' => ['class' => 'halvelinish'],
+        'attributes' => ['class' => 'halveinline'],
         'selector' => 'p,h1,h2,h3'
     ]
 ];
@@ -170,3 +171,4 @@ URLSegmentFilter::config()->default_replacements = [
 
 ShortcodeParser::get('default')->register('Location', [LocationShortCodeProvider::class, 'parseLocationShortCodeProvider']);
 ShortcodeParser::get('default')->register('Vacation', [VacationShortCodeProvider::class, 'parseLocationShortCodeProvider']);
+ShortcodeParser::get('default')->register('Snippet', [SnippetShortCodeProvider::class, 'SnippetShortCodeProvider']);
