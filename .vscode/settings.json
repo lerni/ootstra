@@ -7,7 +7,7 @@
   "intelephense.diagnostics.undefinedSymbols": true,
   "intelephense.environment.phpVersion": "8.3",
   "intelephense.files.exclude": ["/.ddev/**", "/.graphql-generated/**", "/docker/**", "/silverstripe-cache/**", "/themes/**"],
-  "intelephense.format.braces": "psr12",
+  "intelephense.format.braces": "per",
   "intelephense.telemetry.enabled": false,
   "logViewer.watch": [
     {
@@ -23,6 +23,7 @@
   "search.followSymlinks": false,
   "search.useIgnoreFiles": false,
   "telemetry.telemetryLevel": "off",
+  "terminal.integrated.scrollback": 10000,
   "terminal.integrated.profiles.osx": {
     "zsh": {
       "path": "/bin/zsh",

@@ -2,6 +2,7 @@
 
 namespace App\Extensions;
 
+use Psr\Log\LoggerInterface;
 use SilverStripe\Core\Extension;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Environment;
@@ -82,7 +83,10 @@ class PDFImageExtension extends Extension
                 $command = implode(' ', array_map('escapeshellarg', $commandParts));
                 //$command = escapeshellcmd($ghost_path) . ' -sDEVICE=' . escapeshellarg($gsDevice) . ' -dAutoRotatePages=/None -dFirstPage=' . (int)$page . ' -dLastPage=' . (int)$page . ' -dNOPAUSE -dJPEGQ=' . (int)$quality . ' -dGraphicsAlphaBits=4 -dTextAlphaBits=4 -r144 -dUseTrimBox -sOutputFile=' . escapeshellarg($tmp_filename) . ' ' . escapeshellarg($original_filename_absolute) . ' -c quit';
 
-                shell_exec($command . ' 2>&1');
+                exec($command, $output, $returnCode);
+                if ($returnCode !== 0) {
+                    Injector::inst()->get(LoggerInterface::class)->error('Ghostscript conversion failed: ' . implode("\n", $output));
+                }
 
                 // bail out if generated file doesn't exists
                 if (!file_exists($tmp_filename)) {
@@ -96,7 +100,9 @@ class PDFImageExtension extends Extension
                 $tuple = $backend->writeToStore($store, $filename, $hash, $variant, $config);
 
                 // Clean up temporary file
-                @unlink($tmp_filename);
+                if (file_exists($tmp_filename)) {
+                    unlink($tmp_filename);
+                }
 
                 return [$tuple, $backend];
             }

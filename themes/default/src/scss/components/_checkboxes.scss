@@ -1,4 +1,4 @@
-$radio-empty-color: $gray--light; // border
+$radio-empty-color: darken($gray--light, 16%); // border
 $input-disabled-color: $gray--light;
 $radio-border: $white;
 $input-background: $white;

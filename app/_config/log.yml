@@ -7,6 +7,8 @@ SilverStripe\Core\Injector\Injector:
   Psr\Log\LoggerInterface.errorhandler:
     calls:
       pushMyDisplayErrorHandler: [ pushHandler, [ '%$DisplayErrorHandler' ]]
+      pushFileLogHandler: [ pushHandler, [ '%$LogFileHandler' ]]
+
   DisplayErrorHandler:
     class: SilverStripe\Logging\HTTPOutputHandler
     constructor:
@@ -15,6 +17,11 @@ SilverStripe\Core\Injector\Injector:
       Formatter: '%$SilverStripe\Logging\DetailedErrorFormatter'
       CLIFormatter: '%$SilverStripe\Logging\DetailedErrorFormatter'
 
+  LogFileHandler:
+    class: Monolog\Handler\StreamHandler
+    constructor:
+      - '`SS_ERROR_LOG`'
+      - 'notice'
 ---
 Name: live-errors
 Except:
@@ -29,9 +36,22 @@ SilverStripe\Core\Injector\Injector:
   # Core error handler for system use
   Psr\Log\LoggerInterface.errorhandler:
     calls:
-      pushWebProcessor: [ pushProcessor, [ '%$Monolog\Processor\WebProcessor' ]]
+      pushWebProcessor: [ pushProcessor, [ '%$WebProcessor' ]]
       pushFileLogHandler: [ pushHandler, [ '%$LogFileHandler' ]]
       pushMailHandler: [ pushHandler, [ '%$MailHandler' ]]
+
+  # Configure WebProcessor to include User-Agent, since it's not included by default
+  WebProcessor:
+    class: Monolog\Processor\WebProcessor
+    constructor:
+      0: null
+      1:
+        - 'url'
+        - 'ip'
+        - 'http_method'
+        - 'server'
+        - 'referrer'
+        - 'user_agent'
 
   # Custom handler to log to a file
   LogFileHandler:

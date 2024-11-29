@@ -10,6 +10,7 @@ class BlogInitExtension extends Extension
 {
     public function onBeforeInit()
     {
+        // Server Push preload headers for blog.css
         $additionalLinkHeaders = [
             sprintf(
                 '<%s>; rel=preload; as=style',

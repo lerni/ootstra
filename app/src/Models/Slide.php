@@ -97,7 +97,11 @@ class Slide extends DataObject
 
         if ($SlideBildField = $fields->dataFieldByName('SlideImage')) {
             $SlideBildField->setFolderName('Slides');
-            $SlideBildField->setDescription(_t(__CLASS__ . '.SlideImageDescription', 'small 4:1 // medium 16:9 // fullscreen 8:5 / 5:8 / 4:3 depending on client screensize (use focuspoint!)'));
+            if ($this->Hero()->count()) {
+                $currentHeroSize = $this->Hero()->first()->HeroSize;
+                $currentHeroAspectRatio = ElementHero::$AvaliableHeroSizes[$currentHeroSize];
+                $SlideBildField->setDescription(_t(__CLASS__ . '.SlideImageDescription', '{aspectRatio} - use focuspoint!', [ 'aspectRatio' => $currentHeroAspectRatio ]));
+            }
         }
 
         if ($this->isInDB() && $this->Hero()->count() > 1) {

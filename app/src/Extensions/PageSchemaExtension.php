@@ -6,40 +6,35 @@ use Page;
 use Spatie\SchemaOrg\Schema;
 use SilverStripe\Core\Extension;
 use SilverStripe\Control\Director;
+use SilverStripe\Control\Controller;
 use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\Core\Manifest\ModuleResourceLoader;
 
 class PageSchemaExtension extends Extension
 {
 
+    // options in SiteConfig
+    public static function AvailableSchemaTypes() {
+        return [
+            'Corporation' => Schema::corporation(),
+            'EducationalOrganization' => Schema::educationalOrganization(),
+            'LocalBusiness' => Schema::localBusiness(),
+            'NGO' => Schema::NGO(),
+            'Organisation' => Schema::organization(),
+            'NewsMediaOrganization' => Schema::newsMediaOrganization(),
+            'Restaurant' => Schema::restaurant(),
+            'SportsOrganization' => Schema::sportsOrganization(),
+            'GovernmentOrganization' => Schema::governmentOrganization(),
+        ];
+    }
+
     public function OrganisationSchema()
     {
 
         $siteConfig = SiteConfig::current_site_config();
-
         $schemaType = $siteConfig->SchemaType;
-        $schemaOrganisation = null;
-
-        switch ($schemaType) {
-            case 'LocalBusiness':
-                $schemaOrganisation = Schema::localBusiness();
-                break;
-            case 'NGO':
-                $schemaOrganisation = Schema::NGO();
-                break;
-            case 'EducationalOrganization':
-                $schemaOrganisation = Schema::educationalOrganization();
-                break;
-            case 'NewsMediaOrganization':
-                $schemaOrganisation = Schema::newsMediaOrganization();
-                break;
-            case 'Corporation':
-                $schemaOrganisation = Schema::corporation();
-                break;
-            default:
-                $schemaOrganisation = Schema::organization();
-                break;
-        }
+        $schemaOrganisation = $this->AvailableSchemaTypes();
+        $schemaOrganisation = $schemaOrganisation[$schemaType] ?? Schema::organization();
 
         $schemaOrganisation
             ->name($siteConfig->Title)
@@ -119,17 +114,21 @@ class PageSchemaExtension extends Extension
         $pageObjs = [];
         $i = 0;
         $breadcrumbs = $this->owner->getBreadcrumbItems();
-        $bCount = $this->owner->getBreadcrumbItems()->count();
-        foreach ($breadcrumbs as $item) {
+        if ($breadcrumbs instanceof ArrayList) {
+            foreach ($breadcrumbs as $item) {
 
-            $pageObjs[$i] = Schema::ListItem()
-                ->position((int)$i + 1)
-                ->name($item->Title)
-                ->item(
-                    Schema::Thing()
-                        ->setProperty('@id', Director::absoluteBaseURL() . ltrim($item->Link(), '/'))
-                );
-            $i++;
+                $pageObjs[$i] = Schema::ListItem()
+                    ->position((int)$i + 1)
+                    ->name($item->Title)
+                    ->item(
+                        Schema::Thing()
+                            ->setProperty('@id', Controller::join_links(
+                                Director::absoluteBaseURL(),
+                                $item->Link
+                            ))
+                    );
+                $i++;
+            }
         }
 
         $breadcrumbList = Schema::BreadcrumbList()

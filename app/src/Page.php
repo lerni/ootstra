@@ -73,9 +73,11 @@ class Page extends SiteTree
             $fields->insertAfter('MenuTitle', $MetaToggle);
         }
 
-        if ($this->ClassName != Blog::class &&
+        if (
+            $this->ClassName != Blog::class &&
             $this->ClassName != BlogPost::class &&
-            $this->ClassName != RedirectorPage::class) {
+            $this->ClassName != RedirectorPage::class
+        ) {
             $CategoryField = TagField::create(
                 'PageCategories',
                 _t('SilverStripe\Blog\Model\Blog.Categories', 'Categories'),
@@ -122,15 +124,7 @@ class Page extends SiteTree
 
     public function getDefaultOGDescription($limitChar = 0, $limitWordCount = 25)
     {
-        $descreturn = $this->getSiteConfig()->MetaDescription;
-
-        // Use MetaDescription if set
-        if ($this->MetaDescription) {
-            $description = trim($this->obj('MetaDescription')->Summary($limitWordCount, '...', 5));
-            if (!empty($description)) {
-                $descreturn = $description;
-            }
-        }
+        $descreturn = null;
 
         // In case of BlogPost use Summary it set
         if ($this->ClassName == 'SilverStripe\Blog\Model\BlogPost' && $this->Summary) {
@@ -152,6 +146,14 @@ class Page extends SiteTree
             }
         }
 
+        // Use MetaDescription if set
+        if ($this->MetaDescription) {
+            $description = trim($this->obj('MetaDescription')->Summary($limitWordCount, '...', 5));
+            if (!empty($description)) {
+                $descreturn = $description;
+            }
+        }
+
         if (!$descreturn) {
             // Fall back to Content
             if ($this->Content) {
@@ -163,6 +165,11 @@ class Page extends SiteTree
             if ($this->hasExtension('DNADesign\Elemental\Extensions\ElementalPageExtension')) {
                 $descreturn = trim(($this->obj('getElementsForSummary')->Summary($limitWordCount, 5)));
             }
+        }
+
+        // if still empty, use SiteConfig MetaDescription
+        if (!$descreturn) {
+            $descreturn = $this->getSiteConfig()->MetaDescription;
         }
 
         if ($limitChar && strlen($descreturn) > $limitChar) {

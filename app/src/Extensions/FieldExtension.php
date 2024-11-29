@@ -193,4 +193,19 @@ class FieldExtension extends Extension
 
         return "$scheme$user$pass$host$port$path$query$fragment";
     }
+
+    public function NumberFormat($decimals = 2, $decimalsSeparator = '.', $thousandsSeparator = '')
+    {
+        // Define safe thousands separators that are NEVER used as decimal separators
+        $safeThousandsSeparators = ["'", ' '];
+
+        // First remove only the safe thousands separators
+        $cleanValue = str_replace($safeThousandsSeparators, '', $this->owner->value);
+
+        // Cast to float (PHP internally always uses period as decimal separator)
+        $floatValue = (float)str_replace(',', '.', $cleanValue);
+
+        // Format the number with desired separators
+        return number_format($floatValue, $decimals, $decimalsSeparator, $thousandsSeparator);
+    }
 }

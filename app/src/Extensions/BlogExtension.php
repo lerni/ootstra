@@ -4,10 +4,10 @@ namespace App\Extensions;
 
 use App\Models\Slide;
 use SilverStripe\ORM\ArrayList;
+use SilverStripe\Core\Extension;
 use SilverStripe\View\ArrayData;
 use SilverStripe\Blog\Model\Blog;
 use SilverStripe\Forms\FieldList;
-use SilverStripe\ORM\DataExtension;
 use SilverStripe\Control\Controller;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\CheckboxField;
@@ -20,11 +20,10 @@ use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\GridField\GridFieldConfig_Base;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
-use SilverStripe\Forms\GridField\GridFieldFilterHeader;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
-class BlogExtension extends DataExtension
+class BlogExtension extends Extension
 {
     private static $db = [
         'HeroSize' => 'Enum("small,medium,fullscreen")',
@@ -52,7 +51,6 @@ class BlogExtension extends DataExtension
             $this->owner->HeroSize = $heroSize;
         }
         $this->owner->PostsPerPage = (int)30;
-        parent::populateDefaults();
     }
 
     public function updateCMSFields(FieldList $fields)

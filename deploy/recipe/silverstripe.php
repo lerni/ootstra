@@ -24,11 +24,7 @@ task('silverstripe:create_dotenv', function () {
     $cmsDefaultPass = str_replace("'", "\\'", askHiddenResponse('Please enter the CMS password'));
 
     $contents = <<<ENV
-# APP_GOOGLE_MAPS_KEY=''
-# SS_NOCAPTCHA_SITE_KEY=''
-# SS_NOCAPTCHA_SECRET_KEY=''
-
-# Environment dev/stage/live
+# Environment dev/test/live
 SS_ENVIRONMENT_TYPE='{$type}'
 # SS_BASE_URL=''
 
@@ -52,6 +48,10 @@ GHOSTSCRIPT_PATH='/usr/bin/gs'
 # MAIL_HOST=''
 # MAIL_USERNAME=''
 # MAIL_PASSWORD=''
+
+# APP_GOOGLE_MAPS_KEY=''
+# SS_NOCAPTCHA_SITE_KEY=''
+# SS_NOCAPTCHA_SECRET_KEY=''
 
 SCRIPT_FILENAME=''
 
@@ -99,13 +99,13 @@ task('silverstripe:vendor_expose', function () {
 });
 
 
-// Reset lsphp/php-fpm process on server realpath/symlink-caching
+// Reset php/lsphp/php-fpm process on server realpath/symlink-caching
 // https://deployer.org/docs/7.x/avoid-php-fpm-reloading
 // silverstripe:set_script_filename *should* fix above, but...
 desc('Run pkill to reset php process');
 task('pkill', function () {
     try {
-        run('pkill lsphp');
+        run('pkill -f {{php_process}}');
     } catch (\Exception $ex) {
         writeln($ex->getMessage());
     }

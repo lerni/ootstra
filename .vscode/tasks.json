@@ -26,21 +26,7 @@
         "reveal": "always",
         "panel": "new",
         "focus": true,
-        "close": true // Add this line to close the panel after quitting
-      },
-      "icon": {
-        "color": "terminal.ansiBlue"
-      }
-    },
-    {
-      "label": "flushh (hard) - local",
-      "type": "shell",
-      "command": "ddev exec \"rm -rf /var/www/html/silverstripe-cache/*\" && php -r 'opcache_reset();'",
-      "group": "build",
-      "presentation": {
-        "reveal": "always",
-        "panel": "new",
-        "focus": true
+        "close": true
       },
       "icon": {
         "color": "terminal.ansiBlue"

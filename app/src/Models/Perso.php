@@ -135,7 +135,7 @@ class Perso extends DataObject
                     'getTypeBreadcrumb' => 'Element',
                     'getPage.CMSEditLink' => 'Edit-Link'
                 ]);
-            $persoCFAElements = ElementPersoCFA::get()->filter(["Persos.EMail" => $this->EMail]);
+            $persoCFAElements = ElementPersoCFA::get()->filter(["Persos.ID" => $this->ID]);
             $persoOnCFAElementWithMEGridField = new GridField('PersoOnCFAElement', 'PersoOnCFAElement', $persoCFAElements, $persoOnCFAElementConfig);
             $persoOnCFAElementWithMEGridField->setTitle(_t(__CLASS__ . '.IsUsedOnComment', '"{name}" is associated on', ['name' => $this->getTitle()]));
             $fields->addFieldToTab('Root.Main', $persoOnCFAElementWithMEGridField);
@@ -187,7 +187,7 @@ class Perso extends DataObject
 
     public function QRURL()
     {
-        if ($this->Departments()) {
+        if ($this->Departments()->count) {
             if ($this->Departments()->first()->PersoElement()) {
                 $file = $this->Departments()->first()->PersoElement()->first()->getController()->qrvc($this->ID);
                 return $file;

@@ -11,5 +11,5 @@
 		<% if $BackgroundColor %> background--{$BackgroundColor}<% end_if %>"
 		<% if $ElementAnchor %>id="$ElementAnchor"<% end_if %>>
 	$Element
-	<% if not $Page.IsPreview && $canEdit %><a class="preview-edit" href="{$BaseHref}/{$CMSEditLink}"><span>✎<span></a><% end_if %>
+	<% if not $Page.IsPreview && $canEdit %><a class="preview-edit {$CurrentStage}" href="{$BaseHref}/{$CMSEditLink}"><span>✎</span></a><% end_if %>
 </article><% end_if %>

@@ -65,12 +65,22 @@ On the first request database structure 'll automatically be generated - it runs
 ### ddev/Docker dev-env
 By default foldername is used as projectname, this is recommended because `.vscode/launch.json` uses `${workspaceFolderBasename}`. Run `ddev config` in the project directory. Now you're ready to run `ddev start` & `ddev composer i`. This provides a webserver at [https://PROJECTNAME.ddev.site](https://PROJECTNAME.ddev.site), phpMyAdmin at [https://PROJECTNAME.ddev.site:8037](https://PROJECTNAME.ddev.site:8037), and Mailpit at [https://PROJECTNAME.ddev.site:8026/](https://PROJECTNAME.ddev.site:8026/). Default login at [/admin](https://PROJECTNAME.ddev.site/admin) is `admin` & `password`.
 
-<!-- ### ddev-ssh-agent
-This setup omits `ddev-ssh-agent` and exposes `SSH_AUTH_SOCK` via environment variable and mounting per `RUN --mount=type=ssh` into the web container. To use certain files or whole directories from your hosts home directory (e.g., `~/.composer`, `~/.gitconfig`, `~/.ssh`) in ddev, create symlinks in `~/.ddev/homeadditions` in order to use your local SSH keys. For more information, refer to the [ddev documentation](https://ddev.readthedocs.io/en/stable/users/extend/in-container-configuration/). Note the path of `/home/.ssh-agent/known_hosts`. A separate/copied `~/.ddev/homeadditions/.ssh/config` as below seems to properly locate ssh-config.
+### ssh forwarding, ddev-ssh-agent
+This setup omits `ddev-ssh-agent` and exposes `SSH_AUTH_SOCK` from the host system into the web container in order to use local SSH keys. To make that work, key files from `~/.ssh` or the whole directories must be exposed into ddev by creating symlinks in `~/.ddev/homeadditions`. On macOS, the option `IgnoreUnknown UseKeychain` in `~/.ssh/config` causes `Bad configuration option` in the container, so symlinking individual files from `~/.ssh/` into `~/.ddev/homeadditions` and having a separate/copy of `~/.ddev/homeadditions/.ssh/config` worked for me ;)
+For more information, refer to the [ddev documentation](https://ddev.readthedocs.io/en/stable/users/extend/in-container-configuration/) & [OpenSSH updates in macOS](https://developer.apple.com/library/archive/technotes/tn2449/_index.html), [DDEV issue](https://github.com/ddev/ddev/issues/1904)
 ```bash
 UserKnownHostsFile=~/.ssh/known_hosts
 StrictHostKeyChecking=accept-new
-``` -->
+Host *
+    ForwardAgent yes
+```
+To use use `ddev-ssh-agent` instead, following configuration in `.ddev/config.yaml` can be removed and `.ddev/docker-compose.ssh-agent.yaml` can be deleted.
+```yaml
+omit_containers: [ddev-ssh-agent]
+webimage_extra_packages: [openssh-client]
+web_environment:
+    - SSH_AUTH_SOCK=/run/host-services/ssh-auth.sock
+```
 
 ### npm, Laravel Mix watch & build etc.
 [Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([webpack](https://webpack.js.org/) based) is used as build environment. You need to run `ddev theme install` to install npm packages.  Watcher browsersync/reload can be started with  `ddev theme watch` and 'll be available at [https://PROJECTNAME.ddev.site:3000/](https://PROJECTNAME.ddev.site:3000/). A production build can be done with `ddev theme prod`. See also scripts section in `themes/default/package.json` and [Mix CLI](https://laravel-mix.com/docs/6.0/cli).
@@ -82,20 +92,19 @@ There are a bunch of tasks in `.vscode/tasks.json` available per `Command+Shift+
 - `ddev restart` (magenta)
 - `composer install` (magenta)
 - `composer update` (magenta)
-- `composer vendor-expose` (blue)
 - `ddev log web` (magenta)
+- `xdebug on / off` (magenta)
 - `ddev theme install` (green)
 - `ddev theme watch` (green)
 - `ddev theme prod` (green)
-- `flushh` (blue - flush hard) instead of `ddev exec rm -rf ./silverstripe-cache/*`
 - `dev/build` (blue) instead of `ddev php ./vendor/silverstripe/framework/cli-script.php dev/build flush`
+- `composer vendor-expose` (blue)
 - `ssshell` (blue) instead of `ddev php ./vendor/bin/ssshell`
 - `download database from live` (cyan)
 - `download assets from live` (cyan)
 - `ssh test / live` (cyan)
 - `deploy test / live` (cyan)
 - `deploy:unlock test / live` (cyan)
-- `xdebug on / off` (magenta)
 - `dep releases test / live` (cyan)
 
 Colors group tasks like:
@@ -156,8 +165,7 @@ You need to [add your public key on remote servers](https://www.google.com/searc
 Rename `config.example.php` to `deploy/config.php` and configure things to your needs. Usually `.htaccess` in public comes from the repo but if needed, it can be overwritten with a stage specific version. Just create `./deploy/test.htaccess` or `./deploy/live.htaccess`, which than 'll overwrite `public/.htaccess` during deployment according to the stage in use.
 
 # Deploy
-
-Key-forwarding is used, allowing deployment to be done from inside ddev-web container. Run `ddev auth ssh` to have it available. Before first deployment, SSH into remote servers like `ddev php ./vendor/bin/dep ssh test` or `ddev php ./vendor/bin/dep ssh live` and ensure SSH fingerprint from the git-repo is accepted. You may just do a git clone into a test directory to verify everything works as expected. If so, deployment is done as follows:
+Key-forwarding is used, allowing deployment to be done from inside the ddev-web container. Read [ddev-ssh-agent](#ddev-ssh-agent) above. Before first deployment, SSH into remote servers like `ddev php ./vendor/bin/dep ssh test` or `ddev php ./vendor/bin/dep ssh live` and ensure the SSH fingerprint from the git-repo is accepted. You can check with `ssh -T git@domain.tld` or may just `git clone ...` into a test directory to verify everything works as expected. If so, deployment is done as follows:
 
 ```bash
     ddev php ./vendor/bin/dep deploy test
@@ -174,11 +182,7 @@ The first time you deploy to a given stage, you’ll be asked to provide databas
 # For a complete list of core environment variables see
 # https://docs.silverstripe.org/en/4/getting_started/environment_management/#core-environment-variables
 
-# APP_GOOGLE_MAPS_KEY=''
-# SS_NOCAPTCHA_SITE_KEY=''
-# SS_NOCAPTCHA_SECRET_KEY=''
-
-# Environment dev/stage/live
+# Environment dev/test/live
 SS_ENVIRONMENT_TYPE='dev'
 # SS_BASE_URL=''
 
@@ -201,11 +205,12 @@ SS_ERROR_LOG='silverstripe.log'
 
 GHOSTSCRIPT_PATH='/usr/bin/gs'
 
+# APP_GOOGLE_MAPS_KEY=''
+# SS_NOCAPTCHA_SITE_KEY=''
+# SS_NOCAPTCHA_SECRET_KEY=''
+
 SCRIPT_FILENAME=''
 ```
-See also:
-
-https://www.silverstripe.org/learn/lessons/v4/up-and-running-setting-up-a-local-silverstripe-dev-environment-1
 
 ## Deploy a branch/tag/revision
 

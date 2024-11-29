@@ -20,7 +20,7 @@
 							<%-- <figure>
 								<% if $list('Page').Filter("ID", $ID).First().getDefaultOGImage(1).exists() %>
 									<% with $list('Page').Filter("ID", $ID).First().getDefaultOGImage(1) %>
-										<img width="280" height="150" src="$Pad(280,150).WebP.URL" src="$Pad(280,150).WebP.URL 1x, $Pad(560,300).WebP.URL 2x" alt="$Title" />
+										<img width="280" height="150" src="$Pad(280,150).Convert('webp').URL" src="$Pad(280,150).Convert('webp').URL 1x, $Pad(560,300).Convert('webp').URL 2x" alt="$Title" />
 									<% end_with %>
 								<% end_if %>
 							</figure> --%>

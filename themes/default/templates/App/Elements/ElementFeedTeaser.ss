@@ -16,7 +16,7 @@
 			<% if $Layout == "full" %>
 				<% loop $Items %>
 					<a href="$Link" class="<% if $Up.ShowAsSlider %>swiper-slide <% end_if %>card">
-						<% if $getDefaultOGImage(1).Exists() %><figure><img <% if not $IsFirst %>loading="lazy" <% end_if %>width="$getDefaultOGImage(1).FocusFillMax(1400,700).Width()" height="$getDefaultOGImage(1).FocusFillMax(1400,700).Height()" src="$getDefaultOGImage(1).FocusFillMax(1400,700).WebP.URL" srcset="$getDefaultOGImage(1).FocusFillMax(1400,700).WebP.URL 1x, $getDefaultOGImage(1).FocusFillMax(2800,1400).WebP.URL 2x" alt="$Title" /></figure><% end_if %>
+						<% if $getDefaultOGImage(1).Exists() %><figure><img <% if not $IsFirst %>loading="lazy" <% end_if %>width="$getDefaultOGImage(1).FocusFillMax(1400,700).Width()" height="$getDefaultOGImage(1).FocusFillMax(1400,700).Height()" src="$getDefaultOGImage(1).FocusFillMax(1400,700).Convert('webp').URL" srcset="$getDefaultOGImage(1).FocusFillMax(1400,700).Convert('webp').URL 1x, $getDefaultOGImage(1).FocusFillMax(2800,1400).Convert('webp').URL 2x" alt="$Title" /></figure><% end_if %>
 						<div class="txt">
 							<% if $OGTitle %><{$Up.ChildTitleLevel}>$OGTitle</{$Up.ChildTitleLevel}><% end_if %>
 							<div class="accordion">
@@ -29,7 +29,7 @@
 			<% else_if $Layout == "halve" %>
 				<% loop $Items %>
 					<a href="$Link" class="<% if $Up.ShowAsSlider %>swiper-slide <% end_if %>card">
-						<% if $getDefaultOGImage(1).Exists() %><figure><img <% if not $IsFirst %>loading="lazy" <% end_if %>width="$getDefaultOGImage(1).FocusFillMax(600,500).Width()" height="$getDefaultOGImage(1).FocusFillMax(600,500).Height()" src="$getDefaultOGImage(1).FocusFillMax(600,500).WebP.URL" srcset="$getDefaultOGImage(1).FocusFillMax(600,500).WebP.URL 1x, $getDefaultOGImage(1).FocusFillMax(1200,1000).WebP.URL 2x" alt="$Title" /></figure><% end_if %>
+						<% if $getDefaultOGImage(1).Exists() %><figure><img <% if not $IsFirst %>loading="lazy" <% end_if %>width="$getDefaultOGImage(1).FocusFillMax(600,500).Width()" height="$getDefaultOGImage(1).FocusFillMax(600,500).Height()" src="$getDefaultOGImage(1).FocusFillMax(600,500).Convert('webp').URL" srcset="$getDefaultOGImage(1).FocusFillMax(600,500).Convert('webp').URL 1x, $getDefaultOGImage(1).FocusFillMax(1200,1000).Convert('webp').URL 2x" alt="$Title" /></figure><% end_if %>
 						<div class="txt">
 							<% if $OGTitle %><{$Up.ChildTitleLevel}>$OGTitle</{$Up.ChildTitleLevel}><% end_if %>
 							<div class="accordion">
@@ -46,7 +46,7 @@
 			<% else %>
 				<% loop $Items %>
 					<a href="$Link" class="<% if $Up.ShowAsSlider %>swiper-slide <% end_if %>card">
-						<% if $getDefaultOGImage(1).Exists() %><figure><img <% if not $IsFirst %>loading="lazy" <% end_if %>width="$getDefaultOGImage(1).FocusFillMax(380,190).Width()" height="$getDefaultOGImage(1).FocusFillMax(380,190).Height()" src="$getDefaultOGImage(1).FocusFillMax(380,190).WebP.URL" srcset="$getDefaultOGImage(1).FocusFillMax(380,190).WebP.URL 1x, $getDefaultOGImage(1).FocusFillMax(680,340).WebP.URL 2x" alt="$Title" /></figure><% end_if %>
+						<% if $getDefaultOGImage(1).Exists() %><figure><img <% if not $IsFirst %>loading="lazy" <% end_if %>width="$getDefaultOGImage(1).FocusFillMax(380,190).Width()" height="$getDefaultOGImage(1).FocusFillMax(380,190).Height()" src="$getDefaultOGImage(1).FocusFillMax(380,190).Convert('webp').URL" srcset="$getDefaultOGImage(1).FocusFillMax(380,190).Convert('webp').URL 1x, $getDefaultOGImage(1).FocusFillMax(680,340).Convert('webp').URL 2x" alt="$Title" /></figure><% end_if %>
 						<div class="txt">
 							<% if $OGTitle %><{$Up.ChildTitleLevel}>$OGTitle</{$Up.ChildTitleLevel}><% end_if %>
 							<% if $Summary %>

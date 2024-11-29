@@ -7,7 +7,7 @@ import {
   EffectFade,
   Keyboard,
   Navigation,
-  Pagination,
+  Pagination
   // Thumbs
 } from "swiper/modules";
 
@@ -62,6 +62,8 @@ var multipleSwiper = document.querySelectorAll(
 );
 Array.prototype.forEach.call(multipleSwiper, function (slider) {
   var sliderID = slider.getAttribute("id");
+  var sliderPrev = "#multiple-swiper-prev" + slider.getAttribute("data-id");
+  var sliderNext = "#multiple-swiper-next" + slider.getAttribute("data-id");
   var generalSwiperInstance = new Swiper("#" + sliderID, {
     spaceBetween: 25, // $text-size times $lineheight
     freeMode: true,
@@ -80,13 +82,34 @@ Array.prototype.forEach.call(multipleSwiper, function (slider) {
       onlyInViewport: false,
     },
   });
+  generalSwiperInstance.autoplay.stop();
+  const observerOptions = {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.1,
+  };
+  const observerCallback = (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        generalSwiperInstance.autoplay.start();
+      } else {
+        generalSwiperInstance.autoplay.stop();
+      }
+    });
+  };
+  const observer = new IntersectionObserver(observerCallback, observerOptions);
+  if (slider) {
+    observer.observe(slider);
+  }
 });
 
 var instafeedSwiper = document.querySelectorAll(".swiper-container.instafeed");
 Array.prototype.forEach.call(instafeedSwiper, function (slider) {
   var sliderID = slider.getAttribute("id");
+  var sliderPrev = "#insta-swiper-prev" + slider.getAttribute("data-id");
+  var sliderNext = "#insta-swiper-next" + slider.getAttribute("data-id");
   var instafeedSwiperInstance = new Swiper("#" + sliderID, {
-    spaceBetween: 38, // $lineheight in px
+    spaceBetween: 25, // $lineheight in px
     freeMode: true,
     slidesPerView: "auto",
     speed: 1000,
@@ -95,28 +118,55 @@ Array.prototype.forEach.call(instafeedSwiper, function (slider) {
       enabled: true,
     },
     autoplay: {
-      delay: 3000,
+      delay: 1000,
       disableOnInteraction: true,
     },
     keyboard: {
       enabled: true,
       onlyInViewport: false,
     },
+    breakpoints: {
+      1280: {
+        spaceBetween: 50,
+      },
+    },
   });
+  instafeedSwiperInstance.autoplay.stop();
+  const observerOptions = {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.1,
+  };
+  const observerCallback = (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        instafeedSwiperInstance.autoplay.start();
+      } else {
+        instafeedSwiperInstance.autoplay.stop();
+      }
+    });
+  };
+  const observer = new IntersectionObserver(observerCallback, observerOptions);
+  if (slider) {
+    observer.observe(slider);
+  }
 });
 
-var instafeedVerticalSwiper = document.querySelectorAll('.swiper-container.swiper-v');
+var instafeedVerticalSwiper = document.querySelectorAll(
+  ".swiper-container.swiper-v"
+);
 Array.prototype.forEach.call(instafeedVerticalSwiper, function (slider) {
-  var sliderID = slider.getAttribute('id');
-  var sliderVerticalPagination = '#insta-vertical-swiper-pagination' + slider.getAttribute('data-id');
-  var instafeedVerticalSwiperInstance = new Swiper ('#'+sliderID, {
+  var sliderID = slider.getAttribute("id");
+  var sliderVerticalPagination =
+    "#insta-vertical-swiper-pagination" + slider.getAttribute("data-id");
+  var instafeedVerticalSwiperInstance = new Swiper("#" + sliderID, {
     direction: "vertical",
-    spaceBetween: 38,
+    spaceBetween: 50,
     slidesPerView: 1,
     pagination: {
       el: sliderVerticalPagination,
-      type: 'bullets',
-      clickable: true
+      type: "bullets",
+      clickable: true,
     },
     keyboard: {
       enabled: true,

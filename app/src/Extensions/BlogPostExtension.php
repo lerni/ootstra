@@ -2,10 +2,12 @@
 
 namespace App\Extensions;
 
+use SilverStripe\ORM\DB;
+use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
-use SilverStripe\ORM\DataExtension;
+use SilverStripe\Blog\Model\BlogPost;
 
-class BlogPostExtension extends DataExtension
+class BlogPostExtension extends Extension
 {
     private static $db = [];
 
@@ -52,6 +54,47 @@ class BlogPostExtension extends DataExtension
         }
         if ($Mode == 'prev') {
             return $list->filter(["Sort:LessThan" => $this->owner->Sort])->sort("Sort DESC")->limit(1)->first();
+        }
+    }
+
+    // Latest blog posts on top
+    public function onBeforeWrite()
+    {
+        if (!$this->owner->isInDB() && $this->owner->ParentID) {
+
+            $baseTable = $this->owner->baseTable();
+            $liveTable = $baseTable . '_Live';
+
+            $lowestSortDraft = BlogPost::get()
+                ->filter('ParentID', $this->owner->ParentID)
+                ->min('Sort');
+
+            $lowestSortLive = DB::query(sprintf(
+                'SELECT MIN(Sort) FROM %s WHERE ParentID = %d',
+                $liveTable,
+                $this->owner->ParentID
+            ))->value();
+
+            $lowestSort = min(
+                $lowestSortDraft ?: PHP_INT_MAX,
+                $lowestSortLive ?: PHP_INT_MAX
+            );
+            $this->owner->Sort = $lowestSort ?? 1;
+
+            // Shift all other pages up by 1 in both tables
+            // Update draft table
+            DB::query(sprintf(
+                'UPDATE %s SET Sort = Sort + 1 WHERE ParentID = %d',
+                $baseTable,
+                $this->owner->ParentID
+            ));
+
+            // Update live table
+            DB::query(sprintf(
+                'UPDATE %s SET Sort = Sort + 1 WHERE ParentID = %d',
+                $liveTable,
+                $this->owner->ParentID
+            ));
         }
     }
 }

@@ -31,7 +31,9 @@ html {
 	@include smoothFonts;
 	overflow-y: scroll;
 	overflow-x: hidden;
-	scroll-behavior: smooth;
+	@media (prefers-reduced-motion: no-preference) {
+		scroll-behavior: smooth;
+	}
 }
 
 body {
@@ -247,6 +249,8 @@ p.cat-tag {
 	margin-right: auto;
 	position: relative;
 	scroll-margin-top: $headerheight;
+	$betternav--red: #d73f1d;
+	$betternav--green: #068913;
 	>a.preview-edit {
 		position: absolute;
 		z-index: 8000;
@@ -257,9 +261,15 @@ p.cat-tag {
 		justify-content: center;
 		align-items: center;
 		border-radius: #{$lh}em;
-		background-color: $link-color;
+		background-color: rgba($betternav--green, .7);
 		color: $white;
 		display: none;
+		&.draft {
+			background-color: rgba($betternav--red, .7);
+		}
+		&.modified {
+			border: 2px solid $betternav--red;
+		}
 		span {
 			margin: auto;
 			transform: scaleX(-1);
@@ -277,9 +287,14 @@ p.cat-tag {
 			bottom: 0;
 			left: -50vw;
 			z-index: 50;
-			background-color: rgba($link-color, 0.1);
+			background-color: rgba($betternav--green, 0.1);
 			mix-blend-mode: multiply;
 			pointer-events: none;
+		}
+	}
+	&:has(a.preview-edit.draft:hover) {
+		&::after {
+			background-color: rgba($betternav--red, 0.1);
 		}
 	}
 	&::after {
@@ -409,14 +424,22 @@ p.cat-tag {
 			}
 		}
 		.hero--medium {
-			max-height: 700px;
+			$higherMax: 700px;
+			$lowerMax: 400px;
+			max-height: $higherMax;
+			@include breakpoint($L $XL) {
+				max-height: $lowerMax;
+			}
 			figure {
 				@include breakpoint($Sneg) {
 					// arbitrary ratio to prevent small (stripe alike )images on small viewports
 					aspect-ratio: 3 / 2;
 				}
 				img {
-					max-height: 700px;
+					max-height: $higherMax;
+					@include breakpoint($L $XL) {
+						max-height: $lowerMax;
+					}
 				}
 			}
 		}
@@ -733,13 +756,14 @@ p.cat-tag {
 					left: 0;
 					display: flex;
 					flex-direction: column;
-					justify-content: center;
+					justify-content: flex-start;
 					background-color: rgba($white, 1);
 					// padding: #{math.div($lh, 2)}em;
 					pointer-events: none;
 					transform: translateY(100%);
 					transition: transform .2s ease-in;
 					color: $text-color;
+					overflow: hidden;
 				}
 				&:hover figcaption {
 					transform: translateY(0);
@@ -830,6 +854,7 @@ p.cat-tag {
 .global-alert:not(.elementhero) {
 	background-color: $blue;
 	padding: #{math.div($lh, 2)}em 0;
+	margin-bottom: #{$lh}em;
 	.inner > * {
 		color: $white;
 		&:last-child {
@@ -863,9 +888,7 @@ p.cat-tag {
 
 // !klaro
 html .klaro {
-	--notice-right: #{$lh}em;
-    --notice-bottom: #{$lh}em;
-	--notice-max-width: 420px;
+	--notice-max-width: 440px;
 	.cookie-modal,
 	.cookie-notice {
 		a {
@@ -880,12 +903,23 @@ html .klaro {
 	}
 
 	.cookie-notice {
+		.cn-body {
+			// klaro sets font-size on block elements - we're calculating back to maintain horizontal spacing :-/
+			@media (max-width: 1023px) {
+				padding-right: #{$lh * math.div($font-size, 14px)}em !important;
+				padding-left: #{$lh * math.div($font-size, 14px)}em !important;
+				@include breakpoint($Mneg) {
+					padding-right: #{0.5 * $lh * math.div($font-size, 14px)}em !important;
+					padding-left: #{0.5 * $lh * math.div($font-size, 14px)}em !important;
+				}
+			}
+		}
 		h2 {
 			font-size: 1.1em;
-  			margin-top: .6em;
+			margin-top: 0.6em;
 		}
 		p {
-			margin: .3em 0 !important;
+			margin: 0.3em 0 !important;
 		}
 		.cn-ok {
 			display: flex;
@@ -911,7 +945,7 @@ html .klaro {
 				margin-right: 0;
 				order: 2;
 				flex: 0 0 auto;
-				padding: .5em 0;
+				padding: 0.5em 0;
 			}
 		}
 	}
@@ -1043,16 +1077,16 @@ $loader-size: 4;
 	width: #{$loader-size}em;
 	height: #{$loader-size}em;
 	pointer-events: none;
-	transition: opacity linear .3s;
+	transition: opacity linear 0.3s;
 }
 .loader {
-	margin: #{math.div($loader-size, 2)}em auto  auto;
+	margin: #{math.div($loader-size, 2)}em auto auto;
 	text-indent: -9999em;
 	border: #{math.div($loader-size, 6)}em solid rgba($loader-color, 0.1);
 	border-left: #{math.div($loader-size, 6)}em solid $loader-color;
 	transform: translateZ(0);
 	animation: load8 1s infinite linear;
- 	display: none;
+	display: none;
 	flex: 1 1 100%;
 	align-self: center;
 	justify-self: center;

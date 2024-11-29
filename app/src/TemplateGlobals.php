@@ -8,7 +8,8 @@ use SilverStripe\View\TemplateGlobalProvider;
 
 class TemplateGlobals implements TemplateGlobalProvider
 {
-    public static function ContentLocaleShort() {
+    public static function ContentLocaleShort()
+    {
         $lang = explode('_', i18n::get_locale());
         return $lang[0];
     }

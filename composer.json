@@ -10,7 +10,7 @@
 		}
 	],
 	"require": {
-		"php": ">=7.1 <=8.4",
+		"php": ">=8.0 <=8.4",
 		"silverstripe/recipe-plugin": "^2",
 		"silverstripe/recipe-core": "^5",
 		"silverstripe/cms": "^5",
@@ -53,14 +53,14 @@
 		"nathancox/embedfield": "dev-attrquerystring",
 		"lerni/folderindex": "^0",
 		"simple-icons/simple-icons": "^11",
-		"webbuilders-group/silverstripe-next-gen-images": "^2",
 		"silverstripe/linkfield": "^4"
 	},
 	"require-dev": {
 		"deployer/deployer": "^7",
 		"dnadesign/silverstripe-populate": "^3",
 		"lekoala/silverstripe-debugbar": "^3.0@dev",
-		"pstaender/ssshell": "^0.1.2"
+		"pstaender/ssshell": "^0",
+		"phpunit/phpunit": "^9.6"
 	},
 	"extra": {
 		"expose": [

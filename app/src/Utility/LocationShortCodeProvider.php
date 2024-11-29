@@ -19,10 +19,19 @@ class LocationShortCodeProvider
             } else {
                 $loc = Location::get()->filter('Title', $arguments['Title'])->first();
             }
-            if (get_class($loc->dbObject($arguments['Field'])) == 'SilverStripe\ORM\FieldType\DBText') {
-                return nl2br($loc->{$arguments['Field']});
-            } else {
-                return $loc->{$arguments['Field']};
+            if ($loc) {
+                if ($arguments['Field'] == 'TelLink') {
+                    return '<a href="tel:' . $loc->dbObject('Telephone')->TelEnc() . '">' . $loc->Telephone . '</a>';
+                }
+                if ($arguments['Field'] == 'EMailLink') {
+                    return '<a href="mailto:' . $loc->EMail . '">' . $loc->EMail . '</a>';
+                }
+                if ($loc->hasField($arguments['Field']) &&
+                    get_class($loc->dbObject($arguments['Field'])) == 'SilverStripe\ORM\FieldType\DBText') {
+                    return nl2br($loc->{$arguments['Field']});
+                } else {
+                    return $loc->{$arguments['Field']};
+                }
             }
         }
         return false;

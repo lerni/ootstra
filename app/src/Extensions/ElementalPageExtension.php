@@ -63,6 +63,7 @@ class ElementalPageExtension extends Extension
         $output = preg_replace('/<[^>]*>/', ' ', $output);
 
         // ----- remove control characters -----
+        $output = str_replace('✎', '', $output);    // --- remove edit icons
         $output = str_replace("\r", '', $output);    // --- replace with empty space
         $output = str_replace("\n", ' ', $output);   // --- replace with space
         $output = str_replace("\t", ' ', $output);   // --- replace with space

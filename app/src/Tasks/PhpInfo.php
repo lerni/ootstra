@@ -2,9 +2,6 @@
 
 namespace App\Tasks;
 
-use SilverStripe\Control\HTTPRequest;
-use SilverStripe\Core\Environment;
-use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Dev\BuildTask;
 
 class PhpInfo extends BuildTask

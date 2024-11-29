@@ -15,7 +15,7 @@
 		<% if $Layout == "third" %>
 			<% loop $Teasers.Sort(TeaserSortOrder) %>
 				<% if $RelatedPageID %><a href="$RelatedPage.Link" <% else %><div <% end_if %>class="card<% if $Up.ShowAsSlider %> swiper-slide<% end_if %>">
-					<% if $Image %><figure><img <% if not $IsFirst %>loading="lazy" <% end_if %>width="$Image.FocusFillMax(380,190).Width()" height="$Image.FocusFillMax(380,190).Height()" src="$Image.FocusFillMax(380,190).WebP.URL" srcset="$Image.FocusFillMax(380,190).WebP.URL 1x, $Image.FocusFillMax(680,340).WebP.URL 2x" alt="$Title" /></figure><% end_if %>
+					<% if $Image %><figure><img <% if not $IsFirst %>loading="lazy" <% end_if %>width="$Image.FocusFillMax(380,190).Width()" height="$Image.FocusFillMax(380,190).Height()" src="$Image.FocusFillMax(380,190).Convert('webp').URL" srcset="$Image.FocusFillMax(380,190).Convert('webp').URL 1x, $Image.FocusFillMax(680,340).Convert('webp').URL 2x" alt="$Title" /></figure><% end_if %>
 					<div class="txt">
 						<% if $Title %><{$Up.ChildTitleLevel}>$Title</{$Up.ChildTitleLevel}><% end_if %>
 						<% if $Text %>$Text.Markdowned<% end_if %>
@@ -27,7 +27,7 @@
 		<% if $Layout == "halve" %>
 			<% loop $Teasers.Sort(TeaserSortOrder) %>
 				<% if $RelatedPageID %><a href="$RelatedPage.Link" <% else %><div <% end_if %>class="card<% if $Up.ShowAsSlider %> swiper-slide<% end_if %>">
-					<% if $Image %><figure><img <% if not $IsFirst %>loading="lazy" <% end_if %>width="$Image.FocusFillMax(600,500).Width()" height="$Image.FocusFillMax(600,500).Height()" src="$Image.FocusFillMax(600,500).WebP.URL" srcset="$Image.FocusFillMax(600,500).WebP.URL 1x, $Image.FocusFillMax(1200,1000).WebP.URL 2x" alt="$Title" /></figure><% end_if %>
+					<% if $Image %><figure><img <% if not $IsFirst %>loading="lazy" <% end_if %>width="$Image.FocusFillMax(600,500).Width()" height="$Image.FocusFillMax(600,500).Height()" src="$Image.FocusFillMax(600,500).Convert('webp').URL" srcset="$Image.FocusFillMax(600,500).Convert('webp').URL 1x, $Image.FocusFillMax(1200,1000).Convert('webp').URL 2x" alt="$Title" /></figure><% end_if %>
 					<div class="txt">
 						<% if $Title %><{$Up.ChildTitleLevel}>$Title</{$Up.ChildTitleLevel}><% end_if %>
 						<div class="accordion">
@@ -41,7 +41,7 @@
 		<% if $Layout == "full" %>
 			<% loop $Teasers.Sort(TeaserSortOrder) %>
 				<% if $RelatedPageID %><a href="$RelatedPage.Link" <% else %><div <% end_if %>class="card<% if $Up.ShowAsSlider %> swiper-slide<% end_if %>">
-					<% if $Image %><figure><img <% if not $IsFirst %>loading="lazy" <% end_if %>width="$Image.FocusFillMax(1400,700).Width()" height="$Image.FocusFillMax(1400,700).Height()" src="$Image.FocusFillMax(1400,700).WebP.URL" srcset="$Image.FocusFillMax(1400,700).WebP.URL 1x, $Image.FocusFillMax(2800,1400).WebP.URL 2x" alt="$Title" /></figure><% end_if %>
+					<% if $Image %><figure><img <% if not $IsFirst %>loading="lazy" <% end_if %>width="$Image.FocusFillMax(1400,700).Width()" height="$Image.FocusFillMax(1400,700).Height()" src="$Image.FocusFillMax(1400,700).Convert('webp').URL" srcset="$Image.FocusFillMax(1400,700).Convert('webp').URL 1x, $Image.FocusFillMax(2800,1400).Convert('webp').URL 2x" alt="$Title" /></figure><% end_if %>
 					<div class="txt">
 						<% if $Title %><{$Up.ChildTitleLevel}>$Title</{$Up.ChildTitleLevel}><% end_if %>
 						<div class="accordion">

@@ -1,4 +1,6 @@
 services:
-    web:
-        volumes:
-            - /run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock
+  web:
+    volumes:
+      - type: bind
+        source: ${SSH_AUTH_SOCK}
+        target: /run/host-services/ssh-auth.sock

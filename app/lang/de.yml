@@ -26,7 +26,7 @@ de:
     DONOTCROP: 'Höhe nicht begrenzen'
     DoNotCropDescription: 'Keine maximale Höhe für breite viewports → "small" & "medium"'
     HEROSIZE: 'Grösse/Höhe Header'
-    HeroSizeDescription: 'medium entspricht 16:9, "fullscreen" erfordert "full width"!'
+    HeroSizeDescription: '{aspectRatios} - "fullscreen" erfordert "full width"'
   App\Elements\ElementLogo:
     BlockType: 'Logos (Partner)'
   App\Elements\ElementMaps:
@@ -132,6 +132,7 @@ de:
     COUNTRY: Land
     OPENINGHOURS: Öffnungszeiten
     DescriptionGeoPointField: 'Koordinaten aus ElementMap verknüpfen'
+    Duplicate: '{FieldName} muss einzigartig sein!'
   App\Models\Vacation:
     TITLE: Titel
     STARTDATE: Startdatum
@@ -139,6 +140,8 @@ de:
     LOCATIONS: Standorte
     SINGULARNAME: Ferien
     PLURALNAME: Ferien
+    DATEVALIDATION: 'Enddatum muss nach oder am selben Tag wie das Startdatum liegen.'
+    LOCATIONVALIDATION: 'Es muss mindestens ein Standort ausgewählt werden.'
   App\Models\Logo:
     LogoImageDescription: 'min. 120px hoch'
     PLURALNAME: Logos
@@ -183,7 +186,7 @@ de:
       one: 'A Slide'
       other: '{count} Slides'
     SINGULARNAME: Slide
-    SlideImageDescription: 'small 4:1 // medium 16:9 // fullscreen 8:5 / 5:8 / 4:3 je nach Bildschirmgröße des Clients (Fokuspunkt verwenden!)'
+    SlideImageDescription: '{aspectRatio} - Fokuspunkt verwenden!'
     TEXT: 'Claim auf Bild'
     TEXTALIGNMENT: 'Anordnung Text'
     TITLE: Titel
@@ -253,6 +256,7 @@ de:
     TERMSNAVIGATIONITEMS: 'Terms'
     TermsNavigationItemsDescription: 'Footer (AGB, Datenschutz, Impressum etc.)'
     TITLE: 'Title / Name'
+    VacationsHolidays: 'Ferien & Feiertage'
   JonoM\ShareCare\ShareCare:
     TabName: 'Feed & Share'
   JonoM\ShareCare\ShareCareFields:
@@ -284,3 +288,6 @@ de:
   App\Models\EditableFormField\EditableCheckboxTerms:
     DefaultDescription: 'Ich akzeptiere &lt;a rel=&quot;noopener noreferrer&quot; href=&quot;[sitetree_link,id={id}]&quot; target=&quot;_blank&quot;&gt;AGBs und Datenschutzbestimmungen.<br/><strong>{id}</strong> ist die PageID welche Klaro linkt.'
     DefaultTitle: 'Ich akzeptiere <a rel="noopener noreferrer" href="[sitetree_link,id={id}]" target="_blank">AGBs und Datenschutzbestimmungen</a>.'
+  App\Model\ShortCodeSnippet:
+    Duplicate: 'Titel darf nur einmal verwendet werden.'
+    ShortCodeDescription: 'Shortcodes können auch Variablen wie "{$Text}" aus Parametern verwenden [Snippet title="Titel" Text="Text"]'

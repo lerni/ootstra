@@ -121,6 +121,7 @@ ul#Form_ItemEditForm_BackgroundColor li label[for$="transparent"] {
 
 /* thumbnail ElementLogo, ProductPage, etc. */
 .col-LogoImage-PreviewThumbnail img,
+.col-PreviewThumbnail svg,
 .col-Logo-PreviewThumbnail img {
 	max-width: 140px;
 	height: auto;
@@ -186,4 +187,8 @@ ul#Form_ItemEditForm_BackgroundColor li label[for$="transparent"] {
 	border: 1px solid #ced5e1;
 	border-top-right-radius: .23rem;
 	border-bottom-right-radius: .23rem;
+}
+
+.grecaptcha-badge {
+	visibility: hidden;
 }

@@ -28,7 +28,6 @@ input:not([disabled]),
 select:not([disabled]),
 textarea:not([disabled]),
 button:not([disabled]),
-iframe,
 [tabindex] {
 // [contentEditable=true] { adds outline also in TinyMCE
 	&:not([tabindex='-1']) {

@@ -39,6 +39,13 @@ class ElementHero extends BaseElement
 
     private static $table_name = 'ElementHero';
 
+    // show available options in Slide & ElementHero
+    public static $AvaliableHeroSizes = [
+        'small' => 'small 4:1',
+        'medium' => 'medium 2.215:1',
+        'fullscreen' => 'fullscreen'
+    ];
+
     private static $defaults = [
         'isFullWidth' => 1,
         'HeroSize' => 'medium',
@@ -80,7 +87,8 @@ class ElementHero extends BaseElement
 
         if ($HeroSizeField = $fields->dataFieldByName('HeroSize')) {
             $fields->addFieldToTab('Root.Settings', $HeroSizeField, 'isFullWidth');
-            $HeroSizeField->setDescription(_t(__CLASS__ . '.HeroSizeDescription', '"fullscreen" requires "full width"!'));
+            $availableHeroAspectRatios = implode(', ', self::$AvaliableHeroSizes);
+            $HeroSizeField->setDescription(_t(__CLASS__ . '.HeroSizeDescription', '{aspectRatios} - "fullscreen" requires "full width"!', ['aspectRatios' => $availableHeroAspectRatios]));
         }
 
         // hack around unsaved relations

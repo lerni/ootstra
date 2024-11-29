@@ -211,6 +211,8 @@
 }
 
 @mixin buttonstyle($color: $white, $background: $link-color) {
+	@include bold;
+	letter-spacing: .04em;
 	text-decoration: none;
 	font-size: 1em;
 	cursor: pointer;
