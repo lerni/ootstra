@@ -3,9 +3,9 @@
 namespace App\Extensions;
 
 use App\Elements\ElementHero;
+use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\FieldGroup;
-use SilverStripe\ORM\DataExtension;
 use SilverStripe\ORM\CMSPreviewable;
 use SilverStripe\Forms\RequiredFields;
 use SilverStripe\ORM\FieldType\DBField;
@@ -15,7 +15,7 @@ use Heyday\ColorPalette\Fields\ColorPaletteField;
 use DNADesign\ElementalVirtual\Model\ElementVirtual;
 use DNADesign\Elemental\Forms\TextCheckboxGroupField;
 
-class ElementExtension extends DataExtension implements CMSPreviewable
+class ElementExtension extends Extension implements CMSPreviewable
 {
     private static $db = [
         'isFullWidth' => 'Boolean',
@@ -28,7 +28,7 @@ class ElementExtension extends DataExtension implements CMSPreviewable
 
     private static $defaults = [
         'SpacingTop' => 0,
-        'SpacingBottom' => 2,
+        'SpacingBottom' => 2, // this or similar is also in DefaultHero
         'BackgroundColor' => 'transparent'
     ];
 
@@ -264,6 +264,17 @@ class ElementExtension extends DataExtension implements CMSPreviewable
             }
             $parts['fragment'] = $this->ElementAnchor();
             $link = $this->unparse_url($parts);
+        }
+    }
+
+    public function CurrentStage()
+    {
+        if ($this->owner->isPublished() && !$this->owner->isModifiedOnDraft()) {
+            return 'published';
+        } elseif ($this->owner->isPublished() && $this->owner->isModifiedOnDraft()) {
+            return 'modified';
+        } else {
+            return 'draft';
         }
     }
 }

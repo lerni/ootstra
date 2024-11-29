@@ -6,7 +6,7 @@
 			<a href='{$AbsoluteLink}' class="job teaser">
 				<% if $Slides.Sort('SortOrder').First.SlideImage %>
 					<% with $Slides.Sort('SortOrder').First.SlideImage %>
-						<figure><img height="$FocusFillMax(340,160).Height()" width="$FocusFillMax(340,160).Width()" src="$FocusFillMax(340,160).WebP.URL" srcset="$FocusFillMax(340,160).WebP.URL 1x, $FocusFillMax(680,320).WebP.URL 2x" alt="$Title" /></figure>
+						<figure><img height="$FocusFillMax(340,160).Height()" width="$FocusFillMax(340,160).Width()" src="$FocusFillMax(340,160).Convert('webp').URL" srcset="$FocusFillMax(340,160).Convert('webp').URL 1x, $FocusFillMax(680,320).Convert('webp').URL 2x" alt="$Title" /></figure>
 					<% end_with %>
 				<% end_if %>
 				<div class="txt">

@@ -153,4 +153,15 @@ class Location extends DataObject
             'Town'
         ]);
     }
+
+    public function validate()
+    {
+        $result = parent::validate();
+
+        if (Location::get()->filter('Title', $this->Title)->exclude('ID', $this->ID)->count() > 0) {
+            $result->addError(_t(__CLASS__ . '.Duplicate', 'Title must be unique'));
+        }
+
+        return $result;
+    }
 }

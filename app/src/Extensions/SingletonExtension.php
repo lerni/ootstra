@@ -2,9 +2,9 @@
 
 namespace App\Extensions;
 
-use SilverStripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 
-class SingletonExtension extends DataExtension
+class SingletonExtension extends Extension
 {
 
     /**

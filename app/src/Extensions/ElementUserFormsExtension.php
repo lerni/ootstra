@@ -2,14 +2,12 @@
 
 namespace App\Extensions;
 
+use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
-use SilverStripe\ORM\DataExtension;
-use SilverStripe\SiteConfig\SiteConfig;
-use Kraftausdruck\Extensions\KlaroSiteConfigExtension;
 use App\Models\EditableFormField\EditableCheckboxTerms;
 use SilverStripe\SpamProtection\EditableSpamProtectionField;
 
-class ElementUserFormsExtension extends DataExtension
+class ElementUserFormsExtension extends Extension
 {
 
     public function updateCMSFields(FieldList $fields)

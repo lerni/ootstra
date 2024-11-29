@@ -6,11 +6,13 @@ use App\Models\Slide;
 use App\Models\Location;
 use App\Models\Vacation;
 use App\Models\SocialLink;
+use SilverStripe\Forms\Tab;
+use App\Model\ShortCodeSnippet;
+use SilverStripe\Core\Extension;
 use SilverStripe\Forms\DateField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\HeaderField;
-use SilverStripe\ORM\DataExtension;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\TextareaField;
 use SilverStripe\ORM\FieldType\DBDate;
@@ -28,7 +30,7 @@ use SilverStripe\Forms\GridField\GridFieldFilterHeader;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
-class SiteConfigExtension extends DataExtension
+class SiteConfigExtension extends Extension
 {
     private static $db = [
         'MetaDescription' => 'Varchar',
@@ -36,7 +38,7 @@ class SiteConfigExtension extends DataExtension
         'foundingDate' => DBDate::class,
         'GlobalAlert' => 'HTMLText',
         'DefaultHeroSize' => 'Enum("small,medium","small")',
-        'SchemaType' => "Enum(['Organization', 'LocalBusiness', 'NGO', 'EducationalOrganization', 'NewsMediaOrganization', 'Corporation'], 'Organization')"
+        'SchemaType' => 'Varchar'
     ];
 
     private static $has_one = [];
@@ -83,8 +85,10 @@ class SiteConfigExtension extends DataExtension
 
         $fields->addFieldToTab('Root.Main', $legalNameField = TextField::create('legalName', _t('SilverStripe\SiteConfig\SiteConfig.LEGALNAME', 'Official name (legal)')));
         $fields->addFieldToTab('Root.Main', $foundingDateField = DateField::create('foundingDate', _t('SilverStripe\SiteConfig\SiteConfig.FOUNDINGDATE', 'Date of foundation'))->setHTML5(true));
-        $schemaTypes = singleton(SiteConfig::class)->dbObject('SchemaType')->enumValues();
-        $fields->addFieldToTab('Root.Main',$schmeTypeField = DropdownField::create('SchemaType', _t('SilverStripe\SiteConfig\SiteConfig.SCHEMATYPE', 'Schema Type'), $schemaTypes));
+
+        $schemaTypeKeys = array_keys(PageSchemaExtension::AvailableSchemaTypes());
+        $schemaTypes = array_combine($schemaTypeKeys, $schemaTypeKeys);
+        $fields->addFieldToTab('Root.Main', $schmeTypeField = DropdownField::create('SchemaType', _t('SilverStripe\SiteConfig\SiteConfig.SCHEMATYPE', 'Schema Type'), $schemaTypes));
 
         $fields->addFieldToTab('Root.Main', HeaderField::create('MetaData', 'Meta Daten'));
         $fields->addFieldToTab('Root.Main', $MetaDescriptionField = TextAreaField::create('MetaDescription', _t('SilverStripe\SiteConfig\SiteConfig.METADESCRIPTION', 'Meta Description')));
@@ -142,6 +146,22 @@ class SiteConfigExtension extends DataExtension
         $fields->addFieldToTab('Root.Main', $LocationGridField);
 
 
+        $SnippetGFConf = GridFieldConfig_Base::create(20);
+        $SnippetGFConf->removeComponentsByType([
+            GridFieldFilterHeader::class
+        ]);
+        $SnippetGFConf->addComponents(
+            new GridFieldEditButton(),
+            new GridFieldDeleteAction(false),
+            new GridFieldDetailForm(),
+            new GridFieldAddNewButton('toolbar-header-left')
+        );
+        $SnippetGridField = new GridField('Snipped', 'Snippets', ShortCodeSnippet::get(), $SnippetGFConf);
+        $fields->addFieldToTab('Root', Tab::create('Snippets', 'Snippets',
+            $SnippetGridField
+        ));
+
+
         $SocialConf = GridFieldConfig_Base::create(20);
         $SocialConf->removeComponentsByType([
             GridFieldFilterHeader::class
@@ -167,7 +187,10 @@ class SiteConfigExtension extends DataExtension
             new GridFieldDetailForm(),
             new GridFieldAddNewButton('toolbar-header-left')
         );
-        $VacttionGridField = new GridField('Vacation', 'Ferien & Feiertage', Vacation::get(), $VacationGFConf);
-        $fields->addFieldToTab('Root.Ferien & Feiertage', $VacttionGridField);
+        $vacationString = _t('SilverStripe\SiteConfig\SiteConfig.VacationsHolidays', 'Vacations & Holidays');
+        $VacttionGridField = new GridField('Vacation', "$vacationString" , Vacation::get(), $VacationGFConf);
+        $fields->addFieldToTab('Root', Tab::create("$vacationString", "$vacationString",
+            $VacttionGridField
+        ));
     }
 }
