@@ -74,7 +74,6 @@ class ElementContentSection extends BaseElement
     public function getFAQParts()
     {
         return $this->ContentParts()->filter(['FAQSchema' => 1]);
-
     }
 
     public function FAQSchema()

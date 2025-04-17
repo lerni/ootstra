@@ -3,13 +3,18 @@
 @import "includes/variables";
 @import "includes/mixins";
 
-$themeColor: $white !default;
+$themeColor: $link-color !default;
 
 @import "../../node_modules/swiper/swiper";
 @import "../../node_modules/swiper/modules/navigation";
 @import "../../node_modules/swiper/modules/effect-fade";
 
-@include sliderpagination(1, $white);
+@include sliderpagination(1, $themeColor);
+
+.swiper-container {
+	--swiper-theme-color: #{$themeColor};
+	--swiper-navigation-size: #{$lh * 2}em;
+}
 
 .swiper-vertical {
 	overflow: hidden;

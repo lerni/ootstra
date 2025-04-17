@@ -3,7 +3,7 @@
 
 # Setup, Requirements & Install
 
-"ootstra" is inspired by [Bigfork’s quickstart recipe](https://github.com/bigfork/silverstripe-recipe) for [Silverstripe](https://www.silverstripe.org/). It's an opinionated set of tools for a ready to run, build & deploy a CMS instance. To get it up and running you'll need [GIT](https://git-scm.com/), an editor like [VSCode](https://code.visualstudio.com/) (recommended) & [ddev](https://ddev.readthedocs.io/en/stable/). It utilizes [dnadesign/silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) for a block/element based CMS experience and comes with the following set of elements:
+"ootstra" is inspired by [Bigfork's quickstart recipe](https://github.com/bigfork/silverstripe-recipe) for [Silverstripe](https://www.silverstripe.org/). It's an opinionated set of tools for a ready to run, build & deploy a CMS instance. To get it up and running you'll need [GIT](https://git-scm.com/), an editor like [VSCode](https://code.visualstudio.com/) (recommended) & [ddev](https://ddev.readthedocs.io/en/stable/). It utilizes [dnadesign/silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) for a block/element based CMS experience and comes with the following set of elements:
 
 - ElementContent
 - ElementForm               (userforms)
@@ -37,7 +37,7 @@ Other features:
 - etc.
 
 ## Getting started
-Per `.vscode/extensions.json` extensions 'll be suggested. `.vscode/settings.json` makes Logviewer work and contains settings for debugging etc.
+Per `.vscode/extensions.json` extensions will be suggested. `.vscode/settings.json` makes Logviewer work and contains settings for debugging etc.
 <!-- - [Silverstripe](https://marketplace.visualstudio.com/items?itemName=adrianhumphreys.silverstripe)
 https://github.com/gorriecoe/silverstripe-sanchez/issues/1
  -->
@@ -58,7 +58,7 @@ https://github.com/gorriecoe/silverstripe-sanchez/issues/1
 ```bash
     git clone git@github.com:lerni/ootstra.git "PROJECT"
 ```
-On the first request database structure 'll automatically be generated - it runs `dev/build`. Before you do so, set the correct default locale in `app/_config.php` like:
+On the first request database structure will automatically be generated - it runs `dev/build`. Before you do so, set the correct default locale in `app/_config.php` like:
 ```php
     i18n::set_locale('de_CH');
 ```
@@ -74,7 +74,7 @@ StrictHostKeyChecking=accept-new
 Host *
     ForwardAgent yes
 ```
-To use use `ddev-ssh-agent` instead, following configuration in `.ddev/config.yaml` can be removed and `.ddev/docker-compose.ssh-agent.yaml` can be deleted.
+To use `ddev-ssh-agent` instead, following configuration in `.ddev/config.yaml` can be removed and `.ddev/docker-compose.ssh-agent.yaml` can be deleted.
 ```yaml
 omit_containers: [ddev-ssh-agent]
 webimage_extra_packages: [openssh-client]
@@ -83,7 +83,7 @@ web_environment:
 ```
 
 ### npm, Laravel Mix watch & build etc.
-[Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([webpack](https://webpack.js.org/) based) is used as build environment. You need to run `ddev theme install` to install npm packages.  Watcher browsersync/reload can be started with  `ddev theme watch` and 'll be available at [https://PROJECTNAME.ddev.site:3000/](https://PROJECTNAME.ddev.site:3000/). A production build can be done with `ddev theme prod`. See also scripts section in `themes/default/package.json` and [Mix CLI](https://laravel-mix.com/docs/6.0/cli).
+[Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([webpack](https://webpack.js.org/) based) is used as build environment. You need to run `ddev theme install` to install npm packages. Watcher browsersync/reload can be started with `ddev theme watch` and will be available at [https://PROJECTNAME.ddev.site:3000/](https://PROJECTNAME.ddev.site:3000/). A production build can be done with `ddev theme prod`. See also scripts section in `themes/default/package.json` and [Mix CLI](https://laravel-mix.com/docs/6.0/cli).
 
 ### VSCode tasks - remember all the commands :information_desk_person:
 There are a bunch of tasks in `.vscode/tasks.json` available per `Command+Shift+B`:
@@ -113,7 +113,7 @@ Colors group tasks like:
 - green: local npm
 - cyan: remote server
 
-Database, credentials etc. are provided as environment-variables from `.ddev/config.yaml` and are populated in `/.env` during DDEV-start. Project specific / sensitive env-vars should be set in `/.env` and won't land in GIT. For example you do not have to setup DB credentials for dev environment to work, but you need to set `APP_GOOGLE_MAPS_KEY`, `SS_NOCAPTCHA_SITE_KEY` & `SS_NOCAPTCHA_SECRET_KEY` in `.env` order to make Google Maps & reCaptcha work.
+Database, credentials etc. are provided as environment-variables from `.ddev/config.yaml` and are populated in `/.env` during DDEV-start. Project specific / sensitive env-vars should be set in `/.env` and won't land in GIT. For example you do not have to setup DB credentials for dev environment to work, but you need to set `APP_GOOGLE_MAPS_KEY`, `SS_NOCAPTCHA_SITE_KEY` & `SS_NOCAPTCHA_SECRET_KEY` in `.env` to make Google Maps & reCaptcha work.
 
 ## PHP Version
 Current used PHP-Version is 8.3. It's set in following places:
@@ -127,45 +127,86 @@ Don't forget to `ddev restart` and update packages `ddev composer u` after chang
 
 # Hosting & Deployment
 
-Deployment is based on [Deployer](https://deployer.org/), a php based cli-tool, which is included as dev-requirement per `composer.json`. It uses symlinks to the current release. It's easy to use, offers zero downtime deployments and rollback. `/assets`, `.env` are shared resources, this means they are symlinked into each release-folder. On remote servers you'll need [SSH](https://de.wikipedia.org/wiki/Secure_Shell) & git, composer, same php-version on CLI as httpd, ln, readlink, realpath, rsync, sed & xargs.
+Deployment is based on [Deployer](https://deployer.org/), a php based cli-tool, which is included as dev-requirement per `composer.json`. It uses symlinks to the current release. It's easy to use, offers zero downtime deployments and rollback. `public/assets`, `.env` are shared resources, this means they are symlinked into each release-folder. On remote servers you'll need [SSH](https://de.wikipedia.org/wiki/Secure_Shell) & git, composer, same php-version on CLI as httpd, ln, readlink, realpath, rsync, sed & xargs.
 
 ```
-~/public_html/0live     or ~/public_html/0test
+/var/www/html
 |
-|--.dep
-|  |--releases          deployers internal notes
+|--.ddev/                               # ddev config
+|--.graphql-generated/                  # not in repo, generated by graphql
+|--.vscode/                             # vscode settings, config, tasks
 |
-|--current              -> ~/public_html/0live/releases/3 for example
-|  |--.env              -> ~/public_html/0live/shared/.env
-|  |--...               all the files from repo & vendors
-|  |--public            actual webroot but symlinked per parent-dir (current)
-|  |  |--assets/        -> ~/public_html/0live/shared/assets
+|-- app/
+|  |-- _config/                         # YML-config
+|  |-- lang/                            # Localization
+|  |-- src/                             # PHP code
+|  |-- templates                        # App Templates
+|  |-- _config.php
 |
-|--releases
-|  |--1
-|  |  |--.env           -> ~/public_html/0live/shared/.env
-|  |  |--...
+|-- deploy/                             # Deployment scripts & config
+|                                       # Stage specific .htaccess files
+|-- public/
+|  |-- assets/                          # Assets
+|  |-- index.php                        # Silverstripe entrypoint
+|  |-- .htaccess                        # Silverstripe .htaccess
+|
+|-- silverstripe-cache/                 # Not in repo, generated by Silverstripe
+|
+|-- themes/                             # Themes
+|  |-- default/                         # Default theme
+|     |-- dist/                         # Webpack build output
+|     |-- node_modules/                 # Node packages
+|     |-- src/                          # Sourcefolder for Webpack build
+|     |-- templates                     # Templates
+|     |-- webpack.mix.js                # Webpack config
+|     |-- package.json                  # Node package file
+|
+|-- vendor/                             # Composer packages
+|
+|-- .env
+|
+|-- composer.json                       # Composer package file
+|-- deploy.php
+|-- README.md
+|-- silverstripe.log                    # Logfile
+
+```
+
+## Structure on Remote Server - Symlinked with Deployer
+```
+~/public_html/0live or ~/public_html/0test
+|
+|-- .dep                                # Deployer's internal "notes"
+|
+|-- releases
+|  |-- 1
+|  |  |-- .env                          # Symlinked to shared/.env
+|  |  |-- public            
+|  |      |-- assets/                   # Symlinked to shared/assets/
+|  |      |-- index.php
 |  |
-|  |--2
-|  |  |--.env           -> ~/public_html/0live/shared/.env
+|  |-- 2
 |  |  |...
 |  |
-|  |--...               as many as defined in keep_releases
+|  |-- 3
+|     |...                              # As many as defined in keep_releases
 |
-|--shared
-   |--public/assets
-   |--.env
+|-- shared
+|   |-- public/assets
+|   |-- .env                            # Environment config
+|
+|-- current/                            # Webroot symlinked to latest release
 
 ```
 
-You need to [add your public key on remote servers](https://www.google.com/search?q=add+public+key+to+server) in ~/.ssh/authorized_keys. On nix-based systems you can use [ssh-copy-id](https://www.ssh.com/ssh/copy-id) to do so.
+## SSH Key Setup
+Public SSH keys [must be added to the remote servers](https://www.google.com/search?q=add+public+key+to+server) in `~/.ssh/authorized_keys`. On nix-based systems, use [ssh-copy-id](https://www.ssh.com/ssh/copy-id).
 
 ## Configuration
-
-Rename `config.example.php` to `deploy/config.php` and configure things to your needs. Usually `.htaccess` in public comes from the repo but if needed, it can be overwritten with a stage specific version. Just create `./deploy/test.htaccess` or `./deploy/live.htaccess`, which than 'll overwrite `public/.htaccess` during deployment according to the stage in use.
+Rename `deploy/config.example.php` to `deploy/config.php` and configure as needed. The `.htaccess` file in the `/public` is typically used, but can be overridden with stage-specific versions by creating `./deploy/test.htaccess` or `./deploy/live.htaccess`.
 
 # Deploy
-Key-forwarding is used, allowing deployment to be done from inside the ddev-web container. Read [ddev-ssh-agent](#ddev-ssh-agent) above. Before first deployment, SSH into remote servers like `ddev php ./vendor/bin/dep ssh test` or `ddev php ./vendor/bin/dep ssh live` and ensure the SSH fingerprint from the git-repo is accepted. You can check with `ssh -T git@domain.tld` or may just `git clone ...` into a test directory to verify everything works as expected. If so, deployment is done as follows:
+Key-forwarding is used, allowing deployment to be done from inside the ddev-web container. Read [ddev-ssh-agent](#ssh-forwarding-ddev-ssh-agent) above. Before first deployment, SSH into remote servers like `ddev php ./vendor/bin/dep ssh test` or `ddev php ./vendor/bin/dep ssh live` and ensure the SSH fingerprint from the git-repo is accepted. You can check like `ssh -T git@bitbucket.org` or may just `git clone ...` into a test directory to verify everything works as expected. If so, deployment is done as follows:
 
 ```bash
     ddev php ./vendor/bin/dep deploy test
@@ -176,8 +217,7 @@ or
 ```bash
     ddev php ./vendor/bin/dep deploy live
 ```
-The first time you deploy to a given stage, you’ll be asked to provide database credentials etc. to populate `.env`. A file similar as below 'll be created.
-
+The first deployment to each stage will prompt for database credentials to populate the `.env` file. The resulting file will be similar to:
 ```
 # For a complete list of core environment variables see
 # https://docs.silverstripe.org/en/4/getting_started/environment_management/#core-environment-variables
@@ -191,6 +231,8 @@ SS_ENVIRONMENT_TYPE='dev'
 
 SS_ERROR_EMAIL=''
 SS_ADMIN_EMAIL=''
+# MAILER_DSN=''
+# SS_SEND_ALL_EMAILS_FROM=''
 
 ## Database {#database}
 SS_DATABASE_NAME='db'
@@ -211,6 +253,9 @@ GHOSTSCRIPT_PATH='/usr/bin/gs'
 
 SCRIPT_FILENAME=''
 ```
+## Mailer Setup
+Without setting `MAILER_DSN`, `sendmail` is used by default, typically using `SS_ADMIN_EMAIL` as sender. To use SMTP or other mailers, the `MAILER_DSN` variable should be set in the `.env`. When `MAILER_DSN` is configured, setting `SS_SEND_ALL_EMAILS_FROM` may also be appropriate. Silverstripe utilizes [Symfony Mailer](https://symfony.com/doc/current/mailer.html), which supports a variety of transport methods.
+
 
 ## Deploy a branch/tag/revision
 
@@ -273,4 +318,4 @@ ddev php ./vendor/bin/dep silverstripe:dev_build live -v
 ddev php ./vendor/bin/dep silverstripe:dev_build test -v
 ```
 # License
-`ootstra` is licensed under the [BSD license](LICENSE). Third-party modules have different licenses like (0BSD, Apache 2.0, Apache-2.0, BSD*, BSD-2-Clause, BSD-3-Clause, CC-BY-3.0, CC-BY-4.0, CC0-1.0, GPL-2.0, GPL-3.0+, GPL-3.0-or-later, ISC, MIT, MIT*, Zlib, etc.). Check with `composer licenses`, `npx license-checker --summary` in `themes/default` and be aware of the suggested plugins for VSCode. Use implies acceptance of all licenses. Note that [@fancyapps/ui](https://fancyapps.com/) is commercial software requiring a [purchased license](https://fancyapps.com/pricing/).
+`ootstra` is licensed under [BSD license](LICENSE). Third-party modules have different licenses like (0BSD, Apache 2.0, Apache-2.0, BSD*, BSD-2-Clause, BSD-3-Clause, CC-BY-3.0, CC-BY-4.0, CC0-1.0, GPL-2.0, GPL-3.0+, GPL-3.0-or-later, ISC, MIT, MIT*, Zlib, etc.). Check with `composer licenses`, `npx license-checker --summary` in `themes/default` and be aware of the suggested plugins for VSCode. Use implies acceptance of all licenses. Note that [@fancyapps/ui](https://fancyapps.com/) is commercial software requiring a [purchased license](https://fancyapps.com/pricing/).

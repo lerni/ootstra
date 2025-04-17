@@ -4,8 +4,24 @@
 @import "~breakpoint-sass/stylesheets/breakpoint";
 
 .element.elementinstagramfeed {
-	overflow-x: hidden;
+	@include breakpoint($XLneg) {
+		overflow-x: hidden;
+	}
+	.element-title {
+		&::before {
+			content: "";
+			display: inline-block;
+			width: 1em;
+			height: 1em;
+			margin: 0 .2em -.1em 0;
+			background-image: svg-load('../images/svg/instagram.svg', stroke=#{$text-color});
+			background-repeat: no-repeat;
+			background-position: center center;
+			background-size: 90%;
+		}
+	}
 	.instafeed {
+		position: relative;
 		margin-left: -1px;
 		margin-right: -1px;
 		width: calc(100% + 2px);
@@ -63,7 +79,8 @@
 					display: flex;
 					flex-direction: column;
 					background-color: rgba(0,0,0,.8);
-					span[data-feather="instagram"] {
+					span[data-feather="instagram"],
+					.feather.feather-instagram {
 						transition: transform 120ms linear;
 						transform: scale(.4);
 						width: 1.4em;
@@ -75,7 +92,8 @@
 				&:hover {
 					figcaption {
 						opacity: 1;
-						span[data-feather="instagram"] {
+						span[data-feather="instagram"],
+						.feather.feather-instagram {
 							transform: scale(1);
 						}
 					}
@@ -85,6 +103,25 @@
 				height: 100%;
 				width: auto;
 			}
+		}
+		// we made the swiper-container (.instafeed) relative, so element-padding isn't relevant
+		.swiper-button-prev,
+		.swiper-button-next {
+			position: absolute;
+			margin-top: calc(0px - (var(--swiper-navigation-size) / 2));
+			&::after {
+				opacity: 1;
+			}
+			&.swiper-button-disabled {
+				opacity: 0;
+			}
+		}
+		.swiper-button-prev {
+			left: 0;
+		}
+
+		.swiper-button-next {
+			right: 0;
 		}
 	}
 }

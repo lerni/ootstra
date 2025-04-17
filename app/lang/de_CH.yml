@@ -1,4 +1,4 @@
-de:
+de_CH:
   DNADesign\Elemental\Models\ElementContent:
     BlockType: Text
   App\Elements\ElementContentSection:

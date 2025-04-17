@@ -141,6 +141,14 @@ host('test')
 Deployer::get()->tasks->remove('deploy');
 desc('Deploy project');
 task('deploy', function () {
+    $stage = get('labels')['stage'] ?? '';
+    if (in_array($stage, ['live'])) {
+        if (!askConfirmation("Are you sure you want to deploy to {$stage}?")) {
+            echo "🚀\n";
+            exit;
+        }
+    }
+
     invoke('silverstripe:installtools');
     invoke('silverstripe:create_dotenv');
     invoke('deploy:prepare');

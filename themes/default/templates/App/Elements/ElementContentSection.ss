@@ -24,12 +24,11 @@
 			<% end_loop %>
 		</ul>
 	<% else %>
-		<%-- <details><summary></summary></details> --%>
-		<ul class="content-parts accordion" role="presentation">
+		<div class="content-parts accordion">
 			<% loop $ContentParts.Sort("SortOrder") %>
-				<li>
-					<h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %> id="{$Title.URLEnc}" class="flip">
-						<button aria-expanded="<% if $DefaultOpen %>true<% else %>false<% end_if %>">
+				<details <% if $DefaultOpen %>open<% end_if %> <% if $Title %>id="$Title.URLEnc"<% end_if %>>
+					<summary>
+						<h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %>>
 							{$Title}
 							<svg aria-hidden="true" focusable="false" viewBox="0 0 400 230" class="trigger" version="1.1" xmlns="http://www.w3.org/2000/svg">
 								<g stroke="inherit" stroke-width="inherit" stroke-linecap="inherit">
@@ -43,14 +42,14 @@
 									<line class="line second" x1="30" y1="100" x2="170" y2="100"></line>
 								</g>
 							</svg> --%>
-						</button>
-					</h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %>>
-					<div class="flip" <% if not $DefaultOpen %>hidden<% end_if %> role="region">
+						</h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %>>
+					</summary>
+					<div class="content">
 						$Text
 					</div>
-				</li>
+				</details>
 			<% end_loop %>
-		</ul>
+		</div>
 	<% end_if %>
 </div>
 <% end_if %>

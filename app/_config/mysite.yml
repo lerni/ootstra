@@ -213,10 +213,6 @@ App\Tasks\CleanUpObjects:
   objects_to_clean_up:
     - 'SilverStripe\UserForms\Model\Submission\SubmittedForm'
 
-SilverStripe\CMS\Model\VirtualPage:
-  extensions:
-    - App\Extensions\CannotCreateExtension
-
 SilverStripe\UserForms\Model\Recipient\EmailRecipient:
   extensions:
     - App\Extensions\EmailRecipientExtension

@@ -1,6 +1,7 @@
 {
   "recommendations": [
     "adrian.silverstripe",
+    "damms005.devdb-vscode",
     "mikestead.dotenv",
     "firefox-devtools.vscode-firefox-debug",
     "EditorConfig.EditorConfig",

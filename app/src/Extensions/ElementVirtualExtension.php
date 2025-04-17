@@ -12,6 +12,7 @@ class ElementVirtualExtension extends Extension
     {
         $fields->removeByName([
             'Settings',
+            'BackgroundColor',
             'TitleLevel'
         ]);
     }

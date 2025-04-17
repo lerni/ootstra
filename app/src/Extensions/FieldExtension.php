@@ -81,7 +81,8 @@ class FieldExtension extends Extension
 
     public function TelEnc($schema = '')
     {
-        $trimedTel = trim(preg_replace('/\s+/', '', $this->owner->value));
+        $value = $this->owner->value ?? '';
+        $trimedTel = trim(preg_replace('/\s+/', '', $value));
 
         if ($schema == '') {
             $schema = i18n::config()->uninherited('default_locale');

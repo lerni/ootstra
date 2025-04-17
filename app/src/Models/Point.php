@@ -15,7 +15,8 @@ class Point extends DataObject
         'Latitude' => 'Decimal(18,15)',
         'Longitude' => 'Decimal(18,15)',
         'Title' => 'Varchar',
-        'PointURL' => 'Varchar'
+        'PointURL' => 'Varchar',
+        'Parking' => 'Boolean'
     ];
 
     private static $has_one = [];
@@ -27,7 +28,8 @@ class Point extends DataObject
 
     private static $summary_fields = [
         'getThunbnail' => 'Thumbnail',
-        'Title' => 'Titel'
+        'Title' => 'Titel',
+        'Parking.Nice' => 'Parking'
     ];
 
     private static $searchable_fields = [

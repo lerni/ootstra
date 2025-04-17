@@ -2,7 +2,9 @@
 <% require themedCSS("dist/css/swiper") %>
 <% require javascript("themes/default/dist/js/swiper.js") %>
 <%-- $InstagramFeed.Profile.username --%>
-<% include App/Includes/ElementTitle %>
+<% if $isFullWidth && $ShowTitle %><div class="typography inner"><% end_if %>
+	<% include App/Includes/ElementTitle %>
+<% if isFullWidth %></div><% end_if %>
 <% if $HTML %><div class="typography">{$HTML}</div><% end_if %>
 <% if $InstagramFeed.Media %>
 	<div class="instafeed swiper-container" data-id="{$ID}" id="multiple-swiper-{$ID}">

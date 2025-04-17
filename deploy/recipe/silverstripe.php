@@ -33,6 +33,8 @@ SS_DEFAULT_ADMIN_PASSWORD='{$cmsDefaultPass}'
 
 SS_ERROR_EMAIL='{$errorEmail}'
 SS_ADMIN_EMAIL='{$adminEmail}'
+# MAILER_DSN=''
+# SS_SEND_ALL_EMAILS_FROM=''
 
 ## Database
 SS_DATABASE_CLASS='MySQLDatabase'
@@ -44,10 +46,6 @@ SS_DATABASE_NAME='{$dbName}'
 SS_ERROR_LOG='silverstripe.log'
 
 GHOSTSCRIPT_PATH='/usr/bin/gs'
-
-# MAIL_HOST=''
-# MAIL_USERNAME=''
-# MAIL_PASSWORD=''
 
 # APP_GOOGLE_MAPS_KEY=''
 # SS_NOCAPTCHA_SITE_KEY=''

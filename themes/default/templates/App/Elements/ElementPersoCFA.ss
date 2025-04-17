@@ -32,7 +32,7 @@
 			</div>
 		</div>
 	<% end_loop %>
-	<% if $Items.Count >= 1 %>
+	<% if $Items.Count > 1 %>
 		</div>
 	</div>
 	<% end_if %>

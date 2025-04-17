@@ -31,5 +31,8 @@
     }
   },
   "vscode.php-language-features": false,
-  "workbench.tree.enableStickyScroll": true
+  "workbench.tree.enableStickyScroll": true,
+  "workbench.editorAssociations": {
+    "*.svg": "default"
+  }
 }

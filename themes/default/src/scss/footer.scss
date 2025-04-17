@@ -46,6 +46,7 @@ body > footer {
 				color: $current-color;
 			}
 		}
+		a:first-child,
 		a + a {
 			margin-top: 0;
 		}

@@ -49,7 +49,7 @@ class ElementExtension extends Extension implements CMSPreviewable
         }
         if ($SpacingBottomField = $fields->dataFieldByName('SpacingBottom')) {
             $SpacingBottomField->setTitle(_t('DNADesign\Elemental\Models\BaseElement.SPACINGBOTTOM', 'Spacing bottom'));
-            $SpacingBottomField->setDescription(_t('DNADesign\Elemental\Models\BaseElement.SpacingDescription', 'none'));
+            $SpacingBottomField->setDescription(_t('DNADesign\Elemental\Models\BaseElement.SpacingDescription', 'Number of lines of scrolling text (1 - 6)'));
             $fields->addFieldToTab('Root.Settings', $SpacingBottomField);
         }
         if ($FullWidthBox = $fields->dataFieldByName('isFullWidth')) {

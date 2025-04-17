@@ -7,7 +7,7 @@
 	$trigger-size: .75;
 	$trigger-color: $text-color;
 	$spacing-factor: 1.5;
-	ul {
+	> ul {
 		list-style: none;
 		padding-left: 0;
 	}
@@ -15,7 +15,7 @@
 		// border-bottom: 2px solid $text-color;
 		// max-width: #{$inner-width - 200px};
 
-		li {
+		>li {
 			padding: #{$lh}em 0 0 0;
 			cursor: pointer;
 			position: relative;
@@ -28,12 +28,44 @@
 			h3.flip {
 				margin-bottom: 0;
 				// padding-right: #{math.div($trigger-size, 2) * $spacing-factor}em;
-				button {
+			}
+			> div.flip {
+				padding: 0 #{$lh * 2}em #{$lh * 1.5}em 0;
+				margin-left: 0;
+				> p:last-child {
+					margin-bottom: 0;
+				}
+			}
+		}
+		> li + li {
+			border-top: 2px solid $gray;
+		}
+		details {
+			cursor: pointer;
+			position: relative;
+			scroll-margin-top: $headerheight;
+			border-top: 2px solid $gray;
+			&:first-of-type {
+				border-top: none;
+			}
+			&:not(:first-of-type) {
+				padding: #{$lh}em 0 0 0;
+			}
+			@include breakpoint($Lneg) {
+				flex: 0 0 100%;
+			}
+			summary {
+				outline: none;
+				&::marker,
+				&::-webkit-details-marker {
+					display: none;
+					content: "";
+				}
+				h1, h2, h3 {
+					margin-bottom: 0;
 					display: flex;
 					width: 100%;
-					all: inherit;
-					padding-right: 0;
-					padding-bottom: #{$lh * .8}em;
+					padding-bottom: #{$lh}rem;
 					.trigger {
 						width: #{$trigger-size * 2}em; // #{$trigger-size * 1}em
 						height: #{$trigger-size * 1}em;
@@ -58,30 +90,43 @@
 							}
 						}
 					}
-					&[aria-expanded="true"] .trigger {
-						// transform: rotate(45deg);
-						.line {
-							stroke: $current-color;
-							&.first {
-								transform: translateX(21.25%) translateY(0%);
-							}
-							&.second {
-								transform: translateX(-21.25%) translateY(0%);
-							}
-						}
-					}
 				}
 			}
-			> div.flip {
-				padding: 0 #{$lh * 2}em #{$lh * 1.5}em 0;
+			.content {
+				padding: 0 #{$lh * 2}em #{$lh * .5}em 0;
 				margin-left: 0;
+				// is it selctor-specifity that stops in & out animation - just in right now?
+				font-size: 0;
+				line-height: 0em;
+				opacity: 0;
+				transition: opacity .3s ease .1s,line-height .2s ease,font-size .2s ease;
 				> p:last-child {
 					margin-bottom: 0;
 				}
 			}
-		}
-		li + li {
-			border-top: 2px solid $gray;
+			&[open] {
+				summary {
+					h1, h2, h3 {
+						color: $current-color;
+						.trigger {
+							.line {
+								stroke: $current-color;
+								&.first {
+									transform: translateX(21.25%) translateY(0%);
+								}
+								&.second {
+									transform: translateX(-21.25%) translateY(0%);
+								}
+							}
+						}
+					}
+				}
+				.content {
+					font-size: $font-size;
+					line-height: #{$line-height}em;
+					opacity: 1;
+				}
+			}
 		}
 	}
 	.content-parts.text-blocks {

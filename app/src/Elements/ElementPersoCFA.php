@@ -76,7 +76,7 @@ class ElementPersoCFA extends BaseElement
 
         // hack around unsaved relations
         if ($this->isInDB()) {
-            $PersoGFConfig = GridFieldConfig_Base::create(100);
+            $PersoGFConfig = GridFieldConfig_Base::create(30);
             $PersoGFConfig->addComponents(
                 new GridFieldEditButton(),
                 new GridFieldDeleteAction(true),

@@ -4,6 +4,7 @@ namespace App\Extensions;
 
 use Page;
 use Spatie\SchemaOrg\Schema;
+use SilverStripe\ORM\ArrayList;
 use SilverStripe\Core\Extension;
 use SilverStripe\Control\Director;
 use SilverStripe\Control\Controller;

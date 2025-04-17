@@ -251,6 +251,7 @@ p.cat-tag {
 	scroll-margin-top: $headerheight;
 	$betternav--red: #d73f1d;
 	$betternav--green: #068913;
+	outline: none;
 	>a.preview-edit {
 		position: absolute;
 		z-index: 8000;
