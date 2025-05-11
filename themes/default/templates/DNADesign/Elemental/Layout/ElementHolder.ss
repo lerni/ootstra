@@ -1,5 +1,5 @@
 <% if $ClassName != "DNADesign\Elemental\Models\BaseElement" %><article class="element
-		$ShortClassName($this, 0).LowerCase
+		$ShortClassName($this, true)
 		<% if $isFullWidth %>full-width<% end_if %>
 		<% if $ClassName != App\Elements\ElementHero %>horizontal-spacing<% end_if %>
 		<% if $PushUP %>push-up-{$PushUP}<% end_if %>

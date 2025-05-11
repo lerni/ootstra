@@ -47,7 +47,10 @@ SS_ERROR_LOG='silverstripe.log'
 
 GHOSTSCRIPT_PATH='/usr/bin/gs'
 
+# Maps key from:
+# https://console.cloud.google.com/apis/library
 # APP_GOOGLE_MAPS_KEY=''
+# reCAPTCHA key from: https://www.google.com/recaptcha/admin/create
 # SS_NOCAPTCHA_SITE_KEY=''
 # SS_NOCAPTCHA_SECRET_KEY=''
 

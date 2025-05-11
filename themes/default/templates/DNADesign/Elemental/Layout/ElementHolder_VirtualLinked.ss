@@ -1,6 +1,5 @@
 <% if $LinkedElement %><article class="element
-		$ClassName.ShortName($this, 0).LowerCase
-		$LinkedElement.ClassName.ShortName($this, 0).LowerCase
+		$ShortClassName($this, true)
 		<% if $LinkedElement.isFullWidth %>full-width<% end_if %>
 		<% if $LinkedElement.ClassName != App\Elements\ElementHero %>horizontal-spacing<% end_if %>
 		spacing-top-{$LinkedElement.SpacingTop}

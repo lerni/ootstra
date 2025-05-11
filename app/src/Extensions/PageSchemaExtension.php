@@ -59,7 +59,7 @@ class PageSchemaExtension extends Extension
                     ->postalCode($location->PostalCode)
                     ->addressLocality($location->Town)
                     ->postOfficeBoxNumber($location->PostOfficeBoxNumber)
-                    ->telephone($location->Telephone)
+                    ->telephone($location->dbObject('Telephone')->TelEnc())
                     ->addressRegion($location->AddressRegion)
                     ->addressCountry(Schema::Country()->name($country));
 

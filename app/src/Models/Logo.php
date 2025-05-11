@@ -35,7 +35,8 @@ class Logo extends DataObject
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Titel');
+        $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Title');
+        $labels['LogoImage'] = _t(__CLASS__ . '.LOGOIMAGE', 'Logo image');
 
         return $labels;
     }

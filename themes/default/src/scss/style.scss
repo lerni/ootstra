@@ -279,14 +279,12 @@ p.cat-tag {
 			display: flex;
 		}
 	}
+	&.elementhero >a.preview-edit{
+		top: auto;
+		bottom: #{math.div($lh, 2)}em;
+	}
 	&:has(a.preview-edit:hover) {
 		&::after {
-			content: "";
-			position: absolute;
-			top: 0;
-			right: -50vw;
-			bottom: 0;
-			left: -50vw;
 			z-index: 50;
 			background-color: rgba($betternav--green, 0.1);
 			mix-blend-mode: multiply;
@@ -303,9 +301,9 @@ p.cat-tag {
 		position: absolute;
 		z-index: -1;
 		top: 0;
-		right: -100%;
+		right: -50vw;
 		bottom: 0;
-		left: -100%;
+		left: -50vw;
 		// prevents horizontal overflow on ios
 		@include breakpoint($XLneg) {
 			left: 0;
@@ -329,6 +327,19 @@ p.cat-tag {
 	}
 	.element-title {
 		flex: 0 0 100%;
+	}
+
+	// when full-width .element-title shold not hava padding on .inner
+	&.full-width {
+		&.elementmaps,
+		&.elementgallery {
+			@include breakpoint($XLneg) {
+				> .inner {
+					padding-left: 0;
+					padding-right: 0;
+				}
+			}
+		}
 	}
 
 	// &[class^="element"],
@@ -672,6 +683,57 @@ p.cat-tag {
 		}
 		&.global-alert {
 			padding-bottom: 0 !important;
+		}
+	}
+	&.elementtestimonial {
+		.swiper-container .swiper-wrapper {
+			.swiper-slide {
+				width: 100%;
+			}
+		}
+		blockquote p {
+			font-size: 1.41em;
+			font-weight: 300;
+			font-style: italic;
+			&::before,
+			&::after {
+				transform: skew(-10deg,0deg);
+			}
+		}
+		blockquote + p.small {
+			margin: #{math.div($lh, 2)}rem #{$lh}rem;
+		}
+		@include sliderpagination(.5, $black);
+		.swiper-pagination {
+			position: inherit;
+			top: auto;
+			padding: #{math.div($lh, 2)}em 0;
+			@include breakpoint($Lneg) {
+				display: flex;
+			}
+		}
+		&.background-black {
+			p {
+				color: $white;
+				&::before {
+					background-image: svg-load(
+						"../images/svg/quote-before.svg",
+						fill=#{$white}
+					);
+				}
+				&::after {
+					background-image: svg-load(
+						"../images/svg/quote-after.svg",
+						fill=#{$white}
+					);
+				}
+			}
+			.swiper-pagination .swiper-pagination-bullet {
+				border-color: $white;
+				&.swiper-pagination-bullet-active {
+					background-color: $white;
+				}
+			}
 		}
 	}
 	&.elementform {

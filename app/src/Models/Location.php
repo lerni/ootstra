@@ -158,9 +158,6 @@ class Location extends DataObject
     {
         $result = parent::validate();
 
-        $record = $this->record['Title'];
-        $thisTitle = $this->Title;
-
         if (static::get()->filter('Title', $this->Title)->exclude('ID', $this->ID)->count() > 0) {
             $result->addError(_t(__CLASS__ . '.Duplicate', '{FieldName} must be unique', ['FieldName' => 'Title']));
         }

@@ -30,7 +30,7 @@
 		}
 	</style>
 </head>
-<body class="{$ClassName.ShortName.LowerCase}">
+<body class="{$ShortClassName($this, true)}">
 	{$Layout}
 	<% include App/Includes/Footer %>
 	<% if $isHomePage %>$OrganisationSchema.RAW<% end_if %>

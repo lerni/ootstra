@@ -76,22 +76,10 @@ SilverStripe\SiteConfig\SiteConfig:
     ID: 1
     Title: "Test Website"
     DefaultHeroSize: 'medium'
+    CookieLinkPrivacyID: 3
     legalName: 'kraftausdruck GmbH'
     foundingDate: '2012-01-27'
     MetaDescription: 'kraftausdruck.ch Starke Online-Kommunikation mit eleganter Technologie, Webdesign & Silverstripe Webentwicklung in Ruswil, Lukas Erni'
-    CookieIsActive: 1
-    ConsentNoticeTitle: 'Cookies & Datenschutz'
-    ConsentNoticeDescription: 'Auf dieser Webseite werden Cookies für folgende Zwecke eingesetzt: {purposes}.'
-    ConsentNoticeOK: 'Alle zustimmen'
-    ConsentModalTitle: 'Verwendete Cookies'
-    ConsentNoticeLearnMore: 'Cookie Einstellungen'
-    ConsentModalDescription: 'Datenschutz-Einstellungen für diese Webseite einsehen und anpassen.'
-    ConsentModalPrivacyPolicyName: 'Datenschutzerklärung'
-    ConsentModalPrivacyPolicyText: 'Details {privacyPolicy}.'
-    CookieLinkPrivacy: =>App\Models\ElementPage.rechtliches
-    AcceptAll: 'Allen zustimmen'
-    AcceptSelected: 'Auswahl speichern'
-    Decline: 'Ablehnen'
     CanonicalDomain: 'https://ootstra.kraftausdruck.ch/'
     WebmanifestName: 'ootstra CMS boilerplate'
     WebmanifestShortName: 'ootstra'

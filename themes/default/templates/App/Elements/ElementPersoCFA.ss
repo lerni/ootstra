@@ -24,9 +24,14 @@
 				<% end_if %>
 				<p>
 					<span class="links">
-						<% if $EMail %><a href="mailto:{$EMail}">{$EMail}</a><% end_if %>
-						<% if $Telephone %><a href="tel:{$Telephone.TelEnc}">{$Telephone}</a><% end_if %>
-						<% if $EMail && $Telephone %><a href="{$Up.PrimaryElementPersoController.Link}/vcard/{$ID}" title="vCard">vCard</a><% end_if %>
+						<% if $EMail %><a class="mail" href="mailto:{$EMail}">{$EMail}</a><% end_if %>
+						<% if $Telephone %><a class="phone" href="tel:{$Telephone.TelEnc}">{$Telephone}</a><% end_if %>
+						<% if $EMail && $Telephone %>
+							<a class="vcard" href="/_vc/{$ID}" title="vCard">vCard</a>
+							<% if $CurrentMember %>
+								<a class="qrcode" href="/_pqr/{$ID}" target="_blank" title="vCard">QR-Code</a>
+							<% end_if %>
+						<% end_if %>
 					</span>
 				</p>
 			</div>

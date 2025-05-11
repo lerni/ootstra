@@ -8,6 +8,7 @@ $themeColor: $link-color !default;
 @import "../../node_modules/swiper/swiper";
 @import "../../node_modules/swiper/modules/navigation";
 @import "../../node_modules/swiper/modules/effect-fade";
+@import "../../node_modules/swiper/modules/scrollbar";
 
 @include sliderpagination(1, $themeColor);
 

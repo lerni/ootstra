@@ -34,6 +34,9 @@ SilverStripe\SiteConfig\SiteConfig:
 DNADesign\Elemental\Models\BaseElement:
   extensions:
     - 'TractorCow\Fluent\Extension\FluentVersionedExtension'
+  field_exclude:
+    - 'VirtualLookupTitle'
+    - 'ExtraClass'
 
 App\Models\Teaser:
   extensions:

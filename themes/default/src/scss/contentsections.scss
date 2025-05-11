@@ -41,7 +41,6 @@
 			border-top: 2px solid $gray;
 		}
 		details {
-			cursor: pointer;
 			position: relative;
 			scroll-margin-top: $headerheight;
 			border-top: 2px solid $gray;
@@ -55,6 +54,7 @@
 				flex: 0 0 100%;
 			}
 			summary {
+				cursor: pointer;
 				outline: none;
 				&::marker,
 				&::-webkit-details-marker {
@@ -71,6 +71,9 @@
 						height: #{$trigger-size * 1}em;
 						flex: 0 0 #{$trigger-size * 2}em;
 						margin: auto 0 auto auto;
+						transform: scale(1);
+						transform-origin: center center;
+						transition: transform 0.1s ease-in-out;
 						// margin: -0.2em 0 auto auto;
 						// transition: transform 0.1s ease-in-out;
 						// transform: rotate(0deg);
@@ -109,6 +112,7 @@
 					h1, h2, h3 {
 						color: $current-color;
 						.trigger {
+							transform: scale(1.16);
 							.line {
 								stroke: $current-color;
 								&.first {

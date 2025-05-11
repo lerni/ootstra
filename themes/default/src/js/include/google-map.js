@@ -2,6 +2,14 @@ var map;
 // var center = new google.maps.LatLng($Lat, $Lng);
 var marker_bounds;
 
+// document.addEventListener("DOMContentLoaded", function () {
+//   init();
+// });
+
+// document.body.addEventListener("htmx:afterSettle", function (event) {
+//   init();
+// });
+
 // var icon = {
 //   url: '/_resources/themes/default/dist/images/marker.png',
 // 	size: new google.maps.Size(300,110),
@@ -20,16 +28,21 @@ function init() {
       position: google.maps.ControlPosition.RIGHT_TOP,
     },
     mapTypeId: "$MapType",
-    zoomControl: true,
-    zoomControlOptions: {
-      position: google.maps.ControlPosition.LEFT_TOP,
-    },
     //		scrollwheel: true,
     fullscreenControl: $Fullscreen,
     fullscreenControlOptions: {
       position: google.maps.ControlPosition.LEFT_TOP,
     },
   };
+
+  if ($ShowZoom) {
+    mapOptions.zoomControl = true;
+    mapOptions.zoomControlOptions = {
+      position: google.maps.ControlPosition.LEFT_TOP,
+    };
+  } else {
+    mapOptions.zoomControl = false;
+  }
 
   map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
@@ -48,13 +61,14 @@ function init() {
           parseFloat(marker.Longitude)
         );
         marker_bounds.extend(latlng);
-        var marker = createMarker(latlng, marker.PointURL, marker.Parking);
+        createMarker(latlng, marker.PointURL, marker.Type);
       });
+      resize();
     });
 }
 
-function createMarker(latlng, PointURL, parking = false) {
-  if (parking) {
+function createMarker(latlng, PointURL, type) {
+  if (type == 'parking') {
     var marker = new google.maps.Marker({
 			position: latlng,
 			map: map,
@@ -90,14 +104,22 @@ function createMarker(latlng, PointURL, parking = false) {
       window.open(PointURL, "_blank");
     });
   }
-  resize();
 }
 
 // google.maps.event.addDomListener(window, 'deviceorientation', resize);
 // google.maps.event.addDomListener(window, 'resize', resize);
 function resize() {
-  map.fitBounds(marker_bounds);
-  if (map.getZoom() > $Zoom) {
-    map.setZoom($Zoom);
+  if (!marker_bounds.isEmpty()) {
+    map.fitBounds(marker_bounds);
+  } else {
+    var defaultCenter = new google.maps.LatLng($Lat, $Lng);
+    map.setCenter(defaultCenter);
   }
+
+  // Wait for the map to be idle before checking and setting zoom level
+  google.maps.event.addListenerOnce(map, 'idle', function() {
+    if (map.getZoom() > $Zoom) {
+      map.setZoom($Zoom);
+    }
+  });
 }

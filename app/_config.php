@@ -93,21 +93,21 @@ $styles = [
     ]
 ];
 
-$module = ModuleLoader::inst()->getManifest()->getModule('silverstripe/admin');
-$tinyPlugins = [
+// Common plugins for all editor variants
+$adminModule = ModuleLoader::inst()->getManifest()->getModule('silverstripe/admin');
+$tinyMceCommonPlugins = [
     'image' => null,
     'anchor' => null,
-    'sslink' => $module->getResource('client/dist/js/TinyMCE_sslink.js'),
-    'sslinkexternal' => $module->getResource('client/dist/js/TinyMCE_sslink-external.js'),
-    'sslinkemail' => $module->getResource('client/dist/js/TinyMCE_sslink-email.js'),
+    'sslink' => $adminModule->getResource('client/dist/js/TinyMCE_sslink.js'),
+    'sslinkexternal' => $adminModule->getResource('client/dist/js/TinyMCE_sslink-external.js'),
+    'sslinkemail' => $adminModule->getResource('client/dist/js/TinyMCE_sslink-email.js'),
     'emoticons',
     'charmap',
-    // 'definitionlists' => ModuleResourceLoader::resourceURL('app/thirdparty/tinymce-definitionlist-master/definitionlist/plugin.js') // needs Buttons: ToggleDefinitionList ToggleDefinitionItem
+    'deflist' => ModuleResourceLoader::resourceURL('app/thirdparty/tinyMCE-DefinitionList-main/deflist/plugin.min.js')
 ];
-$EditorConfig = TinyMCEConfig::get('cms');
-$EditorConfig->enablePlugins($tinyPlugins);
-$EditorConfig->disablePlugins(['importcss']);
-$editorOptions = [
+
+// Common options for all editor variants
+$tinyMceCommonOptions = [
     'style_formats' => $styles,
     'block_formats' => 'Paragraph=p;Heading 1=h1;Heading 2=h2;Heading 3=h3; Heading 4=h4',
     'paste_remove_spans' => true,
@@ -117,32 +117,49 @@ $editorOptions = [
     'statusbar' => true,
     'contextmenu' => "searchreplace | sslink anchor ssmedia ssembed"
 ];
-$EditorConfig->setOptions($editorOptions);
 
-// $EditorConfig->setButtonsForLine(1, ['blocks styles pastetext ssmedia ssembed | bold bullist numlist ToggleDefinitionList ToggleDefinitionItem | alignleft aligncenter alignright alignjustify | sslink unlink anchor | emoticons charmap blockquote hr code removeformat visualblocks | outdent indent | undo redo | subscript superscript']);
-$EditorConfig->setButtonsForLine(1, ['blocks styles pastetext ssmedia ssembed | bold bullist numlist | alignleft aligncenter alignright alignjustify | outdent indent | sslink anchor | emoticons charmap blockquote hr code removeformat visualblocks | undo redo']);
+// -----------------------------------------------------------------------------
+// Full CMS Editor Configuration
+// -----------------------------------------------------------------------------
+$EditorConfig = TinyMCEConfig::get('cms');
+$EditorConfig->enablePlugins($tinyMceCommonPlugins);
+$EditorConfig->disablePlugins(['importcss']);
+$EditorConfig->setOptions($tinyMceCommonOptions);
+
+// Full editor toolbar with all features
+$EditorConfig->setButtonsForLine(1, [
+    'blocks styles pastetext ssmedia ssembed | bold align | bullist numlist deflist | outdent indent | sslink anchor | emoticons charmap blockquote hr code removeformat visualblocks | undo redo'
+]);
 $EditorConfig->setButtonsForLine(2, '');
 $EditorConfig->setOption(
     'extended_valid_elements',
-    'span[data-feather]'
+    'span[data-feather],dl[*],dt[*],dd[*]'
     // 'div[*]'
 );
 
+// -----------------------------------------------------------------------------
+// Simple Editor Configuration
+// -----------------------------------------------------------------------------
 $SimpleCfg = TinyMCEConfig::get('inlite');
-$SimpleCfg->enablePlugins($tinyPlugins);
-$SimpleCfg->setOptions($editorOptions);
+$SimpleCfg->enablePlugins($tinyMceCommonPlugins);
 $SimpleCfg->disablePlugins(['importcss']);
+$SimpleCfg->setOptions($tinyMceCommonOptions);
+
+// Additional plugins specific to simple editor
 $cmsModule = ModuleLoader::inst()->getManifest()->getModule('silverstripe/cms');
+$assetAdminModule = ModuleLoader::inst()->getManifest()->getModule('silverstripe/asset-admin');
 $phoneModule = ModuleLoader::inst()->getManifest()->getModule('firebrandhq/silverstripe-phonelink');
 $SimpleCfg->enablePlugins([
-    'sslinkinternal' => $cmsModule
-        ->getResource('client/dist/js/TinyMCE_sslink-internal.js'),
-    'sslinkanchor' => $cmsModule
-        ->getResource('client/dist/js/TinyMCE_sslink-anchor.js'),
-    'sslinkphone' => $phoneModule
-        ->getResource('client/dist/js/TinyMCE_sslink-phone.js'),
+    'sslinkinternal' => $cmsModule->getResource('client/dist/js/TinyMCE_sslink-internal.js'),
+    'sslinkanchor' => $cmsModule->getResource('client/dist/js/TinyMCE_sslink-anchor.js'),
+    'sslinkfile' => $assetAdminModule->getResource('client/dist/js/TinyMCE_sslink-file.js'),
+    'sslinkphone' => $phoneModule->getResource('client/dist/js/TinyMCE_sslink-phone.js'),
 ]);
-$SimpleCfg->setButtonsForLine(1, ['blocks pastetext | bold bullist numlist | alignleft aligncenter alignright alignjustify | sslink anchor | emoticons charmap hr code removeformat visualblocks | undo redo']);
+
+// Simplified toolbar with fewer options
+$SimpleCfg->setButtonsForLine(1, [
+    'blocks pastetext | bold align bullist numlist | sslink anchor | emoticons charmap hr code removeformat visualblocks | undo redo'
+]);
 $SimpleCfg->setButtonsForLine(2, '');
 
 CMSMenu::remove_menu_item('SilverStripe-Reports-ReportAdmin');

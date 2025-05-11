@@ -41,7 +41,7 @@ class Page extends SiteTree
         $this->beforeUpdateCMSFields(function (FieldList $fields) {
             $fields->removeByName(['ExtraMeta']);
 
-            if (!Permission::check('ADMIN') && $this->IsHome()) {
+            if (!Permission::check('ADMIN') && $this->isHomePage()) {
                 $fields->removeByName(['URLSegment']);
             }
 
