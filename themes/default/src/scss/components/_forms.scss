@@ -95,11 +95,13 @@ form {
 			}
 			&.userformsoptionset.half-width-checkbox,
 			&.checkboxset.half-width-checkbox {
+				ul.optionset.checkboxset,
 				.middleColumn {
 					display: flex;
 					flex-wrap: wrap;
 					column-gap: #{math.div($lh, 1)}em;
 					row-gap: #{math.div($lh, 4)}em;
+					li,
 					> div {
 						flex: 0 0
 						calc(
@@ -120,10 +122,12 @@ form {
 			}
 			&.userformsoptionset.quarter-width-checkbox,
 			&.checkboxset.quarter-width-checkbox {
+				ul.optionset.checkboxset,
 				.middleColumn {
 					display: flex;
 					flex-wrap: wrap;
 					gap: #{math.div($lh, 2)}em;
+					li,
 					> div {
 						flex: 1 0
 							calc(
@@ -175,6 +179,7 @@ form {
 				width: 100% !important;
 				background: none;
 				input.text,
+				input.date,
 				textarea,
 				.textajaxuniquetext,
 				select {
@@ -186,6 +191,10 @@ form {
 					border: 1px solid $gray--light;
 					color: $text-color;
 					@include normal; // dropdown needs this
+					&[readonly="readonly"] {
+						background-color: $gray--lighter;
+						border-color: $gray--lighter;
+					}
 				}
 				input[disabled],
 				form textarea[disabled] {
@@ -209,19 +218,19 @@ form {
 						float: left;
 					}
 				}
-				[type="date"] {
-					box-sizing: content-box;
-					@include normal;
-					appearance: none;
-					height: 1.15em;
-					&:datetime-edit {
-						padding: 0;
-						padding: 0;
-					}
-					&:calendar-picker-indicator {
-						color: $black;
-					}
-				}
+				// [type="date"] {
+				// 	box-sizing: content-box;
+				// 	@include normal;
+				// 	appearance: none;
+				// 	height: 1.15em;
+				// 	&:datetime-edit {
+				// 		padding: 0;
+				// 		padding: 0;
+				// 	}
+				// 	&:calendar-picker-indicator {
+				// 		color: $black;
+				// 	}
+				// }
 			}
 			&.dropdown .middleColumn select {
 				@include dropdown;
@@ -325,6 +334,10 @@ form {
 	.optionset {
 		ul {
 			margin: 0;
+			padding-left: 0;
+			li {
+				padding-left: 0;
+			}
 		}
 		li {
 			margin-bottom: 5px;

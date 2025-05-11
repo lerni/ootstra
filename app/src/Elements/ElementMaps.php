@@ -26,6 +26,7 @@ class ElementMaps extends BaseElement
         'Scale' => 'Boolean',
         'Fullscreen' => 'Boolean',
         'StreetView' => 'Boolean',
+        'ShowZoom' => 'Boolean',
         'HTML' => 'HTMLText'
     ];
 
@@ -42,6 +43,7 @@ class ElementMaps extends BaseElement
     private static $defaults = [
         'Zoom' => 13,
         'MapType' => 'roadmap',
+        'Fullscreen' => 1,
         'AvailableGlobally' => 0
     ];
 
@@ -64,7 +66,6 @@ class ElementMaps extends BaseElement
         $fields = parent::getCMSFields();
 
         $fields->removeByName([
-            'AnchorLink',
             'BackgroundColor',
             'Points',
             'WidthReduced'

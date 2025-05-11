@@ -99,6 +99,9 @@ SilverStripe\CMS\Model\RedirectorPage:
   extensions:
     - App\Extensions\RedirectorPageExtension
 
+App\Models\HolderPage:
+  icon: 'themes/default/dist/images/svg/icon-grid.svg'
+
 SilverStripe\ORM\DataObject:
   extensions:
     - App\Extensions\DataObjectExtension
@@ -111,6 +114,7 @@ SilverStripe\Blog\Model\BlogCategory:
 SilverStripe\Blog\Model\Blog:
   extensions:
     - App\Extensions\BlogExtension
+    - App\Extensions\SingletonExtension
 
 SilverStripe\Blog\Model\BlogController:
   extensions:
@@ -145,6 +149,8 @@ SilverStripe\Blog\Model\BlogPost:
     - App\Elements\ElementTextImage
     - App\Elements\ElementPDFDocument
     - App\Elements\ElementLocalVideo
+    - App\Elements\ElementTestimonial
+    - App\Elements\ElementDownloads
     # - App\Elements\ElementIframe # We may should encourage SnippetShortCodeProvider and drop this?
     # - Kraftausdruck\Elements\ElementProduct
     # - Kraftausdruck\Elements\ElementCheckout
@@ -174,6 +180,8 @@ App\Models\ElementPage:
     - App\Elements\ElementTextImage
     - App\Elements\ElementPDFDocument
     - App\Elements\ElementLocalVideo
+    - App\Elements\ElementTestimonial
+    - App\Elements\ElementDownloads
     # - App\Elements\ElementIframe # We may should encourage SnippetShortCodeProvider and drop this?
     # - Kraftausdruck\Elements\ElementProduct
     # - Kraftausdruck\Elements\ElementCheckout
@@ -184,6 +192,7 @@ DNADesign\Elemental\Models\BaseElement:
   extensions:
     - App\Extensions\ElementExtension
   inline_editable: false
+  require_sudo_mode: false
 
 DNADesign\Elemental\Models\ElementContent:
   extensions:
@@ -229,6 +238,7 @@ SilverStripe\i18n\i18n:
 
 SilverStripe\CMS\Model\SiteTree:
   create_default_pages: false
+  default_classname: App\Models\ElementPage
   hide_pagetypes:
     - Page
     - SilverStripe\CMS\Model\VirtualPage
@@ -283,7 +293,8 @@ SilverStripe\Core\Injector\Injector:
       SecretKey: '`SS_NOCAPTCHA_SECRET_KEY`'
   Intervention\Image\ImageManager:
     constructor:
-      - driver: imagick
+      -
+        driver: imagick
   SilverStripe\Assets\Image_Backend:
     properties:
       Quality: 84
@@ -291,10 +302,6 @@ SilverStripe\Core\Injector\Injector:
     constructor:
       namespace: 'cacheblock'
       defaultLifetime: 0 # zero is infinit
-  SilverStripe\Security\PasswordValidator:
-    properties:
-      MinLength: 10
-      MinTestScore: 3
 
 TractorCow\Robots\Robots:
   disallowed_urls: []
@@ -305,14 +312,19 @@ TractorCow\Robots\Robots:
 # Kraftausdruck\Extensions\PageTrackingExtension:
 #   preconnect: true
 
-App\Controller\ElementPersoController:
-  expose_vcards: true
+SilverStripe\Control\Director:
+  rules:
+    '_vc/$ID': 'App\Controller\PersovCardController'
+    '_pqr/$ID': 'App\Controller\PersoQRController'
 
 App\Models\Perso:
   parent_class: 'App\Elements\ElementPerso'
   parent_slug: 'perso'
   extensions:
     - App\Extensions\UrlifyExtension
+
+App\Controller\PersovCardController:
+  expose_vcards: true
 
 # Kraftausdruck\InstagramFeed\Control\InstaAuthController:
 #  credentials:
@@ -344,7 +356,7 @@ Kraftausdruck\Webmanifest\Webmanifest:
     # https://web.dev/articles/maskable-icon
     # icons:
     #   - src: '/icon-mask.svg'
-    #     sizes: '150x150'
+    #     sizes: '1024x1024'
     #     type: 'image/svg+xml'
     #     purpose: 'maskable'
 ---

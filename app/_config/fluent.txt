@@ -30,10 +30,17 @@ SilverStripe\UserForms\Model\EditableFormField\EditableOption:
 SilverStripe\SiteConfig\SiteConfig:
   extensions:
     - 'TractorCow\Fluent\Extension\FluentExtension'
+  field_exclude:
+    - GTMAccountID
+    - GoogleAnalyticsAccountV4IDs
+    - Clarity
 
 DNADesign\Elemental\Models\BaseElement:
   extensions:
     - 'TractorCow\Fluent\Extension\FluentVersionedExtension'
+  field_exclude:
+    - 'VirtualLookupTitle'
+    - 'ExtraClass'
 
 App\Models\Teaser:
   extensions:
@@ -74,6 +81,11 @@ Kraftausdruck\Models\CookieCategory:
 Kraftausdruck\Models\CookieEntry:
   extensions:
     - 'TractorCow\Fluent\Extension\FluentExtension'
+  field_exclude:
+    - 'OnInitCallback'
+    - 'OnAcceptCallback'
+    - 'OnDeclineCallback'
+
 # Note: If you are applying this via an Extension, be sure to apply it after the FluentExtension.
 TractorCow\Fluent\Extension\FluentExtension:
   frontend_publish_required: true

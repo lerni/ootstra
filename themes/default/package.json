@@ -45,7 +45,7 @@
     "headroom.js": "^0.12.0",
     "hoverintent": "^2.2.1",
     "htmx.org": "^v2",
-    "jquery": "^3.7.0",
+    "jquery": "^3.7.1",
     "swiper": "^11.0.5"
   }
 }

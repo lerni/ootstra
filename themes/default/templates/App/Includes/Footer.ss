@@ -12,6 +12,9 @@
 				<% end_with %>
 			<% end_if %>
 		</div>
+		<div class="column social">
+			<% include App/Includes/Social %>
+		</div>
 		<div class="column inprint">
 			<nav class="inprint">
 				<% loop $SiteConfig.TermsNavigationItems %>
@@ -19,9 +22,6 @@
 				<% end_loop %>
 				<% if $SiteConfig.CookieIsActive %><a href="#klaro" onClick="klaro.show();return false;">{$SiteConfig.ConsentNoticeTitle}</a><% end_if %>
 			</nav>
-		</div>
-		<div class="column social">
-			<% include App/Includes/Social %>
 		</div>
 	</div>
 </footer>

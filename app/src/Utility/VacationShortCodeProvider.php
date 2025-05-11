@@ -6,7 +6,7 @@ use App\Models\Vacation;
 
 class VacationShortCodeProvider
 {
-    public static function parseLocationShortCodeProvider($arguments, $content = null, $parser = null, $tagName = null)
+    public static function parseVacationShortCodeProvider($arguments, $content = null, $parser = null, $tagName = null)
     {
         if (Vacation::get()->count()) {
             $start = (new \DateTime('today'))->format('Y-m-d');

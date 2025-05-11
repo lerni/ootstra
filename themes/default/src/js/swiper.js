@@ -81,6 +81,11 @@ Array.prototype.forEach.call(multipleSwiper, function (slider) {
       enabled: true,
       onlyInViewport: false,
     },
+    breakpoints: {
+      980: {
+        spaceBetween: 50,
+      },
+    }
   });
   generalSwiperInstance.autoplay.stop();
   const observerOptions = {

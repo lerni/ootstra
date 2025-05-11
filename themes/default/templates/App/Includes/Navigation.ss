@@ -8,7 +8,7 @@
 			<% loop $Menu(1) %>
 				<li class="$LinkingMode<% if $Childrenexcluded %> has-children<% end_if %><% if $LinkingMode == section %> expanded<% end_if %>">
 					<a href="$Link"<% if $NewWindow %> target="_blank" rel="noopener"<% end_if %> data-hx-boost="<% if $ClassName == SilverStripe\CMS\Model\RedirectorPage %>false<% else %>true<% end_if %>">$MenuTitle.XML</a>
-					<% if $Childrenexcluded %><span class="trigger"><span></span></span>
+					<% if not $HideSubNavi && $Childrenexcluded %><span class="trigger"><span></span></span>
 						<menu class="menu2">
 							<% loop $Childrenexcluded %>
 								<li class="$LinkingMode">

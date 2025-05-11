@@ -148,7 +148,6 @@ task('deploy', function () {
             exit;
         }
     }
-
     invoke('silverstripe:installtools');
     invoke('silverstripe:create_dotenv');
     invoke('deploy:prepare');

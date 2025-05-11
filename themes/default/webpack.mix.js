@@ -33,6 +33,7 @@ mix
   .js('src/js/fancy.js', 'dist/js')
   .js('src/js/swiper.js', 'dist/js')
   .js('src/js/countup.js', 'dist/js')
+  .js('src/js/flip.js', 'dist/js')
   .sass('src/scss/blog.scss', 'dist/css')
   .sass('src/scss/contentsections.scss', 'dist/css')
   .sass('src/scss/editor.scss', 'dist/css')

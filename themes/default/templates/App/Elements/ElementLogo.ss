@@ -1,5 +1,7 @@
 <% require themedCSS("dist/css/logo") %>
-<% include App/Includes/ElementTitle %>
+<% if $isFullWidth && $ShowTitle %><div class="typography inner"><% end_if %>
+	<% include App/Includes/ElementTitle %>
+<% if isFullWidth %></div><% end_if %>
 <% if $Items %>
 	<ul class="logos<% if $Greyscale %> greyscale<% end_if %>">
 		<% loop $Items %>

@@ -1,0 +1,51 @@
+#!/bin/bash
+
+filelist=(
+    'deflist/plugin'
+);
+
+cRED='\e[1;31m'
+cGREEN='\e[1;32m'
+cYELLOW='\e[1;33m'
+cBLUE='\e[1;34m'
+cMAGENTA='\e[1;35m'
+cCYAN='\e[1;36m'
+cDEF='\e[0m'
+
+errFile='terser_error.txt'
+
+exec_terser()
+{
+    inFile=$1.js
+    outFile=$1.min.js
+
+    if [ -f $outFile ]; then
+        rm $outFile
+    fi
+    
+    terser $inFile  -o $outFile -c -m 2>> $errFile
+    if [ $? -eq 0 ]; then 
+        echo -e "${cYELLOW} - succeessfull created $outFile  ${cDEF}"; 
+    else 
+        echo -e "${cRED} - failed creating $outFile ${cDEF}"; 
+    fi
+}
+
+if [ -f $errFile ]; then
+    rm $errFile
+fi
+
+for file in "${filelist[@]}"; do
+    exec_terser $file
+done
+
+if [ -f $errFile ]; then
+    size=$(stat -c%s "$errFile")
+    echo
+    if [ $size -eq 0 ]; then
+        rm $errFile
+    else
+        echo "$(<$errFile)"
+    fi
+fi
+

@@ -37,33 +37,58 @@ Other features:
 - etc.
 
 ## Getting started
+
+### VSCode Configuration
 Per `.vscode/extensions.json` extensions will be suggested. `.vscode/settings.json` makes Logviewer work and contains settings for debugging etc.
 <!-- - [Silverstripe](https://marketplace.visualstudio.com/items?itemName=adrianhumphreys.silverstripe)
 https://github.com/gorriecoe/silverstripe-sanchez/issues/1
  -->
 - [Silverstripe](https://marketplace.visualstudio.com/items?itemName=adrian.silverstripe)
-- [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client)
-- [PHP Debug](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug)
 - [Log Viewer](https://marketplace.visualstudio.com/items?itemName=berublan.vscode-log-viewer) Side-Bar Debug -> Log Viewer
-- [Debugger for Firefox](https://marketplace.visualstudio.com/items?itemName=firefox-devtools.vscode-firefox-debug)
+- [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client)
+- [DevDb](https://marketplace.visualstudio.com/items?itemName=damms005.devdb)
+- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 - [EditorConfig for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
 - [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-- [Auto Rename Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag)
-- [npm Intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.npm-intellisense)
-- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-- [Sass](https://marketplace.visualstudio.com/items?itemName=Syler.sass-indented)
+- [DotENV](https://marketplace.visualstudio.com/items?itemName=mikestead.dotenv)
+- [JavaScript Debugger](https://marketplace.visualstudio.com/items?itemName=ms-vscode.js-debug)
+- [Sass](https://marketplace.visualstudio.com/items?itemName=syler.sass-indented)
+- [PHP Debug](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug)
 
-
-### clone or fork lerni/ootstra
+### 1. Clone or fork lerni/ootstra
 ```bash
-    git clone git@github.com:lerni/ootstra.git "PROJECT"
+git clone git@github.com:lerni/ootstra.git "PROJECT"
 ```
-On the first request database structure will automatically be generated - it runs `dev/build`. Before you do so, set the correct default locale in `app/_config.php` like:
+By default folder name is used as project name, which is recommended because `.vscode/launch.json` uses `${workspaceFolderBasename}` and also DDEV uses foldername as default name.
+
+### 2. Set up DDEV environment (Command+Shift+B, ddev start)
+```bash
+cd "PROJECT"
+ddev start
+```
+### 3. Start DDEV and install dependencies (Command+Shift+B, npm install)
+```bash
+ddev composer install
+```
+### 4. Build the database (Command+Shift+B, dev/build)
+On dev/build database structure will be generated. With fluent (Multilingual-Setup) commented-out locale setting, as fluent will handle language configuration.
 ```php
-    i18n::set_locale('de_CH');
+i18n::set_locale('de_CH');
 ```
-### ddev/Docker dev-env
-By default foldername is used as projectname, this is recommended because `.vscode/launch.json` uses `${workspaceFolderBasename}`. Run `ddev config` in the project directory. Now you're ready to run `ddev start` & `ddev composer i`. This provides a webserver at [https://PROJECTNAME.ddev.site](https://PROJECTNAME.ddev.site), phpMyAdmin at [https://PROJECTNAME.ddev.site:8037](https://PROJECTNAME.ddev.site:8037), and Mailpit at [https://PROJECTNAME.ddev.site:8026/](https://PROJECTNAME.ddev.site:8026/). Default login at [/admin](https://PROJECTNAME.ddev.site/admin) is `admin` & `password`.
+```bash
+ddev sake dev/build
+```
+### 5. Populate default content
+```bash
+ddev sake dev/tasks/PopulateTask
+```
+
+This provides:
+- Webserver at [https://PROJECTNAME.ddev.site](https://PROJECTNAME.ddev.site)
+- phpMyAdmin at [https://PROJECTNAME.ddev.site:8037](https://PROJECTNAME.ddev.site:8037)
+- Mailpit at [https://PROJECTNAME.ddev.site:8026/](https://PROJECTNAME.ddev.site:8026/)
+
+Default CMS-Login at [/admin](https://PROJECTNAME.ddev.site/admin) is `admin` & `password`.
 
 ### ssh forwarding, ddev-ssh-agent
 This setup omits `ddev-ssh-agent` and exposes `SSH_AUTH_SOCK` from the host system into the web container in order to use local SSH keys. To make that work, key files from `~/.ssh` or the whole directories must be exposed into ddev by creating symlinks in `~/.ddev/homeadditions`. On macOS, the option `IgnoreUnknown UseKeychain` in `~/.ssh/config` causes `Bad configuration option` in the container, so symlinking individual files from `~/.ssh/` into `~/.ddev/homeadditions` and having a separate/copy of `~/.ddev/homeadditions/.ssh/config` worked for me ;)
@@ -148,7 +173,7 @@ Deployment is based on [Deployer](https://deployer.org/), a php based cli-tool, 
 |-- public/
 |  |-- assets/                          # Assets
 |  |-- index.php                        # Silverstripe entrypoint
-|  |-- .htaccess                        # Silverstripe .htaccess
+|  |-- .htaccess                        # .htaccess
 |
 |-- silverstripe-cache/                 # Not in repo, generated by Silverstripe
 |
@@ -203,7 +228,7 @@ Deployment is based on [Deployer](https://deployer.org/), a php based cli-tool, 
 Public SSH keys [must be added to the remote servers](https://www.google.com/search?q=add+public+key+to+server) in `~/.ssh/authorized_keys`. On nix-based systems, use [ssh-copy-id](https://www.ssh.com/ssh/copy-id).
 
 ## Configuration
-Rename `deploy/config.example.php` to `deploy/config.php` and configure as needed. The `.htaccess` file in the `/public` is typically used, but can be overridden with stage-specific versions by creating `./deploy/test.htaccess` or `./deploy/live.htaccess`.
+Rename `deploy/config.example.php` to `deploy/config.php` and configure as needed. The `.htaccess` file in `/public` is typically used, but can be overridden with stage-specific versions by creating `./deploy/test.htaccess` or `./deploy/live.htaccess`.
 
 # Deploy
 Key-forwarding is used, allowing deployment to be done from inside the ddev-web container. Read [ddev-ssh-agent](#ssh-forwarding-ddev-ssh-agent) above. Before first deployment, SSH into remote servers like `ddev php ./vendor/bin/dep ssh test` or `ddev php ./vendor/bin/dep ssh live` and ensure the SSH fingerprint from the git-repo is accepted. You can check like `ssh -T git@bitbucket.org` or may just `git clone ...` into a test directory to verify everything works as expected. If so, deployment is done as follows:
@@ -217,10 +242,10 @@ or
 ```bash
     ddev php ./vendor/bin/dep deploy live
 ```
-The first deployment to each stage will prompt for database credentials to populate the `.env` file. The resulting file will be similar to:
+The first deployment to each stage will prompt for database credentials to populate an `.env` file. The resulting file will be similar to:
 ```
 # For a complete list of core environment variables see
-# https://docs.silverstripe.org/en/4/getting_started/environment_management/#core-environment-variables
+# https://docs.silverstripe.org/en/5/getting_started/environment_management/#core-environment-variables
 
 # Environment dev/test/live
 SS_ENVIRONMENT_TYPE='dev'
@@ -247,15 +272,17 @@ SS_ERROR_LOG='silverstripe.log'
 
 GHOSTSCRIPT_PATH='/usr/bin/gs'
 
+# Maps key from: 
+# https://console.cloud.google.com/apis/library
 # APP_GOOGLE_MAPS_KEY=''
+# reCAPTCHA key from: https://www.google.com/recaptcha/admin/create
 # SS_NOCAPTCHA_SITE_KEY=''
 # SS_NOCAPTCHA_SECRET_KEY=''
 
 SCRIPT_FILENAME=''
 ```
 ## Mailer Setup
-Without setting `MAILER_DSN`, `sendmail` is used by default, typically using `SS_ADMIN_EMAIL` as sender. To use SMTP or other mailers, the `MAILER_DSN` variable should be set in the `.env`. When `MAILER_DSN` is configured, setting `SS_SEND_ALL_EMAILS_FROM` may also be appropriate. Silverstripe utilizes [Symfony Mailer](https://symfony.com/doc/current/mailer.html), which supports a variety of transport methods.
-
+Without setting `MAILER_DSN`, `sendmail` is used by default, typically using `SS_ADMIN_EMAIL` as sender. To use SMTP or other mailers, the `MAILER_DSN` variable should be set in the `.env`. When `MAILER_DSN` is configured, setting `SS_SEND_ALL_EMAILS_FROM` may also be appropriate. Silverstripe utilizes [Symfony Mailer](https://symfony.com/doc/current/mailer.html), which supports a variety of transport methods. With `php ./vendor/silverstripe/framework/cli-script.php dev/tasks/test-email-task to=user@domain.tld` a Test-Mail can be sent. Be aware, usually Mailpit catches all emails for local development with DDEV.
 
 ## Deploy a branch/tag/revision
 

@@ -1,7 +1,7 @@
-<% if $Slides %>
+<% if $Items %>
 	<div class="swiper-container hero hero--{$HeroSize}<% if $DoNotCrop %> do-not-crop<% end_if %>" data-id="{$ID}" id="hero-swiper-{$ID}">
 		<div class="swiper-wrapper hero">
-			<% loop $Slides.Sort('SortOrder') %>
+			<% loop $Items %>
 				<% if $SlideImage || $EmbedVideo %>
 					<div class="swiper-slide {$TextAlignment}">
 						<% if $Up.HeroSize == "small" %>

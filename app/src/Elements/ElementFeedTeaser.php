@@ -3,12 +3,15 @@
 namespace App\Elements;
 
 use App\Models\ElementPage;
+use SilverStripe\i18n\i18n;
+use Psr\SimpleCache\CacheInterface;
 use SilverStripe\TagField\TagField;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Control\Controller;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Blog\Model\BlogPost;
+use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Blog\Model\BlogCategory;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Forms\GridField\GridField;
@@ -20,14 +23,14 @@ use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldFilterHeader;
 use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
 
-
 class ElementFeedTeaser extends BaseElement
 {
     private static $db = [
         'Layout' => 'Enum("third,halve,full", "third")',
         'ShowAsSlider' => 'Boolean',
         'FirstLinkAction' => 'Varchar',
-        'CountMax' => 'Int'
+        'CountMax' => 'Int',
+        'Shuffle' => 'Boolean'
     ];
 
     private static $has_one = [];
@@ -61,6 +64,7 @@ class ElementFeedTeaser extends BaseElement
         $labels['CountMax'] = _t(__CLASS__ . '.COUNTMAX', 'Number of teasers (default 3)');
         $labels['ShowAsSlider'] = _t(__CLASS__ . '.SHOWASSLIDER', 'Show as slider');
         $labels['FirstLinkAction'] = _t(__CLASS__ . '.FIRSTLINKACTION', 'Text link parent (first)');
+        $labels['Shuffle'] = _t(__CLASS__ . '.SHUFFLE', 'randomize sort order');
         return $labels;
     }
 
@@ -109,28 +113,55 @@ class ElementFeedTeaser extends BaseElement
 
     public function Items()
     {
+        $childrenMaxLastEdited = SiteTree::get()->max('LastEdited');
+        $childrenCount = SiteTree::get()->count();
+        $categoriesIds = serialize($this->Categories()->column('ID'));
+        $parentsIds = serialize($this->FeedTeaserParents()->column('ID'));
+        $rotatingCacheKey = $this->RotatingCacheKey();
+        $currentLocale = i18n::get_locale();
+
+        $cacheKey = md5($this->LastEdited . $childrenMaxLastEdited . $childrenCount . $categoriesIds . $parentsIds . $rotatingCacheKey . $currentLocale);
+
+        $cache = Injector::inst()->get(CacheInterface::class . '.ElementFeedTeaser');
+
+        if ($cache->has($cacheKey)) {
+            return unserialize($cache->get($cacheKey));
+        }
+
+        $result = null;
+
         if ($this->FeedTeaserParents()->count()) {
             $parentIDs = (array)$this->FeedTeaserParents()->Column('ID');
+
+            $categoryFilter = [];
+            if ($this->Categories()->Count()) {
+                $categoryFilter = $this->Categories()->Column('ID');
+            }
 
             $blogSorting = Config::inst()->get(BlogPost::class, 'default_sort');
 
             if (count($parentIDs) == 1 &&
                 $this->FeedTeaserParents()->first()->ClassName == 'SilverStripe\Blog\Model\Blog') {
-                    $childrens = BlogPost::get()->filter('ParentID', $parentIDs);
-                    // If Blog is sorted per date?
-                    if (substr($blogSorting, 0, strlen('PublishDate DESC')) === 'PublishDate DESC') {
-                        $childrens = $childrens->sort('PublishDate DESC');
-                    }
+
+                $childrens = BlogPost::get()
+                    ->filter('ParentID', $parentIDs)
+                    ->eagerLoad('Categories');
+
+                // If Blog is sorted per date?
+                if (substr($blogSorting, 0, strlen('PublishDate DESC')) === 'PublishDate DESC') {
+                    $childrens = $childrens->sort('PublishDate DESC');
+                }
             } else {
-                $childrens = ElementPage::get()->filter('ParentID', $parentIDs);
+                $childrens = ElementPage::get()
+                    ->filter('ParentID', $parentIDs)
+                    ->eagerLoad('PageCategories');
             }
 
-            if ($this->Categories()->Count()) {
-                $filter = $this->Categories()->Column('ID');
+            if (!empty($categoryFilter)) {
                 if ($this->FeedTeaserParents()->first()->ClassName == 'SilverStripe\Blog\Model\Blog') {
-                    $childrens = $childrens->filter('Categories.ID', $filter);
+                    $childrens = $childrens->filter('Categories.ID', $categoryFilter);
                 } else {
-                    $childrens = $childrens->filter('PageCategories.ID', $filter);
+                    $childrens = $childrens->filter('PageCategories.ID', $categoryFilter);
                 }
             }
 
@@ -143,22 +174,31 @@ class ElementFeedTeaser extends BaseElement
                 $exclude = $childrens->Column('ID');
                 $padfill = $this->CountMax - $childrens->count();
 
-                $additionalPosts = SiteTree::get()->filter('ParentID', $parentIDs);
+                $additionalPosts = SiteTree::get()
+                    ->filter('ParentID', $parentIDs)
+                    ->limit($padfill);
 
                 // just exclude if there is something to
                 if (count($exclude)) {
                     $additionalPosts = $additionalPosts->exclude('ID', $exclude);
                 }
 
-                $additionalPosts = $additionalPosts->limit($padfill);
-
                 foreach ($additionalPosts as $addItem) {
                     $childrens->add($addItem);
                 }
             }
 
-            return $childrens;
+            $result = $childrens;
         }
+
+        if ($result) {
+            if ($this->Shuffle) {
+                $result = $result->Shuffle();
+            }
+            $cache->set($cacheKey, serialize($result), 3600);
+        }
+
+        return $result;
     }
 
     public function getURLCategoryFilter()
@@ -220,6 +260,17 @@ class ElementFeedTeaser extends BaseElement
         }
 
         return $link;
+    }
+
+    // timely rotating cache-key - workaround to shuffle cached items
+    public function RotatingCacheKey() {
+        if (!$this->Shuffle) {
+            return 0;
+        }
+        $twentyMinutesBlock = floor(time() / 60 / 20); // twenty minutes TTL
+        $key = 'key_' . ($twentyMinutesBlock % 2 == 0 ? 'even' : 'odd');
+        $uniqueKey = crc32($key . $twentyMinutesBlock);
+        return $uniqueKey;
     }
 
     // protected function provideBlockSchema()

@@ -3,7 +3,7 @@
 @use "sass:math";
 @import "~breakpoint-sass/stylesheets/breakpoint";
 @import "mixins";
-// @import "documents";
+@import "documents";
 
 /* Typography
 ---------------------------------------------------------------------------------- */
@@ -92,12 +92,12 @@
 		padding-left: 0;
 	}
 
-	dl:not(.content-parts) {
+	dl {
 		display: grid;
 		width: 100%;
-		grid-template-columns: auto 1fr;
+		grid-template-columns: minmax(auto, 4fr) 6fr;
 		grid-template-rows: repeat(auto-fit, 1fr);
-		column-gap: #{math.div($lh, 2)}em;
+		column-gap: #{$lh * 2}em;
 		margin: 0 auto #{math.div($lh, 2)}em auto;
 		dt {
 			grid-column: 1/2;
@@ -277,23 +277,19 @@
 			&::after {
 				display: inline-block;
 				background-repeat: no-repeat;
-				background-size: 0.68376em 0.8em;
+				background-size: #{$lh * .5}rem auto;
 				background-position: center center;
-				width: 0.68376em;
-				height: 1em;
+				width: #{$lh * 1}rem;
+				height: 1rem;
 				content: "";
-				vertical-align: -0.2em;
 			}
 			&::before {
-				width: #{$lh * 1}em;
-				margin-left: #{-$lh * 1}em;
 				background-image: svg-load(
 					"../images/svg/quote-before.svg",
 					fill=#{$text-color}
 				);
 			}
 			&::after {
-				margin-left: 0.2em;
 				background-image: svg-load(
 					"../images/svg/quote-after.svg",
 					fill=#{$text-color}

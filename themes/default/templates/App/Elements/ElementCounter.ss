@@ -1,6 +1,8 @@
 <% require themedCSS("dist/css/counter") %>
 <% require javascript("themes/default/dist/js/countup.js") %>
-<% include App/Includes/ElementTitle %>
+<% if $isFullWidth && $ShowTitle %><div class="typography inner"><% end_if %>
+	<% include App/Includes/ElementTitle %>
+<% if isFullWidth %></div><% end_if %>
 <% if $CountItems %>
 	<ul class="graphs">
 		<% loop $CountItems.Sort("SortOrder") %>

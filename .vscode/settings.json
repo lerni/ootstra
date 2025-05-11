@@ -16,6 +16,7 @@
     }
   ],
   "php.executablePath": "ddev php",
+  "php.debug.executablePath": "/bin/sh -c 'ddev php \"$@\"' --",
   "php.suggest.basic": true,
   "php.validate.enable": true,
   "php.validate.executablePath": "ddev php",

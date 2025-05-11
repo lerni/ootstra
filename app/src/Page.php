@@ -6,6 +6,7 @@ use App\Elements\ElementGallery;
 use SilverStripe\Blog\Model\Blog;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Control\Director;
+use SilverStripe\Security\Security;
 use SilverStripe\TagField\TagField;
 use JonoM\ShareCare\ShareCareFields;
 use Kraftausdruck\Models\JobPosting;
@@ -41,7 +42,7 @@ class Page extends SiteTree
         $this->beforeUpdateCMSFields(function (FieldList $fields) {
             $fields->removeByName(['ExtraMeta']);
 
-            if (!Permission::check('ADMIN') && $this->IsHome()) {
+            if (!Permission::check('ADMIN') && $this->isHomePage()) {
                 $fields->removeByName(['URLSegment']);
             }
 
@@ -346,4 +347,11 @@ class Page extends SiteTree
             return false;
         }
     }
+
+    public function IsMember() {
+		if($member = Security::getCurrentUser()) {
+			return $member;
+		}
+		return false;
+	}
 }

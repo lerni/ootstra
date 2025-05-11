@@ -8,12 +8,13 @@ $themeColor: $link-color !default;
 @import "../../node_modules/swiper/swiper";
 @import "../../node_modules/swiper/modules/navigation";
 @import "../../node_modules/swiper/modules/effect-fade";
+@import "../../node_modules/swiper/modules/scrollbar";
 
 @include sliderpagination(1, $themeColor);
 
-.swiper-container {
-	--swiper-theme-color: #{$themeColor};
-	--swiper-navigation-size: #{$lh * 2}em;
+:root {
+ 	--swiper-theme-color: #{$themeColor} !important;
+	--swiper-navigation-size: #{$lh * 2}em !important;
 }
 
 .swiper-vertical {

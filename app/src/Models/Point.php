@@ -16,7 +16,7 @@ class Point extends DataObject
         'Longitude' => 'Decimal(18,15)',
         'Title' => 'Varchar',
         'PointURL' => 'Varchar',
-        'Parking' => 'Boolean'
+        'Type' => 'Enum("normal, parking", "normal")'
     ];
 
     private static $has_one = [];
@@ -29,7 +29,7 @@ class Point extends DataObject
     private static $summary_fields = [
         'getThunbnail' => 'Thumbnail',
         'Title' => 'Titel',
-        'Parking.Nice' => 'Parking'
+        'Type' => 'Type'
     ];
 
     private static $searchable_fields = [
@@ -51,7 +51,7 @@ class Point extends DataObject
         $fields = parent::getCMSFields();
 
         if ($PointURLField = $fields->dataFieldByName('PointURL')) {
-            $PointURLField->setDescription('Link (short form) to business entry from Google-Map');
+            $PointURLField->setDescription(_t(__CLASS__ . '.PointURLDESCRIPTION', 'Link to business entry from Google-Map'));
         }
 
         $fields->removeByName([

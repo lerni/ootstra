@@ -40,8 +40,8 @@ class ElementLocalVideo extends BaseElement
     {
         $labels = parent::fieldLabels($includerelations);
         $labels['Image'] = _t(__CLASS__ . '.IMAGE', 'Poster/still image');
-        $labels['Autoplay'] = _t(__CLASS__ . '.LINK', 'Autoplay - enforces "Mute"');
-        $labels['Loop'] = _t(__CLASS__ . '.LINK', 'Looping video');
+        $labels['Autoplay'] = _t(__CLASS__ . '.AUTOPLAY', 'Autoplay - enforces "Mute"');
+        $labels['Loop'] = _t(__CLASS__ . '.LOOP', 'Looping video');
         $labels['Mute'] = _t(__CLASS__ . '.MUTE', 'Mute initial state');
         return $labels;
     }
@@ -49,10 +49,6 @@ class ElementLocalVideo extends BaseElement
     function getCMSFields()
     {
         $fields = parent::getCMSFields();
-
-        if ($linkField = $fields->dataFieldByName('RelatedPageID')) {
-            $fields->insertAfter('ActionText', $linkField);
-        }
 
         if ($uploadField = $fields->dataFieldByName('Image')) {
             $uploadField->setFolderName('Video');
@@ -64,7 +60,7 @@ class ElementLocalVideo extends BaseElement
             $uploadField->allowedExtensions  = ['mp4'];
             $size = 150 * 1024 * 1024;
             $uploadField->getValidator()->setAllowedMaxFileSize($size);
-            $uploadField->setDescription(_t(__CLASS__ . '.ImageDescription', 'MP4 16:9 web optimized!'));
+            $uploadField->setDescription(_t(__CLASS__ . '.LocalMP4VideoDescription', 'MP4 16:9 web optimized!'));
         }
 
         if ($uploadField = $fields->dataFieldByName('LocalMP4VideoSmall')) {
@@ -72,7 +68,7 @@ class ElementLocalVideo extends BaseElement
             $uploadField->allowedExtensions  = ['mp4'];
             $size = 20 * 1024 * 1024;
             $uploadField->getValidator()->setAllowedMaxFileSize($size);
-            $uploadField->setDescription(_t(__CLASS__ . '.ImageDescription', 'MP4 16:9 web optimized! < 800px wide'));
+            $uploadField->setDescription(_t(__CLASS__ . '.LocalMP4VideoSmallDescription', 'MP4 16:9 web optimized! < 800px wide'));
         }
 
         if ($autoplayField = $fields->dataFieldByName('Autoplay')) {

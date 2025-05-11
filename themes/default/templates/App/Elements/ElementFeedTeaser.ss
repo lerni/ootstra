@@ -1,5 +1,4 @@
-<% require themedCSS("dist/css/cards") %>
-<% cached 'ElementFeedTeaser', $ID, $LastEdited, $List('SilverStripe\CMS\Model\SiteTree').max('LastEdited'), $List('SilverStripe\CMS\Model\SiteTree').count() %>
+<% require themedCSS("dist/css/cards") %><%-- Items() is cached, so no need to...  cached 'ElementFeedTeaser', $ID, $LastEdited, $List('SilverStripe\CMS\Model\SiteTree').max('LastEdited'), $List('SilverStripe\CMS\Model\SiteTree').count() --%>
 <div class="typography">
 	<% if $isFullWidth && $ShowTitle %><div class="inner"><% end_if %>
 		<% include App/Includes/ElementTitle %>
@@ -69,5 +68,4 @@
 	<% if $FirstLinkAction %>
 		<a class="link forth" href="$FeedTeaserParentsWithCategory">$FirstLinkAction</a>
 	<% end_if %>
-</div>
-<% end_cached %>
+</div><%-- end_cached --%>

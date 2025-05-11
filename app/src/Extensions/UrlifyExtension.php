@@ -219,6 +219,7 @@ class UrlifyExtension extends Extension
                 );
             }
         }
+        return null;
     }
 
     public function AbsoluteLink($action = null)

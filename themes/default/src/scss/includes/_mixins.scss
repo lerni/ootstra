@@ -116,16 +116,13 @@
 }
 
 @mixin sliderpagination($size, $color) {
+	$color: $white !default;
+	$size: $lh * 0.7 !default;
 	.swiper-pagination {
-		$size: $lh * 0.7 !default;
-		$color: $white !default;
-		height: #{$size * 2}em;
-		display: flex;
-		justify-content: center;
 		position: absolute;
 		left: 0;
 		right: 0;
-		z-index: 1;
+		z-index: 100;
 		$min-spacing: 0;
 		$max-spacing: 6;
 		@for $i from $max-spacing through $min-spacing {
@@ -134,9 +131,28 @@
 			}
 			$i1: $i + 1;
 		}
+		.breadcrumbs &,
 		.global-alert & {
 			bottom: 0 !important;
 		}
+	}
+	.swiper-pagination-progressbar {
+		$height: $size * 0.3 !default;
+		width: 100%;
+		height: #{$height}em;
+		bottom: 0;
+		background-color: mix(rgba($color, .3), rgba($white, .2), 60%);
+		.swiper-pagination-progressbar-fill {
+			height: 100%;
+			background-color: rgba($color, .7);
+			display: block;
+			transform-origin: top left;
+		}
+	}
+	.swiper-pagination-bullets {
+		height: #{$size * 2}em;
+		display: flex;
+		justify-content: center;
 		.swiper-pagination-bullet {
 			width: #{$size}em;
 			height: #{$size}em;

@@ -20,7 +20,9 @@ class ElementHero extends BaseElement
     private static $db = [
         'HeroSize' => 'Enum("small,medium,fullscreen")',
         'DoNotCrop' => 'Boolean',
-        'SitemapImageExpose' => 'Boolean'
+        'SitemapImageExpose' => 'Boolean',
+        'CountMax' => 'Int',
+        'Shuffle' => 'Boolean'
     ];
 
     private static $many_many = [
@@ -71,6 +73,8 @@ class ElementHero extends BaseElement
         $labels['HeroSize'] = _t(__CLASS__ . '.HEROSIZE', 'Size / height header');
         $labels['DoNotCrop'] = _t(__CLASS__ . '.DONOTCROP', 'Do not limit height with wide viewport → "small" & "medium".');
         $labels['SitemapImageExpose'] = _t(__CLASS__ . '.SITEMAPIMAGEEXPOSE', 'expose images in sitemap.xml');
+        $labels['CountMax'] = _t(__CLASS__ . '.TITLE', 'Zeige maximal');
+        $labels['Shuffle'] = _t(__CLASS__ . '.TITLE', 'Reihenfolge zufällig');
 
         return $labels;
     }
@@ -84,6 +88,10 @@ class ElementHero extends BaseElement
             'Slides',
             'AnchorLink'
         ]);
+
+        if ($count_max_field = $fields->dataFieldByName('CountMax')) {
+            $count_max_field->setDescription(_t(__CLASS__ . '.CountMaxFieldDescription', '"0" means no limit'));
+        }
 
         if ($HeroSizeField = $fields->dataFieldByName('HeroSize')) {
             $fields->addFieldToTab('Root.Settings', $HeroSizeField, 'isFullWidth');
@@ -115,6 +123,19 @@ class ElementHero extends BaseElement
         }
 
         return $fields;
+    }
+
+    public function getItems()
+    {
+        $items = $this->Slides()->sort('SortOrder ASC');
+        if ($this->Shuffle) {
+            $items = $items->shuffle();
+        }
+        if ($this->CountMax) {
+            $items = $items->limit($this->CountMax);
+        }
+
+        return $items;
     }
 
     protected function provideBlockSchema()

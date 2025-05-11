@@ -12,7 +12,8 @@ use Kraftausdruck\Extensions\KlaroSiteConfigExtension;
 class EditableCheckboxTerms extends EditableFormField
 {
     private static $db = [
-        'Title' => 'HTMLText'
+        'Title' => 'HTMLText',
+        'HideFromReports' => 'Boolean'
     ];
 
     private static $casting = [
@@ -20,7 +21,8 @@ class EditableCheckboxTerms extends EditableFormField
     ];
 
     private static $defaults = [
-        'Required' => 1
+        'Required' => 1,
+        'HideFromReports' => true
     ];
 
     private static $singular_name = 'Checkbox Terms Field';
@@ -55,9 +57,20 @@ class EditableCheckboxTerms extends EditableFormField
             if ($TitleField = $fields->dataFieldByName('Title')) {
                 $TitleField->setDescription(_t(__CLASS__ . '.DefaultDescription', 'I accept &lt;a rel=&quot;noopener noreferrer&quot; href=&quot;[sitetree_link,id={id}]&quot; target=&quot;_blank&quot;&gt;Terms and  Privacy policy&lt;/a&gt;.<br/><strong>{id}</strong> is the PageID which Klaro links.', ['id' => $id]));
             }
+            $fields->addFieldsToTab('Root.Main', [
+                CheckboxField::create(
+                    'HideFromReports',
+                    _t('SilverStripe\\UserForms\\Model\\EditableFormField\\EditableLiteralField.HIDEFROMREPORT', 'Hide from reports?')
+                )
+            ]);
         });
 
         return parent::getCMSFields();
+    }
+
+    public function showInReports()
+    {
+        return !$this->HideFromReports;
     }
 
     public function TitleParsed()

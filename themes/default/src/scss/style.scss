@@ -38,16 +38,16 @@ html {
 
 body {
 	min-height: 100vh;
-	height: stretch;
+	// height: stretch;
 	display: flex;
 	flex-direction: column;
 }
 
-@supports (-webkit-touch-callout: none) {
-	body {
-		height: -webkit-fill-available;
-	}
-}
+// @supports (-webkit-touch-callout: none) {
+// 	body {
+// 		height: -webkit-fill-available;
+// 	}
+// }
 
 .bold,
 strong {
@@ -279,14 +279,12 @@ p.cat-tag {
 			display: flex;
 		}
 	}
+	&.elementhero >a.preview-edit{
+		top: auto;
+		bottom: #{math.div($lh, 2)}em;
+	}
 	&:has(a.preview-edit:hover) {
 		&::after {
-			content: "";
-			position: absolute;
-			top: 0;
-			right: -50vw;
-			bottom: 0;
-			left: -50vw;
 			z-index: 50;
 			background-color: rgba($betternav--green, 0.1);
 			mix-blend-mode: multiply;
@@ -303,9 +301,10 @@ p.cat-tag {
 		position: absolute;
 		z-index: -1;
 		top: 0;
-		right: -100%;
+		right: -50vw;
 		bottom: 0;
-		left: -100%;
+		left: -50vw;
+		pointer-events: none;
 		// prevents horizontal overflow on ios
 		@include breakpoint($XLneg) {
 			left: 0;
@@ -330,6 +329,19 @@ p.cat-tag {
 	.element-title {
 		flex: 0 0 100%;
 	}
+
+	// when full-width .element-title shold not hava padding on .inner
+	// &.full-width {
+	// 	&.elementmaps,
+	// 	&.elementgallery {
+	// 		@include breakpoint($XLneg) {
+	// 			> .inner {
+	// 				padding-left: 0;
+	// 				padding-right: 0;
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 	// &[class^="element"],
 	// &.elementjobs.show,
@@ -384,6 +396,11 @@ p.cat-tag {
 		// with DefaultHero the image isn't wrapped with swiper divs
 		&:not(.full-width) {
 			max-width: calc(#{$inner-width + 300px});
+		}
+		// borderless
+		&.full-width {
+			padding-left: 0;
+			padding-right: 0;
 		}
 		.swiper-container {
 			width: 100%;
@@ -674,6 +691,57 @@ p.cat-tag {
 			padding-bottom: 0 !important;
 		}
 	}
+	&.elementtestimonial {
+		.swiper-container .swiper-wrapper {
+			.swiper-slide {
+				width: 100%;
+			}
+		}
+		blockquote p {
+			font-size: 1.41em;
+			font-weight: 300;
+			font-style: italic;
+			&::before,
+			&::after {
+				transform: skew(-10deg,0deg);
+			}
+		}
+		blockquote + p.small {
+			margin: #{math.div($lh, 2)}rem #{$lh}rem;
+		}
+		@include sliderpagination(.5, $black);
+		.swiper-pagination {
+			position: inherit;
+			top: auto;
+			padding: #{math.div($lh, 2)}em 0;
+			@include breakpoint($Lneg) {
+				display: flex;
+			}
+		}
+		&.background-black {
+			p {
+				color: $white;
+				&::before {
+					background-image: svg-load(
+						"../images/svg/quote-before.svg",
+						fill=#{$white}
+					);
+				}
+				&::after {
+					background-image: svg-load(
+						"../images/svg/quote-after.svg",
+						fill=#{$white}
+					);
+				}
+			}
+			.swiper-pagination .swiper-pagination-bullet {
+				border-color: $white;
+				&.swiper-pagination-bullet-active {
+					background-color: $white;
+				}
+			}
+		}
+	}
 	&.elementform {
 		#uff {
 			scroll-margin-top: calc(#{$headerheight} + #{$lh}em);
@@ -683,6 +751,11 @@ p.cat-tag {
 		display: flex;
 		flex-wrap: wrap;
 		gap: #{$lh}em;
+		// borderless
+		&.full-width {
+			padding-left: 0;
+			padding-right: 0;
+		}
 		p.gm-style-pbt {
 			font-size: initial;
 		}
@@ -892,6 +965,7 @@ html .klaro {
 	--notice-max-width: 440px;
 	.cookie-modal,
 	.cookie-notice {
+		z-index: 9100;
 		a {
 			color: lighten($link-color, 70%);
 		}
@@ -900,11 +974,14 @@ html .klaro {
 			font-size: 14px;
 			border-radius: 0.1em;
 			margin-right: 1.2em;
+			padding-top: .6em;
 		}
 	}
 
 	.cookie-notice {
 		.cn-body {
+			border: 1px solid $gray;
+			border-radius: 0.1em;
 			// klaro sets font-size on block elements - we're calculating back to maintain horizontal spacing :-/
 			@media (max-width: 1023px) {
 				padding-right: #{$lh * math.div($font-size, 14px)}em !important;
@@ -952,6 +1029,9 @@ html .klaro {
 	}
 
 	.cookie-modal {
+		.cm-modal {
+			border: 1px solid $gray;
+		}
 		.cm-header a {
 			@include bold;
 		}
@@ -974,6 +1054,7 @@ html .klaro {
 			}
 		}
 		// halve is used on parent if children are on & off
+		.cm-list-input.only-required + .cm-list-label .slider,
 		.cm-list-input.half-checked:checked + .cm-list-label .slider {
 			background-color: mix($link-color, $white, 71%);
 		}
@@ -988,6 +1069,10 @@ html .klaro {
 		.cm-btn.cm-btn-accept,
 		.cm-btn.cm-btn-decline {
 			background-color: $gray;
+		}
+		.cm-btn.cm-btn-accept {
+			order: 99;
+  			margin-right: 0;
 		}
 		// klaro link
 		.cm-modal .cm-footer .cm-powered-by {
@@ -1018,7 +1103,7 @@ html .klaro {
 			margin-bottom: 0;
 		}
 		.cm-buttons {
-			display: flex;;
+			display: flex;
 			gap: 1em;
 		}
 		button.cm-btn {

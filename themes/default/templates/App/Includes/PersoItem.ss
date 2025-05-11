@@ -26,7 +26,7 @@
 			<div class="col">$Motivation</div>
 			<div class="col">
 				<p>
-					<% if $EMail %><a class="vcard" href="{$Top.Element.Controller.Link('vcard')}/{$ID}">vCard</a><br/><% end_if %>
+					<% if $EMail && $Telephone %><a class="vcard" href="/_vc/{$ID}" title="vCard">vCard</a><% end_if %>
 					<% if $EMail %><span data-feather="mail"></span><a href="mailto:{$EMail}">{$EMail}</a><% end_if %>
 				</p>
 			</div>

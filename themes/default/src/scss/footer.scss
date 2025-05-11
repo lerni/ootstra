@@ -8,68 +8,76 @@
 body > footer {
 	flex-shrink: 0;
 	background-color: $black;
-	padding: #{$lh * 2}em 0;
+	padding: #{$lh * 1.5}em 0 #{$lh * 1.5}em;
+	// font-size: $font-size--small;
+	p {
+		margin: 0 0 #{$lh}em 0;
+	}
 	.inner {
-		// font-size: $font-size--small;
-		display: grid;
-		align-items: end;
-		grid-template-columns: 1fr 1fr 1fr;
-		gap: #{$lh * 2}em;
-		@include breakpoint($XLneg) {
-			grid-template-columns: 1fr 1fr;
-		}
-		@include breakpoint($Mneg) {
-			grid-template-columns: 1fr;
-		}
+		display: flex;
+		flex-wrap: wrap;
+		gap: #{$lh}em;
+		row-gap: #{math.div($lh, 4)}em;
 	}
 	.column {
 		display: flex;
-		flex-direction: column;
+		flex: 1 1 auto;
 		column-gap: #{$lh}em;
-		color: $white;
-		p {
-			margin: 0 0 #{$lh}em 0;
-			&:last-child {
-				margin-bottom: 0;
-			}
+		@include breakpoint($XLneg) {
+			flex: 0 0 100% !important;
 		}
+		span,
 		a {
 			color: $white;
+		}
+		a {
 			text-decoration: none;
-			margin-top: #{math.div($lh, 2)}em;
-			margin-bottom: #{math.div($lh, 2)}em;
-			&:last-child {
-				margin-bottom: 0;
-			}
-			&.current,
 			&:hover {
 				color: $current-color;
 			}
 		}
-		a:first-child,
 		a + a {
-			margin-top: 0;
+			margin-top: #{math.div($lh, 2)}em;
 		}
 	}
 	.coord {
-	}
-	nav.inprint {
-		display: flex;
-		column-gap: #{$lh}em;
+		flex-basis: 40%;
+		margin-right: auto;
 		flex-direction: column;
-		a {
-			&:last-of-type {
-				margin-bottom: 0;
+	}
+	.inprint {
+		flex-basis: 40%;
+		margin-right: 0;
+		margin-left: auto;
+		justify-content: flex-end;
+		flex-direction: column;
+		@include breakpoint($XLneg) {
+			justify-content: flex-start;
+			margin-left: 0;
+		}
+		nav {
+			display: flex;
+			flex-wrap: wrap;
+			gap: #{math.div($lh, 2)}em;
+			a {
+				// flex-wrap: wrap;
+				@include bold;
+				margin: 0;
+				// @include separated();
+				&.current {
+					color: $current-color;
+				}
 			}
 		}
 	}
-	.social-icons {
-		margin-top: #{math.div($lh, 2) * 3}em;
-		a {
-			margin: 0;
-			img {
-				width: 1.2em;
-			}
+	.social {
+		justify-content: center;
+		line-height: 1;
+		$padding: $lh - 1;
+		padding: #{$padding * .7}em 0 #{$padding * .3}em;
+		@include breakpoint($XLneg) {
+			padding: #{$padding * .7 + math.div($lh, 2)}em 0 #{$padding * .3 + math.div($lh, 2)}em;
+			justify-content: flex-start;
 		}
 	}
 }

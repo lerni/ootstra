@@ -14,13 +14,12 @@ use SilverStripe\i18n\Data\Locales;
 use Endroid\QrCode\Writer\SvgWriter;
 use SilverStripe\Control\Controller;
 use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\RoundBlockSizeMode;
 use SilverStripe\SiteConfig\SiteConfig;
+use Endroid\QrCode\ErrorCorrectionLevel;
 use SilverStripe\View\Parsers\URLSegmentFilter;
 use SilverStripe\Core\Manifest\ModuleResourceLoader;
 use DNADesign\Elemental\Controllers\ElementController;
-use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
-use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow;
-use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
 
 class ElementPersoController extends ElementController
 {
@@ -146,20 +145,23 @@ class ElementPersoController extends ElementController
 
             if (!isset($file)) {
                 // Create QR code
-                $qrCode = QrCode::create($qrURL)
-                    ->setEncoding(new Encoding('UTF-8'))
-                    ->setErrorCorrectionLevel(new ErrorCorrectionLevelHigh())
-                    ->setSize(300)
-                    ->setMargin(0)
-                    ->setRoundBlockSizeMode(new RoundBlockSizeModeMargin())
-                    ->setForegroundColor(new Color(42, 145, 208))
-                    ->setBackgroundColor(new Color(255, 255, 255, 0));
+                $qrCode = new QrCode(
+                    data: $qrURL,
+                    encoding: new Encoding('UTF-8'),
+                    errorCorrectionLevel: ErrorCorrectionLevel::High,
+                    size: 300,
+                    margin: 0,
+                    roundBlockSizeMode: RoundBlockSizeMode::Margin,
+                    foregroundColor: new Color(42, 145, 208),
+                    backgroundColor: new Color(255, 255, 255, 0)
+                );
 
                 // Create generic logo
-                // $logo = Logo::create(rtrim(Director::absoluteBaseURL(), '/') . ModuleResourceLoader::resourceURL('themes/default/dist/images/svg/scanme.svg'))
-                // $logo = Logo::create('_resources/themes/default/dist/images/svg/scanme.svg')
-                //     ->setResizeToWidth(68)
-                //     ->setResizeToHeight(68);
+                // $logo = new Logo(
+                //     path: '_resources/themes/default/dist/images/svg/logo.svg',
+                //     resizeToWidth: 68,
+                //     resizeToHeight: 68
+                // );
 
                 $writer = new SvgWriter();
                 $result = $writer->write($qrCode);

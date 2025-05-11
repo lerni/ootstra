@@ -1,8 +1,6 @@
-<% if $LinkedElement %><article class="element
-		$ClassName.ShortName($this, 0).LowerCase
-		$LinkedElement.ClassName.ShortName($this, 0).LowerCase
+<% if $LinkedElement %><article class="element horizontal-spacing
+		$ShortClassName($this, true)
 		<% if $LinkedElement.isFullWidth %>full-width<% end_if %>
-		<% if $LinkedElement.ClassName != App\Elements\ElementHero %>horizontal-spacing<% end_if %>
 		spacing-top-{$LinkedElement.SpacingTop}
 		spacing-bottom-{$LinkedElement.SpacingBottom}
 		<% if $Page.ClassName == 'App\Models\ElementPage' && $isHero && $Page.ParentID != 0 || $Page.ClassName == 'SilverStripe\Blog\Model\BlogPost' %>breadcrumbs<% end_if %>

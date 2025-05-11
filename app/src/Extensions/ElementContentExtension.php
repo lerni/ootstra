@@ -36,7 +36,7 @@ class ElementContentExtension extends Extension
         if ($TextEditor = $fields->dataFieldByName('HTML')) {
             $TextEditor->setRows(30);
             $width_reduced = $this->owner->WidthReduced ? ' width-reduced' : '';
-            $TextEditor->getEditorConfig()->setOption('body_class', 'typography '. $this->owner->ShortClassName($this, true) . ' background--' . $this->owner->BackgroundColor . $width_reduced);
+            $TextEditor->getEditorConfig()->setOption('body_class', 'typography '. $this->owner->ShortClassName($this->owner, true) . ' background--' . $this->owner->BackgroundColor . $width_reduced);
         }
     }
 }

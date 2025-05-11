@@ -5,6 +5,11 @@ de_CH:
     BlockType: Accordion
   App\Elements\ElementCounter:
     BlockType: Counter
+  App\Elements\ElementDownloads:
+    Documents: 'Dokumente'
+    OneOrTheOther: 'Wählen Sie Dateien nach Ordner (alle enthalten) oder einzeln aus'
+    FOLDER: 'Ordner'
+    BlockType: 'Downloads'
   App\Elements\ElementFeedTeaser:
     BlockType: 'Teaser (feed)'
     COUNTMAX: 'Anzahl Teasers (default 3)'
@@ -22,6 +27,7 @@ de_CH:
     OneOrTheOther: 'Bilder per Ordner (alle enthaltenen) oder einzeln wählen & sortieren'
   App\Elements\ElementHero:
     BlockType: Hero
+    CountMaxFieldDescription: '"0" bedeutet keine Begrenzung'
     SITEMAPIMAGEEXPOSE: 'Bilder in sitemap.xml zeigen'
     DONOTCROP: 'Höhe nicht begrenzen'
     DoNotCropDescription: 'Keine maximale Höhe für breite viewports → "small" & "medium"'
@@ -64,6 +70,12 @@ de_CH:
   App\Elements\ElementTeaser:
     BlockType: Teaser
     SHOWASSLIDER: 'Als Slider anzeigen'
+  App\Elements\ElementTestimonial:
+    CountMaxFieldDescription: '"0" bedeutet keine Begrenzung'
+    TESTIMONIALSSELECTED: 'Testimonials (gefiltert nach Kategorien)'
+    TESTIMONIALSALL: 'Testimonials (alle)'
+    COUNTMAX: 'Zeige maximal'
+    SHUFFLE: 'Reihenfolge zufällig'
   App\Elements\ElementTextImage:
     BlockType: 'Text Bild'
     ELEMENTLAYOUT: 'Anordnung links...'
@@ -133,6 +145,8 @@ de_CH:
     OPENINGHOURS: Öffnungszeiten
     DescriptionGeoPointField: 'Koordinaten aus ElementMap verknüpfen'
     Duplicate: '{FieldName} muss einzigartig sein!'
+  App\Models\Testimonial:
+    CategoriesDescription: 'Tippe "%" um alle Datensätze anzuzeigen.'
   App\Models\Vacation:
     TITLE: Titel
     STARTDATE: Startdatum
@@ -143,13 +157,14 @@ de_CH:
     DATEVALIDATION: 'Enddatum muss nach oder am selben Tag wie das Startdatum liegen.'
     LOCATIONVALIDATION: 'Es muss mindestens ein Standort ausgewählt werden.'
   App\Models\Logo:
+    TITLE: 'Titel'
+    LOGOIMAGE: 'Logo Datei'
     LogoImageDescription: 'min. 120px hoch'
     PLURALNAME: Logos
     PLURALS:
       one: 'A Logo'
       other: '{count} Logos'
     SINGULARNAME: Logo
-    TITLE: Titel
   App\Models\MetaOverviewPage:
     PLURALNAME: 'Meta Overview Pages'
     PLURALS:
@@ -180,6 +195,7 @@ de_CH:
     POINTURL: 'Link auf Marker'
     SINGULARNAME: Point
     TITLE: Titel
+    PointURLDESCRIPTION: 'Link zum Business-Eintrag von Google-Map'
   App\Models\Slide:
     PLURALNAME: Slides
     PLURALS:

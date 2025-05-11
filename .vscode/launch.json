@@ -32,20 +32,41 @@
       "port": 9003
     },
     {
-      "name": "JS Firefox localhost",
+      "name": "JS Chrome",
+      "type": "chrome",
+      "request": "launch",
+      "url": "https://${workspaceFolderBasename}.ddev.site/",
+      "webRoot": "${workspaceFolder}/public",
+      "userDataDir": "${workspaceFolder}/.vscode/chrome-debug-profile",
+      "sourceMapPathOverrides": {
+        "webpack:///./src/*": "${workspaceFolder}/themes/default/src/*",
+        "webpack:///src/*": "${workspaceFolder}/themes/default/src/*"
+      }
+    },
+    {
+      "name": "JS Firefox",
       "type": "firefox",
       "request": "launch",
       "reAttach": true,
       "reloadOnAttach": true,
       "url": "https://${workspaceFolderBasename}.ddev.site/",
       "webRoot": "${workspaceFolder}/public",
-      "port": 9222,
       "pathMappings": [
+        {
+          "url": "webpack:///./src",
+          "path": "${workspaceFolder}/themes/default/src"
+        },
         {
           "url": "webpack:///src",
           "path": "${workspaceFolder}/themes/default/src"
         }
       ]
+    }
+  ],
+  "compounds": [
+    {
+      "name": "JS All Browsers",
+      "configurations": ["JS Chrome", "JS Firefox"]
     }
   ]
 }

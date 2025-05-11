@@ -27,7 +27,7 @@
 		"silverstripe/blog": "^4",
 		"axllent/silverstripe-email-obfuscator": "^2",
 		"jonom/silverstripe-text-target-length": "^2",
-		"lerni/silverstripe-googleanalytics": "4.x-dev as 4.0",
+		"lerni/silverstripe-tracking": "5.x-dev",
 		"tractorcow/silverstripe-robots": "^4",
 		"jonom/silverstripe-share-care": "^4",
 		"dorsetdigital/silverstripe-canonical": "^2",
@@ -45,8 +45,8 @@
 		"giggsey/libphonenumber-for-php": "^8",
 		"jeroendesloovere/vcard": "^1",
 		"silverstripe/selectupload": "^2",
-		"endroid/qr-code": "^4",
-		"lerni/klaro-cookie-consent": "v2.x-dev",
+		"endroid/qr-code": "^6",
+		"lerni/klaro-cookie-consent": "5.x-dev",
 		"league/commonmark": "^2",
 		"eluceo/ical": "^2",
 		"jonom/silverstripe-someconfig": "^1",
@@ -58,7 +58,7 @@
 	"require-dev": {
 		"deployer/deployer": "^7",
 		"dnadesign/silverstripe-populate": "^3",
-		"lekoala/silverstripe-debugbar": "^3.0@dev",
+		"lekoala/silverstripe-debugbar": "^3",
 		"pstaender/ssshell": "^0",
 		"phpunit/phpunit": "^9.6"
 	},

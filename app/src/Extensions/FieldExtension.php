@@ -197,6 +197,11 @@ class FieldExtension extends Extension
 
     public function NumberFormat($decimals = 2, $decimalsSeparator = '.', $thousandsSeparator = '')
     {
+        // Return empty string if value is null, empty string, or only whitespace
+        if ($this->owner->value === null || $this->owner->value === '' || trim($this->owner->value) === '') {
+            return '';
+        }
+
         // Define safe thousands separators that are NEVER used as decimal separators
         $safeThousandsSeparators = ["'", ' '];
 
