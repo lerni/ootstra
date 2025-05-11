@@ -1,7 +1,7 @@
 <% require themedCSS("dist/css/contentsections") %>
-<% include App/Includes/ElementTitle %>
 <% if $ContentParts %>
 <div class="typography">
+	<% include App/Includes/ElementTitle %>
 	<% if $Layout == "NumberedList" %>
 		<ol class="content-parts numbered-list">
 			<% loop $ContentParts.Sort("SortOrder") %>

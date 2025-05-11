@@ -201,6 +201,7 @@
 				}
 			}
 			// values need to be passed in px
+			// width should be reflected in .trigger in order to vertically align
 			@include burger(56px, 4px, 12px, $text-color, 20px);
 		}
 	}

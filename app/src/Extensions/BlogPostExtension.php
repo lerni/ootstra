@@ -4,6 +4,7 @@ namespace App\Extensions;
 
 use SilverStripe\ORM\DB;
 use SilverStripe\Core\Extension;
+use SilverStripe\Blog\Model\Blog;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Blog\Model\BlogPost;
 
@@ -55,6 +56,18 @@ class BlogPostExtension extends Extension
         if ($Mode == 'prev') {
             return $list->filter(["Sort:LessThan" => $this->owner->Sort])->sort("Sort DESC")->limit(1)->first();
         }
+    }
+
+    // Blog posts can be created under non-blog pages
+    // https://github.com/silverstripe/silverstripe-blog/issues/521
+    public function canCreate($member = null, $context = []): ?bool
+    {
+        $parent = $context['Parent'] ?? null;
+        if (!$parent || !$parent instanceof Blog) {
+            return false;
+        }
+
+        return null;
     }
 
     // Latest blog posts on top

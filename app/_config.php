@@ -102,7 +102,7 @@ $tinyPlugins = [
     'sslinkemail' => $module->getResource('client/dist/js/TinyMCE_sslink-email.js'),
     'emoticons',
     'charmap',
-    // 'definitionlists' => ModuleResourceLoader::resourceURL('app/thirdparty/tinymce-definitionlist-master/definitionlist/plugin.js') // needs Buttons: ToggleDefinitionList ToggleDefinitionItem
+    'deflist' => ModuleResourceLoader::resourceURL('app/thirdparty/tinyMCE-DefinitionList-main/deflist/plugin.min.js') // needs Buttons: ToggleDefinitionList ToggleDefinitionItem
 ];
 $EditorConfig = TinyMCEConfig::get('cms');
 $EditorConfig->enablePlugins($tinyPlugins);
@@ -120,7 +120,7 @@ $editorOptions = [
 $EditorConfig->setOptions($editorOptions);
 
 // $EditorConfig->setButtonsForLine(1, ['blocks styles pastetext ssmedia ssembed | bold bullist numlist ToggleDefinitionList ToggleDefinitionItem | alignleft aligncenter alignright alignjustify | sslink unlink anchor | emoticons charmap blockquote hr code removeformat visualblocks | outdent indent | undo redo | subscript superscript']);
-$EditorConfig->setButtonsForLine(1, ['blocks styles pastetext ssmedia ssembed | bold bullist numlist | alignleft aligncenter alignright alignjustify | outdent indent | sslink anchor | emoticons charmap blockquote hr code removeformat visualblocks | undo redo']);
+$EditorConfig->setButtonsForLine(1, ['blocks styles pastetext ssmedia ssembed | bold align | bullist numlist deflist | outdent indent | sslink anchor | emoticons charmap blockquote hr code removeformat visualblocks | undo redo']);
 $EditorConfig->setButtonsForLine(2, '');
 $EditorConfig->setOption(
     'extended_valid_elements',
@@ -142,7 +142,7 @@ $SimpleCfg->enablePlugins([
     'sslinkphone' => $phoneModule
         ->getResource('client/dist/js/TinyMCE_sslink-phone.js'),
 ]);
-$SimpleCfg->setButtonsForLine(1, ['blocks pastetext | bold bullist numlist | alignleft aligncenter alignright alignjustify | sslink anchor | emoticons charmap hr code removeformat visualblocks | undo redo']);
+$SimpleCfg->setButtonsForLine(1, ['blocks pastetext | bold align bullist numlist | sslink anchor | emoticons charmap hr code removeformat visualblocks | undo redo']);
 $SimpleCfg->setButtonsForLine(2, '');
 
 CMSMenu::remove_menu_item('SilverStripe-Reports-ReportAdmin');
