@@ -331,6 +331,19 @@ p.cat-tag {
 		flex: 0 0 100%;
 	}
 
+	// when full-width .element-title shold not hava padding on .inner
+	&.full-width {
+		&.elementmaps,
+		&.elementgallery {
+			@include breakpoint($XLneg) {
+				> .inner {
+					padding-left: 0;
+					padding-right: 0;
+				}
+			}
+		}
+	}
+
 	// &[class^="element"],
 	// &.elementjobs.show,
 	// &.elementform,

@@ -145,6 +145,7 @@ SilverStripe\Blog\Model\BlogPost:
     - App\Elements\ElementTextImage
     - App\Elements\ElementPDFDocument
     - App\Elements\ElementLocalVideo
+    - App\Elements\ElementTestimonial
     # - App\Elements\ElementIframe # We may should encourage SnippetShortCodeProvider and drop this?
     # - Kraftausdruck\Elements\ElementProduct
     # - Kraftausdruck\Elements\ElementCheckout
@@ -174,6 +175,7 @@ App\Models\ElementPage:
     - App\Elements\ElementTextImage
     - App\Elements\ElementPDFDocument
     - App\Elements\ElementLocalVideo
+    - App\Elements\ElementTestimonial
     # - App\Elements\ElementIframe # We may should encourage SnippetShortCodeProvider and drop this?
     # - Kraftausdruck\Elements\ElementProduct
     # - Kraftausdruck\Elements\ElementCheckout
@@ -184,6 +186,7 @@ DNADesign\Elemental\Models\BaseElement:
   extensions:
     - App\Extensions\ElementExtension
   inline_editable: false
+  require_sudo_mode: false
 
 DNADesign\Elemental\Models\ElementContent:
   extensions:
