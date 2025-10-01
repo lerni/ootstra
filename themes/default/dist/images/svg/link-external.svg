@@ -1,1 +1,1 @@
-<svg width="768" height="768" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet"><path d="M640 640H128V129.906L256 128V0H0v768h768V448H640v192zM384 0l128 128-192 192 128 128 192-192 128 128V0H384z" fill="#333"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 768 768"><path fill="#333" d="M640 640H128V129.906L256 128V0H0v768h768V448H640zM384 0l128 128-192 192 128 128 192-192 128 128V0z"/></svg>

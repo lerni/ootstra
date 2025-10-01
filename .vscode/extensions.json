@@ -4,12 +4,10 @@
     "berublan.vscode-log-viewer",
     "bmewburn.vscode-intelephense-client",
     "damms005.devdb",
-    "dbaeumer.vscode-eslint",
     "EditorConfig.EditorConfig",
-    "esbenp.prettier-vscode",
     "mikestead.dotenv",
     "ms-vscode.js-debug",
-    "syler.sass-indented",
+    "mehedidracula.php-namespace-resolver",
     "xdebug.php-debug"
   ]
 }

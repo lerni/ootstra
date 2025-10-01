@@ -1,11 +1,6 @@
 const mix = require('laravel-mix');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CSSMQPacker = require('mqpacker');
-const ImageminPlugin = require('imagemin-webpack-plugin').default;
-const imageminMozjpeg = require('imagemin-mozjpeg');
-const imageminPngquant = require('imagemin-pngquant');
-const imageminSvgo = require('imagemin-svgo');
 const path = require('path');
 const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
 
@@ -17,13 +12,20 @@ mix.options({
     zindex: false
   },
   postCss: [
-//     CSSMQPacker({ sort: true }),
     require('postcss-inline-svg'),
     require('cssnano')({
-      preset: 'default',
+      preset: ['default', {
+        discardComments: {
+          removeAll: false,
+          removeAllButFirst: false,
+        },
+      }],
     }),
   ],
-  processCssUrls: false
+  processCssUrls: false,
+  imgLoaderOptions: {
+    enabled: false, // Disable img-loader to prevent image optimization
+  },
 });
 
 // Set up base tasks
@@ -138,38 +140,67 @@ mix.webpackConfig({
             globOptions: {
               dot: true,
               gitignore: true,
-              ignore: ['*.DS_Store', 'icons/.gitkeep', 'icons/**/*.svg']
+              ignore: ['*.DS_Store', 'icons/.gitkeep']
+            },
+            // Transform SVG files during copy
+            transform(content, path) {
+              if (path.endsWith('.svg')) {
+                const { optimize } = require('svgo');
+                const result = optimize(content.toString(), {
+                  path,
+                  plugins: [
+                    {
+                      name: 'preset-default',
+                    },
+                    {
+                      name: 'removeViewBox',
+                      active: false, // Keep viewBox for responsive scaling
+                    },
+                    'removeDimensions', // Remove width/height attributes
+                    'cleanupIds', // Clean up IDs
+                    'removeUselessStrokeAndFill', // Remove redundant stroke and fill
+                    'removeEmptyAttrs', // Remove empty attributes
+                    'removeUnusedNS', // Remove unused namespaces
+                  ],
+                });
+                return result.data;
+              }
+              return content;
             },
           }
         ]
       }
     ),
-    new ImageminPlugin(
-      {
-        test: (path) => {
-          // Don't re-compress sprite
-          if (path === 'dist/images/icons.svg') {
-            return false;
-          }
-          const regex = new RegExp(/\.(jpe?g|png|gif|svg)$/i);
-          return regex.test(path);
-        },
-        plugins: [
-          new ImageminPlugin({
-            disable: process.env.NODE_ENV !== 'production', // Disable during development
-            mozjpeg: {
-              quality: 80
-            },
-            pngquant: {
-              quality: '95-100'
-            },
-            svgo: {
-              plugins: [{ removeViewBox: false }]
-            }
-          })
-        ]
-      }
-    )
+    // Temporarily disable all image optimization to avoid ARM64 binary issues
+    // Image optimization can be handled by your deployment pipeline or manually
+    // new ImageminPlugin({
+    //   disable: process.env.NODE_ENV !== 'production',
+    //   test: /\.(jpe?g|gif|svg)$/i, // Exclude PNG files to avoid optipng issues
+    //   plugins: [
+    //     {
+    //       use: imageminMozjpeg,
+    //       options: {
+    //         quality: 80,
+    //       },
+    //     },
+    //     {
+    //       use: imageminSvgo,
+    //       options: {
+    //         plugins: [
+    //           {
+    //             name: 'removeViewBox',
+    //             active: false,
+    //           },
+    //         ],
+    //       },
+    //     },
+    //   ],
+    // })
+
+
+
+
+
   ]
 });
 
