@@ -9,6 +9,10 @@ class ShareCareFieldsExtension extends Extension
 {
     public function updateCMSFields(FieldList $fields)
     {
+        $fields->removeByName([
+            'PinterestImageCustom'
+        ]);
+
         if ($uploadField = $fields->dataFieldByName('OGImageCustom')) {
             $uploadField->setFolderName('ShareFeedImages');
         }

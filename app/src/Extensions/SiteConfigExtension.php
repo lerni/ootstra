@@ -7,7 +7,7 @@ use App\Models\Location;
 use App\Models\Vacation;
 use App\Models\SocialLink;
 use SilverStripe\Forms\Tab;
-use App\Model\ShortCodeSnippet;
+use App\Models\ShortCodeSnippet;
 use SilverStripe\Core\Extension;
 use SilverStripe\Forms\DateField;
 use SilverStripe\Forms\FieldList;

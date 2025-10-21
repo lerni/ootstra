@@ -4,7 +4,31 @@
 			<% loop $Items %>
 				<% if $SlideImage || $EmbedVideo %>
 					<div class="swiper-slide {$TextAlignment}">
-						<% if $Up.HeroSize == "small" %>
+						<% if $EmbedVideo %>
+							<div class="embed-hero" style="display: none;">
+								{$EmbedVideo}
+								<div class="overlayer"></div>
+							</div>
+							<%-- we repeat medium-size for a still-image fake --%>
+							<figure class="video<% if $LinkID %> linked<% end_if %>"><img sizes="100vw"
+								height="$SlideImage.FocusFillMax(1440,650).Height()"
+								width="$SlideImage.FocusFillMax(1440,650).Width()"
+								<% if not $IsFirst %>loading="lazy" <% end_if %>
+								alt="$SlideImage.Title"
+								style="object-position: {$SlideImage.FocusFillMax(1440,650).FocusPoint.PercentageX}% {$SlideImage.FocusFillMax(1440,650).FocusPoint.PercentageY}%;"
+								src="$SlideImage.FocusFillMax(1440,650).Convert('webp').URL"
+								srcset="
+									$SlideImage.FocusFillMax(480,217).Convert('webp').URL 480w,
+									$SlideImage.FocusFillMax(640,289).Convert('webp').URL 640w,
+									$SlideImage.FocusFillMax(800,361).Convert('webp').URL 800w,
+									$SlideImage.FocusFillMax(1000,451).Convert('webp').URL 1000w,
+									$SlideImage.FocusFillMax(1200,542).Convert('webp').URL 1200w,
+									$SlideImage.FocusFillMax(1440,650).Convert('webp').URL 1440w<% if $Up.isFullWidth %>,
+									$SlideImage.FocusFillMax(1600,722).Convert('webp').URL 1600w,
+									$SlideImage.FocusFillMax(2000,903).Convert('webp').URL 2000w,
+									$SlideImage.FocusFillMax(2600,1174).Convert('webp').URL 2600w<% end_if %>" />
+							</figure>
+						<% else_if $Up.HeroSize == "small" %>
 							<figure <% if $LinkID %>class="linked"<% end_if %>><img sizes="100vw"
 								height="$SlideImage.FocusFillMax(1440,360).Height()"
 								width="$SlideImage.FocusFillMax(1440,360).Width()"
@@ -96,9 +120,9 @@
 								}
 							</style>
 						<% end_if %>
-						<% if $Text || $LinkID %>
+						<% if $Text || $LinkID || $ShowTitle %>
 							<% if $LinkID %><a href="$Link.Link" class="txt {$TextAlignment}"><% else %><div class="txt {$TextAlignment}"><% end_if %>
-								<% if $Text %><div class="inner">
+								<% if $Text || $ShowTitle %><div class="inner">
 									<div class="spacer">
 										<% if $ShowTitle %><h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %>>$Title</h<% if $TitleLevel %>{$TitleLevel}<% else %>2<% end_if %>><% end_if %>
 										$Text.Markdowned

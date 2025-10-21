@@ -41,10 +41,14 @@ Array.prototype.forEach.call(heroSwiper, function (slider) {
       nextEl: sliderNext,
       prevEl: sliderPrev,
     },
+    // pagination: {
+    //   el: sliderPagination,
+    //   type: "bullets",
+    //   clickable: true,
+    // },
     pagination: {
-      el: sliderPagination,
-      type: "bullets",
-      clickable: true,
+      el: ".swiper-pagination",
+      type: "progressbar",
     },
   });
 });
@@ -99,6 +103,59 @@ Array.prototype.forEach.call(multipleSwiper, function (slider) {
         generalSwiperInstance.autoplay.start();
       } else {
         generalSwiperInstance.autoplay.stop();
+      }
+    });
+  };
+  const observer = new IntersectionObserver(observerCallback, observerOptions);
+  if (slider) {
+    observer.observe(slider);
+  }
+});
+
+var testimonialSwiper = document.querySelectorAll(
+  ".swiper-container.testimonial"
+);
+Array.prototype.forEach.call(testimonialSwiper, function (slider) {
+  var sliderID = slider.getAttribute("id");
+  var testimonialPagination = "#testimonial-swiper-pagination" + slider.getAttribute("data-id");
+  var testimonialSwiperInstance = new Swiper("#" + sliderID, {
+    spaceBetween: 100, // $text-size times $lineheight
+    slidesPerView: 1, // Change to 1 when using fade effect
+    speed: 1600,
+    // loop: true,
+    keyboard: {
+      enabled: true,
+    },
+    autoplay: {
+      delay: 6000,
+      disableOnInteraction: true,
+    },
+    keyboard: {
+      enabled: true,
+      onlyInViewport: false,
+    },
+    effect: "fade", // Add fade effect
+    fadeEffect: {
+      crossFade: true, // Enable cross fade
+    },
+    pagination: {
+      el: testimonialPagination,
+      type: "bullets",
+      clickable: true
+    }
+  });
+  testimonialSwiperInstance.autoplay.stop();
+  const observerOptions = {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.1,
+  };
+  const observerCallback = (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        testimonialSwiperInstance.autoplay.start();
+      } else {
+        testimonialSwiperInstance.autoplay.stop();
       }
     });
   };

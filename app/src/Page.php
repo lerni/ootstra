@@ -39,7 +39,7 @@ class Page extends SiteTree
 
     public function getCMSFields()
     {
-        $this->beforeUpdateCMSFields(function (FieldList $fields) {
+        $this->beforeUpdateCMSFields(function (FieldList $fields): void {
             $fields->removeByName(['ExtraMeta']);
 
             if (!Permission::check('ADMIN') && $this->isHomePage()) {

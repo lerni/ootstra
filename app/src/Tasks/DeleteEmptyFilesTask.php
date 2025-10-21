@@ -1,6 +1,7 @@
 <?php
 
 // credits to Dave Toews
+namespace App\Tasks;
 
 use SilverStripe\Dev\BuildTask;
 use SilverStripe\ORM\Queries\SQLDelete;

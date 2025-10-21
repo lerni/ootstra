@@ -4,7 +4,7 @@ namespace Deployer;
 
 // Tasks
 desc('Populate .env file');
-task('silverstripe:create_dotenv', function () {
+task('silverstripe:create_dotenv', function (): void {
     $stage = get('labels')['stage'];
     run("cd {{deploy_path}} && if [ ! -d shared ]; then mkdir shared; fi");
     $envPath = "{{deploy_path}}/shared/.env";
@@ -72,7 +72,7 @@ ENV;
 
 
 desc('Sets SCRIPT_FILENAME to the current path in .env file');
-task('silverstripe:set_script_filename', function () {
+task('silverstripe:set_script_filename', function (): void {
     $hasEnvFile = run("if [ -e {{deploy_path}}/shared/.env ]; then echo 'true'; fi");
     if (!$hasEnvFile) {
         return;
@@ -84,7 +84,7 @@ task('silverstripe:set_script_filename', function () {
 
 
 desc('install composer in ~/bin');
-task('silverstripe:installtools', function () {
+task('silverstripe:installtools', function (): void {
     $hasComposer = run("if [ -e ~/bin/composer.phar ]; then echo 'true'; fi");
     if ('true' != $hasComposer) {
         // run('curl https://getcomposer.org/composer-1.phar --create-dirs -o ~/bin/composer.phar');
@@ -95,7 +95,7 @@ task('silverstripe:installtools', function () {
 
 
 desc('Run composer vendor-expose');
-task('silverstripe:vendor_expose', function () {
+task('silverstripe:vendor_expose', function (): void {
     run('cd {{release_path}} && {{bin/composer}} vendor-expose');
 });
 
@@ -104,7 +104,7 @@ task('silverstripe:vendor_expose', function () {
 // https://deployer.org/docs/7.x/avoid-php-fpm-reloading
 // silverstripe:set_script_filename *should* fix above, but...
 desc('Run pkill to reset php process');
-task('pkill', function () {
+task('pkill', function (): void {
     try {
         run('pkill -f {{php_process}}');
     } catch (\Exception $ex) {
@@ -114,13 +114,13 @@ task('pkill', function () {
 
 
 desc('Run dev/build');
-task('silverstripe:dev_build', function () {
+task('silverstripe:dev_build', function (): void {
     run('cd {{release_or_current_path}} && {{bin/php}} ./vendor/silverstripe/framework/cli-script.php dev/build flush');
     // run("php {{release_path}}/vendor/bin/sake dev/build flush");
 });
 
 
-task('silverstripe:htaccessperstage', function() {
+task('silverstripe:htaccessperstage', function(): void {
     $stage = get('labels')['stage'];
 	// upload htaccess, if a specific version for the current stage exist
     if(file_exists('deploy/' . $stage . '.htaccess')) {
@@ -137,20 +137,20 @@ task('silverstripe:htaccessperstage', function() {
 
 
 desc('Running Task Hydrate the focuspoint extension image size cache');
-task('silverstripe:focu_hydrate', function () {
+task('silverstripe:focu_hydrate', function (): void {
 //     run('cd {{release_path}} && {{bin/php}} ./vendor/silverstripe/framework/cli-script.php dev/tasks/HydrateFocusPointTask "flush=1"');
     run('cd {{release_path}} && ./vendor/bin/sake dev/tasks/HydrateFocusPointTask "flush=1"');
 });
 
 
 desc('Create directory for dumps');
-task('silverstripe:create_dump_dir', function () {
+task('silverstripe:create_dump_dir', function (): void {
     run("cd {{deploy_path}} && if [ ! -d dumps ]; then mkdir dumps; fi");
 });
 
 
 desc('Upload assets');
-task('silverstripe:upload_assets', function () {
+task('silverstripe:upload_assets', function (): void {
     $stage = get('labels')['stage'];
     if (!askConfirmation("Are you sure you want to overwrite the {$stage} assets?")) {
         echo "🐔\n";
@@ -167,7 +167,7 @@ task('silverstripe:upload_assets', function () {
 
 
 desc('Download assets');
-task('silverstripe:download_assets', function () {
+task('silverstripe:download_assets', function (): void {
     download('{{deploy_path}}/shared/public/assets/', 'public/assets', [
         'options' => [
             "--exclude={'error-*.html','_tinymce','.htaccess','.DS_Store','._*'}",
@@ -180,7 +180,7 @@ task('silverstripe:download_assets', function () {
 
 
 desc('Upload database');
-task('silverstripe:upload_database', function () {
+task('silverstripe:upload_database', function (): void {
     $stage = get('labels')['stage'];
     if (!askConfirmation("Are you sure you want to overwrite the {$stage} database?")) {
         echo "🐔\n";
@@ -213,7 +213,7 @@ task('silverstripe:upload_database', function () {
 
 
 desc('Download database');
-task('silverstripe:download_database', function () {
+task('silverstripe:download_database', function (): void {
     invoke('silverstripe:create_dump_dir');
 
     if (!test('[ -f {{deploy_path}}/shared/.env ]')) {
@@ -294,7 +294,7 @@ function getImportDatabaseCommand($envPath, $source) {
 
 
 desc('Creates a DB-dump in dumps-dir and delete older dumps with "auto" as prefix to to two times the number specified in keep_releases.');
-task('silverstripe:remote_dump', function ($prefix = 'auto') {
+task('silverstripe:remote_dump', function ($prefix = 'auto'): void {
     $stage = get('labels')['stage'];
 
     invoke('silverstripe:create_dump_dir');

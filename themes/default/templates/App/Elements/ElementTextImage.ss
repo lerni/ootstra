@@ -1,6 +1,8 @@
 <% require themedCSS("dist/css/textimage") %>
-<div class="typography">
+<% if $ShowTitle %><div class="typography<% if $isFullWidth %> inner<% end_if %>"><% end_if %>
 	<% include App/Includes/ElementTitle %>
+<% if $ShowTitle %></div><% end_if %>
+<div class="typography">
 	<div class="container">
 		<div class="txt {$ElementLayout}">
 			<div class="relativizer">

@@ -9,6 +9,8 @@ use SilverStripe\Forms\FieldGroup;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Forms\RequiredFields;
 use SilverStripe\Forms\TreeDropdownField;
+use nathancox\EmbedField\Forms\EmbedField;
+use nathancox\EmbedField\Model\EmbedObject;
 use SilverStripe\Versioned\GridFieldArchiveAction;
 use DNADesign\Elemental\Forms\TextCheckboxGroupField;
 use SilverStripe\Forms\GridField\GridFieldDataColumns;
@@ -30,7 +32,8 @@ class Slide extends DataObject
 
     private static $has_one = [
         'SlideImage' => Image::class,
-        'Link' => SiteTree::class
+        'Link' => SiteTree::class,
+        'EmbedVideo' => EmbedObject::class
     ];
 
     private static $belongs_many_many = [
@@ -104,6 +107,8 @@ class Slide extends DataObject
             }
         }
 
+        $fields->addFieldToTab('Root.Main', EmbedField::create('EmbedVideoID', 'Embed Video'));
+
         if ($this->isInDB() && $this->Hero()->count() > 1) {
             $fields
                 ->fieldByName('Root.Hero.Hero')
@@ -128,7 +133,7 @@ class Slide extends DataObject
 
             $usedGF = $fields->fieldByName('Root.Hero.Hero');
             $fields->removeByName(['Hero']);
-            $fields->addFieldsToTab('Root.Main', $usedGF);
+            $fields->addFieldToTab('Root.Main', $usedGF);
         } else {
             $fields->removeByName(['Hero']);
         }

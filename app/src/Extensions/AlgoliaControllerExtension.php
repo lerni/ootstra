@@ -1,6 +1,6 @@
 <?php
 
-namespace Kraftausdruck\Extensions;
+namespace App\Extensions;
 
 use SilverStripe\Forms\Form;
 use SilverStripe\Core\Convert;

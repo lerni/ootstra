@@ -60,8 +60,6 @@ body > footer {
 			flex-wrap: wrap;
 			gap: #{math.div($lh, 2)}em;
 			a {
-				// flex-wrap: wrap;
-				@include bold;
 				margin: 0;
 				// @include separated();
 				&.current {

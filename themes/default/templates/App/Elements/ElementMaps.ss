@@ -1,6 +1,6 @@
-<% if $isFullWidth && $ShowTitle && $HTML == "" %><div class="typography inner"><% end_if %>
+<% if $ShowTitle %><div class="typography<% if $isFullWidth %> inner<% end_if %>"><% end_if %>
 	<% include App/Includes/ElementTitle %>
-<% if isFullWidth %></div><% end_if %>
+<% if $ShowTitle %></div><% end_if %>
 <% if $HTML %>
 	<div class="txt typography">
 		<% if not $isFullWidth == 0 %>

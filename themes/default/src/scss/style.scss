@@ -608,6 +608,57 @@ p.cat-tag {
 				}
 			}
 		}
+		.embed-hero {
+			width: 100% !important;
+			padding: 0 0 45.1388888888889% 0;
+			margin-bottom: 0;
+			height: 0;
+			@include breakpoint($Mneg) {
+				padding: 0 0 56.25% 0;
+			}
+			@include breakpoint($Sneg) {
+				padding: 0 0 80% 0;
+			}
+			iframe {
+				margin-top: -8%;
+				margin-bottom: auto;
+				margin-left: auto;
+				margin-right: auto;
+				// pointer-events: none;
+				position: absolute;
+				width: 100% !important;
+				min-height: 100% !important;
+				transition-property: opacity;
+				transition: 0.3s linear;
+				transform-origin: 50% 50%;
+				@include breakpoint($Mneg) {
+					margin-top: 0;
+					margin-bottom: 0;
+					transform: scale(1.5); // mostly to hide youtube branding
+				}
+			}
+			&:not(.paused-mode):not(.playing-mode) iframe {
+				display: none;
+			}
+			&.playing-mode {
+				display: block !important; // we need to override inline style
+				.overlayer {
+					// background-color: rgba(yellowgreen, .099);
+				}
+			}
+			.overlayer {
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				background-color: transparent;
+				// background-color: rgba(fuchsia, .098);
+			}
+		}
+		.embed-hero.playing-mode + figure {
+			display: none;
+		}
 		.swiper-container.hero {
 			overflow: hidden;
 			&.hero--fullscreen {
@@ -621,6 +672,27 @@ p.cat-tag {
 				.swiper-slide {
 					height: 100%;
 					opacity: 1;
+
+					// Keyframe animation for smooth zoom-in effect
+					@keyframes heroZoomIn {
+						0% {
+							transform: scale(1);
+						}
+						100% {
+							transform: scale(1.04);
+						}
+					}
+					&.swiper-slide-visible,
+					&.swiper-slide-prev {
+						figure {
+							img {
+								animation: heroZoomIn 6500ms ease-out forwards;
+								transform-origin: center center;
+							}
+						}
+					}
+
+
 				}
 			}
 		}
@@ -943,6 +1015,8 @@ p.cat-tag {
 	gap: #{$lh}em;
 	a {
 		transition: transform 0.05s linear;
+		display: flex;
+		align-items: end;
 		// coloring svg with https://codepen.io/sosuke/pen/Pjoqqp
 		img {
 			width: 1em;

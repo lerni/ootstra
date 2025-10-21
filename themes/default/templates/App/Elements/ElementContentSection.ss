@@ -1,7 +1,10 @@
 <% require themedCSS("dist/css/contentsections") %>
+<% require javascript("themes/default/dist/js/flip.js") %>
+<% if $ShowTitle %><div class="typography<% if $isFullWidth %> inner<% end_if %>"><% end_if %>
+	<% include App/Includes/ElementTitle %>
+<% if $ShowTitle %></div><% end_if %>
 <% if $ContentParts %>
 <div class="typography">
-	<% include App/Includes/ElementTitle %>
 	<% if $Layout == "NumberedList" %>
 		<ol class="content-parts numbered-list">
 			<% loop $ContentParts.Sort("SortOrder") %>

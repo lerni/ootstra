@@ -50,7 +50,7 @@ class ElementHero extends BaseElement
 
     private static $defaults = [
         'isFullWidth' => 1,
-        'HeroSize' => 'medium',
+        'HeroSize' => 'medium', // todo: remove - but do we have defaults in SiteConfig ealy enough?
         'SitemapImageExpose' => 1
     ];
 

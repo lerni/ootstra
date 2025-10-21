@@ -1,4 +1,4 @@
-<% if $isFullWidth && $ShowTitle %><div class="typography inner"><% end_if %>
+<% if $ShowTitle %><div class="typography<% if $isFullWidth %> inner<% end_if %>"><% end_if %>
 	<% include App/Includes/ElementTitle %>
-<% if isFullWidth %></div><% end_if %>
+<% if $ShowTitle %></div><% end_if %>
 <% if $IframeLink %><div class="frame">{$IframeLink.RAW}</div><% end_if %>

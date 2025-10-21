@@ -67,14 +67,14 @@ App\Models\SocialLink:
     Title: 'GitHub'
     Url: 'https://github.com/lerni/ootstra'
     IconName: 'github'
-  socialLinkGoogleMaps:
-    Title: 'Google Maps'
-    Url: 'https://maps.app.goo.gl/A3EtmJAmsqYMkioD8'
-    IconName: 'googlemaps'
+  socialLinkOotstra:
+    Title: 'ootstra.org'
+    Url: 'https://otstra.org/'
+    IconName: 'conventionalcommits'
 SilverStripe\SiteConfig\SiteConfig:
   default:
     ID: 1
-    Title: "Test Website"
+    Title: "ootstra.org"
     DefaultHeroSize: 'medium'
     CookieLinkPrivacyID: 3
     legalName: 'kraftausdruck GmbH'
@@ -97,7 +97,7 @@ App\Models\Point:
     Latitude: 47.079
     Longitude: 8.155
     Title: 'Ruswil'
-    PointURL: 'https://maps.app.goo.gl/8yWfEK7J9p7TqP9F8'
+    PointURL: 'https://www.google.com/maps/place/kraftausdruck+GmbH/@47.0796033,8.1322331,1081m/data=!3m1!1e3!4m14!1m7!3m6!1s0x478fe0d4505fcc6d:0xeef2fd410f9fc44b!2skraftausdruck+GmbH!8m2!3d47.079384!4d8.132092!16s%2Fg%2F1hc0t_9bk!3m5!1s0x478fe0d4505fcc6d:0xeef2fd410f9fc44b!8m2!3d47.079384!4d8.132092!16s%2Fg%2F1hc0t_9bk'
 App\Models\Location:
   location1:
     Title: 'Kraftausdruck GmbH'

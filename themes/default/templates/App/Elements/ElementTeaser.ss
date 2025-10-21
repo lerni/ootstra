@@ -1,7 +1,9 @@
 <% require themedCSS("dist/css/cards") %>
+<% if $ShowTitle %><div class="typography<% if $isFullWidth %> inner<% end_if %>"><% end_if %>
+	<% include App/Includes/ElementTitle %>
+<% if $ShowTitle %></div><% end_if %>
 <div class="typography">
 	<% if $isFullWidth && $ShowTitle %><div class="inner"><% end_if %>
-		<% include App/Includes/ElementTitle %>
 	<% if $isFullWidth && $ShowTitle %></div><% end_if %>
 	<% if $Teasers %>
 		<% if $ShowAsSlider %>

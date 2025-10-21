@@ -2,7 +2,7 @@
 
 namespace App\Utility;
 
-use App\Model\ShortCodeSnippet;
+use App\Models\ShortCodeSnippet;
 
 class SnippetShortCodeProvider
 {

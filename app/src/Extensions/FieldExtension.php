@@ -155,7 +155,7 @@ class FieldExtension extends Extension
 
                 $queryStrings = $embedCFG->get('YTqueryStringsDefaults');
                 if (is_array($queryStrings)) {
-                    foreach ($queryStrings as $key => $value) {
+                    foreach ($queryStrings as $value) {
                         $params[key($value)] = $value[key($value)];
                     }
                     $queryString = http_build_query($params);

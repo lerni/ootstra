@@ -2,6 +2,9 @@
 	<% require themedCSS("dist/css/swiper") %>
 	<% require javascript("themes/default/dist/js/swiper.js") %>
 <% end_if %>
+<% if $ShowTitle %><div class="typography<% if $isFullWidth %> inner<% end_if %>"><% end_if %>
+	<% include App/Includes/ElementTitle %>
+<% if $ShowTitle %></div><% end_if %>
 <div class="typography">
 	<div class="inner">
 		<% if $Items %>

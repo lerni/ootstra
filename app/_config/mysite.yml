@@ -209,6 +209,10 @@ DNADesign\ElementalUserForms\Model\ElementForm:
   extensions:
     - App\Extensions\ElementUserFormsExtension
 
+DNADesign\Elemental\Forms\ElementalAreaConfig:
+  extensions:
+    - App\Extensions\ElementalAreaConfigExtension
+
 SilverStripe\UserForms\Model\UserDefinedForm:
   extensions:
     - App\Extensions\CannotCreateExtension

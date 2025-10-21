@@ -180,7 +180,11 @@ class ElementExtension extends Extension implements CMSPreviewable
         if ($this->owner->Title) {
             $description = $this->owner->Title;
         } else {
-            $description = $this->owner->getDescription();
+            if ($this->owner->hasMethod('getDescription')) {
+                $description = $this->owner->getDescription();
+            } else {
+                $description = $this->owner->config()->get('description') ?: $this->owner->getType();
+            }
         }
         $pageTitle = $this->owner->getPageTitle();
         return DBField::create_field(

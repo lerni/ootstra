@@ -17,17 +17,19 @@ class RedirectorPageExtension extends Extension
     {
 
         $fields->removeByName([
-            'Feed & Share'
+            'Feed & Share',
+            'Title',
+            'CanonicalURL',
+            'PageCategories',
+            'PinterestImageCustom'
         ]);
 
-        $fields->addFieldsToTab(
-            'Root.Main',
-            [
-                FieldGroup::create(
-                    _t('SilverStripe\CMS\Model\RedirectorPage.NEWWINDOW', 'target = "_blank"'),
-                    CheckboxField::create('NewWindow', _t('SilverStripe\CMS\Model\RedirectorPage.NewWindowLabel', 'Open URL in a new window'))
-                ),
-            ]
+        $fields->replaceField(
+            'NewWindow',
+            FieldGroup::create(
+                _t('SilverStripe\CMS\Model\RedirectorPage.NEWWINDOW', 'target = "_blank"'),
+                CheckboxField::create('NewWindow', _t('SilverStripe\CMS\Model\RedirectorPage.NewWindowLabel', 'Open URL in a new window'))
+            )
         );
     }
 }
