@@ -4,10 +4,9 @@ namespace App\Models;
 
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Control\Director;
+use SilverStripe\VendorPlugin\Util;
 use SilverStripe\Forms\DropdownField;
-use SilverStripe\Forms\RequiredFields;
-use SilverStripe\View\Parsers\URLSegmentFilter;
-use SilverStripe\Core\Manifest\ModuleResourceLoader;
+use SilverStripe\Forms\Validation\RequiredFieldsValidator;
 
 class SocialLink extends DataObject
 {
@@ -87,23 +86,54 @@ class SocialLink extends DataObject
     }
 
     public function getAvailableIconNames() {
-        $jsonFilePath = ModuleResourceLoader::resourcePath('vendor/simple-icons/simple-icons/_data/simple-icons.json');
         $base = Director::baseFolder();
-        $fullPath = $base . '/public/_resources/' . $jsonFilePath;
-        $jsonString = file_get_contents($fullPath);
-        $data = json_decode($jsonString, true);
-
         $result = [];
-        foreach($data['icons'] as $item) {
-            $titleSanitized = preg_replace( '/[^a-z0-9]+/', '', strtolower($item['title']) );
-            $result[$titleSanitized] = $item['title'];
+
+        // Load simple-icons
+        $simpleIconsPath = 'vendor/simple-icons/simple-icons/data/simple-icons.json';
+        $fullPath = Util::joinPaths($base, $simpleIconsPath);
+        if (file_exists($fullPath)) {
+            $jsonString = file_get_contents($fullPath);
+            $data = json_decode($jsonString, true);
+
+            foreach($data as $item) {
+                $titleSanitized = preg_replace( '/[^a-z0-9]+/', '', strtolower($item['title']) );
+                $result[$titleSanitized] = $item['title'];
+            }
         }
+
+        // Load additional icons
+        $additionalIconsPath = 'app/thirdparty/additional-icons/icons.json';
+        $additionalFullPath = Util::joinPaths($base, $additionalIconsPath);
+        if (file_exists($additionalFullPath)) {
+            $additionalJsonString = file_get_contents($additionalFullPath);
+            $additionalData = json_decode($additionalJsonString, true);
+
+            foreach($additionalData as $item) {
+                $titleSanitized = preg_replace( '/[^a-z0-9]+/', '', strtolower($item['title']) );
+                $result['custom_' . $titleSanitized] = $item['title'] . ' (Custom)';
+            }
+        }
+
         return $result;
+    }
+
+    public function getIconPath() {
+        $iconName = $this->IconName;
+
+        // Check if it's a custom icon (prefixed with 'custom_')
+        if (strpos($iconName, 'custom_') === 0) {
+            $cleanIconName = str_replace('custom_', '', $iconName);
+            return "/_resources/app/thirdparty/additional-icons/icons/{$cleanIconName}.svg";
+        } else {
+            // Default simple-icons path
+            return "/_resources/vendor/simple-icons/simple-icons/icons/{$iconName}.svg";
+        }
     }
 
     public function getCMSValidator()
     {
-        return new RequiredFields([
+        return RequiredFieldsValidator::create([
             'Title',
             'IconName'
         ]);

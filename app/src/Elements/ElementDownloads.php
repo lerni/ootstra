@@ -3,7 +3,9 @@
 namespace App\Elements;
 
 use SilverStripe\Assets\File;
+use SilverStripe\ORM\DataList;
 use SilverStripe\Assets\Folder;
+use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\HeaderField;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\View\Parsers\URLSegmentFilter;
@@ -41,7 +43,7 @@ class ElementDownloads extends BaseElement
 
     private static $table_name = 'ElementDownloads';
 
-    private static $description = 'Download Element';
+    private static $class_description = 'Download Element';
 
     private static $icon = 'font-icon-block-promo';
 
@@ -52,7 +54,7 @@ class ElementDownloads extends BaseElement
         return $labels;
     }
 
-    public function getCMSFields(): \SilverStripe\Forms\FieldList
+    public function getCMSFields(): FieldList
     {
         $fields = parent::getCMSFields();
 
@@ -96,7 +98,7 @@ class ElementDownloads extends BaseElement
         return $fields;
     }
 
-    public function Items(): \SilverStripe\ORM\DataList
+    public function Items(): DataList
     {
         if ($this->DownloadFolderID) {
             return File::get()->filter([

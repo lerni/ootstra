@@ -10,8 +10,9 @@ use SilverStripe\ORM\DataObject;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Forms\DropdownField;
-use SilverStripe\Forms\RequiredFields;
 use SilverStripe\SiteConfig\SiteConfig;
+use SilverStripe\Core\Validation\ValidationResult;
+use SilverStripe\Forms\Validation\RequiredFieldsValidator;
 
 class Location extends DataObject
 {
@@ -94,7 +95,8 @@ class Location extends DataObject
         $fields = parent::getCMSFields();
         $fields->removeByName([
             'Sort',
-            'SiteConfigID'
+            'SiteConfigID',
+            'Vacations'
         ]);
 
         $gmapDefaultConfig = Config::inst()->get(GoogleMapField::class, 'default_options');
@@ -148,13 +150,13 @@ class Location extends DataObject
 
     public function getCMSValidator()
     {
-        return new RequiredFields([
+        return RequiredFieldsValidator::create([
             'Title',
             'Town'
         ]);
     }
 
-    public function validate()
+    public function validate(): ValidationResult
     {
         $result = parent::validate();
 

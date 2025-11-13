@@ -1,6 +1,6 @@
-<%-- require themedCSS("dist/css/blog") - those sytes are (pre)loaded per BlogInitExtension, but with htmX we laod em anyway --%>
-<% require themedCSS("dist/css/blog") %>
+<%--  vite 'src/css/blog") - those sytes are (pre)loaded per BlogInitExtension, but with htmX we laod em anyway --%>
 <% include App/Includes/Header %>
+<% vite 'src/css/blog.css' %>
 <main>
 	<% if not $hasHero %>
 		<% include App/Includes/DefaultHero %>

@@ -24,18 +24,15 @@ class PdfThumbnailerExtension extends Extension
 
         // if a current-folder exists, we assume a symlinked baseFolder like with PHP deployer
         $base = Director::baseFolder();
-        $current = dirname(dirname($base)) . '/current';
-        if (is_dir($current)) {
-            $basePath = dirname(dirname($base)) . '/shared';
-        } else {
-            $basePath = $base;
-        }
+        $current = dirname($base, 2) . '/current';
 
-        $original_filename_relative  = $this->owner->getFilename();
+        $original_filename_relative  = $this->getOwner()->getFilename();
         $original_filename_absolute  = $base . '/public/assets/' . $original_filename_relative;
 
         // bail out if file doesn't exists
-        if (!file_exists($original_filename_absolute)) return false;
+        if (!file_exists($original_filename_absolute)) {
+            return false;
+        }
 
         $filename_relative = $original_filename_relative . '.page-' . (int)$page . '.jpg';
         // ghostscript cannot create directories!
@@ -53,8 +50,9 @@ class PdfThumbnailerExtension extends Extension
             shell_exec($command . ' 2>&1');
 
             // bail out if generated file doesn't exists
-            if (!file_exists($tmp_filename))
+            if (!file_exists($tmp_filename)) {
                 return false;
+            }
 
             $img = new Image();
             $img->setFromLocalFile($tmp_filename, $filename_relative);

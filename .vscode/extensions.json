@@ -1,5 +1,6 @@
 {
   "recommendations": [
+    "biomejs.biome",
     "adrian.silverstripe",
     "berublan.vscode-log-viewer",
     "bmewburn.vscode-intelephense-client",
@@ -9,5 +10,9 @@
     "ms-vscode.js-debug",
     "mehedidracula.php-namespace-resolver",
     "xdebug.php-debug"
+  ],
+  "unwantedRecommendations": [
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint"
   ]
 }

@@ -1,6 +1,4 @@
-<% require themedCSS("dist/css/instafeed") %>
-<% require themedCSS("dist/css/swiper") %>
-<% require javascript("themes/default/dist/js/swiper.js") %>
+<% vite 'src/css/instafeed.css', 'src/css/swiper.css', 'src/js/swiper.js' %>
 <%-- $InstagramFeed.Profile.username --%>
 <% if $isFullWidth && $ShowTitle %><div class="typography inner"><% end_if %>
 	<% include App/Includes/ElementTitle %>
@@ -28,7 +26,7 @@
 								<% end_if %>
 								<figcaption>
 									{$Up.caption}
-									<span data-feather="instagram"></span>
+									<span data-icon="instagram"></span>
 								</figcaption>
 							</figure>
 						</a>
@@ -49,7 +47,7 @@
 						<% else_if $media_type == "IMAGE" %>
 							<img loading="lazy" src="$media_url" alt="$caption" />
 						<% end_if %>
-						<figcaption>{$caption}<span data-feather="instagram"></span></figcaption>
+						<figcaption>{$caption}<span data-icon="instagram"></span></figcaption>
 					</figure>
 				</a>
 			<% end_loop %>

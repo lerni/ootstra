@@ -1,4 +1,4 @@
-<% require themedCSS("dist/css/footer") %>
+<% vite 'src/css/footer.css' %>
 <footer>
 	<div class="inner">
 		<div class="column coord">

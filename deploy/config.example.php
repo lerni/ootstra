@@ -16,7 +16,7 @@ define('DEP_SERVER_PORT', 22);
 define('DEP_WEBDIR', 'public_html');
 
 // PHP Version/Path
-define('DEP_PHP_PATH', '/usr/local/bin/php83');
+define('DEP_PHP_PATH', '/usr/local/bin/php84');
 
 // Remote composer path
 define('DEP_COMPOSER_PATH', '~/bin/composer.phar');

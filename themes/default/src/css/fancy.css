@@ -1,0 +1,13 @@
+@import "./custom-media.css";
+@import "./mixins.css";
+
+@import "../../node_modules/@fancyapps/ui/dist/fancybox/fancybox.css";
+
+.fancybox__container {
+	--fancybox-zIndex: 9001;
+}
+
+.is-compact .fancybox__footer .fancybox__caption,
+.fancybox__slide {
+	padding: var(--spacing);
+}

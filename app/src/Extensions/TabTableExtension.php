@@ -9,7 +9,7 @@ class TabTableExtension extends Extension
 {
     public function Table()
     {
-        $stringwithnoemptylines = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $this->owner->value);
+        $stringwithnoemptylines = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $this->getOwner()->value);
         if (empty($stringwithnoemptylines)) {
             return false;
         }

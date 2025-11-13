@@ -1,0 +1,40 @@
+:root {
+  /* Typography */
+  --font-family: "Figtree", sans-serif;
+  --font-weight--light: 300;
+  --font-weight--normal: 400;
+  --font-weight--bold: 600;
+  --font-size: 20px;
+  --font-size--small: 0.88em;
+  --line-height: 1.41;
+  --lh: var(--line-height);
+
+  /* Colors - OKLCH format with built-in alpha support */
+  --blue: oklch(0.27 0.15 260);      /* rgb(26, 41, 90) */
+  --red: oklch(0.55 0.22 15);        /* rgb(225, 40, 92) */
+  --gold: oklch(0.75 0.15 85);       /* rgb(227, 168, 9) */
+  --gray: oklch(0.45 0.00 0);        /* rgb(80, 80, 80) */
+  --gray--light: oklch(0.92 0.00 0); /* rgb(232, 232, 232) */
+  --gray--lighter: oklch(0.97 0.00 0); /* rgb(246, 246, 246) */
+  --white: oklch(1.00 0.00 0);       /* rgb(255, 255, 255) */
+  --black: oklch(0.25 0.00 0);       /* rgb(39, 39, 39) */
+
+  /* Semantic colors */
+  --link-color: var(--red);
+  --text-color: var(--black);
+  --badcolor: var(--gold);
+  --current-color: color-mix(in oklch, var(--red) 92%, black 8%); /* darken red by 8% */
+
+  /* Layout dimensions */
+  --headerheight: 160px; /* watch-out headroom.js */
+  --headerheight--small: 100px;
+  --headerheight--smaller: 100px;
+
+  /* Container widths */
+  --inner-width: 1280px;
+  --inner-width--reduced: 940px;
+  --inner-width--extended: 1480px;
+
+  /* Spacing */
+  --spacing: clamp(calc(var(--line-height) * 0.5em), 3vw, calc(var(--line-height) * 1em));
+}

@@ -19,7 +19,8 @@ class ElementLogo extends BaseElement
 {
     private static $db = [
         'Greyscale' => 'Boolean',
-        'Sorting' => 'Enum("random,manual","random")'
+        'Sorting' => 'Enum("random,manual","random")',
+        'Layout' => 'Enum("block,slider", "block")'
     ];
 
     private static $has_one = [];
@@ -40,13 +41,13 @@ class ElementLogo extends BaseElement
 
     private static $table_name = 'ElementLogo';
 
-    private static $description = 'Logo Element';
+    private static $class_description = 'Logo Element';
 
     private static $field_labels = [];
 
     private static $icon = 'font-icon-block-layout-2';
 
-    function getCMSFields()
+    public function getCMSFields()
     {
         $fields = parent::getCMSFields();
 

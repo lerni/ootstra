@@ -1,0 +1,27 @@
+/* Custom Media Queries - PostCSS Custom Media */
+/* Based on SCSS breakpoint variables and SASS breakpoint behavior */
+
+/* Single breakpoint queries (min-width) - equivalent to @include breakpoint($variable) */
+@custom-media --cm-xs-plus (min-width: 320px);   /* $XSplus */
+@custom-media --cm-s-plus (min-width: 480px);    /* $Splus */
+@custom-media --cm-m-plus (min-width: 640px);    /* $Mplus */
+@custom-media --cm-l-plus (min-width: 980px);    /* $Lplus */
+@custom-media --cm-xl-plus (min-width: 1280px);  /* $XLplus */
+@custom-media --cm-xxl-plus (min-width: 1600px); /* $XXLplus */
+
+/* Negative breakpoint queries (max-width) - equivalent to @include breakpoint($variableneg) */
+@custom-media --cm-xs-neg (max-width: 319px);    /* $XSneg: (0 $XS - 1) */
+@custom-media --cm-s-neg (max-width: 479px);     /* $Sneg: (0 $S - 1) */
+@custom-media --cm-m-neg (max-width: 639px);     /* $Mneg: (0 $M - 1) */
+@custom-media --cm-l-neg (max-width: 979px);     /* $Lneg: (0 $L - 1) */
+@custom-media --cm-xl-neg (max-width: 1279px);   /* $XLneg: (0 $XL - 1) */
+@custom-media --cm-xxl-neg (max-width: 1599px);  /* $XXLneg: (0 $XXL - 1) */
+
+/* Range queries (min-width and max-width) - equivalent to @include breakpoint($min $max) */
+@custom-media --cm-xs-only (min-width: 320px) and (max-width: 479px);    /* XS to S-1 */
+@custom-media --cm-s-only (min-width: 480px) and (max-width: 639px);     /* S to M-1 */
+@custom-media --cm-m-only (min-width: 640px) and (max-width: 979px);     /* M to L-1 */
+@custom-media --cm-l-only (min-width: 980px) and (max-width: 1279px);    /* L to XL-1 */
+@custom-media --cm-xl-only (min-width: 1280px) and (max-width: 1599px);  /* XL to XXL-1 */
+
+@custom-media --cm-l-to-xl (min-width: 980px) and (max-width: 1279px);   /* $L $XL equivalent */

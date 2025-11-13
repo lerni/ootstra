@@ -5,7 +5,8 @@ namespace App\Models;
 use SilverStripe\ORM\DataObject;
 use App\Models\TestimonialCategory;
 use SilverStripe\TagField\TagField;
-use SilverStripe\Forms\RequiredFields;
+use SilverStripe\Core\Validation\ValidationResult;
+use SilverStripe\Forms\Validation\RequiredFieldsValidator;
 
 class Testimonial extends DataObject
 {
@@ -83,13 +84,13 @@ class Testimonial extends DataObject
 
     public function getCMSValidator()
     {
-        return new RequiredFields([
+        return new RequiredFieldsValidator([
             'Title'
         ]);
     }
 
 
-    public function validate()
+    public function validate(): ValidationResult
     {
         $result = parent::validate();
 

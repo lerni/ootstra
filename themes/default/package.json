@@ -1,39 +1,36 @@
 {
   "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
-    "development": "mix",
-    "watch": "mix watch",
-    "watch-poll": "mix watch -- --watch-options-poll=1000",
-    "hot": "mix watch --hot",
-    "production": "mix --production"
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "ddev exec -d /var/www/html/themes/default npx biome check src/",
+    "lint:fix": "ddev exec -d /var/www/html/themes/default npx biome check --write src/",
+    "format": "ddev exec -d /var/www/html/themes/default npx biome format --write src/"
   },
   "devDependencies": {
-    "breakpoint-sass": "^2.7.1",
-    "browser-sync": "^2.29.3",
-    "browser-sync-webpack-plugin": "^2.3.0",
-    "clean-webpack-plugin": "^4.0.0",
-    "copy-webpack-plugin": "^11.0.0",
-    "cross-env": "^7.0.3",
-    "glob-import-loader": "^1.2.0",
-    "import-glob-loader": "^1.1.0",
-    "laravel-mix": "^6.0.49",
-    "mqpacker": "^7.0.0",
-    "nano-css": "^5.3.1",
-    "node-sass-glob-importer": "^5.3.2",
+    "@biomejs/biome": "^2.2.5",
+    "autoprefixer": "^10.4.21",
+    "cssnano": "^7.1.1",
+    "laravel-vite-plugin": "^2.0.1",
+    "postcss": "^8.5.6",
+    "postcss-custom-media": "^11.0.6",
     "postcss-inline-svg": "^6.0.0",
-    "resolve-url-loader": "^5.0.0",
-    "sass": "^1.69.5",
-    "sass-loader": "^13.3.2",
-    "style-loader": "^3.3.3",
-    "svg-spritemap-webpack-plugin": "^4.5.0",
-    "svgo": "^4.0.0",
-    "svgo-loader": "^4.0.0",
-    "webpack-dev-server": "^4.15.1"
+    "postcss-mixins": "^12.1.2",
+    "postcss-nesting": "^13.0.2",
+    "sass": "^1.89.2",
+    "svgo": "^3.3.2",
+    "vite": "^7.1.7",
+    "vite-plugin-image-optimizer": "^1.1.9"
   },
   "browserslist": [
     "defaults"
   ],
   "dependencies": {
+    "@egjs/infinitegrid": "4.10.0",
     "@fancyapps/ui": "^5.0.17",
     "@micropackage/responsive-embeds": "^1.0.3",
     "countup.js": "^2.3.2",

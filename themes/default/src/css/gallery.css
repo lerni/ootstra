@@ -1,0 +1,85 @@
+@import "./custom-media.css";
+@import "./mixins.css";
+
+.element.elementgallery {
+	ul.gallery {
+		list-style: none;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: calc(var(--lh) * 1em);
+		padding: calc(var(--lh) * 1em) 0 0 0;
+		margin: 0;
+		@media (--cm-m-neg) {
+			gap: calc(var(--lh) / 2 * 1em);
+			grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+		}
+		&.left {
+			justify-content: start;
+		}
+		&.center {
+			justify-content: center;
+		}
+		&.right {
+			justify-content: end;
+		}
+		li {
+			padding: 0;
+			margin: 0;
+			a {
+				display: flex;
+				img {
+					margin: 0;
+					width: 100%;
+					height: auto;
+					&:hover {
+						opacity: 0.9;
+					}
+				}
+			}
+		}
+	}
+	ul.gallery.flex {
+		display: flex;
+		flex-wrap: wrap;
+		li {
+			flex: 0 0 auto;
+			a {
+				display: flex;
+				width: 100%;
+				img {
+					width: 100%;
+					@media (--cm-m-neg) {
+						max-width: 125px;
+					}
+				}
+			}
+		}
+	}
+	.swiper-container.multiple {
+		@media (--cm-xl-neg) {
+			overflow-x: hidden;
+		}
+		.swiper-wrapper {
+			.swiper-slide {
+				width: auto;
+				height: 500px;
+				@media (--cm-l-neg) {
+					height: 400px;
+				}
+				@media (--cm-m-neg) {
+					height: 240px;
+				}
+				img {
+					display: table;
+					height: 100%;
+					width: auto;
+					margin-bottom: 0;
+				}
+			}
+		}
+	}
+}
+
+body.compensate-for-scrollbar {
+	overflow-y: initial;
+}

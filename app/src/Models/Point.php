@@ -6,8 +6,8 @@ use BetterBrief\GoogleMapField;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Core\Environment;
 use SilverStripe\Core\Config\Config;
-use SilverStripe\Forms\RequiredFields;
 use SilverStripe\ORM\FieldType\DBHTMLText;
+use SilverStripe\Forms\Validation\RequiredFieldsValidator;
 
 class Point extends DataObject
 {
@@ -95,7 +95,7 @@ class Point extends DataObject
 
     public function getCMSValidator()
     {
-        return new RequiredFields([
+        return RequiredFieldsValidator::create([
             'Title'
         ]);
     }

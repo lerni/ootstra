@@ -6,8 +6,8 @@ use SilverStripe\Core\Extension;
 
 class EditableFormFieldExtension extends Extension
 {
-    public function populateDefaults()
+    public function onAfterPopulateDefaults()
     {
-        $this->owner->ExtraClass = 'half-width';
+        $this->getOwner()->ExtraClass = 'half-width';
     }
 }

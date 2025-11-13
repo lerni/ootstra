@@ -1,0 +1,204 @@
+@import "./custom-media.css";
+@import "./mixins.css";
+
+body.blogpost,
+body.blog {
+	.element.blog-post-meta p {
+		margin-bottom: 0;
+		padding-bottom: calc(var(--lh) * 1em);
+	}
+	.posts {
+		display: flex;
+		flex-wrap: wrap;
+		padding-bottom: calc(var(--lh) * 1em);
+		gap: calc(var(--lh) * 2 * 1em);
+		&::after {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			content: "";
+			z-index: 99;
+			background-color: var(--white);
+			opacity: 0;
+			pointer-events: none;
+		}
+		&:has(.loader.htmx-request) {
+			.post-summary {
+				filter: grayscale(80%);
+			}
+			&::after {
+				opacity: .3;
+			}
+		}
+	}
+	.post-summary {
+		flex: 0 0 calc(33.33333% - calc(var(--lh) * 4 / 3 * 1em));
+		display: flex;
+		flex-direction: column;
+		color: var(--text-color);
+		transition: filter linear .3s;
+		filter: grayscale(0%);
+		@media (--cm-l-neg) {
+			flex: 0 0 calc(50% - calc(var(--lh) * 2 / 2 * 1em));
+		}
+		@media (--cm-m-neg) {
+			flex: 0 0 100%;
+		}
+		&:visited,
+		&:hover {
+			color: inherit;
+		}
+		&:hover {
+			.link.forth::after {
+				width: 2em;
+				margin-right: 0;
+			}
+		}
+		figure {
+			flex: 0 0 auto;
+			margin: 0;
+			display: flex;
+			width: 100%;
+			img {
+				width: 100%;
+				height: auto;
+				margin-bottom: 0;
+			}
+		}
+		.txt {
+			margin: calc(var(--lh) / 2 * 1em) auto calc(var(--lh) * 2 * 1em);
+			max-width: 700px;
+			h2,
+			h3 {
+				font-size: 1em;
+				margin: 0 0 calc(var(--lh) / 2 * 1em) 0;
+			}
+			p {
+				margin: calc(var(--lh) / 2 * 1em) 0;
+				&.pre {
+					font-size: var(--font-size--small);
+					margin: 0;
+				}
+			}
+		}
+		&:focus {
+			outline: none;
+		}
+		&:focus-visible {
+			outline: 2px solid var(--link-color);
+		}
+	}
+	.prev-all-next {
+		display: grid;
+		grid-template-columns: 1fr calc(var(--lh) * 3 * 1em) 1fr;
+		grid-gap: calc(var(--lh) * 1em);
+		align-items: center;
+		margin: calc(var(--lh) * 2 * 1em) auto calc(var(--lh) * 2 * 1em);
+		@media (--cm-l-neg) {
+			grid-template-columns: 1fr;
+		}
+		> a {
+			color: var(--text-color);
+		}
+		.prev,
+		.next {
+			height: calc(var(--lh) * 3 * 1em);
+			margin: 0 auto;
+			display: flex;
+			width: 100%;
+			background-color: var(--gray--lighter);
+			/* min-width: 300px; */
+			> img {
+				width: calc(var(--lh) * 3 * 1em);
+				height: calc(var(--lh) * 3 * 1em);
+				flex: 0 0 calc(var(--lh) * 3 * 1em);
+				overflow: hidden;
+			}
+			span {
+				margin: auto 0;
+				flex: 1 1 auto;
+				&::before,
+				&::after {
+					will-change: background-position;
+					transition: background-position;
+					transition-duration: 0.12s;
+				}
+			}
+		}
+		.prev {
+			margin-left: 0;
+			padding-right: 1em;
+			grid-column: 1 / 1;
+			span::before {
+				content: "";
+				width: calc(var(--lh) * 1em);
+				height: 1em;
+				display: inline-block;
+				background-size: auto 80%;
+				background-repeat: no-repeat;
+				color: var(--text-color);
+				background-image: svg-load(
+					"forth.svg",
+					fill=currentColor
+				);
+				background-position: bottom 100% right 50%;
+				transform: rotate(180deg);
+			}
+			> img {
+				margin-right: 1em;
+			}
+			&:hover {
+				span::before {
+					background-position: bottom 100% right 0%;
+				}
+			}
+		}
+		.next {
+			margin-right: 0;
+			padding-left: 1em;
+			@media (--cm-l-plus) {
+				grid-column: 3 / 4;
+			}
+			span::after {
+				content: "";
+				width: calc(var(--lh) * 1em);
+				height: 1em;
+				display: inline-block;
+				background-size: auto 80%;
+				background-repeat: no-repeat;
+				color: var(--text-color);
+				background-image: svg-load(
+					"forth.svg",
+					fill=currentColor
+				);
+				background-position: top 100% right 50%;
+			}
+			> img {
+				margin-left: 1em;
+			}
+			&:hover {
+				span::after {
+					background-position: top 100% right 0%;
+				}
+			}
+		}
+		/* if empty - first & last element */
+		span.prev,
+		span.next {
+			background-color: transparent;
+		}
+		.all-posts {
+			margin: auto;
+			display: block;
+			width: calc(var(--lh) * 2.4 * 1em);
+			height: calc(var(--lh) * 2.4 * 1em);
+			background-image: svg-load(
+				"grid.svg",
+				fill=var(--gray--light)
+			);
+			background-size: 100% auto;
+		}
+	}
+}

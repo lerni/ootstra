@@ -6,13 +6,13 @@ use SilverStripe\Assets\Image;
 use App\Elements\ElementTeaser;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\CMS\Model\SiteTree;
-use SilverStripe\Forms\RequiredFields;
 use SilverStripe\Forms\TreeDropdownField;
 use SilverStripe\Versioned\GridFieldArchiveAction;
 use SilverStripe\Forms\GridField\GridFieldDataColumns;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
 use SilverStripe\Forms\GridField\GridFieldSortableHeader;
+use SilverStripe\Forms\Validation\RequiredFieldsValidator;
 use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
 class Teaser extends DataObject
@@ -115,7 +115,7 @@ class Teaser extends DataObject
 
     public function getCMSValidator()
     {
-        return new RequiredFields([
+        return RequiredFieldsValidator::create([
             'Title'
         ]);
     }

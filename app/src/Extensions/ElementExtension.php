@@ -6,16 +6,15 @@ use App\Elements\ElementHero;
 use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\FieldGroup;
-use SilverStripe\ORM\CMSPreviewable;
-use SilverStripe\Forms\RequiredFields;
 use SilverStripe\ORM\FieldType\DBField;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\View\Parsers\URLSegmentFilter;
 use Heyday\ColorPalette\Fields\ColorPaletteField;
 use DNADesign\ElementalVirtual\Model\ElementVirtual;
 use DNADesign\Elemental\Forms\TextCheckboxGroupField;
+use SilverStripe\Forms\Validation\RequiredFieldsValidator;
 
-class ElementExtension extends Extension implements CMSPreviewable
+class ElementExtension extends Extension
 {
     private static $db = [
         'isFullWidth' => 'Boolean',
@@ -78,16 +77,14 @@ class ElementExtension extends Extension implements CMSPreviewable
             $fields->fieldByName('Root.Main')->unshift($TitleFieldGroup);
         }
 
-        if ($ElementAnchorLinkField = $fields->dataFieldByName('AnchorLink')) {
-            if ($this->owner->Parent()->getOwnerPage()) {
-                if ($desc = $this->owner->ElementAnchor()) {
-                    $anchorlink = $this->owner->Parent()->getOwnerPage()->AbsoluteLink() . '#' . $desc;
-                    $ElementAnchorLinkField->setDescription($anchorlink);
-                } else {
-                    $ElementAnchorLinkField->setDescription(_t('DNADesign\Elemental\Models\BaseElement.AnchorLinkDescription', 'No valid anchor'));
-                }
-                $fields->addFieldToTab('Root.Settings', $ElementAnchorLinkField);
+        if (($ElementAnchorLinkField = $fields->dataFieldByName('AnchorLink')) && $this->getOwner()->Parent()->getOwnerPage()) {
+            if ($desc = $this->getOwner()->ElementAnchor()) {
+                $anchorlink = $this->getOwner()->Parent()->getOwnerPage()->AbsoluteLink() . '#' . $desc;
+                $ElementAnchorLinkField->setDescription($anchorlink);
+            } else {
+                $ElementAnchorLinkField->setDescription(_t('DNADesign\Elemental\Models\BaseElement.AnchorLinkDescription', 'No valid anchor'));
             }
+            $fields->addFieldToTab('Root.Settings', $ElementAnchorLinkField);
         }
 
         $fields->addFieldToTab(
@@ -107,42 +104,46 @@ class ElementExtension extends Extension implements CMSPreviewable
     // second element after ElementHero
     public function AfterHero()
     {
-        if ($this->owner->isInDB() && $firstTwo = BaseElement::get()->filter(['ParentID' => $this->owner->ParentID])->sort('Sort ASC')->limit(2)) {
+        if ($this->getOwner()->isInDB() && $firstTwo = BaseElement::get()->filter(['ParentID' => $this->getOwner()->ParentID])->sort('Sort ASC')->limit(2)) {
             if ($firstTwo->first()->ClassName == ElementHero::class) {
-                if ($firstTwo->count() == 2 && $firstTwo->last()->ID == $this->owner->ID) {
+                if ($firstTwo->count() == 2 && $firstTwo->last()->ID == $this->getOwner()->ID) {
                     return true;
                 }
-            } elseif ($firstTwo->first()->ID == $this->owner->ID && $this->owner->getPage()->PreventHero == 0) {
+            } elseif ($firstTwo->first()->ID == $this->getOwner()->ID && $this->getOwner()->getPage()->PreventHero == 0) {
                 // we assume default Hero
                 return true;
             }
         }
+        return null;
     }
 
     public function IsHero()
     {
-        if ($first = BaseElement::get()->filter(['ParentID' => $this->owner->ParentID])->sort('Sort ASC')->first()) {
-            if ($first->ClassName == ElementHero::class) {
-                if ($first->ID == $this->owner->ID) {
-                    return true;
-                }
-            }
+        if (!$first = BaseElement::get()->filter(['ParentID' => $this->getOwner()->ParentID])->sort('Sort ASC')->first()) {
+            return null;
         }
+        if ($first->ClassName != ElementHero::class) {
+            return null;
+        }
+        if ($first->ID == $this->getOwner()->ID) {
+            return true;
+        }
+        return null;
     }
 
     public function ElementAnchor()
     {
         $filter = new URLSegmentFilter();
-        $StringTitle = $this->owner->TitleOrAnchor();
+        $StringTitle = $this->getOwner()->TitleOrAnchor();
         $AnchorCandidate = $filter->filter($StringTitle);
-        $Sibelings = $this->owner->Parent()->Elements()->exclude('ID', $this->owner->ID);
+        $Sibelings = $this->getOwner()->Parent()->Elements()->exclude('ID', $this->getOwner()->ID);
 
         $STitles = [];
         foreach ($Sibelings as $s) {
-            array_push($STitles, $s->TitleOrAnchor());
+            $STitles[] = $s->TitleOrAnchor();
         }
         if (in_array($StringTitle, $STitles) && $AnchorCandidate != '') {
-            return $AnchorCandidate . '-' . $this->owner->ID;
+            return $AnchorCandidate . '-' . $this->getOwner()->ID;
         }
         return $AnchorCandidate;
     }
@@ -151,25 +152,21 @@ class ElementExtension extends Extension implements CMSPreviewable
     {
         $TitleOrAnchor = '';
         // set $TitleOrAnchor if there is AnchorLink
-        if ($this->owner->ClassName == ElementVirtual::class) {
-            if (isset($this->owner->LinkedElement()->AnchorLink)) {
-                $TitleOrAnchor = $this->owner->LinkedElement()->AnchorLink;
+        if ($this->getOwner()->ClassName == ElementVirtual::class) {
+            if (isset($this->getOwner()->LinkedElement()->AnchorLink)) {
+                $TitleOrAnchor = $this->getOwner()->LinkedElement()->AnchorLink;
             }
-        } else {
-            if ($this->owner->AnchorLink && isset($this->owner->AnchorLink)) {
-                $TitleOrAnchor = $this->owner->AnchorLink;
-            }
+        } elseif ($this->getOwner()->AnchorLink && isset($this->getOwner()->AnchorLink)) {
+            $TitleOrAnchor = $this->getOwner()->AnchorLink;
         }
         // or use just Title if above fails
         if (!$TitleOrAnchor) {
-            if ($this->owner->ClassName == ElementVirtual::class) {
-                if (isset($this->owner->LinkedElement()->Title)) {
-                    $TitleOrAnchor = $this->owner->LinkedElement()->Title;
+            if ($this->getOwner()->ClassName == ElementVirtual::class) {
+                if (isset($this->getOwner()->LinkedElement()->Title)) {
+                    $TitleOrAnchor = $this->getOwner()->LinkedElement()->Title;
                 }
-            } else {
-                if ($this->owner->Title && isset($this->owner->Title)) {
-                    $TitleOrAnchor = $this->owner->Title;
-                }
+            } elseif ($this->getOwner()->Title && isset($this->getOwner()->Title)) {
+                $TitleOrAnchor = $this->getOwner()->Title;
             }
         }
         return $TitleOrAnchor;
@@ -177,16 +174,14 @@ class ElementExtension extends Extension implements CMSPreviewable
 
     public function getTypeBreadcrumb()
     {
-        if ($this->owner->Title) {
-            $description = $this->owner->Title;
+        if ($this->getOwner()->Title) {
+            $description = $this->getOwner()->Title;
+        } elseif ($this->getOwner()->hasMethod('getDescription')) {
+            $description = $this->getOwner()->getDescription();
         } else {
-            if ($this->owner->hasMethod('getDescription')) {
-                $description = $this->owner->getDescription();
-            } else {
-                $description = $this->owner->config()->get('description') ?: $this->owner->getType();
-            }
+            $description = $this->getOwner()->config()->get('description') ?: $this->getOwner()->getType();
         }
-        $pageTitle = $this->owner->getPageTitle();
+        $pageTitle = $this->getOwner()->getPageTitle();
         return DBField::create_field(
             'HTMLVarchar',
             $pageTitle . ' → ' . $description
@@ -195,69 +190,53 @@ class ElementExtension extends Extension implements CMSPreviewable
 
     public function updateLink(string &$link)
     {
-        if ($this->owner->ElementAnchor() && $link) {
+        if ($this->getOwner()->ElementAnchor() && $link) {
             $paresedLink = parse_url($link);
-            $paresedLink['fragment'] = $this->owner->ElementAnchor();
+            $paresedLink['fragment'] = $this->getOwner()->ElementAnchor();
             $link = $this->unparse_url($paresedLink);
         }
     }
 
-    function unparse_url($parsed_url)
+    public function unparse_url($parsed_url)
     {
         $scheme   = isset($parsed_url['scheme']) ? $parsed_url['scheme'] . '://' : '';
-        $host     = isset($parsed_url['host']) ? $parsed_url['host'] : '';
+        $host     = $parsed_url['host'] ?? '';
         $port     = isset($parsed_url['port']) ? ':' . $parsed_url['port'] : '';
-        $user     = isset($parsed_url['user']) ? $parsed_url['user'] : '';
+        $user     = $parsed_url['user'] ?? '';
         $pass     = isset($parsed_url['pass']) ? ':' . $parsed_url['pass']  : '';
-        $pass     = ($user || $pass) ? "$pass@" : '';
-        $path     = isset($parsed_url['path']) ? $parsed_url['path'] : '';
+        $pass     = ($user || $pass) ? $pass . '@' : '';
+        $path     = $parsed_url['path'] ?? '';
         $query    = isset($parsed_url['query']) ? '?' . $parsed_url['query'] : '';
         $fragment = isset($parsed_url['fragment']) ? '#' . $parsed_url['fragment'] : '';
 
-        return "$scheme$user$pass$host$port$path$query$fragment";
+        return $scheme . $user . $pass . $host . $port . $path . $query . $fragment;
     }
 
     public function updateAnchorsInContent(array &$anchors)
     {
-        if ($this->owner->ElementAnchor()) {
-            $anchors = array_diff($anchors, ['e' . $this->owner->ID]);
-            array_push($anchors, $this->owner->ElementAnchor());
+        if ($this->getOwner()->ElementAnchor()) {
+            $anchors = array_diff($anchors, ['e' . $this->getOwner()->ID]);
+            $anchors[] = $this->getOwner()->ElementAnchor();
         }
-        if ($this->owner->hasMethod('ContentParts') && $this->owner->ContentParts()->count()) {
-            foreach ($this->owner->ContentParts() as $part) {
+        if ($this->getOwner()->hasMethod('ContentParts') && $this->getOwner()->ContentParts()->count()) {
+            foreach ($this->getOwner()->ContentParts() as $part) {
                 $filter = new URLSegmentFilter();
-                array_push($anchors, $filter->filter($part->Title));
+                $anchors[] = $filter->filter($part->Title);
             }
         }
-        if ($this->owner->hasMethod('Everybody') && $this->owner->Everybody()->count()) {
-            foreach ($this->owner->Everybody() as $perso) {
+        if ($this->getOwner()->hasMethod('Everybody') && $this->getOwner()->Everybody()->count()) {
+            foreach ($this->getOwner()->Everybody() as $perso) {
                 $filter = new URLSegmentFilter();
-                array_push($anchors, $filter->filter($perso->Anchor()));
+                $anchors[] = $filter->filter($perso->Anchor());
             }
         }
     }
 
     public function getCMSValidator()
     {
-        return new RequiredFields([
+        return RequiredFieldsValidator::create([
             'Title'
         ]);
-    }
-
-    public function Link($action = null) {
-        return $this->owner->Link();
-    }
-
-    public function CMSEditLink() {
-        return $this->owner->CMSEditLink();
-    }
-
-    public function PreviewLink($action = null) {
-        return $this->owner->PreviewLink();
-    }
-
-    public function getMimeType() {
-        return $this->owner->getMimeType();
     }
 
     public function updatePreviewLink(&$link) {
@@ -271,14 +250,23 @@ class ElementExtension extends Extension implements CMSPreviewable
         }
     }
 
-    public function CurrentStage()
-    {
-        if ($this->owner->isPublished() && !$this->owner->isModifiedOnDraft()) {
-            return 'published';
-        } elseif ($this->owner->isPublished() && $this->owner->isModifiedOnDraft()) {
-            return 'modified';
-        } else {
-            return 'draft';
+    public function NextElement() {
+        if (!$this->getOwner()->isInDB()) {
+            return null;
         }
+
+        // Get all elements in the same ElementalArea, ordered by Sort
+        $elements = BaseElement::get()
+            ->filter(['ParentID' => $this->getOwner()->ParentID])
+            ->sort('Sort ASC');
+
+        $currentSort = $this->getOwner()->Sort;
+
+        // Find the next element with a higher Sort value
+        $nextElement = $elements
+            ->filter(['Sort:GreaterThan' => $currentSort])
+            ->first();
+
+        return $nextElement;
     }
 }

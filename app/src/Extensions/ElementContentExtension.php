@@ -35,8 +35,8 @@ class ElementContentExtension extends Extension
 
         if ($TextEditor = $fields->dataFieldByName('HTML')) {
             $TextEditor->setRows(30);
-            $width_reduced = $this->owner->WidthReduced ? ' width-reduced' : '';
-            $TextEditor->getEditorConfig()->setOption('body_class', 'typography '. $this->owner->ShortClassName($this->owner, true) . ' background--' . $this->owner->BackgroundColor . $width_reduced);
+            $width_reduced = $this->getOwner()->WidthReduced ? ' width-reduced' : '';
+            $TextEditor->getEditorConfig()->setOption('body_class', 'typography '. $this->getOwner()->ShortClassName($this->getOwner(), true) . ' background--' . $this->getOwner()->BackgroundColor . $width_reduced);
         }
     }
 }

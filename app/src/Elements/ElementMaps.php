@@ -51,7 +51,7 @@ class ElementMaps extends BaseElement
 
     private static $title = 'Map';
 
-    private static $description = 'Google Map';
+    private static $class_description = 'Google Map';
 
     private static $singular_name = 'Map';
 

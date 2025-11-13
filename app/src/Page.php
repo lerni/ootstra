@@ -1,7 +1,6 @@
 <?php
 
 use App\Elements\ElementHero;
-use SilverStripe\ORM\ArrayList;
 use App\Elements\ElementGallery;
 use SilverStripe\Blog\Model\Blog;
 use SilverStripe\Forms\FieldList;
@@ -13,7 +12,9 @@ use Kraftausdruck\Models\JobPosting;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Control\Controller;
 use SilverStripe\Blog\Model\BlogPost;
+use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Security\Permission;
+use SilverStripe\Model\List\ArrayList;
 use SilverStripe\CMS\Model\VirtualPage;
 use TractorCow\Fluent\State\FluentState;
 use SilverStripe\Blog\Model\BlogCategory;
@@ -25,6 +26,10 @@ use DNADesign\Elemental\Extensions\ElementalPageExtension;
 
 class Page extends SiteTree
 {
+
+    private static $db = [
+        'HideSubNavi' => 'Boolean'
+    ];
 
     private static $has_one = [];
 
@@ -40,7 +45,10 @@ class Page extends SiteTree
     public function getCMSFields()
     {
         $this->beforeUpdateCMSFields(function (FieldList $fields): void {
-            $fields->removeByName(['ExtraMeta']);
+            $fields->removeByName([
+                'ExtraMeta',
+                'HideSubNavi'
+            ]);
 
             if (!Permission::check('ADMIN') && $this->isHomePage()) {
                 $fields->removeByName(['URLSegment']);
@@ -62,12 +70,10 @@ class Page extends SiteTree
                 $MetaTitleField->setRightTitle(_t('\Page.MetaTitleRightTitle', 'Used as a title in the browser and for search engine results. Important for SEO!'));
             }
 
-            if ($MetaDescriptionField = $MetaToggle->fieldByName('MetaDescription')) {
-                if (!$MetaDescriptionField->isReadonly()) {
-                    $MetaDescriptionField->setTargetLength(150, 100, 160);
-                    $MetaDescriptionField->setAttribute('placeholder', $this->DefaultMetaDescription());
-                    $MetaDescriptionField->setRightTitle(_t('\Page.MetaDescriptionRightTitle', 'Used in search engine results when length fits and relevance is given; hardly affects SEO position. Appealing meta-descriptions (especially the first ~ 55 characters -> sitelinks) have a strong influence on the click rate.'));
-                }
+            if (($MetaDescriptionField = $MetaToggle->fieldByName('MetaDescription')) && !$MetaDescriptionField->isReadonly()) {
+                $MetaDescriptionField->setTargetLength(150, 100, 160);
+                $MetaDescriptionField->setAttribute('placeholder', $this->DefaultMetaDescription());
+                $MetaDescriptionField->setRightTitle(_t('\Page.MetaDescriptionRightTitle', 'Used in search engine results when length fits and relevance is given; hardly affects SEO position. Appealing meta-descriptions (especially the first ~ 55 characters -> sitelinks) have a strong influence on the click rate.'));
             }
 
             $fields->removeByName('Metadata');
@@ -97,14 +103,13 @@ class Page extends SiteTree
         if (!$this->MetaTitle) {
             return $this->Title . ' | ' . $this->getSiteConfig()->Title;
         }
+        return null;
     }
 
     public function DefaultMetaDescription()
     {
-        if ($this->ClassName == 'SilverStripe\Blog\Model\BlogPost') {
-            if ($this->Summary) {
-                $metaDescription = strip_tags($this->Summary);
-            }
+        if ($this->ClassName == 'SilverStripe\Blog\Model\BlogPost' && $this->Summary) {
+            $metaDescription = strip_tags($this->Summary);
         }
         if ($this->MetaDescription) {
             $metaDescription = $this->MetaDescription;
@@ -115,20 +120,28 @@ class Page extends SiteTree
         return $metaDescription;
     }
 
-    //    public function getSettingsFields()
-    //    {
-    //        $this->beforeExtending('updateSettingsFields', function (FieldList $fields) {
-    //        });
-    //
-    //        return parent::getSettingsFields();
-    //    }
+    public function getSettingsFields()
+    {
+        $this->beforeExtending('updateSettingsFields', function (FieldList $fields) {
+            $fields->addFieldToTab(
+                'Root.Settings',
+                CheckboxField::create(
+                    'HideSubNavi',
+                    _t(__CLASS__ . '.HIDESUBNAVI', 'Hide sub navigation')
+                ),
+                'ShowInSearch'
+            );
+        });
+
+        return parent::getSettingsFields();
+    }
 
     public function getDefaultOGDescription($limitChar = 0, $limitWordCount = 25)
     {
         $descreturn = null;
 
         // In case of BlogPost use Summary it set
-        if ($this->ClassName == 'SilverStripe\Blog\Model\BlogPost' && $this->Summary) {
+        if ($this->ClassName == BlogPost::class && $this->Summary) {
             $description = trim($this->obj('Summary')->Summary($limitWordCount, '...', 5));
             if (!empty($description)) {
                 $descreturn = strip_tags($description);
@@ -136,8 +149,9 @@ class Page extends SiteTree
         }
 
         // JobPosting
-        if (Controller::has_curr()) {
-            $req = Controller::curr()->getRequest();
+        $controller = Controller::curr();
+        if ($controller) {
+            $req = $controller->getRequest();
             if ($req->param('Action') == 'job' && $req->param('ID')) {
                 $URLSegment = $req->param('ID');
                 $job = JobPosting::get()->filter('URLSegment', $URLSegment)->first();
@@ -163,7 +177,7 @@ class Page extends SiteTree
                     $descreturn = $description;
                 }
             }
-            if ($this->hasExtension('DNADesign\Elemental\Extensions\ElementalPageExtension')) {
+            if ($this->hasExtension(ElementalPageExtension::class)) {
                 $descreturn = trim(($this->obj('getElementsForSummary')->Summary($limitWordCount, 5)));
             }
         }
@@ -198,10 +212,11 @@ class Page extends SiteTree
         if ($i != null) {
             if (!$origin) {
                 return $i->FocusFillMax(1200, 630);
-            } else {
-                return $i;
             }
-        } elseif (file_exists(BASE_PATH . '/public/icon-512.png') && !$origin) {
+            return $i;
+        }
+
+        if (file_exists(BASE_PATH . '/public/icon-512.png') && !$origin) {
             // Fallback to website's touch-icon
             return rtrim(Director::absoluteBaseURL(), '/') . ModuleResourceLoader::resourceURL('public/icon-512.png');
         }
@@ -214,7 +229,7 @@ class Page extends SiteTree
 
         if (is_array($conf)) {
             if ($set != '' && array_key_exists($set, $conf)) {
-                $exclude = $conf["$set"];
+                $exclude = $conf[$set];
             } elseif (array_key_exists('default', $conf)) {
                 $exclude = $conf['default'];
             }
@@ -249,16 +264,15 @@ class Page extends SiteTree
             if ($this->ElementalArea()->Elements()->Count() && $this->ElementalArea()->Elements()->first()->ClassName == ElementHero::class) {
                 return true;
             }
-            if ($this->ElementalArea()->Elements()->Count() && $this->ElementalArea()->Elements()->first()->ClassName == ElementVirtual::class) {
-                if ($this->ElementalArea()->Elements()->first()->LinkedElement()->ClassName == ElementHero::class) {
-                    return true;
-                }
+            if ($this->ElementalArea()->Elements()->Count() && $this->ElementalArea()->Elements()->first()->ClassName == ElementVirtual::class && $this->ElementalArea()->Elements()->first()->LinkedElement()->ClassName == ElementHero::class) {
+                return true;
             }
         } elseif ($this->ClassName == VirtualPage::class && $this->CopyContentFrom()->hasExtension(ElementalPageExtension::class)) {
             if ($this->CopyContentFrom()->ElementalArea()->Elements()->Count() && $this->CopyContentFrom()->ElementalArea()->Elements()->first()->ClassName == ElementHero::class) {
                 return true;
             }
         }
+        return null;
     }
 
     public function CategoriesWithState()
@@ -303,13 +317,18 @@ class Page extends SiteTree
             // Images from Heroes
             if ($elementHeros = $this->ElementalArea()->Elements()->filter('ClassName', ElementHero::class)) {
                 foreach ($elementHeros as $hero) {
-                    if ($hero->Slides()->count() && $hero->SitemapImageExpose) {
-                        if ($slides = $hero->Slides()->Sort('SortOrder ASC')) {
-                            foreach ($slides as $slide) {
-                                if ($slide->SlideImage->exists() && !$slide->SlideImage->NoFileIndex()) {
-                                    $siteMapImages->push($slide->SlideImage());
-                                }
-                            }
+                    if (!$hero->Slides()->count()) {
+                        continue;
+                    }
+                    if (!$hero->SitemapImageExpose) {
+                        continue;
+                    }
+                    if (!$slides = $hero->Slides()->Sort('SortOrder ASC')) {
+                        continue;
+                    }
+                    foreach ($slides as $slide) {
+                        if ($slide->SlideImage->exists() && !$slide->SlideImage->NoFileIndex()) {
+                            $siteMapImages->push($slide->SlideImage());
                         }
                     }
                 }
@@ -317,13 +336,18 @@ class Page extends SiteTree
             // Images from ElementGallery
             if ($elementGallery = $this->ElementalArea()->Elements()->filter('ClassName', ElementGallery::class)) {
                 foreach ($elementGallery as $gallery) {
-                    if ($gallery->Items()->count() && $gallery->SitemapImageExpose) {
-                        if ($images = $gallery->Items()) {
-                            foreach ($images as $image) {
-                                if ($image->exists() && !$image->NoFileIndex()) {
-                                    $siteMapImages->push($image);
-                                }
-                            }
+                    if (!$gallery->Items()->count()) {
+                        continue;
+                    }
+                    if (!$gallery->SitemapImageExpose) {
+                        continue;
+                    }
+                    if (!$images = $gallery->Items()) {
+                        continue;
+                    }
+                    foreach ($images as $image) {
+                        if ($image->exists() && !$image->NoFileIndex()) {
+                            $siteMapImages->push($image);
                         }
                     }
                 }
@@ -336,10 +360,10 @@ class Page extends SiteTree
 
     public function IsPreview()
     {
-        if (!Controller::has_curr()) {
+        $controller = Controller::curr();
+        if (!$controller) {
             return;
         }
-        $controller = Controller::curr();
         $request = $controller->getRequest();
         if ($request->getVar('CMSPreview')) {
             return true;

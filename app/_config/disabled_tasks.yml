@@ -1,0 +1,15 @@
+---
+Name: disabled_tasks
+---
+DNADesign\ElementalVirtual\Tasks\ResetGloballyEnabledElements:
+  is_enabled: false
+App\Tasks\HeroSizeMigration:
+  is_enabled: false
+DNADesign\Elemental\Tasks\MigrateContentToElement:
+  is_enabled: false
+Kraftausdruck\Tasks\LangFilesFromNPM:
+  is_enabled: false
+JonoM\FocusPoint\Dev\FocusPointMigrationTask:
+  is_enabled: false
+HydrateFocusPointTask:
+  is_enabled: false

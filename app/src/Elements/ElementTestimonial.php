@@ -2,7 +2,6 @@
 
 namespace App\Elements;
 
-use App\Models\Teaser;
 use App\Models\Testimonial;
 use App\Models\TestimonialCategory;
 use SilverStripe\TagField\TagField;
@@ -15,8 +14,6 @@ use SilverStripe\Forms\GridField\GridFieldConfig_Base;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
 use SilverStripe\Forms\GridField\GridFieldFilterHeader;
-use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
-use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
 class ElementTestimonial extends BaseElement
 {
@@ -55,7 +52,7 @@ class ElementTestimonial extends BaseElement
         return $labels;
     }
 
-    function getCMSFields()
+    public function getCMSFields()
     {
         $fields = parent::getCMSFields();
 

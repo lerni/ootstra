@@ -1,4 +1,4 @@
-<% require themedCSS("dist/css/perso") %>
+<% vite 'src/css/perso.css' %>
 <% include App/Includes/Header %>
 <% include App/Includes/Navigation %>
 <main class="typography">
@@ -12,7 +12,7 @@
 							<% if $Portrait %>
 								<img loading="lazy" height="$Portrait.FocusFillMax(400,480).Height()" width="$Portrait.FocusFillMax(400,480).Width()" src="$Portrait.FocusFillMax(400,480).Convert('webp').URL" srcset="$Portrait.FocusFillMax(400,480).Convert('webp').URL 1x, $Portrait.FocusFillMax(800,960).Convert('webp').URL 2x" alt="{$Firstname} {$Lastname}" />
 							<% else %>
-								<img  class="default" src="$resourceURL('themes/default/dist/images/svg/perso-defalut.svg')" alt="" />
+								<img class="default" src="{$viteAsset('src/images/svg/perso-defalut.svg')}" alt="" />
 							<% end_if %>
 							<img class="qrcode" src="{$QRURL.URL}">
 						</figure>

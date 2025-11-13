@@ -1,0 +1,453 @@
+@import "../custom-media.css";
+@import "../mixins.css";
+
+/* Form Styles
+---------------------------------------------------------------------------------- */
+
+form {
+	&#Form_Form {
+		padding: 0px 0 50px 0;
+		width: 100%;
+	}
+
+	> fieldset {
+		display: flex;
+		flex-wrap: wrap;
+		column-gap: calc(var(--lh) * 1em);
+	}
+
+	.userform-fields,
+	fieldset {
+		border: 0;
+		margin: 0;
+		padding: 0;
+
+		.form-step {
+			display: flex;
+		}
+
+		/* userform groups */
+		fieldset.userformsgroup {
+			padding: calc(var(--lh) * 1em) 0 0 0;
+			border: none;
+			border-radius: 0;
+			margin-bottom: 0;
+
+			legend {
+				font-weight: var(--font-weight--bold);
+				padding: calc(var(--lh) / 2 * 1em) 0;
+			}
+
+			> .middleColumn > div {
+				margin-bottom: calc(var(--lh) / 2 * 1em);
+				padding-bottom: calc(var(--lh) * 1em);
+			}
+
+			> .middleColumn {
+				/* since we add 1px height (border) with the ::before element flow would be screwed */
+				margin-bottom: -1px;
+				display: flex;
+				flex-wrap: wrap;
+				column-gap: calc(var(--lh) * 1em);
+				flex: 0 0 100%;
+
+				& > div:first-child {
+					&::before {
+						content: "";
+						height: 0;
+						border-top: 1px solid var(--link-color);
+						flex: 0 0 100%;
+					}
+				}
+			}
+		}
+
+		.field {
+			display: flex;
+			flex-wrap: wrap;
+			column-gap: calc(var(--lh) * 1em);
+			flex: 0 0 100%;
+			margin-bottom: calc(var(--lh) * 1em);
+
+			&.half-width {
+				flex: 0 0 calc(50% - (calc(var(--lh) / 2 * 1em) + 1px)); /* gahh subpixel rounding */
+				@media (--cm-m-neg) {
+					flex: 0 0 100%;
+				}
+			}
+
+			&.auto-width {
+				flex: 1 1 auto;
+				margin-right: 0.3em;
+				@media (--cm-m-neg) {
+					flex: 0 0 100%;
+				}
+			}
+
+			&.checkbox.quarter-width-checkbox {
+				flex: 0 0 calc(25% - calc(var(--lh) * 4 / 3 * 1em));
+				@media (--cm-m-neg) {
+					flex: 0 0 100%;
+				}
+			}
+
+			&.checkbox.third-width-checkbox {
+				flex: 0 0 calc(33.33333% - calc(var(--lh) * 3 / 2 * 1em));
+				@media (--cm-m-neg) {
+					flex: 0 0 100%;
+				}
+			}
+
+			&.checkbox.half-width-checkbox {
+				flex: 0 0 calc(50% - calc(var(--lh) * 1 / 2 * 1em));
+				@media (--cm-m-neg) {
+					flex: 0 0 100%;
+				}
+			}
+
+			&.userformsoptionset.half-width-checkbox,
+			&.checkboxset.half-width-checkbox {
+				ul.optionset.checkboxset,
+				.middleColumn {
+					display: flex;
+					flex-wrap: wrap;
+					column-gap: calc(var(--lh) / 1 * 1em);
+					row-gap: calc(var(--lh) / 4 * 1em);
+
+					li,
+					> div {
+						flex: 0 0 calc(50% - calc(var(--lh) / 2 * 1em));
+					}
+				}
+
+				@media (--cm-l-neg) {
+					.middleColumn {
+						> div {
+							flex: 0 0 100%;
+						}
+					}
+				}
+			}
+
+			&.userformsoptionset.quarter-width-checkbox,
+			&.checkboxset.quarter-width-checkbox {
+				ul.optionset.checkboxset,
+				.middleColumn {
+					display: flex;
+					flex-wrap: wrap;
+					gap: calc(var(--lh) / 2 * 1em);
+
+					li,
+					> div {
+						flex: 1 0 calc(25% - calc(var(--lh) / 2 * 1em));
+					}
+				}
+
+				@media (--cm-m-neg) {
+					.middleColumn {
+						> div {
+							flex: 0 0 calc(50% - calc(var(--lh) / 2 * 1em));
+						}
+					}
+				}
+
+				@media (--cm-s-neg) {
+					.middleColumn {
+						> div {
+							flex: 0 0 100%;
+						}
+					}
+				}
+			}
+
+			span.description {
+				font-size: var(--font-size--small);
+			}
+
+			label,
+			legend {
+				margin-bottom: calc(var(--lh) / 4 * 1em);
+
+				&.left {
+					display: block;
+					font-weight: var(--font-weight--bold);
+					font-size: var(--font-size--small);
+				}
+
+				&.required {
+					display: none !important;
+				}
+			}
+
+			.middleColumn {
+				float: left;
+				width: 100% !important;
+				background: none;
+
+				input.text,
+				input.date,
+				textarea,
+				.textajaxuniquetext,
+				select {
+					font-family: inherit;
+					font-size: var(--font-size--small);
+					width: 100%;
+					padding: calc(var(--lh) / 4 * 1em) calc(var(--lh) / 3 * 1em);
+					background-color: var(--gray--light);
+					border: 1px solid var(--gray--light);
+					color: var(--text-color);
+					font-weight: var(--font-weight--normal); /* dropdown needs this */
+
+					&[readonly="readonly"] {
+						background-color: var(--gray--lighter);
+						border-color: var(--gray--lighter);
+					}
+				}
+
+				input[disabled],
+				form textarea[disabled] {
+					background-color: #f7f7f7;
+					border: 1px solid #dad9d9;
+				}
+
+				textarea {
+					resize: vertical;
+				}
+
+				.checkbox,
+				.radio {
+					input {
+						float: left;
+						width: 13px;
+						height: 13px;
+						margin-right: 6px;
+						margin-top: 6px;
+						padding: 0;
+					}
+
+					& label.right {
+						float: left;
+					}
+				}
+			}
+
+			&.dropdown .middleColumn select {
+				@mixin dropdown;
+			}
+
+			&.hide {
+				display: none;
+			}
+
+			&.userformsoptionset {
+				.middleColumn div {
+					position: relative;
+
+					label {
+						padding-left: calc(var(--lh) * 1em);
+						font-size: var(--font-size--small);
+						cursor: pointer;
+					}
+
+					input[type="radio"] {
+						position: absolute;
+						opacity: 0;
+
+						&:focus + label {
+							outline: 2px solid var(--link-color);
+							outline-offset: 2px;
+						}
+
+						&:checked ~ .radio-check {
+							border: 0.1em solid color-mix(in oklch, var(--gray--light) 84%, black 16%);
+						}
+
+						&:checked ~ .radio-check::before {
+							background-color: color-mix(in oklch, var(--gray--light) 84%, black 16%);
+						}
+					}
+
+					.radio-check {
+						pointer-events: none;
+						display: block;
+						position: absolute;
+						border-radius: 100%;
+						height: 1em;
+						width: 1em;
+						top: 0.2em;
+						left: 0;
+						z-index: 5;
+						transition: border 0.25s linear;
+						border: 0.2em solid color-mix(in oklch, var(--gray--light) 84%, black 16%);
+
+						&::before {
+							display: block;
+							position: absolute;
+							content: "";
+							border-radius: 100%;
+							height: 70%;
+							width: 70%;
+							top: 15%;
+							left: 15%;
+							margin: auto;
+							transition: background-color 0.25s linear;
+						}
+					}
+				}
+			}
+
+			.right-title {
+				font-size: var(--font-size--small);
+			}
+		}
+
+		fieldset.field {
+			max-width: 100%;
+		}
+	}
+
+	label.error,
+	.message {
+		width: 100%;
+		color: var(--white);
+		background-color: var(--link-color);
+		padding: 5px 10px;
+		border: 1px solid var(--link-color);
+	}
+
+	.good {
+		background-color: #ecf9d0;
+		border-color: #8fbe00;
+	}
+
+	.bad,
+	.required {
+		background-color: color-mix(in oklch, var(--red) 55%, white 45%) !important;
+		border-color: var(--red) !important;
+		color: var(--text-color) !important;
+	}
+
+	body &.userform .left {
+		font-weight: var(--font-weight--normal);
+		font-size: var(--font-size--small);
+	}
+
+	.requiredField label.left::after {
+		color: var(--text-color);
+		content: "*";
+		font-weight: normal;
+		padding-left: 3px;
+	}
+
+	/* Radio / Checkbox */
+	.checkboxset,
+	.optionset {
+		ul {
+			margin: 0;
+			padding-left: 0;
+
+			li {
+				padding-left: 0;
+			}
+		}
+
+		li {
+			margin-bottom: 5px;
+			list-style-type: none;
+		}
+	}
+
+	div.checkbox::after {
+		content: ".";
+		display: block;
+		height: 0;
+		clear: both;
+		visibility: hidden;
+	}
+
+	.checkbox {
+		label {
+			&.right {
+				font-size: var(--font-size--small);
+				color: var(--text-color);
+				float: left;
+			}
+
+			p {
+				margin-bottom: 0;
+				line-height: 1;
+			}
+		}
+
+		&:focus-within {
+			outline: none;
+		}
+
+		&:focus-within:has(*:focus-visible) {
+			outline: 2px solid var(--link-color);
+		}
+
+		.checkbox {
+			float: left;
+			margin: 0.2em 0.3em 0 0;
+		}
+	}
+}
+
+label.error,
+span.message {
+	font-size: var(--font-size--small);
+	margin: 10px 0;
+	display: block;
+	clear: left;
+}
+
+div.holder-required {
+	background-color: #f9d0d0;
+	border: 1px solid #cf0000;
+	padding: 10px;
+	margin-left: -11px;
+}
+
+form input.holder-required {
+	border: 1px solid #cf0000;
+}
+
+.no-boxshadow input:invalid,
+.no-boxshadow textarea:invalid {
+	background-color: #f0dddd;
+}
+
+.ss-uploadfield-item-info button {
+	margin-top: 4px !important;
+	float: left;
+}
+
+form .file {
+	color: var(--text-color);
+}
+
+.Actions {
+	margin-bottom: calc(var(--lh) * 1em);
+	display: flex;
+}
+
+/* Button Styles */
+[type="submit"],
+.action:not(.action-detail),
+.action.new-link,
+.btn,
+.btn-large,
+button {
+	@mixin buttonstyle;
+	text-transform: uppercase;
+	line-height: var(--lh);
+
+	&.forth {
+		@mixin arrow-after var(--link-color), 2em, 1.1em;
+	}
+
+	&.back {
+		@mixin arrow-before var(--white), 2em, 1.1em;
+	}
+}

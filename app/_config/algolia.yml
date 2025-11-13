@@ -53,6 +53,6 @@ SilverStripe\Core\Injector\Injector:
 # 		{$Layout}
 # 	<% end_if %>
 
-# php ./vendor/silverstripe/framework/cli-script.php dev/tasks/AlgoliaConfigure
-# php ./vendor/silverstripe/framework/cli-script.php dev/tasks/AlgoliaInspect
-# php ./vendor/silverstripe/framework/cli-script.php dev/tasks/AlgoliaReindex
+# php ./vendor/bin/sake dev/tasks/AlgoliaConfigure
+# php ./vendor/bin/sake dev/tasks/AlgoliaInspect
+# php ./vendor/bin/sake dev/tasks/AlgoliaReindex

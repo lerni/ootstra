@@ -1,6 +1,5 @@
 <% if $Items.Count > 1 %>
-	<% require themedCSS("dist/css/swiper") %>
-	<% require javascript("themes/default/dist/js/swiper.js") %>
+	<% vite 'src/css/swiper.css', 'src/js/swiper.js' %>
 <% end_if %>
 <% if $ShowTitle %><div class="typography<% if $isFullWidth %> inner<% end_if %>"><% end_if %>
 	<% include App/Includes/ElementTitle %>

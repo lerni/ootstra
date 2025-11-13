@@ -4,9 +4,10 @@ namespace App\Models;
 
 use SilverStripe\View\SSViewer;
 use SilverStripe\ORM\DataObject;
-use SilverStripe\View\ArrayData;
+use SilverStripe\Model\ArrayData;
 use SilverStripe\Forms\LiteralField;
-use SilverStripe\Forms\RequiredFields;
+use SilverStripe\Core\Validation\ValidationResult;
+use SilverStripe\Forms\Validation\RequiredFieldsValidator;
 
 class ShortCodeSnippet extends DataObject
 {
@@ -57,12 +58,12 @@ class ShortCodeSnippet extends DataObject
 
     public function getCMSValidator()
     {
-        return new RequiredFields([
+        return RequiredFieldsValidator::create([
             'Title'
         ]);
     }
 
-    public function validate()
+    public function validate(): ValidationResult
     {
         $result = parent::validate();
 

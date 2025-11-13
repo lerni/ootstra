@@ -62,9 +62,6 @@ SilverStripe\Admin\LeftAndMain:
   extra_requirements_css:
     - app/css/cms.css
 
-SilverStripe\Forms\HTMLEditor\TinyMCEConfig:
-  editor_css:
-    - 'themes/default/dist/css/editor.css'
   image_size_presets:
     - width: 1223
 
@@ -100,7 +97,7 @@ SilverStripe\CMS\Model\RedirectorPage:
     - App\Extensions\RedirectorPageExtension
 
 App\Models\HolderPage:
-  icon: 'themes/default/dist/images/svg/icon-grid.svg'
+  cms_icon: 'app/images/icon-grid.svg'
 
 SilverStripe\ORM\DataObject:
   extensions:
@@ -151,6 +148,7 @@ SilverStripe\Blog\Model\BlogPost:
     - App\Elements\ElementLocalVideo
     - App\Elements\ElementTestimonial
     - App\Elements\ElementDownloads
+    # - Kraftausdruck\InstagramFeed\Elements\ElementInstagramFeed
     # - App\Elements\ElementIframe # We may should encourage SnippetShortCodeProvider and drop this?
     # - Kraftausdruck\Elements\ElementProduct
     # - Kraftausdruck\Elements\ElementCheckout
@@ -158,7 +156,7 @@ SilverStripe\Blog\Model\BlogPost:
     # - Kraftausdruck\Elements\ElementDownloadForm
 
 App\Models\ElementPage:
-  icon: 'themes/default/dist/images/svg/icon-elements.svg'
+  cms_icon: 'app/images/icon-elements.svg'
   extensions:
     - DNADesign\Elemental\Extensions\ElementalPageExtension
     - App\Extensions\ElementalPageExtension
@@ -182,6 +180,7 @@ App\Models\ElementPage:
     - App\Elements\ElementLocalVideo
     - App\Elements\ElementTestimonial
     - App\Elements\ElementDownloads
+    # - Kraftausdruck\InstagramFeed\Elements\ElementInstagramFeed
     # - App\Elements\ElementIframe # We may should encourage SnippetShortCodeProvider and drop this?
     # - Kraftausdruck\Elements\ElementProduct
     # - Kraftausdruck\Elements\ElementCheckout
@@ -295,10 +294,8 @@ SilverStripe\Core\Injector\Injector:
     properties:
       SiteKey: '`SS_NOCAPTCHA_SITE_KEY`'
       SecretKey: '`SS_NOCAPTCHA_SECRET_KEY`'
-  Intervention\Image\ImageManager:
-    constructor:
-      -
-        driver: imagick
+  InterventionImageDriver:
+      class: 'Intervention\Image\Drivers\Imagick\Driver'
   SilverStripe\Assets\Image_Backend:
     properties:
       Quality: 84
@@ -306,6 +303,11 @@ SilverStripe\Core\Injector\Injector:
     constructor:
       namespace: 'cacheblock'
       defaultLifetime: 0 # zero is infinit
+  Psr\SimpleCache\CacheInterface.ElementFeedTeaser:
+    factory: 'SilverStripe\Core\Cache\CacheFactory'
+    constructor:
+      namespace: 'ElementFeedTeaser'
+      defaultLifetime: 3600
 
 TractorCow\Robots\Robots:
   disallowed_urls: []
@@ -330,11 +332,9 @@ App\Models\Perso:
 App\Controller\PersovCardController:
   expose_vcards: true
 
-# Kraftausdruck\InstagramFeed\Control\InstaAuthController:
-#  credentials:
-#   appId: ''
-#   appSecret: ''
-##  redirectUri: 'https://domain.tld/_instaauth/'
+Axllent\ScaledUploads\ScaledUploads:
+  max_width: 4000
+  max_height: 3000
 
 # App\Models\SlugHolderPage:
 #   ManagedModels:

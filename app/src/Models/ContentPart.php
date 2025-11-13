@@ -4,7 +4,6 @@ namespace App\Models;
 
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Forms\FieldGroup;
-use SilverStripe\Forms\RequiredFields;
 use App\Elements\ElementContentSection;
 use SilverStripe\Versioned\GridFieldArchiveAction;
 use DNADesign\Elemental\Forms\TextCheckboxGroupField;
@@ -12,6 +11,7 @@ use SilverStripe\Forms\GridField\GridFieldDataColumns;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
 use SilverStripe\Forms\GridField\GridFieldSortableHeader;
+use SilverStripe\Forms\Validation\RequiredFieldsValidator;
 use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
 class ContentPart extends DataObject
@@ -141,7 +141,7 @@ class ContentPart extends DataObject
 
     public function getCMSValidator()
     {
-        return new RequiredFields([
+        return RequiredFieldsValidator::create([
             'Title'
         ]);
     }

@@ -2,6 +2,7 @@
 
 namespace App\Utility;
 
+use DateTime;
 use App\Models\Vacation;
 
 class VacationShortCodeProvider
@@ -9,13 +10,13 @@ class VacationShortCodeProvider
     public static function parseVacationShortCodeProvider($arguments, $content = null, $parser = null, $tagName = null)
     {
         if (Vacation::get()->count()) {
-            $start = (new \DateTime('today'))->format('Y-m-d');
+            $start = (new DateTime('today'))->format('Y-m-d');
             if (array_key_exists('MonthsInAdvance', $arguments)) {
                 $endString = '+' . $arguments['MonthsInAdvance'] . ' months';
             } else {
                 $endString = '+' . 6 . ' months';
             }
-            $end = (new \DateTime($endString))->format('Y-m-d');
+            $end = (new DateTime($endString))->format('Y-m-d');
             $vacations = Vacation::get()->filter([
                 'StartDate:LessThanOrEqual' => $end,
                 'EndDate:GreaterThanOrEqual' => $start

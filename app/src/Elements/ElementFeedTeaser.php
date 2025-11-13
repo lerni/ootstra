@@ -4,6 +4,7 @@ namespace App\Elements;
 
 use App\Models\ElementPage;
 use SilverStripe\i18n\i18n;
+use SilverStripe\Blog\Model\Blog;
 use Psr\SimpleCache\CacheInterface;
 use SilverStripe\TagField\TagField;
 use SilverStripe\CMS\Model\SiteTree;
@@ -68,7 +69,7 @@ class ElementFeedTeaser extends BaseElement
         return $labels;
     }
 
-    function getCMSFields()
+    public function getCMSFields()
     {
         $fields = parent::getCMSFields();
 
@@ -140,15 +141,15 @@ class ElementFeedTeaser extends BaseElement
 
             $blogSorting = Config::inst()->get(BlogPost::class, 'default_sort');
 
-            if (count($parentIDs) == 1 &&
-                $this->FeedTeaserParents()->first()->ClassName == 'SilverStripe\Blog\Model\Blog') {
+            if (count($parentIDs) === 1 &&
+                $this->FeedTeaserParents()->first()->ClassName == Blog::class) {
 
                 $childrens = BlogPost::get()
                     ->filter('ParentID', $parentIDs)
                     ->eagerLoad('Categories');
 
                 // If Blog is sorted per date?
-                if (substr($blogSorting, 0, strlen('PublishDate DESC')) === 'PublishDate DESC') {
+                if (str_starts_with($blogSorting, 'PublishDate DESC')) {
                     $childrens = $childrens->sort('PublishDate DESC');
                 }
             } else {
@@ -158,7 +159,7 @@ class ElementFeedTeaser extends BaseElement
             }
 
             if (!empty($categoryFilter)) {
-                if ($this->FeedTeaserParents()->first()->ClassName == 'SilverStripe\Blog\Model\Blog') {
+                if ($this->FeedTeaserParents()->first()->ClassName == Blog::class) {
                     $childrens = $childrens->filter('Categories.ID', $categoryFilter);
                 } else {
                     $childrens = $childrens->filter('PageCategories.ID', $categoryFilter);
@@ -211,7 +212,7 @@ class ElementFeedTeaser extends BaseElement
             foreach ($tags as $tag) {
                 $filter = new URLSegmentFilter();
                 //				$filter->setAllowMultibyte(true);
-                array_push($tagsURLEnc, $filter->filter($tag));
+                $tagsURLEnc[] = $filter->filter($tag);
             }
 
             $allTags = $this->Categories()->Column('Title');
@@ -224,18 +225,20 @@ class ElementFeedTeaser extends BaseElement
 
             $tagsValid = [];
             foreach ($tagsURLEnc as $item) {
-                if (in_array($item, $AllTagsURLEnc))
-                    $tagsValid[array_search($item, $AllTagsURLEnc)] = $item;
+                if (in_array($item, $AllTagsURLEnc)) {
+                    $tagsValid[array_search($item, $AllTagsURLEnc, true)] = $item;
+                }
             }
 
             return $tagsValid;
         }
+        return null;
     }
 
     public function ChildTitleLevel()
     {
         $l = (int)$this->TitleLevel;
-        $l++;
+        ++$l;
         return 'h' . $l;
     }
 
@@ -252,7 +255,7 @@ class ElementFeedTeaser extends BaseElement
 
         $categories = $this->Categories();
         if (
-            $parent->ClassName == 'SilverStripe\Blog\Model\Blog' &&
+            $parent->ClassName == Blog::class &&
             $categories->count() == 1
         ) {
             $category = $categories->first();

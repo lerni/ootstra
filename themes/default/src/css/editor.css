@@ -1,0 +1,78 @@
+@import "./variables.css";
+@import "./typography.css";
+
+/* For CMS HtmlEditorField
+---------------------------------------------------------------------------------- */
+
+@font-face {
+	font-family: "Figtree";
+	font-style: normal;
+	/* Sadyly CSS variables (custom properties) are not supported inside the @font-face
+	font-weight: var(--font-weight--normal); */
+	font-weight: 400;
+	font-display: swap;
+	src: local(""),
+		url("../fonts/figtree-v5-latin-regular.woff2") format('woff2');
+}
+
+@font-face {
+	font-family: "Figtree";
+	font-style: normal;
+	/* Sadyly CSS variables (custom properties) are not supported inside the @font-face
+	font-weight: var(--font-weight--bold); */
+	font-weight: 600;
+	font-display: swap;
+	src: local(""),
+		url("../fonts/figtree-v5-latin-600.woff2") format('woff2');
+}
+
+body.mce-content-body {
+	font-size: var(--font-size);
+	font-family: var(--font-family);
+	line-height: var(--lh);
+	color: var(--text-color);
+	font-weight: var(--font-weight--normal);
+	letter-spacing: 0.02em;
+	max-width: var(--inner-width);
+	text-size-adjust: 100%;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	@media (prefers-contrast: more) {
+		-webkit-font-smoothing: auto;
+		-moz-osx-font-smoothing: auto;
+	}
+	&.typography.width-reduced {
+		max-width: var(--inner-width--reduced);
+	}
+	div.embed {
+		.placeholder {
+			width: 100% !important;
+		}
+	}
+}
+
+body.global-alert {
+	background-color: var(--blue);
+
+	> * {
+		color: var(--white);
+	}
+
+	a {
+		color: var(--red);
+	}
+}
+
+body {
+	&.background--transparent {
+		background-color: transparent;
+	}
+
+	&.background--white {
+		background-color: var(--white);
+	}
+
+	&.background--gray--lighter {
+		background-color: var(--gray--lighter);
+	}
+}

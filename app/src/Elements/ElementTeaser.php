@@ -49,7 +49,7 @@ class ElementTeaser extends BaseElement
         return $labels;
     }
 
-    function getCMSFields()
+    public function getCMSFields()
     {
         $fields = parent::getCMSFields();
 
@@ -83,7 +83,7 @@ class ElementTeaser extends BaseElement
     public function ChildTitleLevel()
     {
         $l = (int)$this->TitleLevel;
-        $l++;
+        ++$l;
         return 'h' . $l;
     }
 

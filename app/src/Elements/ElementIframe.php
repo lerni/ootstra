@@ -15,7 +15,7 @@ class ElementIframe extends BaseElement
 
     private static $title = 'iFrame';
 
-    private static $description = 'iFrame Element';
+    private static $class_description = 'iFrame Element';
 
     private static $singular_name = 'iFrame';
 

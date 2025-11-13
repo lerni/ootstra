@@ -2,11 +2,11 @@
 
 namespace App\Extensions;
 
+use App\Models\Perso;
 use App\Models\ElementPage;
-use SilverStripe\ORM\ArrayList;
 use SilverStripe\View\SSViewer;
 use SilverStripe\Core\Extension;
-use SilverStripe\View\ArrayData;
+use SilverStripe\Model\ArrayData;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Control\Director;
@@ -14,6 +14,7 @@ use SilverStripe\View\Requirements;
 use SilverStripe\Control\Controller;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\TextareaField;
+use SilverStripe\Model\List\ArrayList;
 use SilverStripe\Forms\ToggleCompositeField;
 use SilverStripe\View\Parsers\URLSegmentFilter;
 use SilverStripe\CMS\Controllers\RootURLController;
@@ -53,11 +54,11 @@ class UrlifyExtension extends Extension
         return $labels;
     }
 
-    public function populateDefaults()
+    public function onAfterPopulateDefaults()
     {
-        $this->owner->Title = _t(__CLASS__ . '.DefaultTitle', 'New item');
+        $this->getOwner()->Title = _t(self::class . '.DefaultTitle', 'New item');
         // todo DatePosted is not for all
-        $this->owner->DatePosted = date('Y-m-d');
+        $this->getOwner()->DatePosted = date('Y-m-d');
     }
 
     public function updateCMSFields(FieldList $fields)
@@ -78,11 +79,11 @@ class UrlifyExtension extends Extension
         )->setHeadingLevel(4);
 
         $MetaTitleField->setTargetLength(60, 50, 60);
-        $MetaTitleField->setAttribute('placeholder', $this->owner->DefaultMetaTitle());
+        $MetaTitleField->setAttribute('placeholder', $this->getOwner()->DefaultMetaTitle());
         $MetaTitleField->setRightTitle(_t('\Page.MetaTitleRightTitle', 'Wird als Titel im Browsertab und für Suchmaschinen Resultate verwendet. Wichtig für SEO!'));
 
         $MetaDescriptionField->setTargetLength(160, 100, 160);
-        $MetaDescriptionField->setAttribute('placeholder', $this->owner->DefaultMetaDescription());
+        $MetaDescriptionField->setAttribute('placeholder', $this->getOwner()->DefaultMetaDescription());
         $MetaDescriptionField->setRightTitle(_t('\Page.MetaDescriptionRightTitle', 'Wird in Suchmaschinen-Ergebnissen verwendet, wenn Länge passt und Relevanz gegeben ist; beeinflusst die SEO-Position kaum. Ansprechende Meta-Descripton (besonders die ersten ~55 Zeichen -> Sitelinks) beeinflussen die Klickrate jedoch stark.'));
 
         $fields->insertAfter(
@@ -90,13 +91,9 @@ class UrlifyExtension extends Extension
             $MetaToggle,
         );
 
-        if ($page = $this->owner->Parent()) {
-            Requirements::add_i18n_javascript('silverstripe/cms: client/lang', false, true);
-            if ($this->owner->config()->parent_slug) {
-                $parentSlug = $this->owner->config()->parent_slug;
-            } else {
-                $parentSlug = 'item';
-            }
+        if ($page = $this->getOwner()->Parent()) {
+            Requirements::add_i18n_javascript('silverstripe/cms: client/lang', false);
+            $parentSlug = $this->getOwner()->config()->parent_slug ?: 'item';
 
             // special case home
             $base = Director::absoluteBaseURL();
@@ -116,7 +113,7 @@ class UrlifyExtension extends Extension
                 SiteTreeURLSegmentField::create('URLSegment')
                     ->setURLPrefix($topLink . '/')
                     ->setURLSuffix('?stage=Live')
-                    ->setDefaultURL($this->owner->generateURLSegment())
+                    ->setDefaultURL($this->getOwner()->generateURLSegment())
 
             );
         } else {
@@ -130,25 +127,24 @@ class UrlifyExtension extends Extension
 
     public function DefaultMetaTitle()
     {
-        if (!$this->owner->MetaTitle) {
+        if (!$this->getOwner()->MetaTitle) {
 
             // if this lives in the model, Title won't be there in time, since "Title" lives in this extension
 
-            $dmt = $this->owner->Title;
+            $dmt = $this->getOwner()->Title;
 
-            if ($this->owner->ClassName == 'Kraftausdruck\Models\PodcastEpisode') {
-                $dmt .= ' - ' . $this->owner->Subtitle;
+            if ($this->getOwner()->ClassName == 'Kraftausdruck\Models\PodcastEpisode') {
+                $dmt .= ' - ' . $this->getOwner()->Subtitle;
             }
 
-            if ($this->owner->ClassName == 'Kraftausdruck\Models\JobPosting') {
-                $locations = [];
-                $locations = $this->owner->JobLocations()->Column('Town');
+            if ($this->getOwner()->ClassName == 'Kraftausdruck\Models\JobPosting') {
+                $locations = $this->getOwner()->JobLocations()->Column('Town');
                 $locations = implode(', ', $locations);
                 $dmt .= ', ' . $locations;
             }
 
-            if ($this->owner->ClassName == 'App\Models\Perso') {
-                $dmt = $this->owner->Firstname . ' ' . $this->owner->Lastname . ' - ' . $this->owner->Position;
+            if ($this->getOwner()->ClassName == Perso::class) {
+                return $this->getOwner()->Firstname . ' ' . $this->getOwner()->Lastname . ' - ' . $this->getOwner()->Position;
             }
 
             return $dmt;
@@ -158,10 +154,10 @@ class UrlifyExtension extends Extension
     public function DefaultMetaDescription()
     {
         $dmd = '';
-        if ($this->owner->MetaDescription) {
-            $dmd = $this->owner->MetaDescription;
-        } elseif ($this->owner->Parent() && $this->owner->Parent()->getPage()) {
-            $page = $this->owner->Parent()->getPage();
+        if ($this->getOwner()->MetaDescription) {
+            $dmd = $this->getOwner()->MetaDescription;
+        } elseif ($this->getOwner()->Parent() && $this->getOwner()->Parent()->getPage()) {
+            $page = $this->getOwner()->Parent()->getPage();
             $dmd = $page->MetaDescription;
         }
         return $dmd;
@@ -170,7 +166,7 @@ class UrlifyExtension extends Extension
     // returns the Element of the DO
     public function Parent()
     {
-        $parentClass = $this->owner->config()->parent_class;
+        $parentClass = $this->getOwner()->config()->parent_class;
         if($parentClass::get()->count()) {
             $e = $parentClass::get()->filter(['Primary' => 1])->first();
             if (!$e) {
@@ -182,27 +178,27 @@ class UrlifyExtension extends Extension
 
     public function generateURLSegment()
     {
-        $anchor = $this->owner->URLSegment;
+        $anchor = $this->getOwner()->URLSegment;
 
         if ($anchor == '') {
             $filter = new URLSegmentFilter();
-            $anchor = $filter->filter($this->owner->Title);
+            $anchor = $filter->filter($this->getOwner()->Title);
         }
 
-        if ($this->owner->ID && $this->owner->ClassName::get()->filter(['URLSegment' => $this->owner->URLSegment])->exclude('ID', $this->owner->ID)->count() > 0) {
-            $anchor .= '-' . $this->owner->ID;
+        if ($this->getOwner()->ID && $this->getOwner()->ClassName::get()->filter(['URLSegment' => $this->getOwner()->URLSegment])->exclude('ID', $this->getOwner()->ID)->count() > 0) {
+            $anchor .= '-' . $this->getOwner()->ID;
         }
         return $anchor;
     }
 
     public function Link($action = null)
     {
-        $parentSlug = $this->owner->config()->parent_slug;
-        $c = Controller::curr();
+        $parentSlug = $this->getOwner()->config()->parent_slug;
+        Controller::curr();
         // $action = $c->urlParams['Action'];
-        if ($this->owner->Parent() && $this->owner->isInDB()) {
+        if ($this->getOwner()->Parent() && $this->getOwner()->isInDB()) {
         // if ($this->owner->Parent() && $this->owner->isInDB() && $parentSlug == $action) {
-            $areaID = $this->owner->Parent()->ParentID;
+            $areaID = $this->getOwner()->Parent()->ParentID;
             $Page = ElementPage::get()->filter(['ElementalAreaID' => $areaID])->first();
             if ($Page) {
                 $siteURL = $Page->Link();
@@ -214,7 +210,7 @@ class UrlifyExtension extends Extension
                 return Controller::join_links(
                     $siteURL,
                     $parentSlug,
-                    $this->owner->URLSegment,
+                    $this->getOwner()->URLSegment,
                     $action
                 );
             }
@@ -227,42 +223,43 @@ class UrlifyExtension extends Extension
         if ($this->Link()) {
             return Director::absoluteURL($this->Link($action));
         }
+        return null;
     }
 
     public function Breadcrumbs($maxDepth = 20, $unlinked = false, $stopAtPageType = false, $showHidden = false)
     {
         $page = Controller::curr();
         $pages = [];
-        $pages[] = $this->owner;
+        $pages[] = $this->getOwner();
         while ($page
             && (!$maxDepth || count($pages) < $maxDepth)
             && (!$stopAtPageType || $page->ClassName != $stopAtPageType)
         ) {
-            if ($showHidden || $page->ShowInMenus || ($page->ID == $this->owner->ID)) {
+            if ($showHidden || $page->ShowInMenus || ($page->ID == $this->getOwner()->ID)) {
                 $pages[] = $page;
             }
             $page = $page->Parent;
         }
         $template = new SSViewer('BreadcrumbsTemplate');
 
-        return $template->process($this->owner->customise(new ArrayData([
-            'Pages' => new ArrayList(array_reverse($pages)),
+        return $template->process($this->getOwner()->customise(ArrayData::create([
+            'Pages' => new ArrayList(array_reverse($pages))
         ])));
     }
 
     public function onAfterWrite()
     {
-        if (!$this->owner->URLSegment) {
-            $this->owner->URLSegment = $this->owner->Title;
-            $this->owner->write();
+        if (!$this->getOwner()->URLSegment) {
+            $this->getOwner()->URLSegment = $this->getOwner()->Title;
+            $this->getOwner()->write();
         }
-        if ($this->owner->ClassName::get()
-            ->filter(['URLSegment' => $this->owner->URLSegment])
-            ->exclude(['ID' => $this->owner->ID])
+        if ($this->getOwner()->ClassName::get()
+            ->filter(['URLSegment' => $this->getOwner()->URLSegment])
+            ->exclude(['ID' => $this->getOwner()->ID])
             ->count())
         {
-            $this->owner->URLSegment .= '-' . $this->owner->ID;
-            $this->owner->write();
+            $this->getOwner()->URLSegment .= '-' . $this->getOwner()->ID;
+            $this->getOwner()->write();
         }
     }
 
@@ -274,11 +271,9 @@ class UrlifyExtension extends Extension
     }
 
     public function getMenuTitle() {
-        if (property_exists($this->owner, 'MenuTitle') && strlen($this->owner->MenuTitle)) {
-            $r = $this->owner->MenuTitle;
-        } else {
-            $r = $this->owner->Title;
+        if (property_exists($this->getOwner(), 'MenuTitle') && strlen($this->getOwner()->MenuTitle)) {
+            return $this->getOwner()->MenuTitle;
         }
-        return $r;
+        return $this->getOwner()->Title;
     }
 }

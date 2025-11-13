@@ -28,7 +28,7 @@ class BlogPostExtension extends Extension
 
         $SummaryField = $fields->fieldByName('Root.Main.CustomSummary');
         $SummaryField->fieldByName('Summary')->setRows(10);
-        $SummaryField->fieldByName('Summary')->getEditorConfig()->setOption('body_class', 'typography '. $this->owner->ShortClassName($this, true));
+        $SummaryField->fieldByName('Summary')->getEditorConfig()->setOption('body_class', 'typography '. $this->getOwner()->ShortClassName($this, true));
 
         if ($CategoriesField = $fields->dataFieldByName('Categories')) {
             $CategoriesField->setShouldLazyLoad(false);
@@ -41,20 +41,20 @@ class BlogPostExtension extends Extension
 
     public function BlogThumbnail()
     {
-        if (is_object($this->owner->getDefaultOGImage(1)) && $this->owner->getDefaultOGImage(1)->exists()) {
-            return $this->owner->getDefaultOGImage(1)->CMSThumbnail();
+        if (is_object($this->getOwner()->getDefaultOGImage(1)) && $this->getOwner()->getDefaultOGImage(1)->exists()) {
+            return $this->getOwner()->getDefaultOGImage(1)->CMSThumbnail();
         }
     }
 
     public function PrevNext($Mode = 'next')
     {
-        $list = $this->owner->Parent()->getBlogPosts();
+        $list = $this->getOwner()->Parent()->getBlogPosts();
 
         if ($Mode == 'next') {
-            return $list->filter(["Sort:GreaterThan" => $this->owner->Sort])->sort("Sort ASC")->limit(1)->first();
+            return $list->filter(["Sort:GreaterThan" => $this->getOwner()->Sort])->sort("Sort ASC")->limit(1)->first();
         }
         if ($Mode == 'prev') {
-            return $list->filter(["Sort:LessThan" => $this->owner->Sort])->sort("Sort DESC")->limit(1)->first();
+            return $list->filter(["Sort:LessThan" => $this->getOwner()->Sort])->sort("Sort DESC")->limit(1)->first();
         }
     }
 
@@ -73,40 +73,40 @@ class BlogPostExtension extends Extension
     // Latest blog posts on top
     public function onBeforeWrite()
     {
-        if (!$this->owner->isInDB() && $this->owner->ParentID) {
+        if (!$this->getOwner()->isInDB() && $this->getOwner()->ParentID) {
 
-            $baseTable = $this->owner->baseTable();
+            $baseTable = $this->getOwner()->baseTable();
             $liveTable = $baseTable . '_Live';
 
             $lowestSortDraft = BlogPost::get()
-                ->filter('ParentID', $this->owner->ParentID)
+                ->filter('ParentID', $this->getOwner()->ParentID)
                 ->min('Sort');
 
             $lowestSortLive = DB::query(sprintf(
                 'SELECT MIN(Sort) FROM %s WHERE ParentID = %d',
                 $liveTable,
-                $this->owner->ParentID
+                $this->getOwner()->ParentID
             ))->value();
 
             $lowestSort = min(
                 $lowestSortDraft ?: PHP_INT_MAX,
                 $lowestSortLive ?: PHP_INT_MAX
             );
-            $this->owner->Sort = $lowestSort ?? 1;
+            $this->getOwner()->Sort = $lowestSort ?? 1;
 
             // Shift all other pages up by 1 in both tables
             // Update draft table
             DB::query(sprintf(
                 'UPDATE %s SET Sort = Sort + 1 WHERE ParentID = %d',
                 $baseTable,
-                $this->owner->ParentID
+                $this->getOwner()->ParentID
             ));
 
             // Update live table
             DB::query(sprintf(
                 'UPDATE %s SET Sort = Sort + 1 WHERE ParentID = %d',
                 $liveTable,
-                $this->owner->ParentID
+                $this->getOwner()->ParentID
             ));
         }
     }

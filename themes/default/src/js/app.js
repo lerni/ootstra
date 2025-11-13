@@ -3,6 +3,12 @@
  * ---------------------------------------------------------------------------------
  */
 
+import.meta.glob([
+  '../images/**',
+  '!../images/icons/**',
+  '../fonts/**',
+]);
+
 // import './include/htmx';
 // jQuery available globally
 // import './include/jquery';

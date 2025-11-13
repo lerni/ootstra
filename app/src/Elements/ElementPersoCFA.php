@@ -48,7 +48,7 @@ class ElementPersoCFA extends BaseElement
         'CountMax' => 3
     ];
 
-    private static $description = 'Call for Contact Perso-Element';
+    private static $class_description = 'Call for Contact Perso-Element';
 
     private static $title = 'Contact';
 
@@ -65,7 +65,7 @@ class ElementPersoCFA extends BaseElement
         return $labels;
     }
 
-    function getCMSFields()
+    public function getCMSFields()
     {
         $fields = parent::getCMSFields();
 

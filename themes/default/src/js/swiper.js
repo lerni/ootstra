@@ -236,3 +236,26 @@ Array.prototype.forEach.call(instafeedVerticalSwiper, function (slider) {
     },
   });
 });
+
+var logoSwiper = document.querySelectorAll('.swiper-container.logo');
+Array.prototype.forEach.call(logoSwiper, function (slider) {
+  var sliderID = slider.getAttribute('id');
+  var logoSwiperInstance = new Swiper ('#'+sliderID, {
+    // spaceBetween: 28, // two times $font-size times (1.41em = $lineheight)
+    freeMode: true,
+    slidesPerView: 'auto',
+    speed: 5000,
+    loop: true,
+    spaceBetween: 0,
+    direction: 'horizontal',
+    autoplay: {
+      delay: 0,
+      disableOnInteraction: true,
+      reverseDirection: true,
+    },
+    keyboard: {
+      enabled: true,
+      onlyInViewport: true,
+    }
+  });
+});

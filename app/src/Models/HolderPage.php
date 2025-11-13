@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Page;
-use PageController;
 use App\Models\ElementPage;
-use SilverStripe\ORM\ArrayList;
+use SilverStripe\Admin\LeftAndMain;
 use SilverStripe\Control\Controller;
 use SilverStripe\Forms\LiteralField;
+use SilverStripe\Forms\CheckboxField;
+use SilverStripe\Model\List\ArrayList;
 use App\Controller\HolderPageController;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\View\Parsers\URLSegmentFilter;
@@ -23,7 +24,7 @@ use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 class HolderPage extends Page
 {
     private static $db = [
-        'HideSubNavi' => 'Boolean'
+        'PreventHero' => 'Boolean'
     ];
 
     private static $has_one = [];
@@ -37,7 +38,8 @@ class HolderPage extends Page
     ];
 
     private static $defaults = [
-        'HideSubNavi' => 1
+        'HideSubNavi' => 1,
+        'PreventHero' => 1
     ];
 
     private static $controller_name  = HolderPageController::class;
@@ -49,6 +51,8 @@ class HolderPage extends Page
         $fields->removeByName([
             'PageCategories'
         ]);
+
+        $fields->addFieldToTab('Root.Main', CheckboxField::create('PreventHero', _t('App\Models\ElementPage.PREVENTHERO', 'Do not show default Hero-Slides')), 'Content');
 
         // hack around unsaved relations
         if ($this->isInDB()) {
@@ -85,8 +89,15 @@ class HolderPage extends Page
     public function CategoriesWithState()
     {
         $categories = $this->PageCategories();
+        $currentCategories = [];
+        if (!(Controller::curr() instanceof LeftAndMain)) {
+            if (Controller::curr()->ClassName == HolderPage::class) {
+                $currentCategories = $this->getURLCategoryFilter();
+            } else {
+                $currentCategories = Controller::curr()->PageCategories()->column('URLSegment');
+            }
+        }
 
-        $currentCategories = $this->getURLCategoryFilter();
         $r = ArrayList::create();
 
         foreach ($categories as $cat) {
@@ -113,7 +124,7 @@ class HolderPage extends Page
             foreach ($tags as $tag) {
                 $filter = new URLSegmentFilter();
                 $filter->setAllowMultibyte(true);
-                array_push($tagsURLEnc, $filter->filter($tag));
+                $tagsURLEnc[] = $filter->filter($tag);
             }
 
             $allTags = $this->PageCategories()->Column('Title');
@@ -126,12 +137,14 @@ class HolderPage extends Page
 
             $tagsValid = [];
             foreach ($tagsURLEnc as $item) {
-                if (in_array($item, $AllTagsURLEnc))
+                if (in_array($item, $AllTagsURLEnc)) {
                     $tagsValid[array_search($item, $AllTagsURLEnc)] = $item;
+                }
             }
 
             return $tagsValid;
         }
+        return null;
     }
 
     public function URLCategoryFirst()

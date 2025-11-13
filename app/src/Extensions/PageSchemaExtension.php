@@ -4,10 +4,10 @@ namespace App\Extensions;
 
 use Page;
 use Spatie\SchemaOrg\Schema;
-use SilverStripe\ORM\ArrayList;
 use SilverStripe\Core\Extension;
 use SilverStripe\Control\Director;
 use SilverStripe\Control\Controller;
+use SilverStripe\Model\List\ArrayList;
 use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\Core\Manifest\ModuleResourceLoader;
 
@@ -92,7 +92,7 @@ class PageSchemaExtension extends Extension
                 //     $locations[$i]->image(rtrim(Director::absoluteBaseURL(), '/') . $siteConfig->DefaultHeaderSlides()->sort('SortOrder ASC')->first()->SlideImage()->Link());
                 // }
 
-                $i++;
+                ++$i;
             }
 
             $schemaOrganisation->location($locations);
@@ -114,7 +114,7 @@ class PageSchemaExtension extends Extension
     {
         $pageObjs = [];
         $i = 0;
-        $breadcrumbs = $this->owner->getBreadcrumbItems();
+        $breadcrumbs = $this->getOwner()->getBreadcrumbItems();
         if ($breadcrumbs instanceof ArrayList) {
             foreach ($breadcrumbs as $item) {
 
@@ -128,7 +128,7 @@ class PageSchemaExtension extends Extension
                                 $item->Link
                             ))
                     );
-                $i++;
+                ++$i;
             }
         }
 

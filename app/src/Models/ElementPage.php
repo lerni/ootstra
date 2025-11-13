@@ -22,7 +22,7 @@ class ElementPage extends Page
 
     private static $table_name = 'ElementPage';
 
-    private static $description = 'Allows modular content composition with elements.';
+    private static $class_description = 'Allows modular content composition with elements.';
 
     public function CanonicalLink()
     {

@@ -13,8 +13,6 @@
 !/.vscode/extensions.json
 !/.vscode/tasks.json
 /deploy/config.php
-/.graphql-generated/*
-/public/_graphql/admin.types.graphql
 /public/.well-known/
 /public/assets/
 /public/_resources/

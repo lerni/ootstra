@@ -1,17 +1,11 @@
-<% require themedCSS("dist/css/textimage") %>
+<% vite 'src/css/textimage.css' %>
 <% if $ShowTitle %><div class="typography<% if $isFullWidth %> inner<% end_if %>"><% end_if %>
 	<% include App/Includes/ElementTitle %>
 <% if $ShowTitle %></div><% end_if %>
 <div class="typography">
 	<div class="container">
 		<div class="txt {$ElementLayout}">
-			<div class="relativizer">
-				<% if $HTML %>
-					<div class="inner-txt">
-						$HTML
-					</div>
-				<% end_if %>
-			</div>
+			<% if $HTML %>{$HTML}<% end_if %>
 		</div>
 		<figure class="{$ElementLayout}<% if $ImageCover %> image-cover<% end_if %>">
 			<% if $ImageID %>

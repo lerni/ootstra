@@ -18,7 +18,7 @@ class ShareCareFieldsExtension extends Extension
         }
         if ($DescriptionField = $fields->dataFieldByName('OGDescriptionCustom')) {
             $DescriptionField->setDescription(_t('\Page.OGDescriptionCustomDescription', 'Default value is "Meta Description" or "Summary" for a "Blog-post"'));
-            $DescriptionField->setAttribute('placeholder', $this->owner->DefaultMetaDescription());
+            $DescriptionField->setAttribute('placeholder', $this->getOwner()->DefaultMetaDescription());
         }
     }
 }

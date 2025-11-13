@@ -41,13 +41,13 @@ class EditableCheckboxTerms extends EditableFormField
         return $id;
     }
 
-    public function populateDefaults()
+    public function onAfterPopulateDefaults()
     {
         $id = $this->getKlaroConfigID();
         $this->Name = 'TermsAndConditions';
         $this->Title = _t(__CLASS__ . '.DefaultTitle', 'I accept <a rel="noopener noreferrer" href="[sitetree_link,id={id}]" target="_blank">Terms & Conditions and Privacy Policy</a>.', ['id' => $id]);
         $this->Required = true;
-        parent::populateDefaults();
+        parent::onAfterPopulateDefaults();
     }
 
     public function getCMSFields()

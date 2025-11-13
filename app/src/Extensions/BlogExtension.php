@@ -3,15 +3,15 @@
 namespace App\Extensions;
 
 use App\Models\Slide;
-use SilverStripe\ORM\ArrayList;
 use SilverStripe\Core\Extension;
-use SilverStripe\View\ArrayData;
+use SilverStripe\Model\ArrayData;
 use SilverStripe\Blog\Model\Blog;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Control\Controller;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\DropdownField;
+use SilverStripe\Model\List\ArrayList;
 use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\GridField\GridFieldPaginator;
@@ -44,13 +44,13 @@ class BlogExtension extends Extension
         'Slides'
     ];
 
-    public function populateDefaults()
+    public function onAfterPopulateDefaults()
     {
         $siteConfig = SiteConfig::current_site_config();
         if ($heroSize = $siteConfig->DefaultHeroSize) {
-            $this->owner->HeroSize = $heroSize;
+            $this->getOwner()->HeroSize = $heroSize;
         }
-        $this->owner->PostsPerPage = (int)30;
+        $this->getOwner()->PostsPerPage = 30;
     }
 
     public function updateCMSFields(FieldList $fields)
@@ -63,7 +63,7 @@ class BlogExtension extends Extension
         );
 
         // hack around unsaved relations
-        if ($this->owner->isInDB()) {
+        if ($this->getOwner()->isInDB()) {
             $SlideGridFieldConfig = GridFieldConfig_Base::create(20);
             $SlideGridFieldConfig->addComponents(
                 new GridFieldEditButton(),
@@ -75,11 +75,11 @@ class BlogExtension extends Extension
                 new GridFieldOrderableRows('SortOrder')
             );
 
-            $gridField = new GridField('Slides', 'Slides', $this->owner->Slides(), $SlideGridFieldConfig);
+            $gridField = new GridField('Slides', 'Slides', $this->getOwner()->Slides(), $SlideGridFieldConfig);
             $fields->addFieldToTab('Root.Main', $gridField, 'Content');
 
             // HeroSize is respected if slides are present, otherwise default of SiteConfig is used
-            if ($this->owner->Slides()->count()) {
+            if ($this->getOwner()->Slides()->count()) {
                 $sizes = singleton(Blog::class)->dbObject('HeroSize')->enumValues();
                 $SizeField = DropdownField::create('HeroSize', _t('App\Elements\ElementHero.HEROSIZE', 'Size/Height Header'), $sizes);
                 $SizeField->setDescription(_t('App\Elements\ElementHero.SizeDescription', '"fullscreen" requires "full width"!'));
@@ -104,9 +104,9 @@ class BlogExtension extends Extension
 
     public function YearlyArchive()
     {
-        $query = $this->owner->getBlogPosts()->dataQuery();
+        $query = $this->getOwner()->getBlogPosts()->dataQuery();
         $query->groupBy("DATE_FORMAT(PublishDate, '%Y')");
-        $posts = $this->owner->getBlogPosts()->setDataQuery($query);
+        $posts = $this->getOwner()->getBlogPosts()->setDataQuery($query);
 
         $archive = new ArrayList();
 
@@ -115,9 +115,9 @@ class BlogExtension extends Extension
                 if ($post->PublishDate) {
                     $year = date('Y', strtotime($post->PublishDate));
                     $title = $year;
-                    $archive->push(new ArrayData([
+                    $archive->push(ArrayData::create([
                         'Title' => $title,
-                        'Link' => Controller::join_links($this->owner->Link('archive'), $year)
+                        'Link' => Controller::join_links($this->getOwner()->Link('archive'), $year)
                     ]));
                 }
             }

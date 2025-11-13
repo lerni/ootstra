@@ -7,9 +7,7 @@
 	}
 </style>
 <% include App/Includes/Header %>
-<% require themedCSS("dist/css/metaoverviewpage") %>
-<% require themedCSS("dist/css/fancy") %>
-<% require javascript("themes/default/dist/js/fancy.js") %>
+<% vite 'src/css/metaoverviewpage.css' ,'src/css/fancy.css', 'src/js/fancy.js' %>
 <main class="typography">
 	<article class="element horizontal-spacing">
 		<% with $SiteConfig %>

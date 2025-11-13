@@ -8,6 +8,7 @@ use SilverStripe\TagField\TagField;
 use SilverStripe\Security\Permission;
 use SilverStripe\ORM\FieldType\DBDate;
 use SilverStripe\Security\PermissionProvider;
+use SilverStripe\Core\Validation\ValidationResult;
 
 class Vacation extends DataObject implements PermissionProvider
 {
@@ -103,7 +104,7 @@ class Vacation extends DataObject implements PermissionProvider
         return implode(', ', $this->Locations()->Column('Title'));
     }
 
-    public function validate()
+    public function validate(): ValidationResult
     {
         $result = parent::validate();
 

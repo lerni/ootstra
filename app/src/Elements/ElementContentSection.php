@@ -34,13 +34,13 @@ class ElementContentSection extends BaseElement
 
     private static $field_labels = [];
 
-    private static $description = 'Content Section Element';
+    private static $class_description = 'Content Section Element';
 
     private static $table_name = 'ElementContentSection';
 
     private static $icon = 'font-icon-block-table-data';
 
-    function getCMSFields()
+    public function getCMSFields()
     {
         $fields = parent::getCMSFields();
 
@@ -102,7 +102,7 @@ class ElementContentSection extends BaseElement
                 }
 
                 $faqs[$i] = $PushFAQ;
-                $i++;
+                ++$i;
             }
 
             return $schemaFAQ->mainEntity($faqs)->toScript();

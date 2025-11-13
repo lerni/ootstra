@@ -3,7 +3,7 @@
 
 # Setup, Requirements & Install
 
-"ootstra" is inspired by [Bigfork's quickstart recipe](https://github.com/bigfork/silverstripe-recipe) for [Silverstripe](https://www.silverstripe.org/). It's an opinionated set of tools for a ready to run, build & deploy CMS instance. To get it up and running you'll need [GIT](https://git-scm.com/), an editor like [VSCode](https://code.visualstudio.com/) (recommended) & [ddev](https://ddev.readthedocs.io/en/stable/). It utilizes [dnadesign/silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) for a block/element based CMS experience and comes with the following set of elements:
+"ootstra" is inspired by [Bigfork's quickstart recipe](https://github.com/bigfork/silverstripe-recipe) for [Silverstripe](https://www.silverstripe.org/). It's an opinionated set of tools for a ready to run, build & deploy CMS instance. To get it up and running you'll need [GIT](https://git-scm.com/), an editor like [VSCode](https://code.visualstudio.com/) (recommended) & [DDEV](https://ddev.readthedocs.io/en/stable/). It utilizes [dnadesign/silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) for a block/element based CMS experience and comes with the following set of elements:
 
 - ElementContent
 - ElementForm               (userforms)
@@ -44,15 +44,13 @@ Per `.vscode/extensions.json` extensions will be suggested. `.vscode/settings.js
 https://github.com/gorriecoe/silverstripe-sanchez/issues/1
  -->
 - [Silverstripe](https://marketplace.visualstudio.com/items?itemName=adrian.silverstripe)
+- [Biome](https://marketplace.visualstudio.com/items?itemName=biomejs.biome)
 - [Log Viewer](https://marketplace.visualstudio.com/items?itemName=berublan.vscode-log-viewer) Side-Bar Debug -> Log Viewer
 - [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client)
 - [DevDb](https://marketplace.visualstudio.com/items?itemName=damms005.devdb)
-- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 - [EditorConfig for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
-- [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 - [DotENV](https://marketplace.visualstudio.com/items?itemName=mikestead.dotenv)
 - [JavaScript Debugger](https://marketplace.visualstudio.com/items?itemName=ms-vscode.js-debug)
-- [Sass](https://marketplace.visualstudio.com/items?itemName=syler.sass-indented)
 - [PHP Debug](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug)
 
 ### 1. Clone or fork lerni/ootstra
@@ -107,8 +105,8 @@ web_environment:
     - SSH_AUTH_SOCK=/run/host-services/ssh-auth.sock
 ```
 
-### npm, Laravel Mix watch & build etc.
-[Laravel Mix](https://github.com/JeffreyWay/laravel-mix) ([webpack](https://webpack.js.org/) based) is used as build environment. You need to run `ddev theme install` to install npm packages. Watcher browsersync/reload can be started with `ddev theme watch` and will be available at [https://PROJECTNAME.ddev.site:3000/](https://PROJECTNAME.ddev.site:3000/). A production build can be done with `ddev theme prod`. See also scripts section in `themes/default/package.json` and [Mix CLI](https://laravel-mix.com/docs/6.0/cli).
+### npm, Vite watch & build etc.
+[Laravel’s Vite components](https://laravel.com/docs/12.x/vite) are used as frontend build environment. You need to run `ddev theme install` to install npm packages. Watcher can be started with `ddev theme watch`. A production build can be done with `ddev theme prod`. See also scripts section in `themes/default/package.json`.
 
 ### VSCode tasks - remember all the commands :information_desk_person:
 There are a bunch of tasks in `.vscode/tasks.json` available per `Command+Shift+B`:
@@ -122,7 +120,8 @@ There are a bunch of tasks in `.vscode/tasks.json` available per `Command+Shift+
 - `ddev theme install` (green)
 - `ddev theme watch` (green)
 - `ddev theme prod` (green)
-- `dev/build` (blue) instead of `ddev php ./vendor/silverstripe/framework/cli-script.php dev/build flush`
+- `clean '/hot' (Vite watcher)` (green)
+- `dev/build` (blue) instead of `ddev php ./vendor/bin/sake db:build`
 - `composer vendor-expose` (blue)
 - `ssshell` (blue) instead of `ddev php ./vendor/bin/ssshell`
 - `download database from live` (cyan)
@@ -141,7 +140,7 @@ Colors group tasks like:
 Database, credentials etc. are provided as environment-variables from `.ddev/config.yaml` and are populated in `/.env` during DDEV-start. Project specific / sensitive env-vars should be set in `/.env` and won't land in GIT. For example you do not have to setup DB credentials for dev environment to work, but you need to set `APP_GOOGLE_MAPS_KEY`, `SS_NOCAPTCHA_SITE_KEY` & `SS_NOCAPTCHA_SECRET_KEY` in `.env` to make Google Maps & reCaptcha work.
 
 ## PHP Version
-Current used PHP-Version is 8.3. It's set in following places:
+Current used PHP-Version is 8.4. It's set in following places:
 - `.ddev/config.yaml`
 - `deploy/config.php`
 - `public/.htaccess` -> watch out if stage specific versions are maintained in `deploy/`
@@ -179,11 +178,11 @@ Deployment is based on [Deployer](https://deployer.org/), a php based cli-tool, 
 |
 |-- themes/                             # Themes
 |  |-- default/                         # Default theme
-|     |-- dist/                         # Webpack build output
+|     |-- dist/assets                   # Assets build for distribution (CSS, JS, images, fonts)
 |     |-- node_modules/                 # Node packages
-|     |-- src/                          # Sourcefolder for Webpack build
+|     |-- src/                          # Sourcefolder for build
 |     |-- templates                     # Templates
-|     |-- webpack.mix.js                # Webpack config
+|     |-- vite.config.js                # Vite config
 |     |-- package.json                  # Node package file
 |
 |-- vendor/                             # Composer packages
@@ -245,7 +244,7 @@ or
 The first deployment to each stage will prompt for database credentials to populate an `.env` file. The resulting file will be similar to:
 ```
 # For a complete list of core environment variables see
-# https://docs.silverstripe.org/en/5/getting_started/environment_management/#core-environment-variables
+# https://docs.silverstripe.org/en/6/getting_started/environment_management/#core-environment-variables
 
 # Environment dev/test/live
 SS_ENVIRONMENT_TYPE='dev'
@@ -279,10 +278,12 @@ GHOSTSCRIPT_PATH='/usr/bin/gs'
 # SS_NOCAPTCHA_SITE_KEY=''
 # SS_NOCAPTCHA_SECRET_KEY=''
 
+SS_ALLOWED_HOSTS='*'
+
 SCRIPT_FILENAME=''
 ```
 ## Mailer Setup
-Without setting `MAILER_DSN`, `sendmail` is used by default, typically using `SS_ADMIN_EMAIL` as sender. To use SMTP or other mailers, the `MAILER_DSN` variable should be set in the `.env`. When `MAILER_DSN` is configured, setting `SS_SEND_ALL_EMAILS_FROM` may also be appropriate. Silverstripe utilizes [Symfony Mailer](https://symfony.com/doc/current/mailer.html), which supports a variety of transport methods. With `php ./vendor/silverstripe/framework/cli-script.php dev/tasks/test-email-task to=user@domain.tld` a Test-Mail can be sent. Be aware, usually Mailpit catches all emails for local development with DDEV.
+Without setting `MAILER_DSN`, `sendmail` is used by default, typically using `SS_ADMIN_EMAIL` as sender. To use SMTP or other mailers, the `MAILER_DSN` variable should be set in the `.env`. When `MAILER_DSN` is configured, setting `SS_SEND_ALL_EMAILS_FROM` may also be appropriate. Silverstripe utilizes [Symfony Mailer](https://symfony.com/doc/current/mailer.html), which supports a variety of transport methods. With `php ./vendor/bin/sake tasks:App-Tasks-TestEmailTask --to=user@domain.tld` a Test-Mail can be sent. Be aware, Mailpit catches all emails for local development with DDEV.
 
 ## Deploy a branch/tag/revision
 
@@ -345,4 +346,10 @@ ddev php ./vendor/bin/dep silverstripe:dev_build live -v
 ddev php ./vendor/bin/dep silverstripe:dev_build test -v
 ```
 # License
-`ootstra` is licensed under [BSD license](LICENSE). Third-party modules have different licenses like (0BSD, Apache 2.0, Apache-2.0, BSD*, BSD-2-Clause, BSD-3-Clause, CC-BY-3.0, CC-BY-4.0, CC0-1.0, GPL-2.0, GPL-3.0+, GPL-3.0-or-later, ISC, MIT, MIT*, Zlib, etc.). Check with `composer licenses`, `npx license-checker --summary` in `themes/default` and be aware of the suggested plugins for VSCode. Use implies acceptance of all licenses. Note that [@fancyapps/ui](https://fancyapps.com/) is commercial software requiring a [purchased license](https://fancyapps.com/pricing/).
+`ootstra` is licensed under [BSD-3-Clause license](LICENSE). Third-party modules have different licenses:
+
+**PHP/Composer packages:** MIT, BSD-3-Clause, BSD-2-Clause, Apache-2.0, Artistic-1.0, CC0-1.0, GPL-2.0-only, GPL-3.0-only, GPL-3.0-or-later
+
+**NPM packages:** MIT, BSD-2-Clause, BSD-3-Clause, ISC, Apache-2.0, MIT-0, CC0-1.0, CC-BY-4.0, GPL-3.0-or-later, 0BSD, MIT OR Apache-2.0
+
+Check with `composer licenses` and `npx license-checker --summary` in `themes/default` for detailed licensing information. Be aware of the licenses of suggested VSCode plugins. Use implies acceptance of all licenses. Note that [@fancyapps/ui](https://fancyapps.com/) is commercial software requiring a [purchased license](https://fancyapps.com/pricing/).

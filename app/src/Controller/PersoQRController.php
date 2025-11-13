@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Models\Perso;
 use Endroid\QrCode\QrCode;
-use Endroid\QrCode\Logo\Logo;
 use Endroid\QrCode\Color\Color;
 use SilverStripe\Control\Director;
 use SilverStripe\Security\Security;
@@ -26,7 +25,7 @@ class PersoQRController extends Controller
     public function index()
     {
         $expose_vcards = Config::inst()->get(PersovCardController::class, 'expose_vcards');
-        (int)$ID = $this->getRequest()->param('ID');
+        $ID = $this->getRequest()->param('ID');
         $perso = Perso::get()->byID($ID);
 
 

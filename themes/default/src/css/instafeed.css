@@ -1,0 +1,105 @@
+@import "custom-media.css";
+
+.element.elementinstagramfeed {
+	.element-title {
+		&::before {
+			content: "";
+			display: inline-block;
+			width: 1em;
+			height: 1em;
+			margin: 0 .2em -.16em 0;
+			background-image: svg-load("instagram.svg", stroke=currentColor);
+			background-repeat: no-repeat;
+			background-position: center center;
+			background-size: 90%;
+		}
+	}
+	.instafeed {
+		display: flex;
+		flex-wrap: wrap;
+		margin-left: -1px;
+		margin-right: -1px;
+		width: calc(100% + 2px);
+		a {
+			outline: none;
+			overflow: hidden;
+			position: relative;
+			display: block;
+			width: auto;
+			height: 500px;
+			@media (--cm-l-neg) {
+				height: 400px;
+			}
+			@media (--cm-s-neg) {
+				height: 300px;
+			}
+			figure {
+				height: 100%;
+				margin: 0;
+				img {
+					object-fit: cover;
+					margin-bottom: 0;
+					max-width: none;
+					width: 100%;
+					height: 100%;
+				}
+				figcaption {
+					position: absolute;
+					inset: 0;
+					opacity: 0;
+					transition: opacity 120ms linear;
+					z-index: 1;
+					color: var(--white);
+					font-size: var(--font-size--small);
+					padding: calc(var(--lh) * 1em);
+					display: flex;
+					flex-direction: column;
+					background-color: rgba(0,0,0,.8);
+					span[data-icon="instagram"] {
+						transition: transform 120ms linear;
+						transform: scale(.4);
+						width: calc(var(--lh) * 1em);
+						height: calc(var(--lh) * 1em);
+						background-image: svg-load("instagram.svg", stroke=#fff);
+						margin: auto auto 0 auto;
+					}
+				}
+				@media (hover: hover) {
+					&:hover {
+						figcaption {
+							opacity: 1;
+							span[data-icon="instagram"] {
+								transform: scale(1);
+							}
+						}
+					}
+				}
+			}
+			video {
+				height: 100%;
+				width: 100%;
+			}
+			@media (hover: none) {
+				&:focus,
+				&:focus-within,
+				&:active {
+					figure figcaption {
+						pointer-events: none;
+						opacity: 1;
+						span[data-icon="instagram"] {
+							transform: scale(1);
+						}
+					}
+				}
+			}
+		}
+	}
+	.swiper-container {
+		.swiper-wrapper {
+			transition-timing-function: linear;
+		}
+		@media (--cm-xl-neg) {
+			overflow-x: hidden;
+		}
+	}
+}

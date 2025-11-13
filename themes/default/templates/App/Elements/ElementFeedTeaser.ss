@@ -1,12 +1,11 @@
-<% require themedCSS("dist/css/cards") %><%-- Items() is cached, so no need to...  cached 'ElementFeedTeaser', $ID, $LastEdited, $List('SilverStripe\CMS\Model\SiteTree').max('LastEdited'), $List('SilverStripe\CMS\Model\SiteTree').count() --%>
+<% vite 'src/css/cards.css' %>
 <div class="typography">
 	<% if $isFullWidth && $ShowTitle %><div class="inner"><% end_if %>
 		<% include App/Includes/ElementTitle %>
 	<% if $isFullWidth && $ShowTitle %></div><% end_if %>
 	<% if $Items %>
 		<% if $ShowAsSlider %>
-			<% require themedCSS("dist/css/swiper") %>
-			<% require javascript("themes/default/dist/js/swiper.js") %>
+			<% vite 'src/css/swiper.css', 'src/js/swiper.js' %>
 			<div class="swiper-container cards multiple" id="general-swiper-{$ID}" data-id="{$ID}">
 				<div class="swiper-wrapper cards {$Layout}">
 		<% else %>
@@ -68,4 +67,4 @@
 	<% if $FirstLinkAction %>
 		<a class="link forth" href="$FeedTeaserParentsWithCategory">$FirstLinkAction</a>
 	<% end_if %>
-</div><%-- end_cached --%>
+</div>

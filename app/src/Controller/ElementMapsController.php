@@ -2,17 +2,16 @@
 
 namespace App\Controller;
 
-use App\Models\Point;
 use SilverStripe\i18n\i18n;
 use BetterBrief\GoogleMapField;
-use SilverStripe\ORM\ArrayList;
-use SilverStripe\View\ArrayData;
+use SilverStripe\Model\ArrayData;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Environment;
 use SilverStripe\Admin\LeftAndMain;
 use SilverStripe\View\Requirements;
 use SilverStripe\Control\Controller;
 use SilverStripe\Core\Config\Config;
+use SilverStripe\Model\List\ArrayList;
 use DNADesign\Elemental\Controllers\ElementController;
 
 class ElementMapsController extends ElementController
@@ -22,7 +21,7 @@ class ElementMapsController extends ElementController
         'jpoints'
     ];
 
-    public function init()
+    protected function init()
     {
         parent::init();
 
@@ -39,8 +38,8 @@ class ElementMapsController extends ElementController
 
             $defaultLat = 0.0;
             $defaultLng = 0.0;
-            if ((float)$defaultLat == 0.0 && (float)$defaultLng == 0.0) {
-                $yamlConfig = Config::inst()->get('BetterBrief\\GoogleMapField', 'default_field_values');
+            if ($defaultLat === 0.0 && $defaultLng === 0.0) {
+                $yamlConfig = Config::inst()->get(GoogleMapField::class, 'default_field_values');
                 if ($yamlConfig && isset($yamlConfig['Latitude'])) {
                     $defaultLat = (float)$yamlConfig['Latitude'];
                 }
@@ -78,11 +77,7 @@ class ElementMapsController extends ElementController
                     'PointURL' => $item->PointURL,
                     'Type' => $item->Type
                 ]);
-                if ($item->PointURL) {
-                    $d->PointURL = $item->PointURL;
-                } else {
-                    $d->PointURL = $item->GMapLatLngLink();
-                }
+                $d->PointURL = $item->PointURL ?: $item->GMapLatLngLink();
 
                 $r->push($d);
             }

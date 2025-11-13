@@ -1,9 +1,8 @@
-<% require themedCSS("dist/css/persocfa") %>
+<% vite 'src/css/persocfa.css' %>
 <div class="typography">
 	<div class="persos">
 		<% if $Items.Count > 1 %>
-			<% require themedCSS("dist/css/swiper") %>
-			<% require javascript("themes/default/dist/js/swiper.js") %>
+			<% vite 'src/css/swiper.css', 'src/js/swiper.js' %>
 			<div class="swiper-container perso-cfa" id="general-swiper-{$ID}">
 				<div class="swiper-wrapper perso-cfa {$Layout}">
 		<% end_if %>
@@ -13,7 +12,7 @@
 				<% if $Portrait %>
 					<img loading="lazy" height="$Portrait.FocusFillMax(305,400).Height()" width="$Portrait.FocusFillMax(305,400).Width()" src="$Portrait.FocusFillMax(305,400).Convert('webp').URL" srcset="$Portrait.FocusFillMax(305,400).Convert('webp').URL 1x, $Portrait.FocusFillMax(610,800).Convert('webp').URL 2x" alt="{$Firstname} {$Lastname}" />
 				<% else %>
-					<img class="default" src="$resourceURL('themes/default/dist/images/svg/perso-defalut.svg')" alt="" />
+					<img class="default" src="{$viteAsset('src/images/svg/perso-defalut.svg')}" alt="" />
 				<% end_if %>
 			</figure>
 			<div class="txt">

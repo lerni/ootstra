@@ -1,0 +1,160 @@
+/* @import "./variables.css"; */
+@import "./custom-media.css";
+
+@define-mixin dropdown {
+	appearance: none;
+	border-radius: 0;
+	background-repeat: no-repeat;
+	background-position: top 50% right 0.7em;
+	color: var(--text-color);
+	background-image: svg-load("arrow-down.svg",
+		stroke=currentColor,
+		stroke-width=20
+	);
+	background-size: 1.2em 0.6em;
+	&:-moz-focusring {
+		text-shadow: 0 0 0 #000;
+	}
+	&::-ms-expand {
+		display: none;
+	}
+	option {
+		font-weight: var(--font-weight--normal);
+	}
+}
+
+@define-mixin buttonstyle $color: var(--white), $background: var(--link-color) {
+	font-weight: var(--font-weight--bold);
+	letter-spacing: 0.04em;
+	text-decoration: none;
+	font-size: 1em;
+	cursor: pointer;
+	padding: calc(var(--lh) / 4 * 1em) calc(var(--lh) / 2 * 1em);
+	border: none;
+	appearance: none;
+	color: $(color);
+	background-color: $(background);
+	filter: contrast(100%) saturate(100%);
+	transition-duration: 0.3s;
+	transition-property: filter;
+	transition-timing-function: ease-in-out;
+	box-shadow: none;
+	display: block;
+	&:hover {
+		filter: contrast(110%) saturate(110%);
+	}
+	&:focus-visible {
+		outline: 2px solid var(--current-color);
+	}
+}
+
+@define-mixin sliderpagination $size: calc(var(--lh) * 0.7 * 1em), $color: var(--white) {
+	.swiper-pagination {
+		position: absolute;
+		left: 0;
+		right: 0;
+		z-index: 100;
+		/* Manual spacing utilities - converted from SASS @for loop */
+		&.spacing-bottom-6 { bottom: calc(var(--lh) * 6 * 1em); }
+		&.spacing-bottom-5 { bottom: calc(var(--lh) * 5 * 1em); }
+		&.spacing-bottom-4 { bottom: calc(var(--lh) * 4 * 1em); }
+		&.spacing-bottom-3 { bottom: calc(var(--lh) * 3 * 1em); }
+		&.spacing-bottom-2 { bottom: calc(var(--lh) * 2 * 1em); }
+		&.spacing-bottom-1 { bottom: calc(var(--lh) * 1 * 1em); }
+		&.spacing-bottom-0 { bottom: calc(var(--lh) * 0 * 1em); }
+
+		.breadcrumbs &,
+		.global-alert & {
+			bottom: 0 !important;
+		}
+	}
+	.swiper-pagination-progressbar {
+		width: 100%;
+		height: calc($(size) * 0.3);
+		bottom: 0;
+		background-color: color-mix(in oklab, $(color) 18%, var(--white) 12%);
+
+		.swiper-pagination-progressbar-fill {
+			height: 100%;
+			background-color: oklch(from $(color) l c h / 0.7);
+			display: block;
+			transform-origin: top left;
+		}
+	}
+	.swiper-pagination-bullets {
+		height: calc($(size) * 2);
+		display: flex;
+		justify-content: center;
+
+		.swiper-pagination-bullet {
+			width: $(size);
+			height: $(size);
+			display: inline-block;
+			border-radius: 100%;
+			background-color: transparent;
+			border: 2px solid $(color);
+			opacity: 0.7;
+			margin-bottom: $(size);
+
+			&:not(:last-of-type) {
+				margin-right: $(size);
+			}
+
+			&.swiper-pagination-bullet-active {
+				opacity: 1;
+				background-color: $(color);
+			}
+		}
+		@media (--cm-l-neg) {
+			display: none;
+		}
+	}
+}
+
+@define-mixin arrow-before $color: var(--link-color), $arrow-width-hover: 2em, $arrow-width-small: 1.1em {
+	&::before {
+		@mixin arrow $(color), $(arrow-width-hover), $(arrow-width-small);
+		transform: rotate(180deg);
+		margin-left: $arrow-width-small;
+		margin-right: 0.3em;
+	}
+	&:hover {
+		filter: contrast(110%) saturate(110%);
+		&::before {
+			margin-left: 0;
+			width: $arrow-width-hover;
+		}
+	}
+}
+
+@define-mixin arrow-after $color: var(--link-color), $arrow-width-hover: 2em, $arrow-width-small: 1.1em {
+	&::after {
+		@mixin arrow $(color), $(arrow-width-hover), $(arrow-width-small);
+		&:hover {
+			filter: contrast(110%) saturate(110%);
+			&::after {
+				margin-right: 0;
+				width: $arrow-width-hover;
+			}
+		}
+	}
+}
+
+/* this is meant to be used with arrow-before & arrow-after, not directly */
+@define-mixin arrow $color, $arrow-width-hover, $arrow-width-small {
+	content: "";
+	display: inline-block;
+	width: calc($(arrow-width-hover) - $(arrow-width-small));
+	height: 1em;
+	margin-left: 0.4em;
+	margin-right: $(arrow-width-small);
+	background-size: auto 70%;
+	background-repeat: no-repeat;
+	background-position: top 0.3em right 0;
+	background-image: svg-load(
+		"arrow-forward.svg",
+		stroke-width=4,
+		stroke=$(color)
+	);
+	transition: all 0.12s;
+}

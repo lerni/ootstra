@@ -1,0 +1,350 @@
+{
+  "src/css/blog.css": {
+    "file": "assets/blog-uRBKhvks.css",
+    "src": "src/css/blog.css",
+    "isEntry": true,
+    "names": [
+      "blog.css"
+    ]
+  },
+  "src/css/cards.css": {
+    "file": "assets/cards-BReGiIqn.css",
+    "src": "src/css/cards.css",
+    "isEntry": true,
+    "names": [
+      "cards.css"
+    ]
+  },
+  "src/css/contentsections.css": {
+    "file": "assets/contentsections-BeEWI8h5.css",
+    "src": "src/css/contentsections.css",
+    "isEntry": true,
+    "names": [
+      "contentsections.css"
+    ]
+  },
+  "src/css/editor.css": {
+    "file": "assets/editor-C_sUxFR3.css",
+    "src": "src/css/editor.css",
+    "isEntry": true,
+    "names": [
+      "editor.css"
+    ]
+  },
+  "src/css/fancy.css": {
+    "file": "assets/fancy-CiyMTOki.css",
+    "src": "src/css/fancy.css",
+    "isEntry": true,
+    "names": [
+      "fancy.css"
+    ]
+  },
+  "src/css/footer.css": {
+    "file": "assets/footer-CQ8rhKjN.css",
+    "src": "src/css/footer.css",
+    "isEntry": true,
+    "names": [
+      "footer.css"
+    ]
+  },
+  "src/css/gallery.css": {
+    "file": "assets/gallery-DsLOii_U.css",
+    "src": "src/css/gallery.css",
+    "isEntry": true,
+    "names": [
+      "gallery.css"
+    ]
+  },
+  "src/css/localvideo.css": {
+    "file": "assets/localvideo-C038XMvC.css",
+    "src": "src/css/localvideo.css",
+    "isEntry": true,
+    "names": [
+      "localvideo.css"
+    ]
+  },
+  "src/css/logo.css": {
+    "file": "assets/logo-jhQdl_dq.css",
+    "src": "src/css/logo.css",
+    "isEntry": true,
+    "names": [
+      "logo.css"
+    ]
+  },
+  "src/css/metaoverviewpage.css": {
+    "file": "assets/metaoverviewpage-DMjEaU37.css",
+    "src": "src/css/metaoverviewpage.css",
+    "isEntry": true,
+    "names": [
+      "metaoverviewpage.css"
+    ]
+  },
+  "src/css/perso.css": {
+    "file": "assets/perso-CMXlKfdH.css",
+    "src": "src/css/perso.css",
+    "isEntry": true,
+    "names": [
+      "perso.css"
+    ]
+  },
+  "src/css/persocfa.css": {
+    "file": "assets/persocfa-CZ9RXx4M.css",
+    "src": "src/css/persocfa.css",
+    "isEntry": true,
+    "names": [
+      "persocfa.css"
+    ]
+  },
+  "src/css/style.css": {
+    "file": "assets/style-DBob740e.css",
+    "src": "src/css/style.css",
+    "isEntry": true,
+    "names": [
+      "style.css"
+    ]
+  },
+  "src/css/swiper.css": {
+    "file": "assets/swiper-CsXF8nIt.css",
+    "src": "src/css/swiper.css",
+    "isEntry": true,
+    "names": [
+      "swiper.css"
+    ]
+  },
+  "src/css/textimage.css": {
+    "file": "assets/textimage-BNxFHzzv.css",
+    "src": "src/css/textimage.css",
+    "isEntry": true,
+    "names": [
+      "textimage.css"
+    ]
+  },
+  "src/fonts/figtree-v5-latin-300.woff2": {
+    "file": "assets/figtree-v5-latin-300-5z2nvEq8.woff2",
+    "src": "src/fonts/figtree-v5-latin-300.woff2"
+  },
+  "src/fonts/figtree-v5-latin-600.woff2": {
+    "file": "assets/figtree-v5-latin-600-BelHdGDf.woff2",
+    "src": "src/fonts/figtree-v5-latin-600.woff2"
+  },
+  "src/fonts/figtree-v5-latin-700.woff2": {
+    "file": "assets/figtree-v5-latin-700-DkUwDTZn.woff2",
+    "src": "src/fonts/figtree-v5-latin-700.woff2"
+  },
+  "src/fonts/figtree-v5-latin-regular.woff2": {
+    "file": "assets/figtree-v5-latin-regular-Bqaf1QUa.woff2",
+    "src": "src/fonts/figtree-v5-latin-regular.woff2"
+  },
+  "src/images/svg/arrow-back.svg": {
+    "file": "assets/arrow-back-BhuL38tp.svg",
+    "src": "src/images/svg/arrow-back.svg"
+  },
+  "src/images/svg/arrow-down.svg": {
+    "file": "assets/arrow-down-Cme2HQkA.svg",
+    "src": "src/images/svg/arrow-down.svg"
+  },
+  "src/images/svg/arrow-forward.svg": {
+    "file": "assets/arrow-forward-D51mQR7T.svg",
+    "src": "src/images/svg/arrow-forward.svg"
+  },
+  "src/images/svg/arrow-outline.svg": {
+    "file": "assets/arrow-outline-VwYOhUzD.svg",
+    "src": "src/images/svg/arrow-outline.svg"
+  },
+  "src/images/svg/basket-bg.svg": {
+    "file": "assets/basket-bg-D8qPnv0R.svg",
+    "src": "src/images/svg/basket-bg.svg"
+  },
+  "src/images/svg/calendar112.svg": {
+    "file": "assets/calendar112-BAbwu6yy.svg",
+    "src": "src/images/svg/calendar112.svg"
+  },
+  "src/images/svg/close.svg": {
+    "file": "assets/close-yanSSOJq.svg",
+    "src": "src/images/svg/close.svg"
+  },
+  "src/images/svg/couvert.svg": {
+    "file": "assets/couvert-bJSZx9_8.svg",
+    "src": "src/images/svg/couvert.svg"
+  },
+  "src/images/svg/default.svg": {
+    "file": "assets/default-CDViCKGC.svg",
+    "src": "src/images/svg/default.svg"
+  },
+  "src/images/svg/delimiter.svg": {
+    "file": "assets/delimiter-CK0IHErk.svg",
+    "src": "src/images/svg/delimiter.svg"
+  },
+  "src/images/svg/doc.svg": {
+    "file": "assets/doc-DPfyqGUe.svg",
+    "src": "src/images/svg/doc.svg"
+  },
+  "src/images/svg/filter-icon.svg": {
+    "file": "assets/filter-icon-CeaqrcyY.svg",
+    "src": "src/images/svg/filter-icon.svg"
+  },
+  "src/images/svg/folder-open.svg": {
+    "file": "assets/folder-open-CfuEkxHF.svg",
+    "src": "src/images/svg/folder-open.svg"
+  },
+  "src/images/svg/folder.svg": {
+    "file": "assets/folder-CEHzfUZ6.svg",
+    "src": "src/images/svg/folder.svg"
+  },
+  "src/images/svg/forth.svg": {
+    "file": "assets/forth-mDeuezHW.svg",
+    "src": "src/images/svg/forth.svg"
+  },
+  "src/images/svg/grid.svg": {
+    "file": "assets/grid-Drd_seu3.svg",
+    "src": "src/images/svg/grid.svg"
+  },
+  "src/images/svg/icon-mask.svg": {
+    "file": "assets/icon-mask-C5t0uXnx.svg",
+    "src": "src/images/svg/icon-mask.svg"
+  },
+  "src/images/svg/icon.svg": {
+    "file": "assets/icon-BePsTSAx.svg",
+    "src": "src/images/svg/icon.svg"
+  },
+  "src/images/svg/instagram.svg": {
+    "file": "assets/instagram-Bvr3FPH_.svg",
+    "src": "src/images/svg/instagram.svg"
+  },
+  "src/images/svg/jpg.svg": {
+    "file": "assets/jpg-uvzE-Sef.svg",
+    "src": "src/images/svg/jpg.svg"
+  },
+  "src/images/svg/link-external.svg": {
+    "file": "assets/link-external-9n3a2ALL.svg",
+    "src": "src/images/svg/link-external.svg"
+  },
+  "src/images/svg/logo.svg": {
+    "file": "assets/logo-DCVEzdNh.svg",
+    "src": "src/images/svg/logo.svg"
+  },
+  "src/images/svg/marker-inline-gmap.svg": {
+    "file": "assets/marker-inline-gmap-C12Y6JhF.svg",
+    "src": "src/images/svg/marker-inline-gmap.svg"
+  },
+  "src/images/svg/marker.svg": {
+    "file": "assets/marker-B0j3fK9m.svg",
+    "src": "src/images/svg/marker.svg"
+  },
+  "src/images/svg/mouse.svg": {
+    "file": "assets/mouse-CqUvGX9e.svg",
+    "src": "src/images/svg/mouse.svg"
+  },
+  "src/images/svg/mute.svg": {
+    "file": "assets/mute-C4jtAxNg.svg",
+    "src": "src/images/svg/mute.svg"
+  },
+  "src/images/svg/oo.svg": {
+    "file": "assets/oo-BHqqQxbr.svg",
+    "src": "src/images/svg/oo.svg"
+  },
+  "src/images/svg/pdf-bow.svg": {
+    "file": "assets/pdf-bow-Cp2tVrUW.svg",
+    "src": "src/images/svg/pdf-bow.svg"
+  },
+  "src/images/svg/pdf.svg": {
+    "file": "assets/pdf-BG26CJBd.svg",
+    "src": "src/images/svg/pdf.svg"
+  },
+  "src/images/svg/pdf_doc.svg": {
+    "file": "assets/pdf_doc-8TeaAEDs.svg",
+    "src": "src/images/svg/pdf_doc.svg"
+  },
+  "src/images/svg/perso-defalut.svg": {
+    "file": "assets/perso-defalut-CSuR6oSa.svg",
+    "src": "src/images/svg/perso-defalut.svg"
+  },
+  "src/images/svg/plus.svg": {
+    "file": "assets/plus-DzDIe336.svg",
+    "src": "src/images/svg/plus.svg"
+  },
+  "src/images/svg/ppt.svg": {
+    "file": "assets/ppt-Boie4GWR.svg",
+    "src": "src/images/svg/ppt.svg"
+  },
+  "src/images/svg/quote-after.svg": {
+    "file": "assets/quote-after-CngW2nsU.svg",
+    "src": "src/images/svg/quote-after.svg"
+  },
+  "src/images/svg/quote-before.svg": {
+    "file": "assets/quote-before-C8rg6p5X.svg",
+    "src": "src/images/svg/quote-before.svg"
+  },
+  "src/images/svg/search-icon.svg": {
+    "file": "assets/search-icon-DBAwLnJg.svg",
+    "src": "src/images/svg/search-icon.svg"
+  },
+  "src/images/svg/search.svg": {
+    "file": "assets/search-DQQForGq.svg",
+    "src": "src/images/svg/search.svg"
+  },
+  "src/images/svg/trash.svg": {
+    "file": "assets/trash-XDYQSJyQ.svg",
+    "src": "src/images/svg/trash.svg"
+  },
+  "src/images/svg/triangle.svg": {
+    "file": "assets/triangle-Bbz95KWy.svg",
+    "src": "src/images/svg/triangle.svg"
+  },
+  "src/images/svg/vcard.svg": {
+    "file": "assets/vcard-xtZFZgQR.svg",
+    "src": "src/images/svg/vcard.svg"
+  },
+  "src/images/svg/whatsapp.svg": {
+    "file": "assets/whatsapp-Bl3ZntMs.svg",
+    "src": "src/images/svg/whatsapp.svg"
+  },
+  "src/images/svg/xls.svg": {
+    "file": "assets/xls-Doe0Vf1T.svg",
+    "src": "src/images/svg/xls.svg"
+  },
+  "src/images/svg/zip.svg": {
+    "file": "assets/zip-C1C_crjb.svg",
+    "src": "src/images/svg/zip.svg"
+  },
+  "src/images/transparent.png": {
+    "file": "assets/transparent-CWJknA7h.png",
+    "src": "src/images/transparent.png"
+  },
+  "src/js/app.js": {
+    "file": "assets/app-D3Y7_uDq.js",
+    "name": "app",
+    "src": "src/js/app.js",
+    "isEntry": true
+  },
+  "src/js/countup.js": {
+    "file": "assets/countup-7c1gGOFd.js",
+    "name": "countup",
+    "src": "src/js/countup.js",
+    "isEntry": true
+  },
+  "src/js/fancy.js": {
+    "file": "assets/fancy-C5t7Y5cw.js",
+    "name": "fancy",
+    "src": "src/js/fancy.js",
+    "isEntry": true
+  },
+  "src/js/flip.js": {
+    "file": "assets/flip-qg5VF5iN.js",
+    "name": "flip",
+    "src": "src/js/flip.js",
+    "isEntry": true
+  },
+  "src/js/infiniteGrid.js": {
+    "file": "assets/infiniteGrid-CLo-RElV.js",
+    "name": "infiniteGrid",
+    "src": "src/js/infiniteGrid.js",
+    "isEntry": true
+  },
+  "src/js/swiper.js": {
+    "file": "assets/swiper-B0GnTdde.js",
+    "name": "swiper",
+    "src": "src/js/swiper.js",
+    "isEntry": true
+  }
+}

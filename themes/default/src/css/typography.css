@@ -1,0 +1,335 @@
+@import "./custom-media.css";
+@import "./mixins.css";
+
+/* Styles for HtmlEditorFields
+---------------------------------------------------------------------------------- */
+
+/* Typography
+---------------------------------------------------------------------------------- */
+/* The following is used by both style.css (front-end) and editor.css (CMS)
+---------------------------------------------------------------------------------- */
+.typography {
+	font-weight: var(--font-weight--normal);
+
+	.bold,
+	strong {
+		font-weight: var(--font-weight--bold);
+	}
+
+	em {
+		font-style: italic;
+	}
+
+	/* PARAGRAPHS
+	-------------------------------------------- */
+	p {
+		font-size: 1em;
+		margin: 0 0 calc(var(--lh) * 1em) 0;
+	}
+
+	* {
+		&.inline,
+		&.inlinish {
+			margin-bottom: 0;
+		}
+		&.halveinline,
+		&.halvelinish {
+			margin-bottom: calc(var(--lh) / 2 * 1em);
+		}
+	}
+
+	/* horizontal rule
+	-------------------------------------------- */
+	hr {
+		border: 0;
+		border-bottom: 1px solid var(--gray--light);
+		clear: both;
+		height: 0;
+		padding: calc(calc(var(--lh) / 2 * 1em) - 1px) 0 0 0;
+		margin: 0 0 calc(var(--lh) / 2 * 1em) 0;
+	}
+
+	/* LINKS
+	-------------------------------------------- */
+	a {
+		text-decoration: none;
+		/* &:visited {
+			color: var(--link-color);
+		} */
+		&:not([class]) {
+			color: var(--link-color);
+			&:hover {
+				color: var(--current-color);
+			}
+		}
+	}
+
+	/* LIST STYLES
+	-------------------------------------------- */
+	ol,
+	ul {
+		/* margin-left & -right may be affected by --inner-width--reduced */
+		margin: 0 0 calc(var(--lh) * 1em) 0;
+		padding: 0 0 0 calc(var(--lh) / 3 * 2 * 1em);
+		li {
+			line-height: var(--lh);
+			padding: 0 0 calc(var(--lh) / 4 * 1em) calc(var(--lh) / 2 * 1em);
+			font-size: 1em;
+		}
+	}
+
+	ul {
+		list-style-type: disc;
+	}
+
+	ol {
+		list-style-type: decimal;
+		list-style-position: inside;
+		padding-left: 0;
+	}
+
+	dl {
+		display: grid;
+		width: 100%;
+		grid-template-columns: minmax(auto, 4fr) 6fr;
+		grid-template-rows: repeat(auto-fit, 1fr);
+		column-gap: calc(var(--lh) * 2 * 1em);
+		margin: 0 auto calc(var(--lh) / 2 * 1em) auto;
+		dt {
+			grid-column: 1/2;
+			font-weight: var(--font-weight--bold);
+			@media (--cm-l-neg) {
+				grid-column: 1/3;
+			}
+		}
+		dd {
+			grid-column: 2/3;
+			margin-left: 0;
+			@media (--cm-l-neg) {
+				grid-column: 1/3;
+				padding: 0 0 calc(var(--lh) / 2 * 1em) calc(var(--lh) / 2 * 1em);
+			}
+		}
+	}
+
+	/* HEADER STYLES
+	-------------------------------------------- */
+
+	h1,
+	h2,
+	h3,
+	h4 {
+		margin: 0 0 calc(var(--lh) / 2 * 1em) 0;
+		color: var(--blue);
+		font-weight: var(--font-weight--bold);
+	}
+	h1 {
+		font-size: clamp(1.4em, 5vw, 1.6em);
+	}
+	h2 {
+		font-size: clamp(1.2em, 4vw, 1.41em);
+	}
+	h3 {
+		font-size: clamp(1.1em, 3.6vw, 1.24em);
+	}
+	h4 {
+		font-size: 1em;
+		margin-bottom: 0;
+	}
+
+	/* PRE STYLES
+	-------------------------------------------- */
+	pre {
+		font-family: "Courier New", Courier, monospace;
+		display: block;
+		font-size: 1.1em;
+		padding: calc(var(--lh) / 2 * 1em);
+	}
+
+	/* TABLE STYLING
+	-------------------------------------------- */
+	table {
+		width: 100%;
+		margin: 0 0 calc(var(--lh) * 1em) 0;
+		border-collapse: collapse;
+		tr {
+			td {
+				font-size: var(--font-size--small);
+				padding: 0.1em 0.2em 0.2em;
+				vertical-align: top;
+				border-top: 1px solid var(--gray--light);
+				border-bottom: 1px solid var(--gray--light);
+			}
+			&:last-of-type {
+				td {
+					border-bottom: none;
+				}
+			}
+			&:first-of-type {
+				td {
+					border-top: none;
+				}
+			}
+		}
+	}
+
+	/* WYSIWYG EDITOR ALIGNMENT CLASSES
+	-------------------------------------------- */
+	.text-left {
+		text-align: left;
+	}
+	.center,
+	.text-center {
+		text-align: center;
+	}
+	.text-right {
+		text-align: right;
+	}
+
+	/* IMAGES
+	-------------------------------------------- */
+	.captionImage {
+		max-width: 100%;
+		img {
+			margin-bottom: 0;
+		}
+	}
+
+	img,
+	picture {
+		border: none;
+		max-width: 100%;
+		height: auto;
+		margin-bottom: calc(var(--lh) / 2 * 1em);
+		&.right {
+			text-align: right;
+			margin-left: calc(var(--lh) / 2 * 1em);
+			&.ss-htmleditorfield-file {
+				float: right;
+			}
+		}
+		&.left {
+			text-align: left;
+			margin-right: calc(var(--lh) / 2 * 1em);
+			&.ss-htmleditorfield-file {
+				float: left;
+			}
+		}
+		&.leftAlone {
+			margin-right: 100%;
+			display: table;
+		}
+		&.rightAlone {
+			margin-left: 100%;
+			display: table;
+		}
+		&.center {
+			float: none;
+			margin-left: auto;
+			margin-right: auto;
+			display: table;
+		}
+	}
+
+	div.embed.ss-htmleditorfield-file {
+		width: 100% !important;
+		margin-bottom: calc(var(--lh) * 1em);
+		/* for klaro contextual consent */
+		position: relative;
+		iframe {
+			display: block !important;
+			width: 100%;
+		}
+		> p {
+			/* video caption */
+			padding: calc(var(--lh) / 2 * 1em);
+			background-color: var(--gray--lighter);
+			font-size: var(--font-size--small);
+			display: table;
+			width: 100%;
+		}
+	}
+
+	.split-2 {
+		margin-bottom: calc(var(--lh) * 1em);
+		p:not([class]) {
+			margin-bottom: 0;
+		}
+		li {
+			break-inside: avoid-column;
+		}
+		@media (--cm-m-plus) {
+			column-count: 2;
+			column-gap: calc(var(--lh) * 2 * 1em);
+		}
+	}
+
+	blockquote {
+		margin-bottom: calc(var(--lh) * 1em);
+		margin-left: calc(var(--lh) * 1 * 1em);
+		border: 0;
+		padding: 0;
+		p {
+			&::before,
+			&::after {
+				display: inline-block;
+				background-repeat: no-repeat;
+				background-size: calc(var(--lh) * 0.5 * 1rem) auto;
+				background-position: center center;
+				width: calc(var(--lh) * 1 * 1rem);
+				height: 1rem;
+				content: "";
+			}
+			&::before {
+				background-image: svg-load(
+					"quote-before.svg",
+					fill=var(--text-color)
+				);
+			}
+			&::after {
+				background-image: svg-load(
+					"quote-after.svg",
+					fill=var(--text-color)
+				);
+			}
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	.forth {
+		@mixin arrow-after #d30046, 2em, 1.1em;
+		display: inline-block;
+		color: var(--link-color);
+	}
+	.back {
+		@mixin arrow-before #d30046, 2em, 1.1em;
+		display: inline-block;
+		color: var(--link-color);
+	}
+	.button {
+		@mixin buttonstyle;
+		display: inline-block;
+		&:hover {
+			background-color: var(--current-color);
+		}
+	}
+	.boxed {
+		background-color: var(--gray--lighter);
+		padding: calc(var(--lh) * 1 * 1em) calc(var(--lh) * 2 * 1em) calc(var(--lh) * 1.1 * 1em);
+		margin: 0 0 calc(var(--lh) * 1em) 0;
+		@media (--cm-m-neg) {
+			padding: calc(var(--lh) * 1em) calc(var(--lh) / 2 * 1em);
+		}
+		> *:last-child {
+			margin-bottom: 0;
+		}
+	}
+	.small {
+		font-size: var(--font-size--small);
+	}
+	.large {
+		font-size: clamp(1.1em, 4vw, 1.41em);
+	}
+}

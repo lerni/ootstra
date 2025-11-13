@@ -10,7 +10,6 @@ use App\Elements\ElementPersoCFA;
 use SilverStripe\Forms\EmailField;
 use SilverStripe\TagField\TagField;
 use SilverStripe\Forms\LiteralField;
-use SilverStripe\Forms\RequiredFields;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\View\Parsers\URLSegmentFilter;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
@@ -21,6 +20,7 @@ use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
 use SilverStripe\Forms\GridField\GridFieldFilterHeader;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
+use SilverStripe\Forms\Validation\RequiredFieldsValidator;
 
 class Perso extends DataObject
 {
@@ -148,8 +148,7 @@ class Perso extends DataObject
 
     public function getTitle()
     {
-        $title = implode(' ', [$this->Firstname, $this->Lastname]);
-        return $title;
+        return implode(' ', [$this->Firstname, $this->Lastname]);
     }
 
     public function DepartmentsString() {
@@ -178,7 +177,7 @@ class Perso extends DataObject
             ->url($this->AbsoluteLink());
 
         if ($this->SocialLinks()->filter('sameAs', 1)->Count()) {
-            $sameAsLinks = $$this->SocialLinks()->filter('sameAs', 1)->Column('Url');
+            $sameAsLinks = $this->SocialLinks()->filter('sameAs', 1)->Column('Url');
             $schemaPerson->sameAs($sameAsLinks);
         }
 
@@ -187,17 +186,14 @@ class Perso extends DataObject
 
     public function QRURL()
     {
-        if ($this->Departments()->count) {
-            if ($this->Departments()->first()->PersoElement()) {
-                $file = $this->Departments()->first()->PersoElement()->first()->getController()->qrvc($this->ID);
-                return $file;
-            }
+        if ($this->Departments()->count && $this->Departments()->first()->PersoElement()) {
+            return $this->Departments()->first()->PersoElement()->first()->getController()->qrvc($this->ID);
         }
     }
 
     public function getCMSValidator()
     {
-        return new RequiredFields([
+        return RequiredFieldsValidator::create([
             'Firstname',
             'Lastname'
         ]);

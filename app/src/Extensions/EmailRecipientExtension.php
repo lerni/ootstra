@@ -7,8 +7,8 @@ use SilverStripe\Core\Environment;
 
 class EmailRecipientExtension extends Extension
 {
-    public function populateDefaults()
+    public function onAfterPopulateDefaults()
     {
-        $this->owner->EmailFrom = Environment::getEnv('SS_ADMIN_EMAIL');
+        $this->getOwner()->EmailFrom = Environment::getEnv('SS_ADMIN_EMAIL');
     }
 }

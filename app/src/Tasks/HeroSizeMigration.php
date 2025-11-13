@@ -5,19 +5,23 @@ namespace App\Tasks;
 use Exception;
 use SilverStripe\ORM\DB;
 use SilverStripe\Dev\BuildTask;
+use SilverStripe\PolyExecution\PolyOutput;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
 
 class HeroSizeMigration extends BuildTask
 {
-    protected $description = 'renames fields to HeroSize';
+    protected string $title = 'Hero Size Migration';
+    protected static string $description = 'renames fields to HeroSize';
     private static $segment = 'rename-herosize';
 
-    public function run($request)
+    protected function execute(InputInterface $input, PolyOutput $output): int
     {
-        $this->updateHeroSize();
+        return $this->updateHeroSize($output);
     }
 
-    // php ./vendor/silverstripe/framework/cli-script.php dev/tasks/rename-herosize
-    function updateHeroSize()
+    // php ./vendor/bin/sake dev/tasks/rename-herosize
+    public function updateHeroSize(PolyOutput $output): int
     {
         $tableToAlter = [
             'ElementHero',
@@ -31,14 +35,16 @@ class HeroSizeMigration extends BuildTask
 
         foreach($tableToAlter as $table) {
             // https://github.com/wilr/silverstripe-tasker/blob/master/src/Traits/TaskHelpers.php#L454
-            DB::alteration_message("Altering table $table");
+            $output->writeln("Altering table $table");
             try {
                 DB::query('ALTER TABLE ' . $table . ' CHANGE Size HeroSize ENUM(\'medium\')');
-                DB::alteration_message("Alter column in $table from Size to HeroSize");
+                $output->writeln("Alter column in $table from Size to HeroSize");
             } catch (Exception $e) {
-                DB::alteration_message("Failed to alter column in $table: " . $e->getMessage());
-                return false;
+                $output->writeln("Failed to alter column in $table: " . $e->getMessage());
+                return Command::FAILURE;
             }
         }
+
+        return Command::SUCCESS;
     }
 }

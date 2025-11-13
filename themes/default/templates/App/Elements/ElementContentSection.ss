@@ -1,5 +1,4 @@
-<% require themedCSS("dist/css/contentsections") %>
-<% require javascript("themes/default/dist/js/flip.js") %>
+<% vite 'src/css/contentsections.css', 'src/js/flip.js' %>
 <% if $ShowTitle %><div class="typography<% if $isFullWidth %> inner<% end_if %>"><% end_if %>
 	<% include App/Includes/ElementTitle %>
 <% if $ShowTitle %></div><% end_if %>

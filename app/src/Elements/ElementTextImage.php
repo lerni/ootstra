@@ -40,7 +40,7 @@ class ElementTextImage extends BaseElement
         return $labels;
     }
 
-    function getCMSFields()
+    public function getCMSFields()
     {
         $fields = parent::getCMSFields();
 

@@ -2,25 +2,29 @@
 
 namespace App\Tasks;
 
-use SilverStripe\ORM\DB;
 use SilverStripe\Assets\Image;
 use SilverStripe\Dev\BuildTask;
+use SilverStripe\PolyExecution\PolyOutput;
+use Symfony\Component\Console\Command\Command;
 use SilverStripe\AssetAdmin\Controller\AssetAdmin;
+use Symfony\Component\Console\Input\InputInterface;
 
 class RegenerateThumbnails extends BuildTask
 {
-    protected $title = 'Regenerate image thumnbnails';
+    protected string $title = 'Regenerate image thumnbnails';
 
-    protected $description = 'Run per CLI to regenerate thumbnails for all images.';
+    protected static string $description = 'Run per CLI to regenerate thumbnails for all images.';
 
     protected $enabled = true;
 
-    public function run($request)
+    protected function execute(InputInterface $input, PolyOutput $output): int
     {
         $images = Image::get();
         foreach ($images as $image) {
             AssetAdmin::singleton()->generateThumbnails($image);
-            DB::alteration_message("Create thumbnails for $image->Title");
+            $output->writeln("Create thumbnails for $image->Title");
         }
+
+        return Command::SUCCESS;
     }
 }

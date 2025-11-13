@@ -55,7 +55,7 @@ class ElementPerso extends BaseElement
 
     private static $field_labels = [];
 
-    private static $description = 'Perso Element';
+    private static $class_description = 'Perso Element';
 
     private static $controller_class = ElementPersoController::class;
 
@@ -132,10 +132,8 @@ class ElementPerso extends BaseElement
             $GroupByDepartmentField->setDescription(_t(__CLASS__ . '.GroupByDepartmentDescription', 'If checked, adjust sorting in department'));
         }
 
-        if ($SortingField = $fields->dataFieldByName('Sorting')) {
-            if ($this->GroupByDepartment) {
-                $SortingField->setDisabled(true);
-            }
+        if (($SortingField = $fields->dataFieldByName('Sorting')) && $this->GroupByDepartment) {
+            $SortingField->setDisabled(true);
         }
 
         if ($PrimaryField = $fields->dataFieldByName('Primary')) {
@@ -180,13 +178,13 @@ class ElementPerso extends BaseElement
     }
 
     // first one should be primary unless selected differently
-    public function populateDefaults()
+    public function onAfterPopulateDefaults()
     {
         $this->Primary = 1;
         if ($PersoElements = $this->ClassName::get()->filter('Primary', 1)->count()) {
             $this->Primary = 0;
         }
-        parent::populateDefaults();
+        parent::onAfterPopulateDefaults();
     }
 
     public function getType()

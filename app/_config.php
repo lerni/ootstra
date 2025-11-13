@@ -1,10 +1,14 @@
 <?php
 
+use Bigfork\Vitesse\Vite;
 use SilverStripe\i18n\i18n;
 use SilverStripe\Admin\CMSMenu;
+use SilverStripe\Control\Director;
 use SilverStripe\Core\Environment;
 use SilverStripe\Admin\LeftAndMain;
+use SilverStripe\Core\Config\Config;
 use SilverStripe\Control\Email\Email;
+use SilverStripe\TinyMCE\TinyMCEConfig;
 use Wilr\GoogleSitemaps\GoogleSitemap;
 use App\Utility\SnippetShortCodeProvider;
 use App\Utility\LocationShortCodeProvider;
@@ -12,7 +16,6 @@ use App\Utility\VacationShortCodeProvider;
 use SilverStripe\Core\Manifest\ModuleLoader;
 use SilverStripe\View\Parsers\ShortcodeParser;
 use SilverStripe\View\Parsers\URLSegmentFilter;
-use SilverStripe\Forms\HTMLEditor\TinyMCEConfig;
 use SilverStripe\Core\Manifest\ModuleResourceLoader;
 
 Email::config()->set('admin_email', Environment::getEnv('SS_ADMIN_EMAIL'));
@@ -33,14 +36,16 @@ $styles = [
         'title' => '2 Spalten (auto-flow)',
         'attributes' => ['class' => 'split-2'],
         'block' => 'div',
-        'wrapper' => 1
+        'wrapper' => true,
+        'merge_siblings' => false
     ],
     [
         // Wrap selected content in a div with class of .boxed
         'title' => 'Box',
         'attributes' => ['class' => 'boxed'],
         'block' => 'div',
-        'wrapper' => 1
+        'wrapper' => true,
+        'merge_siblings' => false
     ],
     [
         // add .download to a a
@@ -71,14 +76,16 @@ $styles = [
         'title' => 'small',
         'attributes' => ['class' => 'small'],
         'block' => 'div',
-        'wrapper' => 1
+        'wrapper' => true,
+        'merge_siblings' => false
     ],
     [
         // Wrap selected content in a div with class of .large
         'title' => 'large',
         'attributes' => ['class' => 'large'],
         'block' => 'div',
-        'wrapper' => 1
+        'wrapper' => true,
+        'merge_siblings' => false
     ],
     [
         // add .inline - no margin-bottom
@@ -94,14 +101,22 @@ $styles = [
     ]
 ];
 
+$editorCSS = Config::inst()->get(TinyMCEConfig::class, 'editor_css');
+$editorPath = Vite::inst()->asset('src/css/editor.css');
+if (!Vite::inst()->isRunningHot()) {
+    $editorPath = Director::makeRelative($editorPath);
+}
+$editorCSS[] = $editorPath;
+Config::modify()->set(TinyMCEConfig::class, 'editor_css', $editorCSS);
+
 // Common plugins for all editor variants
-$adminModule = ModuleLoader::inst()->getManifest()->getModule('silverstripe/admin');
+$tinyMceModule = ModuleLoader::inst()->getManifest()->getModule('silverstripe/htmleditor-tinymce');
 $tinyMceCommonPlugins = [
     'image' => null,
     'anchor' => null,
-    'sslink' => $adminModule->getResource('client/dist/js/TinyMCE_sslink.js'),
-    'sslinkexternal' => $adminModule->getResource('client/dist/js/TinyMCE_sslink-external.js'),
-    'sslinkemail' => $adminModule->getResource('client/dist/js/TinyMCE_sslink-email.js'),
+    'sslink' => $tinyMceModule->getResource('client/dist/js/TinyMCE_sslink.js'),
+    'sslinkexternal' => $tinyMceModule->getResource('client/dist/js/TinyMCE_sslink-external.js'),
+    'sslinkemail' => $tinyMceModule->getResource('client/dist/js/TinyMCE_sslink-email.js'),
     'emoticons',
     'charmap',
     'deflist' => ModuleResourceLoader::resourceURL('app/thirdparty/tinyMCE-DefinitionList-main/deflist/plugin.min.js')
@@ -147,13 +162,11 @@ $SimpleCfg->disablePlugins(['importcss']);
 $SimpleCfg->setOptions($tinyMceCommonOptions);
 
 // Additional plugins specific to simple editor
-$cmsModule = ModuleLoader::inst()->getManifest()->getModule('silverstripe/cms');
-$assetAdminModule = ModuleLoader::inst()->getManifest()->getModule('silverstripe/asset-admin');
 $phoneModule = ModuleLoader::inst()->getManifest()->getModule('firebrandhq/silverstripe-phonelink');
 $SimpleCfg->enablePlugins([
-    'sslinkinternal' => $cmsModule->getResource('client/dist/js/TinyMCE_sslink-internal.js'),
-    'sslinkanchor' => $cmsModule->getResource('client/dist/js/TinyMCE_sslink-anchor.js'),
-    'sslinkfile' => $assetAdminModule->getResource('client/dist/js/TinyMCE_sslink-file.js'),
+    'sslinkinternal' => $tinyMceModule->getResource('client/dist/js/TinyMCE_sslink-internal.js'),
+    'sslinkanchor' => $tinyMceModule->getResource('client/dist/js/TinyMCE_sslink-anchor.js'),
+    'sslinkfile' => $tinyMceModule->getResource('client/dist/js/TinyMCE_sslink-file.js'),
     'sslinkphone' => $phoneModule->getResource('client/dist/js/TinyMCE_sslink-phone.js'),
 ]);
 

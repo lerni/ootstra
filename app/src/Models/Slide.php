@@ -7,7 +7,6 @@ use SilverStripe\Assets\Image;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Forms\FieldGroup;
 use SilverStripe\CMS\Model\SiteTree;
-use SilverStripe\Forms\RequiredFields;
 use SilverStripe\Forms\TreeDropdownField;
 use nathancox\EmbedField\Forms\EmbedField;
 use nathancox\EmbedField\Model\EmbedObject;
@@ -17,6 +16,7 @@ use SilverStripe\Forms\GridField\GridFieldDataColumns;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
 use SilverStripe\Forms\GridField\GridFieldSortableHeader;
+use SilverStripe\Forms\Validation\RequiredFieldsValidator;
 use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
 class Slide extends DataObject
@@ -143,7 +143,7 @@ class Slide extends DataObject
 
     public function getCMSValidator()
     {
-        return new RequiredFields([
+        return RequiredFieldsValidator::create([
             'Title'
         ]);
     }

@@ -15,7 +15,7 @@ class MetaOverviewPage extends Page
 
     private static $table_name = 'MetaOverviewPage';
 
-    private static $icon_class = 'font-icon-p-list';
+    private static $cms_icon_class = 'font-icon-p-list';
 
     private static $defaults = [
         'ShowInMenus' => 0,
@@ -69,7 +69,7 @@ class MetaOverviewPage extends Page
 
 class MetaOverviewPageController extends PageController
 {
-    public function init()
+    protected function init()
     {
         parent::init();
         Requirements::insertHeadTags('<meta name="robots" content="noindex">');

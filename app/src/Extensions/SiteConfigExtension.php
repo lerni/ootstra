@@ -95,7 +95,7 @@ class SiteConfigExtension extends Extension
         $MetaDescriptionField->setTargetLength(160, 100, 160);
         $MetaDescriptionField->setDescription(_t('SilverStripe\SiteConfig\SiteConfig.MetaDescriptionDescription', 'Default value if no description is present at page level.'));
 
-        $fields->addFieldsToTab('Root.Main', $GlobalAlertField = HTMLEditorField::create('GlobalAlert'));
+        $fields->addFieldsToTab('Root.Main', [$GlobalAlertField = HTMLEditorField::create('GlobalAlert')]);
         $GlobalAlertField->setRows(14);
         $GlobalAlertField->setEditorConfig('inlite'); // we need to use a different config, otherwise the "body_class" is overwritten also for editors with bigfork/silverstripe-fail-whale
         $GlobalAlertField->getEditorConfig()->setOption('body_class', 'typography global-alert');
@@ -141,7 +141,7 @@ class SiteConfigExtension extends Extension
             new GridFieldAddNewButton('toolbar-header-left')
         );
 
-        $LocationGridField = new GridField('Locations', 'Locations', $this->owner->Locations(), $LocationConf);
+        $LocationGridField = GridField::create('Locations', 'Locations', $this->getOwner()->Locations(), $LocationConf);
         $LocationGridField->setDescription(_t('SilverStripe\SiteConfig\SiteConfig.SortImpact', 'The "Location" in 1st place is displayed in the footer.'));
         $fields->addFieldToTab('Root.Main', $LocationGridField);
 
@@ -174,7 +174,7 @@ class SiteConfigExtension extends Extension
             new GridFieldAddNewButton('toolbar-header-left')
         );
 
-        $SocialGridField = new GridField('SocialLinks', 'SocialLinks', $this->owner->SocialLinks(), $SocialConf);
+        $SocialGridField = GridField::create('SocialLinks', 'SocialLinks', $this->getOwner()->SocialLinks(), $SocialConf);
         $fields->addFieldToTab('Root.Main', $SocialGridField);
 
         $VacationGFConf = GridFieldConfig_Base::create(20);
@@ -188,8 +188,8 @@ class SiteConfigExtension extends Extension
             new GridFieldAddNewButton('toolbar-header-left')
         );
         $vacationString = _t('SilverStripe\SiteConfig\SiteConfig.VacationsHolidays', 'Vacations & Holidays');
-        $VacttionGridField = new GridField('Vacation', "$vacationString" , Vacation::get(), $VacationGFConf);
-        $fields->addFieldToTab('Root', Tab::create("$vacationString", "$vacationString",
+        $VacttionGridField = GridField::create('Vacation', $vacationString, Vacation::get(), $VacationGFConf);
+        $fields->addFieldToTab('Root', Tab::create($vacationString, $vacationString,
             $VacttionGridField
         ));
     }

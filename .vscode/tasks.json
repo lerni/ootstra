@@ -6,7 +6,7 @@
     {
       "label": "dev/build - local",
       "type": "shell",
-      "command": "ddev php ./vendor/silverstripe/framework/cli-script.php dev/build flush",
+      "command": "ddev php ./vendor/bin/sake db:build",
       "group": "build",
       "presentation": {
         "reveal": "always",
@@ -69,6 +69,20 @@
       "presentation": {
         "reveal": "always",
         "panel": "new"
+      },
+      "icon": {
+        "color": "terminal.ansiGreen"
+      }
+    },
+    {
+      "label": "clean '/hot' (Vite watcher)",
+      "type": "shell",
+      "command": "ddev exec -d /var/www/html/themes/default rm -f ./hot",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "close": true
       },
       "icon": {
         "color": "terminal.ansiGreen"

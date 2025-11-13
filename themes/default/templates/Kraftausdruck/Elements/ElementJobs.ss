@@ -1,4 +1,4 @@
-<% require themedCSS("dist/css/jobs") %>
+<% vite 'src/css/jobs.css' %>
 <% include App/Includes/ElementTitle %>
 <% if $Items %>
 	<div class="jobs teasers">

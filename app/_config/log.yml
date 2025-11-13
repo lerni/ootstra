@@ -10,7 +10,7 @@ SilverStripe\Core\Injector\Injector:
       pushFileLogHandler: [ pushHandler, [ '%$LogFileHandler' ]]
 
   DisplayErrorHandler:
-    class: SilverStripe\Logging\HTTPOutputHandler
+    class: SilverStripe\Logging\ErrorOutputHandler
     constructor:
       - 'notice'
     properties:

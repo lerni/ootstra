@@ -1,4 +1,4 @@
-<% require themedCSS("dist/css/cards") %>
+<% vite 'src/css/cards.css' %>
 <% if $ShowTitle %><div class="typography<% if $isFullWidth %> inner<% end_if %>"><% end_if %>
 	<% include App/Includes/ElementTitle %>
 <% if $ShowTitle %></div><% end_if %>
@@ -7,8 +7,7 @@
 	<% if $isFullWidth && $ShowTitle %></div><% end_if %>
 	<% if $Teasers %>
 		<% if $ShowAsSlider %>
-			<% require themedCSS("dist/css/swiper") %>
-			<% require javascript("themes/default/dist/js/swiper.js") %>
+			<% vite 'src/css/swiper.css', 'src/js/swiper.js' %>
 			<div class="swiper-container card" id="general-swiper-{$ID}">
 				<div class="swiper-wrapper cards {$Layout}">
 		<% else %>

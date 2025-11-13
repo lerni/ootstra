@@ -60,7 +60,6 @@ fieldset.grid {
 /* Title-Level Field in Elements */
 #Form_ItemEditForm_TitleLevelTitle {
 	display: flex;
-	width: 100%;
 }
 #Form_ItemEditForm_TitleLevel_Holder {
 	flex: 0 0 110px;
@@ -110,7 +109,7 @@ fieldset.grid {
 
 /* transparent background */
 ul#Form_ItemEditForm_BackgroundColor li label[for$="transparent"] {
-	background: url("/_resources/themes/default/dist/images/transparent.png") transparent repeat !important;
+	background: url("/_resources/themes/default/dist/assets/transparent-CWJknA7h.png") transparent repeat !important;
 	background-size: 200% auto !important;
 }
 
@@ -139,10 +138,6 @@ ul#Form_ItemEditForm_BackgroundColor li label[for$="transparent"] {
 
 #Form_ItemEditForm_TitleLevelTitle .alert {
 	flex: 1 1 100%;
-}
-
-#Form_ItemEditForm_Title_Holder.CompositeField {
-	margin: 0;
 }
 
 #Form_ItemEditForm_Title_Holder.CompositeField > [for="Form_ItemEditForm_Title"] {
@@ -175,8 +170,7 @@ ul#Form_ItemEditForm_BackgroundColor li label[for$="transparent"] {
 	align-items: center;
 	padding: .5385rem .7692rem;
 	margin-bottom: 0;
-	margin-top: 25px;
-	padding-left: 30px;
+	margin-top: 18px;
 	font-size: 1rem;
 	font-weight: 400;
 	line-height: 1.5384;

@@ -1,12 +1,11 @@
-<% require themedCSS("dist/css/cards") %>
+<% vite 'src/css/cards.css' %>
 <div class="typography">
 	<div class="txt">
 		<% include App/Includes/ElementTitle %>
 	</div>
 	<% if $PDFDocs %>
 		<% if $ShowAsSlider %>
-			<% require themedCSS("dist/css/swiper") %>
-			<% require javascript("themes/default/dist/js/swiper.js") %>
+			<% vite 'src/css/swiper.css', 'src/js/swiper.js' %>
 			<div class="swiper-container teaser" id="general-swiper-{$ID}">
 				<div class="swiper-wrapper cards {$Layout}">
 		<% else %>

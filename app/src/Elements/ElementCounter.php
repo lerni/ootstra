@@ -33,11 +33,11 @@ class ElementCounter extends BaseElement
 
     private static $field_labels = [];
 
-    private static $description = 'Counter Element';
+    private static $class_description = 'Counter Element';
 
     private static $icon = 'font-icon-block-reports';
 
-    function getCMSFields()
+    public function getCMSFields()
     {
         $fields = parent::getCMSFields();
 

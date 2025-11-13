@@ -1,4 +1,4 @@
-<% require themedCSS("dist/css/localvideo") %>
+<% vite 'src/css/localvideo.css' %>
 <% if $ShowTitle %><div class="typography<% if $isFullWidth %> inner<% end_if %>"><% end_if %>
 	<% include App/Includes/ElementTitle %>
 <% if $ShowTitle %></div><% end_if %>

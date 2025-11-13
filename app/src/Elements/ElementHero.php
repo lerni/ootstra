@@ -54,16 +54,16 @@ class ElementHero extends BaseElement
         'SitemapImageExpose' => 1
     ];
 
-    public function populateDefaults()
+    public function onAfterPopulateDefaults()
     {
         $siteConfig = SiteConfig::current_site_config();
         if ($heroSize = $siteConfig->DefaultHeroSize) {
             $this->HeroSize = $heroSize;
         }
-        parent::populateDefaults();
+        parent::onAfterPopulateDefaults();
     }
 
-    private static $description = 'Hero Element';
+    private static $class_description = 'Hero Element';
 
     private static $icon = 'font-icon-block-carousel';
 

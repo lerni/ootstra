@@ -20,11 +20,11 @@ class AlgoliaControllerExtension extends Extension {
 
     public function SearchForm()
     {
-        $search_query = ($this->owner->request && $this->owner->request->requestVar('Search')) ?
-                        $this->owner->request->requestVar('Search') : 'Suchen';
+        $search_query = ($this->getOwner()->request && $this->getOwner()->request->requestVar('Search')) ?
+                        $this->getOwner()->request->requestVar('Search') : 'Suchen';
         $search_query = Convert::raw2sql($search_query);
         $form = new Form(
-            $this->owner, 'SearchForm',
+            $this->getOwner(), 'SearchForm',
             new FieldList(
                 TextField::create('Search', false)
                     // ->setAttribute('Placeholder', $search_query)
@@ -47,13 +47,13 @@ class AlgoliaControllerExtension extends Extension {
     {
         $hitsPerPage = 25;
 
-        $search_query = $this->owner->request->getVar('Search');
-        $paginatedPageNum = floor($this->owner->request->getVar('start') / $hitsPerPage);
+        $search_query = $this->getOwner()->request->getVar('Search');
+        $paginatedPageNum = floor($this->getOwner()->request->getVar('start') / $hitsPerPage);
 
         $results = Injector::inst()->get(AlgoliaQuerier::class)->fetchResults(
             'SoliqueRecruiting',
             $search_query, [
-                'page' => $this->owner->request->getVar('start') ? $paginatedPageNum : 0,
+                'page' => $this->getOwner()->request->getVar('start') ? $paginatedPageNum : 0,
                 'hitsPerPage' => $hitsPerPage
             ]
         );
@@ -61,7 +61,7 @@ class AlgoliaControllerExtension extends Extension {
         if($search_query && $results) {
             return [
                 'Results' => $results,
-                'Query' => $this->owner->request->getVar('Search')
+                'Query' => $this->getOwner()->request->getVar('Search')
             ];
         }
         return [];

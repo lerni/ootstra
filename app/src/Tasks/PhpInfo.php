@@ -7,15 +7,19 @@ use SilverStripe\ORM\DB;
 use SilverStripe\Dev\BuildTask;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Environment;
+use SilverStripe\PolyExecution\PolyOutput;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
 
 class PhpInfo extends BuildTask
 {
-    protected $description = 'Show environment information and phpinfo()';
+    protected string $title = 'PHP Info';
+    protected static string $description = 'Show environment information and phpinfo()';
     private static $segment = 'phpinfo';
 
     private bool $isCli = false;
 
-    public function run($request)
+    protected function execute(InputInterface $input, PolyOutput $output): int
     {
         $this->isCli = Director::is_cli();
 
@@ -55,7 +59,9 @@ class PhpInfo extends BuildTask
         }
 
         // PHP Info with options
-        $this->outputPhpInfo($request);
+        $this->outputPhpInfo();
+
+        return Command::SUCCESS;
     }
 
     private function outputHeader(string $title): void
@@ -90,10 +96,10 @@ class PhpInfo extends BuildTask
         }
     }
 
-    private function outputPhpInfo($request): void
+    private function outputPhpInfo(): void
     {
-        // Get phpinfo options from request parameter
-        $infoType = $request->getVar('info') ?? 'all';
+        // Get phpinfo options from
+        $infoType = 'all';
 
         $this->outputHeader(_t(__CLASS__ . '.PHP_INFO', 'PHP Information'));
         // todo: add comment about parameter like ?info=modules
@@ -139,12 +145,8 @@ class PhpInfo extends BuildTask
             return Environment::getEnv('SS_ENVIRONMENT_TYPE');
         }
 
-        // Fallback to checking if we're in dev mode
-        if (Director::isDev()) return 'dev';
-        if (Director::isTest()) return 'test';
-        if (Director::isLive()) return 'live';
-
-        return 'unknown';
+        // Fallback to Director's environment detection
+        return Director::get_environment_type() ?: 'unknown';
     }
 
     private function getDatabaseStatus(): string

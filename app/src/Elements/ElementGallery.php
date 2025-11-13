@@ -13,7 +13,7 @@ use Bummzack\SortableFile\Forms\SortableUploadField;
 class ElementGallery extends BaseElement
 {
     private static $db = [
-        'Layout' => 'Enum("grid,slider,flex", "grid")',
+        'Layout' => 'Enum("grid,slider,flex", "slider")',
         'Alignment' => 'Enum("left,center,right", "left")',
         'SitemapImageExpose' => 'Boolean'
     ];
@@ -39,12 +39,12 @@ class ElementGallery extends BaseElement
 
     private static $defaults = [
         'SitemapImageExpose' => 1,
-        'isFullWidth' => 1
+        'isFullWidth' => 0
     ];
 
     private static $table_name = 'ElementGallery';
 
-    private static $description = 'Gallery Element';
+    private static $class_description = 'Gallery Element';
 
     private static $icon = 'font-icon-block-file';
 
@@ -113,7 +113,7 @@ class ElementGallery extends BaseElement
 
     public function FancyGroupRand()
     {
-        return (rand(1, 9999));
+        return (random_int(1, 9999));
     }
 
     public function getType()

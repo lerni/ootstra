@@ -17,15 +17,15 @@ class ElementUserFormsExtension extends Extension
         ]);
     }
 
-    public function populateDefaults()
+    public function onAfterPopulateDefaults()
     {
         $termsField = new EditableCheckboxTerms();
-        $this->owner->Fields()->add($termsField);
+        $this->getOwner()->Fields()->add($termsField);
 
         $spamProtectionField = new EditableSpamProtectionField([
             'Name' => 'SpamProtection',
             'Title' => _t(__CLASS__ . '.DefaultTitle', '')
         ]);
-        $this->owner->Fields()->add($spamProtectionField);
+        $this->getOwner()->Fields()->add($spamProtectionField);
     }
 }

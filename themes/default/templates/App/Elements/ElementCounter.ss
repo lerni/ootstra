@@ -1,5 +1,4 @@
-<% require themedCSS("dist/css/counter") %>
-<% require javascript("themes/default/dist/js/countup.js") %>
+<% vite 'src/css/counter.css', 'src/js/countup.js' %>
 <% if $ShowTitle %><div class="typography<% if $isFullWidth %> inner<% end_if %>"><% end_if %>
 	<% include App/Includes/ElementTitle %>
 <% if $ShowTitle %></div><% end_if %>

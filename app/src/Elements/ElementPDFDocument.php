@@ -40,7 +40,7 @@ class ElementPDFDocument extends BaseElement
 
     private static $table_name = 'ElementPDFDocument';
 
-    private static $description = 'PDF Element';
+    private static $class_description = 'PDF Element';
 
     private static $field_labels = [];
 
@@ -53,7 +53,7 @@ class ElementPDFDocument extends BaseElement
         return $labels;
     }
 
-    function getCMSFields()
+    public function getCMSFields()
     {
         $fields = parent::getCMSFields();
 

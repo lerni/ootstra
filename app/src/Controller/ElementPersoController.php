@@ -4,13 +4,11 @@ namespace App\Controller;
 
 use App\Models\Perso;
 use Endroid\QrCode\QrCode;
-use Endroid\QrCode\Logo\Logo;
 use SilverStripe\Assets\File;
 use Endroid\QrCode\Color\Color;
 use SilverStripe\i18n\i18n;
 use JeroenDesloovere\VCard\VCard;
 use SilverStripe\Control\Director;
-use SilverStripe\i18n\Data\Locales;
 use Endroid\QrCode\Writer\SvgWriter;
 use SilverStripe\Control\Controller;
 use Endroid\QrCode\Encoding\Encoding;
@@ -18,7 +16,6 @@ use Endroid\QrCode\RoundBlockSizeMode;
 use SilverStripe\SiteConfig\SiteConfig;
 use Endroid\QrCode\ErrorCorrectionLevel;
 use SilverStripe\View\Parsers\URLSegmentFilter;
-use SilverStripe\Core\Manifest\ModuleResourceLoader;
 use DNADesign\Elemental\Controllers\ElementController;
 
 class ElementPersoController extends ElementController
@@ -39,14 +36,14 @@ class ElementPersoController extends ElementController
         'vcard'
     ];
 
-    public function init()
+    protected function init()
     {
         parent::init();
     }
 
     public function vcard()
     {
-        (int)$ID = $this->getRequest()->param('ID');
+        $ID = (int)$this->getRequest()->param('ID');
         $expose_vcards = $this->config()->get('expose_vcards');
         $perso = Perso::get()->byID($ID);
 
@@ -73,9 +70,9 @@ class ElementPersoController extends ElementController
             $vcard->addURL(Director::protocolAndHost() . Director::get_current_page()->Link() . '#' . $perso->Anchor());
 
             // if a current-folder exists, we assume a symlinked baseFolder like with PHP deployer
-            $current = dirname(dirname(Director::baseFolder())) . '/current';
+            $current = dirname(Director::baseFolder(), 2) . '/current';
             if (is_dir($current)) {
-                $base = dirname(dirname(Director::baseFolder())) . '/shared';
+                $base = dirname(Director::baseFolder(), 2) . '/shared';
             } else {
                 $base = Director::baseFolder();
             }
@@ -89,14 +86,13 @@ class ElementPersoController extends ElementController
             // return vcard as a string
             // return $vcard->getOutput();
 
-            $this->getResponse()->addHeader('Content-Type', "text/x-vcard; charset=$charset");
+            $this->getResponse()->addHeader('Content-Type', 'text/x-vcard; charset=' . $charset);
             $this->getResponse()->addHeader('X-Robots-Tag', 'noindex');
 
             // return vcard as a download
             return $vcard->download();
-        } else {
-            return $this->owner->httpError(404, _t(__CLASS__ . '.NotFound', 'vCard couldn\'t be found.'));
         }
+        return $this->owner->httpError(404, _t(self::class . '.NotFound', "vCard couldn't be found."));
     }
 
     public function qrvc($ID)
@@ -107,12 +103,8 @@ class ElementPersoController extends ElementController
         if ($perso->exists()) {
             // if a current-folder exists, we assume a symlinked baseFolder like with PHP deployer
             $base = Director::baseFolder();
-            $current = dirname(dirname($base)) . '/current';
-            if (is_dir($current)) {
-                $basePath = dirname(dirname($base)) . '/shared';
-            } else {
-                $basePath = $base;
-            }
+            $current = dirname($base, 2) . '/current';
+            $basePath = is_dir($current) ? dirname($base, 2) . '/shared' : $base;
 
             $baseURL = Director::absoluteBaseURL();
             $qrURL = Controller::join_links(
@@ -167,8 +159,9 @@ class ElementPersoController extends ElementController
                 $result = $writer->write($qrCode);
                 $result->saveToFile($tmp_filename);
 
-                if (!file_exists($tmp_filename))
+                if (!file_exists($tmp_filename)) {
                     return false;
+                }
 
                 $file = new File();
                 $file->Title = $perso->getTitle();

@@ -1,0 +1,240 @@
+@import "custom-media.css";
+/* @import "variables.css"; */
+
+/* Cards component for PDF documents, teasers, and feed teasers */
+
+.element.elementpdfdocument,
+.element.elementteaser,
+.element.elementfeedteaser {
+	.cards {
+		display: flex; /* we use flex (not grid) cos ShowAsSlider would otherwise break swiper.js */
+		flex-wrap: wrap;
+		gap: calc(var(--lh) * 2 * 1em);
+		width: 100%;
+
+		.card {
+			color: var(--text-color);
+			position: relative;
+
+			figure {
+				width: 100%;
+				margin: 0;
+				display: flex;
+				overflow: hidden;
+
+				img {
+					width: 100%;
+					height: auto;
+					margin-bottom: 0;
+					transform: scale(1);
+					will-change: transform;
+					transition: transform 140ms ease-out;
+				}
+			}
+
+			.txt {
+				padding: calc(var(--lh) / 2 * 1em) 0 0 0;
+
+				h2,
+				h3,
+				h4 {
+					font-size: 1em;
+					margin: 0 0 calc(var(--lh) / 2 * 1em) 0;
+				}
+
+				p {
+					font-weight: var(--font-weight--normal);
+					margin: 0;
+				}
+			}
+		}
+
+		&.third {
+			.card {
+				flex: 0 0 calc(33.333333% - calc(var(--lh) * 4 / 3 * 1em));
+				display: flex;
+				flex-direction: column;
+
+				@media (--cm-l-neg) {
+					flex: 0 0 calc(50% - calc(var(--lh) * 2 / 2 * 1em));
+				}
+
+				@media (--cm-m-neg) {
+					flex: 0 0 100%;
+				}
+
+				figure {
+					flex: 0 0 auto;
+				}
+
+				.txt {
+					padding: calc(var(--lh) / 2 * 1em) 0;
+					padding-bottom: 0;
+					position: inherit;
+					flex: 0 0 auto;
+				}
+
+				.link.forth {
+					padding: calc(var(--lh) / 2 * 1em) 0;
+					margin: auto 0 0;
+				}
+			}
+		}
+
+		&.halve {
+			.card {
+				flex: 0 0 calc(50% - calc(var(--lh) * 1 / 2 * 1em));
+
+				@media (--cm-m-neg) {
+					flex: 0 0 100%;
+				}
+
+				.txt {
+					padding: calc(var(--lh) / 2 * 1em) 0 0 calc(var(--lh) * 1em);
+					max-width: calc(100% - calc(var(--lh) * 3 * 1em));
+					min-width: calc(100% - calc(var(--lh) * 3 * 1em));
+				}
+
+				&:hover {
+					.txt {
+						.accordion {
+							max-height: 400px;
+						}
+					}
+				}
+
+				&.left {
+					.txt {
+						padding: calc(var(--lh) / 2 * 1em) calc(var(--lh) * 1em) 0 0;
+					}
+				}
+			}
+		}
+
+		&.full {
+			.card {
+				flex: 0 0 100%;
+
+				.txt {
+					width: calc(50% + calc(var(--lh) / 2 * 1em));
+					padding: calc(var(--lh) * 1em) calc(var(--lh) * 1em) 0;
+				}
+
+				&:hover {
+					.txt {
+						.accordion {
+							max-height: 600px;
+						}
+					}
+				}
+
+				&.left {
+					.txt {
+						padding-left: 0;
+					}
+				}
+			}
+		}
+
+		&.halve,
+		&.full {
+			.card {
+				.txt {
+					right: 0;
+					bottom: 0;
+
+					@media (--cm-m-neg) {
+						position: inherit;
+						left: auto;
+						bottom: auto;
+						width: 100%;
+						padding-left: 0;
+						padding-right: 0;
+
+						.accordion {
+							max-height: 0;
+						}
+					}
+
+					p,
+					.link.forth {
+						width: 100%;
+					}
+
+					.accordion {
+						overflow: hidden;
+						will-change: max-height;
+						transition: max-height 320ms ease-out;
+
+						@media (--cm-m-plus) {
+							max-height: 0;
+						}
+					}
+				}
+
+				&:hover {
+					.txt {
+						.accordion {
+							overflow: show;
+						}
+					}
+				}
+
+				&.left {
+					.txt {
+						padding-left: 0;
+						left: 0;
+						right: auto;
+					}
+				}
+			}
+		}
+	}
+
+	/* case slider */
+	.swiper-container {
+		@media (--cm-xl-neg) {
+			overflow-x: hidden;
+		}
+
+		.swiper-wrapper {
+			flex-wrap: nowrap;
+			gap: 0; /* setting gaps in swiper.js aligns better, otherwise we see an offset which accumulates with each slide */
+		}
+	}
+
+	/* targets FirstLinkAction in FeedTeaser */
+	.typography > a.link.forth {
+		margin: calc(var(--lh) * 1em) auto 0 0;
+		/* buttonstyle mixin converted to inline styles */
+		font-weight: var(--font-weight--bold);
+		letter-spacing: 0.04em;
+		text-decoration: none;
+		font-size: 1em;
+		cursor: pointer;
+		padding: calc(var(--lh) / 4 * 1em) calc(var(--lh) / 2 * 1em);
+		border: none;
+		-webkit-appearance: none;
+		appearance: none;
+		color: var(--white);
+		background-color: var(--link-color);
+		filter: contrast(100%) saturate(100%);
+		transition-duration: 0.3s;
+		transition-property: filter;
+		transition-timing-function: ease-in-out;
+		box-shadow: none;
+		display: inline-block;
+
+		&:hover {
+			filter: contrast(110%) saturate(110%);
+		}
+
+		&:focus-visible {
+			outline: 2px solid var(--link-color);
+		}
+
+		&::after {
+			display: none;
+		}
+	}
+}

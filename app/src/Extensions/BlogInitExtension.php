@@ -2,9 +2,9 @@
 
 namespace  App\Extensions;
 
+use Bigfork\Vitesse\Vite;
 use SilverStripe\Core\Extension;
 use SilverStripe\View\Requirements;
-use SilverStripe\Core\Manifest\ModuleResourceLoader;
 
 class BlogInitExtension extends Extension
 {
@@ -14,18 +14,17 @@ class BlogInitExtension extends Extension
         $additionalLinkHeaders = [
             sprintf(
                 '<%s>; rel=preload; as=style',
-                ModuleResourceLoader::resourceURL('themes/default/dist/css/blog.css')
-
+                Vite::inst()->asset('src/css/blog.css')
             )
         ];
-        $headers = $this->owner->response->getHeaders();
+        $headers = $this->getOwner()->response->getHeaders();
         if (array_key_exists('link', $headers)) {
             $linkHeaders = explode(',', $headers['link']);
             $linkHeaders = array_merge($linkHeaders, $additionalLinkHeaders);
         } else {
             $linkHeaders = $additionalLinkHeaders;
         }
-        $this->owner->response->addHeader('link', implode(',', $linkHeaders));
-        Requirements::css(ModuleResourceLoader::resourceURL('themes/default/dist/css/blog.css'));
+        $this->getOwner()->response->addHeader('link', implode(',', $linkHeaders));
+        Requirements::css(Vite::inst()->asset('src/css/blog.css'));
     }
 }

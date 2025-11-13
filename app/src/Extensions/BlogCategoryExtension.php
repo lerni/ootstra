@@ -27,11 +27,11 @@ class BlogCategoryExtension extends Extension
     {
         // Check if any pages are using this category
         $pagesUsingCategory = Page::get()->filter([
-            'PageCategories.ID' => $this->owner->ID
+            'PageCategories.ID' => $this->getOwner()->ID
         ])->count();
 
         // Check if BlogCategory is on BlogPosts
-        $postsUsingCategory = $this->owner->BlogPosts()->count();
+        $postsUsingCategory = $this->getOwner()->BlogPosts()->count();
 
         return ($pagesUsingCategory + $postsUsingCategory) <= 1;
     }

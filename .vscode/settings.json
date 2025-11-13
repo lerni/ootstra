@@ -5,8 +5,9 @@
   "editor.linkedEditing": true,
   "editor.stickyScroll.enabled": true,
   "intelephense.diagnostics.undefinedSymbols": true,
-  "intelephense.environment.phpVersion": "8.3",
-  "intelephense.files.exclude": ["/.ddev/**", "/.graphql-generated/**", "/docker/**", "/silverstripe-cache/**", "/themes/**"],
+  "intelephense.environment.phpVersion": "8.4",
+  "intelephense.files.exclude": ["/.ddev/**", "/silverstripe-cache/**", "/themes/**"],
+  "intelephense.environment.includePaths": ["vendor", "app"],
   "intelephense.format.braces": "per",
   "intelephense.telemetry.enabled": false,
   "logViewer.watch": [
@@ -19,7 +20,7 @@
   "php.debug.executablePath": "/bin/sh -c 'ddev php \"$@\"' --",
   "php.suggest.basic": true,
   "php.validate.enable": true,
-  "php.validate.executablePath": "ddev php",
+  "php.validate.executablePath": "/bin/sh -c 'ddev php \"$@\"' --",
   "php.validate.run": "onSave",
   "search.followSymlinks": false,
   "search.useIgnoreFiles": false,
@@ -35,5 +36,7 @@
   "workbench.tree.enableStickyScroll": true,
   "workbench.editorAssociations": {
     "*.svg": "default"
-  }
+  },
+  "biome.enabled": true,
+  "biome.lsp.bin": "ddev exec -d /var/www/html/themes/default npx biome"
 }

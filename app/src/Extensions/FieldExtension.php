@@ -4,11 +4,11 @@ namespace App\Extensions;
 
 use DOMDocument;
 use SilverStripe\i18n\i18n;
-use SilverStripe\ORM\ArrayList;
 use SilverStripe\Core\Extension;
-use SilverStripe\View\ArrayData;
+use SilverStripe\Model\ArrayData;
 use libphonenumber\PhoneNumberUtil;
 use libphonenumber\PhoneNumberFormat;
+use SilverStripe\Model\List\ArrayList;
 use libphonenumber\NumberParseException;
 use nathancox\EmbedField\Model\EmbedObject;
 use SilverStripe\View\Parsers\URLSegmentFilter;
@@ -24,7 +24,7 @@ class FieldExtension extends Extension
 
     public function CountLink()
     {
-        $stringwithnoemptylines = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $this->owner->value);
+        $stringwithnoemptylines = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $this->getOwner()->value);
         if (empty($stringwithnoemptylines)) {
             return false;
         }
@@ -39,14 +39,15 @@ class FieldExtension extends Extension
         if ($this->owner->value) {
             return strlen($this->owner->value);
         }
+        return null;
     }
 
     public function PerLineText($start = 0, $max = 0, $string = 0)
     {
         $r = ArrayList::create();
 
-        if ($this->owner->value) {
-            $stringwithnoemptylines = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $this->owner->value);
+        if ($this->getOwner()->value) {
+            $stringwithnoemptylines = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $this->getOwner()->value);
             $lines = explode(PHP_EOL, $stringwithnoemptylines);
             $i = 0;
             $c = 0;
@@ -57,9 +58,9 @@ class FieldExtension extends Extension
                     ($c < (int)$max || (int)$max == 0)
                 ) {
                     $r->push(ArrayData::create(['Item' => $l]));
-                    $c++;
+                    ++$c;
                 }
-                $i++;
+                ++$i;
             }
         }
         if ($string !== 0) {
@@ -67,21 +68,20 @@ class FieldExtension extends Extension
             foreach ($r as $line) {
                 $string .= $line->Item . PHP_EOL;
             }
-            return (string)$string;
-        } else {
-            return $r;
+            return $string;
         }
+        return $r;
     }
 
     public function URLEnc()
     {
         $filter = new URLSegmentFilter();
-        return $filter->filter($this->owner->value);
+        return $filter->filter($this->getOwner()->value);
     }
 
     public function TelEnc($schema = '')
     {
-        $value = $this->owner->value ?? '';
+        $value = $this->getOwner()->value ?? '';
         $trimedTel = trim(preg_replace('/\s+/', '', $value));
 
         if ($schema == '') {
@@ -112,18 +112,19 @@ class FieldExtension extends Extension
 
     public function Markdowned()
     {
-        if ($this->owner->value) {
+        if ($this->getOwner()->value) {
             $converter = new GithubFlavoredMarkdownConverter();
-            $html = $converter->convertToHtml($this->owner->value);
+            $html = $converter->convertToHtml($this->getOwner()->value);
             return $html->getContent();
         }
+        return null;
     }
 
     // Use {$Content.TrimEmbed} in template, for this to trigger
     // themes/default/templates/SilverStripe/View/Shortcodes/EmbedShortcodeProvider_video.ss
     public function TrimEmbed()
     {
-        if ($vidSrc = $this->owner->value) {
+        if ($vidSrc = $this->getOwner()->value) {
 
             $dom = new DOMDocument();
             $dom->loadHTML($vidSrc);
@@ -178,27 +179,28 @@ class FieldExtension extends Extension
 
             return $vidSrc;
         }
+        return null;
     }
 
-    function unparse_url($parsed_url)
+    public function unparse_url($parsed_url)
     {
         $scheme   = isset($parsed_url['scheme']) ? $parsed_url['scheme'] . '://' : '';
-        $host     = isset($parsed_url['host']) ? $parsed_url['host'] : '';
+        $host     = $parsed_url['host'] ?? '';
         $port     = isset($parsed_url['port']) ? ':' . $parsed_url['port'] : '';
-        $user     = isset($parsed_url['user']) ? $parsed_url['user'] : '';
+        $user     = $parsed_url['user'] ?? '';
         $pass     = isset($parsed_url['pass']) ? ':' . $parsed_url['pass']  : '';
-        $pass     = ($user || $pass) ? "$pass@" : '';
-        $path     = isset($parsed_url['path']) ? $parsed_url['path'] : '';
+        $pass     = ($user || $pass) ? $pass . '@' : '';
+        $path     = $parsed_url['path'] ?? '';
         $query    = isset($parsed_url['query']) ? '?' . $parsed_url['query'] : '';
         $fragment = isset($parsed_url['fragment']) ? '#' . $parsed_url['fragment'] : '';
 
-        return "$scheme$user$pass$host$port$path$query$fragment";
+        return $scheme . $user . $pass . $host . $port . $path . $query . $fragment;
     }
 
     public function NumberFormat($decimals = 2, $decimalsSeparator = '.', $thousandsSeparator = '')
     {
         // Return empty string if value is null, empty string, or only whitespace
-        if ($this->owner->value === null || $this->owner->value === '' || trim($this->owner->value) === '') {
+        if ($this->getOwner()->value === null || $this->getOwner()->value === '' || trim($this->getOwner()->value) === '') {
             return '';
         }
 
@@ -206,7 +208,7 @@ class FieldExtension extends Extension
         $safeThousandsSeparators = ["'", ' '];
 
         // First remove only the safe thousands separators
-        $cleanValue = str_replace($safeThousandsSeparators, '', $this->owner->value);
+        $cleanValue = str_replace($safeThousandsSeparators, '', $this->getOwner()->value);
 
         // Cast to float (PHP internally always uses period as decimal separator)
         $floatValue = (float)str_replace(',', '.', $cleanValue);

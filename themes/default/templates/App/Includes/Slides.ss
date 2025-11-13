@@ -32,7 +32,7 @@
 							<figure <% if $LinkID %>class="linked"<% end_if %>><img sizes="100vw"
 								height="$SlideImage.FocusFillMax(1440,360).Height()"
 								width="$SlideImage.FocusFillMax(1440,360).Width()"
-								<% if not $IsFirst %>loading="lazy" <% end_if %>
+								<% if not $IsFirst %>loading="lazy" <% else_if $Up.IsHero || $DefaultHero %>fetchpriority="high" <% end_if %>
 								alt="$SlideImage.Title"
 								style="object-position: {$SlideImage.FocusFillMax(1440,360).FocusPoint.PercentageX}% {$SlideImage.FocusFillMax(1440,360).FocusPoint.PercentageY}%;"
 								src="$SlideImage.FocusFillMax(1440,360).Convert('webp').URL"
@@ -51,7 +51,7 @@
 							<figure <% if $LinkID %>class="linked"<% end_if %>><img sizes="100vw"
 								height="$SlideImage.FocusFillMax(1440,650).Height()"
 								width="$SlideImage.FocusFillMax(1440,650).Width()"
-								<% if not $IsFirst %>loading="lazy" <% end_if %>
+								<% if not $IsFirst %>loading="lazy" <% else_if $Up.IsHero || $DefaultHero %>fetchpriority="high" <% end_if %>
 								alt="$SlideImage.Title"
 								style="object-position: {$SlideImage.FocusFillMax(1440,650).FocusPoint.PercentageX}% {$SlideImage.FocusFillMax(1440,650).FocusPoint.PercentageY}%;"
 								src="$SlideImage.FocusFillMax(1440,650).Convert('webp').URL"
@@ -135,9 +135,8 @@
 			<% end_loop %>
 		</div>
 	</div>
-	<% if $Slides.Count > 1 %>
-		<% require themedCSS("dist/css/swiper") %>
-		<% require javascript("themes/default/dist/js/swiper.js") %>
+	<% if $Items.Count > 1 %>
+		<% vite 'src/css/swiper.css', 'src/js/swiper.js' %>
 		<div class="swiper-pagination hero spacing-bottom-{$SpacingBottom}" id="hero-swiper-pagination{$ID}"></div>
 		<div class="swiper-button-prev hero spacing-bottom-{$SpacingBottom}" id="hero-swiper-prev{$ID}"></div>
 		<div class="swiper-button-next hero spacing-bottom-{$SpacingBottom}" id="hero-swiper-next{$ID}"></div>

@@ -1,13 +1,10 @@
-<% require themedCSS("dist/css/gallery") %>
-<% require themedCSS("dist/css/fancy") %>
-<% require javascript("themes/default/dist/js/fancy.js") %>
+<% vite 'src/css/gallery.css' ,'src/css/fancy.css', 'src/js/fancy.js' %>
 <% if $ShowTitle %><div class="typography<% if $isFullWidth %> inner<% end_if %>"><% end_if %>
 	<% include App/Includes/ElementTitle %>
 <% if $ShowTitle %></div><% end_if %>
 <% if $Items %>
 	<% if $Layout == "slider" %>
-		<% require themedCSS("dist/css/swiper") %>
-		<% require javascript("themes/default/dist/js/swiper.js") %>
+		<% vite 'src/css/swiper.css', 'src/js/swiper.js' %>
 		<div class="swiper-container multiple" id="general-swiper-{$ID}">
 			<div class="swiper-wrapper multiple">
 				<% loop $Items %>

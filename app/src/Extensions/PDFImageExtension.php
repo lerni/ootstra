@@ -24,20 +24,19 @@ class PDFImageExtension extends Extension
      * @param int $width The width of the formatted file in px
      * @param int $page The page of the PDF to convert
      * @param int $quality The quality of the output image for jpg files form 0 to 100
-     * @return ?DBFile
      */
     public function PDFImage(string $newExtension = 'png', int $width = 2000, int $page = 1, int $quality = 96): ?DBFile
     {
         $original = $this->getOwner();
 
         // Only working with PDF files
-        if (strtolower($original->getExtension()) != 'pdf') {
+        if (strtolower($original->getExtension()) !== 'pdf') {
             return null;
         }
 
-        $pathParts = pathinfo($this->owner->getFilename());
+        $pathParts = pathinfo($this->getOwner()->getFilename());
 
-        $variant = $this->owner->variantName(__FUNCTION__, AbstractFileIDHelper::EXTENSION_REWRITE_VARIANT, $pathParts['extension'], $newExtension, $width, $page, $quality);
+        $variant = $this->getOwner()->variantName(__FUNCTION__, AbstractFileIDHelper::EXTENSION_REWRITE_VARIANT, $pathParts['extension'], $newExtension, $width, $page, $quality);
 
         return $original->manipulateExtension(
         // TODO: we should use manipulateImage or just manipulate here, and make sure all parameters are respected in
@@ -50,10 +49,10 @@ class PDFImageExtension extends Extension
                 // TODO: this is a bit of a hack to get the original filename - lets use AssetStore::getFullPath or something instead
                 // if a current-folder exists, we assume a symlinked baseFolder like with PHP deployer
                 $base = Director::baseFolder();
-                $current = dirname(dirname($base)) . '/current';
-                $basePath = is_dir($current) ? dirname(dirname($base)) . '/shared' : $base;
+                $current = dirname($base, 2) . '/current';
+                $basePath = is_dir($current) ? dirname($base, 2) . '/shared' : $base;
 
-                $original_filename_relative = $this->owner->getFilename();
+                $original_filename_relative = $this->getOwner()->getFilename();
                 $original_filename_absolute = $basePath . '/public/assets/' . $original_filename_relative;
 
                 // bail out if file doesn't exists
@@ -61,17 +60,17 @@ class PDFImageExtension extends Extension
                     return null;
                 }
 
-                $tmp_filename = sys_get_temp_dir() . '/' . basename($original_filename_relative) . '.page-' . (int)$page . '-width-' . (int)$width . '-quality-' . (int)$quality . '.' . $newExtension;
+                $tmp_filename = sys_get_temp_dir() . '/' . basename($original_filename_relative) . '.page-' . $page . '-width-' . $width . '-quality-' . $quality . '.' . $newExtension;
                 $gsDevice = $newExtension === 'png' ? 'png16m' : 'jpeg';
 
                 $commandParts = [
                     escapeshellcmd($ghost_path),
                     '-sDEVICE=' . $gsDevice,
                     '-dAutoRotatePages=/None',
-                    '-dFirstPage=' . (int)$page,
-                    '-dLastPage=' . (int)$page,
+                    '-dFirstPage=' . $page,
+                    '-dLastPage=' . $page,
                     '-dNOPAUSE',
-                    '-dJPEGQ=' . (int)$quality,
+                    '-dJPEGQ=' . $quality,
                     '-dGraphicsAlphaBits=4',
                     '-dTextAlphaBits=4',
                     '-r144',
@@ -100,9 +99,7 @@ class PDFImageExtension extends Extension
                 $tuple = $backend->writeToStore($store, $filename, $hash, $variant, $config);
 
                 // Clean up temporary file
-                if (file_exists($tmp_filename)) {
-                    unlink($tmp_filename);
-                }
+                unlink($tmp_filename);
 
                 return [$tuple, $backend];
             }

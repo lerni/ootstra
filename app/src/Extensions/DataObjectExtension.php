@@ -12,10 +12,10 @@ class DataObjectExtension extends Extension
     // we use this in template & WYSIWYGs for css classes
     public function ShortClassName($obj, $lowercase = false)
     {
-        if ($this->owner->ClassName == ElementVirtual::class) {
-            $r = ClassInfo::shortName($this->owner->LinkedElement()) . ' ' . ClassInfo::shortName(ElementVirtual::class);
+        if ($this->getOwner()->ClassName == ElementVirtual::class) {
+            $r = ClassInfo::shortName($this->getOwner()->LinkedElement()) . ' ' . ClassInfo::shortName(ElementVirtual::class);
         } elseif (!is_object($obj)) {
-            $r = ClassInfo::shortName($this->owner);
+            $r = ClassInfo::shortName($this->getOwner());
         } else {
             $r = ClassInfo::shortName($obj);
         }

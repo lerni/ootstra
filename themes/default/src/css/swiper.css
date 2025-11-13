@@ -1,0 +1,136 @@
+/* @import "variables.css"; */
+@import "custom-media.css";
+@import "./mixins.css";
+
+/* Import only the Swiper modules we need */
+@import "../../node_modules/swiper/swiper.css";
+@import "../../node_modules/swiper/modules/navigation.css";
+@import "../../node_modules/swiper/modules/effect-fade.css";
+@import "../../node_modules/swiper/modules/scrollbar.css";
+
+/* Swiper theme color configuration */
+:root {
+  --swiper-theme-color: var(--link-color) !important;
+  --swiper-navigation-size: calc(var(--lh) * 2 * 1em) !important;
+}
+
+@mixin sliderpagination .7em, #fff;
+
+/* Sliderpagination styles - converted from mixin */
+.swiper-pagination {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  bottom: 0;
+
+  /* Spacing bottom variants */
+  &.spacing-bottom-6 { bottom: calc(6 * var(--lh) * 1em); }
+  &.spacing-bottom-5 { bottom: calc(5 * var(--lh) * 1em); }
+  &.spacing-bottom-4 { bottom: calc(4 * var(--lh) * 1em); }
+  &.spacing-bottom-3 { bottom: calc(3 * var(--lh) * 1em); }
+  &.spacing-bottom-2 { bottom: calc(2 * var(--lh) * 1em); }
+  &.spacing-bottom-1 { bottom: calc(1 * var(--lh) * 1em); }
+  &.spacing-bottom-0 { bottom: 0; }
+
+  .breadcrumbs &,
+  .global-alert & {
+    bottom: 0 !important;
+  }
+}
+
+.swiper-pagination-progressbar {
+  width: 100%;
+  height: calc(1 * 0.3 * 1em);
+  bottom: 0;
+  background-color: color-mix(in oklch, oklch(from var(--link-color) l c h / 0.3) 60%, oklch(from var(--white) l c h / 0.2) 40%);
+
+  .swiper-pagination-progressbar-fill {
+    height: 100%;
+    background-color: oklch(from var(--link-color) l c h / 0.7);
+    display: block;
+    transform-origin: top left;
+  }
+}
+
+/*
+.swiper-pagination-bullets {
+  height: calc(1 * 2 * 1em);
+  display: flex;
+  justify-content: center;
+
+  .swiper-pagination-bullet {
+    width: calc(1 * 1em);
+    height: calc(1 * 1em);
+    display: inline-block;
+    border-radius: 100%;
+    background-color: oklch(from var(--link-color) l c h / 0);
+    border: 2px solid var(--link-color);
+    opacity: 0.7;
+    margin-bottom: calc(1 * 1em);
+
+    &:not(:last-of-type) {
+      margin-right: calc(1 * 1em);
+    }
+
+    &.swiper-pagination-bullet-active {
+      opacity: 1;
+      background-color: var(--link-color);
+    }
+  }
+
+  @media (--cm-l-neg) {
+    display: none;
+  }
+}
+*/
+/* Vertical swiper styles */
+.swiper-vertical {
+  overflow: hidden;
+  height: 500px;
+
+  @media (--cm-l-neg) {
+    height: 400px;
+  }
+
+  @media (--cm-s-neg) {
+    height: 300px;
+  }
+
+  .swiper-wrapper {
+    flex-direction: column;
+  }
+
+  .swiper-pagination {
+    right: 0;
+    width: -2em;
+    height: 100%;
+    left: auto;
+    bottom: 0;
+    flex-direction: column;
+  }
+}
+
+/* Swiper slide styles */
+div.swiper-slide {
+  width: auto;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Navigation button spacing adjustments */
+.swiper-button-prev,
+.swiper-button-next {
+  /* Spacing bottom variants for navigation buttons */
+  &.spacing-bottom-6 { margin-top: calc(0px - (var(--swiper-navigation-size) / 2) - calc(6 * var(--lh) * 0.5 * 1em)); }
+  &.spacing-bottom-5 { margin-top: calc(0px - (var(--swiper-navigation-size) / 2) - calc(5 * var(--lh) * 0.5 * 1em)); }
+  &.spacing-bottom-4 { margin-top: calc(0px - (var(--swiper-navigation-size) / 2) - calc(4 * var(--lh) * 0.5 * 1em)); }
+  &.spacing-bottom-3 { margin-top: calc(0px - (var(--swiper-navigation-size) / 2) - calc(3 * var(--lh) * 0.5 * 1em)); }
+  &.spacing-bottom-2 { margin-top: calc(0px - (var(--swiper-navigation-size) / 2) - calc(2 * var(--lh) * 0.5 * 1em)); }
+  &.spacing-bottom-1 { margin-top: calc(0px - (var(--swiper-navigation-size) / 2) - calc(1 * var(--lh) * 0.5 * 1em)); }
+  &.spacing-bottom-0 { margin-top: calc(0px - (var(--swiper-navigation-size) / 2) - calc(0 * var(--lh) * 0.5 * 1em)); }
+
+  .global-alert & {
+    margin-top: calc(0px - (var(--swiper-navigation-size) / 2)) !important;
+  }
+}

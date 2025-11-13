@@ -1,0 +1,28 @@
+.element.elementtextimage {
+	.container {
+		display: grid;
+		column-gap: calc(var(--lh) * 1em);
+		grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+	}
+	.txt {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding-block: calc(var(--lh) * 1em);
+		order: 0;
+	}
+	figure {
+		margin: 0;
+		img {
+			width: 100%;
+			margin-bottom: 0;
+			display: table;
+		}
+	}
+	.txt.Image {
+		order: 1;
+	}
+	figure.Image {
+		order: 0;
+	}
+}

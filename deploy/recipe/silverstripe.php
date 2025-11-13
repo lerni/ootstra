@@ -2,6 +2,8 @@
 
 namespace Deployer;
 
+use Exception;
+
 // Tasks
 desc('Populate .env file');
 task('silverstripe:create_dotenv', function (): void {
@@ -53,6 +55,8 @@ GHOSTSCRIPT_PATH='/usr/bin/gs'
 # reCAPTCHA key from: https://www.google.com/recaptcha/admin/create
 # SS_NOCAPTCHA_SITE_KEY=''
 # SS_NOCAPTCHA_SECRET_KEY=''
+
+SS_ALLOWED_HOSTS='*'
 
 SCRIPT_FILENAME=''
 
@@ -107,15 +111,15 @@ desc('Run pkill to reset php process');
 task('pkill', function (): void {
     try {
         run('pkill -f {{php_process}}');
-    } catch (\Exception $ex) {
-        writeln($ex->getMessage());
+    } catch (Exception $exception) {
+        writeln($exception->getMessage());
     }
 });
 
 
 desc('Run dev/build');
 task('silverstripe:dev_build', function (): void {
-    run('cd {{release_or_current_path}} && {{bin/php}} ./vendor/silverstripe/framework/cli-script.php dev/build flush');
+    run('cd {{release_or_current_path}} && {{bin/php}} ./vendor/bin/sake db:build');
     // run("php {{release_path}}/vendor/bin/sake dev/build flush");
 });
 

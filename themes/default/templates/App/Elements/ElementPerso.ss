@@ -1,5 +1,5 @@
-<%-- require themedCSS("dist/css/perso-simple") --%>
-<% require themedCSS("dist/css/perso") %>
+<%-- vite 'src/css/perso-simple.css' --%>
+<% vite 'src/css/perso.css' %>
 <div class="typography">
 	<% include App/Includes/ElementTitle %>
 	<% if $GroupByDepartment %>

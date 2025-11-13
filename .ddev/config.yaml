@@ -1,7 +1,7 @@
 # name: ootstra # directory name as project name is used by default - we also use `${workspaceFolderBasename}` in `.vscode/launch.json` - make sure to update that if you change this
 type: silverstripe
 docroot: public
-php_version: "8.3"
+php_version: "8.4"
 webserver_type: apache-fpm
 xdebug_enabled: false
 additional_hostnames: []
@@ -32,6 +32,7 @@ web_environment:
     - SS_ENVIRONMENT_TYPE=dev
     - SS_DATABASE_PORT=3306
     - SS_DATABASE_CLASS=MySQLDatabase
+    - SS_ALLOWED_HOSTS=*
     # generic ss settings
     - SS_BASE_URL=${DDEV_PRIMARY_URL}
     - SS_ERROR_EMAIL=test@example.org
@@ -41,6 +42,11 @@ web_environment:
     # - SS_DEPRECATION_ENABLED=true
 corepack_enable: false
 nodejs_version: "22"
+web_extra_exposed_ports:
+    - name: vite
+      container_port: 5173
+      http_port: 5172
+      https_port: 5173
 
 # Key features of DDEV's config.yaml:
 

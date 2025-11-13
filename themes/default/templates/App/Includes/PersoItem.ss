@@ -3,7 +3,7 @@
 		<% if $Portrait %>
 			<img loading="lazy" height="$Portrait.FocusFillMax(305,400).Height()" width="$Portrait.FocusFillMax(305,400).Width()" src="$Portrait.FocusFillMax(305,400).Convert('webp').URL" srcset="$Portrait.FocusFillMax(305,400).Convert('webp').URL 1x, $Portrait.FocusFillMax(610,800).Convert('webp').URL 2x" alt="{$Firstname} {$Lastname}" />
 		<% else %>
-			<img class="default" src="$resourceURL('themes/default/dist/images/svg/perso-defalut.svg')" alt="" />
+			<img class="default" src="{$viteAsset('src/images/svg/perso-defalut.svg')}" alt="" />
 		<% end_if %>
 		<div class="txt">
 			<h2>{$Firstname} {$Lastname}</h2>
@@ -39,7 +39,7 @@
 	<% if $Portrait %>
 		<img loading="lazy" height="$Portrait.FocusFillMax(305,400).Height()" width="$Portrait.FocusFillMax(305,400).Width()" src="$Portrait.FocusFillMax(305,400).Convert('webp').URL" srcset="$Portrait.FocusFillMax(305,400).Convert('webp').URL 1x, $Portrait.FocusFillMax(610,800).Convert('webp').URL 2x" alt="{$Firstname} {$Lastname}" />
 	<% else %>
-		<img class="default" src="$resourceURL('themes/default/dist/images/svg/perso-defalut.svg')" alt="" />
+		<img class="default" src="{$viteAsset('src/images/svg/perso-defalut.svg')}" alt="" />
 	<% end_if %>
 	<div class="txt">
 		<h2>{$Firstname} {$Lastname}</h2>

@@ -3,7 +3,7 @@
 namespace App\Extensions;
 
 use SilverStripe\Core\Extension;
-use SilverStripe\ORM\SS_List;
+use SilverStripe\Model\List\SS_List;
 
 class HeritageExtension extends Extension
 {
@@ -14,13 +14,13 @@ class HeritageExtension extends Extension
         $component = null;
 
         //hasField, e.g. $db or getter Method
-        if ($this->owner->hasField($componentName)) {
-            $component = $this->owner->$componentName;
+        if ($this->getOwner()->hasField($componentName)) {
+            $component = $this->getOwner()->$componentName;
         }
 
         //hasMethod: all relations or methods
-        if ($this->owner->hasMethod($componentName)) {
-            $component = $this->owner->$componentName();
+        if ($this->getOwner()->hasMethod($componentName)) {
+            $component = $this->getOwner()->$componentName();
         }
 
         /**
@@ -30,8 +30,8 @@ class HeritageExtension extends Extension
             return $component;
         }
 
-        if ($this->owner->ParentID != 0) {
-            return $this->owner->Parent()->Heritage($componentName);
+        if ($this->getOwner()->ParentID != 0) {
+            return $this->getOwner()->Parent()->Heritage($componentName);
         }
         return false;
     }

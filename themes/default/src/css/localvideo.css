@@ -1,0 +1,125 @@
+@import "custom-media.css";
+/* @import "variables.css"; */
+
+/* Local video component with custom controls */
+
+.element.elementlocalvideo {
+	/* Video control sizes */
+	--play-size: 70px;
+	--mute-size: 1em;
+
+	display: flex;
+	flex-direction: column;
+
+	.element-title {
+		margin-bottom: calc(var(--lh) * 1em);
+	}
+
+	.video-wrapper {
+		width: 100%;
+		display: flex;
+		position: relative;
+
+		button {
+			background-color: transparent;
+			border: 0;
+			display: block;
+			cursor: pointer;
+			position: relative;
+			z-index: 1;
+		}
+
+		.play-wrapper {
+			position: absolute;
+			left: calc(50% - calc(var(--play-size) * 0.5));
+			top: calc(50% - calc(var(--play-size) * 0.5));
+			height: var(--play-size);
+			width: var(--play-size);
+
+			&::after {
+				content: "";
+				display: block;
+				position: absolute;
+				background-color: color-mix(in oklch, var(--gray), transparent 70%);
+				width: 200%;
+				height: 200%;
+				border-radius: 50%;
+				left: -71%;
+				top: -50%;
+				z-index: 0;
+				pointer-events: none;
+			}
+		}
+
+		&.play {
+			.play-wrapper::after {
+				display: none;
+			}
+
+			button.play {
+				border-style: double;
+				border-color: transparent var(--white);
+				border-width: 0px 0 0px calc(var(--play-size) / 6 * 5);
+				height: 100%;
+				transition: opacity 1s linear;
+				opacity: 0;
+			}
+		}
+
+		&:not(.play) button.play {
+			margin: auto 0;
+			background: transparent;
+			box-sizing: border-box;
+			width: 0;
+			padding: 0;
+			border-color: transparent transparent transparent var(--white);
+
+			/* play state */
+			border-style: solid;
+			border-width: calc(var(--play-size) * 0.5 + 1px) 0
+				calc(var(--play-size) * 0.5 + 1px) calc(var(--play-size) / 6 * 5);
+
+			&:hover {
+				opacity: 0.8;
+			}
+		}
+
+		button.mute {
+			width: calc(3 * var(--mute-size));
+			height: calc(3 * var(--mute-size));
+			position: absolute;
+			right: calc(var(--mute-size) / 1);
+			bottom: calc(var(--mute-size) / 2);
+
+			svg {
+				width: 100%;
+				height: 100%;
+
+				path {
+					fill: var(--white);
+				}
+			}
+		}
+
+		&.muted button.mute {
+			svg {
+				#wave {
+					display: none;
+				}
+			}
+		}
+
+		&:not(.muted) button.mute {
+			svg {
+				#cross {
+					display: none;
+				}
+			}
+		}
+	}
+
+	> a.button {
+		margin-left: auto;
+		margin-top: calc(calc(var(--lh) / 6) * 1em + calc(var(--lh) / 1) * 1em);
+	}
+}

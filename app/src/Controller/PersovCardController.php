@@ -79,9 +79,9 @@ class PersovCardController extends Controller
         $vcard->addURL($link);
 
         // if a current-folder exists, we assume a symlinked baseFolder like with PHP deployer
-        $current = dirname(dirname(Director::baseFolder())) . '/current';
+        $current = dirname(Director::baseFolder(), 2) . '/current';
         if (is_dir($current)) {
-            $base = dirname(dirname(Director::baseFolder())) . '/shared';
+            $base = dirname(Director::baseFolder(), 2) . '/shared';
         } else {
             $base = Director::baseFolder();
         }
@@ -92,7 +92,7 @@ class PersovCardController extends Controller
             $vcard->addPhoto($original_filename_absolute);
         }
 
-        $this->getResponse()->addHeader('Content-Type', "text/x-vcard; charset=$charset");
+        $this->getResponse()->addHeader('Content-Type', 'text/x-vcard; charset=' . $charset);
         $this->getResponse()->addHeader('X-Robots-Tag', 'noindex');
 
         // return vcard as a download

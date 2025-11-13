@@ -17,8 +17,8 @@ class ElementalPageExtension extends Extension
 
     public function updateCMSFields(FieldList $fields)
     {
-        if (!$this->owner->hasHero()) {
-            if (!$this->owner->PreventHero) {
+        if (!$this->getOwner()->hasHero()) {
+            if (!$this->getOwner()->PreventHero) {
                 $message = _t('App\Models\ElementPage.HeroNeeded', 'If there is no "Hero" as top element, <a href="/admin/settings/">default Header Slides</a> are used.');
                 $fields->fieldByName('Root.Main')->unshift(
                     LiteralField::create(
@@ -41,12 +41,12 @@ class ElementalPageExtension extends Extension
         SSViewer::set_themes(SSViewer::config()->get('themes'));
         try {
             $output = [];
-            foreach ($this->owner->hasOne() as $key => $class) {
+            foreach ($this->getOwner()->hasOne() as $key => $class) {
                 if ($class !== ElementalArea::class) {
                     continue;
                 }
                 /** @var ElementalArea $area */
-                $area = $this->owner->$key();
+                $area = $this->getOwner()->$key();
                 if ($area) {
                     $output[] = strip_tags($area->forTemplate());
                 }
@@ -58,7 +58,7 @@ class ElementalPageExtension extends Extension
             SSViewer::set_themes($oldThemes);
         }
 
-        $output = implode($output);
+        $output = implode('', $output);
 
         $output = preg_replace('/<[^>]*>/', ' ', $output);
 

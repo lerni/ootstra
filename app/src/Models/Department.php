@@ -6,13 +6,13 @@ use App\Models\Perso;
 use App\Elements\ElementPerso;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Forms\LiteralField;
-use SilverStripe\Forms\RequiredFields;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\View\Parsers\URLSegmentFilter;
 use SilverStripe\Forms\GridField\GridFieldConfig_Base;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
 use SilverStripe\Forms\GridField\GridFieldFilterHeader;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
+use SilverStripe\Forms\Validation\RequiredFieldsValidator;
 use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
 class Department extends DataObject
@@ -122,7 +122,7 @@ class Department extends DataObject
 
     public function getCMSValidator()
     {
-        return new RequiredFields([
+        return RequiredFieldsValidator::create([
             'Title'
         ]);
     }

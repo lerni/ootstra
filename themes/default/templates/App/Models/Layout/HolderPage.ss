@@ -1,13 +1,22 @@
 <% include App/Includes/Header %>
-<% require themedCSS("dist/css/cards") %>
-<% require javascript("themes/default/dist/js/infiniteGrid.js") %>
+<% vite 'src/css/cards.css', 'src/js/infiniteGrid.js' %>
 <main>
 	<% include App/Includes/DefaultHero %>
-	<article class="element default horizontal-spacing spacing-bottom-1 after-hero">
-		<div class="typography width-reduced">
-			$Content
-		</div>
-	</article>
+	<% if $Content %>
+		<article class="element default horizontal-spacing spacing-bottom-1 after-hero">
+			<div class="typography width-reduced">
+				$Content
+			</div>
+		</article >
+	<% end_if %>
+	<% if $CategoriesWithState.Count %><nav class="element blog-post-meta horizontal-spacing">
+		<p class="cat-tag" data-hx-boost="true" data-hx-indicator=".loader" data-hx-swap="outerHTML show:unset">
+			<a href="$Top.Link" class="all<% if not $URLCategoryFirst %> current<% end_if %>" title="<%t SilverStripe\Blog\Model\Blog.Alle "Alle" %>"><%t Blog.Alle "Alle" %></a>
+			<% loop $CategoriesWithState %>
+				<a href="{$Top.Link}?tags={$URLSegment}" class="$CustomLinkingMode" title="$Title" data-segment="$URLSegment">$Title</a>
+			<% end_loop %>
+		</p>
+	</nav><% end_if %>
 	<article class="element elementfeedteaser full-width horizontal-spacing">
 		<% if $Items %>
 			<div class="masonry-holder cards {$Layout}">
@@ -27,6 +36,7 @@
 						</div>
 					</a>
 				<% end_loop %>
+				<div class="loader"><%t Page.Loader 'Loading...' %></div>
 			</div>
 		<% end_if %>
 	</article>
