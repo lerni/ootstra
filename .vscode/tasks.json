@@ -6,11 +6,11 @@
     {
       "label": "dev/build - local",
       "type": "shell",
-      "command": "ddev php ./vendor/bin/sake db:build",
+      "command": "php ./vendor/bin/sake db:build --flush",
       "group": "build",
       "presentation": {
         "reveal": "always",
-        "panel": "new",
+        "panel": "shared",
         "focus": true
       },
       "icon": {
@@ -20,7 +20,7 @@
     {
       "label": "SilverStripe Shell",
       "type": "shell",
-      "command": "ddev php ./vendor/bin/ssshell",
+      "command": "php ./vendor/bin/ssshell",
       "group": "build",
       "presentation": {
         "reveal": "always",
@@ -35,11 +35,11 @@
     {
       "label": "npm install & update update-browserslist-db",
       "type": "shell",
-      "command": "ddev theme install && ddev exec -d /var/www/html/themes/default npx update-browserslist-db@latest",
+      "command": "npm --prefix themes/default install && npm --prefix themes/default update-browserslist-db@latest",
       "group": "build",
       "presentation": {
         "reveal": "always",
-        "panel": "new",
+        "panel": "shared",
         "focus": true
       },
       "icon": {
@@ -49,11 +49,11 @@
     {
       "label": "npm prod",
       "type": "shell",
-      "command": "ddev theme prod",
+      "command": "npm --prefix themes/default run build",
       "group": "build",
       "presentation": {
         "reveal": "always",
-        "panel": "new",
+        "panel": "shared",
         "focus": true
       },
       "icon": {
@@ -63,12 +63,12 @@
     {
       "label": "npm watch",
       "type": "shell",
-      "command": "ddev theme watch",
+      "command": "npm --prefix themes/default run dev",
       "group": "build",
       "isBackground": true,
       "presentation": {
         "reveal": "always",
-        "panel": "new"
+        "panel": "dedicated"
       },
       "icon": {
         "color": "terminal.ansiGreen"
@@ -77,7 +77,7 @@
     {
       "label": "clean '/hot' (Vite watcher)",
       "type": "shell",
-      "command": "ddev exec -d /var/www/html/themes/default rm -f ./hot",
+      "command": "rm -f /var/www/html/themes/default/hot",
       "group": "build",
       "presentation": {
         "reveal": "always",
@@ -89,70 +89,17 @@
       }
     },
     {
-      "label": "ddev start",
+      "label": "logs",
       "type": "shell",
-      "command": "ddev start",
+      "command": "tail -f /var/log/apache2/error.log /var/log/apache2/access.log /var/log/php/*.log 2>/dev/null",
       "group": "build",
+      "isBackground": true,
       "presentation": {
         "reveal": "always",
-        "panel": "new"
+        "panel": "dedicated",
+        "focus": true
       },
-      "icon": {
-        "color": "terminal.ansiMagenta"
-      }
-    },
-    {
-      "label": "ddev stop",
-      "type": "shell",
-      "command": "ddev stop",
-      "group": "build",
-      "presentation": {
-        "reveal": "always",
-        "panel": "new"
-      },
-      "icon": {
-        "color": "terminal.ansiMagenta"
-      }
-    },
-    {
-      "label": "ddev restart",
-      "type": "shell",
-      "command": "ddev restart",
-      "group": "build",
-      "presentation": {
-        "reveal": "always",
-        "panel": "new"
-      },
-      "icon": {
-        "color": "terminal.ansiMagenta"
-      }
-    },
-    {
-      "label": "ddev ssh",
-      "type": "shell",
-      "command": "ddev ssh",
-      "group": "build",
-      "presentation": {
-        "reveal": "always",
-        "panel": "new",
-        "focus": true,
-        "close": true
-      },
-      "icon": {
-        "color": "terminal.ansiMagenta"
-      }
-    },
-    {
-      "label": "ddev log web",
-      "type": "shell",
-      "command": "ddev logs -f -s web",
-      "group": "build",
-      "presentation": {
-        "reveal": "always",
-        "panel": "new",
-        "focus": true,
-        "close": true
-      },
+      "problemMatcher": [],
       "icon": {
         "color": "terminal.ansiMagenta"
       }
@@ -160,11 +107,11 @@
     {
       "label": "composer install",
       "type": "shell",
-      "command": "ddev composer install",
+      "command": "composer install",
       "group": "build",
       "presentation": {
         "reveal": "always",
-        "panel": "new",
+        "panel": "shared",
         "focus": true
       },
       "icon": {
@@ -174,11 +121,11 @@
     {
       "label": "composer update",
       "type": "shell",
-      "command": "ddev composer u",
+      "command": "composer u",
       "group": "build",
       "presentation": {
         "reveal": "always",
-        "panel": "new",
+        "panel": "shared",
         "focus": true
       },
       "icon": {
@@ -188,11 +135,11 @@
     {
       "label": "composer vendor-expose",
       "type": "shell",
-      "command": "ddev composer vendor-expose",
+      "command": "composer vendor-expose",
       "group": "build",
       "presentation": {
         "reveal": "always",
-        "panel": "new",
+        "panel": "shared",
         "focus": true
       },
       "icon": {
@@ -202,11 +149,11 @@
     {
       "label": "download assets from live",
       "type": "shell",
-      "command": "ddev php ./vendor/bin/dep silverstripe:download_assets live",
+      "command": "php ./vendor/bin/dep silverstripe:download_assets live",
       "group": "build",
       "presentation": {
         "reveal": "always",
-        "panel": "new",
+        "panel": "shared",
         "focus": true
       },
       "icon": {
@@ -216,11 +163,11 @@
     {
       "label": "download database from live",
       "type": "shell",
-      "command": "ddev php ./vendor/bin/dep silverstripe:download_database live",
+      "command": "php ./vendor/bin/dep silverstripe:download_database live",
       "group": "build",
       "presentation": {
         "reveal": "always",
-        "panel": "new",
+        "panel": "shared",
         "focus": true
       },
       "icon": {
@@ -230,7 +177,7 @@
     {
       "label": "ssh live",
       "type": "shell",
-      "command": "ddev php ./vendor/bin/dep ssh live",
+      "command": "php ./vendor/bin/dep ssh live",
       "group": "build",
       "presentation": {
         "reveal": "always",
@@ -245,7 +192,7 @@
     {
       "label": "ssh test",
       "type": "shell",
-      "command": "ddev php ./vendor/bin/dep ssh test",
+      "command": "php ./vendor/bin/dep ssh test",
       "group": "build",
       "presentation": {
         "reveal": "always",
@@ -260,11 +207,11 @@
     {
       "label": "deploy test",
       "type": "shell",
-      "command": "ddev php ./vendor/bin/dep deploy test",
+      "command": "php ./vendor/bin/dep deploy test",
       "group": "build",
       "presentation": {
         "reveal": "always",
-        "panel": "new",
+        "panel": "dedicated",
         "focus": true
       },
       "icon": {
@@ -274,11 +221,11 @@
     {
       "label": "deploy live",
       "type": "shell",
-      "command": "ddev php ./vendor/bin/dep deploy live",
+      "command": "php ./vendor/bin/dep deploy live",
       "group": "build",
       "presentation": {
         "reveal": "always",
-        "panel": "new",
+        "panel": "dedicated",
         "focus": true
       },
       "icon": {
@@ -288,7 +235,7 @@
     {
       "label": "DDEV: Enable Xdebug",
       "type": "shell",
-      "command": "ddev xdebug true",
+      "command": "enable_xdebug",
       "group": "build",
       "presentation": {
         "reveal": "always",
@@ -303,7 +250,7 @@
     {
       "label": "DDEV: Disable Xdebug",
       "type": "shell",
-      "command": "ddev xdebug false",
+      "command": "disable_xdebug",
       "group": "build",
       "presentation": {
         "reveal": "always",
@@ -318,11 +265,11 @@
     {
       "label": "dep releases test",
       "type": "shell",
-      "command": "ddev php ./vendor/bin/dep releases test",
+      "command": "php ./vendor/bin/dep releases test",
       "group": "build",
       "presentation": {
         "reveal": "always",
-        "panel": "new",
+        "panel": "shared",
         "focus": true
       },
       "icon": {
@@ -332,11 +279,11 @@
     {
       "label": "dep releases live",
       "type": "shell",
-      "command": "ddev php ./vendor/bin/dep releases live",
+      "command": "php ./vendor/bin/dep releases live",
       "group": "build",
       "presentation": {
         "reveal": "always",
-        "panel": "new",
+        "panel": "shared",
         "focus": true
       },
       "icon": {
@@ -346,11 +293,11 @@
     {
       "label": "deploy:unlock live",
       "type": "shell",
-      "command": "ddev php ./vendor/bin/dep deploy:unlock live",
+      "command": "php ./vendor/bin/dep deploy:unlock live",
       "group": "build",
       "presentation": {
         "reveal": "always",
-        "panel": "new",
+        "panel": "shared",
         "focus": true
       },
       "icon": {
@@ -360,11 +307,11 @@
     {
       "label": "deploy:unlock test",
       "type": "shell",
-      "command": "ddev php ./vendor/bin/dep deploy:unlock test",
+      "command": "php ./vendor/bin/dep deploy:unlock test",
       "group": "build",
       "presentation": {
         "reveal": "always",
-        "panel": "new",
+        "panel": "shared",
         "focus": true
       },
       "icon": {

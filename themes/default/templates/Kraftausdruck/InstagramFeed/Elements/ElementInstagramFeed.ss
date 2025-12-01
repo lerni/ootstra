@@ -16,7 +16,7 @@
 					<% end_if %>
 					<% loop $Children %><%-- per default we show just one - may just incrase limit? --%>
 						<a class="swiper-slide $media_type.LowerCase" href="$permalink?img_index={$Pos}" target="_blank" rel="noopener">
-							<figure >
+							<figure>
 								<% if $media_type == "VIDEO" %>
 									<video muted poster="$thumbnail_url" autoplay loop playsinline style="width:100%">
 										<source src="$media_url" type="video/mp4">
@@ -37,19 +37,20 @@
 							</div>
 						</div>
 					<% end_if %>
+				<% else %>
+					<a class="swiper-slide $media_type.LowerCase" href="$permalink" target="_blank" rel="noopener">
+						<figure>
+							<% if $media_type == "VIDEO" %>
+								<video muted poster="$thumbnail_url" autoplay loop playsinline style="width:100%">
+									<source src="$media_url" type="video/mp4">
+								</video>
+							<% else_if $media_type == "IMAGE" %>
+								<img loading="lazy" src="$media_url" alt="$caption" />
+							<% end_if %>
+							<figcaption>{$caption}<span data-icon="instagram"></span></figcaption>
+						</figure>
+					</a>
 				<% end_if %>
-				<a class="swiper-slide $media_type.LowerCase" href="$permalink" target="_blank" rel="noopener">
-					<figure>
-						<% if $media_type == "VIDEO" %>
-							<video muted poster="$thumbnail_url" autoplay loop playsinline style="width:100%">
-								<source src="$media_url" type="video/mp4">
-							</video>
-						<% else_if $media_type == "IMAGE" %>
-							<img loading="lazy" src="$media_url" alt="$caption" />
-						<% end_if %>
-						<figcaption>{$caption}<span data-icon="instagram"></span></figcaption>
-					</figure>
-				</a>
 			<% end_loop %>
 		</div>
 	</div>

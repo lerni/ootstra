@@ -1,42 +1,20 @@
 {
-  "[php]": {
-    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
-  },
-  "editor.linkedEditing": true,
-  "editor.stickyScroll.enabled": true,
-  "intelephense.diagnostics.undefinedSymbols": true,
-  "intelephense.environment.phpVersion": "8.4",
-  "intelephense.files.exclude": ["/.ddev/**", "/silverstripe-cache/**", "/themes/**"],
-  "intelephense.environment.includePaths": ["vendor", "app"],
-  "intelephense.format.braces": "per",
-  "intelephense.telemetry.enabled": false,
+  // Settings for local development (non-devcontainer)
+  // Most settings are in .devcontainer/devcontainer.json for devcontainer use
+
+  // Log Viewer (not in devcontainer extensions)
   "logViewer.watch": [
     {
       "title": "Silverstripe",
       "pattern": "silverstripe.log"
     }
   ],
-  "php.executablePath": "ddev php",
-  "php.debug.executablePath": "/bin/sh -c 'ddev php \"$@\"' --",
-  "php.suggest.basic": true,
-  "php.validate.enable": true,
-  "php.validate.executablePath": "/bin/sh -c 'ddev php \"$@\"' --",
-  "php.validate.run": "onSave",
-  "search.followSymlinks": false,
-  "search.useIgnoreFiles": false,
-  "telemetry.telemetryLevel": "off",
-  "terminal.integrated.scrollback": 10000,
+
+  // Terminal profiles for local macOS
   "terminal.integrated.profiles.osx": {
     "zsh": {
       "path": "/bin/zsh",
       "args": ["-l", "-i"]
     }
-  },
-  "vscode.php-language-features": false,
-  "workbench.tree.enableStickyScroll": true,
-  "workbench.editorAssociations": {
-    "*.svg": "default"
-  },
-  "biome.enabled": true,
-  "biome.lsp.bin": "ddev exec -d /var/www/html/themes/default npx biome"
+  }
 }

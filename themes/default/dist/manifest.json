@@ -8,7 +8,7 @@
     ]
   },
   "src/css/cards.css": {
-    "file": "assets/cards-BReGiIqn.css",
+    "file": "assets/cards-Bd6bvJWP.css",
     "src": "src/css/cards.css",
     "isEntry": true,
     "names": [
@@ -88,7 +88,7 @@
     ]
   },
   "src/css/persocfa.css": {
-    "file": "assets/persocfa-CZ9RXx4M.css",
+    "file": "assets/persocfa-B4iDBmQ4.css",
     "src": "src/css/persocfa.css",
     "isEntry": true,
     "names": [
@@ -96,7 +96,7 @@
     ]
   },
   "src/css/style.css": {
-    "file": "assets/style-DBob740e.css",
+    "file": "assets/style-BwyspBI_.css",
     "src": "src/css/style.css",
     "isEntry": true,
     "names": [
@@ -223,6 +223,10 @@
     "file": "assets/logo-DCVEzdNh.svg",
     "src": "src/images/svg/logo.svg"
   },
+  "src/images/svg/mail.svg": {
+    "file": "assets/mail-COqYgM4B.svg",
+    "src": "src/images/svg/mail.svg"
+  },
   "src/images/svg/marker-inline-gmap.svg": {
     "file": "assets/marker-inline-gmap-C12Y6JhF.svg",
     "src": "src/images/svg/marker-inline-gmap.svg"
@@ -259,6 +263,10 @@
     "file": "assets/perso-defalut-CSuR6oSa.svg",
     "src": "src/images/svg/perso-defalut.svg"
   },
+  "src/images/svg/phone.svg": {
+    "file": "assets/phone-_9ml1y5T.svg",
+    "src": "src/images/svg/phone.svg"
+  },
   "src/images/svg/plus.svg": {
     "file": "assets/plus-DzDIe336.svg",
     "src": "src/images/svg/plus.svg"
@@ -266,6 +274,10 @@
   "src/images/svg/ppt.svg": {
     "file": "assets/ppt-Boie4GWR.svg",
     "src": "src/images/svg/ppt.svg"
+  },
+  "src/images/svg/qr-code-outline.svg": {
+    "file": "assets/qr-code-outline-Cq77hxib.svg",
+    "src": "src/images/svg/qr-code-outline.svg"
   },
   "src/images/svg/quote-after.svg": {
     "file": "assets/quote-after-CngW2nsU.svg",

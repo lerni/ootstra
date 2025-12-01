@@ -193,6 +193,10 @@ DNADesign\Elemental\Models\BaseElement:
   inline_editable: false
   require_sudo_mode: false
 
+DNADesign\Elemental\Forms\ElementalAreaConfig:
+  extensions:
+    - App\Extensions\ElementalAreaConfigExtension
+
 DNADesign\Elemental\Models\ElementContent:
   extensions:
     - App\Extensions\ElementContentExtension
@@ -207,10 +211,6 @@ DNADesign\ElementalUserForms\Model\ElementForm:
   disable_multi_step_forms: true
   extensions:
     - App\Extensions\ElementUserFormsExtension
-
-DNADesign\Elemental\Forms\ElementalAreaConfig:
-  extensions:
-    - App\Extensions\ElementalAreaConfigExtension
 
 SilverStripe\UserForms\Model\UserDefinedForm:
   extensions:

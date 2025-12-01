@@ -308,3 +308,7 @@ de_CH:
   App\Models\ShortCodeSnippet:
     Duplicate: 'Titel darf nur einmal verwendet werden.'
     ShortCodeDescription: 'Shortcodes können auch Variablen wie "{$Text}" aus Parametern verwenden [Snippet title="Titel" Text="Text"]'
+  SilverStripe\Admin\LeftAndMain:
+    AddNew: '{name}'
+  SilverStripe\CMS\Controllers\CMSPageHistoryController:
+    MULTISELECT: 'Stapelaktionen'

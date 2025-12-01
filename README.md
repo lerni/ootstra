@@ -3,7 +3,7 @@
 
 # Setup, Requirements & Install
 
-"ootstra" is inspired by [Bigfork's quickstart recipe](https://github.com/bigfork/silverstripe-recipe) for [Silverstripe](https://www.silverstripe.org/). It's an opinionated set of tools for a ready to run, build & deploy CMS instance. To get it up and running you'll need [GIT](https://git-scm.com/), an editor like [VSCode](https://code.visualstudio.com/) (recommended) & [DDEV](https://ddev.readthedocs.io/en/stable/). It utilizes [dnadesign/silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) for a block/element based CMS experience and comes with the following set of elements:
+"ootstra" is inspired by [Bigfork's quickstart recipe](https://github.com/bigfork/silverstripe-recipe) for [Silverstripe](https://www.silverstripe.org/). It's an opinionated set of tools for a ready to run, build & deploy CMS instance. To get it up and running you'll need [GIT](https://git-scm.com/), [VSCode](https://code.visualstudio.com/) (recommended) & [DDEV](https://ddev.readthedocs.io/en/stable/). It utilizes [dnadesign/silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) for a block/element based CMS experience and comes with the following set of elements:
 
 - ElementContent
 - ElementForm               (userforms)
@@ -38,47 +38,55 @@ Other features:
 
 ## Getting started
 
-### VSCode Configuration
-Per `.vscode/extensions.json` extensions will be suggested. `.vscode/settings.json` makes Logviewer work and contains settings for debugging etc.
-<!-- - [Silverstripe](https://marketplace.visualstudio.com/items?itemName=adrianhumphreys.silverstripe)
-https://github.com/gorriecoe/silverstripe-sanchez/issues/1
- -->
-- [Silverstripe](https://marketplace.visualstudio.com/items?itemName=adrian.silverstripe)
-- [Biome](https://marketplace.visualstudio.com/items?itemName=biomejs.biome)
-- [Log Viewer](https://marketplace.visualstudio.com/items?itemName=berublan.vscode-log-viewer) Side-Bar Debug -> Log Viewer
-- [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client)
-- [DevDb](https://marketplace.visualstudio.com/items?itemName=damms005.devdb)
-- [EditorConfig for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
-- [DotENV](https://marketplace.visualstudio.com/items?itemName=mikestead.dotenv)
-- [JavaScript Debugger](https://marketplace.visualstudio.com/items?itemName=ms-vscode.js-debug)
-- [PHP Debug](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug)
+This project supports **VSCode with devcontainer** (recommended). VSCode extensions run inside DDEV's web container, providing a complete development environment. Of course, it can also be used without devcontainer, utilizing standard DDEV CLI commands like `ddev start` etc.
+
+**Without devcontainer:** Clone the project and run `ddev start`. Prefix all commands with `ddev` (e.g., `ddev composer install`, `ddev sake dev/build`, `ddev npm --prefix themes/default run dev` or shorthand `ddev theme dev`). See [DDEV documentation](https://ddev.readthedocs.io/en/stable/users/usage/commands/) for details.
+
+**Local setup (on your host machine):**
+- `ms-vscode-remote.remote-containers` extension will be suggested and is needed for devcontainers to work
+- All other extensions (PHP Intelephense, Biome, Log Viewer, Xdebug, etc.) are automatically installed inside the container
+
+**How it works:**
+- Open the workspace in VS Code and use Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`) → **"Dev Containers: Reopen in Container"**
+- The devcontainer automatically starts DDEV (`ddev start` via `initializeCommand`) and runs `npm install` in `themes/default` (`postCreateCommand`)
+- Editor extensions and settings are configured inside the container, keeping your host lean
+- `.vscode/settings.json` contains in-container settings (Intelephense, log viewer, debug config)
+- Ports are forwarded automatically: Vite (5173), Mailpit (8025), Apache (80, 443), MariaDB (3306)
 
 ### 1. Clone or fork lerni/ootstra
 ```bash
 git clone git@github.com:lerni/ootstra.git "PROJECT"
 ```
-By default folder name is used as project name, which is recommended because `.vscode/launch.json` uses `${workspaceFolderBasename}` and also DDEV uses foldername as default name.
+The folder name is used as project name (recommended because `.vscode/launch.json` uses `${workspaceFolderBasename}` and DDEV also uses folder name by default as "name").
 
-### 2. Set up DDEV environment (Command+Shift+B, ddev start)
+### 2. Open in devcontainer
 ```bash
 cd "PROJECT"
-ddev start
+code .
 ```
-### 3. Start DDEV and install dependencies (Command+Shift+B, npm install)
+In VS Code, open the Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`) and run:
+**"Dev Containers: Reopen in Container"**
+
+The devcontainer will automatically start DDEV and run `npm install` in `themes/default`.
+
+### 3. Install PHP dependencies (inside the container)
+All commands now run inside the devcontainer terminal:
 ```bash
-ddev composer install
+composer install
 ```
-### 4. Build the database (Command+Shift+B, dev/build)
-On dev/build database structure will be generated. With fluent (Multilingual-Setup) commented-out locale setting, as fluent will handle language configuration.
+### 4. Build the database
+On dev/build, database structure will be generated. With fluent (Multilingual-Setup), comment out the locale setting as fluent handles language configuration:
 ```php
 i18n::set_locale('de_CH');
 ```
 ```bash
-ddev sake dev/build
+php ./vendor/bin/sake dev/build
 ```
+Or use the VS Code task: `Command+Shift+B` → `dev/build - local`
+
 ### 5. Populate default content
 ```bash
-ddev sake dev/tasks/PopulateTask
+php ./vendor/bin/sake dev/tasks/PopulateTask
 ```
 
 This provides:
@@ -106,41 +114,46 @@ web_environment:
 ```
 
 ### npm, Vite watch & build etc.
-[Laravel’s Vite components](https://laravel.com/docs/12.x/vite) are used as frontend build environment. You need to run `ddev theme install` to install npm packages. Watcher can be started with `ddev theme watch`. A production build can be done with `ddev theme prod`. See also scripts section in `themes/default/package.json`.
+[Laravel's Vite components](https://laravel.com/docs/12.x/vite) are used as the frontend build environment. 
 
-### VSCode tasks - remember all the commands :information_desk_person:
-There are a bunch of tasks in `.vscode/tasks.json` available per `Command+Shift+B`:
-- `ddev start` (magenta)
-- `ddev stop` (magenta)
-- `ddev restart` (magenta)
-- `composer install` (magenta)
-- `composer update` (magenta)
-- `ddev log web` (magenta)
-- `xdebug on / off` (magenta)
-- `ddev theme install` (green)
-- `ddev theme watch` (green)
-- `ddev theme prod` (green)
-- `clean '/hot' (Vite watcher)` (green)
-- `dev/build` (blue) instead of `ddev php ./vendor/bin/sake db:build`
-- `composer vendor-expose` (blue)
-- `ssshell` (blue) instead of `ddev php ./vendor/bin/ssshell`
-- `download database from live` (cyan)
-- `download assets from live` (cyan)
-- `ssh test / live` (cyan)
-- `deploy test / live` (cyan)
-- `deploy:unlock test / live` (cyan)
-- `dep releases test / live` (cyan)
+**With devcontainer:** The `postCreateCommand` automatically runs `npm install`. Use `npm --prefix themes/default run dev` for watch mode or VS Code task "npm watch". Production: `npm --prefix themes/default run build` or task "npm prod".
 
-Colors group tasks like:
-- magenta: local ddev
-- blue: local silverstripe specific
-- green: local npm
-- cyan: remote server
+**Without devcontainer:** Prefix commands with `ddev`, e.g., `ddev npm --prefix themes/default run dev`.
 
-Database, credentials etc. are provided as environment-variables from `.ddev/config.yaml` and are populated in `/.env` during DDEV-start. Project specific / sensitive env-vars should be set in `/.env` and won't land in GIT. For example you do not have to setup DB credentials for dev environment to work, but you need to set `APP_GOOGLE_MAPS_KEY`, `SS_NOCAPTCHA_SITE_KEY` & `SS_NOCAPTCHA_SECRET_KEY` in `.env` to make Google Maps & reCaptcha work.
+See scripts in `themes/default/package.json` for all available commands.
+
+### VSCode tasks (inside devcontainer)
+Tasks in `.vscode/tasks.json` are available via `Command+Shift+B` and run inside the devcontainer. **Note:** Without devcontainer, use equivalent `ddev` commands (e.g., `ddev sake dev/build` instead of just `sake dev/build`).
+
+Common tasks include:
+
+**Silverstripe (blue):**
+- `dev/build - local` - rebuild DB schema (`php ./vendor/bin/sake db:build`)
+- `SilverStripe Shell` - interactive ssshell for debugging
+- `composer install` / `composer update`
+- `composer vendor-expose`
+
+**Frontend npm/frontend (green):**
+- `npm watch` - Vite dev server
+- `npm prod` - production build
+- `npm install & update update-browserslist-db`
+- `clean '/hot' (Vite watcher)` - remove hot reload file
+
+**DDEV/Debugging (magenta):**
+- `logs` - tail Apache/PHP logs
+- `DDEV: Enable Xdebug` / `DDEV: Disable Xdebug`
+
+**Deployment / remote server (cyan):**
+- `deploy test` / `deploy live`
+- `download database from live` / `download assets from live`
+- `ssh test` / `ssh live`
+- `dep releases test` / `dep releases live`
+- `deploy:unlock test` / `deploy:unlock live`
+
+Database, credentials etc. are provided as environment-variables from `.ddev/config.yaml` and are populated in `/.env` during DDEV-start. Project specific / sensitive env-vars should be set in `/.env` and won't land in GIT. For example you do not have to setup DB credentials for local dev environment to work, but you need to set `APP_GOOGLE_MAPS_KEY`, `SS_NOCAPTCHA_SITE_KEY` & `SS_NOCAPTCHA_SECRET_KEY` in `.env` to make Google Maps & reCaptcha work.
 
 ## PHP Version
-Current used PHP-Version is 8.4. It's set in following places:
+Currently 8.4.x is used. It's set in following places:
 - `.ddev/config.yaml`
 - `deploy/config.php`
 - `public/.htaccess` -> watch out if stage specific versions are maintained in `deploy/`
@@ -249,6 +262,7 @@ The first deployment to each stage will prompt for database credentials to popul
 # Environment dev/test/live
 SS_ENVIRONMENT_TYPE='dev'
 # SS_BASE_URL=''
+SS_ALLOWED_HOSTS='*'
 
 # SS_DEFAULT_ADMIN_USERNAME=''
 # SS_DEFAULT_ADMIN_PASSWORD=''
@@ -277,8 +291,6 @@ GHOSTSCRIPT_PATH='/usr/bin/gs'
 # reCAPTCHA key from: https://www.google.com/recaptcha/admin/create
 # SS_NOCAPTCHA_SITE_KEY=''
 # SS_NOCAPTCHA_SECRET_KEY=''
-
-SS_ALLOWED_HOSTS='*'
 
 SCRIPT_FILENAME=''
 ```

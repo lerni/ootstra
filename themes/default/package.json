@@ -7,9 +7,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "ddev exec -d /var/www/html/themes/default npx biome check src/",
-    "lint:fix": "ddev exec -d /var/www/html/themes/default npx biome check --write src/",
-    "format": "ddev exec -d /var/www/html/themes/default npx biome format --write src/"
+    "lint": "biome check src/",
+    "lint:fix": "biome check --write src/",
+    "format": "biome format --write src/"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.2.5",

@@ -20,7 +20,9 @@ class ElementPersoCFA extends BaseElement
 {
 
     private static $db = [
+        'Above' => 'HTMLText',
         'CountMax' => 'Int',
+        'Layout' => 'Enum("left,right", "right")',
         'Sorting' => 'Enum("random,manual","random")'
     ];
 
@@ -62,6 +64,7 @@ class ElementPersoCFA extends BaseElement
     {
         $labels = parent::fieldLabels($includerelations);
         $labels['CountMax'] = _t(__CLASS__ . '.COUNTMAX', 'Number (default 3)');
+        $labels['Layout'] = _t(__CLASS__ . '.LAYOUT', 'Alignment text');
         return $labels;
     }
 

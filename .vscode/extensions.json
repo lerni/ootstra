@@ -1,18 +1,5 @@
 {
   "recommendations": [
-    "biomejs.biome",
-    "adrian.silverstripe",
-    "berublan.vscode-log-viewer",
-    "bmewburn.vscode-intelephense-client",
-    "damms005.devdb",
-    "EditorConfig.EditorConfig",
-    "mikestead.dotenv",
-    "ms-vscode.js-debug",
-    "mehedidracula.php-namespace-resolver",
-    "xdebug.php-debug"
-  ],
-  "unwantedRecommendations": [
-    "esbenp.prettier-vscode",
-    "dbaeumer.vscode-eslint"
+    "ms-vscode-remote.remote-containers"
   ]
 }

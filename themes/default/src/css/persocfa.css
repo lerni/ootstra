@@ -1,5 +1,5 @@
 @import "custom-media.css";
-/* @import "variables.css"; */
+@import "variables.css";
 
 /* Person CFA component - Contact information layout for staff */
 
@@ -7,19 +7,21 @@
 	.typography {
 		.persos .perso {
 			display: grid;
-			grid-template-columns: minmax(300px, 4fr) minmax(300px, 6fr);
+			grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
 			grid-auto-rows: auto;
 			gap: calc(var(--lh) * 1em);
 
-			@media (--cm-m-neg) {
-				grid-template-columns: 1fr;
-				width: 100%;
+			&.left {
+				figure {
+					@media (--cm-l-plus) {
+						order: 99
+					}
+				}
 			}
 		}
 
 		figure {
 			margin: 0;
-
 			img {
 				width: 100%;
 				margin: 0;
@@ -49,6 +51,27 @@
 
 			a {
 				display: block;
+				color: var(--link-color);
+				&[class] {
+					padding-left: calc(var(--lh) * 1em);
+					background-repeat: no-repeat;
+					background-position: left 50%;
+					background-size: auto 1em;
+				}
+			}
+
+			a.vcard {
+				background-image: svg-load('vcard.svg', fill=currentColor, stroke=currentColor);
+				background-size: auto .8em;
+			}
+			a.mail {
+				background-image: svg-load('mail.svg', stroke=currentColor);
+			}
+			a.phone {
+				background-image: svg-load('phone.svg', stroke=currentColor);
+			}
+			a.qrcode {
+				background-image: svg-load('qr-code-outline.svg', fill=currentColor, stroke=currentColor);
 			}
 
 			a + a {
@@ -61,17 +84,5 @@
 		display: grid;
 		gap: calc(var(--lh) * 1em);
 		grid-template-columns: minmax(200px, 1fr);
-	}
-
-	.coordinates {
-		margin-bottom: 0;
-
-		a {
-			display: block;
-		}
-
-		a + a {
-			margin-top: calc(var(--lh) * 0.5 * 1em);
-		}
 	}
 }

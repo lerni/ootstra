@@ -340,9 +340,6 @@ p.cat-tag {
 			&.background--gray--lighter {
 				background-color: var(--gray--lighter);
 			}
-			.large {
-				font-size: clamp(1.2em, 5vw, 2em);
-			}
 		}
 	}
 	&.elementcontent {

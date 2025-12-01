@@ -1,5 +1,5 @@
 @import "custom-media.css";
-/* @import "variables.css"; */
+@import "./mixins.css";
 
 /* Cards component for PDF documents, teasers, and feed teasers */
 
@@ -9,19 +9,19 @@
 	.cards {
 		display: flex; /* we use flex (not grid) cos ShowAsSlider would otherwise break swiper.js */
 		flex-wrap: wrap;
-		gap: calc(var(--lh) * 2 * 1em);
+		gap: calc(var(--lh) * 2em);
 		width: 100%;
-
+		@media (--cm-l-neg) {
+			gap: calc(var(--lh) * 1em);
+		}
 		.card {
 			color: var(--text-color);
 			position: relative;
-
 			figure {
 				width: 100%;
 				margin: 0;
 				display: flex;
 				overflow: hidden;
-
 				img {
 					width: 100%;
 					height: auto;
@@ -31,32 +31,165 @@
 					transition: transform 140ms ease-out;
 				}
 			}
-
 			.txt {
-				padding: calc(var(--lh) / 2 * 1em) 0 0 0;
-
+				position: absolute;
+				inset: 0;
+				top: auto;
+				overflow: hidden;
+				padding: calc(var(--lh) / 4  * 5em) calc(var(--lh) / 2 * 1em);
+				background: linear-gradient(to bottom, oklch(from var(--black) l c h / 0), oklch(from var(--black) l c h / 0.4));
+				height: 0;
+				width: 100%;
+				transition: all;
+				transition-duration: 200ms;
+				transition-timing-function: linear;
+				display: flex;
+				flex-direction: column;
+				flex-direction: column;
+				/* font-size: 1em; */
+				@container (max-width: 500px) {
+					font-size: var(--font-size--small);
+				}
+				h2,
+				h3,
+				p,
+				span {
+					color: var(--white);
+					font-size: 1em;
+				}
 				h2,
 				h3,
 				h4 {
-					font-size: 1em;
 					margin: 0 0 calc(var(--lh) / 2 * 1em) 0;
 				}
-
 				p {
 					font-weight: var(--font-weight--normal);
 					margin: 0;
+				}
+				.accordion,
+				.link {
+					display: block;
+					overflow: hidden;
+					opacity: 0;
+					transition: all;
+					transition-duration: 200ms;
+				}
+				.link {
+					margin-top: auto;
+					color: var(--white);
+					font-weight: var(--font-weight--bold);
+					@mixin arrow-after #fff;
+				}
+			}
+			&:focus,
+			&:focus-within,
+			&:active,
+			&:hover {
+				.txt {
+					background-color: oklch(from var(--black) l c h / 0.8);
+					padding: calc(var(--lh) / 4 * 1em) calc(var(--lh) / 2 * 1em);
+					height: 100%;
+					pointer-events: none;
+				}
+				.accordion,
+				.link {
+					opacity: 1;
+					&::after {
+						transition-delay: 100ms;
+						transition-duration: 300ms;
+						width: 2em;
+					}
+				}
+			}
+			&.white {
+				.txt {
+					width: 50%;
+					background-image: none;
+					background-color: var(--white);
+					padding-bottom: calc(var(--lh) * 1.1em);
+					.accordion,
+					.link {
+						opacity: 1;
+					}
+					.accordion {
+						display: flex;
+  						flex-direction: column;
+						flex: 1 0 auto;
+						max-height: 0;
+						overflow: hidden;
+						will-change: max-height;
+						transition: max-height 320ms ease-out;
+						max-height: 0;
+					}
+
+					h1,
+					h2,
+					h3 {
+						font-size: clamp(1.2em, 4vw, 1.41em);
+					}
+					h2,
+					h3,
+					p,
+					span {
+						color: var(--text-color);
+					}
+					.link {
+						@mixin arrow-after #cb4a2a;
+						color: var(--link-color);
+						font-weight: var(--font-weight--normal);
+						&::after {
+							transition-delay: 150ms;
+						}
+					}
+				}
+				&.left {
+					.txt {
+						padding-left: 0;
+						right: auto;
+					}
+				}
+				&.right {
+					.txt {
+						left: auto;
+					}
+				}
+				&:focus,
+				&:focus-within,
+				&:active,
+				&:hover {
+					.txt {
+						padding-bottom: 0;
+						.accordion {
+							max-height: 700px;
+						}
+						.link::after {
+							width: 2em;
+						}
+					}
+				}
+				@media (--cm-l-neg) {
+					.txt {
+						position: inherit;
+						width: 100%;
+						height: auto;
+						padding: calc(var(--lh) / 4  * 5em) 0;
+						.accordion {
+							max-height: none;
+						}
+					}
+
 				}
 			}
 		}
 
 		&.third {
 			.card {
-				flex: 0 0 calc(33.333333% - calc(var(--lh) * 4 / 3 * 1em));
+				flex: 0 0 calc(calc(100% / 3) - calc(var(--lh) * 4 / 3 * 1em));
 				display: flex;
 				flex-direction: column;
 
 				@media (--cm-l-neg) {
-					flex: 0 0 calc(50% - calc(var(--lh) * 2 / 2 * 1em));
+					flex: 0 0 calc(calc(100% / 2) - calc(var(--lh) * 2 / 2 * 1em));
 				}
 
 				@media (--cm-m-neg) {
@@ -68,45 +201,43 @@
 				}
 
 				.txt {
-					padding: calc(var(--lh) / 2 * 1em) 0;
-					padding-bottom: 0;
 					position: inherit;
-					flex: 0 0 auto;
+					background: none;
+					padding-inline: 0;
+					padding-block: calc(var(--lh) / 4 * 1em);
+					height: auto;
+					h2,
+					h3 {
+						margin-bottom: 0;
+					}
+					h2,
+					h3,
+					p,
+					a {
+						color: var(--text-color);
+						font-size: 1em;
+					}
+					p {
+						display: none
+					}
 				}
-
-				.link.forth {
-					padding: calc(var(--lh) / 2 * 1em) 0;
-					margin: auto 0 0;
+				&:focus-within,
+				&:hover {
+					.txt {
+						p {
+							height: 0;
+							display: none;
+						}
+					}
 				}
 			}
 		}
 
 		&.halve {
 			.card {
-				flex: 0 0 calc(50% - calc(var(--lh) * 1 / 2 * 1em));
-
+				flex: 0 0 calc(50% - calc(var(--lh) * 1 / 1 * 1em));
 				@media (--cm-m-neg) {
 					flex: 0 0 100%;
-				}
-
-				.txt {
-					padding: calc(var(--lh) / 2 * 1em) 0 0 calc(var(--lh) * 1em);
-					max-width: calc(100% - calc(var(--lh) * 3 * 1em));
-					min-width: calc(100% - calc(var(--lh) * 3 * 1em));
-				}
-
-				&:hover {
-					.txt {
-						.accordion {
-							max-height: 400px;
-						}
-					}
-				}
-
-				&.left {
-					.txt {
-						padding: calc(var(--lh) / 2 * 1em) calc(var(--lh) * 1em) 0 0;
-					}
 				}
 			}
 		}
@@ -114,79 +245,39 @@
 		&.full {
 			.card {
 				flex: 0 0 100%;
-
-				.txt {
-					width: calc(50% + calc(var(--lh) / 2 * 1em));
-					padding: calc(var(--lh) * 1em) calc(var(--lh) * 1em) 0;
-				}
-
-				&:hover {
-					.txt {
-						.accordion {
-							max-height: 600px;
-						}
-					}
-				}
-
-				&.left {
-					.txt {
-						padding-left: 0;
-					}
-				}
 			}
 		}
 
-		&.halve,
-		&.full {
-			.card {
-				.txt {
-					right: 0;
-					bottom: 0;
-
-					@media (--cm-m-neg) {
-						position: inherit;
-						left: auto;
-						bottom: auto;
-						width: 100%;
-						padding-left: 0;
-						padding-right: 0;
-
-						.accordion {
-							max-height: 0;
-						}
-					}
-
-					p,
-					.link.forth {
-						width: 100%;
-					}
-
-					.accordion {
-						overflow: hidden;
-						will-change: max-height;
-						transition: max-height 320ms ease-out;
-
-						@media (--cm-m-plus) {
-							max-height: 0;
-						}
-					}
-				}
-
-				&:hover {
-					.txt {
-						.accordion {
-							overflow: show;
-						}
-					}
-				}
-
-				&.left {
-					.txt {
-						padding-left: 0;
-						left: 0;
-						right: auto;
-					}
-				}
+		&.masonry-holder {
+			margin-bottom: calc(var(--lh) * 2em);
+			@media (--cm-xxl-neg) {
+				margin-bottom: calc(var(--lh) * 1em);
+			}
+		}
+		.masonry-brick {
+			flex: 0 0 calc(calc(100% / 3) - calc(var(--lh) * 2 * 1em));
+			width: calc(calc(100% / 3) - calc(var(--lh) * 4 / 3 * 1em));
+			margin-bottom: auto;
+			container-type: size;
+			@media (--cm-xxl-neg) {
+				flex: 0 0 calc(calc(100% / 3) - calc(var(--lh) * 1em));
+				width: calc(calc(100% / 3) - calc(var(--lh) * 2 / 3 * 1em));
+			}
+			@media (--cm-xl-neg) {
+				flex: 0 0 calc(calc(100% / 2) - calc(var(--lh) * 1em));
+				width: calc(calc(100% / 2) - calc(var(--lh) * 1 / 2 * 1em));
+			}
+			@media (--cm-m-neg) {
+				flex: 0 0 100%;
+				width: 100%;
+			}
+		}
+		&:has(.loader.htmx-request) {
+			.masonry-brick {
+				filter: grayscale(90%);
+			}
+			&::after {
+				opacity: .6;
 			}
 		}
 	}

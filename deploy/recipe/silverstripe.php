@@ -29,6 +29,7 @@ task('silverstripe:create_dotenv', function (): void {
 # Environment dev/test/live
 SS_ENVIRONMENT_TYPE='{$type}'
 # SS_BASE_URL=''
+SS_ALLOWED_HOSTS='*'
 
 SS_DEFAULT_ADMIN_USERNAME='{$cmsDefaultUser}'
 SS_DEFAULT_ADMIN_PASSWORD='{$cmsDefaultPass}'
@@ -55,8 +56,6 @@ GHOSTSCRIPT_PATH='/usr/bin/gs'
 # reCAPTCHA key from: https://www.google.com/recaptcha/admin/create
 # SS_NOCAPTCHA_SITE_KEY=''
 # SS_NOCAPTCHA_SECRET_KEY=''
-
-SS_ALLOWED_HOSTS='*'
 
 SCRIPT_FILENAME=''
 

@@ -5,6 +5,12 @@ import {ViteImageOptimizer} from 'vite-plugin-image-optimizer';
 export default defineConfig({
   base: '/_resources/themes/default/dist/',
   publicDir: '/dist/',
+  build: {
+    sourcemap: process.env.NODE_ENV !== 'production',
+  },
+  css: {
+    devSourcemap: true,
+  },
   plugins: [
     laravel({
       input: [
