@@ -115,7 +115,7 @@ class Page extends SiteTree
             $metaDescription = $this->MetaDescription;
         }
         if (!isset($metaDescription)) {
-            $metaDescription = $this->SiteConfig->MetaDescription;
+            $metaDescription = $this->getSiteConfig()->MetaDescription;
         }
         return $metaDescription;
     }

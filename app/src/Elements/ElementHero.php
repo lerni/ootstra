@@ -141,8 +141,8 @@ class ElementHero extends BaseElement
     protected function provideBlockSchema()
     {
         $blockSchema = parent::provideBlockSchema();
-        if ($this->Slides()->count() && $this->Slides()->Sort("SortOrder")->First()->SlideImage()->exists()) {
-            $blockSchema['fileURL'] = $this->Slides()->Sort("SortOrder")->First()->SlideImage()->CMSThumbnail()->getURL();
+        if ($this->Slides()->count() && $this->Slides()->Sort("SortOrder")->first()->SlideImage()->exists()) {
+            $blockSchema['fileURL'] = $this->Slides()->Sort("SortOrder")->first()->SlideImage()->CMSThumbnail()->getURL();
         }
         return $blockSchema;
     }

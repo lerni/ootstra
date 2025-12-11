@@ -80,8 +80,8 @@ class HolderPage extends Page
     {
         //$childrens =  $this->AllChildren();
         $childrens =  ElementPage::get()->filter('ParentID', $this->ID);
-        if ($campaigns = $this->getURLCategoryFilter()) {
-            $childrens = $childrens->filterAny("PageCategories.URLSegment", $this->getURLCategoryFilter());
+        if ($categoryFilter = $this->getURLCategoryFilter()) {
+            $childrens = $childrens->filterAny("PageCategories.URLSegment", $categoryFilter);
         }
         return $childrens;
     }

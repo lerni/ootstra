@@ -7,7 +7,10 @@
   "workspaceFolder": "/var/www/html",
 
   // Ensure DDEV is running before opening
-  "initializeCommand": "ddev start",
+  "initializeCommand": "bash -c 'ddev start -y && for i in {1..60}; do ddev describe >/dev/null 2>&1 && break || sleep 1; done'",
+
+  // Wait for DDEV to be fully ready
+  "waitFor": "initializeCommand",
 
   // Set up the container for VS Code
   // DDEV automatically maps the host user into the container and runs Apache/FPM as that user
@@ -34,7 +37,8 @@
         // Utilities
         "berublan.vscode-log-viewer",
         "editorconfig.editorconfig",
-        "mikestead.dotenv"
+        "mikestead.dotenv",
+        "mhutchie.git-graph"
       ],
 
       "settings": {
@@ -130,7 +134,7 @@
     },
     "5173": {
       "label": "Vite",
-      "onAutoForward": "notify"
+      "onAutoForward": "silent"
     },
     "8025": {
       "label": "Mailhog",

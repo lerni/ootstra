@@ -21,10 +21,6 @@ SilverStripe\Assets\File:
     ics: true
     avif: true
 
-SilverStripe\Assets\Storage\DBFile:
-  extensions:
-    - App\Extensions\PDFImageExtension
-
 # SilverStripe\AssetAdmin\Forms\FileFormFactory:
 SilverStripe\AssetAdmin\Forms\ImageFormFactory:
   extensions:

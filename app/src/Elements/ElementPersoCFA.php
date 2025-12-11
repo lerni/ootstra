@@ -116,8 +116,8 @@ class ElementPersoCFA extends BaseElement
     protected function provideBlockSchema()
     {
         $blockSchema = parent::provideBlockSchema();
-        if ($this->Items()->count() && $this->Items()->First()->Portrait()->exists()) {
-            $blockSchema['fileURL'] = $this->Items()->First()->Portrait()->CMSThumbnail()->getURL();
+        if ($this->Items()->count() && $this->Items()->first()->Portrait()->exists()) {
+            $blockSchema['fileURL'] = $this->Items()->first()->Portrait()->CMSThumbnail()->getURL();
         }
         return $blockSchema;
     }

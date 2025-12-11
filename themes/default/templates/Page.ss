@@ -19,14 +19,14 @@
 			font-family: "Figtree";
 			font-style: normal;
 			font-weight: 400;
-			src: url("{$viteAsset('src/fonts/figtree-v5-latin-regular.woff2')}") format('woff2');
+			src: local(""), url("{$viteAsset('src/fonts/figtree-v5-latin-regular.woff2')}") format('woff2');
 		}
 		@font-face {
 			font-display: swap;
 			font-family: "Figtree";
 			font-style: normal;
 			font-weight: 600;
-			src: url("{$viteAsset('src/fonts/figtree-v5-latin-600.woff2')}") format('woff2');
+			src: local(""), url("{$viteAsset('src/fonts/figtree-v5-latin-600.woff2')}") format('woff2');
 		}
 	</style>
 </head>

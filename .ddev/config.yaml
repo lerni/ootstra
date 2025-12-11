@@ -21,6 +21,8 @@ web_environment:
     - LANG=de_CH.UTF-8
     - TZ=Europe/Zurich
     - SSH_AUTH_SOCK=/run/host-services/ssh-auth.sock
+    # Laravel Vite plugin - no use, but less nagging
+    - APP_URL=${DDEV_PRIMARY_URL}
     # This 'll end up in .env file
     - SS_DATABASE_NAME=db
     - SS_DATABASE_USERNAME=db
@@ -32,8 +34,8 @@ web_environment:
     - SS_ENVIRONMENT_TYPE=dev
     - SS_DATABASE_PORT=3306
     - SS_DATABASE_CLASS=MySQLDatabase
-    - SS_ALLOWED_HOSTS=*
     # generic ss settings
+    - SS_ALLOWED_HOSTS=*
     - SS_BASE_URL=${DDEV_PRIMARY_URL}
     - SS_ERROR_EMAIL=test@example.org
     - SS_ERROR_LOG=../silverstripe.log

@@ -59,7 +59,7 @@ class ElementPersoController extends ElementController
             $vcard->addEmail($perso->EMail);
             $vcard->addPhoneNumber($perso->Telephone, 'PREF;WORK');
 
-            if ($location = SiteConfig::current_site_config()->Locations()->First()) {
+            if ($location = SiteConfig::current_site_config()->Locations()->first()) {
                 $countryCode = $location->Country;
                 $AllCountries = i18n::getData()->getCountries();
                 $country = $AllCountries[$countryCode];

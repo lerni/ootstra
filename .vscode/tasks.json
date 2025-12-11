@@ -33,9 +33,9 @@
       }
     },
     {
-      "label": "npm install & update update-browserslist-db",
+      "label": "npm install & update browser data",
       "type": "shell",
-      "command": "npm --prefix themes/default install && npm --prefix themes/default update-browserslist-db@latest",
+      "command": "npm --prefix themes/default install && npm --prefix themes/default update browserslist-db baseline-browser-mapping",
       "group": "build",
       "presentation": {
         "reveal": "always",

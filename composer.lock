@@ -4171,12 +4171,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/lerni/folderindex.git",
-                "reference": "fdda8d2e3781d98cd7c0aa53ca1999fa8143dd81"
+                "reference": "d38363f3bb5cc9b7cbd96f43926a5f9e3dec1949"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lerni/folderindex/zipball/fdda8d2e3781d98cd7c0aa53ca1999fa8143dd81",
-                "reference": "fdda8d2e3781d98cd7c0aa53ca1999fa8143dd81",
+                "url": "https://api.github.com/repos/lerni/folderindex/zipball/d38363f3bb5cc9b7cbd96f43926a5f9e3dec1949",
+                "reference": "d38363f3bb5cc9b7cbd96f43926a5f9e3dec1949",
                 "shasum": ""
             },
             "require": {
@@ -4208,7 +4208,7 @@
                 "issues": "https://github.com/lerni/folderindex/issues",
                 "source": "https://github.com/lerni/folderindex/tree/1.x"
             },
-            "time": "2025-08-29T12:40:48+00:00"
+            "time": "2025-12-01T14:07:30+00:00"
         },
         {
             "name": "lerni/klaro-cookie-consent",

@@ -28,6 +28,7 @@
 				summary {
 					cursor: pointer;
 					outline: none;
+					list-style: none;
 					&::marker,
 					&::-webkit-details-marker {
 						display: none;
