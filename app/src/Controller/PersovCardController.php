@@ -53,11 +53,8 @@ class PersovCardController extends Controller
         $link = null;
 
         // case $perso has Urlifyextension
-        if ($perso->hasCustomMethod(UrlifyExtension::class)) {
-            $link = Controller::join_links(
-                Director::protocolAndHost(),
-                $perso->AbsoluteLink()
-            );
+        if ($perso->hasExtension(UrlifyExtension::class)) {
+            $link = $perso->AbsoluteLink();
         // else use teampage
         } elseif($element &&
             $element->Parent() &&

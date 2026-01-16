@@ -38,8 +38,8 @@ class HolderPage extends Page
     ];
 
     private static $defaults = [
-        'HideSubNavi' => 1,
-        'PreventHero' => 1
+        'HideSubNavi' => true,
+        'PreventHero' => true
     ];
 
     private static $controller_name  = HolderPageController::class;

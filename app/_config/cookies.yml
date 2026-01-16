@@ -1,0 +1,13 @@
+---
+Name: app-cookies
+---
+Kraftausdruck\Models\CookieEntry:
+  default_records:
+    SmartPush:
+      Title: 'LiteSpeed SmartPush'
+      Purpose: 'Speichert Zustimmung, Ablehnung von Cookies.'
+      CookieName: 'ls_smartpush'
+      CookieKey: 'ls_smartpush'
+      Default: 'true'
+      OptOut: 'false'
+      CookieCategoryID: 1

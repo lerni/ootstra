@@ -23,9 +23,9 @@ Array.prototype.forEach.call(heroSwiper, function (slider) {
   var heroSwiperInstance = new Swiper("#" + sliderID, {
     spaceBetween: 0,
     direction: "horizontal",
-    CSSWidthAndHeight: true,
+    // CSSWidthAndHeight: true,
     speed: 2000,
-    height: "auto",
+    // height: "auto",
     keyboard: {
       enabled: true,
     },
@@ -74,9 +74,6 @@ Array.prototype.forEach.call(multipleSwiper, function (slider) {
     slidesPerView: "auto",
     speed: 1000,
     // loop: true,
-    keyboard: {
-      enabled: true,
-    },
     autoplay: {
       delay: 3000,
       disableOnInteraction: true,

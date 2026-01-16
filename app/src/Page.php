@@ -100,10 +100,11 @@ class Page extends SiteTree
 
     public function DefaultMetaTitle()
     {
-        if (!$this->MetaTitle) {
-            return $this->Title . ' | ' . $this->getSiteConfig()->Title;
-        }
-        return null;
+        $parts = [
+            $this->MetaTitle ?: $this->Title,
+            $this->getSiteConfig()->Title
+        ];
+        return implode(' | ', array_filter($parts));
     }
 
     public function DefaultMetaDescription()

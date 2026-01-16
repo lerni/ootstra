@@ -6,8 +6,8 @@ use App\Elements\ElementHero;
 use SilverStripe\Assets\Image;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Forms\FieldGroup;
-use SilverStripe\CMS\Model\SiteTree;
-use SilverStripe\Forms\TreeDropdownField;
+use SilverStripe\LinkField\Models\Link;
+use SilverStripe\LinkField\Form\LinkField;
 use nathancox\EmbedField\Forms\EmbedField;
 use nathancox\EmbedField\Model\EmbedObject;
 use SilverStripe\Versioned\GridFieldArchiveAction;
@@ -27,13 +27,12 @@ class Slide extends DataObject
         'TextAlignment' => 'Enum("center,upper-left,upper-right,lower-left,lower-right,lower-center","center")',
         'ShowTitle'  => 'Boolean',
         'TitleLevel' => 'Enum("1,2,3","2")',
-        'ActionText' => 'Varchar'
     ];
 
     private static $has_one = [
         'SlideImage' => Image::class,
-        'Link' => SiteTree::class,
-        'EmbedVideo' => EmbedObject::class
+        'Link' => Link::class,
+        // 'EmbedVideo' => EmbedObject::class
     ];
 
     private static $belongs_many_many = [
@@ -41,7 +40,12 @@ class Slide extends DataObject
     ];
 
     private static $owns = [
-        'SlideImage'
+        'SlideImage',
+        'Link'
+    ];
+
+    private static $cascade_deletes = [
+        'Link'
     ];
 
     private static $table_name = 'Slide';
@@ -95,8 +99,9 @@ class Slide extends DataObject
             $fields->fieldByName('Root.Main')->unshift($TitleFieldGroup);
         }
 
-        $RelatedPage = TreeDropdownField::create('LinkID', 'Link', SiteTree::class);
-        $fields->replaceField('LinkID', $RelatedPage);
+        $linkField = LinkField::create('Link');
+        $linkField->setExcludeLinkTextField(true);
+        $fields->replaceField('LinkID', $linkField);
 
         if ($SlideBildField = $fields->dataFieldByName('SlideImage')) {
             $SlideBildField->setFolderName('Slides');
@@ -107,7 +112,7 @@ class Slide extends DataObject
             }
         }
 
-        $fields->addFieldToTab('Root.Main', EmbedField::create('EmbedVideoID', 'Embed Video'));
+        // $fields->addFieldToTab('Root.Main', EmbedField::create('EmbedVideoID', 'Embed Video'));
 
         if ($this->isInDB() && $this->Hero()->count() > 1) {
             $fields

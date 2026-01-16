@@ -35,7 +35,7 @@ class ElementTestimonial extends BaseElement
         'SpacingTop' => 1,
         'SpacingBottom' => 1,
         'CountMax' => 5,
-        'Shuffle' => 1
+        'Shuffle' => true
     ];
 
     private static $table_name = 'ElementTestimonial';

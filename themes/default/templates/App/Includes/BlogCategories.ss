@@ -1,7 +1,7 @@
 <% with $Page %>
 	<% if $CategoriesWithState %>
 		<nav class="element blog-post-meta horizontal-spacing">
-			<p class="cat-tag" data-hx-boost="true" data-hx-indicator=".loader">
+			<nav class="cat-tag" data-hx-boost="true" data-hx-indicator=".loader">
 				<% if $ClassName == 'SilverStripe\Blog\Model\BlogPost' %>
 					<a href="$Parent.Link" class="all" title="<%t SilverStripe\Blog\Model\Blog.Allcategories %>"><%t SilverStripe\Blog\Model\Blog.Allcategories %></a>
 				<% else %>
@@ -10,7 +10,7 @@
 				<% loop $CategoriesWithState %>
 					<a href="$Link" class="$CustomLinkingMode" title="$Title" data-segment="$URLSegment">$Title</a>
 				<% end_loop %>
-			</p>
+			</nav>
 		</nav>
 	<% end_if %>
 <% end_with %>

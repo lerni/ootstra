@@ -38,7 +38,7 @@ class ElementDownloads extends BaseElement
     ];
 
     private static $defaults = [
-        'isFullWidth' => 0
+        'isFullWidth' => false
     ];
 
     private static $table_name = 'ElementDownloads';

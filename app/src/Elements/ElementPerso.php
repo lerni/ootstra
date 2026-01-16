@@ -48,7 +48,7 @@ class ElementPerso extends BaseElement
     ];
 
     private static $defaults = [
-        'AvailableGlobally' => 0
+        'AvailableGlobally' => false
     ];
 
     private static $table_name = 'ElementPerso';

@@ -10,12 +10,12 @@
 		</article >
 	<% end_if %>
 	<% if $CategoriesWithState.Count %><nav class="element blog-post-meta horizontal-spacing">
-		<p class="cat-tag" data-hx-boost="true" data-hx-indicator=".loader" data-hx-swap="outerHTML show:unset">
+		<nav class="cat-tag" data-hx-boost="true" data-hx-indicator=".loader" data-hx-swap="outerHTML show:unset">
 			<a href="$Top.Link" class="all<% if not $URLCategoryFirst %> current<% end_if %>" title="<%t SilverStripe\Blog\Model\Blog.Allcategories "Alle" %>"><%t SilverStripe\Blog\Model\Blog.Allcategories "Alle" %></a>
 			<% loop $CategoriesWithState %>
 				<a href="{$Top.Link}?tags={$URLSegment}" class="$CustomLinkingMode" title="$Title" data-segment="$URLSegment">$Title</a>
 			<% end_loop %>
-		</p>
+		</nav>
 	</nav><% end_if %>
 	<article class="element elementfeedteaser full-width horizontal-spacing">
 		<% if $Items %>

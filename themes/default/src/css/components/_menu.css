@@ -94,7 +94,7 @@
 			margin: auto 0 0 0;
 			column-gap: calc(var(--lh) * 2em);
 			padding-left: calc(var(--lh) * 2em);
-			@media (max-width: var(--bp-xxl-neg)) {
+			@media (--cm-xxl-neg) {
 				column-gap: calc(var(--lh) * 1.5em);
 				padding-left: calc(var(--lh) * 1em);
 			}

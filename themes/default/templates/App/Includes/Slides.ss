@@ -15,7 +15,7 @@
 								width="$SlideImage.FocusFillMax(1440,650).Width()"
 								<% if not $IsFirst %>loading="lazy" <% end_if %>
 								alt="$SlideImage.Title"
-								style="object-position: {$SlideImage.FocusFillMax(1440,650).FocusPoint.PercentageX}% {$SlideImage.FocusFillMax(1440,650).FocusPoint.PercentageY}%;"
+								<% if $SlideImage.FocusPoint.PercentageX != 50 || $SlideImage.FocusPoint.PercentageY != 50 %>style="object-position: {$SlideImage.FocusFillMax(1440,650).FocusPoint.PercentageX}% {$SlideImage.FocusFillMax(1440,650).FocusPoint.PercentageY}%;"<% end_if %>
 								src="$SlideImage.FocusFillMax(1440,650).Convert('webp').URL"
 								srcset="
 									$SlideImage.FocusFillMax(480,217).Convert('webp').URL 480w,
@@ -34,7 +34,7 @@
 								width="$SlideImage.FocusFillMax(1440,360).Width()"
 								<% if not $IsFirst %>loading="lazy" <% else_if $Up.IsHero || $DefaultHero %>fetchpriority="high" <% end_if %>
 								alt="$SlideImage.Title"
-								style="object-position: {$SlideImage.FocusFillMax(1440,360).FocusPoint.PercentageX}% {$SlideImage.FocusFillMax(1440,360).FocusPoint.PercentageY}%;"
+								<% if $SlideImage.FocusPoint.PercentageX != 50 || $SlideImage.FocusPoint.PercentageY != 50 %>style="object-position: {$SlideImage.FocusFillMax(1440,360).FocusPoint.PercentageX}% {$SlideImage.FocusFillMax(1440,360).FocusPoint.PercentageY}%;"<% end_if %>
 								src="$SlideImage.FocusFillMax(1440,360).Convert('webp').URL"
 								srcset="
 									$SlideImage.FocusFillMax(480,120).Convert('webp').URL 480w,
@@ -53,7 +53,7 @@
 								width="$SlideImage.FocusFillMax(1440,650).Width()"
 								<% if not $IsFirst %>loading="lazy" <% else_if $Up.IsHero || $DefaultHero %>fetchpriority="high" <% end_if %>
 								alt="$SlideImage.Title"
-								style="object-position: {$SlideImage.FocusFillMax(1440,650).FocusPoint.PercentageX}% {$SlideImage.FocusFillMax(1440,650).FocusPoint.PercentageY}%;"
+								<% if $SlideImage.FocusPoint.PercentageX != 50 || $SlideImage.FocusPoint.PercentageY != 50 %>style="object-position: {$SlideImage.FocusFillMax(1440,650).FocusPoint.PercentageX}% {$SlideImage.FocusFillMax(1440,650).FocusPoint.PercentageY}%;"<% end_if %>
 								src="$SlideImage.FocusFillMax(1440,650).Convert('webp').URL"
 								srcset="
 									$SlideImage.FocusFillMax(480,217).Convert('webp').URL 480w,
@@ -104,7 +104,7 @@
 								<img src="$SlideImage.FocusFillMax(1400,1050).Convert('webp').URL" alt="$SlideImage.Title" id="hero-image-{$ID}">
 							</picture></figure>
 							<div class="scroll"></div>
-							<style type="text/css" nonce="{$Nonce}">
+							<% if $SlideImage.FocusPoint.PercentageX != 50 || $SlideImage.FocusPoint.PercentageY != 50 %><style type="text/css" nonce="{$Nonce}">
 								#hero-image-{$ID} {
 									object-position: {$SlideImage.FocusFillMax(2600,1950).Focuspoint.PercentageX}% {$SlideImage.FocusFillMax(2600,1950).Focuspoint.PercentageY}%;
 								}
@@ -118,7 +118,7 @@
 										object-position: {$SlideImage.FocusFillMax(2600,1625).Focuspoint.PercentageX}% {$SlideImage.FocusFillMax(2600,1625).Focuspoint.PercentageY}%;
 									}
 								}
-							</style>
+							</style><% end_if %>
 						<% end_if %>
 						<% if $Text || $LinkID || $ShowTitle %>
 							<% if $LinkID %><a href="$Link.Link" class="txt {$TextAlignment}"><% else %><div class="txt {$TextAlignment}"><% end_if %>

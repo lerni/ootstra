@@ -37,10 +37,10 @@
 				height: 100%;
 				margin: 0;
 				img {
-					object-fit: cover;
+					/* object-fit: cover; */
 					margin-bottom: 0;
 					max-width: none;
-					width: 100%;
+					width: auto;
 					height: 100%;
 				}
 				figcaption {

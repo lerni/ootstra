@@ -43,8 +43,8 @@ class ElementMaps extends BaseElement
     private static $defaults = [
         'Zoom' => 13,
         'MapType' => 'roadmap',
-        'Fullscreen' => 1,
-        'AvailableGlobally' => 0
+        'Fullscreen' => true,
+        'AvailableGlobally' => false
     ];
 
     private static $table_name = 'ElementMaps';

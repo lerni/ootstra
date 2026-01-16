@@ -2,8 +2,8 @@
 
 namespace App\Extensions;
 
-use SilverStripe\Forms\FieldList;
 use SilverStripe\Core\Extension;
+use SilverStripe\Forms\FieldList;
 
 class ElementContentExtension extends Extension
 {
@@ -14,7 +14,7 @@ class ElementContentExtension extends Extension
     ];
 
     private static $defaults = [
-        'WidthReduced' => 1
+        'WidthReduced' => true
     ];
 
     public function updateCMSFields(FieldList $fields)

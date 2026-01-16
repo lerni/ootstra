@@ -38,8 +38,9 @@ class ElementGallery extends BaseElement
     ];
 
     private static $defaults = [
-        'SitemapImageExpose' => 1,
-        'isFullWidth' => 0
+        'SitemapImageExpose' => true,
+        'isFullWidth' => false,
+        'Layout' => 'slider'
     ];
 
     private static $table_name = 'ElementGallery';

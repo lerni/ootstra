@@ -312,3 +312,5 @@ de_CH:
     AddNew: '{name}'
   SilverStripe\CMS\Controllers\CMSPageHistoryController:
     MULTISELECT: 'Stapelaktionen'
+  SilverStripe\LinkField\Models\Link:
+    MISSING_DEFAULT_TITLE: 'nicht verlinkt'

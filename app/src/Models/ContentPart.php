@@ -41,7 +41,7 @@ class ContentPart extends DataObject
     ];
 
     private static $defaults = [
-        'ShowTitle' => 1,
+        'ShowTitle' => true,
         'TitleLevel' => 2
     ];
 

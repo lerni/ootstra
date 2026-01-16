@@ -21,7 +21,7 @@ class EditableCheckboxTerms extends EditableFormField
     ];
 
     private static $defaults = [
-        'Required' => 1,
+        'Required' => true,
         'HideFromReports' => true
     ];
 

@@ -33,7 +33,7 @@ body.mce-content-body {
 	color: var(--text-color);
 	font-weight: var(--font-weight--normal);
 	letter-spacing: 0.02em;
-	max-width: var(--inner-width);
+	max-width: calc(var(--inner-width) + (var(--spacing) * 2));
 	text-size-adjust: 100%;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -53,7 +53,6 @@ body.mce-content-body {
 
 body.global-alert {
 	background-color: var(--blue);
-
 	> * {
 		color: var(--white);
 	}

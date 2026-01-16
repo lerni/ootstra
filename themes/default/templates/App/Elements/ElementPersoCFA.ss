@@ -3,7 +3,7 @@
 	<div class="persos">
 		<% if $Items.Count > 1 %>
 			<% vite 'src/css/swiper.css', 'src/js/swiper.js' %>
-			<div class="swiper-container perso-cfa" id="general-swiper-{$ID}">
+			<div class="swiper-container perso-cfa" id="general-swiper-{$ID}" data-id="{$ID}">
 				<div class="swiper-wrapper perso-cfa">
 		<% end_if %>
 		<% loop $Items %>
@@ -12,7 +12,7 @@
 					<% if $Portrait %>
 						<% with $Portrait %>
 							<img loading="lazy" alt="$Title" width="{$FocusFillMax(600,600).Width()}" height="{$FocusFillMax(600,600).Height()}"
-								style="object-position: {$FocusFillMax(600,600).FocusPoint.PercentageX}% {$FocusFillMax(600,600).FocusPoint.PercentageY}%;"
+								<% if $FocusPoint.PercentageX != 50 || $FocusPoint.PercentageY != 50 %>style="object-position: {$FocusFillMax(600,600).FocusPoint.PercentageX}% {$FocusFillMax(600,600).FocusPoint.PercentageY}%;"<% end_if %>
 								src="$FocusFillMax(600,600).Convert('webp').URL"
 								srcset="$FocusFillMax(600,600).Convert('webp').URL 1x, $FocusFillMax(1200,1200).Convert('webp').URL 2x" />
 						<% end_with %>

@@ -18,8 +18,8 @@ class MetaOverviewPage extends Page
     private static $cms_icon_class = 'font-icon-p-list';
 
     private static $defaults = [
-        'ShowInMenus' => 0,
-        'ShowInSearch' => 0
+        'ShowInMenus' => false,
+        'ShowInSearch' => false
     ];
 
     public function getCMSFields()

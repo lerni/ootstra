@@ -91,7 +91,7 @@ class SiteConfigExtension extends Extension
         $fields->addFieldToTab('Root.Main', $schmeTypeField = DropdownField::create('SchemaType', _t('SilverStripe\SiteConfig\SiteConfig.SCHEMATYPE', 'Schema Type'), $schemaTypes));
 
         $fields->addFieldToTab('Root.Main', HeaderField::create('MetaData', 'Meta Daten'));
-        $fields->addFieldToTab('Root.Main', $MetaDescriptionField = TextAreaField::create('MetaDescription', _t('SilverStripe\SiteConfig\SiteConfig.METADESCRIPTION', 'Meta Description')));
+        $fields->addFieldToTab('Root.Main', $MetaDescriptionField = TextareaField::create('MetaDescription', _t('SilverStripe\SiteConfig\SiteConfig.METADESCRIPTION', 'Meta Description')));
         $MetaDescriptionField->setTargetLength(160, 100, 160);
         $MetaDescriptionField->setDescription(_t('SilverStripe\SiteConfig\SiteConfig.MetaDescriptionDescription', 'Default value if no description is present at page level.'));
 

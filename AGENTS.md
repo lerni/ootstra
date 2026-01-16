@@ -61,7 +61,7 @@ This project uses a devcontainer that runs inside DDEV's web container:
 
 #### Silverstripe Development (blue tasks)
 - `dev/build` - Rebuild database schema (runs `php ./vendor/bin/sake dev/build` in devcontainer, `ddev sake dev/build` from host)
-- `ssshell` - Interactive Silverstripe REPL running on Psy Shell for debugging and data manipulation
+- `ssshell` - Interactive Silverstripe REPL (Psy Shell) for database queries and debugging
 - `composer install` - Install PHP dependencies
 - `composer update` - Update PHP dependencies
 - `composer vendor-expose` - Expose vendor assets
@@ -179,18 +179,88 @@ This project uses a devcontainer that runs inside DDEV's web container:
 - Follow existing element patterns
 
 ## Debugging
-- Xdebug available via VSCode task "DDEV: Enable Xdebug" (works in both devcontainer and host)
-- Log files in `silverstripe.log`
-- Use VSCode PHP Debug extension with provided launch configuration
-- Dev tools accessible in dev environment only
-- Mailpit catches all emails in development at https://{projectname}.ddev.site:8026
-- **SSShell** for interactive debugging:
-  - In devcontainer: `php ./vendor/bin/ssshell` or VSCode task "SilverStripe Shell"
-  - From host: `ddev php ./vendor/bin/ssshell`
-  - Query and manipulate DataObjects directly
-  - Test ORM queries and relationships
-  - Debug template variables and methods
-  - Prototype code snippets before implementation
+
+### Tools & Extensions
+- **Xdebug**: Available via VSCode task "DDEV: Enable Xdebug"
+- **Log files**: `silverstripe.log` in project root
+- **VSCode PHP Debug**: Extension with provided launch configuration
+- **Mailpit**: Catches all emails in development at https://{projectname}.ddev.site:8026
+- **Better Navigator**: Dev toolbar in browser (jonom/silverstripe-betternavigator)
+- **PHPActor**: Static analysis tool integrated in devcontainer, shows problems in VSCode Problems tab
+
+### PHPActor - Static Analysis for Agents
+**PHPActor provides real-time static analysis visible through VSCode's Problems panel**
+
+Agents can access these insights using the `get_errors` tool to:
+- Detect missing imports, unused imports, or incorrect class names
+- Identify missing return types or docblock annotations
+- Find undefined properties or methods
+- Catch type mismatches and parameter issues
+- Validate PSR-12 compliance and best practices
+
+**Agent Usage:**
+- Call `get_errors()` without parameters to see all workspace errors
+- Call `get_errors({ filePaths: ['/path/to/file.php'] })` for specific file analysis
+- Use after code changes to validate correctness
+- Fix reported issues to maintain code quality
+
+**Example Issues PHPActor Detects:**
+- Missing imports: `Class "TextAreaField" not found`
+- Wrong case: `use SilverStripe\Forms\TextareaField;` (should be `TextareaField`)
+- Missing return types: `Missing return type void`
+- Unused imports: `Name "TextareaField" is imported but not used`
+- Missing generics: `Missing generic tag @extends Extension<object>`
+
+### SSShell - Database Inspection Tool
+**Interactive REPL that can be piped with FQN for agent use**
+
+- Launch: `php ./vendor/bin/ssshell` (devcontainer) or VSCode task "SilverStripe Shell"
+- Launch from host: `ddev php ./vendor/bin/ssshell`
+- **Interactive mode**: Provides namespace shortcuts (`Image::`, `Member::`, `Page::`)
+- **Piped mode**: Requires fully qualified names (FQN)
+
+**CRITICAL for piped mode - Prevent interactive pager:**
+- ✅ **ALWAYS use:** `echo "query" | PAGER=cat php ./vendor/bin/ssshell | cat`
+- Without this syntax, large outputs will trigger an interactive pager requiring 'q' to quit
+- With this syntax, ANY query works without hanging
+
+**Agent usage examples:**
+  - `echo "SilverStripe\Assets\Image::get()->filter('ID', [1357, 716])->column('Name')" | PAGER=cat php ./vendor/bin/ssshell | cat`
+  - `echo "App\Models\ReferenzPage::get()->count()" | PAGER=cat php ./vendor/bin/ssshell | cat`
+  - `echo "SilverStripe\Security\Member::get()->first()->Email" | PAGER=cat php ./vendor/bin/ssshell | cat`
+  - `echo "DNADesign\Elemental\Models\ElementalArea::get()->map('ID', 'OwnerClassName')->toArray()" | PAGER=cat php ./vendor/bin/ssshell | cat`
+  - `echo "SilverStripe\CMS\Model\SiteTree::get()->limit(5)->column('Title')" | PAGER=cat php ./vendor/bin/ssshell | cat`
+
+- Exit interactive mode with `exit` or Ctrl+D
+- **Note**: Multi-statement queries don't work well when piped
+
+### URL Debugging Parameters
+Add these to any URL during development:
+
+**General Debugging:**
+- `?flush` - Clear all caches (requires dev mode or admin login)
+- `?showtemplate` - Show compiled templates with line numbers (dev mode only)
+- `?isDev=1` - Enable dev mode for current session (requires admin login)
+- `?debug=1` - Show director/controller operation details
+- `?debug_request=1` - Show full request flow from HTTPRequest to rendering
+- `?execmetric=1` - Display execution time and peak memory usage
+
+**Database Debugging:**
+- `?showqueries=1` - List all SQL queries executed
+- `?showqueries=1&showqueries=inline` - Show queries with inline parameter replacement
+- `?showqueries=1&showqueries=backtrace` - Show queries with backtrace
+- `?previewwrite=1` - Preview INSERT/UPDATE queries without executing
+
+**Class Debugging:**
+- `?debugfailover=1` - Show failover methods from extended classes
+
+**Dev URLs:**
+- `/dev/build` - Rebuild database and manifest
+- `/dev/build?flush&quiet=1` - Rebuild silently
+- `/dev/build?no-populate=1` - Build tables without running requireDefaultRecords()
+- `/dev/config` - Output Config manifest properties
+- `/dev/config/audit` - Audit Config for missing PHP definitions
+- `/dev/tasks` - List all available tasks
 
 ## Extensions and Modules
 
@@ -247,7 +317,7 @@ This project uses a devcontainer that runs inside DDEV's web container:
 ### Development Dependencies
 - **Deployer** (`deployer/deployer`) - Deployment automation
 - **Populate** (`dnadesign/silverstripe-populate`) - Database seeding and sample content creation
-- **SSShell** (`pstaender/ssshell`) - Interactive Silverstripe command line shell for debugging, data manipulation, and rapid prototyping
+- **SSShell** (`pstaender/ssshell`) - Interactive Silverstripe command line shell (REPL) for debugging, data manipulation, and rapid prototyping. Can be piped with fully qualified class names for agent use.
 - **PHPUnit** (`phpunit/phpunit`) - Testing framework
 
 ## VSCode Integration

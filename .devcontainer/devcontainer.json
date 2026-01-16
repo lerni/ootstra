@@ -6,8 +6,11 @@
   "service": "web",
   "workspaceFolder": "/var/www/html",
 
-  // Ensure DDEV is running before opening
-  "initializeCommand": "bash -c 'ddev start -y && for i in {1..60}; do ddev describe >/dev/null 2>&1 && break || sleep 1; done'",
+  // Stop the docker-compose stack when the devcontainer is closed
+  "shutdownAction": "stopCompose",
+
+  // Ensure DDEV is running before opening (restart to handle unclean shutdowns)
+  "initializeCommand": "bash -c 'ddev restart -y && for i in {1..60}; do ddev describe >/dev/null 2>&1 && break || sleep 1; done'",
 
   // Wait for DDEV to be fully ready
   "waitFor": "initializeCommand",
@@ -21,8 +24,8 @@
     "vscode": {
       "extensions": [
         // PHP
-        "bmewburn.vscode-intelephense-client",
-        "mehedidracula.php-namespace-resolver",
+        "phpactor.vscode-phpactor",
+        "junstyle.php-cs-fixer",
         "xdebug.php-debug",
 
         // SilverStripe
@@ -30,9 +33,6 @@
 
         // JavaScript/TypeScript
         "biomejs.biome",
-
-        // Database
-        "damms005.devdb",
 
         // Utilities
         "berublan.vscode-log-viewer",
@@ -42,26 +42,20 @@
       ],
 
       "settings": {
+
+        // VS Code PHP
+        "vscode.php-language-features": false,
         // PHP Settings (now running IN container)
         "php.validate.executablePath": "/usr/bin/php",
-        "php.suggest.basic": false,
-        "php.validate.enable": true,
-        "php.validate.run": "onSave",
 
-        // Intelephense
-        "intelephense.diagnostics.undefinedSymbols": true,
-        "intelephense.environment.phpVersion": "8.4",
-        "intelephense.files.exclude": [
-          "/.ddev/**",
-          "/silverstripe-cache/**",
-          "/themes/**"
-        ],
-        "intelephense.environment.includePaths": [
-          "vendor",
-          "app"
-        ],
-        "intelephense.format.braces": "per",
-        "intelephense.telemetry.enabled": false,
+        // Phpactor
+        "phpactor.enable": true,
+        "phpactor.path": "/usr/local/bin/phpactor",
+
+        // PHP CS Fixer
+        "php-cs-fixer.executablePath": "${workspaceFolder}/vendor/bin/php-cs-fixer",
+        "php-cs-fixer.onsave": true,
+        "php-cs-fixer.rules": "@PSR12",
 
         // Biome (only for themes/default)
         "biome.enabled": false,
@@ -69,7 +63,8 @@
 
         // Editor
         "[php]": {
-          "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+          // "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+          "editor.defaultFormatter": "junstyle.php-cs-fixer"
         },
         "[javascript]": {
           "editor.defaultFormatter": "biomejs.biome"
@@ -86,7 +81,10 @@
 
         "editor.linkedEditing": true,
         "editor.stickyScroll.enabled": true,
-
+        "workbench.tree.enableStickyScroll": true,
+        "workbench.editorAssociations": {
+          "*.svg": "default"
+        },
         // Terminal
         "terminal.integrated.scrollback": 10000,
         "terminal.integrated.defaultProfile.linux": "bash",
@@ -95,54 +93,31 @@
         "search.followSymlinks": false,
         "search.useIgnoreFiles": false,
 
-        // Workbench
-        "workbench.tree.enableStickyScroll": true,
-        "workbench.editorAssociations": {
-          "*.svg": "default"
-        },
+        // Log Viewer
+        "logViewer.watch": [
+          {
+            "title": "Silverstripe",
+            "pattern": "silverstripe.log"
+          }
+        ],
 
         // Telemetry
-        "telemetry.telemetryLevel": "off",
-
-        // VS Code PHP
-        "vscode.php-language-features": false
+        "telemetry.telemetryLevel": "off"
       }
     }
   },
 
-  // Forward ports from container to host
-  "forwardPorts": [
-    80,    // Apache
-    443,   // Apache HTTPS
-    3306,  // MariaDB
-    5173,  // Vite dev server
-    8025   // Mailhog web interface
-  ],
-
   "portsAttributes": {
-    "80": {
-      "label": "Web",
-      "onAutoForward": "silent"
-    },
-    "443": {
-      "label": "Web (HTTPS)",
-      "onAutoForward": "silent"
-    },
-    "3306": {
-      "label": "Database",
-      "onAutoForward": "silent"
-    },
     "5173": {
       "label": "Vite",
       "onAutoForward": "silent"
     },
-    "8025": {
-      "label": "Mailhog",
+    "9003": {
+      "label": "Xdebug",
       "onAutoForward": "silent"
     }
   },
 
   // Run commands after container is created/started
-  "postCreateCommand": "cd themes/default && npm install",
-  "postStartCommand": "echo '✓ DDEV container ready. Run ddev describe for URLs.'"
+  "postCreateCommand": "bash -c 'cd themes/default && npm install && mkdir -p $HOME/.local/share/phpactor'"
 }

@@ -10,6 +10,7 @@ use libphonenumber\PhoneNumberUtil;
 use libphonenumber\PhoneNumberFormat;
 use SilverStripe\Model\List\ArrayList;
 use libphonenumber\NumberParseException;
+use SilverStripe\ORM\FieldType\DBHTMLText;
 use nathancox\EmbedField\Model\EmbedObject;
 use SilverStripe\View\Parsers\URLSegmentFilter;
 use League\CommonMark\GithubFlavoredMarkdownConverter;
@@ -115,7 +116,7 @@ class FieldExtension extends Extension
         if ($this->getOwner()->value) {
             $converter = new GithubFlavoredMarkdownConverter();
             $html = $converter->convertToHtml($this->getOwner()->value);
-            return $html->getContent();
+            return DBHTMLText::create()->setValue($html->getContent());
         }
         return null;
     }
@@ -177,7 +178,7 @@ class FieldExtension extends Extension
 
             $vidSrc = $dom->saveHTML($iframe->item(0));
 
-            return $vidSrc;
+            return DBHTMLText::create()->setValue($vidSrc);
         }
         return null;
     }

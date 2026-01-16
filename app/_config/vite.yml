@@ -7,3 +7,5 @@ SilverStripe\Core\Injector\Injector:
     calls:
       publicPath: [ 'usePublicPath', ['../default'] ]
       buildDirectory: [ 'useBuildDirectory', ['dist'] ]
+      # Disable automatic preload tags - we handle preloading via HTTP Link headers in PageController
+      preloadTagAttributes: [ 'usePreloadTagAttributes', [false] ]

@@ -1,0 +1,42 @@
+# Phpactor configuration for SilverStripe project
+# https://phpactor.readthedocs.io/en/master/reference/configuration.html
+
+# Additive stubs for SilverStripe magic methods/properties
+# These files augment existing class definitions
+worse_reflection.additive_stubs:
+  # Add paths to stub files here when created
+  # - stubs/silverstripe-stubs.php
+
+# Ensure vendor and generated code is indexed
+indexer.include_patterns:
+  - "/**/*.php"
+  - "/**/*.phar"
+
+# Exclude test files and cache from indexing
+indexer.exclude_patterns:
+  - "/vendor/**/Tests/**/*"
+  - "/vendor/**/tests/**/*"
+  - "/vendor/composer/**/*"
+  - "/silverstripe-cache/**/*"
+  - "/themes/default/node_modules/**/*"
+  - "/.ddev/**/*"
+
+# Enable composer autoloader
+composer.enable: true
+composer.autoloader_path: "%project_root%/vendor/autoload.php"
+
+# Language server settings
+language_server.diagnostics_on_update: true
+language_server.diagnostics_on_save: true
+language_server_code_transform.import_globals: true
+# language_server_worse_reflection.infer_types: true
+language_server_phpstan.enabled: false
+language_server_psalm.enabled: false
+language_server_php_cs_fixer.enabled: false
+
+# Code transform settings
+# code_transform.import_name.name_completion_priority: 100
+# code_transform.import_name.name_completion_use_fqn: false
+
+# File path resolver
+file_path_resolver.enable_cache: true

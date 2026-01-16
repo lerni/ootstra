@@ -14,12 +14,12 @@
 		<% if $IsFirst && $Page.Parent.ClassName == 'App\Models\HolderPage' %>
 			<% with $Page.Parent %>
 			<nav class="element blog-post-meta horizontal-spacing">
-				<p class="cat-tag">
+				<nav class="cat-tag">
 					<a href="$Link" class="all" title="<%t SilverStripe\Blog\Model\Blog.Allcategories "Alle" %>"><%t SilverStripe\Blog\Model\Blog.Allcategories "Alle" %></a>
 					<% loop $CategoriesWithState %>
 						<a href="{$Up.Link}?tags={$URLSegment}" class="$CustomLinkingMode" title="$Title" data-segment="$URLSegment">$Title</a>
 					<% end_loop %>
-				</p>
+				</nav>
 			</nav>
 			<% end_with %>
 		<% end_if %>

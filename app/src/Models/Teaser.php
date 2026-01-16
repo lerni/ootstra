@@ -6,7 +6,8 @@ use SilverStripe\Assets\Image;
 use App\Elements\ElementTeaser;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\CMS\Model\SiteTree;
-use SilverStripe\Forms\TreeDropdownField;
+use SilverStripe\LinkField\Models\Link;
+use SilverStripe\LinkField\Form\LinkField;
 use SilverStripe\Versioned\GridFieldArchiveAction;
 use SilverStripe\Forms\GridField\GridFieldDataColumns;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
@@ -34,7 +35,12 @@ class Teaser extends DataObject
     ];
 
     private static $owns = [
-        'Image'
+        'Image',
+        'Link'
+    ];
+
+    private static $cascade_deletes = [
+        'Link'
     ];
 
     private static $singular_name = 'Teaser';
@@ -78,8 +84,10 @@ class Teaser extends DataObject
             $fields->removeByName("Layout");
         }
 
-        $RelatedPage = TreeDropdownField::create('RelatedPageID', 'Link', SiteTree::class);
-        $fields->replaceField('RelatedPageID', $RelatedPage);
+        $linkField = LinkField::create('LinkID', _t(self::class . '.RELATEDLINK', 'Link'));
+        // Prevent selecting existing Links from other owners
+        $linkField->setExcludeLinkTextField(true);
+        $fields->replaceField('LinkID', $linkField);
 
         if ($this->isInDB() && $this->TeaserElements()->count() > 1) {
             $fields

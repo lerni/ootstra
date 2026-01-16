@@ -44,13 +44,13 @@ This project supports **VSCode with devcontainer** (recommended). VSCode extensi
 
 **Local setup (on your host machine):**
 - `ms-vscode-remote.remote-containers` extension will be suggested and is needed for devcontainers to work
-- All other extensions (PHP Intelephense, Biome, Log Viewer, Xdebug, etc.) are automatically installed inside the container
+- All other VSCode extensions are automatically installed inside the container
 
 **How it works:**
 - Open the workspace in VS Code and use Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`) → **"Dev Containers: Reopen in Container"**
 - The devcontainer automatically starts DDEV (`ddev start` via `initializeCommand`) and runs `npm install` in `themes/default` (`postCreateCommand`)
 - Editor extensions and settings are configured inside the container, keeping your host lean
-- `.vscode/settings.json` contains in-container settings (Intelephense, log viewer, debug config)
+- `.vscode/settings.json` contains in-container settings (log viewer, debug config)
 - Ports are forwarded automatically: Vite (5173), Mailpit (8025), Apache (80, 443), MariaDB (3306)
 
 ### 1. Clone or fork lerni/ootstra
@@ -66,8 +66,6 @@ code .
 ```
 In VS Code, open the Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`) and run:
 **"Dev Containers: Reopen in Container"**
-
-The devcontainer will automatically start DDEV and run `npm install` in `themes/default`.
 
 ### 3. Install PHP dependencies (inside the container)
 All commands now run inside the devcontainer terminal:

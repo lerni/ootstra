@@ -14,11 +14,15 @@
 		},
 		{
 			"type": "vcs",
-			"url": "https://github.com/3Dgoo/silverstripe-share-care"
+			"url": "https://github.com/lerni/silverstripe-share-care"
 		},
 		{
 			"type": "vcs",
 			"url": "https://github.com/lerni/silverstripe-selectupload"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/lerni/silverstripe-opengraph"
 		}
 	],
 	"require": {
@@ -41,7 +45,8 @@
 		"jonom/silverstripe-text-target-length": "^2",
 		"lerni/silverstripe-tracking": "6.x-dev",
 		"tractorcow/silverstripe-robots": "^5",
-		"jonom/silverstripe-share-care": "dev-silverstripe-6",
+		"tractorcow/silverstripe-opengraph": "dev-lerni-tweaks as 6.0.0",
+		"jonom/silverstripe-share-care": "dev-updateMetaTags",
 		"dorsetdigital/silverstripe-canonical": "^3",
 		"silverstripe/sharedraftcontent": "^4",
 		"dnadesign/silverstripe-elemental": "^6",
@@ -72,7 +77,8 @@
 		"deployer/deployer": "^7",
 		"dnadesign/silverstripe-populate": "^4",
 		"pstaender/ssshell": "^0",
-		"phpunit/phpunit": "^11.3"
+		"phpunit/phpunit": "^11.3",
+		"friendsofphp/php-cs-fixer": "^3.92"
 	},
 	"extra": {
 		"expose": [

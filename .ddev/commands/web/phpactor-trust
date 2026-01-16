@@ -1,0 +1,16 @@
+#!/bin/bash
+
+## Description: Trust phpactor config for this workspace
+## Usage: phpactor-trust
+## Example: "ddev phpactor-trust"
+
+# Create phpactor config directory if it doesn't exist
+mkdir -p "$HOME/.local/share/phpactor"
+
+# Check if already trusted
+if phpactor config:list 2>&1 | grep -q "file_path_resolver.project_root"; then
+    echo "Phpactor config already trusted"
+else
+    echo "/var/www/html is now trusted" > "$HOME/.local/share/phpactor/trusted.json"
+    echo '["\/var\/www\/html"]' > "$HOME/.local/share/phpactor/trusted.json"
+fi

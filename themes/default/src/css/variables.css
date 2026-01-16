@@ -36,5 +36,5 @@
   --inner-width--extended: 1480px;
 
   /* Spacing */
-  --spacing: clamp(calc(var(--line-height) * 0.5em), 3vw, calc(var(--line-height) * 1em));
+  --spacing: clamp(calc(var(--line-height) * 0.5em), 3vw, calc(var(--line-height) * 2em));
 }

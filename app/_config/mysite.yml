@@ -256,7 +256,7 @@ SilverStripe\SiteConfig\SiteConfig:
 
 SilverStripe\Assets\Upload_Validator:
   default_max_file_size:
-    '[image]': '5m'
+    '[image]': '15m'
 
 SilverStripe\Security\Member:
   extensions:
@@ -291,7 +291,7 @@ SilverStripe\Core\Injector\Injector:
       SiteKey: '`SS_NOCAPTCHA_SITE_KEY`'
       SecretKey: '`SS_NOCAPTCHA_SECRET_KEY`'
   InterventionImageDriver:
-      class: 'Intervention\Image\Drivers\Imagick\Driver'
+    class: 'Intervention\Image\Drivers\Imagick\Driver'
   SilverStripe\Assets\Image_Backend:
     properties:
       Quality: 84
@@ -330,7 +330,8 @@ App\Controller\PersovCardController:
 
 Axllent\ScaledUploads\ScaledUploads:
   max_width: 4000
-  max_height: 3000
+  max_height: 4000
+  auto_rotate: true
 
 # App\Models\SlugHolderPage:
 #   ManagedModels:
@@ -375,7 +376,9 @@ Name: myopengraphsettings
 After: '#opengraphsettings'
 ---
 TractorCow\OpenGraph\OpenGraph:
-  default_locale: 'de_DE'  # OpenGraph accepts just a limited subset of possible locales - de_CH for example is not supported
+  # default_locale: 'de_DE'  # OpenGraph accepts just a limited subset of possible locales - de_CH for example is not supported
+    # ATM we maintain our own fork and allow all languages
+    # https://github.com/lerni/silverstripe-opengraph/commit/7db9c653de05b1631234f3bd44261e0ee6482652
   application_id: ''
   admin_id: ''
 

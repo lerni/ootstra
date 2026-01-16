@@ -61,6 +61,7 @@ table {
 
 a[href],
 area[href],
+details summary,
 input:not([disabled]),
 select:not([disabled]),
 textarea:not([disabled]),
@@ -73,6 +74,13 @@ button:not([disabled]),
             outline: 2px solid var(--link-color);
         }
     }
+}
+
+input,
+button,
+select,
+textarea {
+	font: inherit;
 }
 
 /* sometimes referred to as .sr-only

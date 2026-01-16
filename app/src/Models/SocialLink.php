@@ -50,7 +50,7 @@ class SocialLink extends DataObject
     ];
 
     private static $defaults = [
-        'sameAs' => 1
+        'sameAs' => true
     ];
 
     public function fieldLabels($includerelations = true)

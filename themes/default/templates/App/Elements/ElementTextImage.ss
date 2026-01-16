@@ -11,7 +11,7 @@
 			<% if $ImageID %>
 				<% with $Image %>
 					<img loading="lazy" alt="$Title" width="{$ScaleMaxWidth(800).Width()}" height="{$ScaleMaxWidth(800).Height()}"
-						style="object-position: {$ScaleMaxWidth(800).FocusPoint.PercentageX}% {$ScaleMaxWidth(800).FocusPoint.PercentageY}%;"
+						<% if $FocusPoint.PercentageX != 50 || $FocusPoint.PercentageY != 50 %>style="object-position: {$ScaleMaxWidth(800).FocusPoint.PercentageX}% {$ScaleMaxWidth(800).FocusPoint.PercentageY}%;"<% end_if %>
 						src="$ScaleMaxWidth(800).Convert('webp').URL"
 						srcset="$ScaleMaxWidth(800).Convert('webp').URL 1x, $ScaleMaxWidth(1600).Convert('webp').URL 2x" />
 				<% end_with %>

@@ -2,19 +2,29 @@
   // Settings for local development (non-devcontainer)
   // Most settings are in .devcontainer/devcontainer.json for devcontainer use
 
-  // Log Viewer (not in devcontainer extensions)
-  "logViewer.watch": [
-    {
-      "title": "Silverstripe",
-      "pattern": "silverstripe.log"
-    }
-  ],
-
   // Terminal profiles for local macOS
   "terminal.integrated.profiles.osx": {
     "zsh": {
       "path": "/bin/zsh",
       "args": ["-l", "-i"]
     }
-  }
+  },
+
+  // Search exclusions
+  "search.exclude": {
+    "**/silverstripe-cache/**": true,
+    "**/themes/default/dist/**": true,
+    "**/themes/default/node_modules/**": true,
+    "**/public/_resources/**": true,
+    "**/public/assets/**": true,
+    "**/.phpunit.result.cache": true
+  },
+
+  // Disable auto-detection to speed up task fetching
+  "npm.exclude": [
+    "**/node_modules/**",
+    "**/vendor/**",
+    "**/silverstripe-cache/**",
+    "**/public/**"
+  ]
 }
