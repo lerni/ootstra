@@ -1,14 +1,24 @@
 {
-  "name": "GitHub Codespaces - DDEV",
+  "name": "${localWorkspaceFolderBasename}",
 
-  "image": "mcr.microsoft.com/devcontainers/base:debian-12",
+  // Use DDEV's docker-compose.yaml
+  "dockerComposeFile": "../.ddev/.ddev-docker-compose-full.yaml",
+  "service": "web",
+  "workspaceFolder": "/var/www/html",
 
-  "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {
-      "version": "latest"
-    },
-    "ghcr.io/ddev/ddev/install-ddev:latest": {}
-  },
+  // Stop the docker-compose stack when the devcontainer is closed
+  "shutdownAction": "stopCompose",
+
+  // Ensure DDEV is running before opening (restart to handle unclean shutdowns)
+  "initializeCommand": "bash -c 'ddev restart -y && for i in {1..60}; do ddev describe >/dev/null 2>&1 && break || sleep 1; done'",
+
+  // Wait for DDEV to be fully ready
+  "waitFor": "initializeCommand",
+
+  // Set up the container for VS Code
+  // DDEV automatically maps the host user into the container and runs Apache/FPM as that user
+  // This ensures CLI and HTTP share the same cache directory (silverstripe-cache/<username>)
+  // No explicit containerUser needed - DDEV handles this automatically
 
   "customizations": {
     "vscode": {
@@ -32,8 +42,10 @@
       ],
 
       "settings": {
+
         // VS Code PHP
         "vscode.php-language-features": false,
+        // PHP Settings (now running IN container)
         "php.validate.executablePath": "/usr/bin/php",
 
         // Phpactor
@@ -45,12 +57,13 @@
         "php-cs-fixer.onsave": true,
         "php-cs-fixer.rules": "@PSR12",
 
-        // Biome
+        // Biome (only for themes/default)
         "biome.enabled": false,
         "biome.lsp.bin": "${workspaceFolder}/themes/default/node_modules/.bin/biome",
 
         // Editor
         "[php]": {
+          // "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
           "editor.defaultFormatter": "junstyle.php-cs-fixer"
         },
         "[javascript]": {
@@ -69,9 +82,12 @@
         "editor.linkedEditing": true,
         "editor.stickyScroll.enabled": true,
         "workbench.tree.enableStickyScroll": true,
-
+        "workbench.editorAssociations": {
+          "*.svg": "default"
+        },
         // Terminal
         "terminal.integrated.scrollback": 10000,
+        "terminal.integrated.defaultProfile.linux": "bash",
 
         // Search
         "search.followSymlinks": false,
@@ -92,31 +108,16 @@
   },
 
   "portsAttributes": {
-    "3306": {
-      "label": "database",
-      "onAutoForward": "silent"
-    },
-    "8027": {
-      "label": "mailpit",
-      "onAutoForward": "silent"
-    },
-    "8080": {
-      "label": "web http",
-      "onAutoForward": "notify"
-    },
-    "8443": {
-      "label": "web https",
-      "onAutoForward": "openBrowser"
-    },
     "5173": {
-      "label": "vite",
+      "label": "Vite",
       "onAutoForward": "silent"
     },
     "9003": {
-      "label": "xdebug",
+      "label": "Xdebug",
       "onAutoForward": "silent"
     }
   },
 
-  "postCreateCommand": "bash .devcontainer/setup_project.sh"
+  // Run commands after container is created/started
+  "postCreateCommand": "bash -c 'cd themes/default && npm install && mkdir -p $HOME/.local/share/phpactor'"
 }

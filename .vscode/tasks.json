@@ -6,7 +6,22 @@
     {
       "label": "dev/build - local",
       "type": "shell",
-      "command": "php ./vendor/bin/sake db:build --flush",
+      "command": "${command:shellCommand.execute}",
+      "args": [],
+      "options": {
+        "shellQuoting": {
+          "escape": {
+            "character": "\\"
+          }
+        },
+        "shell": {
+          "executable": "/bin/bash",
+          "args": [
+            "-c",
+            "if [ -f /.dockerenv ] && [ -z \"$CODESPACES\" ]; then php ./vendor/bin/sake db:build --flush; else ddev sake db:build --flush; fi"
+          ]
+        }
+      },
       "group": "build",
       "presentation": {
         "reveal": "always",
@@ -20,7 +35,11 @@
     {
       "label": "SilverStripe Shell",
       "type": "shell",
-      "command": "php ./vendor/bin/ssshell",
+      "command": "/bin/bash",
+      "args": [
+        "-c",
+        "if [ -f /.dockerenv ] && [ -z \"$CODESPACES\" ]; then php ./vendor/bin/ssshell; else ddev php ./vendor/bin/ssshell; fi"
+      ],
       "group": "build",
       "presentation": {
         "reveal": "always",
@@ -35,7 +54,11 @@
     {
       "label": "npm install & update browser data",
       "type": "shell",
-      "command": "npm --prefix themes/default install && npm --prefix themes/default update browserslist-db baseline-browser-mapping",
+      "command": "/bin/bash",
+      "args": [
+        "-c",
+        "if [ -f /.dockerenv ] && [ -z \"$CODESPACES\" ]; then npm --prefix themes/default install && npm --prefix themes/default update browserslist-db baseline-browser-mapping; else ddev npm --prefix themes/default install && ddev npm --prefix themes/default update browserslist-db baseline-browser-mapping; fi"
+      ],
       "group": "build",
       "presentation": {
         "reveal": "always",
@@ -49,7 +72,11 @@
     {
       "label": "npm prod",
       "type": "shell",
-      "command": "npm --prefix themes/default run build",
+      "command": "/bin/bash",
+      "args": [
+        "-c",
+        "if [ -f /.dockerenv ] && [ -z \"$CODESPACES\" ]; then npm --prefix themes/default run build; else ddev npm --prefix themes/default run build; fi"
+      ],
       "group": "build",
       "presentation": {
         "reveal": "always",
@@ -63,7 +90,11 @@
     {
       "label": "npm watch",
       "type": "shell",
-      "command": "npm --prefix themes/default run dev",
+      "command": "/bin/bash",
+      "args": [
+        "-c",
+        "if [ -f /.dockerenv ] && [ -z \"$CODESPACES\" ]; then npm --prefix themes/default run dev; else ddev npm --prefix themes/default run dev; fi"
+      ],
       "group": "build",
       "isBackground": true,
       "presentation": {
@@ -107,7 +138,11 @@
     {
       "label": "composer install",
       "type": "shell",
-      "command": "composer install",
+      "command": "/bin/bash",
+      "args": [
+        "-c",
+        "if [ -f /.dockerenv ] && [ -z \"$CODESPACES\" ]; then composer install; else ddev composer install; fi"
+      ],
       "group": "build",
       "presentation": {
         "reveal": "always",
@@ -117,7 +152,11 @@
       "icon": {
         "color": "terminal.ansiMagenta"
       }
-    },
+    },/bin/bash",
+      "args": [
+        "-c",
+        "if [ -f /.dockerenv ] && [ -z \"$CODESPACES\" ]; then composer u; else ddev composer u; fi"
+      ]
     {
       "label": "composer update",
       "type": "shell",
@@ -135,7 +174,11 @@
     {
       "label": "composer vendor-expose",
       "type": "shell",
-      "command": "composer vendor-expose",
+      "command": "/bin/bash",
+      "args": [
+        "-c",
+        "if [ -f /.dockerenv ] && [ -z \"$CODESPACES\" ]; then composer vendor-expose; else ddev composer vendor-expose; fi"
+      ],
       "group": "build",
       "presentation": {
         "reveal": "always",

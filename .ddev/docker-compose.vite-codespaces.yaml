@@ -1,0 +1,13 @@
+#ddev-generated
+# This docker-compose file is only loaded when running in GitHub Codespaces
+# It exposes ports directly since the DDEV router is not available in Codespaces
+# 
+# For local development, the standard web_extra_exposed_ports in config.yaml is used.
+
+services:
+  web:
+    ports:
+      - "8080:80"
+      - "8443:443"
+      - "5173:5173"
+      - "8027:8025"
