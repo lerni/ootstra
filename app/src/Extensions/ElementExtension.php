@@ -22,20 +22,20 @@ class ElementExtension extends Extension
         'SpacingTop' => 'Int',
         'SpacingBottom' => 'Int',
         'BackgroundColor' => 'Varchar',
-        'TitleLevel' => 'Enum("1,2,3","2")'
+        'TitleLevel' => 'Enum("1,2,3","2")',
     ];
 
     private static $defaults = [
         'SpacingTop' => 0,
         'SpacingBottom' => 2, // this or similar is also in DefaultHero
-        'BackgroundColor' => 'transparent'
+        'BackgroundColor' => 'transparent',
     ];
 
     public function updateCMSFields(FieldList $fields)
     {
         $fields->removeByName([
             'ExtraClass',
-            'Root_Settings_ExtraClass'
+            'Root_Settings_ExtraClass',
         ]);
 
         if ($AvailableField = $fields->dataFieldByName('AvailableGlobally')) {
@@ -66,13 +66,13 @@ class ElementExtension extends Extension
 
             $TitleFieldGroup = new FieldGroup(
                 $TitleLevelField,
-                $TitleField
+                $TitleField,
             );
 
             $TitleFieldGroup->replaceField(
                 'Title',
                 TextCheckboxGroupField::create()
-                    ->setName('Title')
+                    ->setName('Title'),
             );
             $fields->fieldByName('Root.Main')->unshift($TitleFieldGroup);
         }
@@ -95,9 +95,9 @@ class ElementExtension extends Extension
                 [
                     'transparent' => 'rgba(255, 255, 255, 0)',
                     'white' => 'rgb(255, 255, 255)',
-                    'gray--lighter' => 'rgb(246, 246, 246)'
-                ]
-            )
+                    'gray--lighter' => 'rgb(246, 246, 246)',
+                ],
+            ),
         );
     }
 
@@ -114,6 +114,7 @@ class ElementExtension extends Extension
                 return true;
             }
         }
+
         return null;
     }
 
@@ -128,6 +129,7 @@ class ElementExtension extends Extension
         if ($first->ID == $this->getOwner()->ID) {
             return true;
         }
+
         return null;
     }
 
@@ -145,6 +147,7 @@ class ElementExtension extends Extension
         if (in_array($StringTitle, $STitles) && $AnchorCandidate != '') {
             return $AnchorCandidate . '-' . $this->getOwner()->ID;
         }
+
         return $AnchorCandidate;
     }
 
@@ -169,6 +172,7 @@ class ElementExtension extends Extension
                 $TitleOrAnchor = $this->getOwner()->Title;
             }
         }
+
         return $TitleOrAnchor;
     }
 
@@ -182,9 +186,10 @@ class ElementExtension extends Extension
             $description = $this->getOwner()->config()->get('description') ?: $this->getOwner()->getType();
         }
         $pageTitle = $this->getOwner()->getPageTitle();
+
         return DBField::create_field(
             'HTMLVarchar',
-            $pageTitle . ' → ' . $description
+            $pageTitle . ' → ' . $description,
         );
     }
 
@@ -199,14 +204,14 @@ class ElementExtension extends Extension
 
     public function unparse_url($parsed_url)
     {
-        $scheme   = isset($parsed_url['scheme']) ? $parsed_url['scheme'] . '://' : '';
-        $host     = $parsed_url['host'] ?? '';
-        $port     = isset($parsed_url['port']) ? ':' . $parsed_url['port'] : '';
-        $user     = $parsed_url['user'] ?? '';
-        $pass     = isset($parsed_url['pass']) ? ':' . $parsed_url['pass']  : '';
-        $pass     = ($user || $pass) ? $pass . '@' : '';
-        $path     = $parsed_url['path'] ?? '';
-        $query    = isset($parsed_url['query']) ? '?' . $parsed_url['query'] : '';
+        $scheme = isset($parsed_url['scheme']) ? $parsed_url['scheme'] . '://' : '';
+        $host = $parsed_url['host'] ?? '';
+        $port = isset($parsed_url['port']) ? ':' . $parsed_url['port'] : '';
+        $user = $parsed_url['user'] ?? '';
+        $pass = isset($parsed_url['pass']) ? ':' . $parsed_url['pass'] : '';
+        $pass = ($user || $pass) ? $pass . '@' : '';
+        $path = $parsed_url['path'] ?? '';
+        $query = isset($parsed_url['query']) ? '?' . $parsed_url['query'] : '';
         $fragment = isset($parsed_url['fragment']) ? '#' . $parsed_url['fragment'] : '';
 
         return $scheme . $user . $pass . $host . $port . $path . $query . $fragment;
@@ -232,14 +237,26 @@ class ElementExtension extends Extension
         }
     }
 
+    public function CurrentStage()
+    {
+        if ($this->owner->isPublished() && !$this->owner->isModifiedOnDraft()) {
+            return 'published';
+        } elseif ($this->owner->isPublished() && $this->owner->isModifiedOnDraft()) {
+            return 'modified';
+        } else {
+            return 'draft';
+        }
+    }
+
     public function getCMSValidator()
     {
         return RequiredFieldsValidator::create([
-            'Title'
+            'Title',
         ]);
     }
 
-    public function updatePreviewLink(&$link) {
+    public function updatePreviewLink(&$link)
+    {
         if ($link) {
             $parts = parse_url($link);
             if (isset($parts['fragment'])) {
@@ -250,7 +267,8 @@ class ElementExtension extends Extension
         }
     }
 
-    public function NextElement() {
+    public function NextElement()
+    {
         if (!$this->getOwner()->isInDB()) {
             return null;
         }

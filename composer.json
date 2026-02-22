@@ -10,14 +10,6 @@
 		},
 		{
 			"type": "vcs",
-			"url": "https://github.com/silverstripeltd/silverstripe-someconfig"
-		},
-		{
-			"type": "vcs",
-			"url": "https://github.com/lerni/silverstripe-share-care"
-		},
-		{
-			"type": "vcs",
 			"url": "https://github.com/lerni/silverstripe-selectupload"
 		},
 		{
@@ -46,7 +38,7 @@
 		"lerni/silverstripe-tracking": "6.x-dev",
 		"tractorcow/silverstripe-robots": "^5",
 		"tractorcow/silverstripe-opengraph": "dev-lerni-tweaks as 6.0.0",
-		"jonom/silverstripe-share-care": "dev-updateMetaTags",
+		"jonom/silverstripe-share-care": "^5",
 		"dorsetdigital/silverstripe-canonical": "^3",
 		"silverstripe/sharedraftcontent": "^4",
 		"dnadesign/silverstripe-elemental": "^6",
@@ -66,8 +58,8 @@
 		"lerni/klaro-cookie-consent": "6.x-dev",
 		"league/commonmark": "^2",
 		"eluceo/ical": "^2",
-		"jonom/silverstripe-someconfig": "dev-pulls/cms6-support",
-		"lerni/folderindex": "1.x-dev",
+		"jonom/silverstripe-someconfig": "^2",
+		"lerni/folderindex": "db-ready-61-dev",
 		"simple-icons/simple-icons": "^15",
 		"silverstripe/linkfield": "^5",
 		"bigfork/silverstripe-vitesse": "^2.0",
@@ -78,7 +70,7 @@
 		"dnadesign/silverstripe-populate": "^4",
 		"pstaender/ssshell": "^0",
 		"phpunit/phpunit": "^11.3",
-		"friendsofphp/php-cs-fixer": "^3.92"
+		"friendsofphp/php-cs-fixer": "^3"
 	},
 	"extra": {
 		"expose": [

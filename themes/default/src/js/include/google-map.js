@@ -101,7 +101,17 @@ function createMarker(latlng, PointURL, type) {
 	}
   if (PointURL) {
     google.maps.event.addListener(marker, "click", function () {
-      window.open(PointURL, "_blank");
+      // Check if URL is external (different domain)
+      var isExternal = false;
+      try {
+        var url = new URL(PointURL, window.location.href);
+        isExternal = url.hostname !== window.location.hostname;
+      } catch (e) {
+        // If URL parsing fails, treat as internal (relative URL)
+        isExternal = false;
+      }
+
+      window.open(PointURL, isExternal ? "_blank" : "_self");
     });
   }
 }

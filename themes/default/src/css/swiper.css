@@ -11,7 +11,7 @@
 /* Swiper theme color configuration */
 :root {
   --swiper-theme-color: var(--link-color) !important;
-  --swiper-navigation-size: calc(var(--lh) * 2 * 1em) !important;
+  --swiper-navigation-size: 2lh !important;
 }
 
 @mixin sliderpagination .7em, #fff;
@@ -25,12 +25,12 @@
   bottom: 0;
 
   /* Spacing bottom variants */
-  &.spacing-bottom-6 { bottom: calc(6 * var(--lh) * 1em); }
-  &.spacing-bottom-5 { bottom: calc(5 * var(--lh) * 1em); }
-  &.spacing-bottom-4 { bottom: calc(4 * var(--lh) * 1em); }
-  &.spacing-bottom-3 { bottom: calc(3 * var(--lh) * 1em); }
-  &.spacing-bottom-2 { bottom: calc(2 * var(--lh) * 1em); }
-  &.spacing-bottom-1 { bottom: calc(1 * var(--lh) * 1em); }
+  &.spacing-bottom-6 { bottom: 6lh; }
+  &.spacing-bottom-5 { bottom: 5lh; }
+  &.spacing-bottom-4 { bottom: 4lh; }
+  &.spacing-bottom-3 { bottom: 3lh; }
+  &.spacing-bottom-2 { bottom: 2lh; }
+  &.spacing-bottom-1 { bottom: 1lh; }
   &.spacing-bottom-0 { bottom: 0; }
 
   .breadcrumbs &,

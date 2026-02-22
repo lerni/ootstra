@@ -1,3 +1,4 @@
+@import "./uni-sani-reset.css";
 @import "./custom-media.css";
 @import "./mixins.css";
 
@@ -24,7 +25,7 @@
 	-------------------------------------------- */
 	p {
 		font-size: 1em;
-		margin: 0 0 calc(var(--lh) * 1em) 0;
+		margin: 0 0 1lh 0;
 	}
 
 	* {
@@ -34,7 +35,7 @@
 		}
 		&.halveinline,
 		&.halvelinish {
-			margin-bottom: calc(var(--lh) / 2 * 1em);
+			margin-bottom: 0.5lh;
 		}
 	}
 
@@ -45,8 +46,8 @@
 		border-bottom: 1px solid var(--gray--light);
 		clear: both;
 		height: 0;
-		padding: calc(calc(var(--lh) / 2 * 1em) - 1px) 0 0 0;
-		margin: 0 0 calc(var(--lh) / 2 * 1em) 0;
+		padding: calc(0.5lh - 1px) 0 0 0;
+		margin: 0 0 0.5lh 0;
 	}
 
 	/* LINKS
@@ -69,11 +70,11 @@
 	ol,
 	ul {
 		/* margin-left & -right may be affected by --inner-width--reduced */
-		margin: 0 0 calc(var(--lh) * 1em) 0;
-		padding: 0 0 0 calc(var(--lh) / 3 * 2 * 1em);
+		margin: 0 0 1lh 0;
+		padding: 0 0 0 calc(2lh / 3);
 		li {
 			line-height: var(--lh);
-			padding: 0 0 calc(var(--lh) / 4 * 1em) calc(var(--lh) / 2 * 1em);
+			padding: 0 0 0.25lh 0.5lh;
 			font-size: 1em;
 		}
 	}
@@ -93,8 +94,8 @@
 		width: 100%;
 		grid-template-columns: minmax(auto, 4fr) 6fr;
 		grid-template-rows: repeat(auto-fit, 1fr);
-		column-gap: calc(var(--lh) * 2 * 1em);
-		margin: 0 auto calc(var(--lh) / 2 * 1em) auto;
+		column-gap: 2lh;
+		margin: 0 auto 0.5lh auto;
 		dt {
 			grid-column: 1/2;
 			font-weight: var(--font-weight--bold);
@@ -107,7 +108,7 @@
 			margin-left: 0;
 			@media (--cm-l-neg) {
 				grid-column: 1/3;
-				padding: 0 0 calc(var(--lh) / 2 * 1em) calc(var(--lh) / 2 * 1em);
+				padding: 0 0 0.5lh 0.5lh;
 			}
 		}
 	}
@@ -119,7 +120,7 @@
 	h2,
 	h3,
 	h4 {
-		margin: 0 0 calc(var(--lh) / 2 * 1em) 0;
+		margin: 0 0 0.5lh 0;
 		color: var(--blue);
 		font-weight: var(--font-weight--bold);
 	}
@@ -143,14 +144,14 @@
 		font-family: "Courier New", Courier, monospace;
 		display: block;
 		font-size: 1.1em;
-		padding: calc(var(--lh) / 2 * 1em);
+		padding: 0.5lh;
 	}
 
 	/* TABLE STYLING
 	-------------------------------------------- */
 	table {
 		width: 100%;
-		margin: 0 0 calc(var(--lh) * 1em) 0;
+		margin: 0 0 1lh 0;
 		border-collapse: collapse;
 		tr {
 			td {
@@ -200,17 +201,17 @@
 		border: none;
 		max-width: 100%;
 		height: auto;
-		margin-bottom: calc(var(--lh) / 2 * 1em);
+		margin-bottom: 0.5lh;
 		&.right {
 			text-align: right;
-			margin-left: calc(var(--lh) / 2 * 1em);
+			margin-left: 0.5lh;
 			&.ss-htmleditorfield-file {
 				float: right;
 			}
 		}
 		&.left {
 			text-align: left;
-			margin-right: calc(var(--lh) / 2 * 1em);
+			margin-right: 0.5lh;
 			&.ss-htmleditorfield-file {
 				float: left;
 			}
@@ -233,7 +234,7 @@
 
 	div.embed.ss-htmleditorfield-file {
 		width: 100% !important;
-		margin-bottom: calc(var(--lh) * 1em);
+		margin-bottom: 1lh;
 		/* for klaro contextual consent */
 		position: relative;
 		iframe {
@@ -242,7 +243,7 @@
 		}
 		> p {
 			/* video caption */
-			padding: calc(var(--lh) / 2 * 1em);
+			padding: 0.5lh;
 			background-color: var(--gray--lighter);
 			font-size: var(--font-size--small);
 			display: table;
@@ -251,7 +252,7 @@
 	}
 
 	.split-2 {
-		margin-bottom: calc(var(--lh) * 1em);
+		margin-bottom: 1lh;
 		p:not([class]) {
 			margin-bottom: 0;
 		}
@@ -260,13 +261,13 @@
 		}
 		@media (--cm-m-plus) {
 			column-count: 2;
-			column-gap: calc(var(--lh) * 2 * 1em);
+			column-gap: 2lh;
 		}
 	}
 
 	blockquote {
-		margin-bottom: calc(var(--lh) * 1em);
-		margin-left: calc(var(--lh) * 1 * 1em);
+		margin-bottom: 1lh;
+		margin-left: 1lh;
 		border: 0;
 		padding: 0;
 		p {
@@ -274,9 +275,9 @@
 			&::after {
 				display: inline-block;
 				background-repeat: no-repeat;
-				background-size: calc(var(--lh) * 0.5 * 1rem) auto;
+			background-size: 0.5rlh auto;
 				background-position: center center;
-				width: calc(var(--lh) * 1 * 1rem);
+				width: 1rlh;
 				height: 1rem;
 				content: "";
 			}
@@ -317,10 +318,10 @@
 	}
 	.boxed {
 		background-color: var(--gray--lighter);
-		padding: calc(var(--lh) * 1 * 1em) calc(var(--lh) * 2 * 1em) calc(var(--lh) * 1.1 * 1em);
-		margin: 0 0 calc(var(--lh) * 1em) 0;
+		padding: 1lh 2lh 1.1lh;
+		margin: 0 0 1lh 0;
 		@media (--cm-m-neg) {
-			padding: calc(var(--lh) * 1em) calc(var(--lh) / 2 * 1em);
+			padding: 1lh 0.5lh;
 		}
 		> *:last-child {
 			margin-bottom: 0;

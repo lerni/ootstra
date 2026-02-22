@@ -12,11 +12,11 @@ use Symfony\Component\Console\Input\InputInterface;
 
 class CleanUpObjects extends BuildTask
 {
+    protected static string $commandName = 'cleanup-objects';
+
     protected string $title = "Clean-up Task";
 
     protected static string $description = 'Cleans-up Object as configured per "App\Tasks\CleanUpObjects > objects_to_clean_up" & "App\Tasks\CleanUpObjects > days_retention"';
-
-    private static $segment = 'cleanup-objects';
 
     private static $days_retention = 180;
 

@@ -13,7 +13,7 @@ form {
 	> fieldset {
 		display: flex;
 		flex-wrap: wrap;
-		column-gap: calc(var(--lh) * 1em);
+		column-gap: 1lh;
 	}
 
 	.userform-fields,
@@ -28,19 +28,19 @@ form {
 
 		/* userform groups */
 		fieldset.userformsgroup {
-			padding: calc(var(--lh) * 1em) 0 0 0;
+			padding: 1lh 0 0 0;
 			border: none;
 			border-radius: 0;
 			margin-bottom: 0;
 
 			legend {
 				font-weight: var(--font-weight--bold);
-				padding: calc(var(--lh) / 2 * 1em) 0;
+				padding: 0.5lh 0;
 			}
 
 			> .middleColumn > div {
-				margin-bottom: calc(var(--lh) / 2 * 1em);
-				padding-bottom: calc(var(--lh) * 1em);
+				margin-bottom: 0.5lh;
+				padding-bottom: 1lh;
 			}
 
 			> .middleColumn {
@@ -48,7 +48,7 @@ form {
 				margin-bottom: -1px;
 				display: flex;
 				flex-wrap: wrap;
-				column-gap: calc(var(--lh) * 1em);
+				column-gap: 1lh;
 				flex: 0 0 100%;
 
 				& > div:first-child {
@@ -65,12 +65,12 @@ form {
 		.field {
 			display: flex;
 			flex-wrap: wrap;
-			column-gap: calc(var(--lh) * 1em);
+			column-gap: 1lh;
 			flex: 0 0 100%;
-			margin-bottom: calc(var(--lh) * 1em);
+			margin-bottom: 1lh;
 
 			&.half-width {
-				flex: 0 0 calc(50% - (calc(var(--lh) / 2 * 1em) + 1px)); /* gahh subpixel rounding */
+				flex: 0 0 calc(50% - (0.5lh + 1px)); /* gahh subpixel rounding */
 				@media (--cm-m-neg) {
 					flex: 0 0 100%;
 				}
@@ -85,21 +85,21 @@ form {
 			}
 
 			&.checkbox.quarter-width-checkbox {
-				flex: 0 0 calc(25% - calc(var(--lh) * 4 / 3 * 1em));
+				flex: 0 0 calc(25% - calc(4 / 3 * 1lh));
 				@media (--cm-m-neg) {
 					flex: 0 0 100%;
 				}
 			}
 
 			&.checkbox.third-width-checkbox {
-				flex: 0 0 calc(33.33333% - calc(var(--lh) * 3 / 2 * 1em));
+				flex: 0 0 calc(33.33333% - 1.5lh);
 				@media (--cm-m-neg) {
 					flex: 0 0 100%;
 				}
 			}
 
 			&.checkbox.half-width-checkbox {
-				flex: 0 0 calc(50% - calc(var(--lh) * 1 / 2 * 1em));
+				flex: 0 0 calc(50% - 0.5lh);
 				@media (--cm-m-neg) {
 					flex: 0 0 100%;
 				}
@@ -111,12 +111,12 @@ form {
 				.middleColumn {
 					display: flex;
 					flex-wrap: wrap;
-					column-gap: calc(var(--lh) / 1 * 1em);
-					row-gap: calc(var(--lh) / 4 * 1em);
+					column-gap: 1lh;
+					row-gap: 0.25lh;
 
 					li,
 					> div {
-						flex: 0 0 calc(50% - calc(var(--lh) / 2 * 1em));
+						flex: 0 0 calc(50% - 0.5lh);
 					}
 				}
 
@@ -129,24 +129,28 @@ form {
 				}
 			}
 
+			.FormHeading {
+				flex: 0 0 100%;
+			}
+
 			&.userformsoptionset.quarter-width-checkbox,
 			&.checkboxset.quarter-width-checkbox {
 				ul.optionset.checkboxset,
 				.middleColumn {
 					display: flex;
 					flex-wrap: wrap;
-					gap: calc(var(--lh) / 2 * 1em);
+					gap: 0.5lh;
 
 					li,
 					> div {
-						flex: 1 0 calc(25% - calc(var(--lh) / 2 * 1em));
+						flex: 1 0 calc(25% - 0.5lh);
 					}
 				}
 
 				@media (--cm-m-neg) {
 					.middleColumn {
 						> div {
-							flex: 0 0 calc(50% - calc(var(--lh) / 2 * 1em));
+							flex: 0 0 calc(50% - 0.5lh);
 						}
 					}
 				}
@@ -166,7 +170,7 @@ form {
 
 			label,
 			legend {
-				margin-bottom: calc(var(--lh) / 4 * 1em);
+				margin-bottom: 0.25lh;
 
 				&.left {
 					display: block;
@@ -192,7 +196,7 @@ form {
 					font-family: inherit;
 					font-size: var(--font-size--small);
 					width: 100%;
-					padding: calc(var(--lh) / 4 * 1em) calc(var(--lh) / 3 * 1em);
+					padding: 0.25lh calc(1lh / 3);
 					background-color: var(--gray--light);
 					border: 1px solid var(--gray--light);
 					color: var(--text-color);
@@ -202,6 +206,12 @@ form {
 						background-color: var(--gray--lighter);
 						border-color: var(--gray--lighter);
 					}
+				}
+
+				input.file {
+					font-family: inherit;
+					font-size: var(--font-size--small);
+					font-weight: var(--font-weight--normal);
 				}
 
 				input[disabled],
@@ -244,7 +254,7 @@ form {
 					position: relative;
 
 					label {
-						padding-left: calc(var(--lh) * 1em);
+						padding-left: 1lh;
 						font-size: var(--font-size--small);
 						cursor: pointer;
 					}
@@ -252,11 +262,6 @@ form {
 					input[type="radio"] {
 						position: absolute;
 						opacity: 0;
-
-						&:focus + label {
-							outline: 2px solid var(--link-color);
-							outline-offset: 2px;
-						}
 
 						&:checked ~ .radio-check {
 							border: 0.1em solid color-mix(in oklch, var(--gray--light) 84%, black 16%);
@@ -379,14 +384,6 @@ form {
 			}
 		}
 
-		&:focus-within {
-			outline: none;
-		}
-
-		&:focus-within:has(*:focus-visible) {
-			outline: 2px solid var(--link-color);
-		}
-
 		.checkbox {
 			float: left;
 			margin: 0.2em 0.3em 0 0;
@@ -428,7 +425,7 @@ form .file {
 }
 
 .Actions {
-	margin-bottom: calc(var(--lh) * 1em);
+	margin-bottom: 1lh;
 	display: flex;
 }
 
@@ -438,7 +435,7 @@ form .file {
 .action.new-link,
 .btn,
 .btn-large,
-button {
+button:not(.menu-button, .hide, [class^="cm-btn"], [class^="f-"]) {
 	@mixin buttonstyle;
 	text-transform: uppercase;
 	line-height: var(--lh);

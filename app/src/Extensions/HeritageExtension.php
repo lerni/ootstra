@@ -24,9 +24,15 @@ class HeritageExtension extends Extension
         }
 
         /**
-         * @todo: check different kind of return types...
+         * Check if component has content:
+         * - For SS_List (ManyManyList, DataList, etc.): check count()
+         * - For other values: check if not empty
          */
-        if (!empty($component) || ($component instanceof SS_List && $component->count())) {
+        if ($component instanceof SS_List) {
+            if ($component->count() > 0) {
+                return $component;
+            }
+        } elseif (!empty($component)) {
             return $component;
         }
 

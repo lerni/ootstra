@@ -5,6 +5,6 @@
 		</a>
 		<% include App/Includes/ServiceNavi %>
 		<%-- include App/Includes/LangNav --%>
-		<% include App/Includes/Navigation %>
+		$CachedNavigation<%-- include App/Includes/Navigation --%>
 	</div>
 </header>

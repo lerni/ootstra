@@ -84,9 +84,10 @@ Page:
     metaoverview:
       - App\Models\MetaOverviewPage
 
-# PageController:
-#   extensions:
-#     - Kraftausdruck\Extensions\AlgoliaControllerExtension
+PageController:
+  extensions:
+    - App\Extensions\CachedNavigationExtension
+    # - Kraftausdruck\Extensions\AlgoliaControllerExtension
 
 SilverStripe\CMS\Model\RedirectorPage:
   extensions:

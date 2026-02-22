@@ -20,7 +20,7 @@ return (new PhpCsFixer\Config())
             'sort_algorithm' => 'length',
             'imports_order' => ['class', 'function', 'const'],
         ],
-        'no_unused_imports' => true,
+        'no_unused_imports' => false,
         'not_operator_with_successor_space' => false,
         'trailing_comma_in_multiline' => ['elements' => ['arrays', 'arguments', 'parameters']],
         'phpdoc_scalar' => true,

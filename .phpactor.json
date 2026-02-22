@@ -1,0 +1,27 @@
+{
+    "$schema": "/phpactor.schema.json",
+    "worse_reflection.additive_stubs": [
+        "%project_root%/.phpactor/stubs/silverstripe_globals.php"
+    ],
+    "indexer.include_patterns": [
+        "/**/*.php",
+        "/**/*.phar"
+    ],
+    "indexer.exclude_patterns": [
+        "/vendor/**/Tests/**/*",
+        "/vendor/**/tests/**/*",
+        "/vendor/composer/**/*",
+        "/silverstripe-cache/**/*",
+        "/themes/default/node_modules/**/*",
+        "/.ddev/**/*"
+    ],
+    "composer.enable": true,
+    "composer.autoloader_path": "%project_root%/vendor/autoload.php",
+    "language_server.diagnostics_on_update": true,
+    "language_server.diagnostics_on_save": true,
+    "language_server_code_transform.import_globals": true,
+    "language_server_phpstan.enabled": false,
+    "language_server_psalm.enabled": false,
+    "language_server_php_cs_fixer.enabled": false,
+    "file_path_resolver.enable_cache": true
+}

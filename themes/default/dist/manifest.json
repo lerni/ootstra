@@ -1,32 +1,36 @@
 {
   "src/css/blog.css": {
-    "file": "assets/blog-uRBKhvks.css",
+    "file": "assets/blog-BnXAZwvz.css",
     "src": "src/css/blog.css",
     "isEntry": true,
+    "name": "blog",
     "names": [
       "blog.css"
     ]
   },
   "src/css/cards.css": {
-    "file": "assets/cards-Bd6bvJWP.css",
+    "file": "assets/cards-CoAAd5Jn.css",
     "src": "src/css/cards.css",
     "isEntry": true,
+    "name": "cards",
     "names": [
       "cards.css"
     ]
   },
   "src/css/contentsections.css": {
-    "file": "assets/contentsections-hYs3BOAo.css",
+    "file": "assets/contentsections-cn8_cHeq.css",
     "src": "src/css/contentsections.css",
     "isEntry": true,
+    "name": "contentsections",
     "names": [
       "contentsections.css"
     ]
   },
   "src/css/editor.css": {
-    "file": "assets/editor-C_sUxFR3.css",
+    "file": "assets/editor-DR6WtsQ2.css",
     "src": "src/css/editor.css",
     "isEntry": true,
+    "name": "editor",
     "names": [
       "editor.css"
     ]
@@ -35,105 +39,156 @@
     "file": "assets/fancy-CiyMTOki.css",
     "src": "src/css/fancy.css",
     "isEntry": true,
+    "name": "fancy",
     "names": [
       "fancy.css"
     ]
   },
   "src/css/footer.css": {
-    "file": "assets/footer-CQ8rhKjN.css",
+    "file": "assets/footer-DtxYA8HT.css",
     "src": "src/css/footer.css",
     "isEntry": true,
+    "name": "footer",
     "names": [
       "footer.css"
     ]
   },
   "src/css/gallery.css": {
-    "file": "assets/gallery-DsLOii_U.css",
+    "file": "assets/gallery-8TK3w3uZ.css",
     "src": "src/css/gallery.css",
     "isEntry": true,
+    "name": "gallery",
     "names": [
       "gallery.css"
     ]
   },
   "src/css/localvideo.css": {
-    "file": "assets/localvideo-C038XMvC.css",
+    "file": "assets/localvideo-CNEMDtDp.css",
     "src": "src/css/localvideo.css",
     "isEntry": true,
+    "name": "localvideo",
     "names": [
       "localvideo.css"
     ]
   },
   "src/css/logo.css": {
-    "file": "assets/logo-jhQdl_dq.css",
+    "file": "assets/logo-qW5wESBy.css",
     "src": "src/css/logo.css",
     "isEntry": true,
+    "name": "logo",
     "names": [
       "logo.css"
     ]
   },
   "src/css/metaoverviewpage.css": {
-    "file": "assets/metaoverviewpage-DMjEaU37.css",
+    "file": "assets/metaoverviewpage-C4HsWBj9.css",
     "src": "src/css/metaoverviewpage.css",
     "isEntry": true,
+    "name": "metaoverviewpage",
     "names": [
       "metaoverviewpage.css"
     ]
   },
   "src/css/perso.css": {
-    "file": "assets/perso-CMXlKfdH.css",
+    "file": "assets/perso-m7uY5rLs.css",
     "src": "src/css/perso.css",
     "isEntry": true,
+    "name": "perso",
     "names": [
       "perso.css"
     ]
   },
   "src/css/persocfa.css": {
-    "file": "assets/persocfa-B4iDBmQ4.css",
+    "file": "assets/persocfa-DoOzsgBW.css",
     "src": "src/css/persocfa.css",
     "isEntry": true,
+    "name": "persocfa",
     "names": [
       "persocfa.css"
     ]
   },
   "src/css/style.css": {
-    "file": "assets/style-BwyspBI_.css",
+    "file": "assets/style-znQ0-wKy.css",
     "src": "src/css/style.css",
     "isEntry": true,
+    "name": "style",
     "names": [
       "style.css"
     ]
   },
   "src/css/swiper.css": {
-    "file": "assets/swiper-CsXF8nIt.css",
+    "file": "assets/swiper-CJJFGm9Y.css",
     "src": "src/css/swiper.css",
     "isEntry": true,
+    "name": "swiper",
     "names": [
       "swiper.css"
     ]
   },
   "src/css/textimage.css": {
-    "file": "assets/textimage-BNxFHzzv.css",
+    "file": "assets/textimage-CPqHLdro.css",
     "src": "src/css/textimage.css",
     "isEntry": true,
+    "name": "textimage",
     "names": [
       "textimage.css"
     ]
   },
-  "src/fonts/figtree-v5-latin-300.woff2": {
-    "file": "assets/figtree-v5-latin-300-5z2nvEq8.woff2",
-    "src": "src/fonts/figtree-v5-latin-300.woff2"
+  "src/fonts/figtree-v9-latin-300.woff2": {
+    "file": "assets/figtree-v9-latin-300-C9xDoCWy.woff2",
+    "src": "src/fonts/figtree-v9-latin-300.woff2"
   },
-  "src/fonts/figtree-v5-latin-600.woff2": {
-    "file": "assets/figtree-v5-latin-600-BelHdGDf.woff2",
-    "src": "src/fonts/figtree-v5-latin-600.woff2"
+  "src/fonts/figtree-v9-latin-300italic.woff2": {
+    "file": "assets/figtree-v9-latin-300italic-D0UD_gmA.woff2",
+    "src": "src/fonts/figtree-v9-latin-300italic.woff2"
   },
-  "src/fonts/figtree-v5-latin-700.woff2": {
-    "file": "assets/figtree-v5-latin-700-DkUwDTZn.woff2",
-    "src": "src/fonts/figtree-v5-latin-700.woff2"
+  "src/fonts/figtree-v9-latin-500.woff2": {
+    "file": "assets/figtree-v9-latin-500-BWnGEVsr.woff2",
+    "src": "src/fonts/figtree-v9-latin-500.woff2"
   },
-  "src/fonts/figtree-v5-latin-regular.woff2": {
-    "file": "assets/figtree-v5-latin-regular-Bqaf1QUa.woff2",
-    "src": "src/fonts/figtree-v5-latin-regular.woff2"
+  "src/fonts/figtree-v9-latin-500italic.woff2": {
+    "file": "assets/figtree-v9-latin-500italic-DOKQTGWU.woff2",
+    "src": "src/fonts/figtree-v9-latin-500italic.woff2"
+  },
+  "src/fonts/figtree-v9-latin-600.woff2": {
+    "file": "assets/figtree-v9-latin-600-Cv_xCTDl.woff2",
+    "src": "src/fonts/figtree-v9-latin-600.woff2"
+  },
+  "src/fonts/figtree-v9-latin-600italic.woff2": {
+    "file": "assets/figtree-v9-latin-600italic-CUq9vNO9.woff2",
+    "src": "src/fonts/figtree-v9-latin-600italic.woff2"
+  },
+  "src/fonts/figtree-v9-latin-700.woff2": {
+    "file": "assets/figtree-v9-latin-700-th6qEP7c.woff2",
+    "src": "src/fonts/figtree-v9-latin-700.woff2"
+  },
+  "src/fonts/figtree-v9-latin-700italic.woff2": {
+    "file": "assets/figtree-v9-latin-700italic-Bk3jHuty.woff2",
+    "src": "src/fonts/figtree-v9-latin-700italic.woff2"
+  },
+  "src/fonts/figtree-v9-latin-800.woff2": {
+    "file": "assets/figtree-v9-latin-800-30yxI7TZ.woff2",
+    "src": "src/fonts/figtree-v9-latin-800.woff2"
+  },
+  "src/fonts/figtree-v9-latin-800italic.woff2": {
+    "file": "assets/figtree-v9-latin-800italic-D8VtDCdX.woff2",
+    "src": "src/fonts/figtree-v9-latin-800italic.woff2"
+  },
+  "src/fonts/figtree-v9-latin-900.woff2": {
+    "file": "assets/figtree-v9-latin-900-BCLx4uqW.woff2",
+    "src": "src/fonts/figtree-v9-latin-900.woff2"
+  },
+  "src/fonts/figtree-v9-latin-900italic.woff2": {
+    "file": "assets/figtree-v9-latin-900italic-BW8Eh9xz.woff2",
+    "src": "src/fonts/figtree-v9-latin-900italic.woff2"
+  },
+  "src/fonts/figtree-v9-latin-italic.woff2": {
+    "file": "assets/figtree-v9-latin-italic-BSc-2xHp.woff2",
+    "src": "src/fonts/figtree-v9-latin-italic.woff2"
+  },
+  "src/fonts/figtree-v9-latin-regular.woff2": {
+    "file": "assets/figtree-v9-latin-regular-g7Dtegnw.woff2",
+    "src": "src/fonts/figtree-v9-latin-regular.woff2"
   },
   "src/images/svg/arrow-back.svg": {
     "file": "assets/arrow-back-BhuL38tp.svg",
@@ -222,6 +277,10 @@
   "src/images/svg/logo.svg": {
     "file": "assets/logo-DCVEzdNh.svg",
     "src": "src/images/svg/logo.svg"
+  },
+  "src/images/svg/mail-octo.svg": {
+    "file": "assets/mail-octo-CgazGuU3.svg",
+    "src": "src/images/svg/mail-octo.svg"
   },
   "src/images/svg/mail.svg": {
     "file": "assets/mail-COqYgM4B.svg",
@@ -324,7 +383,7 @@
     "src": "src/images/transparent.png"
   },
   "src/js/app.js": {
-    "file": "assets/app-D3Y7_uDq.js",
+    "file": "assets/app-Bf12eYro.js",
     "name": "app",
     "src": "src/js/app.js",
     "isEntry": true
@@ -348,13 +407,13 @@
     "isEntry": true
   },
   "src/js/infiniteGrid.js": {
-    "file": "assets/infiniteGrid-CLo-RElV.js",
+    "file": "assets/infiniteGrid-BEHKvtRH.js",
     "name": "infiniteGrid",
     "src": "src/js/infiniteGrid.js",
     "isEntry": true
   },
   "src/js/swiper.js": {
-    "file": "assets/swiper-B0GnTdde.js",
+    "file": "assets/swiper-Du_cWXp2.js",
     "name": "swiper",
     "src": "src/js/swiper.js",
     "isEntry": true

@@ -1,14 +1,14 @@
 .element.elementtextimage {
 	.container {
 		display: grid;
-		column-gap: calc(var(--lh) * 1em);
+		column-gap: 1lh;
 		grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
 	}
 	.txt {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		padding-block: calc(var(--lh) * 1em);
+		padding-block: 1lh;
 		order: 0;
 	}
 	figure {

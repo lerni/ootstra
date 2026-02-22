@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use SilverStripe\View\SSViewer;
 use SilverStripe\ORM\DataObject;
-use SilverStripe\Model\ArrayData;
 use SilverStripe\Forms\LiteralField;
+use SilverStripe\View\ViewLayerData;
+use SilverStripe\View\TemplateEngine;
+use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Core\Validation\ValidationResult;
 use SilverStripe\Forms\Validation\RequiredFieldsValidator;
 
@@ -14,26 +15,27 @@ class ShortCodeSnippet extends DataObject
     private static $table_name = 'ShortCodeSnippet';
 
     private static $db = [
-        'Title'       => 'Varchar',
-        'Code'        => 'Text'
+        'Title' => 'Varchar',
+        'Code' => 'Text',
     ];
 
     private static $summary_fields = [
         'Title' => 'Titel',
-        'indicateShortCode' => 'ShortCode'
+        'indicateShortCode' => 'ShortCode',
     ];
 
     private static $indexes = [
         'Title' => [
             'type' => 'unique',
-            'columns' => ['Title']
-        ]
+            'columns' => ['Title'],
+        ],
     ];
 
     public function fieldLabels($includerelations = true)
     {
-        $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Title');
-        $labels['Code'] = _t(__CLASS__ . '.CODE', 'Code');
+        $labels = parent::fieldLabels($includerelations);
+        $labels['Title'] = _t(self::class . '.TITLE', 'Title');
+        $labels['Code'] = _t(self::class . '.CODE', 'Code');
 
         return $labels;
     }
@@ -42,24 +44,24 @@ class ShortCodeSnippet extends DataObject
     {
         $fields = parent::getCMSFields();
 
-        $fields->add(LiteralField::create('ShortCode', $this->indicateShortCode() . '<br>' . _t(__CLASS__ . '.ShortCodeDescription', 'Shortcodes can also use variables like "{$Text}" from arguments [Snippet title="Title" Text="Text"]')));
+        $fields->add(LiteralField::create('ShortCode', $this->indicateShortCode() . '<br>' . _t(self::class . '.ShortCodeDescription', 'Shortcodes can also use variables like "{$Text}" from arguments [Snippet title="Title" Text="Text"]')));
 
         return $fields;
     }
 
     public function indicateShortCode()
     {
-        $code = '';
         if ($this->Title) {
-            $code = '[Snippet title="' . $this->Title . '"]';
+            return '[Snippet title="' . $this->Title . '"]';
         }
-        return $code;
+
+        return '';
     }
 
     public function getCMSValidator()
     {
         return RequiredFieldsValidator::create([
-            'Title'
+            'Title',
         ]);
     }
 
@@ -67,8 +69,8 @@ class ShortCodeSnippet extends DataObject
     {
         $result = parent::validate();
 
-        if (ShortCodeSnippet::get()->filter('Title', $this->Title)->exclude('ID', $this->ID)->count() > 0) {
-            $result->addError(_t(__CLASS__ . '.Duplicate', 'Title must be unique'));
+        if (ShortCodeSnippet::get()->filter(['Title' => $this->Title])->exclude(['ID' => $this->ID])->count() > 0) {
+            $result->addError(_t(self::class . '.Duplicate', 'Title must be unique'));
         }
 
         return $result;
@@ -76,11 +78,13 @@ class ShortCodeSnippet extends DataObject
 
     public static function RenderCode($arg = [])
     {
-        $snippet = ShortCodeSnippet::get()->filter('Title', $arg['title'])->first();
+        $snippet = ShortCodeSnippet::get()->filter(['Title' => $arg['title']])->first();
         if ($snippet) {
-            $viewer = SSViewer::fromString($snippet->Code);
-            return $viewer->process(ArrayData::create($arg));
+            $engine = Injector::inst()->get(TemplateEngine::class);
+
+            return $engine->renderString($snippet->Code, ViewLayerData::create($arg));
         }
+
         return false;
     }
 }

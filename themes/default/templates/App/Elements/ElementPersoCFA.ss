@@ -8,7 +8,7 @@
 		<% end_if %>
 		<% loop $Items %>
 			<div class="swiper-slide perso {$Up.Layout}">
-				<figure class="{$ElementLayout}<% if $ImageCover %> image-cover<% end_if %>">
+				<figure>
 					<% if $Portrait %>
 						<% with $Portrait %>
 							<img loading="lazy" alt="$Title" width="{$FocusFillMax(600,600).Width()}" height="{$FocusFillMax(600,600).Height()}"

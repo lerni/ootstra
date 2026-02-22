@@ -12,7 +12,7 @@
 	flex-direction: column;
 
 	.element-title {
-		margin-bottom: calc(var(--lh) * 1em);
+		margin-bottom: 1lh;
 	}
 
 	.video-wrapper {
@@ -120,6 +120,6 @@
 
 	> a.button {
 		margin-left: auto;
-		margin-top: calc(calc(var(--lh) / 6) * 1em + calc(var(--lh) / 1) * 1em);
+		margin-top: calc(1lh / 6 + 1lh);
 	}
 }

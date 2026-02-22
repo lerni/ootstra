@@ -6,11 +6,11 @@
 		list-style: none;
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-		gap: calc(var(--lh) * 1em);
-		padding: calc(var(--lh) * 1em) 0 0 0;
+		gap: 1lh;
+		padding: 1lh 0 0 0;
 		margin: 0;
 		@media (--cm-m-neg) {
-			gap: calc(var(--lh) / 2 * 1em);
+			gap: 0.5lh;
 			grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 		}
 		&.left {

@@ -203,10 +203,10 @@ class Page extends SiteTree
         // OGImageCustom
         if ($this->hasExtension(ShareCareFields::class) && $this->OGImageCustom->exists()) {
             $i = $this->OGImageCustom;
-        // first image in page that is indexed
         } elseif ($this->ImagesForSitemap() && $this->ImagesForSitemap()->count()) {
-            if ($this->ImagesForSitemap()->first()->exists()) {
-                $i = $this->ImagesForSitemap()->first();
+            $firstImage = $this->ImagesForSitemap()->first();
+            if ($firstImage && $firstImage->exists()) {
+                $i = $firstImage;
             }
         }
 
@@ -214,6 +214,7 @@ class Page extends SiteTree
             if (!$origin) {
                 return $i->FocusFillMax(1200, 630);
             }
+
             return $i;
         }
 
@@ -318,13 +319,11 @@ class Page extends SiteTree
             // Images from Heroes
             if ($elementHeros = $this->ElementalArea()->Elements()->filter('ClassName', ElementHero::class)) {
                 foreach ($elementHeros as $hero) {
-                    if (!$hero->Slides()->count()) {
+                    $slides = $hero->Slides()->Sort('SortOrder ASC');
+                    if (!$slides->count()) {
                         continue;
                     }
                     if (!$hero->SitemapImageExpose) {
-                        continue;
-                    }
-                    if (!$slides = $hero->Slides()->Sort('SortOrder ASC')) {
                         continue;
                     }
                     foreach ($slides as $slide) {

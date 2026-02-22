@@ -88,21 +88,31 @@ class BlogPostExtension extends Extension
                 $this->getOwner()->ParentID
             ))->value();
 
-            $lowestSort = min(
-                $lowestSortDraft ?: PHP_INT_MAX,
-                $lowestSortLive ?: PHP_INT_MAX
-            );
-            $this->getOwner()->Sort = $lowestSort ?? 1;
+            // Handle empty blog (no posts yet) - start at 0
+            if ($lowestSortDraft === null && $lowestSortLive === null) {
+                $this->getOwner()->Sort = 0;
+                return;
+            }
+
+            // Get the actual lowest sort value (filter out nulls)
+            $lowestSort = 0;
+            if ($lowestSortDraft !== null && $lowestSortLive !== null) {
+                $lowestSort = min($lowestSortDraft, $lowestSortLive);
+            } elseif ($lowestSortDraft !== null) {
+                $lowestSort = $lowestSortDraft;
+            } elseif ($lowestSortLive !== null) {
+                $lowestSort = $lowestSortLive;
+            }
+
+            $this->getOwner()->Sort = $lowestSort;
 
             // Shift all other pages up by 1 in both tables
-            // Update draft table
             DB::query(sprintf(
                 'UPDATE %s SET Sort = Sort + 1 WHERE ParentID = %d',
                 $baseTable,
                 $this->getOwner()->ParentID
             ));
 
-            // Update live table
             DB::query(sprintf(
                 'UPDATE %s SET Sort = Sort + 1 WHERE ParentID = %d',
                 $liveTable,

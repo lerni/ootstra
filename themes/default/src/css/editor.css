@@ -12,7 +12,7 @@
 	font-weight: 400;
 	font-display: swap;
 	src: local(""),
-		url("../fonts/figtree-v5-latin-regular.woff2") format('woff2');
+		url("../fonts/figtree-v9-latin-regular.woff2") format('woff2');
 }
 
 @font-face {
@@ -23,7 +23,7 @@
 	font-weight: 600;
 	font-display: swap;
 	src: local(""),
-		url("../fonts/figtree-v5-latin-600.woff2") format('woff2');
+		url("../fonts/figtree-v9-latin-600.woff2") format('woff2');
 }
 
 body.mce-content-body {

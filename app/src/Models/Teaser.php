@@ -5,7 +5,6 @@ namespace App\Models;
 use SilverStripe\Assets\Image;
 use App\Elements\ElementTeaser;
 use SilverStripe\ORM\DataObject;
-use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\LinkField\Models\Link;
 use SilverStripe\LinkField\Form\LinkField;
 use SilverStripe\Versioned\GridFieldArchiveAction;
@@ -21,13 +20,12 @@ class Teaser extends DataObject
     private static $db = [
         'Title' => 'Text',
         'Text' => 'Text',
-        'Action' => 'Varchar',
         'Layout' => 'Enum("left,right", "right")'
     ];
 
     private static $has_one = [
         'Image' => Image::class,
-        'RelatedPage' => SiteTree::class
+        'Link' => Link::class
     ];
 
     private static $belongs_many_many = [
@@ -73,10 +71,6 @@ class Teaser extends DataObject
         if ($uploadField = $fields->dataFieldByName('Image')) {
             $uploadField->setFolderName('Teasers');
             $uploadField->setDescription(_t(__CLASS__ . '.ImageDescription', 'min. 600x600px'));
-        }
-
-        if ($teaserActionField = $fields->dataFieldByName('Action')) {
-            $teaserActionField->setAttribute('placeholder', _t('App\Models\Teaser.MORE', 'Learn more'));
         }
 
         // text left or right is available just for fullwidth layout

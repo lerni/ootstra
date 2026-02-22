@@ -163,7 +163,8 @@ This project uses a devcontainer that runs inside DDEV's web container:
 - Follow Silverstripe conventions and PSR-12 standards
 - Use `App\` namespace for application code
 - Include proper error handling and validation
-- Always run `dev/build` after schema changes
+- Run `dev/build` after schema changes (new classes, database fields, config changes)
+- New methods don't require dev/build - they're discovered automatically
 - Use SSShell for testing ORM queries
 
 ### Frontend Changes:
@@ -333,6 +334,16 @@ When helping with this project, prioritize Silverstripe best practices, DDEV wor
 
 ## Code Quality & Testing
 - Follow PSR-12 coding standards for PHP
+- **PHP-CS-Fixer** (`.php-cs-fixer.dist.php`) enforces code formatting:
+  - `@PSR12` ruleset
+  - Short array syntax: `[]` instead of `array()`
+  - Ordered imports: grouped by type (`class`, `function`, `const`), sorted by length within each group
+  - Remove unused imports
+  - Trailing commas in multiline arrays, arguments, parameters
+  - Binary/unary operator spacing
+  - Blank lines before: `break`, `continue`, `declare`, `return`, `throw`, `try`
+  - Single trait insert per statement
+  - Method arguments ensure fully multiline when multiline
 - **EditorConfig** (`.editorconfig`) enforces consistent coding styles across editors:
   - UTF-8 encoding, LF line endings
   - 4 spaces for PHP, tabs for templates/CSS/SCSS

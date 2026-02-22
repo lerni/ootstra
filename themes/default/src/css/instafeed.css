@@ -21,7 +21,7 @@
 		margin-right: -1px;
 		width: calc(100% + 2px);
 		a {
-			outline: none;
+			/* outline: none; */
 			overflow: hidden;
 			position: relative;
 			display: block;
@@ -51,15 +51,15 @@
 					z-index: 1;
 					color: var(--white);
 					font-size: var(--font-size--small);
-					padding: calc(var(--lh) * 1em);
+					padding: 1lh;
 					display: flex;
 					flex-direction: column;
 					background-color: rgba(0,0,0,.8);
 					span[data-icon="instagram"] {
 						transition: transform 120ms linear;
 						transform: scale(.4);
-						width: calc(var(--lh) * 1em);
-						height: calc(var(--lh) * 1em);
+						width: 1lh;
+						height: 1lh;
 						background-image: svg-load("instagram.svg", stroke=#fff);
 						margin: auto auto 0 auto;
 					}

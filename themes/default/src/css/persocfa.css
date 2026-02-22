@@ -5,16 +5,20 @@
 
 .element.elementpersocfa {
 	.typography {
-		.persos .perso {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-			grid-auto-rows: auto;
-			gap: calc(var(--lh) * 1em);
+		.persos {
+			overflow: hidden;
+			.perso {
+				display: grid;
+				width: 100%;
+				grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+				grid-auto-rows: auto;
+				gap: 1lh;
 
-			&.left {
-				figure {
-					@media (--cm-l-plus) {
-						order: 99
+				&.left {
+					figure {
+						@media (--cm-l-plus) {
+							order: 99
+						}
 					}
 				}
 			}
@@ -42,7 +46,7 @@
 			}
 
 			p {
-				margin-bottom: calc(var(--lh) * 0.5 * 1em);
+				margin-bottom: 0.5lh;
 
 				&:last-of-type {
 					margin-bottom: 0;
@@ -53,7 +57,7 @@
 				display: block;
 				color: var(--link-color);
 				&[class] {
-					padding-left: calc(var(--lh) * 1em);
+					padding-left: 1lh;
 					background-repeat: no-repeat;
 					background-position: left 50%;
 					background-size: auto 1em;
@@ -75,14 +79,14 @@
 			}
 
 			a + a {
-				margin-top: calc(var(--lh) / 2 * 1em);
+				margin-top: 0.5lh;
 			}
 		}
 	}
 
 	.persos {
 		display: grid;
-		gap: calc(var(--lh) * 1em);
+		gap: 1lh;
 		grid-template-columns: minmax(200px, 1fr);
 	}
 }

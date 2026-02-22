@@ -40,7 +40,7 @@ Other features:
 
 This project supports **VSCode with devcontainer** (recommended). VSCode extensions run inside DDEV's web container, providing a complete development environment. Of course, it can also be used without devcontainer, utilizing standard DDEV CLI commands like `ddev start` etc.
 
-**Without devcontainer:** Clone the project and run `ddev start`. Prefix all commands with `ddev` (e.g., `ddev composer install`, `ddev sake dev/build`, `ddev npm --prefix themes/default run dev` or shorthand `ddev theme dev`). See [DDEV documentation](https://ddev.readthedocs.io/en/stable/users/usage/commands/) for details.
+**Without devcontainer:** Clone the project and run `ddev start`. Prefix all commands with `ddev` (e.g., `ddev composer install`, `ddev sake db:build`, `ddev npm --prefix themes/default run dev` or shorthand `ddev theme dev`). See [DDEV documentation](https://ddev.readthedocs.io/en/stable/users/usage/commands/) for details.
 
 **Local setup (on your host machine):**
 - `ms-vscode-remote.remote-containers` extension will be suggested and is needed for devcontainers to work
@@ -48,9 +48,9 @@ This project supports **VSCode with devcontainer** (recommended). VSCode extensi
 
 **How it works:**
 - Open the workspace in VS Code and use Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`) → **"Dev Containers: Reopen in Container"**
-- The devcontainer automatically starts DDEV (`ddev start` via `initializeCommand`) and runs `npm install` in `themes/default` (`postCreateCommand`)
-- Editor extensions and settings are configured inside the container, keeping your host lean
-- `.vscode/settings.json` contains in-container settings (log viewer, debug config)
+- The devcontainer automatically (re)starts DDEV (`ddev start` via `initializeCommand`) and runs `npm install` in `themes/default` (`postCreateCommand`)
+- All extensions and in-container settings are configured in `.devcontainer/devcontainer.json` (PHP tools, log viewer, debug config, etc.)
+- `.vscode/settings.json` contains minimal workspace settings (search exclusions, terminal profiles for non-devcontainer use)
 - Ports are forwarded automatically: Vite (5173), Mailpit (8025), Apache (80, 443), MariaDB (3306)
 
 ### 1. Clone or fork lerni/ootstra
@@ -78,7 +78,7 @@ On dev/build, database structure will be generated. With fluent (Multilingual-Se
 i18n::set_locale('de_CH');
 ```
 ```bash
-php ./vendor/bin/sake dev/build
+php ./vendor/bin/sake db:build
 ```
 Or use the VS Code task: `Command+Shift+B` → `dev/build - local`
 
@@ -121,7 +121,7 @@ web_environment:
 See scripts in `themes/default/package.json` for all available commands.
 
 ### VSCode tasks (inside devcontainer)
-Tasks in `.vscode/tasks.json` are available via `Command+Shift+B` and run inside the devcontainer. **Note:** Without devcontainer, use equivalent `ddev` commands (e.g., `ddev sake dev/build` instead of just `sake dev/build`).
+Tasks in `.vscode/tasks.json` are available via `Command+Shift+B` and run inside the devcontainer. **Note:** Without devcontainer, use equivalent `ddev` commands (e.g., `ddev sake db:build` instead of just `sake db:build`).
 
 Common tasks include:
 
@@ -158,7 +158,7 @@ Currently 8.4.x is used. It's set in following places:
 - `composer.json`
 - `.vscode/settings.json`
 
-Don't forget to `ddev restart` and update packages `ddev composer u` after changing!
+Don't forget to restart the container and update packages `composer u` after changing!
 
 # Hosting & Deployment
 
@@ -241,7 +241,7 @@ Public SSH keys [must be added to the remote servers](https://www.google.com/sea
 Rename `deploy/config.example.php` to `deploy/config.php` and configure as needed. The `.htaccess` file in `/public` is typically used, but can be overridden with stage-specific versions by creating `./deploy/test.htaccess` or `./deploy/live.htaccess`.
 
 # Deploy
-Key-forwarding is used, allowing deployment to be done from inside the ddev-web container. Read [ddev-ssh-agent](#ssh-forwarding-ddev-ssh-agent) above. Before first deployment, SSH into remote servers like `ddev php ./vendor/bin/dep ssh test` or `ddev php ./vendor/bin/dep ssh live` and ensure the SSH fingerprint from the git-repo is accepted. You can check like `ssh -T git@bitbucket.org` or may just `git clone ...` into a test directory to verify everything works as expected. If so, deployment is done as follows:
+Key-forwarding is used, allowing deployment to be done from inside the ddev-web container. Read [ddev-ssh-agent](#ssh-forwarding-ddev-ssh-agent) above. Before first deployment, SSH into remote servers like `php ./vendor/bin/dep ssh test` or `php ./vendor/bin/dep ssh live` and ensure the SSH fingerprint from the git-repo is accepted. You can check like `ssh -T git@bitbucket.org` or may just `git clone ...` into a test directory to verify everything works as expected. If so, deployment is done as follows:
 
 ```bash
     ddev php ./vendor/bin/dep deploy test
@@ -293,7 +293,9 @@ GHOSTSCRIPT_PATH='/usr/bin/gs'
 SCRIPT_FILENAME=''
 ```
 ## Mailer Setup
-Without setting `MAILER_DSN`, `sendmail` is used by default, typically using `SS_ADMIN_EMAIL` as sender. To use SMTP or other mailers, the `MAILER_DSN` variable should be set in the `.env`. When `MAILER_DSN` is configured, setting `SS_SEND_ALL_EMAILS_FROM` may also be appropriate. Silverstripe utilizes [Symfony Mailer](https://symfony.com/doc/current/mailer.html), which supports a variety of transport methods. With `php ./vendor/bin/sake tasks:App-Tasks-TestEmailTask --to=user@domain.tld` a Test-Mail can be sent. Be aware, Mailpit catches all emails for local development with DDEV.
+Without setting `MAILER_DSN`, `sendmail` is used by default, typically using `SS_ADMIN_EMAIL` as sender. Sendmail transport requires `proc_open` and `proc_close` PHP functions to be enabled.
+
+To use SMTP or other mailers, the `MAILER_DSN` variable should be set in the `.env`. When `MAILER_DSN` is configured, setting `SS_SEND_ALL_EMAILS_FROM` may also be appropriate. Silverstripe utilizes [Symfony Mailer](https://symfony.com/doc/current/mailer.html), which supports a variety of transport methods. With `php ./vendor/bin/sake tasks:test-email --to=user@domain.tld` a Test-Mail can be sent. Be aware, Mailpit catches all emails for local development with DDEV.
 
 ## Deploy a branch/tag/revision
 

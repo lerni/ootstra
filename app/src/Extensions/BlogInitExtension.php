@@ -1,6 +1,6 @@
 <?php
 
-namespace  App\Extensions;
+namespace App\Extensions;
 
 use Bigfork\Vitesse\Vite;
 use SilverStripe\Core\Extension;

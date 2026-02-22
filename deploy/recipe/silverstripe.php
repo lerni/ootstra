@@ -118,7 +118,7 @@ task('pkill', function (): void {
 
 desc('Run dev/build');
 task('silverstripe:dev_build', function (): void {
-    run('cd {{release_or_current_path}} && {{bin/php}} ./vendor/bin/sake db:build');
+    run('cd {{release_or_current_path}} && {{bin/php}} ./vendor/bin/sake db:build --flush');
     // run("php {{release_path}}/vendor/bin/sake dev/build flush");
 });
 

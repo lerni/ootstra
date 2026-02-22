@@ -16,7 +16,7 @@
 	<% if $Content %><article class="element horizontal-spacing elementcontent">
 		<div class="typography">$Content</div>
 	</article><% end_if %>
-	<article class="element posts horizontal-spacing">
+	<article class="element posts horizontal-spacing spacing-top-1 spacing-bottom-2">
 		<% if $PaginatedList.Exists %>
 			<div class="loader"><%t Page.Loader 'Loading...' %></div>
 			<% loop $PaginatedList %>

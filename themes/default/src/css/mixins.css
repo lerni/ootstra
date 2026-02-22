@@ -29,13 +29,13 @@
 	text-decoration: none;
 	font-size: 1em;
 	cursor: pointer;
-	min-block-size: calc(var(--lh) * 1.5em);
-	padding-inline: calc(var(--lh) * 0.75em);
+	min-block-size: 1.5lh;
+	padding-inline: 0.75lh;
+	padding-block-start: 0.25lh;
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	border: none;
-	padding-block-start: calc(var(--lh) / 4 * 1em);
 	appearance: none;
 	color: $(color);
 	background-color: $(background);
@@ -52,20 +52,20 @@
 	}
 }
 
-@define-mixin sliderpagination $size: calc(var(--lh) * 0.7 * 1em), $color: var(--white) {
+@define-mixin sliderpagination $size: 0.7lh, $color: var(--white) {
 	.swiper-pagination {
 		position: absolute;
 		left: 0;
 		right: 0;
 		z-index: 100;
 		/* Manual spacing utilities - converted from SASS @for loop */
-		&.spacing-bottom-6 { bottom: calc(var(--lh) * 6 * 1em); }
-		&.spacing-bottom-5 { bottom: calc(var(--lh) * 5 * 1em); }
-		&.spacing-bottom-4 { bottom: calc(var(--lh) * 4 * 1em); }
-		&.spacing-bottom-3 { bottom: calc(var(--lh) * 3 * 1em); }
-		&.spacing-bottom-2 { bottom: calc(var(--lh) * 2 * 1em); }
-		&.spacing-bottom-1 { bottom: calc(var(--lh) * 1 * 1em); }
-		&.spacing-bottom-0 { bottom: calc(var(--lh) * 0 * 1em); }
+		&.spacing-bottom-6 { bottom: 6lh; }
+		&.spacing-bottom-5 { bottom: 5lh; }
+		&.spacing-bottom-4 { bottom: 4lh; }
+		&.spacing-bottom-3 { bottom: 3lh; }
+		&.spacing-bottom-2 { bottom: 2lh; }
+		&.spacing-bottom-1 { bottom: 1lh; }
+		&.spacing-bottom-0 { bottom: 0; }
 
 		.breadcrumbs &,
 		.global-alert & {

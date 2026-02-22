@@ -36,12 +36,12 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-end;
-		gap: calc(var(--lh) * 1em);
+		gap: 1lh;
 		margin-top: auto;
 		margin-bottom: 0;
-		padding-left: calc(var(--lh) * 3em);
+		padding-left: 3lh;
 		@media (--cm-xl-neg) {
-			padding-left: calc(var(--lh) * 1em);
+			padding-left: 1lh;
 		}
 		@media (--cm-l-neg) {
 			display: none;
@@ -64,7 +64,7 @@
 		grid-column: 2 / 3;
 		display: flex;
 		justify-content: flex-end;
-		gap: calc(var(--lh) * 1em);
+		gap: 1lh;
 		@media (--cm-l-neg) {
 			display: none;
 		}
@@ -92,11 +92,11 @@
 			height: 100%;
 			grid-column: 2/4;
 			margin: auto 0 0 0;
-			column-gap: calc(var(--lh) * 2em);
-			padding-left: calc(var(--lh) * 2em);
+			column-gap: 2lh;
+			padding-left: 2lh;
 			@media (--cm-xxl-neg) {
-				column-gap: calc(var(--lh) * 1.5em);
-				padding-left: calc(var(--lh) * 1em);
+				column-gap: 1.5lh;
+				padding-left: 1lh;
 			}
 			@media (--cm-l-neg) {
 				grid-column: 1/4;
@@ -130,7 +130,7 @@
 					margin: 0 0 auto 0;
 					position: absolute;
 					top: 100%;
-					padding: calc(var(--lh) / 3 * 2 * 1em) 0;
+					padding: calc(2lh / 3) 0;
 					&::after {
 						background-color: var(--white);
 						bottom: 0;
@@ -148,7 +148,7 @@
 						height: 0;
 						transition: height linear 0.1s;
 						a {
-							line-height: calc(var(--lh) * 1.5em);
+							line-height: 1.5lh;
 							display: flex;
 						}
 					}
@@ -188,7 +188,7 @@
 								opacity: 1;
 							}
 							li {
-								height: calc(var(--lh) * 1.5em);
+								height: 1.5lh;
 							}
 						}
 					}
@@ -208,21 +208,15 @@
 		padding: 0;
 		/* TODO: burger-size and vertical alignment of burger & trigger should not depend */
 		/* if there is span.txt MENU ($Splus) width varies and alignment relays on burger-size */
-		/* width: calc(var(--lh) * 2em); */
+		/* width: 2lh; */
 
-		&:focus-within {
-			outline: none;
-		}
-		&:focus-within:focus-visible {
-			outline: 2px solid var(--link-color);
-		}
 		@media (--cm-l-neg) {
 			display: flex;
 		}
 
 		.txt {
 			align-self: center;
-			margin-right: calc(var(--lh) / 2 * 1em);
+			margin-right: 0.5lh;
 			color: var(--text-color);
 			line-height: 1;
 			font-size: var(--font-size--small);
@@ -296,14 +290,14 @@ html.mobile-nav--active {
 			height: auto;
 			.inner {
 				grid-template-rows:
-					calc(var(--lh) * 1.2em)
-					calc(var(--headerheight--smaller) - calc(var(--lh) * 1.2em))
+					1.2lh
+					calc(var(--headerheight--smaller) - 1.2lh)
 					auto
 					1fr;
 			}
 
 			menu.service-nav {
-				padding-bottom: calc(var(--lh) * 2em);
+				padding-bottom: 2lh;
 				margin: 0 auto auto 0;
 				grid-column: 1/3;
 				grid-row: 4/-1;
@@ -320,7 +314,7 @@ html.mobile-nav--active {
 
 			nav.nav {
 				display: flex;
-				padding: calc(var(--lh) * 2em) 0;
+				padding: 2lh 0;
 				grid-column: 1/3;
 				grid-row: 3/4;
 				a {
@@ -331,7 +325,7 @@ html.mobile-nav--active {
 					display: flex;
 					width: 100%;
 					flex-wrap: wrap;
-					gap: calc(var(--lh) * 1em);
+					gap: 1lh;
 					padding-left: 0;
 
 					> li {
@@ -351,7 +345,7 @@ html.mobile-nav--active {
 						}
 
 						.trigger {
-							width: calc(var(--lh) * 2em);
+							width: 2lh;
 							display: flex;
 							flex-direction: column;
 							justify-content: center;
@@ -373,7 +367,7 @@ html.mobile-nav--active {
 								display: none;
 								flex: 0 0 100%;
 								position: inherit;
-								padding: calc(var(--lh) / 2 * 1em) 0 0 calc(var(--lh) / 2 * 1em);
+								padding: 0.5lh 0 0 0.5lh;
 								align-items: flex-start; /* last item is flex-end on desktop */
 								flex-direction: column;
 								&::after {

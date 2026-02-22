@@ -20,7 +20,7 @@
 					border-top: none;
 				}
 				&:not(:first-of-type) {
-					padding: calc(var(--lh) * 1em) 0 0 0;
+					padding: 1lh 0 0 0;
 				}
 				@media (--cm-l-neg) {
 					flex: 0 0 100%;
@@ -28,7 +28,7 @@
 				summary {
 					cursor: pointer;
 					outline: none;
-					list-style: none;
+					list-style: none; /* safari AFAIR */
 					&::marker,
 					&::-webkit-details-marker {
 						display: none;
@@ -38,7 +38,7 @@
 						margin-bottom: 0;
 						display: flex;
 						width: 100%;
-						padding-bottom: calc(var(--lh) * 1rem);
+						padding-bottom: 1rlh;
 						.trigger {
 							width: calc(var(--trigger-size) * 2 * 1em); /* calc(var(--trigger-size) * 1 * 1em) */
 							height: calc(var(--trigger-size) * 1 * 1em);
@@ -69,7 +69,7 @@
 					}
 				}
 				.content {
-					padding: 0 calc(var(--lh) * 2 * 1em) calc(var(--lh) * 0.5 * 1em) 0;
+					padding: 0 2lh 0.5lh 0;
 					margin-left: 0;
 					/* is it selector-specificity that stops in & out animation - just in right now? */
 					font-size: 0;
@@ -109,13 +109,13 @@
 		&.text-blocks {
 			display: grid;
 			max-width: initial;
-			grid-gap: calc(var(--lh) * 1em);
+			grid-gap: 1lh;
 			grid-template-columns: 1fr 1fr;
 			@media (--cm-l-neg) {
 				grid-template-columns: 1fr;
 			}
 			li {
-				padding: calc(var(--lh) * 1em) calc(var(--lh) * 1em) calc(var(--lh) / 2 * 1em) calc(var(--lh) * 1em);
+				padding: 1lh 1lh 0.5lh 1lh;
 				background-color: var(--red);
 				h2 {
 					color: var(--white);
@@ -141,18 +141,18 @@
 			list-style: none;
 			display: grid;
 			grid-template-rows: 1fr;
-			row-gap: calc(var(--lh) * 1em);
+			row-gap: 1lh;
 			/* @media (--cm-m-neg) {
-				row-gap: calc(var(--lh) / 2 * 1em);
+				row-gap: 0.5lh;
 			} */
 			li {
 				display: grid;
-				grid-template-columns: calc(var(--lh) * 3 * 1em) 1fr;
-				column-gap: calc(var(--lh) * 1em);
+				grid-template-columns: 3lh 1fr;
+				column-gap: 1lh;
 				padding: 0;
 				@media (--cm-m-neg) {
-					grid-template-columns: calc(var(--lh) * 2 * 1em) 1fr;
-					column-gap: calc(var(--lh) / 2 * 1em);
+					grid-template-columns: 2lh 1fr;
+					column-gap: 0.5lh;
 				}
 			}
 			.number {
@@ -179,7 +179,7 @@
 				h1,
 				h2,
 				h3 {
-					margin-bottom: calc(var(--lh) / 4 * 1em);
+					margin-bottom: 0.25lh;
 					line-height: 1;
 				}
 				> *:last-child {

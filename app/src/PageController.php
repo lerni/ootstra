@@ -33,12 +33,12 @@ class PageController extends ContentController
                 $additionalLinkHeaders = [
                     sprintf(
                         '<%s>; rel=preload; as=script',
-                        Vite::inst()->asset('src/js/app.js')
+                        Vite::inst()->asset('src/js/app.js'),
                     ),
                     sprintf(
                         '<%s>; rel=preload; as=style',
-                        Vite::inst()->asset('src/css/style.css')
-                    )
+                        Vite::inst()->asset('src/css/style.css'),
+                    ),
                 ];
                 $headers = $this->response->getHeaders();
                 if (array_key_exists('link', $headers)) {

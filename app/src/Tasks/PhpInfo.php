@@ -13,9 +13,11 @@ use Symfony\Component\Console\Input\InputInterface;
 
 class PhpInfo extends BuildTask
 {
+    protected static string $commandName = 'phpinfo';
+
     protected string $title = 'PHP Info';
+
     protected static string $description = 'Show environment information and phpinfo()';
-    private static $segment = 'phpinfo';
 
     private bool $isCli = false;
 
@@ -78,7 +80,7 @@ class PhpInfo extends BuildTask
     private function outputTable(array $data): void
     {
         if ($this->isCli) {
-            $maxKeyLength = max(array_map(fn($row) => strlen($row[0]), $data));
+            $maxKeyLength = max(array_map(fn ($row) => strlen($row[0]), $data));
 
             foreach ($data as $row) {
                 $key = str_pad($row[0], $maxKeyLength);
@@ -154,9 +156,11 @@ class PhpInfo extends BuildTask
         try {
             DB::query('SELECT 1');
             $status = '✓ Connected';
+
             return $this->isCli ? $status : '<span style="color: green;">' . $status . '</span>';
         } catch (Exception $e) {
             $status = '✗ Connection failed: ' . $e->getMessage();
+
             return $this->isCli ? $status : '<span style="color: red;">' . $status . '</span>';
         }
     }
@@ -165,6 +169,7 @@ class PhpInfo extends BuildTask
     {
         try {
             $config = DB::getConfig();
+
             return $config['database'] ?? 'Not available';
         } catch (Exception $e) {
             return 'Not available';

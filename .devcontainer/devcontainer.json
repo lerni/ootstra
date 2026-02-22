@@ -10,7 +10,7 @@
   "shutdownAction": "stopCompose",
 
   // Ensure DDEV is running before opening (restart to handle unclean shutdowns)
-  "initializeCommand": "bash -c 'ddev restart -y && for i in {1..60}; do ddev describe >/dev/null 2>&1 && break || sleep 1; done'",
+  "initializeCommand": "ddev restart -y",
 
   // Wait for DDEV to be fully ready
   "waitFor": "initializeCommand",
@@ -27,14 +27,13 @@
         "phpactor.vscode-phpactor",
         "junstyle.php-cs-fixer",
         "xdebug.php-debug",
-
         // SilverStripe
         "adrian.silverstripe",
-
         // JavaScript/TypeScript
         "biomejs.biome",
 
         // Utilities
+        "mehedidracula.php-namespace-resolver",
         "berublan.vscode-log-viewer",
         "editorconfig.editorconfig",
         "mikestead.dotenv",
@@ -57,9 +56,13 @@
         "php-cs-fixer.onsave": true,
         "php-cs-fixer.rules": "@PSR12",
 
-        // Biome (only for themes/default)
-        "biome.enabled": false,
-        "biome.lsp.bin": "${workspaceFolder}/themes/default/node_modules/.bin/biome",
+        // Biome is installed globally in devcontainer web-image -> .ddev/web-build/Dockerfile
+        // VS Code Biome extension resolves the binary early on startup and
+        // Node install lives under `themes/default/`, which runs later
+        // (postCreate) and can cause a race where the binary isn’t found.
+        "biome.enabled": true,
+        "biome.lsp.bin": "biome",
+        "biome.configurationPath": "${workspaceFolder}/themes/default/biome.json",
 
         // Editor
         "[php]": {
@@ -87,7 +90,6 @@
         },
         // Terminal
         "terminal.integrated.scrollback": 10000,
-        "terminal.integrated.defaultProfile.linux": "bash",
 
         // Search
         "search.followSymlinks": false,

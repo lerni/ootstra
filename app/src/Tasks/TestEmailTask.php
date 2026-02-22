@@ -5,8 +5,8 @@ namespace App\Tasks;
 use Exception;
 use SilverStripe\Dev\BuildTask;
 use SilverStripe\Control\Director;
-use SilverStripe\Control\Email\Email;
 use SilverStripe\Control\Controller;
+use SilverStripe\Control\Email\Email;
 use SilverStripe\ORM\FieldType\DBDatetime;
 use SilverStripe\PolyExecution\PolyOutput;
 use Symfony\Component\Console\Command\Command;
@@ -14,13 +14,13 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 
-class TestEmailTask extends BuildTask {
+class TestEmailTask extends BuildTask
+{
+    protected static string $commandName = 'test-email';
 
     protected string $title = 'Send Test Email';
 
-    protected static string $description = "Sends a test email. CLI: Use --to=recipient@example.com. HTTP: Use ?to=recipient@example.com to specify the recipient.";
-
-    private static $segment = 'test-email-task';
+    protected static string $description = 'Sends a test email to verify mail configuration. Use php ./vendor/bin/sake tasks:test-email --to=email@example.com or per https://domain.tld/dev/tasks/test-email?to=email@example.com';
 
     public function getOptions(): array
     {
@@ -29,7 +29,8 @@ class TestEmailTask extends BuildTask {
         ];
     }
 
-    protected function execute(InputInterface $input, PolyOutput $output): int {
+    protected function execute(InputInterface $input, PolyOutput $output): int
+    {
 
         $domain = Director::absoluteBaseURL();
         $now = DBDatetime::now();
@@ -72,6 +73,7 @@ class TestEmailTask extends BuildTask {
                 $to = $adminEmail;
             } else {
                 $output->writeln("Error: No valid recipient email address specified. Configure an admin_email in your Email config.");
+
                 return Command::FAILURE;
             }
             $output->writeln("Using configured admin email: {$to}");
@@ -96,12 +98,15 @@ class TestEmailTask extends BuildTask {
         try {
             $email->send();
             $output->writeln("Sent successfully!");
+
             return Command::SUCCESS;
         } catch (TransportExceptionInterface $e) {
             $output->writeln("Failed. Email not sent. Reason: " . $e->getMessage());
+
             return Command::FAILURE;
         } catch (Exception $e) {
             $output->writeln("Failed. Email not sent. An error occurred: " . $e->getMessage());
+
             return Command::FAILURE;
         }
     }

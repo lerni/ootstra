@@ -11,13 +11,13 @@ class ElementLocalVideo extends BaseElement
     private static $db = [
         'Autoplay' => 'Boolean',
         'Loop' => 'Boolean',
-        'Mute' => 'Boolean'
+        'Mute' => 'Boolean',
     ];
 
     private static $has_one = [
         'Image' => Image::class,
-        'LocalMP4Video' => File::class,
-        'LocalMP4VideoSmall' => File::class
+        'LocalVideo' => File::class,
+        'LocalVideoSmall' => File::class,
     ];
 
     private static $has_many = [];
@@ -26,8 +26,8 @@ class ElementLocalVideo extends BaseElement
 
     private static $owns = [
         'Image',
-        'LocalMP4Video',
-        'LocalMP4VideoSmall'
+        'LocalVideo',
+        'LocalVideoSmall',
     ];
 
     private static $table_name = 'ElementLocalVideo';
@@ -43,6 +43,7 @@ class ElementLocalVideo extends BaseElement
         $labels['Autoplay'] = _t(__CLASS__ . '.AUTOPLAY', 'Autoplay - enforces "Mute"');
         $labels['Loop'] = _t(__CLASS__ . '.LOOP', 'Looping video');
         $labels['Mute'] = _t(__CLASS__ . '.MUTE', 'Mute initial state');
+
         return $labels;
     }
 
@@ -55,24 +56,24 @@ class ElementLocalVideo extends BaseElement
             $uploadField->setDescription(_t(__CLASS__ . '.ImageDescription', '16:9'));
         }
 
-        if ($uploadField = $fields->dataFieldByName('LocalMP4Video')) {
+        if ($uploadField = $fields->dataFieldByName('LocalVideo')) {
             $uploadField->setFolderName('Video');
-            $uploadField->allowedExtensions  = ['mp4'];
-            $size = 150 * 1024 * 1024;
+            $uploadField->allowedExtensions = ['webm', 'mp4'];
+            $size = 50 * 1024 * 1024;
             $uploadField->getValidator()->setAllowedMaxFileSize($size);
-            $uploadField->setDescription(_t(__CLASS__ . '.LocalMP4VideoDescription', 'MP4 16:9 web optimized!'));
+            $uploadField->setDescription(_t(__CLASS__ . '.LocalVideoDescription', 'MP4/Webm 16:9 web optimized!'));
         }
 
-        if ($uploadField = $fields->dataFieldByName('LocalMP4VideoSmall')) {
+        if ($uploadField = $fields->dataFieldByName('LocalVideoSmall')) {
             $uploadField->setFolderName('Video');
-            $uploadField->allowedExtensions  = ['mp4'];
+            $uploadField->allowedExtensions = ['webm', 'mp4'];
             $size = 20 * 1024 * 1024;
             $uploadField->getValidator()->setAllowedMaxFileSize($size);
-            $uploadField->setDescription(_t(__CLASS__ . '.LocalMP4VideoSmallDescription', 'MP4 16:9 web optimized! < 800px wide'));
+            $uploadField->setDescription(_t(__CLASS__ . '.LocalVideoSmallDescription', 'MP4/Webm 16:9 web optimized! < 800px wide'));
         }
 
         if ($autoplayField = $fields->dataFieldByName('Autoplay')) {
-            $fields->insertAfter('LocalMP4VideoSmall', $autoplayField);
+            $fields->insertAfter('LocalVideoSmall', $autoplayField);
         }
 
         if ($loopField = $fields->dataFieldByName('Loop')) {
@@ -92,6 +93,7 @@ class ElementLocalVideo extends BaseElement
         if ($this->Image()->exists()) {
             $blockSchema['fileURL'] = $this->Image->CMSThumbnail()->getURL();
         }
+
         return $blockSchema;
     }
 

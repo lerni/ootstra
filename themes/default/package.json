@@ -12,7 +12,7 @@
     "format": "biome format --write src/"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.2.5",
+    "@biomejs/biome": "2",
     "autoprefixer": "^10.4.21",
     "cssnano": "^7.1.1",
     "laravel-vite-plugin": "^2.0.1",
@@ -39,6 +39,6 @@
     "hoverintent": "^2.2.1",
     "htmx.org": "^v2",
     "jquery": "^3.7.1",
-    "swiper": "^11.0.5"
+    "swiper": "^12.1.1"
   }
 }

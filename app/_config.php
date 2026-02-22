@@ -8,8 +8,8 @@ use SilverStripe\Core\Environment;
 use SilverStripe\Admin\LeftAndMain;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Control\Email\Email;
-use SilverStripe\TinyMCE\TinyMCEConfig;
 use Wilr\GoogleSitemaps\GoogleSitemap;
+use SilverStripe\TinyMCE\TinyMCEConfig;
 use App\Utility\SnippetShortCodeProvider;
 use App\Utility\LocationShortCodeProvider;
 use App\Utility\VacationShortCodeProvider;
@@ -29,7 +29,7 @@ $styles = [
     [
         // https://github.com/tinymce/tinymce/issues/9186
         'title' => 'Format',
-        'selector' => '*'
+        'selector' => '*',
     ],
     [
         // Wrap selected content in a div with class of .split-2
@@ -37,7 +37,7 @@ $styles = [
         'attributes' => ['class' => 'split-2'],
         'block' => 'div',
         'wrapper' => true,
-        'merge_siblings' => false
+        'merge_siblings' => false,
     ],
     [
         // Wrap selected content in a div with class of .boxed
@@ -45,31 +45,31 @@ $styles = [
         'attributes' => ['class' => 'boxed'],
         'block' => 'div',
         'wrapper' => true,
-        'merge_siblings' => false
+        'merge_siblings' => false,
     ],
     [
         // add .download to a a
         'title' => 'Download-Link',
         'attributes' => ['class' => 'download'],
-        'selector' => 'a'
+        'selector' => 'a',
     ],
     [
         // add .forth to a a
         'title' => 'Arrow-Link',
         'attributes' => ['class' => 'forth'],
-        'selector' => 'a'
+        'selector' => 'a',
     ],
     [
         // add .back to a a
         'title' => 'Arrow-Back',
         'attributes' => ['class' => 'back'],
-        'selector' => 'a'
+        'selector' => 'a',
     ],
     [
         // add .button to a a
         'title' => 'Button-Link',
         'attributes' => ['class' => 'button'],
-        'selector' => 'a'
+        'selector' => 'a',
     ],
     [
         // Wrap selected content in a div with class of .small
@@ -77,7 +77,7 @@ $styles = [
         'attributes' => ['class' => 'small'],
         'block' => 'div',
         'wrapper' => true,
-        'merge_siblings' => false
+        'merge_siblings' => false,
     ],
     [
         // Wrap selected content in a div with class of .large
@@ -85,20 +85,20 @@ $styles = [
         'attributes' => ['class' => 'large'],
         'block' => 'div',
         'wrapper' => true,
-        'merge_siblings' => false
+        'merge_siblings' => false,
     ],
     [
         // add .inline - no margin-bottom
         'title' => 'no bottom-margin',
         'attributes' => ['class' => 'inline'],
-        'selector' => 'p,h1,h2,h3'
+        'selector' => 'p,h1,h2,h3',
     ],
     [
         // add .halveinline - halve-line margin-bottom
         'title' => '½ bottom-margin',
         'attributes' => ['class' => 'halveinline'],
-        'selector' => 'p,h1,h2,h3'
-    ]
+        'selector' => 'p,h1,h2,h3',
+    ],
 ];
 
 $editorCSS = Config::inst()->get(TinyMCEConfig::class, 'editor_css');
@@ -119,7 +119,7 @@ $tinyMceCommonPlugins = [
     'sslinkemail' => $tinyMceModule->getResource('client/dist/js/TinyMCE_sslink-email.js'),
     'emoticons',
     'charmap',
-    'deflist' => ModuleResourceLoader::resourceURL('app/thirdparty/tinyMCE-DefinitionList-main/deflist/plugin.min.js')
+    'deflist' => ModuleResourceLoader::resourceURL('app/thirdparty/tinyMCE-DefinitionList-main/deflist/plugin.min.js'),
 ];
 
 // Common options for all editor variants
@@ -131,7 +131,7 @@ $tinyMceCommonOptions = [
     'paste_text_sticky_default' => true,
     'paste_text_sticky' => true,
     'statusbar' => true,
-    'contextmenu' => "searchreplace | sslink anchor ssmedia ssembed"
+    'contextmenu' => "searchreplace | sslink anchor ssmedia ssembed",
 ];
 
 // -----------------------------------------------------------------------------
@@ -144,12 +144,12 @@ $EditorConfig->setOptions($tinyMceCommonOptions);
 
 // Full editor toolbar with all features
 $EditorConfig->setButtonsForLine(1, [
-    'blocks styles pastetext ssmedia ssembed | bold align | bullist numlist deflist | outdent indent | sslink anchor | emoticons charmap blockquote hr code removeformat visualblocks | undo redo'
+    'blocks styles pastetext ssmedia ssembed | bold align | bullist numlist deflist | outdent indent | sslink anchor | emoticons charmap blockquote hr code removeformat visualblocks | undo redo',
 ]);
 $EditorConfig->setButtonsForLine(2, '');
 $EditorConfig->setOption(
     'extended_valid_elements',
-    'span[data-feather],dl[*],dt[*],dd[*]'
+    'span[data-feather],dl[*],dt[*],dd[*]',
     // 'div[*]'
 );
 
@@ -172,7 +172,7 @@ $SimpleCfg->enablePlugins([
 
 // Simplified toolbar with fewer options
 $SimpleCfg->setButtonsForLine(1, [
-    'blocks pastetext | bold align bullist numlist | sslink anchor | emoticons charmap hr code removeformat visualblocks | undo redo'
+    'blocks pastetext | bold align bullist numlist | sslink anchor | emoticons charmap hr code removeformat visualblocks | undo redo',
 ]);
 $SimpleCfg->setButtonsForLine(2, '');
 
@@ -194,7 +194,7 @@ URLSegmentFilter::config()->default_replacements = [
     '/[\/\?=#:]+/u' => '-', // remove forward slashes, question marks, equal signs, hashes and colons in case multibyte is allowed (and non-ASCII chars aren't removed)
     '/[\-]{2,}/u' => '-', // remove duplicate dashes
     '/^[\-]+/u' => '', // Remove all leading dashes
-    '/[\-]+$/u' => '' // Remove all trailing dashes
+    '/[\-]+$/u' => '', // Remove all trailing dashes
 ];
 
 // GoogleSitemap::register_dataobjects(['App\Models\Perso'], 'weekly', '1');

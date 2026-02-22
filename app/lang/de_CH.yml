@@ -314,3 +314,14 @@ de_CH:
     MULTISELECT: 'Stapelaktionen'
   SilverStripe\LinkField\Models\Link:
     MISSING_DEFAULT_TITLE: 'nicht verlinkt'
+  SilverStripe\Forms\ConfirmedPasswordField:
+    CURRENT_PASSWORD_ERROR: 'Das eingegebene aktuelle Passwort ist nicht korrekt.'
+    CURRENT_PASSWORD_MISSING: 'Sie müssen Ihr aktuelles Passwort eingeben.'
+    LOGGED_IN_ERROR: 'Sie müssen angemeldet sein, um Ihr Passwort zu ändern.'
+    MEDIUM: 'Mittel'
+    STRENGTH: 'Passwortstärke: {strengthLabel}'
+    STRONG: 'Stark'
+    VALIDATIONSTRONGPASSWORD: 'Die Passwortstärke ist zu gering. Bitte verwenden Sie ein stärkeres Passwort.'
+    VERYSTRONG: 'Sehr stark'
+    VERYWEAK: 'Sehr schwach'
+    WEAK: 'Schwach'

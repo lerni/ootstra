@@ -194,7 +194,6 @@ class UrlifyExtension extends Extension
     public function Link($action = null)
     {
         $parentSlug = $this->getOwner()->config()->parent_slug;
-        Controller::curr();
         // $action = $c->urlParams['Action'];
         if ($this->getOwner()->Parent() && $this->getOwner()->isInDB()) {
         // if ($this->owner->Parent() && $this->owner->isInDB() && $parentSlug == $action) {

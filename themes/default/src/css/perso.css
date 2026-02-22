@@ -254,12 +254,12 @@
 		.columned {
 			display: flex;
 			flex-wrap: wrap;
-			padding-bottom: calc(var(--lh) * 1em);
+			padding-bottom: 1lh;
 		}
 
 		.col {
 			flex: 0 0 50%;
-			padding: 0 calc(var(--lh) * 1em) 0 0;
+			padding: 0 1lh 0 0;
 
 			@media (--cm-l-neg) {
 				flex: 0 0 100%;

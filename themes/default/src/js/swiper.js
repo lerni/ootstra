@@ -13,14 +13,14 @@ import {
 
 Swiper.use([Autoplay, EffectFade, Keyboard, Navigation, Pagination]);
 
-var heroSwiper = document.querySelectorAll(".swiper-container.hero");
+const heroSwiper = document.querySelectorAll(".swiper-container.hero");
 Array.prototype.forEach.call(heroSwiper, function (slider) {
-  var sliderID = slider.getAttribute("id");
-  var sliderPrev = "#hero-swiper-prev" + slider.getAttribute("data-id");
-  var sliderNext = "#hero-swiper-next" + slider.getAttribute("data-id");
-  var sliderPagination = "#hero-swiper-pagination" + slider.getAttribute("data-id");
+  const sliderID = slider.getAttribute("id");
+  const sliderPrev = "#hero-swiper-prev" + slider.getAttribute("data-id");
+  const sliderNext = "#hero-swiper-next" + slider.getAttribute("data-id");
+  const sliderPagination = "#hero-swiper-pagination" + slider.getAttribute("data-id");
 
-  var heroSwiperInstance = new Swiper("#" + sliderID, {
+  const heroSwiperInstance = new Swiper("#" + sliderID, {
     spaceBetween: 0,
     direction: "horizontal",
     // CSSWidthAndHeight: true,
@@ -28,6 +28,7 @@ Array.prototype.forEach.call(heroSwiper, function (slider) {
     // height: "auto",
     keyboard: {
       enabled: true,
+      onlyInViewport: true,
     },
     autoplay: {
       delay: 4500,
@@ -61,15 +62,17 @@ Array.prototype.forEach.call(heroSwiper, function (slider) {
 // 	'slow');
 // });
 
-var multipleSwiper = document.querySelectorAll(
+const multipleSwiper = document.querySelectorAll(
   ".swiper-container.teaser, .swiper-container.multiple, .swiper-container.perso-cfa"
 );
 Array.prototype.forEach.call(multipleSwiper, function (slider) {
-  var sliderID = slider.getAttribute("id");
-  var sliderPrev = "#multiple-swiper-prev" + slider.getAttribute("data-id");
-  var sliderNext = "#multiple-swiper-next" + slider.getAttribute("data-id");
-  var generalSwiperInstance = new Swiper("#" + sliderID, {
-    spaceBetween: 25, // $text-size times $lineheight
+  const sliderID = slider.getAttribute("id");
+  const sliderPrev = "#multiple-swiper-prev" + slider.getAttribute("data-id");
+  const sliderNext = "#multiple-swiper-next" + slider.getAttribute("data-id");
+  const gap = parseFloat(window.getComputedStyle(slider).lineHeight);
+
+  const generalSwiperInstance = new Swiper("#" + sliderID, {
+    spaceBetween: gap,
     freeMode: true,
     slidesPerView: "auto",
     speed: 1000,
@@ -80,11 +83,11 @@ Array.prototype.forEach.call(multipleSwiper, function (slider) {
     },
     keyboard: {
       enabled: true,
-      onlyInViewport: false,
+      onlyInViewport: true,
     },
     breakpoints: {
       980: {
-        spaceBetween: 50,
+        spaceBetween: gap * 2,
       },
     }
   });
@@ -109,27 +112,24 @@ Array.prototype.forEach.call(multipleSwiper, function (slider) {
   }
 });
 
-var testimonialSwiper = document.querySelectorAll(
+const testimonialSwiper = document.querySelectorAll(
   ".swiper-container.testimonial"
 );
 Array.prototype.forEach.call(testimonialSwiper, function (slider) {
-  var sliderID = slider.getAttribute("id");
-  var testimonialPagination = "#testimonial-swiper-pagination" + slider.getAttribute("data-id");
-  var testimonialSwiperInstance = new Swiper("#" + sliderID, {
+  const sliderID = slider.getAttribute("id");
+  const testimonialPagination = "#testimonial-swiper-pagination" + slider.getAttribute("data-id");
+  const testimonialSwiperInstance = new Swiper("#" + sliderID, {
     spaceBetween: 100, // $text-size times $lineheight
     slidesPerView: 1, // Change to 1 when using fade effect
     speed: 1600,
     // loop: true,
-    keyboard: {
-      enabled: true,
-    },
     autoplay: {
       delay: 6000,
       disableOnInteraction: true,
     },
     keyboard: {
       enabled: true,
-      onlyInViewport: false,
+      onlyInViewport: true,
     },
     effect: "fade", // Add fade effect
     fadeEffect: {
@@ -162,31 +162,29 @@ Array.prototype.forEach.call(testimonialSwiper, function (slider) {
   }
 });
 
-var instafeedSwiper = document.querySelectorAll(".swiper-container.instafeed");
+const instafeedSwiper = document.querySelectorAll(".swiper-container.instafeed");
 Array.prototype.forEach.call(instafeedSwiper, function (slider) {
-  var sliderID = slider.getAttribute("id");
-  var sliderPrev = "#insta-swiper-prev" + slider.getAttribute("data-id");
-  var sliderNext = "#insta-swiper-next" + slider.getAttribute("data-id");
-  var instafeedSwiperInstance = new Swiper("#" + sliderID, {
-    spaceBetween: 25, // $lineheight in px
+  const sliderID = slider.getAttribute("id");
+  const sliderPrev = "#insta-swiper-prev" + slider.getAttribute("data-id");
+  const sliderNext = "#insta-swiper-next" + slider.getAttribute("data-id");
+  const gap = parseFloat(window.getComputedStyle(slider).lineHeight);
+  const instafeedSwiperInstance = new Swiper("#" + sliderID, {
+    spaceBetween: gap,
     freeMode: true,
     slidesPerView: "auto",
     speed: 1000,
     // loop: true,
-    keyboard: {
-      enabled: true,
-    },
     autoplay: {
       delay: 1000,
       disableOnInteraction: true,
     },
     keyboard: {
       enabled: true,
-      onlyInViewport: false,
+      onlyInViewport: true,
     },
     breakpoints: {
-      1280: {
-        spaceBetween: 50,
+      980: {
+        spaceBetween: gap * 2,
       },
     },
   });
@@ -211,16 +209,16 @@ Array.prototype.forEach.call(instafeedSwiper, function (slider) {
   }
 });
 
-var instafeedVerticalSwiper = document.querySelectorAll(
+const instafeedVerticalSwiper = document.querySelectorAll(
   ".swiper-container.swiper-v"
 );
 Array.prototype.forEach.call(instafeedVerticalSwiper, function (slider) {
-  var sliderID = slider.getAttribute("id");
-  var sliderVerticalPagination =
-    "#insta-vertical-swiper-pagination" + slider.getAttribute("data-id");
-  var instafeedVerticalSwiperInstance = new Swiper("#" + sliderID, {
+  const sliderID = slider.getAttribute("id");
+  const sliderVerticalPagination = "#insta-vertical-swiper-pagination" + slider.getAttribute("data-id");
+  const gap = parseFloat(window.getComputedStyle(slider).lineHeight);
+  const instafeedVerticalSwiperInstance = new Swiper("#" + sliderID, {
     direction: "vertical",
-    spaceBetween: 50,
+    spaceBetween: gap * 2,
     slidesPerView: 1,
     pagination: {
       el: sliderVerticalPagination,
@@ -234,11 +232,10 @@ Array.prototype.forEach.call(instafeedVerticalSwiper, function (slider) {
   });
 });
 
-var logoSwiper = document.querySelectorAll('.swiper-container.logo');
+const logoSwiper = document.querySelectorAll('.swiper-container.logo');
 Array.prototype.forEach.call(logoSwiper, function (slider) {
-  var sliderID = slider.getAttribute('id');
-  var logoSwiperInstance = new Swiper ('#'+sliderID, {
-    // spaceBetween: 28, // two times $font-size times (1.41em = $lineheight)
+  const sliderID = slider.getAttribute('id');
+  const logoSwiperInstance = new Swiper ('#'+sliderID, {
     freeMode: true,
     slidesPerView: 'auto',
     speed: 5000,

@@ -9,10 +9,10 @@
 	.cards {
 		display: flex; /* we use flex (not grid) cos ShowAsSlider would otherwise break swiper.js */
 		flex-wrap: wrap;
-		gap: calc(var(--lh) * 2em);
+		gap: 2lh;
 		width: 100%;
 		@media (--cm-l-neg) {
-			gap: calc(var(--lh) * 1em);
+			gap: 1lh;
 		}
 		.card {
 			color: var(--text-color);
@@ -33,10 +33,9 @@
 			}
 			.txt {
 				position: absolute;
-				inset: 0;
-				top: auto;
+				inset: auto 0 0 0;
 				overflow: hidden;
-				padding: calc(var(--lh) / 4  * 5em) calc(var(--lh) / 2 * 1em);
+				padding: 1.25lh 0.5lh;
 				background: linear-gradient(to bottom, oklch(from var(--black) l c h / 0), oklch(from var(--black) l c h / 0.4));
 				height: 0;
 				width: 100%;
@@ -45,8 +44,6 @@
 				transition-timing-function: linear;
 				display: flex;
 				flex-direction: column;
-				flex-direction: column;
-				/* font-size: 1em; */
 				@container (max-width: 500px) {
 					font-size: var(--font-size--small);
 				}
@@ -60,7 +57,7 @@
 				h2,
 				h3,
 				h4 {
-					margin: 0 0 calc(var(--lh) / 2 * 1em) 0;
+					margin: 0 0 0.5lh 0;
 				}
 				p {
 					font-weight: var(--font-weight--normal);
@@ -87,7 +84,7 @@
 			&:hover {
 				.txt {
 					background-color: oklch(from var(--black) l c h / 0.8);
-					padding: calc(var(--lh) / 4 * 1em) calc(var(--lh) / 2 * 1em);
+					padding: 0.25lh 0.5lh;
 					height: 100%;
 					pointer-events: none;
 				}
@@ -106,7 +103,7 @@
 					width: 50%;
 					background-image: none;
 					background-color: var(--white);
-					padding-bottom: calc(var(--lh) * 1.1em);
+					padding-bottom: 1.1lh;
 					.accordion,
 					.link {
 						opacity: 1;
@@ -172,7 +169,7 @@
 						position: inherit;
 						width: 100%;
 						height: auto;
-						padding: calc(var(--lh) / 4  * 5em) 0;
+						padding: 1.25lh 0;
 						.accordion {
 							max-height: none;
 						}
@@ -184,12 +181,12 @@
 
 		&.third {
 			.card {
-				flex: 0 0 calc(calc(100% / 3) - calc(var(--lh) * 4 / 3 * 1em));
+				flex: 0 0 calc(calc(100% / 3) - calc(4 / 3 * 1lh));
 				display: flex;
 				flex-direction: column;
 
 				@media (--cm-l-neg) {
-					flex: 0 0 calc(calc(100% / 2) - calc(var(--lh) * 2 / 2 * 1em));
+					flex: 0 0 calc(calc(100% / 2) - 1lh);
 				}
 
 				@media (--cm-m-neg) {
@@ -204,7 +201,7 @@
 					position: inherit;
 					background: none;
 					padding-inline: 0;
-					padding-block: calc(var(--lh) / 4 * 1em);
+					padding-block: 0.25lh;
 					height: auto;
 					h2,
 					h3 {
@@ -235,7 +232,7 @@
 
 		&.halve {
 			.card {
-				flex: 0 0 calc(50% - calc(var(--lh) * 1 / 1 * 1em));
+				flex: 0 0 calc(50% - 1lh);
 				@media (--cm-m-neg) {
 					flex: 0 0 100%;
 				}
@@ -249,23 +246,23 @@
 		}
 
 		&.masonry-holder {
-			margin-bottom: calc(var(--lh) * 2em);
+			margin-bottom: 2lh;
 			@media (--cm-xxl-neg) {
-				margin-bottom: calc(var(--lh) * 1em);
+				margin-bottom: 1lh;
 			}
 		}
 		.masonry-brick {
-			flex: 0 0 calc(calc(100% / 3) - calc(var(--lh) * 2 * 1em));
-			width: calc(calc(100% / 3) - calc(var(--lh) * 4 / 3 * 1em));
+			flex: 0 0 calc(calc(100% / 3) - 2lh);
+			width: calc(calc(100% / 3) - calc(4 / 3 * 1lh));
 			margin-bottom: auto;
 			container-type: size;
 			@media (--cm-xxl-neg) {
-				flex: 0 0 calc(calc(100% / 3) - calc(var(--lh) * 1em));
-				width: calc(calc(100% / 3) - calc(var(--lh) * 2 / 3 * 1em));
+				flex: 0 0 calc(calc(100% / 3) - 1lh);
+				width: calc(calc(100% / 3) - calc(2lh / 3));
 			}
 			@media (--cm-xl-neg) {
-				flex: 0 0 calc(calc(100% / 2) - calc(var(--lh) * 1em));
-				width: calc(calc(100% / 2) - calc(var(--lh) * 1 / 2 * 1em));
+				flex: 0 0 calc(calc(100% / 2) - 1lh);
+				width: calc(calc(100% / 2) - 0.5lh);
 			}
 			@media (--cm-m-neg) {
 				flex: 0 0 100%;
@@ -296,14 +293,14 @@
 
 	/* targets FirstLinkAction in FeedTeaser */
 	.typography > a.link.forth {
-		margin: calc(var(--lh) * 1em) auto 0 0;
+		margin: 1lh auto 0 0;
 		/* buttonstyle mixin converted to inline styles */
 		font-weight: var(--font-weight--bold);
 		letter-spacing: 0.04em;
 		text-decoration: none;
 		font-size: 1em;
 		cursor: pointer;
-		padding: calc(var(--lh) / 4 * 1em) calc(var(--lh) / 2 * 1em);
+		padding: 0.25lh 0.5lh;
 		border: none;
 		-webkit-appearance: none;
 		appearance: none;
@@ -318,10 +315,6 @@
 
 		&:hover {
 			filter: contrast(110%) saturate(110%);
-		}
-
-		&:focus-visible {
-			outline: 2px solid var(--link-color);
 		}
 
 		&::after {

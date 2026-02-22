@@ -16,9 +16,8 @@ use DNADesign\Elemental\Controllers\ElementController;
 
 class ElementMapsController extends ElementController
 {
-
     private static $allowed_actions = [
-        'jpoints'
+        'jpoints',
     ];
 
     protected function init()
@@ -38,14 +37,10 @@ class ElementMapsController extends ElementController
 
             $defaultLat = 0.0;
             $defaultLng = 0.0;
-            if ($defaultLat === 0.0 && $defaultLng === 0.0) {
-                $yamlConfig = Config::inst()->get(GoogleMapField::class, 'default_field_values');
-                if ($yamlConfig && isset($yamlConfig['Latitude'])) {
-                    $defaultLat = (float)$yamlConfig['Latitude'];
-                }
-                if (isset($yamlConfig['Longitude'])) {
-                    $defaultLng = (float)$yamlConfig['Longitude'];
-                }
+            $yamlConfig = Config::inst()->get(GoogleMapField::class, 'default_field_values');
+            if ($yamlConfig) {
+                $defaultLat = isset($yamlConfig['Latitude']) ? (float)$yamlConfig['Latitude'] : 0.0;
+                $defaultLng = isset($yamlConfig['Longitude']) ? (float)$yamlConfig['Longitude'] : 0.0;
             }
 
             Requirements::javascriptTemplate("themes/default/src/js/include/google-map.js", [
@@ -57,7 +52,7 @@ class ElementMapsController extends ElementController
                 'MapType' => $this->MapType,
                 'ControllerLink' => $this->ControllerLink(),
                 'Lat' => $defaultLat,
-                'Lng' => $defaultLng
+                'Lng' => $defaultLng,
             ]);
         }
     }
@@ -75,7 +70,7 @@ class ElementMapsController extends ElementController
                     'Latitude' => $item->Latitude,
                     'Longitude' => $item->Longitude,
                     'PointURL' => $item->PointURL,
-                    'Type' => $item->Type
+                    'Type' => $item->Type,
                 ]);
                 $d->PointURL = $item->PointURL ?: $item->GMapLatLngLink();
 
@@ -84,20 +79,21 @@ class ElementMapsController extends ElementController
 
             $this->getResponse()->addHeader('Content-Type', 'application/json; charset=utf-8');
             $this->getResponse()->addHeader('X-Robots-Tag', 'noindex');
+
             return json_encode($r->toNestedArray());
         }
+
         return false;
     }
 
     public function ControllerLink()
     {
-        $url = Controller::join_links(
+        return Controller::join_links(
             Director::protocolAndHost(),
             $this->getPage()->RelativeLink(true),
             'element',
             $this->ID,
-            'jpoints'
+            'jpoints',
         );
-        return $url;
     }
 }

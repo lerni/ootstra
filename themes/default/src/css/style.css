@@ -1,4 +1,6 @@
-@import "./uni-sani-reset.css";
+/* @import "./uni-sani-reset.css";
+	we import in typography!
+*/
 @import "./variables.css";
 @import "./custom-media.css";
 @import "./mixins.css";
@@ -66,14 +68,14 @@ strong {
 	}
 	.inner {
 		display: grid;
-		grid-template-rows: calc(var(--lh) * 1.2em) 1fr;
+		grid-template-rows: 1.2lh 1fr;
 		grid-template-columns: auto 1fr;
 		/* max-width: calc(var(--inner-width) + 200px); */
 		@media (--cm-l-neg) {
 			/* min-height: 100vh; */
 			grid-template-rows:
-				calc(var(--lh) * 1.2em)
-				calc(var(--headerheight--smaller) - calc(var(--lh) * 1.2em))
+				1.2lh
+				calc(var(--headerheight--smaller) - 1.2lh)
 				1fr;
 		}
 	}
@@ -135,7 +137,7 @@ body > main {
 	> *:last-child {
 		margin-bottom: 0;
 	}
-	padding-block:  var(--spacing);
+	padding-block: var(--spacing);
 }
 
 .horizontal-spacing {
@@ -143,7 +145,7 @@ body > main {
 }
 
 nav.breadcrumbs {
-	padding: calc(var(--lh) * 1em) 0 calc(var(--lh) * 2em) 0;
+	padding: 1lh 0 2lh 0;
 	text-align: left;
 	a,
 	span,
@@ -170,15 +172,15 @@ nav.breadcrumbs {
 
 nav.cat-tag {
 	display: flex;
-	gap: calc(var(--lh) / 1 * 1em);
+	gap: 1lh;
 	flex-wrap: wrap;
 	justify-content: flex-start;
-	margin: 0;
-	padding: calc(var(--lh) * 1em) 0 calc(var(--lh) * 2em) 0;
+	margin: 0 auto;
+	padding-block: 1lh 2lh;
 	> span,
 	> a {
 		display: inline-block;
-		padding: calc(var(--lh) / 4 * 1em - 2px) calc(var(--lh) / 2 * 1em - 2px); /* same spacing as button style */
+		padding: calc(0.25lh - 2px) calc(0.5lh - 2px); /* same spacing as button style */
 		border-width: 2px;
 		border-style: solid;
 		border-color: var(--text-color);
@@ -203,14 +205,14 @@ nav.cat-tag {
 		&::before {
 			display: inline-block;
 			content: "";
-			width: calc(var(--lh) * 0.6em);
+			width: 0.6lh;
 			height: 1em;
 			background-size: auto 0.6em;
 			background-repeat: no-repeat;
 			background-position: right 0 center;
 			background-image: svg-load("arrow-outline.svg", fill=currentColor);
 			transform: rotate(180deg);
-			margin-right: calc(var(--lh) / 4 * 1em);
+			margin-right: 0.25lh;
 			vertical-align: -0.1em;
 			color: var(--text-color);
 		}
@@ -218,12 +220,12 @@ nav.cat-tag {
 }
 
 :target {
-	scroll-margin-top: calc(var(--headerheight) + calc(var(--lh) * 1em));
+	scroll-margin-top: calc(var(--headerheight) + 1lh);
 	@media (--cm-l-neg) {
-		scroll-margin-top: calc(var(----headerheight--small) + calc(var(--lh) * 1em));
+		scroll-margin-top: calc(var(----headerheight--small) + 1lh);
 	}
 	@media (--cm-s-neg) {
-		scroll-margin-top: calc(var(----headerheight--smaller) + calc(var(--lh) * 1em));
+		scroll-margin-top: calc(var(----headerheight--smaller) + 1lh);
 	}
 }
 
@@ -239,20 +241,19 @@ nav.cat-tag {
 		max-width: var(--inner-width);
 	}
 	width: 100%;
-	margin-left: auto;
-	margin-right: auto;
+	margin-inline: auto;
 	position: relative;
 	outline: none;
 	> a.preview-edit {
 		position: absolute;
 		z-index: 8000;
-		top: calc(var(--lh) / 2 * 1em);
-		right: calc(var(--lh) / 2 * 1em);
-		width: calc(var(--lh) * 1em);
-		height: calc(var(--lh) * 1em);
+		top: 0.5lh;
+		right: 0.5lh;
+		width: 1lh;
+		height: 1lh;
 		justify-content: center;
 		align-items: center;
-		border-radius: calc(var(--lh) * 1em);
+		border-radius: 50cqh;
 		background-color: oklch(from var(--betternav--green) l c h / 0.7);
 		color: var(--white);
 		display: none;
@@ -273,7 +274,7 @@ nav.cat-tag {
 	}
 	&.elementhero > a.preview-edit {
 		top: auto;
-		bottom: calc(var(--lh) / 2 * 1em);
+		bottom: 0.5lh;
 	}
 	&:has(a.preview-edit:hover) {
 		&::after {
@@ -327,35 +328,35 @@ nav.cat-tag {
 		margin-left: 0;
 		margin-right: auto;
 	}
-	&.elementcontent[class*='push-up-'] {
-		padding-top: calc(var(--lh) / 3 * 2 * 1em);
-		@media (--cm-xl-plus) {
-			position: relative;
-			z-index: 100;
-			&::after {
-				background-color: transparent;
-			}
-			&.background--transparent {
-				background-color: transparent;
-			}
-			&.background--white {
-				background-color: var(--white);
-			}
-			&.background--gray--lighter {
-				background-color: var(--gray--lighter);
-			}
-		}
-	}
 	&.elementcontent {
 		.typography {
 			> *:last-child {
 				margin-bottom: 0;
 			}
 		}
+		&[class*='push-up-'] {
+			padding-top: calc(2lh / 3);
+			@media (--cm-xl-plus) {
+				position: relative;
+				z-index: 100;
+				&::after {
+					background-color: transparent;
+				}
+				&.background--transparent {
+					background-color: transparent;
+				}
+				&.background--white {
+					background-color: var(--white);
+				}
+				&.background--gray--lighter {
+					background-color: var(--gray--lighter);
+				}
+			}
+		}
 	}
+
 	&.elementhero {
 		display: flex; /* swiper.js shouldn't live in a display: table element otherwise layout breaks */
-		/* with DefaultHero the image isn't wrapped with swiper divs */
 		&:not(.full-width) {
 			max-width: calc(var(--inner-width) + 300px);
 		}
@@ -451,11 +452,11 @@ nav.cat-tag {
 				p {
 					font-weight: var(--font-weight--normal);
 					margin-bottom: 0;
-					padding: calc(var(--lh) / 2 * 1em) 0;
+					padding: 0.5lh 0;
 				}
 			}
 			&.upper-left .inner {
-				padding-top: calc(var(--lh) * 1em);
+				padding-top: 1lh;
 				justify-content: flex-start;
 				align-items: flex-start;
 				.spacer {
@@ -469,7 +470,7 @@ nav.cat-tag {
 				}
 			}
 			&.upper-right .inner {
-				padding-top: calc(var(--lh) * 1em);
+				padding-top: 1lh;
 				justify-content: flex-end;
 				align-items: flex-start;
 				.spacer {
@@ -537,13 +538,13 @@ nav.cat-tag {
 			@media (--cm-l-neg) {
 				position: inherit;
 				.spacer {
-					padding: calc(var(--lh) / 2 * 1em) 0 0 0;
+					padding: 0.5lh 0 0 0;
 					position: relative;
 					&::after {
 						content: "";
 						position: absolute;
-						left: calc(var(--lh) * -1em);
-						right: calc(var(--lh) * -1em);
+						left: -1lh;
+						right: -1lh;
 						top: 0;
 						bottom: 0;
 						pointer-events: none;
@@ -703,7 +704,7 @@ nav.cat-tag {
 			padding-bottom: 0;
 			margin-bottom: 0;
 			.swiper-pagination {
-				bottom: calc(var(--lh) / 2 * 1em);
+				bottom: 0.5lh;
 			}
 		}
 		&.global-alert {
@@ -726,13 +727,13 @@ nav.cat-tag {
 			}
 		}
 		blockquote + p.small {
-			margin: calc(var(--lh) / 2 * 1rem) calc(var(--lh) * 1rem);
+			margin: 0.5rlh 1rlh;
 		}
 		/* TODO: @include sliderpagination(.5, $black) - needs mixin conversion */
 		.swiper-pagination {
 			position: inherit;
 			top: auto;
-			padding: calc(var(--lh) / 2 * 1em) 0;
+			padding: 0.5lh 0;
 			@media (--cm-l-neg) {
 				display: flex;
 			}
@@ -758,7 +759,7 @@ nav.cat-tag {
 	&.elementmaps {
 		display: flex;
 		flex-wrap: wrap;
-		gap: calc(var(--lh) * 1em);
+		gap: 1lh;
 		p.gm-style-pbt {
 			font-size: initial;
 		}
@@ -768,7 +769,7 @@ nav.cat-tag {
 		}
 		.txt {
 			@media (--cm-l-plus) {
-				flex: 0 0 calc(50% - calc(var(--lh) / 2 * 1em));
+				flex: 0 0 calc(50% - 0.5lh);
 			}
 		}
 		#map_canvas {
@@ -778,7 +779,7 @@ nav.cat-tag {
 			aspect-ratio: 20 / 9; /* 45% = 9/20 aspect ratio */
 			&.has-txt {
 				@media (--cm-l-plus) {
-					flex: 0 0 calc(50% - calc(var(--lh) / 2 * 1em));
+					flex: 0 0 calc(50% - 0.5lh);
 				}
 			}
 			@media (--cm-l-neg) {
@@ -793,7 +794,7 @@ nav.cat-tag {
 	&.elementpdfdocument {
 		.txt {
 			max-width: var(--inner-width--reduced);
-			padding-bottom: calc(var(--lh) * 1em);
+			padding-bottom: 1lh;
 		}
 		div.swiper-container .swiper-wrapper {
 			margin: 0;
@@ -805,7 +806,7 @@ nav.cat-tag {
 			header {
 				color: var(--text-color);
 				font-weight: var(--font-weight--bold);
-				padding: calc(var(--lh) / 4 * 1em) 0;
+				padding: 0.25lh 0;
 			}
 			figure {
 				display: flex;
@@ -830,7 +831,7 @@ nav.cat-tag {
 					flex-direction: column;
 					justify-content: flex-start;
 					background-color: var(--white);
-					/* padding: calc(var(--lh) / 2 * 1em); */
+					/* padding: 0.5lh; */
 					pointer-events: none;
 					transform: translateY(100%);
 					transition: transform 0.2s ease-in;
@@ -900,48 +901,48 @@ nav.cat-tag {
 
 	/* Spacing bottom utilities */
 	&.spacing-bottom-6 {
-		padding-bottom: calc(var(--lh) * 6 * 1em);
+		padding-bottom: calc(var(--spacing) * 6);
 	}
 	&.spacing-bottom-5 {
-		padding-bottom: calc(var(--lh) * 5 * 1em);
+		padding-bottom: calc(var(--spacing) * 5);
 	}
 	&.spacing-bottom-4 {
-		padding-bottom: calc(var(--lh) * 4 * 1em);
+		padding-bottom: calc(var(--spacing) * 4);
 	}
 	&.spacing-bottom-3 {
-		padding-bottom: calc(var(--lh) * 3 * 1em);
+		padding-bottom: calc(var(--spacing) * 3);
 	}
 	&.spacing-bottom-2 {
-		padding-bottom: calc(var(--lh) * 2 * 1em);
+		padding-bottom: calc(var(--spacing) * 2);
 	}
 	&.spacing-bottom-1 {
-		padding-bottom: calc(var(--lh) * 1 * 1em);
+		padding-bottom: var(--spacing);
 	}
 	&.spacing-bottom-0 {
-		padding-bottom: calc(var(--lh) * 0 * 1em);
+		padding-bottom: 0;
 	}
 
 	/* Spacing top utilities */
 	&.spacing-top-6 {
-		padding-top: calc(var(--lh) * 6 * 1em);
+		padding-top: calc(var(--spacing) * 6);
 	}
 	&.spacing-top-5 {
-		padding-top: calc(var(--lh) * 5 * 1em);
+		padding-top: calc(var(--spacing) * 5);
 	}
 	&.spacing-top-4 {
-		padding-top: calc(var(--lh) * 4 * 1em);
+		padding-top: calc(var(--spacing) * 5);
 	}
 	&.spacing-top-3 {
-		padding-top: calc(var(--lh) * 3 * 1em);
+		padding-top: calc(var(--spacing) * 4);
 	}
 	&.spacing-top-2 {
-		padding-top: calc(var(--lh) * 2 * 1em);
+		padding-top: calc(var(--spacing) * 2);
 	}
 	&.spacing-top-1 {
-		padding-top: calc(var(--lh) * 1 * 1em);
+		padding-top: var(--spacing);
 	}
 	&.spacing-top-0 {
-		padding-top: calc(var(--lh) * 0 * 1em);
+		padding-top: 0;
 	}
 }
 
@@ -970,9 +971,9 @@ nav.cat-tag {
 /* How does userform handle such things? */
 .alert {
 	border: 1px solid;
-	padding: calc(var(--lh) / 2 * 1em);
-	border-radius: calc(var(--lh) / 4 * 1em);
-	margin-bottom: calc(var(--lh) / 2 * 1em);
+	padding: 0.5lh;
+	border-radius: 0.25lh;
+	margin-bottom: 0.5lh;
 	&.alert-warning {
 		background-color: oklch(from var(--red) l c h / 0.1);
 		border-color: var(--red);
@@ -993,8 +994,8 @@ nav.cat-tag {
 
 .global-alert:not(.elementhero) {
 	background-color: var(--blue);
-	padding: calc(var(--lh) / 2 * 1em) 0;
-	margin-bottom: calc(var(--lh) * 1em);
+	padding: 0.5lh 0;
+	margin-bottom: 1lh;
 	.inner > * {
 		color: var(--white);
 		&:last-child {
@@ -1006,7 +1007,7 @@ nav.cat-tag {
 .social-icons {
 	margin: auto 0 0;
 	display: flex;
-	gap: calc(var(--lh) * 1em);
+	gap: 1lh;
 	a {
 		transition: transform 0.05s linear;
 		display: flex;
@@ -1154,7 +1155,7 @@ html .klaro {
 	width: 100%;
 	height: 100%;
 	inset: 0;
-	padding: calc(var(--lh) * 1em);
+	padding: 1lh;
 	.cm-as-context-notice {
 		height: auto;
 	}
@@ -1168,7 +1169,7 @@ html .klaro {
 		}
 		button.cm-btn {
 			display: inline-block;
-			padding: calc(var(--lh) / 4 * 1em) calc(var(--lh) / 2 * 1em);
+			padding: 0.25lh 0.5lh;
 			border: none;
 			text-transform: uppercase;
 			color: var(--white);
@@ -1184,7 +1185,7 @@ html .klaro {
 				background-color: color-mix(in oklch, var(--link-color) 70%, var(--gray--light));
 			}
 			&:not(:last-of-type) {
-				margin-right: calc(var(--lh) * 1em);
+				margin-right: 1lh;
 			}
 		}
 	}
@@ -1196,7 +1197,7 @@ html .klaro {
 }
 
 p.terms-legend {
-	margin-bottom: calc(var(--lh) / 2 * 1em);
+	margin-bottom: 0.5lh;
 	font-size: var(--font-size--small);
 }
 

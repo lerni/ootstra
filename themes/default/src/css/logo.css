@@ -7,12 +7,12 @@
 	--logo-height: 100px;
 
 	ul.logos {
-		padding: calc(var(--lh) * 1em) 0 0;
+		padding: 1lh 0 0;
 		margin: 0;
 		list-style: none;
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(var(--logo-width), 1fr));
-		grid-gap: calc(var(--lh) * 1em);
+		grid-gap: 1lh;
 
 		&.greyscale li.logo figure img {
 			filter: grayscale(100%) saturate(.8);
