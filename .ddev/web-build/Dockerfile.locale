@@ -1,0 +1,4 @@
+# Generate Swiss German locale
+RUN echo "de_CH.UTF-8 UTF-8" >> /etc/locale.gen && \
+    locale-gen de_CH.UTF-8 && \
+    update-locale

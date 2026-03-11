@@ -111,7 +111,7 @@ class ElementHero extends BaseElement
                 new GridFieldAddExistingAutocompleter('toolbar-header-right')
             );
             $SlideGridFieldConfig->addComponent(new GridFieldOrderableRows('SortOrder'));
-            $gridField = new GridField('Slides', 'Slides', $this->owner->Slides(), $SlideGridFieldConfig);
+            $gridField = new GridField('Slides', 'Slides', $this->getOwner()->Slides(), $SlideGridFieldConfig);
             $fields->addFieldToTab('Root.Main', $gridField);
         } else {
             $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));

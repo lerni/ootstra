@@ -17,10 +17,10 @@ use League\CommonMark\GithubFlavoredMarkdownConverter;
 
 class FieldExtension extends Extension
 {
-
     private static $casting = [
         'Markdowned' => 'HTMLFragment',
-        'TrimEmbed' => 'HTMLFragment'
+        'TrimEmbed' => 'HTMLFragment',
+        'NormalizedXML' => 'HTMLFragment',
     ];
 
     public function CountLink()
@@ -31,15 +31,16 @@ class FieldExtension extends Extension
         }
         $dom = new DOMDocument();
         @$dom->loadHTML($stringwithnoemptylines);
-        $links = $dom->getElementsByTagName("a")->length;
-        return $links;
+
+        return $dom->getElementsByTagName("a")->length;
     }
 
     public function Length()
     {
-        if ($this->owner->value) {
-            return strlen($this->owner->value);
+        if ($this->getOwner()->value) {
+            return strlen($this->getOwner()->value);
         }
+
         return null;
     }
 
@@ -54,9 +55,9 @@ class FieldExtension extends Extension
             $c = 0;
             foreach ($lines as $l) {
                 if (
-                    $l != "" &&
+                    $l !== "" &&
                     (int)$start <= ($i + 1) &&
-                    ($c < (int)$max || (int)$max == 0)
+                    ($c < (int)$max || (int)$max === 0)
                 ) {
                     $r->push(ArrayData::create(['Item' => $l]));
                     ++$c;
@@ -69,14 +70,17 @@ class FieldExtension extends Extension
             foreach ($r as $line) {
                 $string .= $line->Item . PHP_EOL;
             }
+
             return $string;
         }
+
         return $r;
     }
 
     public function URLEnc()
     {
-        $filter = new URLSegmentFilter();
+        $filter = URLSegmentFilter::create();
+
         return $filter->filter($this->getOwner()->value);
     }
 
@@ -107,6 +111,7 @@ class FieldExtension extends Extension
             $number = stripslashes($phoneUtil->format($NumberProto, PhoneNumberFormat::INTERNATIONAL));
             $number = trim(preg_replace('/\s+/', '', $number));
             $number = str_replace('+', '', $number);
+
             return '00' . $number;
         }
     }
@@ -116,8 +121,10 @@ class FieldExtension extends Extension
         if ($this->getOwner()->value) {
             $converter = new GithubFlavoredMarkdownConverter();
             $html = $converter->convertToHtml($this->getOwner()->value);
+
             return DBHTMLText::create()->setValue($html->getContent());
         }
+
         return null;
     }
 
@@ -180,19 +187,20 @@ class FieldExtension extends Extension
 
             return DBHTMLText::create()->setValue($vidSrc);
         }
+
         return null;
     }
 
     public function unparse_url($parsed_url)
     {
-        $scheme   = isset($parsed_url['scheme']) ? $parsed_url['scheme'] . '://' : '';
-        $host     = $parsed_url['host'] ?? '';
-        $port     = isset($parsed_url['port']) ? ':' . $parsed_url['port'] : '';
-        $user     = $parsed_url['user'] ?? '';
-        $pass     = isset($parsed_url['pass']) ? ':' . $parsed_url['pass']  : '';
-        $pass     = ($user || $pass) ? $pass . '@' : '';
-        $path     = $parsed_url['path'] ?? '';
-        $query    = isset($parsed_url['query']) ? '?' . $parsed_url['query'] : '';
+        $scheme = isset($parsed_url['scheme']) ? $parsed_url['scheme'] . '://' : '';
+        $host = $parsed_url['host'] ?? '';
+        $port = isset($parsed_url['port']) ? ':' . $parsed_url['port'] : '';
+        $user = $parsed_url['user'] ?? '';
+        $pass = isset($parsed_url['pass']) ? ':' . $parsed_url['pass'] : '';
+        $pass = ($user || $pass) ? $pass . '@' : '';
+        $path = $parsed_url['path'] ?? '';
+        $query = isset($parsed_url['query']) ? '?' . $parsed_url['query'] : '';
         $fragment = isset($parsed_url['fragment']) ? '#' . $parsed_url['fragment'] : '';
 
         return $scheme . $user . $pass . $host . $port . $path . $query . $fragment;

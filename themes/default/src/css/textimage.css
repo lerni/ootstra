@@ -1,15 +1,28 @@
+@import "./custom-media.css";
+
 .element.elementtextimage {
 	.container {
 		display: grid;
 		column-gap: 1lh;
 		grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+		container-type: inline-size;
+		/* we target iphone 13 with that */
+		@media (--cm-m-neg) {
+			display: block;
+		}
 	}
 	.txt {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		padding-block: 1lh;
 		order: 0;
+
+		@container (max-width: calc(640px + 1lh)) {
+			padding-block: 1lh;
+		}
+		>*:last-child {
+			margin-bottom: 0;
+		}
 	}
 	figure {
 		margin: 0;
@@ -20,9 +33,14 @@
 		}
 	}
 	.txt.Image {
-		order: 1;
+		@container (min-width: calc(640px + 1lh)) {
+			order: 1;
+		}
 	}
 	figure.Image {
-		order: 0;
+		@container (min-width: calc(640px + 1lh)) {
+			order: 0;
+
+		}
 	}
 }

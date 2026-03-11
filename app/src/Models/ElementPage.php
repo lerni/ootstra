@@ -18,37 +18,37 @@ class ElementPage extends Page
 
     private static $owns = [];
 
-    private static $controller_name  = ElementPageController::class;
+    private static $controller_name = ElementPageController::class;
 
     private static $table_name = 'ElementPage';
 
     private static $class_description = 'Allows modular content composition with elements.';
 
-    public function CanonicalLink()
-    {
-        if (in_array(Controller::curr()->urlParams['Action'], [
-            'job',
-            'perso'
-        ])) {
-            $c = Controller::curr();
-            $siteConfig = SiteConfig::current_site_config();
-            if ($siteConfig->CanonicalDomain) {
-                $base = trim($siteConfig->CanonicalDomain, '/');
-            } else {
-                $base = Director::absoluteBaseURL();
-            }
-            // todo: primary should be respected here!!!
-            $siteURL = $c->Link();
-            $action = $c->urlParams['Action'];
-            $id = $c->urlParams['ID'];
-            return Controller::join_links(
-                $base,
-                $siteURL,
-                $action,
-                $id
-            );
-        }
-    }
+    // public function CanonicalLink()
+    // {
+    //     if (in_array(Controller::curr()->urlParams['Action'], [
+    //         'job',
+    //         'perso',
+    //     ])) {
+    //         $c = Controller::curr();
+    //         $siteConfig = SiteConfig::current_site_config();
+    //         if ($siteConfig->CanonicalDomain) {
+    //             $base = trim($siteConfig->CanonicalDomain, '/');
+    //         } else {
+    //             $base = Director::absoluteBaseURL();
+    //         }
+    //         $siteURL = $c->Link();
+    //         $action = $c->urlParams['Action'];
+    //         $id = $c->urlParams['ID'];
+
+    //         return Controller::join_links(
+    //             $base,
+    //             $siteURL,
+    //             $action,
+    //             $id,
+    //         );
+    //     }
+    // }
 
     public function getCMSFields()
     {

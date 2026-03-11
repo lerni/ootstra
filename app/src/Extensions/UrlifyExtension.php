@@ -3,12 +3,13 @@
 namespace App\Extensions;
 
 use App\Models\Perso;
-use App\Models\ElementPage;
+use Spatie\SchemaOrg\Schema;
+use App\Models\SlugHolderPage;
 use SilverStripe\View\SSViewer;
 use SilverStripe\Core\Extension;
-use SilverStripe\Model\ArrayData;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TextField;
+use SilverStripe\Model\ArrayData;
 use SilverStripe\Control\Director;
 use SilverStripe\View\Requirements;
 use SilverStripe\Control\Controller;
@@ -20,27 +21,26 @@ use SilverStripe\View\Parsers\URLSegmentFilter;
 use SilverStripe\CMS\Controllers\RootURLController;
 use SilverStripe\CMS\Forms\SiteTreeURLSegmentField;
 
-// WIP unify URLs on DataObject with Elemental
-// ATM we work with "Primary" Element but...
-// this functionality will likely change and 'll also be refactored into an extension
+// Unifies URL management for DataObjects that are managed via a SlugHolderPage in the CMS.
 
 class UrlifyExtension extends Extension
 {
+    private static array $slugHolderCache = [];
 
     private static $db = [
         'Sort' => 'Int',
         'Title' => 'Varchar',
         'URLSegment' => 'Varchar',
         'MetaTitle' => 'Varchar',
-        'MetaDescription' => 'Text'
+        'MetaDescription' => 'Text',
     ];
 
     private static $indexes = [
-        'URLSegment' => true
+        'URLSegment' => true,
     ];
 
     private static $defaults = [
-        'URLSegment' => 'new-item'
+        'URLSegment' => 'new-item',
     ];
 
     public function fieldLabels($includerelations = true)
@@ -66,7 +66,7 @@ class UrlifyExtension extends Extension
         $fields->removeByName([
             'Sort',
             'MetaTitle',
-            'MetaDescription'
+            'MetaDescription',
         ]);
 
         $MetaToggle = ToggleCompositeField::create(
@@ -74,8 +74,8 @@ class UrlifyExtension extends Extension
             _t(__CLASS__.'.MetadataToggle', 'Metadata'),
             [
                 $MetaTitleField = new TextField('MetaTitle'),
-                $MetaDescriptionField = new TextareaField('MetaDescription')
-            ]
+                $MetaDescriptionField = new TextareaField('MetaDescription'),
+            ],
         )->setHeadingLevel(4);
 
         $MetaTitleField->setTargetLength(60, 50, 60);
@@ -93,34 +93,29 @@ class UrlifyExtension extends Extension
 
         if ($page = $this->getOwner()->Parent()) {
             Requirements::add_i18n_javascript('silverstripe/cms: client/lang', false);
-            $parentSlug = $this->getOwner()->config()->parent_slug ?: 'item';
 
+            $topLink = $page->Link();
             // special case home
-            $base = Director::absoluteBaseURL();
-            $PageLink = $this->Parent()->getPage()->Link();
-            // special case home
-            if (strstr($PageLink, '?', true) == '/' || $PageLink === '/') {
+            if (strstr($topLink, '?', true) == '/' || $topLink === '/') {
                 $defaultHomepage = RootURLController::config()->get('default_homepage_link');
-                $PageLink = '/' . $defaultHomepage;
+                $topLink = '/' . $defaultHomepage;
             }
-            $topLink = Controller::join_links(
-                $PageLink,
-                $parentSlug
-            );
 
             $fields->insertAfter(
                 'Title',
                 SiteTreeURLSegmentField::create('URLSegment')
                     ->setURLPrefix($topLink . '/')
                     ->setURLSuffix('?stage=Live')
-                    ->setDefaultURL($this->getOwner()->generateURLSegment())
-
+                    ->setDefaultURL($this->getOwner()->generateURLSegment()),
             );
         } else {
-            $uiElement = _t('Kraftausdruck\Elements\ElementPodcast.BlockType', 'Podcast Element');
-            $message = _t(__CLASS__ . '.NoParentElement', 'A parent element is currently missing! Insert a {element} in the page tree and then assign a URL here.', [ 'element' => $uiElement ]);
+            $message = _t(
+                __CLASS__ . '.NoSlugHolderPage',
+                'No SlugHolderPage found for this model. Create one in the page tree and select this model type.',
+            );
             $fields->replaceField('URLSegment', LiteralField::create(
-                'NoParent', '<p class="alert alert-warning">'. $message .'</p>'
+                'NoParent',
+                '<p class="alert alert-warning">' . $message . '</p>',
             ));
         }
     }
@@ -156,24 +151,22 @@ class UrlifyExtension extends Extension
         $dmd = '';
         if ($this->getOwner()->MetaDescription) {
             $dmd = $this->getOwner()->MetaDescription;
-        } elseif ($this->getOwner()->Parent() && $this->getOwner()->Parent()->getPage()) {
-            $page = $this->getOwner()->Parent()->getPage();
+        } elseif ($page = $this->getOwner()->Parent()) {
             $dmd = $page->MetaDescription;
         }
+
         return $dmd;
     }
 
-    // returns the Element of the DO
-    public function Parent()
+    // Returns the SlugHolderPage managing this model type
+    public function Parent(): ?SlugHolderPage
     {
-        $parentClass = $this->getOwner()->config()->parent_class;
-        if($parentClass::get()->count()) {
-            $e = $parentClass::get()->filter(['Primary' => 1])->first();
-            if (!$e) {
-                $e = $parentClass::get()->first();
-            }
-            return $e;
+        $class = get_class($this->getOwner());
+        if (!array_key_exists($class, self::$slugHolderCache)) {
+            self::$slugHolderCache[$class] = SlugHolderPage::get()->filter('ManagedModel', $class)->first();
         }
+
+        return self::$slugHolderCache[$class];
     }
 
     public function generateURLSegment()
@@ -188,32 +181,24 @@ class UrlifyExtension extends Extension
         if ($this->getOwner()->ID && $this->getOwner()->ClassName::get()->filter(['URLSegment' => $this->getOwner()->URLSegment])->exclude('ID', $this->getOwner()->ID)->count() > 0) {
             $anchor .= '-' . $this->getOwner()->ID;
         }
+
         return $anchor;
     }
 
     public function Link($action = null)
     {
-        $parentSlug = $this->getOwner()->config()->parent_slug;
-        // $action = $c->urlParams['Action'];
-        if ($this->getOwner()->Parent() && $this->getOwner()->isInDB()) {
-        // if ($this->owner->Parent() && $this->owner->isInDB() && $parentSlug == $action) {
-            $areaID = $this->getOwner()->Parent()->ParentID;
-            $Page = ElementPage::get()->filter(['ElementalAreaID' => $areaID])->first();
-            if ($Page) {
-                $siteURL = $Page->Link();
-                // special case home
-                if (strstr($siteURL, '?', true) == '/' || $siteURL === '/') {
-                    $defaultHomepage = RootURLController::config()->get('default_homepage_link');
-                    $siteURL = '/' . $defaultHomepage;
-                }
-                return Controller::join_links(
-                    $siteURL,
-                    $parentSlug,
-                    $this->getOwner()->URLSegment,
-                    $action
-                );
-            }
+        if (!$this->getOwner()->isInDB()) {
+            return null;
         }
+        $holder = $this->getOwner()->Parent();
+        if ($holder) {
+            return Controller::join_links(
+                $holder->Link(),
+                $this->getOwner()->URLSegment,
+                $action,
+            );
+        }
+
         return null;
     }
 
@@ -222,7 +207,39 @@ class UrlifyExtension extends Extension
         if ($this->Link()) {
             return Director::absoluteURL($this->Link($action));
         }
+
         return null;
+    }
+
+    public function BreadcrumbListSchema(): string
+    {
+        $pageObjs = [];
+        $i = 1;
+
+        $page = Controller::curr()->data();
+        if ($page && $page->hasMethod('getBreadcrumbItems')) {
+            foreach ($page->getBreadcrumbItems() as $item) {
+                $pageObjs[] = Schema::ListItem()
+                    ->position($i++)
+                    ->name($item->Title)
+                    ->item(
+                        Schema::Thing()->setProperty('@id', $item->AbsoluteLink()),
+                    );
+            }
+        }
+
+        if ($this->getOwner()->Link()) {
+            $pageObjs[] = Schema::ListItem()
+                ->position($i)
+                ->name($this->getOwner()->Title)
+                ->item(
+                    Schema::Thing()->setProperty('@id', $this->getOwner()->AbsoluteLink()),
+                );
+        }
+
+        return Schema::BreadcrumbList()
+            ->itemListElement($pageObjs)
+            ->toScript();
     }
 
     public function Breadcrumbs($maxDepth = 20, $unlinked = false, $stopAtPageType = false, $showHidden = false)
@@ -242,7 +259,7 @@ class UrlifyExtension extends Extension
         $template = new SSViewer('BreadcrumbsTemplate');
 
         return $template->process($this->getOwner()->customise(ArrayData::create([
-            'Pages' => new ArrayList(array_reverse($pages))
+            'Pages' => new ArrayList(array_reverse($pages)),
         ])));
     }
 
@@ -255,8 +272,7 @@ class UrlifyExtension extends Extension
         if ($this->getOwner()->ClassName::get()
             ->filter(['URLSegment' => $this->getOwner()->URLSegment])
             ->exclude(['ID' => $this->getOwner()->ID])
-            ->count())
-        {
+            ->count()) {
             $this->getOwner()->URLSegment .= '-' . $this->getOwner()->ID;
             $this->getOwner()->write();
         }
@@ -269,10 +285,12 @@ class UrlifyExtension extends Extension
         return 1;
     }
 
-    public function getMenuTitle() {
+    public function getMenuTitle()
+    {
         if (property_exists($this->getOwner(), 'MenuTitle') && strlen($this->getOwner()->MenuTitle)) {
             return $this->getOwner()->MenuTitle;
         }
+
         return $this->getOwner()->Title;
     }
 }

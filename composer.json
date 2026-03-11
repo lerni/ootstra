@@ -15,6 +15,10 @@
 		{
 			"type": "vcs",
 			"url": "https://github.com/lerni/silverstripe-opengraph"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/lerni/silverstripe-betternavigator"
 		}
 	],
 	"require": {
@@ -29,7 +33,7 @@
 		"kinglozzer/metatitle": "^4",
 		"symbiote/silverstripe-gridfieldextensions": "^5",
 		"wilr/silverstripe-googlesitemaps": "^4",
-		"jonom/silverstripe-betternavigator": "^7",
+		"jonom/silverstripe-betternavigator": "dev-silverstripe-cms-target as 7.0.1",
 		"jonom/focuspoint": "^6",
 		"silverstripe/userforms": "^7",
 		"silverstripe/blog": "^5",
@@ -70,7 +74,8 @@
 		"dnadesign/silverstripe-populate": "^4",
 		"pstaender/ssshell": "^0",
 		"phpunit/phpunit": "^11.3",
-		"friendsofphp/php-cs-fixer": "^3"
+		"friendsofphp/php-cs-fixer": "^3",
+		"wernerkrauss/silverstripe-rector": "^1"
 	},
 	"extra": {
 		"expose": [

@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Perso;
 use Bigfork\Vitesse\Vite;
 use SilverStripe\Admin\LeftAndMain;
 use SilverStripe\View\Requirements;
@@ -9,10 +8,6 @@ use SilverStripe\CMS\Controllers\ContentController;
 
 class PageController extends ContentController
 {
-    private static $allowed_actions = [
-        'perso'
-    ];
-
     protected function init()
     {
         parent::init();
@@ -50,25 +45,5 @@ class PageController extends ContentController
                 $this->response->addHeader('link', implode(',', $linkHeaders));
             }
         }
-    }
-
-    // todo extension
-    public function perso()
-    {
-        $URLSegment = $this->getRequest()->param('ID');
-        $perso = Perso::get()->filter('URLSegment', $URLSegment)->first();
-
-        if ($perso) {
-
-            $r['Perso'] = $perso;
-            $r['Breadcrumbs'] = $perso->Breadcrumbs();
-
-            if ($perso->Firstname && $perso->Lastname) {
-                $r['MetaTitle'] = $perso->Firstname . ', ' . $perso->Lastname;
-            }
-
-            return $r;
-        }
-        return $this->httpError(404, _t('Kraftausdruck\Elements\ElementJobs.NotFound', 'false'));
     }
 }

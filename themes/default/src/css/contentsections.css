@@ -99,7 +99,7 @@
 						}
 					}
 					.content {
-						font-size: var(--font-size);
+						font-size: inherit;
 						line-height: calc(var(--line-height) * 1em);
 						opacity: 1;
 					}

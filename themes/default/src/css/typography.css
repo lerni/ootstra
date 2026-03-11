@@ -50,18 +50,16 @@
 		margin: 0 0 0.5lh 0;
 	}
 
-	/* LINKS
+	/* LINKS with no block-element-children
 	-------------------------------------------- */
-	a {
+	a:not(:has(img, picture, svg, div)) {
 		text-decoration: none;
+		color: var(--link-color);
 		/* &:visited {
 			color: var(--link-color);
 		} */
-		&:not([class]) {
-			color: var(--link-color);
-			&:hover {
-				color: var(--current-color);
-			}
+		&:hover {
+			color: var(--current-color);
 		}
 	}
 

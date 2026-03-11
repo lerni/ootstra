@@ -63,7 +63,7 @@ Array.prototype.forEach.call(heroSwiper, function (slider) {
 // });
 
 const multipleSwiper = document.querySelectorAll(
-  ".swiper-container.teaser, .swiper-container.multiple, .swiper-container.perso-cfa"
+  ".swiper-container.multiple, .swiper-container.perso-cfa"
 );
 Array.prototype.forEach.call(multipleSwiper, function (slider) {
   const sliderID = slider.getAttribute("id");
@@ -84,6 +84,10 @@ Array.prototype.forEach.call(multipleSwiper, function (slider) {
     keyboard: {
       enabled: true,
       onlyInViewport: true,
+    },
+    navigation: {
+      nextEl: sliderNext,
+      prevEl: sliderPrev,
     },
     breakpoints: {
       980: {

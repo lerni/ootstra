@@ -92,7 +92,7 @@ class Perso extends DataObject
         }
 
         if ($MotivationField = $fields->dataFieldByName('Motivation')) {
-            $MotivationField->getEditorConfig()->setOption('body_class', 'typography perso background--' . $this->owner->BackgroundColor);
+            $MotivationField->getEditorConfig()->setOption('body_class', 'typography perso background--' . $this->getOwner()->BackgroundColor);
             $MotivationField->setRows(10);
         }
 

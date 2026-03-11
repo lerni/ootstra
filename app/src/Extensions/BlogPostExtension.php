@@ -16,7 +16,7 @@ class BlogPostExtension extends Extension
 
     private static $summary_fields = [
         'BlogThumbnail' => 'Thumbnail',
-        'Title' => 'Titel'
+        'Title' => 'Titel',
     ];
 
     public function updateCMSFields(FieldList $fields)
@@ -85,12 +85,13 @@ class BlogPostExtension extends Extension
             $lowestSortLive = DB::query(sprintf(
                 'SELECT MIN(Sort) FROM %s WHERE ParentID = %d',
                 $liveTable,
-                $this->getOwner()->ParentID
+                $this->getOwner()->ParentID,
             ))->value();
 
             // Handle empty blog (no posts yet) - start at 0
             if ($lowestSortDraft === null && $lowestSortLive === null) {
                 $this->getOwner()->Sort = 0;
+
                 return;
             }
 
@@ -110,13 +111,13 @@ class BlogPostExtension extends Extension
             DB::query(sprintf(
                 'UPDATE %s SET Sort = Sort + 1 WHERE ParentID = %d',
                 $baseTable,
-                $this->getOwner()->ParentID
+                $this->getOwner()->ParentID,
             ));
 
             DB::query(sprintf(
                 'UPDATE %s SET Sort = Sort + 1 WHERE ParentID = %d',
                 $liveTable,
-                $this->getOwner()->ParentID
+                $this->getOwner()->ParentID,
             ));
         }
     }

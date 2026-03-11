@@ -1,4 +1,6 @@
 # Instructions for Silverstripe Project
+> **Project Name**: Derived from folder name
+> **Local URL**: `https://{projectname}.ddev.site` where `{projectname}` = folder name  
 
 ## Project Overview
 This is an opinionated Silverstripe CMS project that provides a ready-to-run, build & deploy CMS instance. It uses:
@@ -263,6 +265,37 @@ Add these to any URL during development:
 - `/dev/config/audit` - Audit Config for missing PHP definitions
 - `/dev/tasks` - List all available tasks
 
+### Agent Debugging Capabilities
+**Agents should actively use these tools when debugging:**
+
+- **Browser + URL parameters**: Use `open_browser_page()` with debug parameters
+  - `?showqueries=1` - Inspect actual SQL queries being executed
+  - `?debug_request=1` - See full request flow from HTTPRequest to rendering
+  - `?showtemplate` - Debug template rendering with line numbers
+  - `/dev/config` - Inspect configuration manifest
+  - `/dev/tasks` - Browse available tasks
+  
+- **SSShell queries**: Use piped FQN queries with `PAGER=cat php ./vendor/bin/ssshell | cat`
+  
+- **PHPActor analysis**: Use `get_errors()` for static analysis and code quality checks
+  
+- **Log inspection**: Use `grep_search` or `read_file` on `silverstripe.log`
+
+**Example agent debugging workflow:**
+```bash
+# 1. Check for static analysis errors
+get_errors({ filePaths: ['/var/www/html/app/src/Models/Player.php'] })
+
+# 2. Open page with query debugging
+open_browser_page('https://{projectname}.ddev.site/players?showqueries=1')
+
+# 3. Inspect database state
+echo "App\Models\Player::get()->count()" | PAGER=cat php ./vendor/bin/ssshell | cat
+
+# 4. Check logs for errors
+grep_search({ query: 'error|warning|exception', includePattern: 'silverstripe.log' })
+```
+
 ## Extensions and Modules
 
 ### Core CMS Extensions
@@ -352,7 +385,6 @@ When helping with this project, prioritize Silverstripe best practices, DDEV wor
 - Use PHPUnit for testing (configured in `phpunit.xml.dist`)
 - PHPCS configuration available in `phpcs.xml.dist`)
 - Never ever consider using deployment scripts or push & pull data to environments managed by deployer
-- Use Better Navigator dev toolbar for debugging in development
 
 ## Performance Considerations
 - Images use FocusPoint for smart cropping and responsive srcsets

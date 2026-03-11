@@ -5,7 +5,7 @@
 	<nav class="breadcrumbs"><div class="inner">{$Breadcrumbs}</div></nav>
 	<article class="element elementperso horizontal-spacing spacing-top-0 spacing-bottom-2 after-hero">
 		<div class="typography">
-			<% with $Perso %>
+			<% with $CurrentItem %>
 				<div class="persos single">
 					<div id="$Anchor" class="perso">
 						<figure>

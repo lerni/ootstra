@@ -9,13 +9,13 @@
 	<figure>
 		<img src="$getDefaultOGImage(1).Link" alt="$getDefaultOGImage(1).Title">
 		<figcaption class="label">
-			<a class="og-edit" alt="edit {$getDefaultOGImage(1).Title}" target="_blank" href="{$getDefaultOGImage(1).CMSEditLink}"></a>
+			<a class="og-edit" alt="edit {$getDefaultOGImage(1).Title}" target="silverstripe-cms" href="{$getDefaultOGImage(1).CMSEditLink}"></a>
 			<strong><%t App\Models\MetaOverviewPage.OGImageLabel 'OG Image' %>:</strong> $getDefaultOGImage(1).Title
 		</figcaption>
 	</figure>
 <% end_if %>
 <div class="txt">
-	<a target="_blank" class="edit" alt="edit" href="/admin/pages/edit/show/{$ID}"></a>
+	<a target="silverstripe-cms" class="edit" alt="edit" href="/admin/pages/edit/show/{$ID}"></a>
 	<h3>$Title ID:{$ID} <span class="gray">(Title)</span></h3>
 	<p>
 		<a target="_blank" href="$Link">$Link</a><br/>
@@ -45,7 +45,7 @@
 						data-fancybox="group{$Up.ID}">
 						<img src="{$AbsoluteLink}" alt="$Title" />
 					</a>
-					<a class="edit" alt="edit {$Title}" target="_blank" href="{$CMSEditLink}"></a>
+					<a class="edit" alt="edit {$Title}"  target="silverstripe-cms" href="{$CMSEditLink}"></a>
 						<h4>{$Title}</h4>
 						<p>$Caption.LimitWordCount(16)</p>
 					</a>

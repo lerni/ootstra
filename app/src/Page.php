@@ -26,15 +26,14 @@ use DNADesign\Elemental\Extensions\ElementalPageExtension;
 
 class Page extends SiteTree
 {
-
     private static $db = [
-        'HideSubNavi' => 'Boolean'
+        'HideSubNavi' => 'Boolean',
     ];
 
     private static $has_one = [];
 
     private static $many_many = [
-        'PageCategories' => BlogCategory::class
+        'PageCategories' => BlogCategory::class,
     ];
 
     private static $table_name = 'Page';
@@ -47,7 +46,7 @@ class Page extends SiteTree
         $this->beforeUpdateCMSFields(function (FieldList $fields): void {
             $fields->removeByName([
                 'ExtraMeta',
-                'HideSubNavi'
+                'HideSubNavi',
             ]);
 
             if (!Permission::check('ADMIN') && $this->isHomePage()) {
@@ -89,7 +88,7 @@ class Page extends SiteTree
                 'PageCategories',
                 _t('SilverStripe\Blog\Model\Blog.Categories', 'Categories'),
                 BlogCategory::get(),
-                $this->PageCategories()
+                $this->PageCategories(),
             );
 
             $fields->addFieldToTab('Root.Main', $CategoryField, 'Metadata');
@@ -102,8 +101,9 @@ class Page extends SiteTree
     {
         $parts = [
             $this->MetaTitle ?: $this->Title,
-            $this->getSiteConfig()->Title
+            $this->getSiteConfig()->Title,
         ];
+
         return implode(' | ', array_filter($parts));
     }
 
@@ -118,6 +118,7 @@ class Page extends SiteTree
         if (!isset($metaDescription)) {
             $metaDescription = $this->getSiteConfig()->MetaDescription;
         }
+
         return $metaDescription;
     }
 
@@ -128,22 +129,22 @@ class Page extends SiteTree
                 'Root.Settings',
                 CheckboxField::create(
                     'HideSubNavi',
-                    _t(__CLASS__ . '.HIDESUBNAVI', 'Hide sub navigation')
+                    _t(__CLASS__ . '.HIDESUBNAVI', 'Hide sub navigation'),
                 ),
-                'ShowInSearch'
+                'ShowInSearch',
             );
         });
 
         return parent::getSettingsFields();
     }
 
-    public function getDefaultOGDescription($limitChar = 0, $limitWordCount = 25)
+    public function getDefaultOGDescription($limitChar = null, $limitWordCount = 25, $summarySuffix = '...')
     {
         $descreturn = null;
 
         // In case of BlogPost use Summary it set
-        if ($this->ClassName == BlogPost::class && $this->Summary) {
-            $description = trim($this->obj('Summary')->Summary($limitWordCount, '...', 5));
+        if ($this->ClassName == BlogPost::class) {
+            $description = trim($this->obj('Summary')->Summary($limitWordCount, $summarySuffix));
             if (!empty($description)) {
                 $descreturn = strip_tags($description);
             }
@@ -164,7 +165,7 @@ class Page extends SiteTree
 
         // Use MetaDescription if set
         if ($this->MetaDescription) {
-            $description = trim($this->obj('MetaDescription')->Summary($limitWordCount, '...', 5));
+            $description = trim($this->obj('MetaDescription')->Summary($limitWordCount, $summarySuffix));
             if (!empty($description)) {
                 $descreturn = $description;
             }
@@ -173,13 +174,13 @@ class Page extends SiteTree
         if (!$descreturn) {
             // Fall back to Content
             if ($this->Content) {
-                $description = trim($this->obj('Content')->Summary($limitWordCount, 5));
+                $description = trim($this->obj('Content')->Summary($limitWordCount, $summarySuffix));
                 if (!empty($description)) {
                     $descreturn = $description;
                 }
             }
             if ($this->hasExtension(ElementalPageExtension::class)) {
-                $descreturn = trim(($this->obj('getElementsForSummary')->Summary($limitWordCount, 5)));
+                $descreturn = trim(($this->obj('getElementsForSummary')->Summary($limitWordCount, $summarySuffix)));
             }
         }
 
@@ -257,6 +258,7 @@ class Page extends SiteTree
         } else {
             $baseURL = Director::baseURL();
         }
+
         return $baseURL;
     }
 
@@ -274,6 +276,7 @@ class Page extends SiteTree
                 return true;
             }
         }
+
         return null;
     }
 
@@ -301,12 +304,14 @@ class Page extends SiteTree
             }
             $r->push($Cat);
         }
+
         return $r;
     }
 
     public function getHomePage()
     {
         $defaultHomepage = RootURLController::config()->get('default_homepage_link');
+
         return SiteTree::get()->filter('URLSegment', $defaultHomepage)->first();
     }
 
@@ -372,10 +377,12 @@ class Page extends SiteTree
         }
     }
 
-    public function IsMember() {
-		if($member = Security::getCurrentUser()) {
-			return $member;
-		}
-		return false;
-	}
+    public function IsMember()
+    {
+        if ($member = Security::getCurrentUser()) {
+            return $member;
+        }
+
+        return false;
+    }
 }

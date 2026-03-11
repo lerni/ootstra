@@ -20,7 +20,6 @@ use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 class ElementPerso extends BaseElement
 {
     private static $db = [
-        'Primary' => 'Boolean',
         'GroupByDepartment' => 'Boolean',
         'Sorting' => 'Enum("random,manual,alphabetically","random")',
     ];
@@ -31,12 +30,12 @@ class ElementPerso extends BaseElement
 
     private static $many_many = [
         'Departments' => Department::class,
-        'Persos' => Perso::class
+        'Persos' => Perso::class,
     ];
 
     private static $many_many_extraFields = [
         'Departments' => [
-            'DepartmentsSortOrder' => 'Int'
+            'DepartmentsSortOrder' => 'Int',
         ],
         'Persos' => [
             'PersosSortOrder' => 'Int'
@@ -44,11 +43,11 @@ class ElementPerso extends BaseElement
     ];
 
     private static $owns = [
-        'Departments'
+        'Departments',
     ];
 
     private static $defaults = [
-        'AvailableGlobally' => false
+        'AvailableGlobally' => false,
     ];
 
     private static $table_name = 'ElementPerso';
@@ -71,6 +70,7 @@ class ElementPerso extends BaseElement
     {
         $labels = parent::fieldLabels($includerelations);
         $labels['GroupByDepartment'] = _t(__CLASS__ . '.GROUPBYDEPARTMENT', 'Group by department');
+
         return $labels;
     }
 
@@ -81,7 +81,7 @@ class ElementPerso extends BaseElement
         $fields->removeByName([
             'Persos',
             'isFullWidth',
-            'Departments'
+            'Departments',
         ]);
 
         if ($AvailableGloballyField = $fields->dataFieldByName('AvailableGlobally')) {
@@ -97,7 +97,7 @@ class ElementPerso extends BaseElement
                 new GridFieldDetailForm(),
                 new GridFieldAddNewButton('toolbar-header-left'),
                 new GridFieldAddExistingAutocompleter('toolbar-header-right'),
-                new GridFieldOrderableRows('DepartmentsSortOrder')
+                new GridFieldOrderableRows('DepartmentsSortOrder'),
             );
             $DepGFConfig->removeComponentsByType(GridFieldFilterHeader::class);
             $GFDep = new GridField('Departments', 'Abteilungen', $this->Departments(), $DepGFConfig);
@@ -116,7 +116,7 @@ class ElementPerso extends BaseElement
                 new GridFieldDeleteAction(true),
                 new GridFieldDetailForm(),
                 new GridFieldAddNewButton('toolbar-header-left'),
-                new GridFieldAddExistingAutocompleter('toolbar-header-right')
+                new GridFieldAddExistingAutocompleter('toolbar-header-right'),
             );
             if ($this->Sorting == 'manual' && $this->GroupByDepartment == 0) {
                 $PersoGFConfig->addComponent(new GridFieldOrderableRows('PersosSortOrder'));
@@ -134,21 +134,6 @@ class ElementPerso extends BaseElement
 
         if (($SortingField = $fields->dataFieldByName('Sorting')) && $this->GroupByDepartment) {
             $SortingField->setDisabled(true);
-        }
-
-        if ($PrimaryField = $fields->dataFieldByName('Primary')) {
-            if (!$this->Primary && $this->ClassName::get()->filter(['Primary' => 1])->count()) {
-                $PrimaryPersoElement = $this->ClassName::get()->filter(['Primary' => 1])->first()->AbsoluteLink();
-                $PrimaryField = LiteralField::create(
-                    'PrimaryIs',
-                    sprintf(
-                        '<p class="alert alert-info">Primary Job Element is %s</p>',
-                        $PrimaryPersoElement
-                    )
-                );
-            }
-            $fields->addFieldToTab('Root.Settings', $PrimaryField);
-            $PrimaryField->setTitle('Primärers PersoElement (linked)');
         }
 
         return $fields;
@@ -174,17 +159,8 @@ class ElementPerso extends BaseElement
         if ($this->Sorting == 'alphabetically') {
             $all = $all->sort(['Lastname' => 'ASC', 'Firstname' => 'ASC']);
         }
-        return $all;
-    }
 
-    // first one should be primary unless selected differently
-    public function onAfterPopulateDefaults()
-    {
-        $this->Primary = 1;
-        if ($PersoElements = $this->ClassName::get()->filter('Primary', 1)->count()) {
-            $this->Primary = 0;
-        }
-        parent::onAfterPopulateDefaults();
+        return $all;
     }
 
     public function getType()

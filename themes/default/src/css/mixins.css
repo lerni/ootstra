@@ -30,8 +30,10 @@
 	font-size: 1em;
 	cursor: pointer;
 	min-block-size: 1.5lh;
+	line-height: 1;
 	padding-inline: 0.75lh;
-	padding-block-start: 0.25lh;
+	padding-block: 0.5lh;
+	text-wrap: balance;
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;

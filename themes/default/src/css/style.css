@@ -177,6 +177,9 @@ nav.cat-tag {
 	justify-content: flex-start;
 	margin: 0 auto;
 	padding-block: 1lh 2lh;
+	@media (--cm-m-neg) {
+		gap: 0.5lh;
+	}
 	> span,
 	> a {
 		display: inline-block;
@@ -196,6 +199,11 @@ nav.cat-tag {
 		}
 		&:not(.current) {
 			background-color: transparent;
+		}
+	}
+	a {
+		@media (--cm-m-neg) {
+			flex-basis: 100%;
 		}
 	}
 	> a.all:not(.current) {

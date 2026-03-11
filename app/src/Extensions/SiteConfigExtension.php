@@ -38,7 +38,7 @@ class SiteConfigExtension extends Extension
         'foundingDate' => DBDate::class,
         'GlobalAlert' => 'HTMLText',
         'DefaultHeroSize' => 'Enum("small,medium","small")',
-        'SchemaType' => 'Varchar'
+        'SchemaType' => 'Varchar',
     ];
 
     private static $has_one = [];
@@ -47,38 +47,38 @@ class SiteConfigExtension extends Extension
         'Locations' => Location::class,
         'ServiceNavigationItems' => Link::class . '.Owner',
         'TermsNavigationItems' => Link::class . '.Owner',
-        'Vacation' => Vacation::class
+        'Vacation' => Vacation::class,
     ];
 
     private static $many_many = [
         'SocialLinks' => SocialLink::class,
-        'DefaultHeaderSlides' => Slide::class
+        'DefaultHeaderSlides' => Slide::class,
     ];
 
     private static $many_many_extraFields = [
         'SocialLinks' => [
-            'SortOrder' => 'Int'
+            'SortOrder' => 'Int',
         ],
         'DefaultHeaderSlides' => [
-            'SortOrder' => 'Int'
-        ]
+            'SortOrder' => 'Int',
+        ],
     ];
 
     private static $owns = [
         'DefaultHeaderSlides',
         'ServiceNavigationItems',
-        'TermsNavigationItems'
+        'TermsNavigationItems',
     ];
 
     private static $translate = [
         'Title',
-        'MetaDescription'
+        'MetaDescription',
     ];
 
     public function updateCMSFields(FieldList $fields)
     {
         $fields->removeByName([
-            'Tagline'
+            'Tagline',
         ]);
 
         $fields->renameField('Title', _t('SilverStripe\SiteConfig\SiteConfig.TITLE', 'Title / Name'));
@@ -92,7 +92,7 @@ class SiteConfigExtension extends Extension
 
         $fields->addFieldToTab('Root.Main', HeaderField::create('MetaData', 'Meta Daten'));
         $fields->addFieldToTab('Root.Main', $MetaDescriptionField = TextareaField::create('MetaDescription', _t('SilverStripe\SiteConfig\SiteConfig.METADESCRIPTION', 'Meta Description')));
-        $MetaDescriptionField->setTargetLength(160, 100, 160);
+        $MetaDescriptionField->setTargetLength(150, 100, 160);
         $MetaDescriptionField->setDescription(_t('SilverStripe\SiteConfig\SiteConfig.MetaDescriptionDescription', 'Default value if no description is present at page level.'));
 
         $fields->addFieldsToTab('Root.Main', [$GlobalAlertField = HTMLEditorField::create('GlobalAlert')]);
@@ -108,7 +108,7 @@ class SiteConfigExtension extends Extension
             new GridFieldDetailForm(),
             new GridFieldAddNewButton('toolbar-header-left'),
             new GridFieldAddExistingAutocompleter('toolbar-header-right'),
-            new GridFieldOrderableRows('SortOrder')
+            new GridFieldOrderableRows('SortOrder'),
         );
         $SlideGridFieldConfig->removeComponentsByType(GridFieldFilterHeader::class);
         $gridField = new GridField('DefaultHeaderSlides', _t('SilverStripe\SiteConfig\SiteConfig.DEFAULTHEADERSLIDES'), $this->owner->DefaultHeaderSlides(), $SlideGridFieldConfig);
@@ -125,20 +125,20 @@ class SiteConfigExtension extends Extension
                 MultiLinkField::create('ServiceNavigationItems', _t('SilverStripe\SiteConfig\SiteConfig.SERVICENAVIGATIONITEMS', 'Service Navigation'))
                     ->setDescription(_t('SilverStripe\SiteConfig\SiteConfig.ServiceNavigationItemsDescription', 'Links above main navigation in header')),
                 MultiLinkField::create('TermsNavigationItems', _t('SilverStripe\SiteConfig\SiteConfig.TERMSNAVIGATIONITEMS', 'Terms Navigation'))
-                    ->setDescription(_t('SilverStripe\SiteConfig\SiteConfig.TermsNavigationItemsDescription', 'Links footer (AGB, Legal, Imprint etc.)'))
-            ]
+                    ->setDescription(_t('SilverStripe\SiteConfig\SiteConfig.TermsNavigationItemsDescription', 'Links footer (AGB, Legal, Imprint etc.)')),
+            ],
         );
 
         $LocationConf = GridFieldConfig_Base::create(20);
         $LocationConf->removeComponentsByType([
-            GridFieldFilterHeader::class
+            GridFieldFilterHeader::class,
         ]);
         $LocationConf->addComponents(
             new GridFieldEditButton(),
             new GridFieldDeleteAction(false),
             new GridFieldDetailForm(),
             new GridFieldOrderableRows('Sort'),
-            new GridFieldAddNewButton('toolbar-header-left')
+            new GridFieldAddNewButton('toolbar-header-left'),
         );
 
         $LocationGridField = GridField::create('Locations', 'Locations', $this->getOwner()->Locations(), $LocationConf);
@@ -148,30 +148,32 @@ class SiteConfigExtension extends Extension
 
         $SnippetGFConf = GridFieldConfig_Base::create(20);
         $SnippetGFConf->removeComponentsByType([
-            GridFieldFilterHeader::class
+            GridFieldFilterHeader::class,
         ]);
         $SnippetGFConf->addComponents(
             new GridFieldEditButton(),
             new GridFieldDeleteAction(false),
             new GridFieldDetailForm(),
-            new GridFieldAddNewButton('toolbar-header-left')
+            new GridFieldAddNewButton('toolbar-header-left'),
         );
         $SnippetGridField = new GridField('Snipped', 'Snippets', ShortCodeSnippet::get(), $SnippetGFConf);
-        $fields->addFieldToTab('Root', Tab::create('Snippets', 'Snippets',
-            $SnippetGridField
+        $fields->addFieldToTab('Root', Tab::create(
+            'Snippets',
+            'Snippets',
+            $SnippetGridField,
         ));
 
 
         $SocialConf = GridFieldConfig_Base::create(20);
         $SocialConf->removeComponentsByType([
-            GridFieldFilterHeader::class
+            GridFieldFilterHeader::class,
         ]);
         $SocialConf->addComponents(
             new GridFieldEditButton(),
             new GridFieldDeleteAction(false),
             new GridFieldDetailForm(),
             new GridFieldOrderableRows('SortOrder'),
-            new GridFieldAddNewButton('toolbar-header-left')
+            new GridFieldAddNewButton('toolbar-header-left'),
         );
 
         $SocialGridField = GridField::create('SocialLinks', 'SocialLinks', $this->getOwner()->SocialLinks(), $SocialConf);
@@ -179,18 +181,20 @@ class SiteConfigExtension extends Extension
 
         $VacationGFConf = GridFieldConfig_Base::create(20);
         $VacationGFConf->removeComponentsByType([
-            GridFieldFilterHeader::class
+            GridFieldFilterHeader::class,
         ]);
         $VacationGFConf->addComponents(
             new GridFieldEditButton(),
             new GridFieldDeleteAction(false),
             new GridFieldDetailForm(),
-            new GridFieldAddNewButton('toolbar-header-left')
+            new GridFieldAddNewButton('toolbar-header-left'),
         );
         $vacationString = _t('SilverStripe\SiteConfig\SiteConfig.VacationsHolidays', 'Vacations & Holidays');
         $VacttionGridField = GridField::create('Vacation', $vacationString, Vacation::get(), $VacationGFConf);
-        $fields->addFieldToTab('Root', Tab::create($vacationString, $vacationString,
-            $VacttionGridField
+        $fields->addFieldToTab('Root', Tab::create(
+            $vacationString,
+            $vacationString,
+            $VacttionGridField,
         ));
     }
 }

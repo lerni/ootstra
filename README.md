@@ -97,13 +97,28 @@ Default CMS-Login at [/admin](https://PROJECTNAME.ddev.site/admin) is `admin` & 
 ### ssh forwarding, ddev-ssh-agent
 This setup omits `ddev-ssh-agent` and exposes `SSH_AUTH_SOCK` from the host system into the web container in order to use local SSH keys. To make that work, key files from `~/.ssh` or the whole directories must be exposed into ddev by creating symlinks in `~/.ddev/homeadditions`. On macOS, the option `IgnoreUnknown UseKeychain` in `~/.ssh/config` causes `Bad configuration option` in the container, so symlinking individual files from `~/.ssh/` into `~/.ddev/homeadditions` and having a separate/copy of `~/.ddev/homeadditions/.ssh/config` worked for me ;)
 For more information, refer to the [ddev documentation](https://ddev.readthedocs.io/en/stable/users/extend/in-container-configuration/) & [OpenSSH updates in macOS](https://developer.apple.com/library/archive/technotes/tn2449/_index.html), [DDEV issue](https://github.com/ddev/ddev/issues/1904)
-```bash
+
+**Container `.ddev/homeadditions/.ssh/config`:**
+```ssh-config
 UserKnownHostsFile=~/.ssh/known_hosts
 StrictHostKeyChecking=accept-new
 Host *
     ForwardAgent yes
 ```
-To use `ddev-ssh-agent` instead, following configuration in `.ddev/config.yaml` can be removed and `.ddev/docker-compose.ssh-agent.yaml` can be deleted.
+
+**MacOS**
+SSH keys must be explicitly added to the keychain once. This may also be needed after macOS updates:
+```zsh
+# Add your SSH key(s) to the keychain (replace with your actual key filename)
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+
+# Verify keys are loaded
+ssh-add -l
+```
+
+The `--apple-use-keychain` flag stores the passphrase in macOS Keychain, so you won't be prompted again after reboots. The `UseKeychain yes` setting in `~/.ssh/config` allows SSH to automatically retrieve keys from the keychain.
+
+To use `ddev-ssh-agent` instead, following configuration in `.ddev/config.yaml` can be removed and `.ddev/docker-compose.sshagent.yaml` can be deleted.
 ```yaml
 omit_containers: [ddev-ssh-agent]
 webimage_extra_packages: [openssh-client]
@@ -112,7 +127,7 @@ web_environment:
 ```
 
 ### npm, Vite watch & build etc.
-[Laravel's Vite components](https://laravel.com/docs/12.x/vite) are used as the frontend build environment. 
+[Laravel's Vite components](https://laravel.com/docs/12.x/vite) are used as the frontend build environment.
 
 **With devcontainer:** The `postCreateCommand` automatically runs `npm install`. Use `npm --prefix themes/default run dev` for watch mode or VS Code task "npm watch". Production: `npm --prefix themes/default run build` or task "npm prod".
 

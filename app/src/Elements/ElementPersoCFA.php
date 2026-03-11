@@ -18,7 +18,6 @@ use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
 class ElementPersoCFA extends BaseElement
 {
-
     private static $db = [
         'Above' => 'HTMLText',
         'CountMax' => 'Int',
@@ -31,13 +30,13 @@ class ElementPersoCFA extends BaseElement
     private static $has_many = [];
 
     private static $many_many = [
-        'Persos' => Perso::class
+        'Persos' => Perso::class,
     ];
 
     private static $many_many_extraFields = [
         'Persos' => [
-            'SortOrder' => 'Int'
-        ]
+            'SortOrder' => 'Int',
+        ],
     ];
 
     private static $owns = [
@@ -65,6 +64,7 @@ class ElementPersoCFA extends BaseElement
         $labels = parent::fieldLabels($includerelations);
         $labels['CountMax'] = _t(__CLASS__ . '.COUNTMAX', 'Number (default 3)');
         $labels['Layout'] = _t(__CLASS__ . '.LAYOUT', 'Alignment text');
+
         return $labels;
     }
 
@@ -74,7 +74,7 @@ class ElementPersoCFA extends BaseElement
 
         $fields->removeByName([
             'isFullWidth',
-            'Persos'
+            'Persos',
         ]);
 
         // hack around unsaved relations
@@ -85,7 +85,7 @@ class ElementPersoCFA extends BaseElement
                 new GridFieldDeleteAction(true),
                 new GridFieldDetailForm(),
                 new GridFieldAddNewButton('toolbar-header-left'),
-                new GridFieldAddExistingAutocompleter('toolbar-header-right')
+                new GridFieldAddExistingAutocompleter('toolbar-header-right'),
             );
             if ($this->Sorting == 'manual') {
                 $PersoGFConfig->addComponent(new GridFieldOrderableRows('SortOrder'));
@@ -96,6 +96,7 @@ class ElementPersoCFA extends BaseElement
         } else {
             $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
         }
+
         return $fields;
     }
 
@@ -110,6 +111,7 @@ class ElementPersoCFA extends BaseElement
         if ($this->CountMax) {
             $items = $items->limit($this->CountMax);
         }
+
         return $items;
     }
 
@@ -119,19 +121,12 @@ class ElementPersoCFA extends BaseElement
         if ($this->Items()->count() && $this->Items()->first()->Portrait()->exists()) {
             $blockSchema['fileURL'] = $this->Items()->first()->Portrait()->CMSThumbnail()->getURL();
         }
+
         return $blockSchema;
     }
 
     public function getType()
     {
         return _t(__CLASS__ . '.BlockType', 'Contact (CFA)');
-    }
-
-    public function PrimaryElementPersoController()
-    {
-        $elementPerso = ElementPerso::get()->filter(['Primary' => 1])->first();
-        if ($elementPerso) {
-            return $elementPerso->getController();
-        }
     }
 }

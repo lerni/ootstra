@@ -92,7 +92,7 @@ class ElementPersoController extends ElementController
             // return vcard as a download
             return $vcard->download();
         }
-        return $this->owner->httpError(404, _t(self::class . '.NotFound', "vCard couldn't be found."));
+        return $this->getOwner()->httpError(404, _t(self::class . '.NotFound', "vCard couldn't be found."));
     }
 
     public function qrvc($ID)

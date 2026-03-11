@@ -6,21 +6,20 @@ use Page;
 use Spatie\SchemaOrg\Schema;
 use SilverStripe\Core\Extension;
 use SilverStripe\Control\Director;
-use SilverStripe\Control\Controller;
 use SilverStripe\Model\List\ArrayList;
 use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\Core\Manifest\ModuleResourceLoader;
 
 class PageSchemaExtension extends Extension
 {
-
     // options in SiteConfig
-    public static function AvailableSchemaTypes() {
+    public static function AvailableSchemaTypes()
+    {
         return [
             'Corporation' => Schema::corporation(),
             'EducationalOrganization' => Schema::educationalOrganization(),
             'LocalBusiness' => Schema::localBusiness(),
-            'NGO' => Schema::NGO(),
+            'NGO' => Schema::nGO(),
             'Organisation' => Schema::organization(),
             'NewsMediaOrganization' => Schema::newsMediaOrganization(),
             'Restaurant' => Schema::restaurant(),
@@ -98,6 +97,7 @@ class PageSchemaExtension extends Extension
             $schemaOrganisation->location($locations);
         }
 
+        // Add sameAs links from SocialLinks
         if ($siteConfig->SocialLinks()->filter('sameAs', 1)->Count()) {
             $sameAsLinks = $siteConfig->SocialLinks()->filter('sameAs', 1)->Column('Url');
             $schemaOrganisation->sameAs($sameAsLinks);
@@ -106,6 +106,9 @@ class PageSchemaExtension extends Extension
         if ($siteConfig->DefaultHeaderSlides()->count() && $siteConfig->DefaultHeaderSlides()->sort('SortOrder ASC')->first()->SlideImage()->exists()) {
             $schemaOrganisation->image(rtrim(Director::absoluteBaseURL(), '/') . $siteConfig->DefaultHeaderSlides()->sort('SortOrder ASC')->first()->SlideImage()->Link());
         }
+
+        // Set @id so other schemas can reference this organization
+        $schemaOrganisation->setProperty('@id', Director::absoluteBaseURL() . '#organization');
 
         return $schemaOrganisation->toScript();
     }
@@ -123,10 +126,7 @@ class PageSchemaExtension extends Extension
                     ->name($item->Title)
                     ->item(
                         Schema::Thing()
-                            ->setProperty('@id', Controller::join_links(
-                                Director::absoluteBaseURL(),
-                                $item->Link
-                            ))
+                            ->setProperty('@id', $item->AbsoluteLink())
                     );
                 ++$i;
             }

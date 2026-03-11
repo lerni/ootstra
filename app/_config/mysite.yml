@@ -10,9 +10,8 @@ SilverStripe\Assets\InterventionBackend:
 SilverStripe\Assets\File:
   extensions:
     - App\Extensions\FileExtension
+    # needs GHOSTSCRIPT_PATH="/usr/bin/gs"
     - App\Extensions\PDFImageExtension
-    # needs GHOSTSCRIPT_PATH="/usr/local/bin/gs"
-    # - App\Extensions\PdfThumbnailerExtension
   allowed_extensions:
     svg: true # cos of perso QR-URL to vCard
     webp: true
@@ -60,6 +59,9 @@ SilverStripe\Admin\LeftAndMain:
 
   image_size_presets:
     - width: 1223
+
+JonoM\BetterNavigator\Extension\BetterNavigatorExtension:
+  cms_link_target: 'silverstripe-cms'
 
 SilverStripe\Forms\HTMLEditor\HTMLEditorField:
   default_classes:
@@ -321,8 +323,6 @@ SilverStripe\Control\Director:
     '_pqr/$ID': 'App\Controller\PersoQRController'
 
 App\Models\Perso:
-  parent_class: 'App\Elements\ElementPerso'
-  parent_slug: 'perso'
   extensions:
     - App\Extensions\UrlifyExtension
 
@@ -333,11 +333,6 @@ Axllent\ScaledUploads\ScaledUploads:
   max_width: 4000
   max_height: 4000
   auto_rotate: true
-
-# App\Models\SlugHolderPage:
-#   ManagedModels:
-#     - JobPosting: 'Kraftausdruck\Models\JobPosting'
-#     - Perso: 'App\Models\Perso'
 
 # we install DebugBar in require-dev, so it's OK to have it available in live & dev mode
 LeKoala\DebugBar\DebugBar:

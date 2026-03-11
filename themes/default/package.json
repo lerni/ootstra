@@ -30,7 +30,7 @@
     "defaults"
   ],
   "dependencies": {
-    "@egjs/infinitegrid": "4.10.0",
+    "@egjs/infinitegrid": "4.13.0",
     "@fancyapps/ui": "^5.0.17",
     "@micropackage/responsive-embeds": "^1.0.3",
     "countup.js": "^2.3.2",

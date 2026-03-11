@@ -187,6 +187,10 @@ de_CH:
     TelephoneDescription: '+41 43 000 00 00'
     CLOSE: 'Details ausblenden'
     IsUsedOnComment: '"{name}" wird in folgenden Elementen verwendet'
+  App\Models\SlugHolderPage:
+    CannotDeleteWarning: 'Diese Seite dient als URL-Segment-Platzhalter.<br/>Über sie sind <strong>{count} {model}</strong>-Objekte erreichbar. Sie kann nicht gelöscht werden, da sonst die URLs dieser Objekte nicht mehr verfügbar sind. Um sie dennoch zu entfernen, muss entweder die Modellzuweisung aufgehoben oder es müssen alle Objekte gelöscht werden.'
+    ManagedModelField: 'Verwaltetes Modell'
+    SelectModel: '--'
   App\Models\Point:
     PLURALNAME: Points
     PLURALS:

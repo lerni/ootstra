@@ -128,8 +128,6 @@ $tinyMceCommonOptions = [
     'block_formats' => 'Paragraph=p;Heading 1=h1;Heading 2=h2;Heading 3=h3; Heading 4=h4',
     'paste_remove_spans' => true,
     'paste_as_text' => true,
-    'paste_text_sticky_default' => true,
-    'paste_text_sticky' => true,
     'statusbar' => true,
     'contextmenu' => "searchreplace | sslink anchor ssmedia ssembed",
 ];
@@ -198,7 +196,6 @@ URLSegmentFilter::config()->default_replacements = [
 ];
 
 // GoogleSitemap::register_dataobjects(['App\Models\Perso'], 'weekly', '1');
-// GoogleSitemap::register_dataobjects(['App\Models\JobPosting'], 'weekly', '1');
 
 ShortcodeParser::get('default')->register('Location', [LocationShortCodeProvider::class, 'parseLocationShortCodeProvider']);
 ShortcodeParser::get('default')->register('Vacation', [VacationShortCodeProvider::class, 'parseVacationShortCodeProvider']);

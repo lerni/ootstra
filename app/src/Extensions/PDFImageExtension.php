@@ -36,13 +36,11 @@ class PDFImageExtension extends Extension
 
         $pathParts = pathinfo($this->getOwner()->getFilename());
 
-        $variant = $this->getOwner()->variantName(__FUNCTION__, AbstractFileIDHelper::EXTENSION_REWRITE_VARIANT, $pathParts['extension'], $newExtension, $width, $page, $quality);
+        // Important: EXTENSION_REWRITE_VARIANT must be the FIRST parameter so AssetStore can detect the extension change
+        $variant = $this->getOwner()->variantName(AbstractFileIDHelper::EXTENSION_REWRITE_VARIANT, $pathParts['extension'], $newExtension, __FUNCTION__, $width, $page, $quality);
 
-        return $original->manipulateExtension(
-        // TODO: we should use manipulateImage or just manipulate here, and make sure all parameters are respected in
-        // return $original->manipulateImage(
-            $newExtension,
-            // $variant,
+        return $original->manipulate(
+            $variant,
             function (AssetStore $store, string $filename, string $hash, string $variant) use ($newExtension, $width, $page, $quality) {
                 $ghost_path = Environment::getEnv('GHOSTSCRIPT_PATH') ?: 'gs';
 
@@ -63,24 +61,20 @@ class PDFImageExtension extends Extension
                 $tmp_filename = sys_get_temp_dir() . '/' . basename($original_filename_relative) . '.page-' . $page . '-width-' . $width . '-quality-' . $quality . '.' . $newExtension;
                 $gsDevice = $newExtension === 'png' ? 'png16m' : 'jpeg';
 
-                $commandParts = [
-                    escapeshellcmd($ghost_path),
-                    '-sDEVICE=' . $gsDevice,
-                    '-dAutoRotatePages=/None',
-                    '-dFirstPage=' . $page,
-                    '-dLastPage=' . $page,
-                    '-dNOPAUSE',
-                    '-dJPEGQ=' . $quality,
-                    '-dGraphicsAlphaBits=4',
-                    '-dTextAlphaBits=4',
-                    '-r144',
-                    '-dUseTrimBox',
-                    '-sOutputFile=' . $tmp_filename,
-                    $original_filename_absolute,
-                    '-c quit'
-                ];
-                $command = implode(' ', array_map('escapeshellarg', $commandParts));
-                //$command = escapeshellcmd($ghost_path) . ' -sDEVICE=' . escapeshellarg($gsDevice) . ' -dAutoRotatePages=/None -dFirstPage=' . (int)$page . ' -dLastPage=' . (int)$page . ' -dNOPAUSE -dJPEGQ=' . (int)$quality . ' -dGraphicsAlphaBits=4 -dTextAlphaBits=4 -r144 -dUseTrimBox -sOutputFile=' . escapeshellarg($tmp_filename) . ' ' . escapeshellarg($original_filename_absolute) . ' -c quit';
+                $command = escapeshellcmd($ghost_path) .
+                    ' -sDEVICE=' . escapeshellarg($gsDevice) .
+                    ' -dAutoRotatePages=/None' .
+                    ' -dFirstPage=' . (int)$page .
+                    ' -dLastPage=' . (int)$page .
+                    ' -dNOPAUSE' .
+                    ' -dJPEGQ=' . (int)$quality .
+                    ' -dGraphicsAlphaBits=4' .
+                    ' -dTextAlphaBits=4' .
+                    ' -r144' .
+                    ' -dUseTrimBox' .
+                    ' -sOutputFile=' . escapeshellarg($tmp_filename) .
+                    ' ' . escapeshellarg($original_filename_absolute) .
+                    ' -c quit';
 
                 exec($command, $output, $returnCode);
                 if ($returnCode !== 0) {
@@ -93,16 +87,31 @@ class PDFImageExtension extends Extension
                 }
 
                 $backend = Injector::inst()->create(Image_Backend::class);
+
                 // Images/variants do not have a focuspoint!
-                $backend->loadFrom($tmp_filename);
+                try {
+                    $backend->loadFrom($tmp_filename);
+                } catch (\Exception $e) {
+                    Injector::inst()->get(LoggerInterface::class)->error('Failed to load image backend: ' . $e->getMessage());
+
+                    return null;
+                }
+
                 $config = ['conflict' => AssetStore::CONFLICT_USE_EXISTING];
-                $tuple = $backend->writeToStore($store, $filename, $hash, $variant, $config);
+
+                try {
+                    $tuple = $backend->writeToStore($store, $filename, $hash, $variant, $config);
+                } catch (\Exception $e) {
+                    Injector::inst()->get(LoggerInterface::class)->error('Failed to write PDF image to store: ' . $e->getMessage());
+
+                    return null;
+                }
 
                 // Clean up temporary file
                 unlink($tmp_filename);
 
                 return [$tuple, $backend];
-            }
+            },
         );
     }
 }
