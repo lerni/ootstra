@@ -31,7 +31,7 @@ class ElementFeedTeaser extends BaseElement
         'ShowAsSlider' => 'Boolean',
         'FirstLinkAction' => 'Varchar',
         'CountMax' => 'Int',
-        'Shuffle' => 'Boolean'
+        'Shuffle' => 'Boolean',
     ];
 
     private static $has_one = [];
@@ -40,17 +40,17 @@ class ElementFeedTeaser extends BaseElement
 
     private static $many_many = [
         'FeedTeaserParents' => SiteTree::class,
-        'Categories' => BlogCategory::class
+        'Categories' => BlogCategory::class,
     ];
 
     private static $many_many_extraFields = [
         'Categories' => [
-            'MMSortOrder' => 'Int'
-        ]
+            'MMSortOrder' => 'Int',
+        ],
     ];
 
     private static $defaults = [
-        'CountMax' => 3
+        'CountMax' => 3,
     ];
 
     private static $table_name = 'ElementFeedTeaser';
@@ -62,10 +62,11 @@ class ElementFeedTeaser extends BaseElement
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['CountMax'] = _t(__CLASS__ . '.COUNTMAX', 'Number of teasers (default 3)');
-        $labels['ShowAsSlider'] = _t(__CLASS__ . '.SHOWASSLIDER', 'Show as slider');
-        $labels['FirstLinkAction'] = _t(__CLASS__ . '.FIRSTLINKACTION', 'Text link parent (first)');
-        $labels['Shuffle'] = _t(__CLASS__ . '.SHUFFLE', 'randomize sort order');
+        $labels['CountMax'] = _t(self::class . '.COUNTMAX', 'Number of teasers (default 3)');
+        $labels['ShowAsSlider'] = _t(self::class . '.SHOWASSLIDER', 'Show as slider');
+        $labels['FirstLinkAction'] = _t(self::class . '.FIRSTLINKACTION', 'Text link parent (first)');
+        $labels['Shuffle'] = _t(self::class . '.SHUFFLE', 'randomize sort order');
+
         return $labels;
     }
 
@@ -75,12 +76,12 @@ class ElementFeedTeaser extends BaseElement
 
         $fields->removeByName([
             'FeedTeaserParents',
-            'Categories'
+            'Categories',
         ]);
 
         $fields->addFieldToTab('Root.Main', LiteralField::create('How', '
-            <h2>'. _t(__CLASS__ . '.HowTitle', 'What is shown?') .'</h2>
-            <p>'. _t(__CLASS__ . '.HowText', 'Subpages (children) of the selected pages (parents / holders) e.g. news with the selected categories are teased. Image & text can be selected on the respective pages in the tab "Feeds & Share".') .'<br/><br/></p>
+            <h2>'. _t(self::class . '.HowTitle', 'What is shown?') .'</h2>
+            <p>'. _t(self::class . '.HowText', 'Subpages (children) of the selected pages (parents / holders) e.g. news with the selected categories are teased. Image & text can be selected on the respective pages in the tab "Feeds & Share".') .'<br/><br/></p>
         '));
 
         // hack around unsaved relations
@@ -92,9 +93,9 @@ class ElementFeedTeaser extends BaseElement
                 GridFieldEditButton::class,
                 GridFieldAddNewButton::class,
                 GridFieldFilterHeader::class,
-                GridFieldFilterHeader::class
+                GridFieldFilterHeader::class,
             ]);
-            $gridField = new GridField('FeedTeaserParents', _t(__CLASS__ . '.FEEDTEASERPARENTS', 'Parents / Holders of Linked Pages'), $this->FeedTeaserParents(), $TeaserGridFieldConfig);
+            $gridField = GridField::create('FeedTeaserParents', _t(self::class . '.FEEDTEASERPARENTS', 'Parents / Holders of Linked Pages'), $this->FeedTeaserParents(), $TeaserGridFieldConfig);
             $fields->addFieldToTab('Root.Main', $gridField);
         } else {
             $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
@@ -104,7 +105,7 @@ class ElementFeedTeaser extends BaseElement
             'Categories',
             _t('SilverStripe\Blog\Model\Blog.Categories', 'Categories'),
             BlogCategory::get(),
-            $this->Categories()
+            $this->Categories(),
         );
 
         $fields->addFieldToTab('Root.Main', $CategoryField);
@@ -144,25 +145,23 @@ class ElementFeedTeaser extends BaseElement
             if (count($parentIDs) === 1 &&
                 $this->FeedTeaserParents()->first()->ClassName == Blog::class) {
 
-                $childrens = BlogPost::get()
-                    ->filter('ParentID', $parentIDs)
+                $childrens = BlogPost::get()->filter(['ParentID' => $parentIDs])
                     ->eagerLoad('Categories');
 
                 // If Blog is sorted per date?
                 if (str_starts_with($blogSorting, 'PublishDate DESC')) {
-                    $childrens = $childrens->sort('PublishDate DESC');
+                    $childrens = $childrens->sort(['PublishDate' => 'DESC']);
                 }
             } else {
-                $childrens = ElementPage::get()
-                    ->filter('ParentID', $parentIDs)
+                $childrens = ElementPage::get()->filter(['ParentID' => $parentIDs])
                     ->eagerLoad('PageCategories');
             }
 
             if (!empty($categoryFilter)) {
                 if ($this->FeedTeaserParents()->first()->ClassName == Blog::class) {
-                    $childrens = $childrens->filter('Categories.ID', $categoryFilter);
+                    $childrens = $childrens->filter(['Categories.ID' => $categoryFilter]);
                 } else {
-                    $childrens = $childrens->filter('PageCategories.ID', $categoryFilter);
+                    $childrens = $childrens->filter(['PageCategories.ID' => $categoryFilter]);
                 }
             }
 
@@ -175,13 +174,12 @@ class ElementFeedTeaser extends BaseElement
                 $exclude = $childrens->Column('ID');
                 $padfill = $this->CountMax - $childrens->count();
 
-                $additionalPosts = SiteTree::get()
-                    ->filter('ParentID', $parentIDs)
+                $additionalPosts = SiteTree::get()->filter(['ParentID' => $parentIDs])
                     ->limit($padfill);
 
                 // just exclude if there is something to
                 if (count($exclude)) {
-                    $additionalPosts = $additionalPosts->exclude('ID', $exclude);
+                    $additionalPosts = $additionalPosts->exclude(['ID' => $exclude]);
                 }
 
                 foreach ($additionalPosts as $addItem) {
@@ -210,7 +208,7 @@ class ElementFeedTeaser extends BaseElement
             $tags = explode(',', $getVars['tags']);
             $tagsURLEnc = [];
             foreach ($tags as $tag) {
-                $filter = new URLSegmentFilter();
+                $filter = URLSegmentFilter::create();
                 //				$filter->setAllowMultibyte(true);
                 $tagsURLEnc[] = $filter->filter($tag);
             }
@@ -218,7 +216,7 @@ class ElementFeedTeaser extends BaseElement
             $allTags = $this->Categories()->Column('Title');
             $AllTagsURLEnc = [];
             foreach ($allTags as $key => $tag) {
-                $filter = new URLSegmentFilter();
+                $filter = URLSegmentFilter::create();
                 //				$filter->setAllowMultibyte(true);
                 $AllTagsURLEnc[$key] = $filter->filter($tag);
             }
@@ -232,6 +230,7 @@ class ElementFeedTeaser extends BaseElement
 
             return $tagsValid;
         }
+
         return null;
     }
 
@@ -239,6 +238,7 @@ class ElementFeedTeaser extends BaseElement
     {
         $l = (int)$this->TitleLevel;
         ++$l;
+
         return 'h' . $l;
     }
 
@@ -266,14 +266,15 @@ class ElementFeedTeaser extends BaseElement
     }
 
     // timely rotating cache-key - workaround to shuffle cached items
-    public function RotatingCacheKey() {
+    public function RotatingCacheKey()
+    {
         if (!$this->Shuffle) {
             return 0;
         }
         $twentyMinutesBlock = floor(time() / 60 / 20); // twenty minutes TTL
-        $key = 'key_' . ($twentyMinutesBlock % 2 == 0 ? 'even' : 'odd');
-        $uniqueKey = crc32($key . $twentyMinutesBlock);
-        return $uniqueKey;
+        $key = 'key_' . ($twentyMinutesBlock % 2 === 0 ? 'even' : 'odd');
+
+        return crc32($key . $twentyMinutesBlock);
     }
 
     // protected function provideBlockSchema()
@@ -287,6 +288,6 @@ class ElementFeedTeaser extends BaseElement
 
     public function getType()
     {
-        return _t(__CLASS__ . '.BlockType', 'Teaser (feed)');
+        return _t(self::class . '.BlockType', 'Teaser (feed)');
     }
 }

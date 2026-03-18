@@ -16,7 +16,7 @@ class Point extends DataObject
         'Longitude' => 'Decimal(18,15)',
         'Title' => 'Varchar',
         'PointURL' => 'Varchar',
-        'Type' => 'Enum("normal, parking", "normal")'
+        'Type' => 'Enum("normal, parking", "normal")',
     ];
 
     private static $has_one = [];
@@ -24,23 +24,24 @@ class Point extends DataObject
     private static $table_name = 'Point';
 
     private static $singular_name = 'Point';
+
     private static $plural_name = 'Points';
 
     private static $summary_fields = [
         'getThunbnail' => 'Thumbnail',
         'Title' => 'Titel',
-        'Type' => 'Type'
+        'Type' => 'Type',
     ];
 
     private static $searchable_fields = [
-        'Title'
+        'Title',
     ];
 
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Titel');
-        $labels['PointURL'] = _t(__CLASS__ . '.POINTURL', 'Link on marker');
+        $labels['Title'] = _t(self::class . '.TITLE', 'Titel');
+        $labels['PointURL'] = _t(self::class . '.POINTURL', 'Link on marker');
 
         return $labels;
     }
@@ -51,12 +52,12 @@ class Point extends DataObject
         $fields = parent::getCMSFields();
 
         if ($PointURLField = $fields->dataFieldByName('PointURL')) {
-            $PointURLField->setDescription(_t(__CLASS__ . '.PointURLDESCRIPTION', 'Link to business entry from Google-Map'));
+            $PointURLField->setDescription(_t(self::class . '.PointURLDESCRIPTION', 'Link to business entry from Google-Map'));
         }
 
         $fields->removeByName([
             'Latitude',
-            'Longitude'
+            'Longitude',
         ]);
 
         $googleMapField = GoogleMapField::create($this, 'Google-Map');
@@ -68,7 +69,7 @@ class Point extends DataObject
     // todo api-key is needed so we should return a default thumb if no API-key
     public function getThunbnail()
     {
-        $url =  'https://maps.googleapis.com/maps/api/staticmap?center=' . $this->Latitude . ',' . $this->Longitude . '&zoom=16&size=140x140&maptype=hybrid&markers=color:red%7C' . $this->Latitude . ',' . $this->Longitude;
+        $url = 'https://maps.googleapis.com/maps/api/staticmap?center=' . $this->Latitude . ',' . $this->Longitude . '&zoom=16&size=140x140&maptype=hybrid&markers=color:red%7C' . $this->Latitude . ',' . $this->Longitude;
         $key = Environment::getEnv('APP_GOOGLE_MAPS_KEY') ?: Config::inst()->get(GoogleMapField::class, 'api_key');
         if ($key) {
             $url = $url . '&key=' . $key;
@@ -76,6 +77,7 @@ class Point extends DataObject
         $tag = '<img src="' . $url . '" title="' . $this->Title . '">';
         $obj = DBHTMLText::create();
         $obj->setValue($tag);
+
         return ($obj);
     }
 
@@ -85,6 +87,7 @@ class Point extends DataObject
         if (!$link && $this->Latitude && $this->Longitude) {
             $link = 'https://www.google.ch/maps/place/' . $this->Latitude . ',' . $this->Longitude . '/@' . $this->Latitude . ',' . $this->Longitude . ',18z/data=!3m1!1e3!';
         }
+
         return $link;
     }
 
@@ -96,7 +99,7 @@ class Point extends DataObject
     public function getCMSValidator()
     {
         return RequiredFieldsValidator::create([
-            'Title'
+            'Title',
         ]);
     }
 }

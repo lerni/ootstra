@@ -15,32 +15,32 @@ class ElementGallery extends BaseElement
     private static $db = [
         'Layout' => 'Enum("grid,slider,flex", "slider")',
         'Alignment' => 'Enum("left,center,right", "left")',
-        'SitemapImageExpose' => 'Boolean'
+        'SitemapImageExpose' => 'Boolean',
     ];
 
     private static $has_one = [
-        'GalleryFolder' => Folder::class
+        'GalleryFolder' => Folder::class,
     ];
 
     private static $many_many = [
-        'GalleryImages' => Image::class
+        'GalleryImages' => Image::class,
     ];
 
     private static $many_many_extraFields = [
         'GalleryImages' => [
-            'SortOrder' => 'Int'
-        ]
+            'SortOrder' => 'Int',
+        ],
     ];
 
     private static $owns = [
         'GalleryImages',
-        'GalleryFolder'
+        'GalleryFolder',
     ];
 
     private static $defaults = [
         'SitemapImageExpose' => true,
         'isFullWidth' => false,
-        'Layout' => 'slider'
+        'Layout' => 'slider',
     ];
 
     private static $table_name = 'ElementGallery';
@@ -52,8 +52,8 @@ class ElementGallery extends BaseElement
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['Alignment'] = _t(__CLASS__ . '.ALIGNMENT', 'Alignment (flex only)');
-        $labels['SitemapImageExpose'] = _t(__CLASS__ . '.SITEMAPIMAGEEXPOSE', 'expose images in sitemap.xml');
+        $labels['Alignment'] = _t(self::class . '.ALIGNMENT', 'Alignment (flex only)');
+        $labels['SitemapImageExpose'] = _t(self::class . '.SITEMAPIMAGEEXPOSE', 'expose images in sitemap.xml');
 
         return $labels;
     }
@@ -63,31 +63,28 @@ class ElementGallery extends BaseElement
         $fields = parent::getCMSFields();
 
         $fields->removeByName([
-            'GalleryFolder'
+            'GalleryFolder',
         ]);
 
-        $fields->addFieldToTab('Root.Main', HeaderField::create('OneOrTheOther', _t(__CLASS__ . '.OneOrTheOther', 'Choose pictures by folder (all included) or pick & sort individually')));
+        $fields->addFieldToTab('Root.Main', HeaderField::create('OneOrTheOther', _t(self::class . '.OneOrTheOther', 'Choose pictures by folder (all included) or pick & sort individually')));
 
         $FolderField = FolderDropdownField::create(
             'GalleryFolderID',
-            _t(__CLASS__ . '.FOLDER', 'Folder'),
-            Folder::class
+            _t(self::class . '.FOLDER', 'Folder'),
+            Folder::class,
         );
         $fields->addFieldToTab('Root.Main', $FolderField);
 
         $fields->removeByName('GalleryImages');
         $fields->addFieldToTab(
             'Root.Main',
-            $uploadField = new SortableUploadField(
-                $name = 'GalleryImages',
-                $title = 'Bilder Gallery'
-            )
+            $uploadField = SortableUploadField::create($name = 'GalleryImages', $title = 'Bilder Gallery'),
         );
-        $filter = new URLSegmentFilter();
+        $filter = URLSegmentFilter::create();
         $Subfolder = $filter->filter($this->Title);
         $uploadField->setFolderName('Gallery/' . $Subfolder);
         $uploadField->setSortColumn('SortOrder');
-        $uploadField->setDescription(_t(__CLASS__ . '.GalleryImagesDescription', 'Width trimmed to  1224px'));
+        $uploadField->setDescription(_t(self::class . '.GalleryImagesDescription', 'Width trimmed to  1224px'));
 
         return $fields;
     }
@@ -99,6 +96,7 @@ class ElementGallery extends BaseElement
         } else {
             $r = $this->GalleryImages()->sort('SortOrder');
         }
+
         return $r;
     }
 
@@ -119,6 +117,6 @@ class ElementGallery extends BaseElement
 
     public function getType()
     {
-        return _t(__CLASS__ . '.BlockType', 'Gallery');
+        return _t(self::class . '.BlockType', 'Gallery');
     }
 }

@@ -16,15 +16,16 @@ use Symfony\Component\Console\Input\InputInterface;
 class DeleteEmptyFilesTask extends BuildTask
 {
     protected string $title = 'Delete all empty Files';
+
     protected static string $description = 'This task removes all entries from `File` table where `FileFilename IS NULL and not a folder. This task might timeout, if it does; then simply refresh the page to rerun it.';
 
     protected function execute(InputInterface $input, PolyOutput $output): int
     {
 
-        $files = File::get()->filter(['ClassName:not' => Folder::class, 'FileFilename' => NULL])->sort('ID');
+        $files = File::get()->filter(['ClassName:not' => Folder::class, 'FileFilename' => null])->sort(['ID' => 'ASC']);
 
         foreach ($files as $file) {
-            // set_time_limit(20); // hopefull attempt to prevent timeout, but if it does; then simply refresh the page to run the task again
+            // set_time_limit(20); // attempt to prevent timeout, but if it does; then simply refresh the page to run the task again
             $output->writeln('Found record ID: ' . $file->ID . ', Title: ' . $file->Title);
             $file->doUnpublish();
             $file->deleteFile();

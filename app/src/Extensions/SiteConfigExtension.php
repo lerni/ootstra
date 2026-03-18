@@ -102,22 +102,22 @@ class SiteConfigExtension extends Extension
 
         $SlideGridFieldConfig = GridFieldConfig_Base::create(20);
         $SlideGridFieldConfig->addComponents(
-            new GridFieldEditButton(),
-            new GridFieldDeleteAction(false),
-            new GridFieldDeleteAction(true),
-            new GridFieldDetailForm(),
-            new GridFieldAddNewButton('toolbar-header-left'),
-            new GridFieldAddExistingAutocompleter('toolbar-header-right'),
-            new GridFieldOrderableRows('SortOrder'),
+            GridFieldEditButton::create(),
+            GridFieldDeleteAction::create(false),
+            GridFieldDeleteAction::create(true),
+            GridFieldDetailForm::create(),
+            GridFieldAddNewButton::create('toolbar-header-left'),
+            GridFieldAddExistingAutocompleter::create('toolbar-header-right'),
+            GridFieldOrderableRows::create('SortOrder'),
         );
         $SlideGridFieldConfig->removeComponentsByType(GridFieldFilterHeader::class);
-        $gridField = new GridField('DefaultHeaderSlides', _t('SilverStripe\SiteConfig\SiteConfig.DEFAULTHEADERSLIDES'), $this->owner->DefaultHeaderSlides(), $SlideGridFieldConfig);
+        $gridField = GridField::create('DefaultHeaderSlides', _t('SilverStripe\SiteConfig\SiteConfig.DEFAULTHEADERSLIDES'), $this->getOwner()->DefaultHeaderSlides(), $SlideGridFieldConfig);
         $gridField->setDescription(_t('SilverStripe\SiteConfig\SiteConfig.DEFAULTHEADERSLIDESDESCRIPTION', 'Displayed on Pages without Hero'));
         $fields->addFieldToTab('Root.Main', $gridField, 'GlobalAlert');
 
         $sizes = singleton(SiteConfig::class)->dbObject('DefaultHeroSize')->enumValues();
         $SizeField = DropdownField::create('DefaultHeroSize', _t('SilverStripe\SiteConfig\SiteConfig.DEFAULTHEROSIZE', 'Size default slides'), $sizes);
-        $fields->addFieldToTab('Root.Main', $SizeField, 'GlobalAlert', true);
+        $fields->addFieldToTab('Root.Main', $SizeField, 'GlobalAlert');
 
         $fields->addFieldsToTab(
             'Root.Main',
@@ -134,11 +134,11 @@ class SiteConfigExtension extends Extension
             GridFieldFilterHeader::class,
         ]);
         $LocationConf->addComponents(
-            new GridFieldEditButton(),
-            new GridFieldDeleteAction(false),
-            new GridFieldDetailForm(),
-            new GridFieldOrderableRows('Sort'),
-            new GridFieldAddNewButton('toolbar-header-left'),
+            GridFieldEditButton::create(),
+            GridFieldDeleteAction::create(false),
+            GridFieldDetailForm::create(),
+            GridFieldOrderableRows::create('Sort'),
+            GridFieldAddNewButton::create('toolbar-header-left'),
         );
 
         $LocationGridField = GridField::create('Locations', 'Locations', $this->getOwner()->Locations(), $LocationConf);
@@ -151,12 +151,12 @@ class SiteConfigExtension extends Extension
             GridFieldFilterHeader::class,
         ]);
         $SnippetGFConf->addComponents(
-            new GridFieldEditButton(),
-            new GridFieldDeleteAction(false),
-            new GridFieldDetailForm(),
-            new GridFieldAddNewButton('toolbar-header-left'),
+            GridFieldEditButton::create(),
+            GridFieldDeleteAction::create(false),
+            GridFieldDetailForm::create(),
+            GridFieldAddNewButton::create('toolbar-header-left'),
         );
-        $SnippetGridField = new GridField('Snipped', 'Snippets', ShortCodeSnippet::get(), $SnippetGFConf);
+        $SnippetGridField = GridField::create('Snipped', 'Snippets', ShortCodeSnippet::get(), $SnippetGFConf);
         $fields->addFieldToTab('Root', Tab::create(
             'Snippets',
             'Snippets',
@@ -169,11 +169,11 @@ class SiteConfigExtension extends Extension
             GridFieldFilterHeader::class,
         ]);
         $SocialConf->addComponents(
-            new GridFieldEditButton(),
-            new GridFieldDeleteAction(false),
-            new GridFieldDetailForm(),
-            new GridFieldOrderableRows('SortOrder'),
-            new GridFieldAddNewButton('toolbar-header-left'),
+            GridFieldEditButton::create(),
+            GridFieldDeleteAction::create(false),
+            GridFieldDetailForm::create(),
+            GridFieldOrderableRows::create('SortOrder'),
+            GridFieldAddNewButton::create('toolbar-header-left'),
         );
 
         $SocialGridField = GridField::create('SocialLinks', 'SocialLinks', $this->getOwner()->SocialLinks(), $SocialConf);
@@ -184,10 +184,10 @@ class SiteConfigExtension extends Extension
             GridFieldFilterHeader::class,
         ]);
         $VacationGFConf->addComponents(
-            new GridFieldEditButton(),
-            new GridFieldDeleteAction(false),
-            new GridFieldDetailForm(),
-            new GridFieldAddNewButton('toolbar-header-left'),
+            GridFieldEditButton::create(),
+            GridFieldDeleteAction::create(false),
+            GridFieldDetailForm::create(),
+            GridFieldAddNewButton::create('toolbar-header-left'),
         );
         $vacationString = _t('SilverStripe\SiteConfig\SiteConfig.VacationsHolidays', 'Vacations & Holidays');
         $VacttionGridField = GridField::create('Vacation', $vacationString, Vacation::get(), $VacationGFConf);

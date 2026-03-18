@@ -9,23 +9,23 @@ class Logo extends DataObject
 {
     private static $db = [
         'Title' => 'Varchar',
-        'Link' => 'Varchar'
+        'Link' => 'Varchar',
     ];
 
     private static $has_one = [
-        'LogoImage' => Image::class
+        'LogoImage' => Image::class,
     ];
 
     private static $many_many = [];
 
     private static $owns = [
-        'LogoImage'
+        'LogoImage',
     ];
 
     private static $summary_fields = [
         'LogoImage.PreviewThumbnail' => 'Thumbnail',
         'Title' => 'Titel',
-        'Link' => 'Link'
+        'Link' => 'Link',
     ];
 
     private static $table_name = 'Logo';
@@ -35,8 +35,8 @@ class Logo extends DataObject
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Title');
-        $labels['LogoImage'] = _t(__CLASS__ . '.LOGOIMAGE', 'Logo image');
+        $labels['Title'] = _t(self::class . '.TITLE', 'Title');
+        $labels['LogoImage'] = _t(self::class . '.LOGOIMAGE', 'Logo image');
 
         return $labels;
     }
@@ -47,7 +47,7 @@ class Logo extends DataObject
 
         if ($uploadField = $fields->dataFieldByName('LogoImage')) {
             $uploadField->setFolderName('Logos');
-            $uploadField->setDescription(_t(__CLASS__ . '.LogoImageDescription', 'min. 120px height'));
+            $uploadField->setDescription(_t(self::class . '.LogoImageDescription', 'min. 120px height'));
         }
 
         return $fields;

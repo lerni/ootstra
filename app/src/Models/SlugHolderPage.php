@@ -20,12 +20,19 @@ class SlugHolderPage extends SiteTree
     ];
 
     private static $controller_name = SlugHolderPageController::class;
+
     private static $table_name = 'SlugHolderPage';
-    private static $description = 'Holder for non-Page objects like JobPostings, Perso, Products';
+
+    private static $class_description = 'Holder for non-Page objects like JobPostings, Perso, Products';
+
     private static $allowed_children = [];
+
     private static $singular_name = 'Slug Holder Page';
+
     private static $plural_name = 'Slug Holder Pages';
+
     private static $show_stage_link = false;
+
     private static $show_live_link = false;
 
     private static $cms_icon = 'app/images/icon-slugholder.svg';
@@ -66,7 +73,7 @@ class SlugHolderPage extends SiteTree
             $count = $this->Items() ? $this->Items()->count() : 0;
             $modelName = singleton($this->ManagedModel)->i18n_singular_name();
             $message = _t(
-                __CLASS__ . '.CannotDeleteWarning',
+                self::class . '.CannotDeleteWarning',
                 'This page serves as a URL segment placeholder.<br/><strong>{count} {model}</strong> items are accessible through it. It cannot be deleted, because otherwise the URLs of these items will no longer be available. To remove it anyway, either unassign the model or delete all items.',
                 ['count' => $count, 'model' => $modelName],
             );
@@ -116,13 +123,11 @@ class SlugHolderPage extends SiteTree
     {
         $result = parent::validate();
         if ($this->ManagedModel) {
-            $duplicate = static::get()
-                ->filter('ManagedModel', $this->ManagedModel)
-                ->exclude('ID', $this->ID ?: 0)
+            $duplicate = static::get()->filter(['ManagedModel' => $this->ManagedModel])->exclude(['ID' => $this->ID ?: 0])
                 ->first();
             if ($duplicate) {
                 $result->addError(_t(
-                    __CLASS__ . '.DuplicateManagedModel',
+                    self::class . '.DuplicateManagedModel',
                     'A SlugHolderPage for "{model}" already exists.',
                     ['model' => $this->ManagedModel],
                 ));
@@ -136,7 +141,7 @@ class SlugHolderPage extends SiteTree
     {
         $tags = parent::MetaComponents();
         $controller = Controller::curr();
-        $item = $controller && $controller->hasMethod('getCurrentItem')
+        $item = $controller instanceof Controller && $controller->hasMethod('getCurrentItem')
             ? $controller->getCurrentItem()
             : null;
 

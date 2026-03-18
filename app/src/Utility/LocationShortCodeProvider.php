@@ -14,7 +14,7 @@ class LocationShortCodeProvider
                 $offset = $arguments['Title'] > 1 ? $arguments['Title'] - 1 : 0;
                 $loc = Location::get()->limit(1, $offset)->first();
             } else {
-                $loc = Location::get()->filter('Title', $arguments['Title'])->first();
+                $loc = Location::get()->filter(['Title' => $arguments['Title']])->first();
             }
             if ($loc) {
                 if ($arguments['Field'] == 'TelLink') {
@@ -27,9 +27,11 @@ class LocationShortCodeProvider
                     $loc->dbObject($arguments['Field'])::class == DBText::class) {
                     return nl2br($loc->{$arguments['Field']});
                 }
+
                 return $loc->{$arguments['Field']};
             }
         }
+
         return false;
     }
 }

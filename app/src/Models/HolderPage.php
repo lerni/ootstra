@@ -24,7 +24,7 @@ use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 class HolderPage extends Page
 {
     private static $db = [
-        'PreventHero' => 'Boolean'
+        'PreventHero' => 'Boolean',
     ];
 
     private static $has_one = [];
@@ -34,22 +34,22 @@ class HolderPage extends Page
     private static $table_name = 'HolderPage';
 
     private static $allowed_children = [
-        ElementPage::class
+        ElementPage::class,
     ];
 
     private static $defaults = [
         'HideSubNavi' => true,
-        'PreventHero' => true
+        'PreventHero' => true,
     ];
 
-    private static $controller_name  = HolderPageController::class;
+    private static $controller_name = HolderPageController::class;
 
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();
 
         $fields->removeByName([
-            'PageCategories'
+            'PageCategories',
         ]);
 
         $fields->addFieldToTab('Root.Main', CheckboxField::create('PreventHero', _t('App\Models\ElementPage.PREVENTHERO', 'Do not show default Hero-Slides')), 'Content');
@@ -58,16 +58,16 @@ class HolderPage extends Page
         if ($this->isInDB()) {
             $CatGFConfig = GridFieldConfig_Base::create(20);
             $CatGFConfig->addComponents(
-                new GridFieldEditButton(),
-                new GridFieldDeleteAction(false),
-                new GridFieldDeleteAction(true),
-                new GridFieldDetailForm(),
-                new GridFieldAddNewButton('toolbar-header-left'),
-                new GridFieldAddExistingAutocompleter('toolbar-header-right'),
-                new GridFieldOrderableRows('SortOrder')
+                GridFieldEditButton::create(),
+                GridFieldDeleteAction::create(false),
+                GridFieldDeleteAction::create(true),
+                GridFieldDetailForm::create(),
+                GridFieldAddNewButton::create('toolbar-header-left'),
+                GridFieldAddExistingAutocompleter::create('toolbar-header-right'),
+                GridFieldOrderableRows::create('SortOrder'),
             );
             $CatGFConfig->removeComponentsByType(GridFieldFilterHeader::class);
-            $gridField = new GridField('PageCategories', 'Kategorien', $this->PageCategories(), $CatGFConfig);
+            $gridField = GridField::create('PageCategories', 'Kategorien', $this->PageCategories(), $CatGFConfig);
             $fields->addFieldToTab('Root.Main', $gridField, 'Content');
         } else {
             $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
@@ -79,10 +79,11 @@ class HolderPage extends Page
     public function Items()
     {
         //$childrens =  $this->AllChildren();
-        $childrens =  ElementPage::get()->filter('ParentID', $this->ID);
+        $childrens = ElementPage::get()->filter(['ParentID' => $this->ID]);
         if ($categoryFilter = $this->getURLCategoryFilter()) {
-            $childrens = $childrens->filterAny("PageCategories.URLSegment", $categoryFilter);
+            $childrens = $childrens->filterAny(["PageCategories.URLSegment" => $categoryFilter]);
         }
+
         return $childrens;
     }
 
@@ -101,16 +102,13 @@ class HolderPage extends Page
         $r = ArrayList::create();
 
         foreach ($categories as $cat) {
-            $filter = new URLSegmentFilter();
+            $filter = URLSegmentFilter::create();
             $filter->setAllowMultibyte(true);
             $TitleURLEnc = $filter->filter($cat->Title);
-            if ($currentCategories && in_array($TitleURLEnc, $currentCategories)) {
-                $cat->CustomLinkingMode = 'current';
-            } else {
-                $cat->CustomLinkingMode = 'link';
-            }
+            $cat->CustomLinkingMode = $currentCategories && in_array($TitleURLEnc, $currentCategories) ? 'current' : 'link';
             $r->push($cat);
         }
+
         return $r;
     }
 
@@ -122,7 +120,7 @@ class HolderPage extends Page
             $tags = explode(',', $getVars['tags']);
             $tagsURLEnc = [];
             foreach ($tags as $tag) {
-                $filter = new URLSegmentFilter();
+                $filter = URLSegmentFilter::create();
                 $filter->setAllowMultibyte(true);
                 $tagsURLEnc[] = $filter->filter($tag);
             }
@@ -130,7 +128,7 @@ class HolderPage extends Page
             $allTags = $this->PageCategories()->Column('Title');
             $AllTagsURLEnc = [];
             foreach ($allTags as $key => $tag) {
-                $filter = new URLSegmentFilter();
+                $filter = URLSegmentFilter::create();
                 $filter->setAllowMultibyte(true);
                 $AllTagsURLEnc[$key] = $filter->filter($tag);
             }
@@ -138,12 +136,13 @@ class HolderPage extends Page
             $tagsValid = [];
             foreach ($tagsURLEnc as $item) {
                 if (in_array($item, $AllTagsURLEnc)) {
-                    $tagsValid[array_search($item, $AllTagsURLEnc)] = $item;
+                    $tagsValid[array_search($item, $AllTagsURLEnc, true)] = $item;
                 }
             }
 
             return $tagsValid;
         }
+
         return null;
     }
 

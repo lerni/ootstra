@@ -13,7 +13,7 @@ class PDFDoc extends DataObject
     private static $db = [
         'Title' => 'Varchar',
         'Text' => 'Text',
-        'SortOrder' => 'Int'
+        'SortOrder' => 'Int',
     ];
 
     private static $has_one = [
@@ -23,26 +23,26 @@ class PDFDoc extends DataObject
 
     private static $owns = [
         'Image',
-        'Document'
+        'Document',
     ];
 
     private static $belongs_many_many = [
-        'ElementPDFDocuments' => ElementPDFDocument::class
+        'ElementPDFDocuments' => ElementPDFDocument::class,
     ];
 
     private static $summary_fields = [
         'ImageWithFallback.CMSThumbnail' => 'Thumbnail',
         'Title' => 'Titel',
-        'Text' => 'Text'
+        'Text' => 'Text',
     ];
 
     private static $searchable_fields = [
         'Title',
-        'Text'
+        'Text',
     ];
 
     private static $field_labels = [
-        'Title' => 'Titel'
+        'Title' => 'Titel',
     ];
 
     private static $table_name = 'PDFDoc';
@@ -52,7 +52,7 @@ class PDFDoc extends DataObject
 
         $fields = parent::getCMSFields();
         $fields->removeByName([
-            'SortOrder'
+            'SortOrder',
         ]);
 
         $TitleAreaField = TextareaField::create('Title', 'Titel');
@@ -82,9 +82,10 @@ class PDFDoc extends DataObject
         $img = null;
         if ($this->Image()->exists()) {
             $img = $this->Image();
-        } elseif ($this->Document()->exists()){
+        } elseif ($this->Document()->exists()) {
             $img = $this->Document()->PDFImage();
         }
+
         return $img;
     }
 }

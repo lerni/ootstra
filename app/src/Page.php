@@ -4,6 +4,7 @@ use App\Elements\ElementHero;
 use App\Elements\ElementGallery;
 use SilverStripe\Blog\Model\Blog;
 use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\FormField;
 use SilverStripe\Control\Director;
 use SilverStripe\Security\Security;
 use SilverStripe\TagField\TagField;
@@ -109,7 +110,7 @@ class Page extends SiteTree
 
     public function DefaultMetaDescription()
     {
-        if ($this->ClassName == 'SilverStripe\Blog\Model\BlogPost' && $this->Summary) {
+        if ($this->ClassName == BlogPost::class && $this->Summary) {
             $metaDescription = strip_tags($this->Summary);
         }
         if ($this->MetaDescription) {
@@ -129,7 +130,7 @@ class Page extends SiteTree
                 'Root.Settings',
                 CheckboxField::create(
                     'HideSubNavi',
-                    _t(__CLASS__ . '.HIDESUBNAVI', 'Hide sub navigation'),
+                    _t(self::class . '.HIDESUBNAVI', 'Hide sub navigation'),
                 ),
                 'ShowInSearch',
             );
@@ -152,7 +153,7 @@ class Page extends SiteTree
 
         // JobPosting
         $controller = Controller::curr();
-        if ($controller) {
+        if ($controller instanceof Controller) {
             $req = $controller->getRequest();
             if ($req->param('Action') == 'job' && $req->param('ID')) {
                 $URLSegment = $req->param('ID');
@@ -238,11 +239,7 @@ class Page extends SiteTree
             }
         }
 
-        if ($all) {
-            $children = $this->AllChildren();
-        } else {
-            $children = $this->Children();
-        }
+        $children = $all ? $this->AllChildren() : $this->Children();
 
         if (isset($exclude) && is_array($exclude)) {
             $children = $children->exclude('ClassName', $exclude);
@@ -297,11 +294,7 @@ class Page extends SiteTree
 
         $r = ArrayList::create();
         foreach ($Categories as $Cat) {
-            if (in_array($Cat->ID, $currentCategories)) {
-                $Cat->CustomLinkingMode = 'current';
-            } else {
-                $Cat->CustomLinkingMode = 'link';
-            }
+            $Cat->CustomLinkingMode = in_array($Cat->ID, $currentCategories) ? 'current' : 'link';
             $r->push($Cat);
         }
 
@@ -312,7 +305,7 @@ class Page extends SiteTree
     {
         $defaultHomepage = RootURLController::config()->get('default_homepage_link');
 
-        return SiteTree::get()->filter('URLSegment', $defaultHomepage)->first();
+        return SiteTree::get()->filter(['URLSegment' => $defaultHomepage])->first();
     }
 
     // overwriting from GoogleSitemapSiteTreeExtension,
@@ -366,15 +359,12 @@ class Page extends SiteTree
     public function IsPreview()
     {
         $controller = Controller::curr();
-        if (!$controller) {
-            return;
+        if (!$controller instanceof Controller) {
+            return null;
         }
         $request = $controller->getRequest();
-        if ($request->getVar('CMSPreview')) {
-            return true;
-        } else {
-            return false;
-        }
+
+        return (bool) $request->getVar('CMSPreview');
     }
 
     public function IsMember()

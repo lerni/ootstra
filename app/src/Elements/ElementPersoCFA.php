@@ -3,7 +3,6 @@
 namespace App\Elements;
 
 use App\Models\Perso;
-use App\Elements\ElementPerso;
 use SilverStripe\Forms\LiteralField;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Forms\GridField\GridField;
@@ -22,7 +21,7 @@ class ElementPersoCFA extends BaseElement
         'Above' => 'HTMLText',
         'CountMax' => 'Int',
         'Layout' => 'Enum("left,right", "right")',
-        'Sorting' => 'Enum("random,manual","random")'
+        'Sorting' => 'Enum("random,manual","random")',
     ];
 
     private static $has_one = [];
@@ -40,13 +39,13 @@ class ElementPersoCFA extends BaseElement
     ];
 
     private static $owns = [
-        'Persos'
+        'Persos',
     ];
 
     private static $table_name = 'ElementPersoCFA';
 
     private static $defaults = [
-        'CountMax' => 3
+        'CountMax' => 3,
     ];
 
     private static $class_description = 'Call for Contact Perso-Element';
@@ -62,8 +61,8 @@ class ElementPersoCFA extends BaseElement
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['CountMax'] = _t(__CLASS__ . '.COUNTMAX', 'Number (default 3)');
-        $labels['Layout'] = _t(__CLASS__ . '.LAYOUT', 'Alignment text');
+        $labels['CountMax'] = _t(self::class . '.COUNTMAX', 'Number (default 3)');
+        $labels['Layout'] = _t(self::class . '.LAYOUT', 'Alignment text');
 
         return $labels;
     }
@@ -81,17 +80,17 @@ class ElementPersoCFA extends BaseElement
         if ($this->isInDB()) {
             $PersoGFConfig = GridFieldConfig_Base::create(30);
             $PersoGFConfig->addComponents(
-                new GridFieldEditButton(),
-                new GridFieldDeleteAction(true),
-                new GridFieldDetailForm(),
-                new GridFieldAddNewButton('toolbar-header-left'),
-                new GridFieldAddExistingAutocompleter('toolbar-header-right'),
+                GridFieldEditButton::create(),
+                GridFieldDeleteAction::create(true),
+                GridFieldDetailForm::create(),
+                GridFieldAddNewButton::create('toolbar-header-left'),
+                GridFieldAddExistingAutocompleter::create('toolbar-header-right'),
             );
             if ($this->Sorting == 'manual') {
-                $PersoGFConfig->addComponent(new GridFieldOrderableRows('SortOrder'));
+                $PersoGFConfig->addComponent(GridFieldOrderableRows::create('SortOrder'));
             }
             $PersoGFConfig->removeComponentsByType(GridFieldFilterHeader::class);
-            $GFPerso = new GridField('Persos', _t(__CLASS__ . '.PERSOS', 'Employees'), $this->Persos(), $PersoGFConfig);
+            $GFPerso = GridField::create('Persos', _t(self::class . '.PERSOS', 'Employees'), $this->Persos(), $PersoGFConfig);
             $fields->addFieldToTab('Root.Main', $GFPerso);
         } else {
             $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
@@ -103,11 +102,7 @@ class ElementPersoCFA extends BaseElement
     public function Items()
     {
         $items = $this->Persos();
-        if ($this->Sorting == 'random') {
-            $items = $items->shuffle();
-        } else {
-            $items = $items->sort('SortOrder');
-        }
+        $items = $this->Sorting == 'random' ? $items->shuffle() : $items->sort('SortOrder');
         if ($this->CountMax) {
             $items = $items->limit($this->CountMax);
         }
@@ -127,6 +122,6 @@ class ElementPersoCFA extends BaseElement
 
     public function getType()
     {
-        return _t(__CLASS__ . '.BlockType', 'Contact (CFA)');
+        return _t(self::class . '.BlockType', 'Contact (CFA)');
     }
 }

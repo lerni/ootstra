@@ -13,14 +13,14 @@ class MemberExtension extends Extension
         if (!Permission::check('ADMIN')) {
             $fields->removeByName([
                 'FailedLoginCount',
-                'Locale'
+                'Locale',
             ]);
         }
         $fields->removeByName([
             'BlogProfileSummary',
             'BlogProfileImage',
             'Root.BlogPosts',
-            'BlogPosts'
+            'BlogPosts',
         ]);
     }
 }

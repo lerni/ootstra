@@ -7,14 +7,13 @@ use SilverStripe\Forms\FieldList;
 
 class ElementContentExtension extends Extension
 {
-
     private static $db = [
         'WidthReduced' => 'Boolean',
-        'PushUP' => 'Int'
+        'PushUP' => 'Int',
     ];
 
     private static $defaults = [
-        'WidthReduced' => true
+        'WidthReduced' => true,
     ];
 
     public function updateCMSFields(FieldList $fields)

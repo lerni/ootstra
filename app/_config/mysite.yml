@@ -301,7 +301,7 @@ SilverStripe\Core\Injector\Injector:
   Psr\SimpleCache\CacheInterface.cacheblock:
     constructor:
       namespace: 'cacheblock'
-      defaultLifetime: 0 # zero is infinit
+      defaultLifetime: 0 # zero is infinite
   Psr\SimpleCache\CacheInterface.ElementFeedTeaser:
     factory: 'SilverStripe\Core\Cache\CacheFactory'
     constructor:

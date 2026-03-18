@@ -12,8 +12,8 @@ class PageExtension extends Extension
         $charset = ContentNegotiator::config()->uninherited('encoding');
         $tags['contentType'] = [
             'attributes' => [
-                'charset' => $charset
-            ]
+                'charset' => $charset,
+            ],
         ];
     }
 }

@@ -20,13 +20,13 @@ class ElementCounter extends BaseElement
     private static $db = [];
 
     private static $many_many = [
-        'CountItems' => CountItem::class
+        'CountItems' => CountItem::class,
     ];
 
     private static $many_many_extraFields = [
         'CountItems' => [
-            'SortOrder' => 'Int'
-        ]
+            'SortOrder' => 'Int',
+        ],
     ];
 
     private static $table_name = 'ElementCounter';
@@ -43,23 +43,23 @@ class ElementCounter extends BaseElement
 
         $fields->removeByName([
             'BackgroundColor',
-            'CountItems'
+            'CountItems',
         ]);
 
         // hack around unsaved relations
         if ($this->isInDB()) {
             $CountBitsGridFieldConfig = GridFieldConfig_Base::create(20);
             $CountBitsGridFieldConfig->addComponents(
-                new GridFieldEditButton(),
-                new GridFieldDeleteAction(false),
-                new GridFieldDeleteAction(true),
-                new GridFieldDetailForm(),
-                new GridFieldAddNewButton('toolbar-header-left'),
-                new GridFieldAddExistingAutocompleter('toolbar-header-right'),
-                new GridFieldOrderableRows('SortOrder')
+                GridFieldEditButton::create(),
+                GridFieldDeleteAction::create(false),
+                GridFieldDeleteAction::create(true),
+                GridFieldDetailForm::create(),
+                GridFieldAddNewButton::create('toolbar-header-left'),
+                GridFieldAddExistingAutocompleter::create('toolbar-header-right'),
+                GridFieldOrderableRows::create('SortOrder'),
             );
             $CountBitsGridFieldConfig->removeComponentsByType(GridFieldFilterHeader::class);
-            $GridField = new GridField('CountBits', 'Graphs', $this->CountItems(), $CountBitsGridFieldConfig);
+            $GridField = GridField::create('CountBits', 'Graphs', $this->CountItems(), $CountBitsGridFieldConfig);
             $fields->addFieldToTab('Root.Main', $GridField);
         } else {
             $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
@@ -70,6 +70,6 @@ class ElementCounter extends BaseElement
 
     public function getType()
     {
-        return _t(__CLASS__ . '.BlockType', 'Counter');
+        return _t(self::class . '.BlockType', 'Counter');
     }
 }

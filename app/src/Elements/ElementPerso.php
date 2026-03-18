@@ -38,8 +38,8 @@ class ElementPerso extends BaseElement
             'DepartmentsSortOrder' => 'Int',
         ],
         'Persos' => [
-            'PersosSortOrder' => 'Int'
-        ]
+            'PersosSortOrder' => 'Int',
+        ],
     ];
 
     private static $owns = [
@@ -69,7 +69,7 @@ class ElementPerso extends BaseElement
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['GroupByDepartment'] = _t(__CLASS__ . '.GROUPBYDEPARTMENT', 'Group by department');
+        $labels['GroupByDepartment'] = _t(self::class . '.GROUPBYDEPARTMENT', 'Group by department');
 
         return $labels;
     }
@@ -92,16 +92,16 @@ class ElementPerso extends BaseElement
         if ($this->isInDB()) {
             $DepGFConfig = GridFieldConfig_Base::create(20);
             $DepGFConfig->addComponents(
-                new GridFieldEditButton(),
-                new GridFieldDeleteAction(false),
-                new GridFieldDetailForm(),
-                new GridFieldAddNewButton('toolbar-header-left'),
-                new GridFieldAddExistingAutocompleter('toolbar-header-right'),
-                new GridFieldOrderableRows('DepartmentsSortOrder'),
+                GridFieldEditButton::create(),
+                GridFieldDeleteAction::create(false),
+                GridFieldDetailForm::create(),
+                GridFieldAddNewButton::create('toolbar-header-left'),
+                GridFieldAddExistingAutocompleter::create('toolbar-header-right'),
+                GridFieldOrderableRows::create('DepartmentsSortOrder'),
             );
             $DepGFConfig->removeComponentsByType(GridFieldFilterHeader::class);
-            $GFDep = new GridField('Departments', 'Abteilungen', $this->Departments(), $DepGFConfig);
-            $GFDep->setDescription('<p><strong>' . _t(__CLASS__ . '.CanDeleteExplanation', 'Only departments without people can be deleted!') . '</strong></p>');
+            $GFDep = GridField::create('Departments', 'Abteilungen', $this->Departments(), $DepGFConfig);
+            $GFDep->setDescription('<p><strong>' . _t(self::class . '.CanDeleteExplanation', 'Only departments without people can be deleted!') . '</strong></p>');
             $fields->addFieldToTab('Root.Main', $GFDep);
         } else {
             $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
@@ -111,18 +111,18 @@ class ElementPerso extends BaseElement
         if ($this->isInDB()) {
             $PersoGFConfig = GridFieldConfig_Base::create(100);
             $PersoGFConfig->addComponents(
-                new GridFieldEditButton(),
-                new GridFieldDeleteAction(false),
-                new GridFieldDeleteAction(true),
-                new GridFieldDetailForm(),
-                new GridFieldAddNewButton('toolbar-header-left'),
-                new GridFieldAddExistingAutocompleter('toolbar-header-right'),
+                GridFieldEditButton::create(),
+                GridFieldDeleteAction::create(false),
+                GridFieldDeleteAction::create(true),
+                GridFieldDetailForm::create(),
+                GridFieldAddNewButton::create('toolbar-header-left'),
+                GridFieldAddExistingAutocompleter::create('toolbar-header-right'),
             );
             if ($this->Sorting == 'manual' && $this->GroupByDepartment == 0) {
-                $PersoGFConfig->addComponent(new GridFieldOrderableRows('PersosSortOrder'));
+                $PersoGFConfig->addComponent(GridFieldOrderableRows::create('PersosSortOrder'));
             }
             $PersoGFConfig->removeComponentsByType(GridFieldFilterHeader::class);
-            $GFPerso = new GridField('Persos', _t(__CLASS__ . '.PERSOS', 'Employees'), $this->Everybody(), $PersoGFConfig);
+            $GFPerso = GridField::create('Persos', _t(self::class . '.PERSOS', 'Employees'), $this->Everybody(), $PersoGFConfig);
             $fields->addFieldToTab('Root.Main', $GFPerso);
         } else {
             $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
@@ -165,6 +165,6 @@ class ElementPerso extends BaseElement
 
     public function getType()
     {
-        return _t(__CLASS__ . '.BlockType', 'Team');
+        return _t(self::class . '.BlockType', 'Team');
     }
 }

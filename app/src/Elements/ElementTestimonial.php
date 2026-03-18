@@ -19,7 +19,7 @@ class ElementTestimonial extends BaseElement
 {
     private static $db = [
         'CountMax' => 'Int',
-        'Shuffle' => 'Boolean'
+        'Shuffle' => 'Boolean',
     ];
 
     private static $has_one = [];
@@ -28,14 +28,14 @@ class ElementTestimonial extends BaseElement
 
     private static $many_many = [
         // 'Categories' => TestimonialCategory::class . '.Elements' //1111
-        'Categories' => TestimonialCategory::class //1111
+        'Categories' => TestimonialCategory::class, //1111
     ];
 
     private static $defaults = [
         'SpacingTop' => 1,
         'SpacingBottom' => 1,
         'CountMax' => 5,
-        'Shuffle' => true
+        'Shuffle' => true,
     ];
 
     private static $table_name = 'ElementTestimonial';
@@ -47,8 +47,9 @@ class ElementTestimonial extends BaseElement
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['CountMax'] = _t(__CLASS__ . '.COUNTMAX', 'Show maximum');
-        $labels['Shuffle'] = _t(__CLASS__ . '.SHUFFLE', 'Random order');
+        $labels['CountMax'] = _t(self::class . '.COUNTMAX', 'Show maximum');
+        $labels['Shuffle'] = _t(self::class . '.SHUFFLE', 'Random order');
+
         return $labels;
     }
 
@@ -58,14 +59,14 @@ class ElementTestimonial extends BaseElement
 
         $fields->removeByName([
             'Categories',
-            'WidthReduced'
+            'WidthReduced',
         ]);
 
         $CategoryField = TagField::create(
             'Categories',
             'Zeige Testimonials mit Kategorien...',
             TestimonialCategory::get(),
-            $this->Categories()
+            $this->Categories(),
         );
 
         $fields->addFieldToTab('Root.Main', $CategoryField);
@@ -77,9 +78,9 @@ class ElementTestimonial extends BaseElement
             if ($this->isInDB()) {
                 $TestimonialsSelectedGridFieldConfig = GridFieldConfig_Base::create(20);
                 $TestimonialsSelectedGridFieldConfig->removeComponentsByType([
-                    GridFieldFilterHeader::class
+                    GridFieldFilterHeader::class,
                 ]);
-                $gridField = new GridField('TestimonialsSelected', _t(__CLASS__ . '.TESTIMONIALSSELECTED', 'Testimonials (filtered by categories)'), $testimonials_selected, $TestimonialsSelectedGridFieldConfig);
+                $gridField = GridField::create('TestimonialsSelected', _t(self::class . '.TESTIMONIALSSELECTED', 'Testimonials (filtered by categories)'), $testimonials_selected, $TestimonialsSelectedGridFieldConfig);
                 $fields->addFieldToTab('Root.Main', $gridField);
             } else {
                 $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
@@ -87,7 +88,7 @@ class ElementTestimonial extends BaseElement
         }
 
         if ($count_max_field = $fields->dataFieldByName('CountMax')) {
-            $count_max_field->setDescription(_t(__CLASS__ . '.CountMaxFieldDescription', '"0" means no limit'));
+            $count_max_field->setDescription(_t(self::class . '.CountMaxFieldDescription', '"0" means no limit'));
         }
 
         $testimonials_all = Testimonial::get();
@@ -95,15 +96,15 @@ class ElementTestimonial extends BaseElement
         if ($this->isInDB()) {
             $TestimonialsAllGridFieldConfig = GridFieldConfig_Base::create(20);
             $TestimonialsAllGridFieldConfig->removeComponentsByType([
-                GridFieldFilterHeader::class
+                GridFieldFilterHeader::class,
             ]);
             $TestimonialsAllGridFieldConfig->addComponents(
-                new GridFieldEditButton(),
-                new GridFieldDeleteAction(false),
-                new GridFieldDetailForm(),
-                new GridFieldAddNewButton('toolbar-header-right')
+                GridFieldEditButton::create(),
+                GridFieldDeleteAction::create(false),
+                GridFieldDetailForm::create(),
+                GridFieldAddNewButton::create('toolbar-header-right'),
             );
-            $gridField = new GridField('TestimonialsAll', _t(__CLASS__ . '.TESTIMONIALSALL', 'Testimonials (all)'), $testimonials_all, $TestimonialsAllGridFieldConfig);
+            $gridField = GridField::create('TestimonialsAll', _t(self::class . '.TESTIMONIALSALL', 'Testimonials (all)'), $testimonials_all, $TestimonialsAllGridFieldConfig);
             $fields->addFieldToTab('Root.Main', $gridField);
         } else {
             $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
@@ -118,7 +119,7 @@ class ElementTestimonial extends BaseElement
         $categoriesIDs = $this->Categories()->column('ID');
         if (count($categoriesIDs)) {
             $items = $items->filter([
-                'Categories.ID' => $categoriesIDs
+                'Categories.ID' => $categoriesIDs,
             ]);
         }
 
@@ -134,6 +135,6 @@ class ElementTestimonial extends BaseElement
 
     public function getType()
     {
-        return _t(__CLASS__ . '.BlockType', 'Testimonial');
+        return _t(self::class . '.BlockType', 'Testimonial');
     }
 }

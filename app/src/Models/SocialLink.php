@@ -15,7 +15,7 @@ class SocialLink extends DataObject
         'IconName' => 'Varchar',
         'Url' => 'Varchar',
         // 'Icon' => 'Enum("f,d,e,i,h,n,k,x,r,t,o,y,q,p,m,l,s")',
-        'sameAs' => 'Boolean'
+        'sameAs' => 'Boolean',
     ];
 
     // Facebook			f,d,e
@@ -38,27 +38,27 @@ class SocialLink extends DataObject
 
     private static $summary_fields = [
         'Title' => 'Titel',
-        'Url' => 'Url'
+        'Url' => 'Url',
     ];
 
     private static $searchable_fields = [
-        'Title'
+        'Title',
     ];
 
     private static $translate = [
-        'Url'
+        'Url',
     ];
 
     private static $defaults = [
-        'sameAs' => true
+        'sameAs' => true,
     ];
 
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Title');
-        $labels['IconName'] = _t(__CLASS__ . '.ICONNAME', 'Icon name');
-        $labels['sameAs'] = _t(__CLASS__ . '.SAMEAS', '"sameAs" use in schema');
+        $labels['Title'] = _t(self::class . '.TITLE', 'Title');
+        $labels['IconName'] = _t(self::class . '.ICONNAME', 'Icon name');
+        $labels['sameAs'] = _t(self::class . '.SAMEAS', '"sameAs" use in schema');
 
         return $labels;
     }
@@ -69,23 +69,24 @@ class SocialLink extends DataObject
 
         if ($TitleField = $fields->dataFieldByName('IconName')) {
             $iconURL = 'https://simpleicons.org/';
-            $TitleField->setDescription(_t(__CLASS__ . '.IconNameDescription', 'Icon names from <a href="{link}" target="_blank">{link}</a>!', [ 'link' => $iconURL ]));
+            $TitleField->setDescription(_t(self::class . '.IconNameDescription', 'Icon names from <a href="{link}" target="_blank">{link}</a>!', [ 'link' => $iconURL ]));
         }
 
         $valueArray = $this->getAvailableIconNames();
 
         $iconNameField = DropdownField::create(
             'IconName',
-            _t(__CLASS__ . '.ICONNAME', 'Icon name'),
-            $valueArray
+            _t(self::class . '.ICONNAME', 'Icon name'),
+            $valueArray,
         );
-        $iconNameField->setDescription(_t(__CLASS__ . '.IconName', 'Icon names from <a href="{link}" target="_blank">{link}</a>!', [ 'link' => $iconURL ]));
+        $iconNameField->setDescription(_t(self::class . '.IconName', 'Icon names from <a href="{link}" target="_blank">{link}</a>!', [ 'link' => $iconURL ]));
         $fields->replaceField('IconName', $iconNameField);
 
         return $fields;
     }
 
-    public function getAvailableIconNames() {
+    public function getAvailableIconNames()
+    {
         $base = Director::baseFolder();
         $result = [];
 
@@ -96,8 +97,8 @@ class SocialLink extends DataObject
             $jsonString = file_get_contents($fullPath);
             $data = json_decode($jsonString, true);
 
-            foreach($data as $item) {
-                $titleSanitized = preg_replace( '/[^a-z0-9]+/', '', strtolower($item['title']) );
+            foreach ($data as $item) {
+                $titleSanitized = preg_replace('/[^a-z0-9]+/', '', strtolower($item['title']));
                 $result[$titleSanitized] = $item['title'];
             }
         }
@@ -109,8 +110,8 @@ class SocialLink extends DataObject
             $additionalJsonString = file_get_contents($additionalFullPath);
             $additionalData = json_decode($additionalJsonString, true);
 
-            foreach($additionalData as $item) {
-                $titleSanitized = preg_replace( '/[^a-z0-9]+/', '', strtolower($item['title']) );
+            foreach ($additionalData as $item) {
+                $titleSanitized = preg_replace('/[^a-z0-9]+/', '', strtolower($item['title']));
                 $result['custom_' . $titleSanitized] = $item['title'] . ' (Custom)';
             }
         }
@@ -118,24 +119,26 @@ class SocialLink extends DataObject
         return $result;
     }
 
-    public function getIconPath() {
+    public function getIconPath()
+    {
         $iconName = $this->IconName;
 
         // Check if it's a custom icon (prefixed with 'custom_')
-        if (strpos($iconName, 'custom_') === 0) {
+        if (str_starts_with($iconName, 'custom_')) {
             $cleanIconName = str_replace('custom_', '', $iconName);
+
             return "/_resources/app/thirdparty/additional-icons/icons/{$cleanIconName}.svg";
-        } else {
-            // Default simple-icons path
-            return "/_resources/vendor/simple-icons/simple-icons/icons/{$iconName}.svg";
         }
+
+        // Default simple-icons path
+        return "/_resources/vendor/simple-icons/simple-icons/icons/{$iconName}.svg";
     }
 
     public function getCMSValidator()
     {
         return RequiredFieldsValidator::create([
             'Title',
-            'IconName'
+            'IconName',
         ]);
     }
 }

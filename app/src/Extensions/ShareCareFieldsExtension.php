@@ -2,15 +2,15 @@
 
 namespace App\Extensions;
 
-use SilverStripe\Forms\FieldList;
 use SilverStripe\Core\Extension;
+use SilverStripe\Forms\FieldList;
 
 class ShareCareFieldsExtension extends Extension
 {
     public function updateCMSFields(FieldList $fields)
     {
         $fields->removeByName([
-            'PinterestImageCustom'
+            'PinterestImageCustom',
         ]);
 
         if ($uploadField = $fields->dataFieldByName('OGImageCustom')) {

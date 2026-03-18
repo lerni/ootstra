@@ -16,7 +16,7 @@ class SlugHolderPageController extends ContentController
         'view',
     ];
 
-    private $currentItem = null;
+    private $currentItem;
 
     public function view(HTTPRequest $request)
     {

@@ -19,17 +19,17 @@ use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 class ElementContentSection extends BaseElement
 {
     private static $db = [
-        'Layout' => 'Enum("Accordion,Textblocks,NumberedList","Accordion")'
+        'Layout' => 'Enum("Accordion,Textblocks,NumberedList","Accordion")',
     ];
 
     private static $many_many = [
-        'ContentParts' => ContentPart::class
+        'ContentParts' => ContentPart::class,
     ];
 
     private static $many_many_extraFields = [
         'ContentParts' => [
-            'SortOrder' => 'Int'
-        ]
+            'SortOrder' => 'Int',
+        ],
     ];
 
     private static $field_labels = [];
@@ -46,23 +46,23 @@ class ElementContentSection extends BaseElement
 
         $fields->removeByName([
             'isFullWidth',
-            'ContentParts'
+            'ContentParts',
         ]);
 
         // hack around unsaved relations
         if ($this->isInDB()) {
             $ContentPartsGridFieldConfig = GridFieldConfig_Base::create(20);
             $ContentPartsGridFieldConfig->addComponents(
-                new GridFieldEditButton(),
-                new GridFieldDeleteAction(false),
-                new GridFieldDeleteAction(true),
-                new GridFieldDetailForm(),
-                new GridFieldAddNewButton('toolbar-header-left'),
-                new GridFieldAddExistingAutocompleter('toolbar-header-right'),
-                new GridFieldOrderableRows('SortOrder')
+                GridFieldEditButton::create(),
+                GridFieldDeleteAction::create(false),
+                GridFieldDeleteAction::create(true),
+                GridFieldDetailForm::create(),
+                GridFieldAddNewButton::create('toolbar-header-left'),
+                GridFieldAddExistingAutocompleter::create('toolbar-header-right'),
+                GridFieldOrderableRows::create('SortOrder'),
             );
             $ContentPartsGridFieldConfig->removeComponentsByType(GridFieldFilterHeader::class);
-            $GridField = new GridField('ContentParts', 'Content Parts', $this->ContentParts(), $ContentPartsGridFieldConfig);
+            $GridField = GridField::create('ContentParts', 'Content Parts', $this->ContentParts(), $ContentPartsGridFieldConfig);
             $fields->addFieldToTab('Root.Main', $GridField);
         } else {
             $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
@@ -92,7 +92,7 @@ class ElementContentSection extends BaseElement
                 $PushFAQ = Schema::question()
                     ->acceptedAnswer(
                         Schema::Answer()
-                            ->text($faq->Text)
+                            ->text($faq->Text),
                     );
 
                 if ($faq->FAQTitle) {
@@ -111,6 +111,6 @@ class ElementContentSection extends BaseElement
 
     public function getType()
     {
-        return _t(__CLASS__ . '.BlockType', 'Accordion');
+        return _t(self::class . '.BlockType', 'Accordion');
     }
 }

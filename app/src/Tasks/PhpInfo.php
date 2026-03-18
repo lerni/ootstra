@@ -31,28 +31,28 @@ class PhpInfo extends BuildTask
         }
 
         // Environment Overview
-        $this->outputHeader(_t(__CLASS__ . '.ENVIRONMENT_INFO', 'Environment Information'));
+        $this->outputHeader(_t(self::class . '.ENVIRONMENT_INFO', 'Environment Information'));
         $this->outputTable([
-            [_t(__CLASS__ . '.BASE_URL', 'Base URL'), Environment::getEnv('SS_BASE_URL') ?: 'Not set'],
-            [_t(__CLASS__ . '.BASE_PATH', 'BASE_PATH'), BASE_PATH],
-            [_t(__CLASS__ . '.BASE_FOLDER', 'Director::baseFolder()'), Director::baseFolder()],
-            [_t(__CLASS__ . '.SCRIPT_FILENAME', 'SCRIPT_FILENAME'), $_SERVER['SCRIPT_FILENAME'] ?? 'Not set'],
-            [_t(__CLASS__ . '.SS_ENVIRONMENT', 'Silverstripe Environment'), $this->getEnvironmentMode()],
+            [_t(self::class . '.BASE_URL', 'Base URL'), Environment::getEnv('SS_BASE_URL') ?: 'Not set'],
+            [_t(self::class . '.BASE_PATH', 'BASE_PATH'), BASE_PATH],
+            [_t(self::class . '.BASE_FOLDER', 'Director::baseFolder()'), Director::baseFolder()],
+            [_t(self::class . '.SCRIPT_FILENAME', 'SCRIPT_FILENAME'), $_SERVER['SCRIPT_FILENAME'] ?? 'Not set'],
+            [_t(self::class . '.SS_ENVIRONMENT', 'Silverstripe Environment'), $this->getEnvironmentMode()],
         ]);
 
         // Database Information
-        $this->outputHeader(_t(__CLASS__ . '.DATABASE_INFO', 'Database Information'));
+        $this->outputHeader(_t(self::class . '.DATABASE_INFO', 'Database Information'));
         $this->outputTable([
-            [_t(__CLASS__ . '.DB_CONNECTION', 'Database Connection'), $this->getDatabaseStatus()],
-            [_t(__CLASS__ . '.DB_NAME', 'Database Name'), $this->getDatabaseName()],
-            [_t(__CLASS__ . '.DB_SERVER', 'Database Server'), Environment::getEnv('SS_DATABASE_SERVER') ?: 'Not set'],
-            [_t(__CLASS__ . '.DB_USERNAME', 'Database Username'), Environment::getEnv('SS_DATABASE_USERNAME') ?: 'Not set'],
-            [_t(__CLASS__ . '.DB_PORT', 'Database Port'), Environment::getEnv('SS_DATABASE_PORT') ?: 'Not set'],
-            [_t(__CLASS__ . '.DB_CLASS', 'Database Class'), Environment::getEnv('SS_DATABASE_CLASS') ?: 'Not set'],
+            [_t(self::class . '.DB_CONNECTION', 'Database Connection'), $this->getDatabaseStatus()],
+            [_t(self::class . '.DB_NAME', 'Database Name'), $this->getDatabaseName()],
+            [_t(self::class . '.DB_SERVER', 'Database Server'), Environment::getEnv('SS_DATABASE_SERVER') ?: 'Not set'],
+            [_t(self::class . '.DB_USERNAME', 'Database Username'), Environment::getEnv('SS_DATABASE_USERNAME') ?: 'Not set'],
+            [_t(self::class . '.DB_PORT', 'Database Port'), Environment::getEnv('SS_DATABASE_PORT') ?: 'Not set'],
+            [_t(self::class . '.DB_CLASS', 'Database Class'), Environment::getEnv('SS_DATABASE_CLASS') ?: 'Not set'],
         ]);
 
         // Cache Configuration
-        $this->outputHeader(_t(__CLASS__ . '.CACHE_CONFIG', 'Cache Configuration'));
+        $this->outputHeader(_t(self::class . '.CACHE_CONFIG', 'Cache Configuration'));
         $this->outputTable($this->getCacheInfo());
 
         // End center wrapper for web output
@@ -103,7 +103,7 @@ class PhpInfo extends BuildTask
         // Get phpinfo options from
         $infoType = 'all';
 
-        $this->outputHeader(_t(__CLASS__ . '.PHP_INFO', 'PHP Information'));
+        $this->outputHeader(_t(self::class . '.PHP_INFO', 'PHP Information'));
         // todo: add comment about parameter like ?info=modules
 
         if ($this->isCli) {
@@ -158,8 +158,8 @@ class PhpInfo extends BuildTask
             $status = '✓ Connected';
 
             return $this->isCli ? $status : '<span style="color: green;">' . $status . '</span>';
-        } catch (Exception $e) {
-            $status = '✗ Connection failed: ' . $e->getMessage();
+        } catch (Exception $exception) {
+            $status = '✗ Connection failed: ' . $exception->getMessage();
 
             return $this->isCli ? $status : '<span style="color: red;">' . $status . '</span>';
         }
@@ -179,9 +179,9 @@ class PhpInfo extends BuildTask
     private function getCacheInfo(): array
     {
         return [
-            [_t(__CLASS__ . '.CACHE_METHOD', 'Cache Method'), Environment::getEnv('SS_CACHE_METHOD') ?: 'file'],
-            [_t(__CLASS__ . '.TEMPLATE_CACHE', 'Template Cache'), Environment::getEnv('SS_TEMPLATE_CACHE_METHOD') ?: 'file'],
-            [_t(__CLASS__ . '.MANIFEST_CACHE', 'Manifest Cache'), Environment::getEnv('SS_MANIFESTCACHE') ?: 'enabled'],
+            [_t(self::class . '.CACHE_METHOD', 'Cache Method'), Environment::getEnv('SS_CACHE_METHOD') ?: 'file'],
+            [_t(self::class . '.TEMPLATE_CACHE', 'Template Cache'), Environment::getEnv('SS_TEMPLATE_CACHE_METHOD') ?: 'file'],
+            [_t(self::class . '.MANIFEST_CACHE', 'Manifest Cache'), Environment::getEnv('SS_MANIFESTCACHE') ?: 'enabled'],
         ];
     }
 }

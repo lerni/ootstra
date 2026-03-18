@@ -9,15 +9,16 @@ use SilverStripe\Forms\FieldList;
 class BlogCategoryExtension extends Extension
 {
     private static $db = [
-        'SortOrder' => 'Int'
+        'SortOrder' => 'Int',
     ];
 
     private static $default_sort = 'SortOrder ASC';
 
-    public function updateCMSFields(FieldList $fields) {
+    public function updateCMSFields(FieldList $fields)
+    {
 
         $fields->removeByName([
-            'SortOrder'
+            'SortOrder',
         ]);
 
         return $fields;
@@ -27,7 +28,7 @@ class BlogCategoryExtension extends Extension
     {
         // Check if any pages are using this category
         $pagesUsingCategory = Page::get()->filter([
-            'PageCategories.ID' => $this->getOwner()->ID
+            'PageCategories.ID' => $this->getOwner()->ID,
         ])->count();
 
         // Check if BlogCategory is on BlogPosts

@@ -17,9 +17,8 @@ use Endroid\QrCode\ErrorCorrectionLevel;
 
 class PersoQRController extends Controller
 {
-
     private static $allowed_actions = [
-        'index'
+        'index',
     ];
 
     public function index()
@@ -48,7 +47,7 @@ class PersoQRController extends Controller
             margin: 0,
             roundBlockSizeMode: RoundBlockSizeMode::Margin,
             foregroundColor: new Color(0, 0, 0),
-            backgroundColor: new Color(255, 255, 255, 0)
+            backgroundColor: new Color(255, 255, 255, 0),
         );
 
         // Create generic logo
@@ -64,6 +63,7 @@ class PersoQRController extends Controller
 
         $this->getResponse()->addHeader('Content-Type', 'image/svg+xml');
         $this->getResponse()->addHeader('X-Robots-Tag', 'noindex');
+
         return $result->getString();
     }
 }

@@ -20,23 +20,23 @@ class ElementLogo extends BaseElement
     private static $db = [
         'Greyscale' => 'Boolean',
         'Sorting' => 'Enum("random,manual","random")',
-        'Layout' => 'Enum("block,slider", "block")'
+        'Layout' => 'Enum("block,slider", "block")',
     ];
 
     private static $has_one = [];
 
     private static $many_many = [
-        'Logos' => Logo::class
+        'Logos' => Logo::class,
     ];
 
     private static $many_many_extraFields = [
         'Logos' => [
-            'SortOrder' => 'Int'
-        ]
+            'SortOrder' => 'Int',
+        ],
     ];
 
     private static $owns = [
-        'Logos'
+        'Logos',
     ];
 
     private static $table_name = 'ElementLogo';
@@ -52,7 +52,7 @@ class ElementLogo extends BaseElement
         $fields = parent::getCMSFields();
 
         $fields->removeByName([
-            'Logos'
+            'Logos',
         ]);
 
         if ($GreyscaleField = $fields->dataFieldByName('Greyscale')) {
@@ -63,16 +63,16 @@ class ElementLogo extends BaseElement
         if ($this->isInDB()) {
             $LogosGridFieldConfig = GridFieldConfig_Base::create(100);
             $LogosGridFieldConfig->addComponents(
-                new GridFieldEditButton(),
-                new GridFieldDeleteAction(false),
-                new GridFieldDeleteAction(true),
-                new GridFieldDetailForm(),
-                new GridFieldAddNewButton('toolbar-header-left'),
-                new GridFieldOrderableRows('SortOrder'),
-                new GridFieldAddExistingAutocompleter('toolbar-header-right')
+                GridFieldEditButton::create(),
+                GridFieldDeleteAction::create(false),
+                GridFieldDeleteAction::create(true),
+                GridFieldDetailForm::create(),
+                GridFieldAddNewButton::create('toolbar-header-left'),
+                GridFieldOrderableRows::create('SortOrder'),
+                GridFieldAddExistingAutocompleter::create('toolbar-header-right'),
             );
             $LogosGridFieldConfig->removeComponentsByType(GridFieldFilterHeader::class);
-            $GridField = new GridField('Logos', 'Logos', $this->Logos(), $LogosGridFieldConfig);
+            $GridField = GridField::create('Logos', 'Logos', $this->Logos(), $LogosGridFieldConfig);
             $fields->addFieldToTab('Root.Main', $GridField);
         } else {
             $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
@@ -89,6 +89,7 @@ class ElementLogo extends BaseElement
             } else {
                 $items = $this->Logos()->shuffle();
             }
+
             return $items;
         }
     }
@@ -99,11 +100,12 @@ class ElementLogo extends BaseElement
         if ($this->Logos()->count() && $this->Logos()->sort('SortOrder ASC')->first()->LogoImage()->exists()) {
             $blockSchema['fileURL'] = $this->Logos()->sort('SortOrder ASC')->first()->LogoImage()->CMSThumbnail()->getURL();
         }
+
         return $blockSchema;
     }
 
     public function getType()
     {
-        return _t(__CLASS__ . '.BlockType', 'Logos (Partner)');
+        return _t(self::class . '.BlockType', 'Logos (Partner)');
     }
 }

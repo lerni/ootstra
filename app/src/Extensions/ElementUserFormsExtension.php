@@ -9,22 +9,21 @@ use SilverStripe\SpamProtection\EditableSpamProtectionField;
 
 class ElementUserFormsExtension extends Extension
 {
-
     public function updateCMSFields(FieldList $fields)
     {
         $fields->removeByName([
-            'isFullWidth'
+            'isFullWidth',
         ]);
     }
 
     public function onAfterPopulateDefaults()
     {
-        $termsField = new EditableCheckboxTerms();
+        $termsField = EditableCheckboxTerms::create();
         $this->getOwner()->Fields()->add($termsField);
 
-        $spamProtectionField = new EditableSpamProtectionField([
+        $spamProtectionField = EditableSpamProtectionField::create([
             'Name' => 'SpamProtection',
-            'Title' => _t(__CLASS__ . '.DefaultTitle', '')
+            'Title' => _t(self::class . '.DefaultTitle', ''),
         ]);
         $this->getOwner()->Fields()->add($spamProtectionField);
     }

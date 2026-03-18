@@ -5,6 +5,7 @@ namespace App\Extensions;
 use App\Elements\ElementHero;
 use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\FormField;
 use SilverStripe\Forms\FieldGroup;
 use SilverStripe\ORM\FieldType\DBField;
 use DNADesign\Elemental\Models\BaseElement;
@@ -64,10 +65,7 @@ class ElementExtension extends Extension
             $fields->removeByName('TitleLevel');
             $TitleLevelField->setTitle(_t('DNADesign\Elemental\Models\BaseElement.TITLELEVEL', 'H1, H2, H3'));
 
-            $TitleFieldGroup = new FieldGroup(
-                $TitleLevelField,
-                $TitleField,
-            );
+            $TitleFieldGroup = FieldGroup::create($TitleLevelField, $TitleField);
 
             $TitleFieldGroup->replaceField(
                 'Title',
@@ -89,22 +87,18 @@ class ElementExtension extends Extension
 
         $fields->addFieldToTab(
             'Root.Settings',
-            new ColorPaletteField(
-                'BackgroundColor',
-                _t('DNADesign\Elemental\Models\BaseElement.BACKGROUNDCOLOR', 'Element background colour'),
-                [
-                    'transparent' => 'rgba(255, 255, 255, 0)',
-                    'white' => 'rgb(255, 255, 255)',
-                    'gray--lighter' => 'rgb(246, 246, 246)',
-                ],
-            ),
+            ColorPaletteField::create('BackgroundColor', _t('DNADesign\Elemental\Models\BaseElement.BACKGROUNDCOLOR', 'Element background colour'), [
+                'transparent' => 'rgba(255, 255, 255, 0)',
+                'white' => 'rgb(255, 255, 255)',
+                'gray--lighter' => 'rgb(246, 246, 246)',
+            ]),
         );
     }
 
     // second element after ElementHero
     public function AfterHero()
     {
-        if ($this->getOwner()->isInDB() && $firstTwo = BaseElement::get()->filter(['ParentID' => $this->getOwner()->ParentID])->sort('Sort ASC')->limit(2)) {
+        if ($this->getOwner()->isInDB() && $firstTwo = BaseElement::get()->filter(['ParentID' => $this->getOwner()->ParentID])->sort(['Sort' => 'ASC'])->limit(2)) {
             if ($firstTwo->first()->ClassName == ElementHero::class) {
                 if ($firstTwo->count() == 2 && $firstTwo->last()->ID == $this->getOwner()->ID) {
                     return true;
@@ -120,7 +114,7 @@ class ElementExtension extends Extension
 
     public function IsHero()
     {
-        if (!$first = BaseElement::get()->filter(['ParentID' => $this->getOwner()->ParentID])->sort('Sort ASC')->first()) {
+        if (!$first = BaseElement::get()->filter(['ParentID' => $this->getOwner()->ParentID])->sort(['Sort' => 'ASC'])->first()) {
             return null;
         }
         if ($first->ClassName != ElementHero::class) {
@@ -135,7 +129,7 @@ class ElementExtension extends Extension
 
     public function ElementAnchor()
     {
-        $filter = new URLSegmentFilter();
+        $filter = URLSegmentFilter::create();
         $StringTitle = $this->getOwner()->TitleOrAnchor();
         $AnchorCandidate = $filter->filter($StringTitle);
         $Sibelings = $this->getOwner()->Parent()->Elements()->exclude('ID', $this->getOwner()->ID);
@@ -225,13 +219,13 @@ class ElementExtension extends Extension
         }
         if ($this->getOwner()->hasMethod('ContentParts') && $this->getOwner()->ContentParts()->count()) {
             foreach ($this->getOwner()->ContentParts() as $part) {
-                $filter = new URLSegmentFilter();
+                $filter = URLSegmentFilter::create();
                 $anchors[] = $filter->filter($part->Title);
             }
         }
         if ($this->getOwner()->hasMethod('Everybody') && $this->getOwner()->Everybody()->count()) {
             foreach ($this->getOwner()->Everybody() as $perso) {
-                $filter = new URLSegmentFilter();
+                $filter = URLSegmentFilter::create();
                 $anchors[] = $filter->filter($perso->Anchor());
             }
         }
@@ -239,13 +233,14 @@ class ElementExtension extends Extension
 
     public function CurrentStage()
     {
-        if ($this->owner->isPublished() && !$this->owner->isModifiedOnDraft()) {
+        if ($this->getOwner()->isPublished() && !$this->getOwner()->isModifiedOnDraft()) {
             return 'published';
-        } elseif ($this->owner->isPublished() && $this->owner->isModifiedOnDraft()) {
-            return 'modified';
-        } else {
-            return 'draft';
         }
+        if ($this->getOwner()->isPublished() && $this->getOwner()->isModifiedOnDraft()) {
+            return 'modified';
+        }
+
+        return 'draft';
     }
 
     public function getCMSValidator()
@@ -276,7 +271,7 @@ class ElementExtension extends Extension
         // Get all elements in the same ElementalArea, ordered by Sort
         $elements = BaseElement::get()
             ->filter(['ParentID' => $this->getOwner()->ParentID])
-            ->sort('Sort ASC');
+            ->sort(['Sort' => 'ASC']);
 
         $currentSort = $this->getOwner()->Sort;
 

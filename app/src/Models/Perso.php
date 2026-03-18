@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use App\Models\Department;
+use App\Models\SocialLink;
 use Spatie\SchemaOrg\Schema;
 use SilverStripe\Assets\Image;
 use SilverStripe\ORM\DataObject;
 use App\Elements\ElementPersoCFA;
+use SilverStripe\Control\Director;
 use SilverStripe\Forms\EmailField;
 use SilverStripe\TagField\TagField;
 use SilverStripe\Forms\LiteralField;
@@ -30,29 +32,29 @@ class Perso extends DataObject
         'Position' => 'Text',
         'EMail' => 'Varchar',
         'Telephone' => 'Varchar',
-        'Motivation' => 'HTMLText'
+        'Motivation' => 'HTMLText',
     ];
 
     private static $has_one = [
-        'Portrait' => Image::class
+        'Portrait' => Image::class,
     ];
 
     private static $many_many = [
-        'SocialLinks' => SocialLink::class
+        'SocialLinks' => SocialLink::class,
     ];
 
     private static $many_many_extraFields = [
         'SocialLinks' => [
-            'SortOrder' => 'Int'
-        ]
+            'SortOrder' => 'Int',
+        ],
     ];
 
     private static $belongs_many_many = [
-        'Departments' => Department::class
+        'Departments' => Department::class,
     ];
 
     private static $owns = [
-        'Portrait'
+        'Portrait',
     ];
 
     private static $table_name = 'Perso';
@@ -61,22 +63,22 @@ class Perso extends DataObject
         'Portrait.CMSThumbnail' => 'Thumbnail',
         'Firstname' => 'Vorname',
         'Lastname' => 'Nachname',
-        'DepartmentsString' => 'Abteilungen'
+        'DepartmentsString' => 'Abteilungen',
     ];
 
     private static $translate = [
         'Position',
-        'Motivation'
+        'Motivation',
     ];
 
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['Firstname'] = _t(__CLASS__ . '.FIRSTNAME', 'First name');
-        $labels['Lastname'] = _t(__CLASS__ . '.LASTNAME', 'Last name');
-        $labels['EMail'] = _t(__CLASS__ . '.EMAIL', 'E-Mail');
-        $labels['Telephone'] = _t(__CLASS__ . '.TELEPHONE', 'Phone');
-        $labels['Motivation'] = _t(__CLASS__ . '.MOTIVATION', 'Text');
+        $labels['Firstname'] = _t(self::class . '.FIRSTNAME', 'First name');
+        $labels['Lastname'] = _t(self::class . '.LASTNAME', 'Last name');
+        $labels['EMail'] = _t(self::class . '.EMAIL', 'E-Mail');
+        $labels['Telephone'] = _t(self::class . '.TELEPHONE', 'Phone');
+        $labels['Motivation'] = _t(self::class . '.MOTIVATION', 'Text');
 
         return $labels;
     }
@@ -88,7 +90,7 @@ class Perso extends DataObject
         $fields->replaceField('EMail', EmailField::create('EMail', 'E-Mail'));
 
         if ($TelephoneField = $fields->dataFieldByName('Telephone')) {
-            $TelephoneField->setDescription(_t(__CLASS__ . '.TelephoneDescription', '+41 43 000 00 00'));
+            $TelephoneField->setDescription(_t(self::class . '.TelephoneDescription', '+41 43 000 00 00'));
         }
 
         if ($MotivationField = $fields->dataFieldByName('Motivation')) {
@@ -98,7 +100,7 @@ class Perso extends DataObject
 
         if ($MAuploadField = $fields->dataFieldByName('Portrait')) {
             $MAuploadField->setFolderName('Portraits');
-            $MAuploadField->setDescription(_t(__CLASS__ . '.PortraitDescription', 'min. 576x766px'));
+            $MAuploadField->setDescription(_t(self::class . '.PortraitDescription', 'min. 576x766px'));
         }
         // $fields->insertAfter($MAuploadField, 'Title');
         $fields->insertBefore('Motivation', $MAuploadField);
@@ -106,26 +108,26 @@ class Perso extends DataObject
         // hack around unsaved relations
         if ($this->isInDB()) {
 
-                $fields->removeByName('Departments');
-                $DepartmentsField = TagField::create(
-                    'Departments',
-                    _t('SilverStripe\Blog\Model\Blog.Departments', 'Departments'),
-                    Department::get(),
-                    $this->Departments()
-                );
-                $fields->addFieldToTab('Root.Main', $DepartmentsField);
+            $fields->removeByName('Departments');
+            $DepartmentsField = TagField::create(
+                'Departments',
+                _t('SilverStripe\Blog\Model\Blog.Departments', 'Departments'),
+                Department::get(),
+                $this->Departments(),
+            );
+            $fields->addFieldToTab('Root.Main', $DepartmentsField);
 
-                $SocialConf = GridFieldConfig_Base::create(20);
-                $SocialConf->removeComponentsByType([
-                    GridFieldFilterHeader::class
-                ]);
-                $SocialConf->addComponents(
-                    new GridFieldEditButton(),
-                    new GridFieldDeleteAction(false),
-                    new GridFieldDetailForm(),
-                    new GridFieldAddNewButton('toolbar-header-left'),
-                    new GridFieldOrderableRows('SortOrder')
-                );
+            $SocialConf = GridFieldConfig_Base::create(20);
+            $SocialConf->removeComponentsByType([
+                GridFieldFilterHeader::class,
+            ]);
+            $SocialConf->addComponents(
+                GridFieldEditButton::create(),
+                GridFieldDeleteAction::create(false),
+                GridFieldDetailForm::create(),
+                GridFieldAddNewButton::create('toolbar-header-left'),
+                GridFieldOrderableRows::create('SortOrder'),
+            );
 
             // show where associated per CFAElement
             $persoOnCFAElementConfig = GridFieldConfig_Base::create(20);
@@ -133,11 +135,11 @@ class Perso extends DataObject
             $persoOnCFAElementConfig->getComponentByType(GridFieldDataColumns::class)
                 ->setDisplayFields([
                     'getTypeBreadcrumb' => 'Element',
-                    'getPage.CMSEditLink' => 'Edit-Link'
+                    'getPage.CMSEditLink' => 'Edit-Link',
                 ]);
             $persoCFAElements = ElementPersoCFA::get()->filter(["Persos.ID" => $this->ID]);
-            $persoOnCFAElementWithMEGridField = new GridField('PersoOnCFAElement', 'PersoOnCFAElement', $persoCFAElements, $persoOnCFAElementConfig);
-            $persoOnCFAElementWithMEGridField->setTitle(_t(__CLASS__ . '.IsUsedOnComment', '"{name}" is associated on', ['name' => $this->getTitle()]));
+            $persoOnCFAElementWithMEGridField = GridField::create('PersoOnCFAElement', 'PersoOnCFAElement', $persoCFAElements, $persoOnCFAElementConfig);
+            $persoOnCFAElementWithMEGridField->setTitle(_t(self::class . '.IsUsedOnComment', '"{name}" is associated on', ['name' => $this->getTitle()]));
             $fields->addFieldToTab('Root.Main', $persoOnCFAElementWithMEGridField);
         } else {
             $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
@@ -151,22 +153,25 @@ class Perso extends DataObject
         return implode(' ', [$this->Firstname, $this->Lastname]);
     }
 
-    public function DepartmentsString() {
+    public function DepartmentsString()
+    {
         return implode(', ', $this->Departments()->Column('Title'));
     }
 
     public function Anchor()
     {
-        $filter = new URLSegmentFilter();
-        $Sibelings = Perso::get()->exclude("ID", $this->ID);
+        $filter = URLSegmentFilter::create();
+        $Sibelings = static::get()->exclude(["ID" => $this->ID]);
         $Anchor = $filter->filter($this->Firstname . ' ' . $this->Lastname);
         if ($Sibelings->filter(['Firstname' => $this->Firstname, 'Lastname' => $this->Lastname])->count()) {
             $Anchor = $Anchor . '-' . $this->ID;
         }
+
         return $Anchor;
     }
 
-    public function PersoSchema() {
+    public function PersoSchema()
+    {
         $schemaPerson = Schema::person();
         $schemaPerson
             ->name($this->getTitle())
@@ -195,7 +200,7 @@ class Perso extends DataObject
     {
         return RequiredFieldsValidator::create([
             'Firstname',
-            'Lastname'
+            'Lastname',
         ]);
     }
 }

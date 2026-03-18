@@ -21,6 +21,7 @@ class SnippetShortCodeProvider
 
             return $text;
         }
+
         return false;
     }
 }

@@ -14,8 +14,8 @@ class BlogInitExtension extends Extension
         $additionalLinkHeaders = [
             sprintf(
                 '<%s>; rel=preload; as=style',
-                Vite::inst()->asset('src/css/blog.css')
-            )
+                Vite::inst()->asset('src/css/blog.css'),
+            ),
         ];
         $headers = $this->getOwner()->response->getHeaders();
         if (array_key_exists('link', $headers)) {

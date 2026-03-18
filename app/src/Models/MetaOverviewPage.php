@@ -19,7 +19,7 @@ class MetaOverviewPage extends Page
 
     private static $defaults = [
         'ShowInMenus' => false,
-        'ShowInSearch' => false
+        'ShowInSearch' => false,
     ];
 
     public function getCMSFields()
@@ -30,7 +30,7 @@ class MetaOverviewPage extends Page
             'Content',
             'Metadata',
             'PageCategories',
-            'Feed & Share'
+            'Feed & Share',
         ]);
 
         return $fields;
@@ -49,9 +49,10 @@ class MetaOverviewPage extends Page
         }
     }
 
-    public function MetaOverview($ParentID = 0) {
+    public function MetaOverview($ParentID = 0)
+    {
         $pages = Page::get()->filter([
-            'ParentID' => $ParentID
+            'ParentID' => $ParentID,
         ]);
 
         $conf = Config::inst()->get('Page', 'childrenexcluded');
@@ -59,7 +60,7 @@ class MetaOverviewPage extends Page
         if (array_key_exists('metaoverview', $conf)) {
             $exclude = $conf['metaoverview'];
             if (isset($exclude) && is_array($exclude)) {
-                $pages = $pages->exclude('ClassName', $exclude);
+                $pages = $pages->exclude(['ClassName' => $exclude]);
             }
         }
 

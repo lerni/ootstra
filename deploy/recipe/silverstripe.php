@@ -61,13 +61,13 @@ SCRIPT_FILENAME=''
 
 ENV;
 
-// heredoc is a mess with this setup
-// most probable .editorconfig adds some carriage return after EOL, which make it fail!
-// $command = <<<BASH
-// cat >{$envPath} <<EOL
-// $contents
-// EOL
-// BASH;
+    // heredoc is a mess with this setup
+    // most probable .editorconfig adds some carriage return after EOL, which make it fail!
+    // $command = <<<BASH
+    // cat >{$envPath} <<EOL
+    // $contents
+    // EOL
+    // BASH;
 
     run('echo "'. $contents .'" &> '. $envPath);
 
@@ -123,17 +123,17 @@ task('silverstripe:dev_build', function (): void {
 });
 
 
-task('silverstripe:htaccessperstage', function(): void {
+task('silverstripe:htaccessperstage', function (): void {
     $stage = get('labels')['stage'];
-	// upload htaccess, if a specific version for the current stage exist
-    if(file_exists('deploy/' . $stage . '.htaccess')) {
+    // upload htaccess, if a specific version for the current stage exist
+    if (file_exists('deploy/' . $stage . '.htaccess')) {
         writeln('Overwriting .htaccess with deploy/' . $stage . '.htaccess');
         upload('deploy/' . $stage . '.htaccess', "{{release_path}}/public/.htaccess", [
             'options' => [
                 "--perms",
                 "--delete",
                 // "--chmod=605"
-            ]
+            ],
         ]);
     }
 })->desc('upload/replace .htaccess stage specific');
@@ -141,7 +141,7 @@ task('silverstripe:htaccessperstage', function(): void {
 
 desc('Running Task Hydrate the focuspoint extension image size cache');
 task('silverstripe:focu_hydrate', function (): void {
-//     run('cd {{release_path}} && {{bin/php}} ./vendor/silverstripe/framework/cli-script.php dev/tasks/HydrateFocusPointTask "flush=1"');
+    // run('cd {{release_path}} && {{bin/php}} ./vendor/silverstripe/framework/cli-script.php dev/tasks/HydrateFocusPointTask "flush=1"');
     run('cd {{release_path}} && ./vendor/bin/sake dev/tasks/HydrateFocusPointTask "flush=1"');
 });
 
@@ -162,8 +162,8 @@ task('silverstripe:upload_assets', function (): void {
     upload('public/assets/', '{{deploy_path}}/shared/public/assets', [
         'options' => [
             "--exclude={'error-*.html','_tinymce','.htaccess','.DS_Store','._*'}",
-            "--delete"
-        ]
+            "--delete",
+        ],
     ]);
 });
 // after('silverstripe:upload_assets', 'deploy:writable');
@@ -176,8 +176,8 @@ task('silverstripe:download_assets', function (): void {
             "--exclude={'error-*.html','_tinymce','.htaccess','.DS_Store','._*'}",
             // "--omit-dir-times",
             "--delete",
-            "--bwlimit=4096" // for whatever reason, this is needed on some boxes to successfully download
-        ]
+            "--bwlimit=4096", // for whatever reason, this is needed on some boxes to successfully download
+        ],
     ]);
 });
 
@@ -252,19 +252,20 @@ set(
         '--create-options',
         '--quick',
         '--set-charset',
-        '--default-character-set={{mysql_default_charset}}'
-    ])
+        '--default-character-set={{mysql_default_charset}}',
+    ]),
 );
 
 set(
     'mysql_args',
     implode(' ', [
-        '--default-character-set={{mysql_default_charset}}'
-    ])
+        '--default-character-set={{mysql_default_charset}}',
+    ]),
 );
 
 
-function getExportDatabaseCommand($envPath, $destination) {
+function getExportDatabaseCommand($envPath, $destination)
+{
     $usernameArg = '--user=$SS_DATABASE_USERNAME';
     $passwordArg = '--password=$SS_DATABASE_PASSWORD';
     $hostArg = '--host=$SS_DATABASE_SERVER';
@@ -273,11 +274,13 @@ function getExportDatabaseCommand($envPath, $destination) {
     $loadEnvCmd = "export $(grep -v '^#' {$envPath} | xargs)";
 
     $exportDbCmd = "mysqldump {{mysqldump_args}} {$usernameArg} {$passwordArg} {$hostArg} {$databaseArg} | gzip > {$destination}";
+
     return "{$loadEnvCmd} && {$exportDbCmd}";
 }
 
 
-function getImportDatabaseCommand($envPath, $source) {
+function getImportDatabaseCommand($envPath, $source)
+{
     $usernameArg = '--user=$SS_DATABASE_USERNAME';
     $passwordArg = '--password=$SS_DATABASE_PASSWORD';
     $hostArg = '--host=$SS_DATABASE_SERVER';
@@ -303,7 +306,7 @@ task('silverstripe:remote_dump', function ($prefix = 'auto'): void {
     invoke('silverstripe:create_dump_dir');
 
     $releaseNo = basename(get('release_path'));
-    if($releaseNo) {
+    if ($releaseNo) {
 
         $filename = get('application') . '-' . $stage . '-' . $releaseNo . '-db-' . date('Y-m-d-H-i-s') . '.sql.gz';
         $filename = $prefix . '-' . $filename;

@@ -20,29 +20,29 @@ class ContentPart extends DataObject
         'Title' => 'Varchar',
         'FAQTitle' => 'Varchar',
         'Text' => 'HTMLText',
-        'ShowTitle'  => 'Boolean',
+        'ShowTitle' => 'Boolean',
         'TitleLevel' => 'Enum("1,2,3","2")',
         'DefaultOpen' => 'Boolean',
-        'FAQSchema' => 'Boolean'
+        'FAQSchema' => 'Boolean',
     ];
 
     private static $belongs_many_many = [
-        'ElementContentSection' => ElementContentSection::class . '.ContentParts'
+        'ElementContentSection' => ElementContentSection::class . '.ContentParts',
     ];
 
     private static $casting = [
-        'Text' => 'HTMLText'
+        'Text' => 'HTMLText',
     ];
 
     private static $summary_fields = [
         'Title' => 'Title',
         'Text.Summary' => 'Text',
-        'FAQSchema.Nice' => 'FAQ'
+        'FAQSchema.Nice' => 'FAQ',
     ];
 
     private static $defaults = [
         'ShowTitle' => true,
-        'TitleLevel' => 2
+        'TitleLevel' => 2,
     ];
 
     private static $table_name = 'ContentPart';
@@ -50,9 +50,10 @@ class ContentPart extends DataObject
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Titel');
-        $labels['FAQTitle'] = _t(__CLASS__ . '.FAQTITLE', 'Title/Question');
-        $labels['DefaultOpen'] = _t(__CLASS__ . '.DEFAULTOPEN', 'Open on load');
+        $labels['Title'] = _t(self::class . '.TITLE', 'Titel');
+        $labels['FAQTitle'] = _t(self::class . '.FAQTITLE', 'Title/Question');
+        $labels['DefaultOpen'] = _t(self::class . '.DEFAULTOPEN', 'Open on load');
+
         return $labels;
     }
 
@@ -67,12 +68,12 @@ class ContentPart extends DataObject
         // Add a combined field for "Title" and "Displayed" checkbox in a Bootstrap input group
         $fields->removeByName([
             'ElementContentSection',
-            'ShowTitle'
+            'ShowTitle',
         ]);
         $fields->replaceField(
             'Title',
             TextCheckboxGroupField::create()
-                ->setName('Title')
+                ->setName('Title'),
         );
 
         $TitleField = $fields->dataFieldByName('Title');
@@ -83,21 +84,18 @@ class ContentPart extends DataObject
             $fields->removeByName('TitleLevel');
             $TitleLevelField->setTitle(_t('DNADesign\Elemental\Models\BaseElement.TITLELEVEL', 'H1, H2, H3'));
 
-            $TitleFieldGroup = new FieldGroup(
-                $TitleLevelField,
-                $TitleField
-            );
+            $TitleFieldGroup = FieldGroup::create($TitleLevelField, $TitleField);
 
             $TitleFieldGroup->replaceField(
                 'Title',
                 TextCheckboxGroupField::create()
-                    ->setName('Title')
+                    ->setName('Title'),
             );
             $fields->fieldByName('Root.Main')->unshift($TitleFieldGroup);
         }
 
         if ($FAQTitleField = $fields->dataFieldByName('FAQTitle')) {
-            $FAQTitleField->setDescription(_t(__CLASS__ . '.FAQTitleDescription', 'Overrides "Title" for FAQ schema'));
+            $FAQTitleField->setDescription(_t(self::class . '.FAQTitleDescription', 'Overrides "Title" for FAQ schema'));
         }
 
         if ($DefaultOpenField = $fields->dataFieldByName('DefaultOpen')) {
@@ -116,17 +114,17 @@ class ContentPart extends DataObject
                     GridFieldArchiveAction::class,
                     GridFieldDeleteAction::class,
                     GridFieldAddExistingAutocompleter::class,
-                    GridFieldSortableHeader::class
+                    GridFieldSortableHeader::class,
                 ]);
 
-            $fields->fieldByName('Root.ElementContentSection.ElementContentSection')->setTitle(_t(__CLASS__ . '.IsUsedOnComment', 'This element is used on following Elements'));
+            $fields->fieldByName('Root.ElementContentSection.ElementContentSection')->setTitle(_t(self::class . '.IsUsedOnComment', 'This element is used on following Elements'));
 
             $fields
                 ->fieldByName('Root.ElementContentSection.ElementContentSection')
                 ->getConfig()
                 ->getComponentByType(GridFieldDataColumns::class)
                 ->setDisplayFields([
-                    'getTypeBreadcrumb' => 'Element'
+                    'getTypeBreadcrumb' => 'Element',
                 ]);
 
             $usedGF = $fields->fieldByName('Root.ElementContentSection.ElementContentSection');
@@ -142,7 +140,7 @@ class ContentPart extends DataObject
     public function getCMSValidator()
     {
         return RequiredFieldsValidator::create([
-            'Title'
+            'Title',
         ]);
     }
 }

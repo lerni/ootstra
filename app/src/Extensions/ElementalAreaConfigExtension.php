@@ -3,8 +3,8 @@
 namespace App\Extensions;
 
 use SilverStripe\Core\Extension;
-use SilverStripe\Forms\GridField\GridFieldDetailForm;
 use SilverStripe\Forms\GridField\GridFieldPaginator;
+use SilverStripe\Forms\GridField\GridFieldDetailForm;
 
 /**
  * Adds pagination (prev/next) to elements

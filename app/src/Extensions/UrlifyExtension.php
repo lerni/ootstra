@@ -47,9 +47,9 @@ class UrlifyExtension extends Extension
     {
         $labels = parent::fieldLabels($includerelations);
 
-        $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Title');
-        $labels['MetaTitle'] = _t(__CLASS__ . '.METATITLE', 'Meta Title');
-        $labels['MetaDescription'] = _t(__CLASS__ . '.METADESCRIPTION', 'Meta Description');
+        $labels['Title'] = _t(self::class . '.TITLE', 'Title');
+        $labels['MetaTitle'] = _t(self::class . '.METATITLE', 'Meta Title');
+        $labels['MetaDescription'] = _t(self::class . '.METADESCRIPTION', 'Meta Description');
 
         return $labels;
     }
@@ -71,10 +71,10 @@ class UrlifyExtension extends Extension
 
         $MetaToggle = ToggleCompositeField::create(
             'Metadata',
-            _t(__CLASS__.'.MetadataToggle', 'Metadata'),
+            _t(self::class.'.MetadataToggle', 'Metadata'),
             [
-                $MetaTitleField = new TextField('MetaTitle'),
-                $MetaDescriptionField = new TextareaField('MetaDescription'),
+                $MetaTitleField = TextField::create('MetaTitle'),
+                $MetaDescriptionField = TextareaField::create('MetaDescription'),
             ],
         )->setHeadingLevel(4);
 
@@ -110,7 +110,7 @@ class UrlifyExtension extends Extension
             );
         } else {
             $message = _t(
-                __CLASS__ . '.NoSlugHolderPage',
+                self::class . '.NoSlugHolderPage',
                 'No SlugHolderPage found for this model. Create one in the page tree and select this model type.',
             );
             $fields->replaceField('URLSegment', LiteralField::create(
@@ -161,9 +161,9 @@ class UrlifyExtension extends Extension
     // Returns the SlugHolderPage managing this model type
     public function Parent(): ?SlugHolderPage
     {
-        $class = get_class($this->getOwner());
+        $class = $this->getOwner()::class;
         if (!array_key_exists($class, self::$slugHolderCache)) {
-            self::$slugHolderCache[$class] = SlugHolderPage::get()->filter('ManagedModel', $class)->first();
+            self::$slugHolderCache[$class] = SlugHolderPage::get()->filter(['ManagedModel' => $class])->first();
         }
 
         return self::$slugHolderCache[$class];
@@ -174,7 +174,7 @@ class UrlifyExtension extends Extension
         $anchor = $this->getOwner()->URLSegment;
 
         if ($anchor == '') {
-            $filter = new URLSegmentFilter();
+            $filter = URLSegmentFilter::create();
             $anchor = $filter->filter($this->getOwner()->Title);
         }
 
@@ -256,10 +256,10 @@ class UrlifyExtension extends Extension
             }
             $page = $page->Parent;
         }
-        $template = new SSViewer('BreadcrumbsTemplate');
+        $template = SSViewer::create('BreadcrumbsTemplate');
 
         return $template->process($this->getOwner()->customise(ArrayData::create([
-            'Pages' => new ArrayList(array_reverse($pages)),
+            'Pages' => ArrayList::create(array_reverse($pages)),
         ])));
     }
 

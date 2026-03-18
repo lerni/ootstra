@@ -22,21 +22,21 @@ class ElementHero extends BaseElement
         'DoNotCrop' => 'Boolean',
         'SitemapImageExpose' => 'Boolean',
         'CountMax' => 'Int',
-        'Shuffle' => 'Boolean'
+        'Shuffle' => 'Boolean',
     ];
 
     private static $many_many = [
-        'Slides' => Slide::class
+        'Slides' => Slide::class,
     ];
 
     private static $many_many_extraFields = [
         'Slides' => [
-            'SortOrder' => 'Int'
-        ]
+            'SortOrder' => 'Int',
+        ],
     ];
 
     private static $owns = [
-        'Slides'
+        'Slides',
     ];
 
     private static $table_name = 'ElementHero';
@@ -45,13 +45,13 @@ class ElementHero extends BaseElement
     public static $AvaliableHeroSizes = [
         'small' => 'small 4:1',
         'medium' => 'medium 2.215:1',
-        'fullscreen' => 'fullscreen'
+        'fullscreen' => 'fullscreen',
     ];
 
     private static $defaults = [
         'isFullWidth' => true,
         'HeroSize' => 'medium', // todo: remove - but do we have defaults in SiteConfig ealy enough?
-        'SitemapImageExpose' => true
+        'SitemapImageExpose' => true,
     ];
 
     public function onAfterPopulateDefaults()
@@ -70,11 +70,11 @@ class ElementHero extends BaseElement
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['HeroSize'] = _t(__CLASS__ . '.HEROSIZE', 'Size / height header');
-        $labels['DoNotCrop'] = _t(__CLASS__ . '.DONOTCROP', 'Do not limit height with wide viewport → "small" & "medium".');
-        $labels['SitemapImageExpose'] = _t(__CLASS__ . '.SITEMAPIMAGEEXPOSE', 'expose images in sitemap.xml');
-        $labels['CountMax'] = _t(__CLASS__ . '.TITLE', 'Zeige maximal');
-        $labels['Shuffle'] = _t(__CLASS__ . '.TITLE', 'Reihenfolge zufällig');
+        $labels['HeroSize'] = _t(self::class . '.HEROSIZE', 'Size / height header');
+        $labels['DoNotCrop'] = _t(self::class . '.DONOTCROP', 'Do not limit height with wide viewport → "small" & "medium".');
+        $labels['SitemapImageExpose'] = _t(self::class . '.SITEMAPIMAGEEXPOSE', 'expose images in sitemap.xml');
+        $labels['CountMax'] = _t(self::class . '.TITLE', 'Zeige maximal');
+        $labels['Shuffle'] = _t(self::class . '.TITLE', 'Reihenfolge zufällig');
 
         return $labels;
     }
@@ -86,39 +86,39 @@ class ElementHero extends BaseElement
 
         $fields->removeByName([
             'Slides',
-            'AnchorLink'
+            'AnchorLink',
         ]);
 
         if ($count_max_field = $fields->dataFieldByName('CountMax')) {
-            $count_max_field->setDescription(_t(__CLASS__ . '.CountMaxFieldDescription', '"0" means no limit'));
+            $count_max_field->setDescription(_t(self::class . '.CountMaxFieldDescription', '"0" means no limit'));
         }
 
         if ($HeroSizeField = $fields->dataFieldByName('HeroSize')) {
             $fields->addFieldToTab('Root.Settings', $HeroSizeField, 'isFullWidth');
             $availableHeroAspectRatios = implode(', ', self::$AvaliableHeroSizes);
-            $HeroSizeField->setDescription(_t(__CLASS__ . '.HeroSizeDescription', '{aspectRatios} - "fullscreen" requires "full width"!', ['aspectRatios' => $availableHeroAspectRatios]));
+            $HeroSizeField->setDescription(_t(self::class . '.HeroSizeDescription', '{aspectRatios} - "fullscreen" requires "full width"!', ['aspectRatios' => $availableHeroAspectRatios]));
         }
 
         // hack around unsaved relations
         if ($this->isInDB()) {
             $SlideGridFieldConfig = GridFieldConfig_Base::create(20);
             $SlideGridFieldConfig->addComponents(
-                new GridFieldEditButton(),
-                new GridFieldDeleteAction(false),
-                new GridFieldDeleteAction(true),
-                new GridFieldDetailForm(),
-                new GridFieldAddNewButton('toolbar-header-left'),
-                new GridFieldAddExistingAutocompleter('toolbar-header-right')
+                GridFieldEditButton::create(),
+                GridFieldDeleteAction::create(false),
+                GridFieldDeleteAction::create(true),
+                GridFieldDetailForm::create(),
+                GridFieldAddNewButton::create('toolbar-header-left'),
+                GridFieldAddExistingAutocompleter::create('toolbar-header-right'),
             );
-            $SlideGridFieldConfig->addComponent(new GridFieldOrderableRows('SortOrder'));
-            $gridField = new GridField('Slides', 'Slides', $this->getOwner()->Slides(), $SlideGridFieldConfig);
+            $SlideGridFieldConfig->addComponent(GridFieldOrderableRows::create('SortOrder'));
+            $gridField = GridField::create('Slides', 'Slides', $this->getOwner()->Slides(), $SlideGridFieldConfig);
             $fields->addFieldToTab('Root.Main', $gridField);
         } else {
             $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
         }
 
         if ($DoNotCropField = $fields->dataFieldByName('DoNotCrop')) {
-            $DoNotCropField->setDescription(_t(__CLASS__ . '.DoNotCropDescription', 'No maximum height for "small" and "medium" size.'));
+            $DoNotCropField->setDescription(_t(self::class . '.DoNotCropDescription', 'No maximum height for "small" and "medium" size.'));
             $fields->addFieldToTab('Root.Settings', $DoNotCropField);
         }
 
@@ -151,6 +151,6 @@ class ElementHero extends BaseElement
 
     public function getType()
     {
-        return _t(__CLASS__ . '.BlockType', 'Hero');
+        return _t(self::class . '.BlockType', 'Hero');
     }
 }

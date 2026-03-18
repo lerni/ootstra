@@ -10,11 +10,11 @@ class ElementTextImage extends BaseElement
     private static $db = [
         'HTML' => 'HTMLText',
         'ElementLayout' => 'Enum("Image, Text", "Image")',
-        'ImageCover' => 'Boolean'
+        'ImageCover' => 'Boolean',
     ];
 
     private static $has_one = [
-        'Image' => Image::class
+        'Image' => Image::class,
     ];
 
     private static $has_many = [];
@@ -22,7 +22,7 @@ class ElementTextImage extends BaseElement
     private static $many_many = [];
 
     private static $owns = [
-        'Image'
+        'Image',
     ];
 
     private static $table_name = 'ElementTextImage';
@@ -34,9 +34,10 @@ class ElementTextImage extends BaseElement
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['HTML'] = _t(__CLASS__ . '.HTML', 'Text');
-        $labels['Image'] = _t(__CLASS__ . '.IMAGE', 'Image');
-        $labels['ElementLayout'] = _t(__CLASS__ . '.ELEMENTLAYOUT', 'Arrangement left...');
+        $labels['HTML'] = _t(self::class . '.HTML', 'Text');
+        $labels['Image'] = _t(self::class . '.IMAGE', 'Image');
+        $labels['ElementLayout'] = _t(self::class . '.ELEMENTLAYOUT', 'Arrangement left...');
+
         return $labels;
     }
 
@@ -45,12 +46,12 @@ class ElementTextImage extends BaseElement
         $fields = parent::getCMSFields();
 
         $fields->removeByName([
-            'BackgroundColor'
+            'BackgroundColor',
         ]);
 
         if ($uploadField = $fields->dataFieldByName('Image')) {
             $uploadField->setFolderName('TextImageElement');
-            $uploadField->setDescription(_t(__CLASS__ . '.ImageDescription', 'min. 1400x1800px'));
+            $uploadField->setDescription(_t(self::class . '.ImageDescription', 'min. 1400x1800px'));
         }
 
         if ($CoverField = $fields->dataFieldByName('ImageCover')) {
@@ -70,11 +71,12 @@ class ElementTextImage extends BaseElement
         if ($this->Image()->exists()) {
             $blockSchema['fileURL'] = $this->Image->CMSThumbnail()->getURL();
         }
+
         return $blockSchema;
     }
 
     public function getType()
     {
-        return _t(__CLASS__ . '.BlockType', 'Text Image');
+        return _t(self::class . '.BlockType', 'Text Image');
     }
 }

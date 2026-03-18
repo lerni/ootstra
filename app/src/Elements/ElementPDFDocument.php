@@ -19,23 +19,23 @@ class ElementPDFDocument extends BaseElement
 {
     private static $db = [
         'Layout' => 'Enum("third,halve", "third")',
-        'ShowAsSlider' => 'Boolean'
+        'ShowAsSlider' => 'Boolean',
     ];
 
     private static $has_many = [];
 
     private static $many_many = [
-        'PDFDocs' => PDFDoc::class
+        'PDFDocs' => PDFDoc::class,
     ];
 
     private static $many_many_extraFields = [
         'PDFDocs' => [
-            'PDFSortOrder' => 'Int'
-        ]
+            'PDFSortOrder' => 'Int',
+        ],
     ];
 
     private static $owns = [
-        'PDFDocs'
+        'PDFDocs',
     ];
 
     private static $table_name = 'ElementPDFDocument';
@@ -49,7 +49,8 @@ class ElementPDFDocument extends BaseElement
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['ShowAsSlider'] = _t(__CLASS__ . '.SHOWASSLIDER', 'Show as slider');
+        $labels['ShowAsSlider'] = _t(self::class . '.SHOWASSLIDER', 'Show as slider');
+
         return $labels;
     }
 
@@ -58,26 +59,26 @@ class ElementPDFDocument extends BaseElement
         $fields = parent::getCMSFields();
 
         $fields->removeByName([
-            'PDFDocs'
+            'PDFDocs',
         ]);
 
         if ($TextEditorField = $fields->dataFieldByName('HTML')) {
             $TextEditorField->setRows(10);
         }
 
-        // hack arround unsaved relations
+        // hack around unsaved relations
         if ($this->isInDB()) {
             $DocumentGridFieldConfig = GridFieldConfig_Base::create(20);
             $DocumentGridFieldConfig->addComponents(
-                new GridFieldEditButton(),
-                new GridFieldDeleteAction(false),
-                new GridFieldDeleteAction(true),
-                new GridFieldDetailForm(),
-                (new GridFieldAddNewButton('toolbar-header-left'))->setButtonName(_t(__CLASS__ . '.AddDocument', 'Add document...')),
-                new GridFieldAddExistingAutocompleter('toolbar-header-right'),
-                new GridFieldOrderableRows('PDFSortOrder')
+                GridFieldEditButton::create(),
+                GridFieldDeleteAction::create(false),
+                GridFieldDeleteAction::create(true),
+                GridFieldDetailForm::create(),
+                (GridFieldAddNewButton::create('toolbar-header-left'))->setButtonName(_t(self::class . '.AddDocument', 'Add document...')),
+                GridFieldAddExistingAutocompleter::create('toolbar-header-right'),
+                GridFieldOrderableRows::create('PDFSortOrder'),
             );
-            $gridField = new GridField('PDFDocs', '', $this->PDFDocs(), $DocumentGridFieldConfig);
+            $gridField = GridField::create('PDFDocs', '', $this->PDFDocs(), $DocumentGridFieldConfig);
             $fields->addFieldToTab('Root.Main', $gridField);
             $DocumentGridFieldConfig->removeComponentsByType([
                 GridFieldFilterHeader::class,
@@ -91,6 +92,6 @@ class ElementPDFDocument extends BaseElement
 
     public function getType()
     {
-        return _t(__CLASS__ . '.BlockType', 'PDF Document');
+        return _t(self::class . '.BlockType', 'PDF Document');
     }
 }

@@ -39,10 +39,10 @@ class ElementLocalVideo extends BaseElement
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['Image'] = _t(__CLASS__ . '.IMAGE', 'Poster/still image');
-        $labels['Autoplay'] = _t(__CLASS__ . '.AUTOPLAY', 'Autoplay - enforces "Mute"');
-        $labels['Loop'] = _t(__CLASS__ . '.LOOP', 'Looping video');
-        $labels['Mute'] = _t(__CLASS__ . '.MUTE', 'Mute initial state');
+        $labels['Image'] = _t(self::class . '.IMAGE', 'Poster/still image');
+        $labels['Autoplay'] = _t(self::class . '.AUTOPLAY', 'Autoplay - enforces "Mute"');
+        $labels['Loop'] = _t(self::class . '.LOOP', 'Looping video');
+        $labels['Mute'] = _t(self::class . '.MUTE', 'Mute initial state');
 
         return $labels;
     }
@@ -53,7 +53,7 @@ class ElementLocalVideo extends BaseElement
 
         if ($uploadField = $fields->dataFieldByName('Image')) {
             $uploadField->setFolderName('Video');
-            $uploadField->setDescription(_t(__CLASS__ . '.ImageDescription', '16:9'));
+            $uploadField->setDescription(_t(self::class . '.ImageDescription', '16:9'));
         }
 
         if ($uploadField = $fields->dataFieldByName('LocalVideo')) {
@@ -61,7 +61,7 @@ class ElementLocalVideo extends BaseElement
             $uploadField->allowedExtensions = ['webm', 'mp4'];
             $size = 50 * 1024 * 1024;
             $uploadField->getValidator()->setAllowedMaxFileSize($size);
-            $uploadField->setDescription(_t(__CLASS__ . '.LocalVideoDescription', 'MP4/Webm 16:9 web optimized!'));
+            $uploadField->setDescription(_t(self::class . '.LocalVideoDescription', 'MP4/Webm 16:9 web optimized!'));
         }
 
         if ($uploadField = $fields->dataFieldByName('LocalVideoSmall')) {
@@ -69,7 +69,7 @@ class ElementLocalVideo extends BaseElement
             $uploadField->allowedExtensions = ['webm', 'mp4'];
             $size = 20 * 1024 * 1024;
             $uploadField->getValidator()->setAllowedMaxFileSize($size);
-            $uploadField->setDescription(_t(__CLASS__ . '.LocalVideoSmallDescription', 'MP4/Webm 16:9 web optimized! < 800px wide'));
+            $uploadField->setDescription(_t(self::class . '.LocalVideoSmallDescription', 'MP4/Webm 16:9 web optimized! < 800px wide'));
         }
 
         if ($autoplayField = $fields->dataFieldByName('Autoplay')) {
@@ -99,6 +99,6 @@ class ElementLocalVideo extends BaseElement
 
     public function getType()
     {
-        return _t(__CLASS__ . '.BlockType', 'Local Video');
+        return _t(self::class . '.BlockType', 'Local Video');
     }
 }

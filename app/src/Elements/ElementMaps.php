@@ -27,24 +27,24 @@ class ElementMaps extends BaseElement
         'Fullscreen' => 'Boolean',
         'StreetView' => 'Boolean',
         'ShowZoom' => 'Boolean',
-        'HTML' => 'HTMLText'
+        'HTML' => 'HTMLText',
     ];
 
     private static $many_many = [
-        'Points' => Point::class
+        'Points' => Point::class,
     ];
 
     private static $many_many_extraFields = [
         'Points' => [
-            'SortOrder' => 'Int'
-        ]
+            'SortOrder' => 'Int',
+        ],
     ];
 
     private static $defaults = [
         'Zoom' => 13,
         'MapType' => 'roadmap',
         'Fullscreen' => true,
-        'AvailableGlobally' => false
+        'AvailableGlobally' => false,
     ];
 
     private static $table_name = 'ElementMaps';
@@ -68,7 +68,7 @@ class ElementMaps extends BaseElement
         $fields->removeByName([
             'BackgroundColor',
             'Points',
-            'WidthReduced'
+            'WidthReduced',
         ]);
 
         if ($AvailableGloballyField = $fields->dataFieldByName('AvailableGlobally')) {
@@ -78,40 +78,40 @@ class ElementMaps extends BaseElement
         if ($TextEditorField = $fields->dataFieldByName('HTML')) {
             $TextEditorField->setRows(16);
             $TextEditorField->getEditorConfig()->setOption('body_class', 'typography '. $this->ShortClassName($this, true));
-            $TextEditorField->setDescription(_t(__CLASS__ . '.HTMLFieldDescription', 'If content, it \'ll be shown side by side to "map"'));
+            $TextEditorField->setDescription(_t(self::class . '.HTMLFieldDescription', 'If content, it \'ll be shown side by side to "map"'));
         }
 
-        $fields->addFieldToTab('Root.Main', new HeaderField('MapSettingsHeader', 'Map settings'));
-        $fields->addFieldToTab('Root.Main', new DropdownField('MapType', 'Map type', [
+        $fields->addFieldToTab('Root.Main', HeaderField::create('MapSettingsHeader', 'Map settings'));
+        $fields->addFieldToTab('Root.Main', DropdownField::create('MapType', 'Map type', [
             'roadmap' => 'Roadmap',
             'satellite' => 'Satellite',
             'hybrid' => 'Hybrid',
-            'terrain' => 'Terrain'
+            'terrain' => 'Terrain',
         ]));
 
         $ZoomLevels = [];
-        for ($i = 1; $i < 20; $i++) {
-            $message = ($i == 1) ? "min. Zoom" : "";
-            $message = ($i == 19) ? "max. Zoom" : $message;
-            $ZoomLevels[$i] = ($message) ? $i . ' - ' . $message : $i;
+        for ($i = 1; $i < 20; ++$i) {
+            $message = ($i === 1) ? "min. Zoom" : "";
+            $message = ($i === 19) ? "max. Zoom" : $message;
+            $ZoomLevels[$i] = $message !== '' ? $i . ' - ' . $message : $i;
         }
         $fields->addFieldToTab('Root.Main', $ZoomField = DropdownField::create('Zoom', 'Zoom', $ZoomLevels));
-        $ZoomField->setDescription(_t(__CLASS__ . '.ZoomDescription', 'Zoom level adjusts to show all markers. A minimum value can be configured here.'));
+        $ZoomField->setDescription(_t(self::class . '.ZoomDescription', 'Zoom level adjusts to show all markers. A minimum value can be configured here.'));
 
         // hack around unsaved relations
         if ($this->isInDB()) {
             $PointGridFieldConfig = GridFieldConfig_Base::create(20);
             $PointGridFieldConfig->addComponents(
-                new GridFieldEditButton(),
-                new GridFieldDeleteAction(false),
-                new GridFieldDeleteAction(true),
-                new GridFieldDetailForm(),
-                new GridFieldAddNewButton('toolbar-header-left'),
-                new GridFieldAddExistingAutocompleter('toolbar-header-right'),
-                new GridFieldOrderableRows('SortOrder')
+                GridFieldEditButton::create(),
+                GridFieldDeleteAction::create(false),
+                GridFieldDeleteAction::create(true),
+                GridFieldDetailForm::create(),
+                GridFieldAddNewButton::create('toolbar-header-left'),
+                GridFieldAddExistingAutocompleter::create('toolbar-header-right'),
+                GridFieldOrderableRows::create('SortOrder'),
             );
             $PointGridFieldConfig->removeComponentsByType(GridFieldFilterHeader::class);
-            $gridField = new GridField('Points', 'Points', $this->Points(), $PointGridFieldConfig);
+            $gridField = GridField::create('Points', 'Points', $this->Points(), $PointGridFieldConfig);
             $fields->addFieldToTab('Root.Main', $gridField);
         } else {
             $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
@@ -122,6 +122,6 @@ class ElementMaps extends BaseElement
 
     public function getType()
     {
-        return _t(__CLASS__ . '.BlockType', 'Map');
+        return _t(self::class . '.BlockType', 'Map');
     }
 }

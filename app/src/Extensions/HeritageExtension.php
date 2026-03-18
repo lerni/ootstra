@@ -39,6 +39,7 @@ class HeritageExtension extends Extension
         if ($this->getOwner()->ParentID != 0) {
             return $this->getOwner()->Parent()->Heritage($componentName);
         }
+
         return false;
     }
 }

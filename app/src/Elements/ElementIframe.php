@@ -7,7 +7,7 @@ use DNADesign\Elemental\Models\BaseElement;
 class ElementIframe extends BaseElement
 {
     private static $db = [
-        'IframeLink' => 'Text'
+        'IframeLink' => 'Text',
     ];
 
 
@@ -29,7 +29,7 @@ class ElementIframe extends BaseElement
 
         $fields->removeByName([
             'BackgroundColor',
-            'isFullWidth'
+            'isFullWidth',
         ]);
 
         return $fields;
@@ -37,6 +37,6 @@ class ElementIframe extends BaseElement
 
     public function getType()
     {
-        return _t(__CLASS__ . '.BlockType', 'Embed / iFrame');
+        return _t(self::class . '.BlockType', 'Embed / iFrame');
     }
 }

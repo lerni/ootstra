@@ -13,19 +13,20 @@ class EditableCheckboxTerms extends EditableFormField
 {
     private static $db = [
         'Title' => 'HTMLText',
-        'HideFromReports' => 'Boolean'
+        'HideFromReports' => 'Boolean',
     ];
 
     private static $casting = [
-        'Title' => 'HTMLText'
+        'Title' => 'HTMLText',
     ];
 
     private static $defaults = [
         'Required' => true,
-        'HideFromReports' => true
+        'HideFromReports' => true,
     ];
 
     private static $singular_name = 'Checkbox Terms Field';
+
     private static $plural_name = 'Terms checkboxes';
 
     private static $table_name = 'EditableCheckboxTerms';
@@ -38,6 +39,7 @@ class EditableCheckboxTerms extends EditableFormField
         } else {
             $id = 2; // ID we get per default with fixtures
         }
+
         return $id;
     }
 
@@ -45,7 +47,7 @@ class EditableCheckboxTerms extends EditableFormField
     {
         $id = $this->getKlaroConfigID();
         $this->Name = 'TermsAndConditions';
-        $this->Title = _t(__CLASS__ . '.DefaultTitle', 'I accept <a rel="noopener noreferrer" href="[sitetree_link,id={id}]" target="_blank">Terms & Conditions and Privacy Policy</a>.', ['id' => $id]);
+        $this->Title = _t(self::class . '.DefaultTitle', 'I accept <a rel="noopener noreferrer" href="[sitetree_link,id={id}]" target="_blank">Terms & Conditions and Privacy Policy</a>.', ['id' => $id]);
         $this->Required = true;
         parent::onAfterPopulateDefaults();
     }
@@ -55,13 +57,13 @@ class EditableCheckboxTerms extends EditableFormField
         $this->beforeUpdateCMSFields(function (FieldList $fields): void {
             $id = $this->getKlaroConfigID();
             if ($TitleField = $fields->dataFieldByName('Title')) {
-                $TitleField->setDescription(_t(__CLASS__ . '.DefaultDescription', 'I accept &lt;a rel=&quot;noopener noreferrer&quot; href=&quot;[sitetree_link,id={id}]&quot; target=&quot;_blank&quot;&gt;Terms and  Privacy policy&lt;/a&gt;.<br/><strong>{id}</strong> is the PageID which Klaro links.', ['id' => $id]));
+                $TitleField->setDescription(_t(self::class . '.DefaultDescription', 'I accept &lt;a rel=&quot;noopener noreferrer&quot; href=&quot;[sitetree_link,id={id}]&quot; target=&quot;_blank&quot;&gt;Terms and  Privacy policy&lt;/a&gt;.<br/><strong>{id}</strong> is the PageID which Klaro links.', ['id' => $id]));
             }
             $fields->addFieldsToTab('Root.Main', [
                 CheckboxField::create(
                     'HideFromReports',
-                    _t('SilverStripe\\UserForms\\Model\\EditableFormField\\EditableLiteralField.HIDEFROMREPORT', 'Hide from reports?')
-                )
+                    _t('SilverStripe\\UserForms\\Model\\EditableFormField\\EditableLiteralField.HIDEFROMREPORT', 'Hide from reports?'),
+                ),
             ]);
         });
 
@@ -76,6 +78,7 @@ class EditableCheckboxTerms extends EditableFormField
     public function TitleParsed()
     {
         $text = $this->getField('Title');
+
         return ShortcodeParser::get_active()->parse($text);
     }
 

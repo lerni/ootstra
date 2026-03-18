@@ -15,20 +15,20 @@ class Vacation extends DataObject implements PermissionProvider
     private static $db = [
         'Title' => 'Varchar',
         'StartDate' => DBDate::class,
-        'EndDate' => DBDate::class
+        'EndDate' => DBDate::class,
     ];
 
     private static $summary_fields = [
         'Title' => 'Title',
         'StartDate' => 'Start Date',
         'EndDate' => 'End Date',
-        'LocationsString' => 'Standorte'
+        'LocationsString' => 'Standorte',
     ];
 
     private static $has_one = [];
 
     private static $many_many = [
-        'Locations' => Location::class
+        'Locations' => Location::class,
     ];
 
     private static $default_sort = 'StartDate ASC';
@@ -42,45 +42,46 @@ class Vacation extends DataObject implements PermissionProvider
                 'name' => 'View Vacations',
                 'category' => 'Basket Orders',
                 'help' => 'Allow viewing of vacations',
-                'sort' => 100
+                'sort' => 100,
             ],
             'VACATION_EDIT' => [
                 'name' => 'Edit Vacations',
                 'category' => 'Basket Orders',
                 'help' => 'Allow editing of vacations',
-                'sort' => 200
+                'sort' => 200,
             ],
             'VACATION_DELETE' => [
                 'name' => 'Delete Vacations',
                 'category' => 'Basket Orders',
                 'help' => 'Allow deletion of vacations',
-                'sort' => 300
+                'sort' => 300,
             ],
             'VACATION_CREATE' => [
                 'name' => 'Create Vacations',
                 'category' => 'Basket Orders',
                 'help' => 'Allow creation of vacations',
-                'sort' => 400
-            ]
+                'sort' => 400,
+            ],
         ];
     }
 
     public function singular_name()
     {
-        return _t(__CLASS__ . '.SINGULARNAME', 'Ferien');
+        return _t(self::class . '.SINGULARNAME', 'Ferien');
     }
 
     public function plural_name()
     {
-        return _t(__CLASS__ . '.PLURALNAME', 'Ferien');
+        return _t(self::class . '.PLURALNAME', 'Ferien');
     }
 
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Title');
-        $labels['StartDate'] = _t(__CLASS__ . '.STARTDATE', 'start date');
-        $labels['EndDate'] = _t(__CLASS__ . '.ENDDATE', 'end date');
+        $labels['Title'] = _t(self::class . '.TITLE', 'Title');
+        $labels['StartDate'] = _t(self::class . '.STARTDATE', 'start date');
+        $labels['EndDate'] = _t(self::class . '.ENDDATE', 'end date');
+
         return $labels;
     }
 
@@ -91,16 +92,17 @@ class Vacation extends DataObject implements PermissionProvider
         $fields->removeByName('Locations');
         $LocationsField = TagField::create(
             'Locations',
-            _t('SilverStripe\Blog\Model\Blog.Departments',  _t(__CLASS__ . '.LOCATIONS', 'Locations')),
+            _t('SilverStripe\Blog\Model\Blog.Departments',  _t(self::class . '.LOCATIONS', 'Locations')),
             Location::get(),
-            $this->Locations()
+            $this->Locations(),
         );
         $fields->addFieldToTab('Root.Main', $LocationsField);
 
         return $fields;
     }
 
-    public function LocationsString() {
+    public function LocationsString()
+    {
         return implode(', ', $this->Locations()->Column('Title'));
     }
 
@@ -109,15 +111,15 @@ class Vacation extends DataObject implements PermissionProvider
         $result = parent::validate();
 
         if (empty($this->Title)) {
-            $result->addError(_t(__CLASS__ . '.TITLEVALIDATION', 'Titel ist ein Pflichtfeld.'));
+            $result->addError(_t(self::class . '.TITLEVALIDATION', 'Titel ist ein Pflichtfeld.'));
         }
 
         if ($this->StartDate && $this->EndDate && $this->StartDate > $this->EndDate) {
-            $result->addError(_t(__CLASS__ . '.DATEVALIDATION', 'Enddate must be after or on the same day as the start date.'));
+            $result->addError(_t(self::class . '.DATEVALIDATION', 'Enddate must be after or on the same day as the start date.'));
         }
 
         if (!$this->Locations()->exists()) {
-            $result->addError(_t(__CLASS__ . '.LOCATIONVALIDATION', 'One or more locations must be selected.'));
+            $result->addError(_t(self::class . '.LOCATIONVALIDATION', 'One or more locations must be selected.'));
         }
 
         return $result;

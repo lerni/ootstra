@@ -31,7 +31,7 @@ class CleanUpObjects extends BuildTask
         foreach ($ObjClasses as $ObjClass) {
             $output->writeln('Removing all ' . $ObjClass . ' before ' . $sThresholdDate);
             $output->writeln('Total entries in database (before cleanup): ' . $ObjClass::get()->count());
-            $iClearedEntries = $this->cleanUpObject($sThresholdDate, $ObjClass);
+            $iClearedEntries = static::cleanUpObject($sThresholdDate, $ObjClass);
             $output->writeln('Total entries to be deleted: ' . $iClearedEntries);
             $output->writeln("Done, total entries left after cleanup: " . $ObjClass::get()->count());
             $output->writeln("***************");

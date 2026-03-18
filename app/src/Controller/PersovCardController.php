@@ -13,11 +13,10 @@ use SilverStripe\SiteConfig\SiteConfig;
 
 class PersovCardController extends Controller
 {
-
     public static $expose_vcards = false;
 
     private static $allowed_actions = [
-        'index'
+        'index',
     ];
 
     public function index()
@@ -55,22 +54,22 @@ class PersovCardController extends Controller
         // case $perso has Urlifyextension
         if ($perso->hasExtension(UrlifyExtension::class)) {
             $link = $perso->AbsoluteLink();
-        // else use teampage
-        } elseif($element &&
+            // else use teampage
+        } elseif ($element &&
             $element->Parent() &&
             $element->Parent()->getOwnerPage()
-            ) {
+        ) {
             $page_link = $element->Parent()->getOwnerPage()->Link();
             $link = Controller::join_links(
                 Director::protocolAndHost(),
-                $page_link
+                $page_link,
             );
         }
         // fallback to baseURL if no specific link found
         if (!$link) {
             $link = Controller::join_links(
                 Director::protocolAndHost(),
-                Director::baseURL()
+                Director::baseURL(),
             );
         }
         $vcard->addURL($link);
@@ -84,8 +83,8 @@ class PersovCardController extends Controller
         }
 
         if ($perso->Portrait() && $perso->Portrait()->exists()) {
-            $original_filename_relative  = $perso->Portrait()->FocusFillMax(305,400)->Link();
-            $original_filename_absolute  = $base . '/public' . $original_filename_relative;
+            $original_filename_relative = $perso->Portrait()->FocusFillMax(305, 400)->Link();
+            $original_filename_absolute = $base . '/public' . $original_filename_relative;
             $vcard->addPhoto($original_filename_absolute);
         }
 

@@ -12,7 +12,7 @@ use DNADesign\Elemental\Models\ElementalArea;
 class ElementalPageExtension extends Extension
 {
     private static $db = [
-        'PreventHero' => 'Boolean'
+        'PreventHero' => 'Boolean',
     ];
 
     public function updateCMSFields(FieldList $fields)
@@ -25,9 +25,9 @@ class ElementalPageExtension extends Extension
                         'HeroNeeded',
                         sprintf(
                             '<p class="alert alert-warning">%s</p>',
-                            $message
-                        )
-                    )
+                            $message,
+                        ),
+                    ),
                 );
             }
             $fields->addFieldToTab('Root.Main', CheckboxField::create('PreventHero', _t('App\Models\ElementPage.PREVENTHERO', 'Do not show default Hero-Slides')), 'ElementalArea');
@@ -39,6 +39,7 @@ class ElementalPageExtension extends Extension
     {
         $oldThemes = SSViewer::get_themes();
         SSViewer::set_themes(SSViewer::config()->get('themes'));
+
         try {
             $output = [];
             foreach ($this->getOwner()->hasOne() as $key => $class) {
@@ -70,6 +71,7 @@ class ElementalPageExtension extends Extension
 
         // ----- remove multiple spaces -----
         $output = trim(preg_replace('/ {2,}/', ' ', $output));
+
         return html_entity_decode($output);
     }
 }

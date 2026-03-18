@@ -2,6 +2,7 @@
 
 namespace App\Extensions;
 
+use Normalizer;
 use DOMDocument;
 use SilverStripe\i18n\i18n;
 use SilverStripe\Core\Extension;
@@ -237,7 +238,7 @@ class FieldExtension extends Extension
         $value = $this->getOwner()->value;
 
         if ($value && class_exists('Normalizer')) {
-            $value = \Normalizer::normalize($value, \Normalizer::FORM_C);
+            $value = Normalizer::normalize($value, Normalizer::FORM_C);
         }
 
         return htmlspecialchars($value ?? '', ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8');

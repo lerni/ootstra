@@ -33,7 +33,7 @@ class PageSchemaExtension extends Extension
 
         $siteConfig = SiteConfig::current_site_config();
         $schemaType = $siteConfig->SchemaType;
-        $schemaOrganisation = $this->AvailableSchemaTypes();
+        $schemaOrganisation = static::AvailableSchemaTypes();
         $schemaOrganisation = $schemaOrganisation[$schemaType] ?? Schema::organization();
 
         $schemaOrganisation
@@ -122,11 +122,11 @@ class PageSchemaExtension extends Extension
             foreach ($breadcrumbs as $item) {
 
                 $pageObjs[$i] = Schema::ListItem()
-                    ->position((int)$i + 1)
+                    ->position($i + 1)
                     ->name($item->Title)
                     ->item(
                         Schema::Thing()
-                            ->setProperty('@id', $item->AbsoluteLink())
+                            ->setProperty('@id', $item->AbsoluteLink()),
                     );
                 ++$i;
             }

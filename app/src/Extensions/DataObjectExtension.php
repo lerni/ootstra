@@ -6,7 +6,6 @@ use SilverStripe\Core\ClassInfo;
 use SilverStripe\Core\Extension;
 use DNADesign\ElementalVirtual\Model\ElementVirtual;
 
-
 class DataObjectExtension extends Extension
 {
     // we use this in template & WYSIWYGs for css classes
@@ -23,6 +22,7 @@ class DataObjectExtension extends Extension
         if ($lowercase) {
             $r = strtolower($r);
         }
+
         return $r;
     }
 }

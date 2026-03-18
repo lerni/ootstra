@@ -11,12 +11,12 @@ class CountItem extends DataObject
         'Text' => 'Text',
         'Prefix' => 'Varchar',
         'Value' => 'Int',
-        'Unit' => 'Varchar'
+        'Unit' => 'Varchar',
     ];
 
     private static $summary_fields = [
         'Title' => 'Title',
-        'Value' => 'Wert'
+        'Value' => 'Wert',
     ];
 
     private static $table_name = 'CountItem';
@@ -24,11 +24,11 @@ class CountItem extends DataObject
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['Value'] = _t(__CLASS__ . '.VALUE', 'Value');
-        $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Title');
-        $labels['Prefix'] = _t(__CLASS__ . '.PREFIX', 'Prefix');
-        $labels['Text'] = _t(__CLASS__ . '.TEXT', 'Text');
-        $labels['Unit'] = _t(__CLASS__ . '.UNIT', 'Unit/Suffix');
+        $labels['Value'] = _t(self::class . '.VALUE', 'Value');
+        $labels['Title'] = _t(self::class . '.TITLE', 'Title');
+        $labels['Prefix'] = _t(self::class . '.PREFIX', 'Prefix');
+        $labels['Text'] = _t(self::class . '.TEXT', 'Text');
+        $labels['Unit'] = _t(self::class . '.UNIT', 'Unit/Suffix');
 
         return $labels;
     }
@@ -38,7 +38,7 @@ class CountItem extends DataObject
         $fields = parent::getCMSFields();
 
         $fields->removeByName([
-            'ElementCounterID'
+            'ElementCounterID',
         ]);
 
         return $fields;

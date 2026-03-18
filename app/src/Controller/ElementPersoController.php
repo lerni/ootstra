@@ -4,9 +4,9 @@ namespace App\Controller;
 
 use App\Models\Perso;
 use Endroid\QrCode\QrCode;
+use SilverStripe\i18n\i18n;
 use SilverStripe\Assets\File;
 use Endroid\QrCode\Color\Color;
-use SilverStripe\i18n\i18n;
 use JeroenDesloovere\VCard\VCard;
 use SilverStripe\Control\Director;
 use Endroid\QrCode\Writer\SvgWriter;
@@ -20,7 +20,6 @@ use DNADesign\Elemental\Controllers\ElementController;
 
 class ElementPersoController extends ElementController
 {
-
     public function Link($action = null)
     {
         $id = $this->element->ID;
@@ -29,11 +28,12 @@ class ElementPersoController extends ElementController
         if ($page && !($page instanceof ElementController)) {
             return $page->Link($segment);
         }
+
         return $segment;
     }
 
     private static $allowed_actions = [
-        'vcard'
+        'vcard',
     ];
 
     protected function init()
@@ -65,7 +65,7 @@ class ElementPersoController extends ElementController
                 $country = $AllCountries[$countryCode];
 
                 $vcard->addAddress(null, null, $location->Address, $location->Town, null, $location->PostalCode, $country);
-                $vcard->addLabel("$location->Address, $location->Town, $location->PostalCode $country");
+                $vcard->addLabel("$location->Address, $location->Town, $location->PostalCode {$country}");
             }
             $vcard->addURL(Director::protocolAndHost() . Director::get_current_page()->Link() . '#' . $perso->Anchor());
 
@@ -78,8 +78,8 @@ class ElementPersoController extends ElementController
             }
 
             if ($perso->Portrait() && $perso->Portrait()->exists()) {
-                $original_filename_relative  = $perso->Portrait()->FocusFillMax(305,400)->Link();
-                $original_filename_absolute  = $base . '/public' . $original_filename_relative;
+                $original_filename_relative = $perso->Portrait()->FocusFillMax(305, 400)->Link();
+                $original_filename_absolute = $base . '/public' . $original_filename_relative;
                 $vcard->addPhoto($original_filename_absolute);
             }
 
@@ -92,6 +92,7 @@ class ElementPersoController extends ElementController
             // return vcard as a download
             return $vcard->download();
         }
+
         return $this->getOwner()->httpError(404, _t(self::class . '.NotFound', "vCard couldn't be found."));
     }
 
@@ -114,7 +115,7 @@ class ElementPersoController extends ElementController
                 $perso->ID,
             );
 
-            $filter = new URLSegmentFilter();
+            $filter = URLSegmentFilter::create();
             $qrURLNomalized = $filter->filter($qrURL . $perso->LastEdited);
 
             $tmp_filename = sys_get_temp_dir() . '/' . $qrURLNomalized . '.svg';
@@ -126,7 +127,7 @@ class ElementPersoController extends ElementController
                 if (filemtime($absolute_filepath) < ((int)strtotime($perso->LastEdited) - 3)) {
                     // the file should be deleted
                     // unlink($absolute_filepath);
-                    $obsoletRecord = File::get()->filter(['FileFilename' =>'qr/' . $perso->ID . '.svg'])->first();
+                    $obsoletRecord = File::get()->filter(['FileFilename' => 'qr/' . $perso->ID . '.svg'])->first();
                     $obsoletRecord->delete();
                     $obsoletRecord->revokeFile();
                     $obsoletRecord->deleteFile(true);
@@ -145,7 +146,7 @@ class ElementPersoController extends ElementController
                     margin: 0,
                     roundBlockSizeMode: RoundBlockSizeMode::Margin,
                     foregroundColor: new Color(42, 145, 208),
-                    backgroundColor: new Color(255, 255, 255, 0)
+                    backgroundColor: new Color(255, 255, 255, 0),
                 );
 
                 // Create generic logo
@@ -163,7 +164,7 @@ class ElementPersoController extends ElementController
                     return false;
                 }
 
-                $file = new File();
+                $file = File::create();
                 $file->Title = $perso->getTitle();
                 $file->setFromLocalFile($tmp_filename, 'qr/' . $perso->ID . '.svg');
                 $file->write();

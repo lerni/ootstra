@@ -12,35 +12,37 @@ class Testimonial extends DataObject
 {
     private static $db = [
         'Title' => 'Text',
-        'Text' => 'Text'
+        'Text' => 'Text',
     ];
 
     private static $many_many = [
         // 'Categories' => TestimonialCategory::class . '.Testimonials' // 2222
-        'Categories' => TestimonialCategory::class
+        'Categories' => TestimonialCategory::class,
     ];
 
     private static $singular_name = 'Testimonial';
+
     private static $plural_name = 'Testimonials';
 
     private static $table_name = 'Testimonial';
 
     private static $summary_fields = [
         'Title' => 'Name',
-        'CategoriesAsString' => 'Categories'
+        'CategoriesAsString' => 'Categories',
     ];
 
     private static $indexes = [
         'Title' => [
             'type' => 'unique',
-            'columns' => ['Title']
-        ]
+            'columns' => ['Title'],
+        ],
     ];
 
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Name');
+        $labels['Title'] = _t(self::class . '.TITLE', 'Name');
+
         return $labels;
     }
 
@@ -50,7 +52,7 @@ class Testimonial extends DataObject
         $fields = parent::getCMSFields();
 
         $fields->removeByName([
-            'Categories'
+            'Categories',
         ]);
 
         if ($TitleField = $fields->dataFieldByName('Title')) {
@@ -63,10 +65,10 @@ class Testimonial extends DataObject
             'Categories',
             _t('SilverStripe\Blog\Model\Blog.Categories', 'Categories'),
             TestimonialCategory::get(),
-            $this->Categories()
+            $this->Categories(),
         )->setShouldLazyLoad(true);
 
-        $tagFiled->setDescription(_t(__CLASS__ . '.CategoriesDescription', 'Type "%" to show all records.'));
+        $tagFiled->setDescription(_t(self::class . '.CategoriesDescription', 'Type "%" to show all records.'));
         $tagFiled->setCanCreate(true);
         $fields->addFieldToTab('Root.Main', $tagFiled);
 
@@ -79,23 +81,23 @@ class Testimonial extends DataObject
         if ($categories->exists()) {
             return implode(', ', $categories->column('Title'));
         }
+
         return '';
     }
 
     public function getCMSValidator()
     {
-        return new RequiredFieldsValidator([
-            'Title'
+        return RequiredFieldsValidator::create([
+            'Title',
         ]);
     }
-
 
     public function validate(): ValidationResult
     {
         $result = parent::validate();
 
-        if (static::get()->filter('Title', $this->Title)->exclude('ID', $this->ID)->count() > 0) {
-            $result->addError(_t(__CLASS__ . '.Duplicate', '{FieldName} must be unique', ['FieldName' => 'Title']));
+        if (static::get()->filter(['Title' => $this->Title])->exclude(['ID' => $this->ID])->count() > 0) {
+            $result->addError(_t(self::class . '.Duplicate', '{FieldName} must be unique', ['FieldName' => 'Title']));
         }
 
         return $result;

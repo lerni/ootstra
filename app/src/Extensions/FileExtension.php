@@ -19,13 +19,14 @@ class FileExtension extends Extension
         }
         $width = $owner->getWidth();
         $height = $owner->getHeight();
-
         if ($width > $height) {
             return 'landscape';
-        } elseif ($width < $height) {
-            return 'portrait';
-        } else {
-            return 'square';
         }
+
+        if ($width < $height) {
+            return 'portrait';
+        }
+
+        return 'square';
     }
 }

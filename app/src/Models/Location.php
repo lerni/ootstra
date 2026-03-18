@@ -27,22 +27,24 @@ class Location extends DataObject
         'AddressRegion' => 'Varchar',
         'EMail' => 'Varchar',
         'OpeningHours' => 'Text',
-        'Sort' => 'Int'
+        'Sort' => 'Int',
     ];
 
     private static $has_one = [
         'SiteConfig' => SiteConfig::class,
-        'GeoPoint' => Point::class
+        'GeoPoint' => Point::class,
     ];
 
     private static $belongs_many_many = [
-        'Vacations' => Vacation::class
+        'Vacations' => Vacation::class,
     ];
 
     private static $table_name = 'Location';
+
     private static $default_sort = 'Sort ASC';
 
     private static $singular_name = 'Location';
+
     private static $plural_name = 'Locations';
 
     private static $summary_fields = [
@@ -55,17 +57,17 @@ class Location extends DataObject
     private static $indexes = [
         'Title' => [
             'type' => 'unique',
-            'columns' => ['Title']
-        ]
+            'columns' => ['Title'],
+        ],
     ];
 
     private static $translate = [
-        'Title'
+        'Title',
     ];
 
     public function singular_name()
     {
-        return _t(__CLASS__ . '.SINGULARNAME', 'Location');
+        return _t(self::class . '.SINGULARNAME', 'Location');
     }
 
     public function plural_name()
@@ -76,16 +78,16 @@ class Location extends DataObject
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Title');
-        $labels['Address'] = _t(__CLASS__ . '.ADDRESS', 'Address');
-        $labels['PostOfficeBoxNumber'] = _t(__CLASS__ . '.POSTOFFICEBOXNUMBER', 'P.O. Box');
-        $labels['PostalCode'] = _t(__CLASS__ . '.POSTALCODE', 'Postcode');
-        $labels['Town'] = _t(__CLASS__ . '.TOWN', 'Town');
-        $labels['AddressRegion'] = _t(__CLASS__ . '.ADDRESSREGION', 'Canton/State');
-        $labels['Telephone'] = _t(__CLASS__ . '.TELEPHONE', 'Phone');
-        $labels['EMail'] = _t(__CLASS__ . '.EMAIL', 'E-Mail');
-        $labels['OpeningHours'] = _t(__CLASS__ . '.OPENINGHOURS', 'Opening hours');
-        $labels['GeoPoint'] = _t(__CLASS__ . '.GEOPOINT', 'Coordinates');
+        $labels['Title'] = _t(self::class . '.TITLE', 'Title');
+        $labels['Address'] = _t(self::class . '.ADDRESS', 'Address');
+        $labels['PostOfficeBoxNumber'] = _t(self::class . '.POSTOFFICEBOXNUMBER', 'P.O. Box');
+        $labels['PostalCode'] = _t(self::class . '.POSTALCODE', 'Postcode');
+        $labels['Town'] = _t(self::class . '.TOWN', 'Town');
+        $labels['AddressRegion'] = _t(self::class . '.ADDRESSREGION', 'Canton/State');
+        $labels['Telephone'] = _t(self::class . '.TELEPHONE', 'Phone');
+        $labels['EMail'] = _t(self::class . '.EMAIL', 'E-Mail');
+        $labels['OpeningHours'] = _t(self::class . '.OPENINGHOURS', 'Opening hours');
+        $labels['GeoPoint'] = _t(self::class . '.GEOPOINT', 'Coordinates');
 
         return $labels;
     }
@@ -96,15 +98,15 @@ class Location extends DataObject
         $fields->removeByName([
             'Sort',
             'SiteConfigID',
-            'Vacations'
+            'Vacations',
         ]);
 
         $gmapDefaultConfig = Config::inst()->get(GoogleMapField::class, 'default_options');
         if (isset($gmapDefaultConfig['api_key']) && $GeoPointField = $fields->dataFieldByName('GeoPointID')) {
-            $GeoPointField->setDescription(_t(__CLASS__ . '.DescriptionGeoPointField', 'Link coordinates from ElementMap'));
+            $GeoPointField->setDescription(_t(self::class . '.DescriptionGeoPointField', 'Link coordinates from ElementMap'));
         }
 
-        $ContryDropdownField = DropdownField::create('Country', _t(__CLASS__ . '.COUNTRY', 'Country'));
+        $ContryDropdownField = DropdownField::create('Country', _t(self::class . '.COUNTRY', 'Country'));
         $ContryDropdownField->setSource(i18n::getData()->getCountries());
         $ContryDropdownField->setEmptyString('--');
         $fields->replaceField('Country', $ContryDropdownField);
@@ -145,6 +147,7 @@ class Location extends DataObject
     public function CountryName()
     {
         $countries = i18n::getData()->getCountries();
+
         return $countries[$this->Country];
     }
 
@@ -152,7 +155,7 @@ class Location extends DataObject
     {
         return RequiredFieldsValidator::create([
             'Title',
-            'Town'
+            'Town',
         ]);
     }
 
@@ -160,8 +163,8 @@ class Location extends DataObject
     {
         $result = parent::validate();
 
-        if (static::get()->filter('Title', $this->Title)->exclude('ID', $this->ID)->count() > 0) {
-            $result->addError(_t(__CLASS__ . '.Duplicate', '{FieldName} must be unique', ['FieldName' => 'Title']));
+        if (static::get()->filter(['Title' => $this->Title])->exclude(['ID' => $this->ID])->count() > 0) {
+            $result->addError(_t(self::class . '.Duplicate', '{FieldName} must be unique', ['FieldName' => 'Title']));
         }
 
         return $result;

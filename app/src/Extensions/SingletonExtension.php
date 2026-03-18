@@ -13,11 +13,12 @@ class SingletonExtension extends Extension
      *
      * @param Member|null $member The member being checked.
      * @param array $context Additional context
-     * @return boolean|null
+     * @return bool|null
      */
     public function extendCanCreate($member, $context = [])
     {
-        $className = $this->owner->ClassName;
+        $className = $this->getOwner()->ClassName;
+
         return ($className::get()->count() > 0) ? false : null;
     }
 }

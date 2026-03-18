@@ -19,10 +19,11 @@ class VacationShortCodeProvider
             $end = (new DateTime($endString))->format('Y-m-d');
             $vacations = Vacation::get()->filter([
                 'StartDate:LessThanOrEqual' => $end,
-                'EndDate:GreaterThanOrEqual' => $start
+                'EndDate:GreaterThanOrEqual' => $start,
             ]);
 
-            $text = '';;
+            $text = '';
+            ;
             foreach ($vacations as $vacation) {
                 if ($vacation->StartDate == $vacation->EndDate) {
                     $date = $vacation->obj('StartDate')->Format('EEEEEE d.MM.yy');
@@ -31,8 +32,10 @@ class VacationShortCodeProvider
                 }
                 $text .= $date . ' ' . $vacation->Title . '<br>';
             }
+
             return $text;
         }
+
         return false;
     }
 }

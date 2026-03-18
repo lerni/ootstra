@@ -4,9 +4,9 @@ namespace App\Extensions;
 
 use App\Models\Slide;
 use SilverStripe\Core\Extension;
-use SilverStripe\Model\ArrayData;
 use SilverStripe\Blog\Model\Blog;
 use SilverStripe\Forms\FieldList;
+use SilverStripe\Model\ArrayData;
 use SilverStripe\Control\Controller;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\CheckboxField;
@@ -27,21 +27,21 @@ class BlogExtension extends Extension
 {
     private static $db = [
         'HeroSize' => 'Enum("small,medium,fullscreen")',
-        'PreventHero' => 'Boolean'
+        'PreventHero' => 'Boolean',
     ];
 
     private static $many_many = [
-        'Slides' => Slide::class
+        'Slides' => Slide::class,
     ];
 
     private static $many_many_extraFields = [
         'Slides' => [
-            'SortOrder' => 'Int'
-        ]
+            'SortOrder' => 'Int',
+        ],
     ];
 
     private static $owns = [
-        'Slides'
+        'Slides',
     ];
 
     public function onAfterPopulateDefaults()
@@ -58,24 +58,24 @@ class BlogExtension extends Extension
         $fields->removeFieldFromTab('Root.Categorisation', 'Tags');
 
         $CategoriesField = $fields->fieldByName('Root.Categorisation.Categories');
-        $CategoriesFieldConfig = $CategoriesField->getConfig()->addComponents(
-            new GridFieldOrderableRows('SortOrder')
+        $CategoriesField->getConfig()->addComponents(
+            GridFieldOrderableRows::create('SortOrder'),
         );
 
         // hack around unsaved relations
         if ($this->getOwner()->isInDB()) {
             $SlideGridFieldConfig = GridFieldConfig_Base::create(20);
             $SlideGridFieldConfig->addComponents(
-                new GridFieldEditButton(),
-                new GridFieldDeleteAction(false),
-                new GridFieldDeleteAction(true),
-                new GridFieldDetailForm(),
-                new GridFieldAddNewButton('toolbar-header-left'),
-                new GridFieldAddExistingAutocompleter('toolbar-header-right'),
-                new GridFieldOrderableRows('SortOrder')
+                GridFieldEditButton::create(),
+                GridFieldDeleteAction::create(false),
+                GridFieldDeleteAction::create(true),
+                GridFieldDetailForm::create(),
+                GridFieldAddNewButton::create('toolbar-header-left'),
+                GridFieldAddExistingAutocompleter::create('toolbar-header-right'),
+                GridFieldOrderableRows::create('SortOrder'),
             );
 
-            $gridField = new GridField('Slides', 'Slides', $this->getOwner()->Slides(), $SlideGridFieldConfig);
+            $gridField = GridField::create('Slides', 'Slides', $this->getOwner()->Slides(), $SlideGridFieldConfig);
             $fields->addFieldToTab('Root.Main', $gridField, 'Content');
 
             // HeroSize is respected if slides are present, otherwise default of SiteConfig is used
@@ -83,7 +83,7 @@ class BlogExtension extends Extension
                 $sizes = singleton(Blog::class)->dbObject('HeroSize')->enumValues();
                 $SizeField = DropdownField::create('HeroSize', _t('App\Elements\ElementHero.HEROSIZE', 'Size/Height Header'), $sizes);
                 $SizeField->setDescription(_t('App\Elements\ElementHero.SizeDescription', '"fullscreen" requires "full width"!'));
-                $fields->addFieldToTab('Root.Main', $SizeField, 'Content', true);
+                $fields->addFieldToTab('Root.Main', $SizeField, 'Content');
             } else {
                 $fields->addFieldToTab('Root.Main', CheckboxField::create('PreventHero', _t('App\Models\ElementPage.PREVENTHERO', 'Do not show default Hero-Slides')), 'Content');
             }
@@ -97,7 +97,7 @@ class BlogExtension extends Extension
                 ->getComponentByType(GridFieldPaginator::class)
                 ->setItemsPerPage(30); // watch out memory!
             $ChildPagesField->getConfig()->addComponents(
-                new GridFieldOrderableRows('Sort')
+                GridFieldOrderableRows::create('Sort'),
             );
         }
     }
@@ -108,7 +108,7 @@ class BlogExtension extends Extension
         $query->groupBy("DATE_FORMAT(PublishDate, '%Y')");
         $posts = $this->getOwner()->getBlogPosts()->setDataQuery($query);
 
-        $archive = new ArrayList();
+        $archive = ArrayList::create();
 
         if ($posts->count() > 0) {
             foreach ($posts as $post) {
@@ -117,11 +117,12 @@ class BlogExtension extends Extension
                     $title = $year;
                     $archive->push(ArrayData::create([
                         'Title' => $title,
-                        'Link' => Controller::join_links($this->getOwner()->Link('archive'), $year)
+                        'Link' => Controller::join_links($this->getOwner()->Link('archive'), $year),
                     ]));
                 }
             }
         }
+
         return $archive->Sort('Title DESC');
     }
 }

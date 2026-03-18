@@ -19,28 +19,29 @@ class Department extends DataObject
 {
     private static $db = [
         'Title' => 'Varchar',
-        'Sort' => 'Int'
+        'Sort' => 'Int',
     ];
 
     private static $many_many = [
-        'Persos' => Perso::class
+        'Persos' => Perso::class,
     ];
 
     private static $many_many_extraFields = [
         'Persos' => [
-            'SortOrder' => 'Int'
-        ]
+            'SortOrder' => 'Int',
+        ],
     ];
 
     private static $belongs_many_many = [
-        'PersoElement' => ElementPerso::class
+        'PersoElement' => ElementPerso::class,
     ];
 
     private static $owns = [
-        'Persos'
+        'Persos',
     ];
 
     private static $singular_name = 'department';
+
     private static $plural_name = 'departments';
 
     private static $default_sort = 'Sort ASC';
@@ -51,13 +52,13 @@ class Department extends DataObject
 
     private static $summary_fields = [
         'Title' => 'Titel',
-        'DepartmentSize' => 'Anz. Mitarbeiter'
+        'DepartmentSize' => 'Anz. Mitarbeiter',
     ];
 
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Titel');
+        $labels['Title'] = _t(self::class . '.TITLE', 'Titel');
 
         return $labels;
     }
@@ -70,19 +71,19 @@ class Department extends DataObject
         $fields->removeByName([
             'Sort',
             'Persos',
-            'PersoElement'
+            'PersoElement',
         ]);
 
         // hack around unsaved relations
         if ($this->isInDB()) {
             $PersoGFConfig = GridFieldConfig_Base::create(100);
             $PersoGFConfig->addComponents(
-                new GridFieldDeleteAction(true),
-                new GridFieldAddExistingAutocompleter('toolbar-header-right'),
-                new GridFieldOrderableRows('SortOrder')
+                GridFieldDeleteAction::create(true),
+                GridFieldAddExistingAutocompleter::create('toolbar-header-right'),
+                GridFieldOrderableRows::create('SortOrder'),
             );
             $PersoGFConfig->removeComponentsByType(GridFieldFilterHeader::class);
-            $GFPerso = new GridField('Persos', _t(__CLASS__ . '.PERSOS', 'Employees'), $this->Persos(), $PersoGFConfig);
+            $GFPerso = GridField::create('Persos', _t(self::class . '.PERSOS', 'Employees'), $this->Persos(), $PersoGFConfig);
             $fields->addFieldToTab('Root.Main', $GFPerso);
         } else {
             $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
@@ -91,23 +92,20 @@ class Department extends DataObject
         return $fields;
     }
 
-    public function DepartmentSize() {
+    public function DepartmentSize()
+    {
         return $this->Persos()->count();
     }
 
     public function canDelete($member = null)
     {
         // we return true, if the Department is not in use
-        if ($this->Persos()->count() > 0) {
-            return false;
-        } else {
-            return true;
-        }
+        return $this->Persos()->count() <= 0;
     }
 
     public function generateURLSegment()
     {
-        $filter = new URLSegmentFilter();
+        $filter = URLSegmentFilter::create();
         $this->URLSegment = $filter->filter($this->Title);
     }
 
@@ -115,15 +113,17 @@ class Department extends DataObject
     {
         if ($this->Persos()->count()) {
             $dep = $this->Persos()->Sort('SortOrder ASC')->map()->toArray();
-            $dep = implode(", ", $dep);
-            return $dep;
+
+            return implode(", ", $dep);
         }
+
+        return null;
     }
 
     public function getCMSValidator()
     {
         return RequiredFieldsValidator::create([
-            'Title'
+            'Title',
         ]);
     }
 }

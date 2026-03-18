@@ -2,6 +2,7 @@
 
 namespace App\Extensions;
 
+use Exception;
 use Psr\Log\LoggerInterface;
 use SilverStripe\Core\Extension;
 use SilverStripe\Control\Director;
@@ -64,10 +65,10 @@ class PDFImageExtension extends Extension
                 $command = escapeshellcmd($ghost_path) .
                     ' -sDEVICE=' . escapeshellarg($gsDevice) .
                     ' -dAutoRotatePages=/None' .
-                    ' -dFirstPage=' . (int)$page .
-                    ' -dLastPage=' . (int)$page .
+                    ' -dFirstPage=' . $page .
+                    ' -dLastPage=' . $page .
                     ' -dNOPAUSE' .
-                    ' -dJPEGQ=' . (int)$quality .
+                    ' -dJPEGQ=' . $quality .
                     ' -dGraphicsAlphaBits=4' .
                     ' -dTextAlphaBits=4' .
                     ' -r144' .
@@ -91,8 +92,8 @@ class PDFImageExtension extends Extension
                 // Images/variants do not have a focuspoint!
                 try {
                     $backend->loadFrom($tmp_filename);
-                } catch (\Exception $e) {
-                    Injector::inst()->get(LoggerInterface::class)->error('Failed to load image backend: ' . $e->getMessage());
+                } catch (Exception $exception) {
+                    Injector::inst()->get(LoggerInterface::class)->error('Failed to load image backend: ' . $exception->getMessage());
 
                     return null;
                 }
@@ -101,8 +102,8 @@ class PDFImageExtension extends Extension
 
                 try {
                     $tuple = $backend->writeToStore($store, $filename, $hash, $variant, $config);
-                } catch (\Exception $e) {
-                    Injector::inst()->get(LoggerInterface::class)->error('Failed to write PDF image to store: ' . $e->getMessage());
+                } catch (Exception $exception) {
+                    Injector::inst()->get(LoggerInterface::class)->error('Failed to write PDF image to store: ' . $exception->getMessage());
 
                     return null;
                 }

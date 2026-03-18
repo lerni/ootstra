@@ -21,15 +21,15 @@ class RedirectorPageExtension extends Extension
             'Title',
             'CanonicalURL',
             'PageCategories',
-            'PinterestImageCustom'
+            'PinterestImageCustom',
         ]);
 
         $fields->replaceField(
             'NewWindow',
             FieldGroup::create(
                 _t('SilverStripe\CMS\Model\RedirectorPage.NEWWINDOW', 'target = "_blank"'),
-                CheckboxField::create('NewWindow', _t('SilverStripe\CMS\Model\RedirectorPage.NewWindowLabel', 'Open URL in a new window'))
-            )
+                CheckboxField::create('NewWindow', _t('SilverStripe\CMS\Model\RedirectorPage.NewWindowLabel', 'Open URL in a new window')),
+            ),
         );
     }
 }

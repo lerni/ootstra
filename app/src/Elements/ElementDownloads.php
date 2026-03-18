@@ -15,30 +15,30 @@ use Bummzack\SortableFile\Forms\SortableUploadField;
 class ElementDownloads extends BaseElement
 {
     private static $db = [
-        'WidthReduced' => 'Boolean'
+        'WidthReduced' => 'Boolean',
     ];
 
     private static $has_one = [
-        'DownloadFolder' => Folder::class
+        'DownloadFolder' => Folder::class,
     ];
 
     private static $many_many = [
-        'DownloadFiles' => File::class
+        'DownloadFiles' => File::class,
     ];
 
     private static $many_many_extraFields = [
         'DownloadFiles' => [
-            'SortOrder' => 'Int'
-        ]
+            'SortOrder' => 'Int',
+        ],
     ];
 
     private static $owns = [
         'DownloadFiles',
-        'DownloadFolder'
+        'DownloadFolder',
     ];
 
     private static $defaults = [
-        'isFullWidth' => false
+        'isFullWidth' => false,
     ];
 
     private static $table_name = 'ElementDownloads';
@@ -49,9 +49,7 @@ class ElementDownloads extends BaseElement
 
     public function fieldLabels($includerelations = true)
     {
-        $labels = parent::fieldLabels($includerelations);
-
-        return $labels;
+        return parent::fieldLabels($includerelations);
     }
 
     public function getCMSFields(): FieldList
@@ -60,32 +58,29 @@ class ElementDownloads extends BaseElement
 
         $fields->removeByName([
             'DownloadFolder',
-            'isFullWidth'
+            'isFullWidth',
         ]);
 
-        $fields->addFieldToTab('Root.Main', HeaderField::create('OneOrTheOther', _t(__CLASS__ . '.OneOrTheOther', 'Choose files by folder (all included) or pick & sort individually')));
+        $fields->addFieldToTab('Root.Main', HeaderField::create('OneOrTheOther', _t(self::class . '.OneOrTheOther', 'Choose files by folder (all included) or pick & sort individually')));
 
         $FolderField = FolderDropdownField::create(
             'DownloadFolderID',
-            _t(__CLASS__ . '.FOLDER', 'Folder'),
-            Folder::class
+            _t(self::class . '.FOLDER', 'Folder'),
+            Folder::class,
         );
         $fields->addFieldToTab('Root.Main', $FolderField);
 
         $fields->removeByName('DownloadFiles');
         $fields->addFieldToTab(
             'Root.Main',
-            $uploadField = new SortableUploadField(
-                $name = 'DownloadFiles',
-                $title = _t(__CLASS__ . '.Documents', 'Documents')
-            )
+            $uploadField = SortableUploadField::create($name = 'DownloadFiles', $title = _t(self::class . '.Documents', 'Documents')),
         );
 
         // Set allowed extensions
         $uploadField->setAllowedExtensions(['pdf', 'doc', 'docx', 'xls', 'xlsx', 'txt']);
         $uploadField->setAllowedMaxFileNumber(20);
 
-        $filter = new URLSegmentFilter();
+        $filter = URLSegmentFilter::create();
         $Subfolder = $filter->filter($this->Title);
         $uploadField->setFolderName('Downloads/' . $Subfolder);
         $uploadField->setSortColumn('SortOrder');
@@ -103,7 +98,7 @@ class ElementDownloads extends BaseElement
         if ($this->DownloadFolderID) {
             return File::get()->filter([
                 'ParentID' => $this->DownloadFolderID,
-                'ClassName' => File::class
+                'ClassName' => File::class,
             ]);
         }
 
@@ -112,6 +107,6 @@ class ElementDownloads extends BaseElement
 
     public function getType(): string
     {
-        return _t(__CLASS__ . '.BlockType', 'Downloads');
+        return _t(self::class . '.BlockType', 'Downloads');
     }
 }

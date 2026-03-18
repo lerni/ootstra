@@ -20,46 +20,48 @@ class Teaser extends DataObject
     private static $db = [
         'Title' => 'Text',
         'Text' => 'Text',
-        'Layout' => 'Enum("left,right", "right")'
+        'Layout' => 'Enum("left,right", "right")',
     ];
 
     private static $has_one = [
         'Image' => Image::class,
-        'Link' => Link::class
+        'Link' => Link::class,
     ];
 
     private static $belongs_many_many = [
-        'TeaserElements' => ElementTeaser::class . '.Teasers'
+        'TeaserElements' => ElementTeaser::class . '.Teasers',
     ];
 
     private static $owns = [
         'Image',
-        'Link'
+        'Link',
     ];
 
     private static $cascade_deletes = [
-        'Link'
+        'Link',
     ];
 
     private static $singular_name = 'Teaser';
+
     private static $plural_name = 'Teasers';
 
     private static $table_name = 'Teaser';
 
     private static $summary_fields = [
         'Image.CMSThumbnail' => 'Thumbnail',
-        'Title' => 'Titel'
+        'Title' => 'Titel',
     ];
 
     private static $searchable_fields = [
         'Title',
-        'Text'
+        'Text',
     ];
 
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['Layout'] = _t(__CLASS__ . '.LAYOUT', 'Alignment text');
+        $labels['Layout'] = _t(self::class . '.LAYOUT', 'Alignment text');
+
         return $labels;
     }
 
@@ -70,7 +72,7 @@ class Teaser extends DataObject
 
         if ($uploadField = $fields->dataFieldByName('Image')) {
             $uploadField->setFolderName('Teasers');
-            $uploadField->setDescription(_t(__CLASS__ . '.ImageDescription', 'min. 600x600px'));
+            $uploadField->setDescription(_t(self::class . '.ImageDescription', 'min. 600x600px'));
         }
 
         // text left or right is available just for fullwidth layout
@@ -92,17 +94,17 @@ class Teaser extends DataObject
                     GridFieldArchiveAction::class,
                     GridFieldDeleteAction::class,
                     GridFieldAddExistingAutocompleter::class,
-                    GridFieldSortableHeader::class
+                    GridFieldSortableHeader::class,
                 ]);
 
-            $fields->fieldByName('Root.TeaserElements.TeaserElements')->setTitle(_t(__CLASS__ . '.IsUsedOnComment', 'This Teaser is used on following Elements'));
+            $fields->fieldByName('Root.TeaserElements.TeaserElements')->setTitle(_t(self::class . '.IsUsedOnComment', 'This Teaser is used on following Elements'));
 
             $fields
                 ->fieldByName('Root.TeaserElements.TeaserElements')
                 ->getConfig()
                 ->getComponentByType(GridFieldDataColumns::class)
                 ->setDisplayFields([
-                    'getTypeBreadcrumb' => 'Element'
+                    'getTypeBreadcrumb' => 'Element',
                 ]);
 
             $usedGF = $fields->fieldByName('Root.TeaserElements.TeaserElements');
@@ -118,7 +120,7 @@ class Teaser extends DataObject
     public function getCMSValidator()
     {
         return RequiredFieldsValidator::create([
-            'Title'
+            'Title',
         ]);
     }
 }

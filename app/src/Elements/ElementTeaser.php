@@ -19,7 +19,7 @@ class ElementTeaser extends BaseElement
 {
     private static $db = [
         'Layout' => 'Enum("third,halve,full", "third")',
-        'ShowAsSlider' => 'Boolean'
+        'ShowAsSlider' => 'Boolean',
     ];
 
     private static $has_one = [];
@@ -27,13 +27,13 @@ class ElementTeaser extends BaseElement
     private static $has_many = [];
 
     private static $many_many = [
-        'Teasers' => Teaser::class
+        'Teasers' => Teaser::class,
     ];
 
     private static $many_many_extraFields = [
         'Teasers' => [
-            'TeaserSortOrder' => 'Int'
-        ]
+            'TeaserSortOrder' => 'Int',
+        ],
     ];
 
     private static $table_name = 'ElementTeaser';
@@ -45,7 +45,8 @@ class ElementTeaser extends BaseElement
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['ShowAsSlider'] = _t(__CLASS__ . '.SHOWASSLIDER', 'Show as slider');
+        $labels['ShowAsSlider'] = _t(self::class . '.SHOWASSLIDER', 'Show as slider');
+
         return $labels;
     }
 
@@ -55,23 +56,23 @@ class ElementTeaser extends BaseElement
 
         $fields->removeByName([
             'Teasers',
-            'isFullWidth'
+            'isFullWidth',
         ]);
 
         // hack around unsaved relations
         if ($this->isInDB()) {
             $TeaserGridFieldConfig = GridFieldConfig_Base::create(20);
             $TeaserGridFieldConfig->addComponents(
-                new GridFieldEditButton(),
-                new GridFieldDeleteAction(false),
-                new GridFieldDeleteAction(true),
-                new GridFieldDetailForm(),
-                new GridFieldAddNewButton('toolbar-header-left'),
-                new GridFieldAddExistingAutocompleter('toolbar-header-right'),
-                new GridFieldOrderableRows('TeaserSortOrder')
+                GridFieldEditButton::create(),
+                GridFieldDeleteAction::create(false),
+                GridFieldDeleteAction::create(true),
+                GridFieldDetailForm::create(),
+                GridFieldAddNewButton::create('toolbar-header-left'),
+                GridFieldAddExistingAutocompleter::create('toolbar-header-right'),
+                GridFieldOrderableRows::create('TeaserSortOrder'),
             );
             $TeaserGridFieldConfig->removeComponentsByType(GridFieldFilterHeader::class);
-            $gridField = new GridField('Teasers', 'Teasers', $this->Teasers(), $TeaserGridFieldConfig);
+            $gridField = GridField::create('Teasers', 'Teasers', $this->Teasers(), $TeaserGridFieldConfig);
             $fields->addFieldToTab('Root.Main', $gridField);
         } else {
             $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
@@ -84,6 +85,7 @@ class ElementTeaser extends BaseElement
     {
         $l = (int)$this->TitleLevel;
         ++$l;
+
         return 'h' . $l;
     }
 
@@ -93,11 +95,12 @@ class ElementTeaser extends BaseElement
         if ($this->Teasers()->count() && $this->Teasers()->sort('TeaserSortOrder ASC')->first()->Image()->exists()) {
             $blockSchema['fileURL'] = $this->Teasers()->sort('TeaserSortOrder ASC')->first()->Image()->CMSThumbnail()->getURL();
         }
+
         return $blockSchema;
     }
 
     public function getType()
     {
-        return _t(__CLASS__ . '.BlockType', 'Teaser');
+        return _t(self::class . '.BlockType', 'Teaser');
     }
 }

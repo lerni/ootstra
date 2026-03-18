@@ -78,8 +78,7 @@ class BlogPostExtension extends Extension
             $baseTable = $this->getOwner()->baseTable();
             $liveTable = $baseTable . '_Live';
 
-            $lowestSortDraft = BlogPost::get()
-                ->filter('ParentID', $this->getOwner()->ParentID)
+            $lowestSortDraft = BlogPost::get()->filter(['ParentID' => $this->getOwner()->ParentID])
                 ->min('Sort');
 
             $lowestSortLive = DB::query(sprintf(

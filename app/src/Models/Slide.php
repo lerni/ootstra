@@ -7,8 +7,8 @@ use SilverStripe\Assets\Image;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Forms\FieldGroup;
 use SilverStripe\LinkField\Models\Link;
-use SilverStripe\LinkField\Form\LinkField;
 use nathancox\EmbedField\Forms\EmbedField;
+use SilverStripe\LinkField\Form\LinkField;
 use nathancox\EmbedField\Model\EmbedObject;
 use SilverStripe\Versioned\GridFieldArchiveAction;
 use DNADesign\Elemental\Forms\TextCheckboxGroupField;
@@ -25,7 +25,7 @@ class Slide extends DataObject
         'Title' => 'Varchar',
         'Text' => 'Text',
         'TextAlignment' => 'Enum("center,upper-left,upper-right,lower-left,lower-right,lower-center","center")',
-        'ShowTitle'  => 'Boolean',
+        'ShowTitle' => 'Boolean',
         'TitleLevel' => 'Enum("1,2,3","2")',
     ];
 
@@ -36,35 +36,36 @@ class Slide extends DataObject
     ];
 
     private static $belongs_many_many = [
-        'Hero' => ElementHero::class . '.Slides'
+        'Hero' => ElementHero::class . '.Slides',
     ];
 
     private static $owns = [
         'SlideImage',
-        'Link'
+        'Link',
     ];
 
     private static $cascade_deletes = [
-        'Link'
+        'Link',
     ];
 
     private static $table_name = 'Slide';
 
     private static $singular_name = 'Slide';
+
     private static $plural_name = 'Slides';
 
     private static $summary_fields = [
         'SlideImage.CMSThumbnail' => 'Thumbnail',
         'Title' => 'Titel',
-        'Text' => 'Claim auf Bild'
+        'Text' => 'Claim auf Bild',
     ];
 
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['Title'] = _t(__CLASS__ . '.TITLE', 'Titel');
-        $labels['Text'] = _t(__CLASS__ . '.TEXT', 'Claim auf Bild');
-        $labels['TextAlignment'] = _t(__CLASS__ . '.TEXTALIGNMENT', 'Anordnung Text');
+        $labels['Title'] = _t(self::class . '.TITLE', 'Titel');
+        $labels['Text'] = _t(self::class . '.TEXT', 'Claim auf Bild');
+        $labels['TextAlignment'] = _t(self::class . '.TEXTALIGNMENT', 'Anordnung Text');
 
         return $labels;
     }
@@ -75,7 +76,7 @@ class Slide extends DataObject
         $fields = parent::getCMSFields();
 
         $fields->removeByName([
-            'ShowTitle'
+            'ShowTitle',
         ]);
 
         $TitleField = $fields->dataFieldByName('Title');
@@ -86,15 +87,12 @@ class Slide extends DataObject
             $fields->removeByName('TitleLevel');
             $TitleLevelField->setTitle(_t('DNADesign\Elemental\Models\BaseElement.TITLELEVEL', 'H1, H2, H3'));
 
-            $TitleFieldGroup = new FieldGroup(
-                $TitleLevelField,
-                $TitleField
-            );
+            $TitleFieldGroup = FieldGroup::create($TitleLevelField, $TitleField);
 
             $TitleFieldGroup->replaceField(
                 'Title',
                 TextCheckboxGroupField::create()
-                    ->setName('Title')
+                    ->setName('Title'),
             );
             $fields->fieldByName('Root.Main')->unshift($TitleFieldGroup);
         }
@@ -108,7 +106,7 @@ class Slide extends DataObject
             if ($this->Hero()->count()) {
                 $currentHeroSize = $this->Hero()->first()->HeroSize;
                 $currentHeroAspectRatio = ElementHero::$AvaliableHeroSizes[$currentHeroSize];
-                $SlideBildField->setDescription(_t(__CLASS__ . '.SlideImageDescription', '{aspectRatio} - use focuspoint!', [ 'aspectRatio' => $currentHeroAspectRatio ]));
+                $SlideBildField->setDescription(_t(self::class . '.SlideImageDescription', '{aspectRatio} - use focuspoint!', [ 'aspectRatio' => $currentHeroAspectRatio ]));
             }
         }
 
@@ -123,17 +121,17 @@ class Slide extends DataObject
                     GridFieldArchiveAction::class,
                     GridFieldDeleteAction::class,
                     GridFieldAddExistingAutocompleter::class,
-                    GridFieldSortableHeader::class
+                    GridFieldSortableHeader::class,
                 ]);
 
-            $fields->fieldByName('Root.Hero.Hero')->setTitle(_t(__CLASS__ . '.IsUsedOnComment', 'This Slide is used on following Elements'));
+            $fields->fieldByName('Root.Hero.Hero')->setTitle(_t(self::class . '.IsUsedOnComment', 'This Slide is used on following Elements'));
 
             $fields
                 ->fieldByName('Root.Hero.Hero')
                 ->getConfig()
                 ->getComponentByType(GridFieldDataColumns::class)
                 ->setDisplayFields([
-                    'getTypeBreadcrumb' => 'Element'
+                    'getTypeBreadcrumb' => 'Element',
                 ]);
 
             $usedGF = $fields->fieldByName('Root.Hero.Hero');
@@ -149,7 +147,7 @@ class Slide extends DataObject
     public function getCMSValidator()
     {
         return RequiredFieldsValidator::create([
-            'Title'
+            'Title',
         ]);
     }
 }

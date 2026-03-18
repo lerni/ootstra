@@ -11,11 +11,11 @@ use SilverStripe\Forms\FormAction;
 use SilverStripe\Core\Injector\Injector;
 use Wilr\SilverStripe\Algolia\Service\AlgoliaQuerier;
 
-class AlgoliaControllerExtension extends Extension {
-
+class AlgoliaControllerExtension extends Extension
+{
     private static $allowed_actions = [
         'SearchForm',
-        'Results'
+        'Results',
     ];
 
     public function SearchForm()
@@ -23,20 +23,11 @@ class AlgoliaControllerExtension extends Extension {
         $search_query = ($this->getOwner()->request && $this->getOwner()->request->requestVar('Search')) ?
                         $this->getOwner()->request->requestVar('Search') : 'Suchen';
         $search_query = Convert::raw2sql($search_query);
-        $form = new Form(
-            $this->getOwner(), 'SearchForm',
-            new FieldList(
-                TextField::create('Search', false)
-                    // ->setAttribute('Placeholder', $search_query)
-                    ->setAttribute('autocomplete', "off")
-                    ->setAttribute('aria-label', "Search")
-                    ->setValue($search_query)
-            ),
-            new FieldList(
-                FormAction::create('Results', 'Suchen')
-                    // ->setUseButtonTag(true)
-            )
-        );
+        $form = Form::create($this->getOwner(), 'SearchForm', FieldList::create(TextField::create('Search', false)
+            // ->setAttribute('Placeholder', $search_query)
+            ->setAttribute('autocomplete', "off")
+            ->setAttribute('aria-label', "Search")
+            ->setValue($search_query)), FieldList::create(FormAction::create('Results', 'Suchen')));
         $form->setFormMethod('GET');
         $form->setTemplate('/App/Includes/SearchForm');
 
@@ -52,18 +43,20 @@ class AlgoliaControllerExtension extends Extension {
 
         $results = Injector::inst()->get(AlgoliaQuerier::class)->fetchResults(
             'SoliqueRecruiting',
-            $search_query, [
+            $search_query,
+            [
                 'page' => $this->getOwner()->request->getVar('start') ? $paginatedPageNum : 0,
-                'hitsPerPage' => $hitsPerPage
-            ]
+                'hitsPerPage' => $hitsPerPage,
+            ],
         );
 
-        if($search_query && $results) {
+        if ($search_query && $results) {
             return [
                 'Results' => $results,
-                'Query' => $this->getOwner()->request->getVar('Search')
+                'Query' => $this->getOwner()->request->getVar('Search'),
             ];
         }
+
         return [];
     }
 }
