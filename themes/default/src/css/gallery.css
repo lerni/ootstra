@@ -1,6 +1,3 @@
-@import "./custom-media.css";
-@import "./mixins.css";
-
 .element.elementgallery {
 	ul.gallery {
 		list-style: none;

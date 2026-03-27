@@ -30,18 +30,14 @@ class ElementMapsController extends ElementController
             $lang = i18n::convert_rfc1766($locale);
             $key = Environment::getEnv('APP_GOOGLE_MAPS_KEY') ?: Config::inst()->get(GoogleMapField::class, 'api_key');
             if ($key) {
-                Requirements::javascript('https://maps.google.com/maps/api/js?language='. $lang .'&key='. $key . '&callback=init', [ 'defer' => true ]);
+                Requirements::javascript('https://maps.google.com/maps/api/js?loading=async&libraries=marker&language='. $lang .'&key='. $key . '&callback=init', [ 'defer' => true ]);
             } else {
-                Requirements::javascript('https://maps.google.com/maps/api/js?language='. $lang . '&callback=init', [ 'defer' => true ]);
+                Requirements::javascript('https://maps.google.com/maps/api/js?loading=async&libraries=marker&language='. $lang . '&callback=init', [ 'defer' => true ]);
             }
 
-            $defaultLat = 0.0;
-            $defaultLng = 0.0;
-            $yamlConfig = Config::inst()->get(GoogleMapField::class, 'default_field_values');
-            if ($yamlConfig) {
-                $defaultLat = isset($yamlConfig['Latitude']) ? (float)$yamlConfig['Latitude'] : 0.0;
-                $defaultLng = isset($yamlConfig['Longitude']) ? (float)$yamlConfig['Longitude'] : 0.0;
-            }
+            $yamlConfig = Config::inst()->get(GoogleMapField::class, 'default_field_values') ?: [];
+            $defaultLat = (float)($yamlConfig['Latitude'] ?? 0);
+            $defaultLng = (float)($yamlConfig['Longitude'] ?? 0);
 
             Requirements::javascriptTemplate("themes/default/src/js/include/google-map.js", [
                 'Zoom' => $this->Zoom,
@@ -88,12 +84,14 @@ class ElementMapsController extends ElementController
 
     public function ControllerLink()
     {
-        return Controller::join_links(
+        $url = Controller::join_links(
             Director::protocolAndHost(),
             $this->getPage()->RelativeLink(true),
             'element',
             $this->ID,
             'jpoints',
         );
+
+        return $url;
     }
 }

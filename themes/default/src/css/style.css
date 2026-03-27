@@ -1,10 +1,6 @@
-/* @import "./uni-sani-reset.css";
-	we import in typography!
-*/
-@import "./variables.css";
-@import "./custom-media.css";
-@import "./mixins.css";
-@import "./typography.css";
+@import "./_uni-sani-reset.css";
+@import "./_variables.css";
+@import "./_typography.css";
 @import "./components/_menu.css";
 @import "./components/_forms.css";
 @import "./components/_checkboxes.css";

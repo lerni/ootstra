@@ -20,5 +20,5 @@
 !/silverstripe-cache/.gitignore
 /vendor/
 /app/todo**
-/.phpunit.result.cache
-/.php-cs-fixer.cache
+**/.phpunit.result.cache
+**/.php-cs-fixer.cache

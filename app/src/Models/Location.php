@@ -72,7 +72,7 @@ class Location extends DataObject
 
     public function plural_name()
     {
-        return _t(__CLASS__ . '.PLURALNAME', 'Locations');
+        return _t(self::class . '.PLURALNAME', 'Locations');
     }
 
     public function fieldLabels($includerelations = true)

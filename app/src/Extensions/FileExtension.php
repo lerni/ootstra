@@ -19,6 +19,12 @@ class FileExtension extends Extension
         }
         $width = $owner->getWidth();
         $height = $owner->getHeight();
+
+        // Guard against invalid dimensions
+        if (!$width || !$height || $width <= 0 || $height <= 0) {
+            return '';
+        }
+
         if ($width > $height) {
             return 'landscape';
         }

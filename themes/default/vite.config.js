@@ -37,7 +37,8 @@ export default defineConfig({
         'src/js/swiper.js',
         'src/js/countup.js',
         'src/js/flip.js',
-        'src/js/infiniteGrid.js'
+        'src/js/infiniteGrid.js',
+        'src/js/userform-url-params.js',
       ],
       publicDirectory: '../default',
       buildDirectory: 'dist',

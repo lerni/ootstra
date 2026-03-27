@@ -4,7 +4,6 @@ namespace App\Extensions;
 
 use App\Models\Slide;
 use SilverStripe\Core\Extension;
-use SilverStripe\Blog\Model\Blog;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Model\ArrayData;
 use SilverStripe\Control\Controller;
@@ -80,7 +79,7 @@ class BlogExtension extends Extension
 
             // HeroSize is respected if slides are present, otherwise default of SiteConfig is used
             if ($this->getOwner()->Slides()->count()) {
-                $sizes = singleton(Blog::class)->dbObject('HeroSize')->enumValues();
+                $sizes = $this->getOwner()->dbObject('HeroSize')->enumValues();
                 $SizeField = DropdownField::create('HeroSize', _t('App\Elements\ElementHero.HEROSIZE', 'Size/Height Header'), $sizes);
                 $SizeField->setDescription(_t('App\Elements\ElementHero.SizeDescription', '"fullscreen" requires "full width"!'));
                 $fields->addFieldToTab('Root.Main', $SizeField, 'Content');
@@ -93,10 +92,10 @@ class BlogExtension extends Extension
         }
 
         if ($ChildPagesField = $fields->fieldByName('Root.ChildPages.ChildPages')) {
-            $ChildPagesField->getConfig()
-                ->getComponentByType(GridFieldPaginator::class)
+            $config = $ChildPagesField->getConfig();
+            $config->getComponentByType(GridFieldPaginator::class)
                 ->setItemsPerPage(30); // watch out memory!
-            $ChildPagesField->getConfig()->addComponents(
+            $config->addComponents(
                 GridFieldOrderableRows::create('Sort'),
             );
         }

@@ -5,14 +5,13 @@ namespace App\Extensions;
 use App\Elements\ElementHero;
 use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
-use SilverStripe\Forms\FormField;
 use SilverStripe\Forms\FieldGroup;
 use SilverStripe\ORM\FieldType\DBField;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\View\Parsers\URLSegmentFilter;
 use Heyday\ColorPalette\Fields\ColorPaletteField;
 use DNADesign\ElementalVirtual\Model\ElementVirtual;
-use DNADesign\Elemental\Forms\TextCheckboxGroupField;
+use SilverStripe\Forms\Validation\CompositeValidator;
 use SilverStripe\Forms\Validation\RequiredFieldsValidator;
 
 class ElementExtension extends Extension
@@ -57,21 +56,17 @@ class ElementExtension extends Extension
             $fields->addFieldToTab('Root.Settings', $FullWidthBox);
         }
 
-        $TitleField = $fields->dataFieldByName('Title');
-        if ($TitleField) {
-            $fields->removeByName('Title');
-
-            $TitleLevelField = $fields->dataFieldByName('TitleLevel');
-            $fields->removeByName('TitleLevel');
+        $TitleLevelField = $fields->dataFieldByName('TitleLevel');
+        $TitleComposite = $fields->fieldByName('Root.Main.Title');
+        if ($TitleLevelField && $TitleComposite) {
+            $fields->removeByName(['TitleLevel', 'Title']);
             $TitleLevelField->setTitle(_t('DNADesign\Elemental\Models\BaseElement.TITLELEVEL', 'H1, H2, H3'));
 
-            $TitleFieldGroup = FieldGroup::create($TitleLevelField, $TitleField);
-
-            $TitleFieldGroup->replaceField(
-                'Title',
-                TextCheckboxGroupField::create()
-                    ->setName('Title'),
+            $TitleFieldGroup = FieldGroup::create(
+                $TitleLevelField,
+                $TitleComposite,
             );
+
             $fields->fieldByName('Root.Main')->unshift($TitleFieldGroup);
         }
 
@@ -243,11 +238,13 @@ class ElementExtension extends Extension
         return 'draft';
     }
 
-    public function getCMSValidator()
+    public function updateCMSCompositeValidator(CompositeValidator $compositeValidator): void
     {
-        return RequiredFieldsValidator::create([
-            'Title',
-        ]);
+        $compositeValidator->addValidator(
+            RequiredFieldsValidator::create([
+                'Title',
+            ]),
+        );
     }
 
     public function updatePreviewLink(&$link)

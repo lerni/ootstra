@@ -109,7 +109,7 @@ class Teaser extends DataObject
 
             $usedGF = $fields->fieldByName('Root.TeaserElements.TeaserElements');
             $fields->removeByName(['TeaserElements']);
-            $fields->addFieldsToTab('Root.Main', $usedGF);
+            $fields->addFieldToTab('Root.Main', $usedGF);
         } else {
             $fields->removeByName(['TeaserElements']);
         }

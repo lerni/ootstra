@@ -6,7 +6,9 @@ use SilverStripe\ORM\DB;
 use SilverStripe\Core\Extension;
 use SilverStripe\Blog\Model\Blog;
 use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\LiteralField;
 use SilverStripe\Blog\Model\BlogPost;
+use SilverStripe\Forms\CompositeField;
 
 class BlogPostExtension extends Extension
 {
@@ -56,6 +58,42 @@ class BlogPostExtension extends Extension
         if ($Mode == 'prev') {
             return $list->filter(["Sort:LessThan" => $this->getOwner()->Sort])->sort("Sort DESC")->limit(1)->first();
         }
+    }
+
+    public function updateCMSActions(FieldList $actions)
+    {
+        if (!$this->getOwner()->isInDB()) {
+            return;
+        }
+
+        $prev = $this->PrevNext('prev');
+        $next = $this->PrevNext('next');
+
+        if (!$prev && !$next) {
+            return;
+        }
+
+        $prevButton = LiteralField::create(
+            'PrevRecord',
+            $prev
+                ? '<a class="btn btn-secondary font-icon-left-open action--previous discard-confirmation" href="' . $prev->CMSEditLink() . '" title="' . htmlspecialchars($prev->Title) . '"></a>'
+                : '<span class="btn btn-secondary font-icon-left-open disabled"></span>',
+        );
+
+        $nextButton = LiteralField::create(
+            'NextRecord',
+            $next
+                ? '<a class="btn btn-secondary font-icon-right-open action--next discard-confirmation" href="' . $next->CMSEditLink() . '" title="' . htmlspecialchars($next->Title) . '"></a>'
+                : '<span class="btn btn-secondary font-icon-right-open disabled"></span>',
+        );
+
+        $navGroup = CompositeField::create($prevButton, $nextButton)
+            ->setName('PreviousAndNextGroup')
+            ->addExtraClass('btn-group--circular me-2')
+            ->setFieldHolderTemplate(CompositeField::class . '_holder_buttongroup')
+            ->addExtraClass('ms-auto');
+        $actions->push($navGroup);
+
     }
 
     // Blog posts can be created under non-blog pages

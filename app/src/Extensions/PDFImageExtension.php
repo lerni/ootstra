@@ -109,7 +109,9 @@ class PDFImageExtension extends Extension
                 }
 
                 // Clean up temporary file
-                unlink($tmp_filename);
+                if (file_exists($tmp_filename)) {
+                    unlink($tmp_filename);
+                }
 
                 return [$tuple, $backend];
             },

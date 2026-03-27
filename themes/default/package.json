@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2",
+    "@csstools/postcss-global-data": "^4.0.0",
     "autoprefixer": "^10.4.21",
     "cssnano": "^7.1.1",
     "laravel-vite-plugin": "^2.0.1",
@@ -32,13 +33,10 @@
   "dependencies": {
     "@egjs/infinitegrid": "4.13.0",
     "@fancyapps/ui": "^5.0.17",
-    "@micropackage/responsive-embeds": "^1.0.3",
     "countup.js": "^2.3.2",
-    "feather-icons": "^4.28.0",
     "headroom.js": "^0.12.0",
     "hoverintent": "^2.2.1",
     "htmx.org": "^v2",
-    "jquery": "^3.7.1",
     "swiper": "^12.1.1"
   }
 }

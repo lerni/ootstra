@@ -20,7 +20,7 @@ var marker_bounds;
 
 function init() {
   var mapOptions = {
-    Zoom: $Zoom,
+    zoom: $Zoom,
     scaleControl: $Scale,
     streetViewControl: $StreetView,
     mapTypeControl: true,

@@ -1,6 +1,3 @@
-/* @import "variables.css"; */
-@import "custom-media.css";
-
 .element.elementlogo {
 	/* Logo element styles with configurable dimensions */
 	--logo-width: 300px;

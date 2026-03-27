@@ -112,14 +112,6 @@ SilverStripe\Blog\Model\Blog:
     - App\Extensions\BlogExtension
     - App\Extensions\SingletonExtension
 
-SilverStripe\Blog\Model\BlogController:
-  extensions:
-    - App\Extensions\BlogInitExtension
-
-SilverStripe\Blog\Model\BlogPostController:
-  extensions:
-    - App\Extensions\BlogInitExtension
-
 SilverStripe\Blog\Model\BlogPost:
   show_in_sitetree: false
   default_sort: 'Sort ASC, PublishDate DESC'
@@ -388,11 +380,11 @@ TractorCow\OpenGraph\OpenGraph:
 # BetterBrief\GoogleMapField:
 #   default_options:
 #     # api_key: '' # set per .env - APP_GOOGLE_MAPS_KEY
-#   map:
-#     zoom: 14
-#   default_field_values:
-#     Latitude: 47
-#     Longitude: 8
+#     map:
+#       zoom: 14
+#     default_field_values:
+#       Latitude: 47
+#       Longitude: 8
 ---
 Except:
   environment: 'live'

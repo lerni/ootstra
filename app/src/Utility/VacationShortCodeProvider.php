@@ -23,7 +23,6 @@ class VacationShortCodeProvider
             ]);
 
             $text = '';
-            ;
             foreach ($vacations as $vacation) {
                 if ($vacation->StartDate == $vacation->EndDate) {
                     $date = $vacation->obj('StartDate')->Format('EEEEEE d.MM.yy');

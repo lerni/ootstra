@@ -2,20 +2,20 @@
 
 use App\Elements\ElementHero;
 use App\Elements\ElementGallery;
+use SilverStripe\ORM\DataObject;
 use SilverStripe\Blog\Model\Blog;
 use SilverStripe\Forms\FieldList;
-use SilverStripe\Forms\FormField;
 use SilverStripe\Control\Director;
 use SilverStripe\Security\Security;
 use SilverStripe\TagField\TagField;
 use JonoM\ShareCare\ShareCareFields;
-use Kraftausdruck\Models\JobPosting;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Control\Controller;
 use SilverStripe\Blog\Model\BlogPost;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Security\Permission;
 use SilverStripe\Model\List\ArrayList;
+use SilverStripe\ORM\FieldType\DBText;
 use SilverStripe\CMS\Model\VirtualPage;
 use TractorCow\Fluent\State\FluentState;
 use SilverStripe\Blog\Model\BlogCategory;
@@ -143,24 +143,11 @@ class Page extends SiteTree
     {
         $descreturn = null;
 
-        // In case of BlogPost use Summary it set
+        // In case of BlogPost use Summary is set
         if ($this->ClassName == BlogPost::class) {
             $description = trim($this->obj('Summary')->Summary($limitWordCount, $summarySuffix));
             if (!empty($description)) {
                 $descreturn = strip_tags($description);
-            }
-        }
-
-        // JobPosting
-        $controller = Controller::curr();
-        if ($controller instanceof Controller) {
-            $req = $controller->getRequest();
-            if ($req->param('Action') == 'job' && $req->param('ID')) {
-                $URLSegment = $req->param('ID');
-                $job = JobPosting::get()->filter('URLSegment', $URLSegment)->first();
-                if ($job && $job->MetaDescription) {
-                    $descreturn = trim($job->MetaDescription);
-                }
             }
         }
 
@@ -181,7 +168,29 @@ class Page extends SiteTree
                 }
             }
             if ($this->hasExtension(ElementalPageExtension::class)) {
-                $descreturn = trim(($this->obj('getElementsForSummary')->Summary($limitWordCount, $summarySuffix)));
+                $parts = [];
+                foreach ($this->ElementalArea()->Elements() as $element) {
+                    // Collect Title and Text/HTMLText DB fields without rendering templates
+                    foreach (DataObject::getSchema()->databaseFields($element) as $field => $spec) {
+                        $obj = $element->dbObject($field);
+                        if (!$obj) {
+                            continue;
+                        }
+                        $isTitle = $field === 'Title';
+                        if (!$isTitle && !$obj instanceof DBText) {
+                            continue;
+                        }
+                        $value = trim(strip_tags($obj->getValue() ?? ''));
+                        if ($value) {
+                            $parts[] = $value;
+                        }
+                    }
+                }
+                if ($parts) {
+                    $descreturn = DBText::create()
+                        ->setValue(implode(' ', $parts))
+                        ->Summary($limitWordCount, $summarySuffix);
+                }
             }
         }
 
@@ -206,6 +215,7 @@ class Page extends SiteTree
         if ($this->hasExtension(ShareCareFields::class) && $this->OGImageCustom->exists()) {
             $i = $this->OGImageCustom;
         } elseif ($this->ImagesForSitemap() && $this->ImagesForSitemap()->count()) {
+            // first image on page, allowed to be indexed
             $firstImage = $this->ImagesForSitemap()->first();
             if ($firstImage && $firstImage->exists()) {
                 $i = $firstImage;

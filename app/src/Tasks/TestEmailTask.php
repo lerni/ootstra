@@ -67,7 +67,7 @@ class TestEmailTask extends BuildTask
 
         if (!$to || !Email::is_valid_address($to)) {
             $adminEmail = Email::config()->get('admin_email');
-            if (is_array($adminEmail) && count($adminEmail)) {
+            if (is_array($adminEmail) && $adminEmail !== []) {
                 $to = key($adminEmail);
             } elseif (is_string($adminEmail) && Email::is_valid_address($adminEmail)) {
                 $to = $adminEmail;

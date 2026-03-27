@@ -1,6 +1,8 @@
 # Instructions for Silverstripe Project
-> **Project Name**: Derived from folder name
-> **Local URL**: `https://{projectname}.ddev.site` where `{projectname}` = folder name  
+
+## Agent Rules
+- **NEVER run `git commit`, `git push`, `git tag`, or any git write operation without explicit user permission.** Prepare changes, show diffs, and wait for the user to approve before committing.
+- Never ever consider using deployment scripts or push & pull data to environments managed by deployer
 
 ## Project Overview
 This is an opinionated Silverstripe CMS project that provides a ready-to-run, build & deploy CMS instance. It uses:
@@ -41,28 +43,29 @@ This project uses a devcontainer that runs inside DDEV's web container:
 - Open workspace in VSCode → Command Palette → "Dev Containers: Reopen in Container"
 - Devcontainer automatically starts DDEV and installs npm packages
 - All extensions (PHP Intelephense, Biome, Log Viewer, Xdebug, etc.) run inside the container
-- Commands run directly without `ddev` prefix (e.g., `composer install`, `sake dev/build`)
+- Commands run directly without `ddev` prefix (e.g., `composer install`, `sake db:build`)
 - VSCode tasks work seamlessly inside the container
 
 ### DDEV CLI (Without Devcontainer)
-- Prefix all commands with `ddev` (e.g., `ddev composer install`, `ddev sake dev/build`)
+- Prefix all commands with `ddev` (e.g., `ddev composer install`, `ddev sake db:build`)
 
 ### DDEV Configuration
 - DDEV project name matches folder name by default
 - Default URLs:
-  - Main site: https://{projectname}.ddev.site
+  - **Local main URL**: `https://{projectname}.ddev.site` where `{projectname}` = folder name
   - Admin: https://{projectname}.ddev.site/admin (admin/password)
   - phpMyAdmin: https://{projectname}.ddev.site:8037
   - Mailpit: https://{projectname}.ddev.site:8026
 
-### Common Tasks (via VSCode tasks or command line)
+### Common Tasks (prefer VSCode tasks over terminal commands)
+**IMPORTANT**: When a VSCode task exists for an operation, agents MUST use the `run_task` tool instead of running the equivalent command in the terminal. Check the available workspace tasks before running commands manually.
 
 #### DDEV Management (magenta tasks)
 - `ddev log web` - View web container logs
 - `ddev xdebug on/off` - Enable/disable Xdebug
 
 #### Silverstripe Development (blue tasks)
-- `dev/build` - Rebuild database schema (runs `php ./vendor/bin/sake dev/build` in devcontainer, `ddev sake dev/build` from host)
+- `dev/build` - Rebuild database schema (runs `sake db:build` in devcontainer, `ddev sake db:build` from host)
 - `ssshell` - Interactive Silverstripe REPL (Psy Shell) for database queries and debugging
 - `composer install` - Install PHP dependencies
 - `composer update` - Update PHP dependencies
@@ -100,14 +103,14 @@ This project uses a devcontainer that runs inside DDEV's web container:
 - **Always use `_t()` in PHP and `<%t ... %>` in templates** for user-facing strings, never hardcode text
 - **English as default**: Write default strings in English within `_t()` functions
 - **Minimal translations**: Only add translations to `app/lang/de_CH.yml`
-- **Naming convention**: Use descriptive keys `self::class . '.NameDescription'` or `self::class . '.FIELDNAME'` (uppercase for fields)
-- **Example**: `_t(self::class . '.HowTitle', 'What is shown?')` - only translate if "What is shown?" is different in German, if it's a comon aglizism don't
+- **Naming convention**: `_t(self::class . '.HowTitle', 'What is shown?')` — use `.NameDescription` or `.FIELDNAME` (uppercase for fields). Only translate to `de_CH.yml` if the German differs from the English default (skip common anglicisms)
 
 ### PHP Requirements
-- **PHP Version**: As specified in composer.json (compatible with Silverstripe version specified in composer.json)
+- **PHP Version**: As specified in composer.json
 - **Silverstripe**: Version as specified in composer.json like ^6 (latest stable)
 - **Framework**: Uses `silverstripe/recipe-core` and `silverstripe/recipe-plugin`
 - **Autoloading**: PSR-4 with `App\` namespace mapping to `app/src/`
+- **Always use `self::class`** instead of `__CLASS__` for all class name references
 
 ### Composer Configuration
 - **Minimum Stability**: dev (with prefer-stable: true)
@@ -147,6 +150,7 @@ This project uses a devcontainer that runs inside DDEV's web container:
 - Extensions in `app/src/Extensions/`
 - Elements in `app/src/Elements/`
 - Tasks in `app/src/Tasks/`
+- ModelAdmin in `app/src/Admin/`
 
 ### Templates
 - Silverstripe `.ss` template format
@@ -163,7 +167,6 @@ This project uses a devcontainer that runs inside DDEV's web container:
 
 ### Code Changes:
 - Follow Silverstripe conventions and PSR-12 standards
-- Use `App\` namespace for application code
 - Include proper error handling and validation
 - Run `dev/build` after schema changes (new classes, database fields, config changes)
 - New methods don't require dev/build - they're discovered automatically
@@ -184,11 +187,9 @@ This project uses a devcontainer that runs inside DDEV's web container:
 ## Debugging
 
 ### Tools & Extensions
-- **Xdebug**: Available via VSCode task "DDEV: Enable Xdebug"
 - **Log files**: `silverstripe.log` in project root
 - **VSCode PHP Debug**: Extension with provided launch configuration
 - **Mailpit**: Catches all emails in development at https://{projectname}.ddev.site:8026
-- **Better Navigator**: Dev toolbar in browser (jonom/silverstripe-betternavigator)
 - **PHPActor**: Static analysis tool integrated in devcontainer, shows problems in VSCode Problems tab
 
 ### PHPActor - Static Analysis for Agents
@@ -209,7 +210,6 @@ Agents can access these insights using the `get_errors` tool to:
 
 **Example Issues PHPActor Detects:**
 - Missing imports: `Class "TextAreaField" not found`
-- Wrong case: `use SilverStripe\Forms\TextareaField;` (should be `TextareaField`)
 - Missing return types: `Missing return type void`
 - Unused imports: `Name "TextareaField" is imported but not used`
 - Missing generics: `Missing generic tag @extends Extension<object>`
@@ -377,6 +377,7 @@ When helping with this project, prioritize Silverstripe best practices, DDEV wor
   - Blank lines before: `break`, `continue`, `declare`, `return`, `throw`, `try`
   - Single trait insert per statement
   - Method arguments ensure fully multiline when multiline
+- **IMPORTANT — After editing PHP files**: Always run `php ./vendor/bin/php-cs-fixer fix <file>` on each modified PHP file to ensure formatting compliance. This is the same fixer that runs on save in VSCode. Run it after all edits to a file are complete, not between individual edits.
 - **EditorConfig** (`.editorconfig`) enforces consistent coding styles across editors:
   - UTF-8 encoding, LF line endings
   - 4 spaces for PHP, tabs for templates/CSS/SCSS
@@ -384,7 +385,6 @@ When helping with this project, prioritize Silverstripe best practices, DDEV wor
   - Trailing whitespace removal, final newline insertion
 - Use PHPUnit for testing (configured in `phpunit.xml.dist`)
 - PHPCS configuration available in `phpcs.xml.dist`)
-- Never ever consider using deployment scripts or push & pull data to environments managed by deployer
 
 ## Performance Considerations
 - Images use FocusPoint for smart cropping and responsive srcsets

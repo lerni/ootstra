@@ -1,9 +1,5 @@
 AddHandler application/x-httpd-php84 .php
 
-# <IfModule LiteSpeed>
-#     SmartPush no-cookie
-# </IfModule>
-
 # Apache Server Configs v5.0.0 | MIT License
 # https://github.com/h5bp/server-configs-apache
 
@@ -884,4 +880,22 @@ FileETag None
 
     ExpiresByType text/x-cross-domain-policy            "access plus 1 week"
 
+</IfModule>
+
+# ----------------------------------------------------------------------
+# | Cache-Control immutable                                            |
+# ----------------------------------------------------------------------
+
+# Add `immutable` to Cache-Control for static resources with long cache
+# lifetimes to prevent unnecessary revalidation on page reload.
+#
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control#immutable
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(avif|css|gif|ico|jpe?g|jxl|js|mjs|a?png|svgz?|webp|woff2?|wasm)$">
+        Header merge Cache-Control "immutable"
+    </FilesMatch>
+    <FilesMatch "\.svgz?$">
+        Header set Content-Type "image/svg+xml; charset=utf-8"
+    </FilesMatch>
 </IfModule>

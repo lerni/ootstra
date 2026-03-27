@@ -12,6 +12,7 @@ use SilverStripe\LinkField\Form\LinkField;
 use nathancox\EmbedField\Model\EmbedObject;
 use SilverStripe\Versioned\GridFieldArchiveAction;
 use DNADesign\Elemental\Forms\TextCheckboxGroupField;
+use SilverStripe\Forms\Validation\CompositeValidator;
 use SilverStripe\Forms\GridField\GridFieldDataColumns;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
@@ -79,21 +80,23 @@ class Slide extends DataObject
             'ShowTitle',
         ]);
 
-        $TitleField = $fields->dataFieldByName('Title');
-        if ($TitleField) {
-            $fields->removeByName('Title');
+        $fields->replaceField(
+            'Title',
+            TextCheckboxGroupField::create()
+                ->setName('Title'),
+        );
 
-            $TitleLevelField = $fields->dataFieldByName('TitleLevel');
-            $fields->removeByName('TitleLevel');
+        $TitleLevelField = $fields->dataFieldByName('TitleLevel');
+        $TitleComposite = $fields->fieldByName('Root.Main.Title');
+        if ($TitleLevelField && $TitleComposite) {
+            $fields->removeByName(['TitleLevel', 'Title']);
             $TitleLevelField->setTitle(_t('DNADesign\Elemental\Models\BaseElement.TITLELEVEL', 'H1, H2, H3'));
 
-            $TitleFieldGroup = FieldGroup::create($TitleLevelField, $TitleField);
-
-            $TitleFieldGroup->replaceField(
-                'Title',
-                TextCheckboxGroupField::create()
-                    ->setName('Title'),
+            $TitleFieldGroup = FieldGroup::create(
+                $TitleLevelField,
+                $TitleComposite,
             );
+
             $fields->fieldByName('Root.Main')->unshift($TitleFieldGroup);
         }
 
@@ -144,10 +147,15 @@ class Slide extends DataObject
         return $fields;
     }
 
-    public function getCMSValidator()
+    public function getCMSCompositeValidator(): CompositeValidator
     {
-        return RequiredFieldsValidator::create([
-            'Title',
-        ]);
+        $validator = parent::getCMSCompositeValidator();
+        $validator->addValidator(
+            RequiredFieldsValidator::create([
+                'Title',
+            ]),
+        );
+
+        return $validator;
     }
 }

@@ -129,7 +129,7 @@ class ElementPerso extends BaseElement
         }
 
         if ($GroupByDepartmentField = $fields->dataFieldByName('GroupByDepartment')) {
-            $GroupByDepartmentField->setDescription(_t(__CLASS__ . '.GroupByDepartmentDescription', 'If checked, adjust sorting in department'));
+            $GroupByDepartmentField->setDescription(_t(self::class . '.GroupByDepartmentDescription', 'If checked, adjust sorting in department'));
         }
 
         if (($SortingField = $fields->dataFieldByName('Sorting')) && $this->GroupByDepartment) {

@@ -170,16 +170,34 @@ class Perso extends DataObject
         return $Anchor;
     }
 
+    public function getOGImage()
+    {
+
+        if ($this->Portrait()->exists()) {
+            return $this->Portrait()->FocusFillMax(1200, 630);
+        }
+
+        return null;
+    }
+
     public function PersoSchema()
     {
         $schemaPerson = Schema::person();
         $schemaPerson
+            ->setProperty('@id', $this->AbsoluteLink() . '#person')
             ->name($this->getTitle())
-            ->image($this->Portrait->AbsoluteLink())
             ->jobTitle($this->Position)
             ->email($this->EMail)
             ->telephone($this->Telephone)
-            ->url($this->AbsoluteLink());
+            ->url($this->AbsoluteLink())
+            ->worksFor(
+                Schema::organization()
+                    ->setProperty('@id', Director::absoluteBaseURL() . '#organization'),
+            );
+
+        if ($this->Portrait()->exists()) {
+            $schemaPerson->image($this->Portrait()->AbsoluteLink());
+        }
 
         if ($this->SocialLinks()->filter('sameAs', 1)->Count()) {
             $sameAsLinks = $this->SocialLinks()->filter('sameAs', 1)->Column('Url');

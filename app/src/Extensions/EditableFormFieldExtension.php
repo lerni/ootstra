@@ -3,7 +3,7 @@
 namespace App\Extensions;
 
 use SilverStripe\Core\Extension;
-use SilverStripe\UserForms\Model\EditableFormField\EditableFormHeading;
+use SilverStripe\UserForms\Model\EditableFormField;
 
 /**
  * @extends Extension<object>
@@ -12,10 +12,16 @@ class EditableFormFieldExtension extends Extension
 {
     public function onAfterPopulateDefaults(): void
     {
-        if ($this->getOwner() instanceof EditableFormHeading) {
+        $owner = $this->getOwner();
+
+        if (!$owner instanceof EditableFormField) {
             return;
         }
 
-        $this->getOwner()->ExtraClass = 'half-width';
+        if ($owner->config()->get('literal')) {
+            return;
+        }
+
+        $owner->ExtraClass = 'half-width';
     }
 }

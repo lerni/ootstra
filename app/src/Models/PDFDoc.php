@@ -62,7 +62,7 @@ class PDFDoc extends DataObject
         if ($uploadField = $fields->dataFieldByName('Image')) {
             $uploadField->setAllowedExtensions(['jpg', 'png']);
             $uploadField->setFolderName('Dokumente/PDF');
-            $uploadField->setDescription('nur Bilder (randlos, kein Titel etc.) als jpg oder png, Proportion ~1:1.45');
+            $uploadField->setDescription(_t(self::class . '.ImageUploadFieldDescription', 'only images (borderless, no title etc.) as jpg or png, proportion ~1:1.45'));
         }
 
         if ($docuploadField = $fields->dataFieldByName('Document')) {
@@ -70,7 +70,7 @@ class PDFDoc extends DataObject
             $docuploadField->setAllowedExtensions(['pdf']);
             $size = 20 * 1024 * 1024;
             $docuploadField->getValidator()->setAllowedMaxFileSize($size);
-            $docuploadField->setDescription('Nur PDF-Dateien sind erlaubt.');
+            $docuploadField->setDescription(_t(self::class . '.DocumentUploadFieldDescription', 'Only PDF files are allowed.'));
         }
 
         return $fields;

@@ -8,6 +8,7 @@ use SilverStripe\Core\Extension;
 use SilverStripe\Control\Director;
 use SilverStripe\Model\List\ArrayList;
 use SilverStripe\SiteConfig\SiteConfig;
+use SilverStripe\CMS\Model\RedirectorPage;
 use SilverStripe\Core\Manifest\ModuleResourceLoader;
 
 class PageSchemaExtension extends Extension
@@ -120,6 +121,9 @@ class PageSchemaExtension extends Extension
         $breadcrumbs = $this->getOwner()->getBreadcrumbItems();
         if ($breadcrumbs instanceof ArrayList) {
             foreach ($breadcrumbs as $item) {
+                if ($item instanceof RedirectorPage) {
+                    continue;
+                }
 
                 $pageObjs[$i] = Schema::ListItem()
                     ->position($i + 1)
