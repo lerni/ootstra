@@ -1,6 +1,3 @@
-@import "../custom-media.css";
-@import "../mixins.css";
-
 /* Form Styles
 ---------------------------------------------------------------------------------- */
 
@@ -50,15 +47,6 @@ form {
 				flex-wrap: wrap;
 				column-gap: 1lh;
 				flex: 0 0 100%;
-
-				& > div:first-child {
-					&::before {
-						content: "";
-						height: 0;
-						border-top: 1px solid var(--link-color);
-						flex: 0 0 100%;
-					}
-				}
 			}
 		}
 
@@ -262,6 +250,10 @@ form {
 					input[type="radio"] {
 						position: absolute;
 						opacity: 0;
+						&:focus + label {
+							outline: none;
+							box-shadow: 0 0 0 1px var(--white), 0 0 .4em 4px oklch(from var(--current-color, currentColor) l c h / 0.9	);
+						}
 
 						&:checked ~ .radio-check {
 							border: 0.1em solid color-mix(in oklch, var(--gray--light) 84%, black 16%);
@@ -382,6 +374,14 @@ form {
 				margin-bottom: 0;
 				line-height: 1;
 			}
+		}
+
+		&:focus-within {
+			outline: none;
+		}
+
+		&:focus-within:has(input:focus-visible) {
+			box-shadow: 0 0 0 1px var(--white), 0 0 .4em 4px oklch(from var(--current-color, currentColor) l c h / 0.9	);
 		}
 
 		.checkbox {

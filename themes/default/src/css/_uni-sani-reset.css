@@ -76,7 +76,11 @@ button:not([disabled]),
 		outline: none;
 
 		&:focus-visible {
+			/* traditional
 			outline: 2px solid var(--current-color, currentColor);
+			outline-offset: 2px; */
+			/* Shadow Hack */
+			box-shadow: 0 0 0 1px var(--white), 0 0 .4em 4px oklch(from var(--current-color, currentColor) l c h / 0.9);
 		}
 	}
 }

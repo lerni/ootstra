@@ -1,5 +1,3 @@
-@import "./custom-media.css";
-
 .element.elementcontentsection {
 	--trigger-size: 0.75;
 	--trigger-color: var(--text-color);

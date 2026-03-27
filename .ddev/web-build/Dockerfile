@@ -3,3 +3,4 @@ RUN curl -sLo /usr/local/bin/phpactor https://github.com/phpactor/phpactor/relea
     && chmod +x /usr/local/bin/phpactor \
     && phpactor --version
 RUN npm i -g @biomejs/biome@2
+RUN apt-get install -y codespell

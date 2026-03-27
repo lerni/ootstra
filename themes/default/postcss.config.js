@@ -3,7 +3,12 @@
 // check each plugin's documentation.
 export default {
   plugins: {
-    'postcss-mixins': {},
+    '@csstools/postcss-global-data': {
+      files: ['./src/css/_custom-media.css'],
+    },
+    'postcss-mixins': {
+      mixinsFiles: ['./src/css/_mixins.css'],
+    },
     'postcss-custom-media': {},
     'postcss-nesting': {},
     'autoprefixer': {},

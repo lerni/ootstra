@@ -141,7 +141,7 @@ Tasks in `.vscode/tasks.json` are available via `Command+Shift+B` and run inside
 Common tasks include:
 
 **Silverstripe (blue):**
-- `dev/build - local` - rebuild DB schema (`php ./vendor/bin/sake db:build`)
+- `db:build or dev/build - local` - rebuild DB schema (`php ./vendor/bin/sake db:build`)
 - `SilverStripe Shell` - interactive ssshell for debugging
 - `composer install` / `composer update`
 - `composer vendor-expose`
@@ -169,9 +169,8 @@ Database, credentials etc. are provided as environment-variables from `.ddev/con
 Currently 8.4.x is used. It's set in following places:
 - `.ddev/config.yaml`
 - `deploy/config.php`
-- `public/.htaccess` -> watch out if stage specific versions are maintained in `deploy/`
+- `public/.htaccess` -> watch out if stage specific htaccess-files are maintained in `deploy/`
 - `composer.json`
-- `.vscode/settings.json`
 
 Don't forget to restart the container and update packages `composer u` after changing!
 

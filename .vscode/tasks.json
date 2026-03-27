@@ -4,7 +4,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "dev/build - local",
+      "label": "db:build - local",
       "type": "shell",
       "command": "php ./vendor/bin/sake db:build --flush",
       "group": "build",
@@ -16,6 +16,12 @@
       "icon": {
         "color": "terminal.ansiBlue"
       }
+    },
+    {
+      "label": "dev/build - local",
+      "dependsOn": "db:build - local",
+      "group": "build",
+      "icon": { "color": "terminal.ansiBlue" }
     },
     {
       "label": "SilverStripe Shell",

@@ -1,4 +1,3 @@
-<%-- vite 'src/css/blog") - those sytes are (pre)loaded per BlogInitExtension, but with htmX we laod em anyway --%>
 <% vite 'src/css/blog.css' %>
 <% include App/Includes/Header %>
 <main class="typography">

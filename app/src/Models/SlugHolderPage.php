@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use Page;
 use SilverStripe\Core\ClassInfo;
 use SilverStripe\ORM\DataObject;
 use App\Extensions\UrlifyExtension;
-use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Control\Controller;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\DropdownField;
@@ -13,7 +13,7 @@ use SilverStripe\Security\Permission;
 use App\Controller\SlugHolderPageController;
 use SilverStripe\Core\Validation\ValidationResult;
 
-class SlugHolderPage extends SiteTree
+class SlugHolderPage extends Page
 {
     private static $db = [
         'ManagedModel' => 'Varchar',
@@ -40,7 +40,6 @@ class SlugHolderPage extends SiteTree
     private static $defaults = [
         'ShowInMenus' => false,
         'ShowInSearch' => false,
-        'HideSubNavi' => true,
     ];
 
     public function Items()
@@ -56,8 +55,10 @@ class SlugHolderPage extends SiteTree
 
         $fields->removeByName([
             'Content',
-            'MenuTitle',
+            'PageCategories',
             'Metadata',
+            'MenuTitle',
+            'Feed & Share',
         ]);
 
         $managedModelField = DropdownField::create(
@@ -74,7 +75,7 @@ class SlugHolderPage extends SiteTree
             $modelName = singleton($this->ManagedModel)->i18n_singular_name();
             $message = _t(
                 self::class . '.CannotDeleteWarning',
-                'This page serves as a URL segment placeholder.<br/><strong>{count} {model}</strong> items are accessible through it. It cannot be deleted, because otherwise the URLs of these items will no longer be available. To remove it anyway, either unassign the model or delete all items.',
+                'This page serves as a URL segment placeholder.<br/><strong>{count} {model}</strong> objects are accessible through it. It cannot be deleted, because otherwise the URLs of these items will no longer be available. To remove it anyway, either unassign the model or delete all items.',
                 ['count' => $count, 'model' => $modelName],
             );
             $fields->fieldByName('Root.Main')->unshift(
@@ -135,6 +136,20 @@ class SlugHolderPage extends SiteTree
         }
 
         return $result;
+    }
+
+    public function getDefaultOGImage($origin = 0)
+    {
+        $controller = Controller::curr();
+        $item = $controller instanceof Controller && $controller->hasMethod('getCurrentItem')
+            ? $controller->getCurrentItem()
+            : null;
+
+        if ($item && $item->hasMethod('getOGImage') && ($ogImage = $item->getOGImage())) {
+            return $ogImage;
+        }
+
+        return parent::getDefaultOGImage($origin);
     }
 
     public function MetaComponents(): array

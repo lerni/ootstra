@@ -1,0 +1,3 @@
+[codespell]
+skip = *.min.js,*.min.css,silverstripe-cache,app/lang,app/fixtures
+ignore-words-list = thirdparty

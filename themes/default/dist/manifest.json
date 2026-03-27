@@ -18,7 +18,7 @@
     ]
   },
   "src/css/contentsections.css": {
-    "file": "assets/contentsections-cn8_cHeq.css",
+    "file": "assets/contentsections-CaYzPGfz.css",
     "src": "src/css/contentsections.css",
     "isEntry": true,
     "name": "contentsections",
@@ -27,7 +27,7 @@
     ]
   },
   "src/css/editor.css": {
-    "file": "assets/editor-6MB8pBQK.css",
+    "file": "assets/editor-4k1YoYiV.css",
     "src": "src/css/editor.css",
     "isEntry": true,
     "name": "editor",
@@ -99,7 +99,7 @@
     ]
   },
   "src/css/persocfa.css": {
-    "file": "assets/persocfa-CNDhd75-.css",
+    "file": "assets/persocfa-BuNgaE44.css",
     "src": "src/css/persocfa.css",
     "isEntry": true,
     "name": "persocfa",
@@ -108,7 +108,7 @@
     ]
   },
   "src/css/style.css": {
-    "file": "assets/style-biYyaex5.css",
+    "file": "assets/style-CY6_gURa.css",
     "src": "src/css/style.css",
     "isEntry": true,
     "name": "style",
@@ -126,7 +126,7 @@
     ]
   },
   "src/css/textimage.css": {
-    "file": "assets/textimage-D7Kpetfp.css",
+    "file": "assets/textimage-COjG8GL6.css",
     "src": "src/css/textimage.css",
     "isEntry": true,
     "name": "textimage",
@@ -416,6 +416,12 @@
     "file": "assets/swiper-C1X7zoGh.js",
     "name": "swiper",
     "src": "src/js/swiper.js",
+    "isEntry": true
+  },
+  "src/js/userform-url-params.js": {
+    "file": "assets/userform-url-params-FE3rRb7W.js",
+    "name": "userform-url-params",
+    "src": "src/js/userform-url-params.js",
     "isEntry": true
   }
 }

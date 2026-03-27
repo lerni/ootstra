@@ -57,18 +57,6 @@ fieldset.grid {
 	margin-bottom: .7em;
 }
 
-/* Title-Level Field in Elements */
-#Form_ItemEditForm_TitleLevelTitle {
-	display: flex;
-}
-#Form_ItemEditForm_TitleLevel_Holder {
-	flex: 0 0 110px;
-	margin-right: 1em;
-}
-#Form_ItemEditForm_Title_Holder {
-	flex: 1 1 auto;
-}
-
 /* Blog summary - https://github.com/silverstripe/silverstripe-blog/issues/485 */
 .custom-summary .ui-accordion-content .field {
 	margin-left: 0;
@@ -133,7 +121,16 @@ ul#Form_ItemEditForm_BackgroundColor li label[for$="transparent"] {
 
 /* We've put title in a FieldGroup instead of a CompositeField in order to show validation errors */
 #Form_ItemEditForm_TitleLevelTitle {
+	display: flex;
 	flex-wrap: wrap;
+}
+#Form_ItemEditForm_TitleLevelTitle_Holder
+#Form_ItemEditForm_TitleLevel_Holder {
+
+	margin-right: 1em;
+}
+#Form_ItemEditForm_Title_Holder {
+	flex: 1 1 auto;
 }
 
 #Form_ItemEditForm_TitleLevelTitle .alert {

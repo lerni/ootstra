@@ -5,6 +5,11 @@
 	"license": "BSD-3-Clause",
 	"repositories": [
 		{
+			"name": "indexnow",
+			"type": "vcs",
+			"url": "https://github.com/lerni/silverstripe-indexnow.git"
+		},
+		{
 			"type": "vcs",
 			"url": "https://github.com/lerni/silverstripe-embedfield"
 		},
@@ -19,6 +24,10 @@
 		{
 			"type": "vcs",
 			"url": "https://github.com/lerni/silverstripe-betternavigator"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/lerni/silverstripe-someconfig"
 		}
 	],
 	"require": {
@@ -62,12 +71,14 @@
 		"lerni/klaro-cookie-consent": "6.x-dev",
 		"league/commonmark": "^2",
 		"eluceo/ical": "^2",
-		"jonom/silverstripe-someconfig": "^2",
+		"jonom/silverstripe-someconfig": "dev-breadcrumbs-namespaced-classes as 2.0.1",
+		"nathancox/embedfield": "dev-attrquerystring-6",
 		"lerni/folderindex": "db-ready-61-dev",
 		"simple-icons/simple-icons": "^15",
 		"silverstripe/linkfield": "^5",
 		"bigfork/silverstripe-vitesse": "^2.0",
-		"axllent/silverstripe-scaled-uploads": "^2"
+		"axllent/silverstripe-scaled-uploads": "^2",
+		"pixelpoems/silverstripe-indexnow": "show-in-search-dev"
 	},
 	"require-dev": {
 		"deployer/deployer": "^7",
