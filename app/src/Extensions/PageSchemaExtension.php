@@ -33,9 +33,9 @@ class PageSchemaExtension extends Extension
     {
 
         $siteConfig = SiteConfig::current_site_config();
+        $schemaTypes = static::AvailableSchemaTypes();
         $schemaType = $siteConfig->SchemaType;
-        $schemaOrganisation = static::AvailableSchemaTypes();
-        $schemaOrganisation = $schemaOrganisation[$schemaType] ?? Schema::organization();
+        $schemaOrganisation = ($schemaType && isset($schemaTypes[$schemaType])) ? $schemaTypes[$schemaType] : Schema::organization();
 
         $schemaOrganisation
             ->name($siteConfig->Title)

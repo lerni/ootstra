@@ -143,7 +143,7 @@ class Page extends SiteTree
     {
         $descreturn = null;
 
-        // In case of BlogPost use Summary is set
+        // In case of BlogPost use Summary if set
         if ($this->ClassName == BlogPost::class) {
             $description = trim($this->obj('Summary')->Summary($limitWordCount, $summarySuffix));
             if (!empty($description)) {

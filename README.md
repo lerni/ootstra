@@ -166,7 +166,7 @@ Common tasks include:
 Database, credentials etc. are provided as environment-variables from `.ddev/config.yaml` and are populated in `/.env` during DDEV-start. Project specific / sensitive env-vars should be set in `/.env` and won't land in GIT. For example you do not have to setup DB credentials for local dev environment to work, but you need to set `APP_GOOGLE_MAPS_KEY`, `SS_NOCAPTCHA_SITE_KEY` & `SS_NOCAPTCHA_SECRET_KEY` in `.env` to make Google Maps & reCaptcha work.
 
 ## PHP Version
-Currently 8.4.x is used. It's set in following places:
+Currently 8.5.x is used. It's set in following places:
 - `.ddev/config.yaml`
 - `deploy/config.php`
 - `public/.htaccess` -> watch out if stage specific htaccess-files are maintained in `deploy/`
