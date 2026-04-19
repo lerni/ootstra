@@ -113,12 +113,6 @@ Config::modify()->set(TinyMCEConfig::class, 'editor_css', $editorCSS);
 // Common plugins for all editor variants
 $tinyMceModule = ModuleLoader::inst()->getManifest()->getModule('silverstripe/htmleditor-tinymce');
 $tinyMceCommonPlugins = [
-    'image' => null,
-    'anchor' => null,
-    'sslink' => $tinyMceModule->getResource('client/dist/js/TinyMCE_sslink.js'),
-    'sslinkexternal' => $tinyMceModule->getResource('client/dist/js/TinyMCE_sslink-external.js'),
-    'sslinkemail' => $tinyMceModule->getResource('client/dist/js/TinyMCE_sslink-email.js'),
-    'emoticons',
     'charmap',
     'deflist' => ModuleResourceLoader::resourceURL('app/thirdparty/tinyMCE-DefinitionList-main/deflist/plugin.min.js'),
 ];
@@ -161,12 +155,14 @@ $SimpleCfg->disablePlugins(['importcss']);
 $SimpleCfg->setOptions($tinyMceCommonOptions);
 
 // Additional plugins specific to simple editor
-$phoneModule = ModuleLoader::inst()->getManifest()->getModule('firebrandhq/silverstripe-phonelink');
 $SimpleCfg->enablePlugins([
+    'sslink' => $tinyMceModule->getResource('client/dist/js/TinyMCE_sslink.js'),
     'sslinkinternal' => $tinyMceModule->getResource('client/dist/js/TinyMCE_sslink-internal.js'),
+    'sslinkexternal' => $tinyMceModule->getResource('client/dist/js/TinyMCE_sslink-external.js'),
+    'sslinkemail' => $tinyMceModule->getResource('client/dist/js/TinyMCE_sslink-email.js'),
     'sslinkanchor' => $tinyMceModule->getResource('client/dist/js/TinyMCE_sslink-anchor.js'),
     'sslinkfile' => $tinyMceModule->getResource('client/dist/js/TinyMCE_sslink-file.js'),
-    'sslinkphone' => $phoneModule->getResource('client/dist/js/TinyMCE_sslink-phone.js'),
+    'sslinkphone' => $tinyMceModule->getResource('client/dist/js/TinyMCE_sslink-phone.js'),
 ]);
 
 // Simplified toolbar with fewer options
@@ -196,6 +192,7 @@ URLSegmentFilter::config()->default_replacements = [
     '/[\-]+$/u' => '', // Remove all trailing dashes
 ];
 
+// GoogleSitemap::register_dataobjects(['App\Models\Perso'], 'weekly', '1');
 // GoogleSitemap::register_dataobjects([JobPosting::class], 'weekly', '1');
 
 ShortcodeParser::get('default')->register('Location', [LocationShortCodeProvider::class, 'parseLocationShortCodeProvider']);

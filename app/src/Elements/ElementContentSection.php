@@ -83,7 +83,7 @@ class ElementContentSection extends BaseElement
 
         $schemaFAQ = Schema::fAQPage();
 
-        if ($FAQParts->Count()) {
+        if ($FAQParts->count()) {
 
             $faqs = [];
             $i = 0;

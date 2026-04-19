@@ -19,9 +19,9 @@ class TemplateGlobals implements TemplateGlobalProvider
 
     /**
      * Inline SVG icon helper for templates.
-     * Usage in .ss templates: $Icon('mail'), $Icon('phone'), $Icon('shield-check')
+     * Usage in .ss templates: $SvgIcon('mail'), $SvgIcon('phone'), $SvgIcon('shield-check')
      */
-    public static function Icon(string $name): ?DBHTMLText
+    public static function SvgIcon(string $name): ?DBHTMLText
     {
         $name = basename($name, '.svg');
 
@@ -42,7 +42,7 @@ class TemplateGlobals implements TemplateGlobalProvider
     {
         return [
             'ContentLocaleShort',
-            'Icon',
+            'SvgIcon',
         ];
     }
 }

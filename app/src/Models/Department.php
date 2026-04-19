@@ -8,6 +8,7 @@ use SilverStripe\ORM\DataObject;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\View\Parsers\URLSegmentFilter;
+use SilverStripe\Forms\Validation\CompositeValidator;
 use SilverStripe\Forms\GridField\GridFieldConfig_Base;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
 use SilverStripe\Forms\GridField\GridFieldFilterHeader;
@@ -120,10 +121,15 @@ class Department extends DataObject
         return null;
     }
 
-    public function getCMSValidator()
+    public function getCMSCompositeValidator(): CompositeValidator
     {
-        return RequiredFieldsValidator::create([
-            'Title',
-        ]);
+        $validator = parent::getCMSCompositeValidator();
+        $validator->addValidator(
+            RequiredFieldsValidator::create([
+                'Title',
+            ]),
+        );
+
+        return $validator;
     }
 }

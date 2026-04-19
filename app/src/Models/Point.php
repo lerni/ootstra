@@ -7,6 +7,7 @@ use SilverStripe\ORM\DataObject;
 use SilverStripe\Core\Environment;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\ORM\FieldType\DBHTMLText;
+use SilverStripe\Forms\Validation\CompositeValidator;
 use SilverStripe\Forms\Validation\RequiredFieldsValidator;
 
 class Point extends DataObject
@@ -96,10 +97,15 @@ class Point extends DataObject
         return true;
     }
 
-    public function getCMSValidator()
+    public function getCMSCompositeValidator(): CompositeValidator
     {
-        return RequiredFieldsValidator::create([
-            'Title',
-        ]);
+        $validator = parent::getCMSCompositeValidator();
+        $validator->addValidator(
+            RequiredFieldsValidator::create([
+                'Title',
+            ]),
+        );
+
+        return $validator;
     }
 }

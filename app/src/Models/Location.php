@@ -12,6 +12,7 @@ use SilverStripe\Core\Config\Config;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\Core\Validation\ValidationResult;
+use SilverStripe\Forms\Validation\CompositeValidator;
 use SilverStripe\Forms\Validation\RequiredFieldsValidator;
 
 class Location extends DataObject
@@ -151,12 +152,17 @@ class Location extends DataObject
         return $countries[$this->Country];
     }
 
-    public function getCMSValidator()
+    public function getCMSCompositeValidator(): CompositeValidator
     {
-        return RequiredFieldsValidator::create([
-            'Title',
-            'Town',
-        ]);
+        $validator = parent::getCMSCompositeValidator();
+        $validator->addValidator(
+            RequiredFieldsValidator::create([
+                'Title',
+                'Town',
+            ]),
+        );
+
+        return $validator;
     }
 
     public function validate(): ValidationResult

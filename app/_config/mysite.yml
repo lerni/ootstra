@@ -29,6 +29,7 @@ SilverStripe\Core\Manifest\ModuleManifest:
   project: app
 
 SilverStripe\View\SSViewer:
+  enable_base_tag: false
   # global_key: '$CurrentReadingMode, $Locale'
   rewrite_hash_links: false
 
@@ -50,8 +51,6 @@ SilverStripe\ORM\FieldType\DBText:
     - '?'
     - '!'
     - ':'
-  extensions:
-    - App\Extensions\TabTableExtension
 
 SilverStripe\Admin\LeftAndMain:
   extra_requirements_css:

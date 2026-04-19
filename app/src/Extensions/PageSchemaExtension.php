@@ -29,13 +29,12 @@ class PageSchemaExtension extends Extension
         ];
     }
 
-    public function OrganisationSchema()
+    public static function buildOrganisationSchemaObject()
     {
-
         $siteConfig = SiteConfig::current_site_config();
+        $schemaTypes = static::AvailableSchemaTypes();
         $schemaType = $siteConfig->SchemaType;
-        $schemaOrganisation = static::AvailableSchemaTypes();
-        $schemaOrganisation = $schemaOrganisation[$schemaType] ?? Schema::organization();
+        $schemaOrganisation = $schemaTypes[$schemaType] ?? Schema::organization();
 
         $schemaOrganisation
             ->name($siteConfig->Title)
@@ -43,9 +42,14 @@ class PageSchemaExtension extends Extension
             ->foundingDate($siteConfig->foundingDate)
             ->description($siteConfig->MetaDescription)
             ->url($siteConfig->CanonicalDomain)
-            ->logo(rtrim(Director::absoluteBaseURL(), '/') . ModuleResourceLoader::resourceURL('public/icon-512.png'));
+            ->logo(
+                Schema::imageObject()
+                    ->url(rtrim(Director::absoluteBaseURL(), '/') . ModuleResourceLoader::resourceURL('public/icon-512.png'))
+                    ->width(512)
+                    ->height(512),
+            );
 
-        if ($siteConfig->Locations()->Count()) {
+        if ($siteConfig->Locations()->count()) {
 
             $locations = [];
             $i = 0;
@@ -99,8 +103,8 @@ class PageSchemaExtension extends Extension
         }
 
         // Add sameAs links from SocialLinks
-        if ($siteConfig->SocialLinks()->filter('sameAs', 1)->Count()) {
-            $sameAsLinks = $siteConfig->SocialLinks()->filter('sameAs', 1)->Column('Url');
+        if ($siteConfig->SocialLinks()->filter('sameAs', 1)->count()) {
+            $sameAsLinks = $siteConfig->SocialLinks()->filter('sameAs', 1)->column('Url');
             $schemaOrganisation->sameAs($sameAsLinks);
         }
 
@@ -111,7 +115,12 @@ class PageSchemaExtension extends Extension
         // Set @id so other schemas can reference this organization
         $schemaOrganisation->setProperty('@id', Director::absoluteBaseURL() . '#organization');
 
-        return $schemaOrganisation->toScript();
+        return $schemaOrganisation;
+    }
+
+    public function OrganisationSchema()
+    {
+        return static::buildOrganisationSchemaObject()->toScript();
     }
 
     public function BreadcrumbListSchema()

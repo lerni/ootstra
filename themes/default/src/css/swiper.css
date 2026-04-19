@@ -12,6 +12,24 @@
 
 @mixin sliderpagination .7em, #fff;
 
+/* Swiper slide styles */
+div.swiper-slide {
+  width: auto;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* try to prevent FOUC */
+.swiper-container:not(.swiper-initialized) {
+	overflow: hidden;
+	.swiper-wrapper {
+		display: block;
+	}
+	.swiper-slide + .swiper-slide {
+		display: none;
+	}
+}
+
 /* Sliderpagination styles - converted from mixin */
 .swiper-pagination {
   position: absolute;
@@ -105,13 +123,6 @@
     bottom: 0;
     flex-direction: column;
   }
-}
-
-/* Swiper slide styles */
-div.swiper-slide {
-  width: auto;
-  height: 100%;
-  overflow: hidden;
 }
 
 /* Navigation button spacing adjustments */

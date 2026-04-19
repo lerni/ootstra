@@ -9,44 +9,46 @@
 AddHandler default-handler php phtml php3 php4 php5 inc
 
 <IfModule mod_php5.c>
-    # Turn the PHP engine off
-    php_flag engine off
+	# Turn the PHP engine off
+	php_flag engine off
 </IfModule>
 
 # Set correct MIME types for media files
 <IfModule mod_mime.c>
-    AddType image/avif                                  avif
-    AddType image/avif-sequence                         avifs
-    AddCharset utf-8 .svg .svgz .webp
+	AddType image/webp .webp
+	AddType image/avif                                  avif
+	AddType image/avif-sequence                         avifs
+	AddCharset utf-8 .svg .svgz .webp
 </IfModule>
 
 <IfModule mod_rewrite.c>
-    <IfModule mod_env.c>
-        SetEnv HTTP_MOD_REWRITE On
-    </IfModule>
+	<IfModule mod_env.c>
+		SetEnv HTTP_MOD_REWRITE On
+	</IfModule>
 
-    RewriteEngine On
+	RewriteEngine On
 
-    # Allow error pages
-    RewriteCond %{REQUEST_FILENAME} -f
-    RewriteRule error[^\\\\/]*\\.html$ - [L]
+	# Allow error pages
+	RewriteCond %{REQUEST_FILENAME} -f
+	RewriteRule error[^\\\\/]*\\.html$ - [L]
 
-    # Allow specific file extensions
-    RewriteCond %{REQUEST_URI} !^[^.]*[^\\/]*\\.(?i:css|js<% loop $AllowedExtensions %>|$Extension<% end_loop %>)$
-    RewriteRule .* - [F]
+	# Allow specific file extensions
+	RewriteCond %{REQUEST_URI} !^[^.]*[^\\/]*\\.(?i:css|js<% loop $AllowedExtensions %>|$Extension<% end_loop %>)$
+	RewriteRule .* - [F]
 
-    # Non existant files passed to requesthandler
-    RewriteCond %{REQUEST_URI} ^(.*)$
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule .* ../index.php [QSA]
+	# Non existent files passed to requesthandler
+	RewriteCond %{REQUEST_URI} ^(.*)$
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteRule .* ../index.php [QSA]
 </IfModule>
 
 # Add immutable to Cache-Control for static assets with long cache lifetimes
 <IfModule mod_headers.c>
-    <FilesMatch "\.(avif|gif|ico|jpe?g|jxl|a?png|svgz?|webp|css|js)$">
-        Header merge Cache-Control "immutable"
-    </FilesMatch>
+	<FilesMatch "\.(avif|gif|ico|jpe?g|jxl|a?png|svgz?|webp|css|js)$">
+		Header merge Cache-Control "immutable"
+	</FilesMatch>
 </IfModule>
+
 <% if $KraftausdruckFolderIndex %><IfModule mod_headers.c><% loop $KraftausdruckFolderIndex %>
 	Header set X-Robots-Tag "noindex, nofollow, noimageindex, noarchive, nosnippet" "expr=%{REQUEST_URI} =~ m#^/assets/{$getFilename}#"
 <% end_loop %></IfModule><% end_if %>

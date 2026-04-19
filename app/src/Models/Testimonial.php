@@ -6,6 +6,7 @@ use SilverStripe\ORM\DataObject;
 use App\Models\TestimonialCategory;
 use SilverStripe\TagField\TagField;
 use SilverStripe\Core\Validation\ValidationResult;
+use SilverStripe\Forms\Validation\CompositeValidator;
 use SilverStripe\Forms\Validation\RequiredFieldsValidator;
 
 class Testimonial extends DataObject
@@ -85,11 +86,16 @@ class Testimonial extends DataObject
         return '';
     }
 
-    public function getCMSValidator()
+    public function getCMSCompositeValidator(): CompositeValidator
     {
-        return RequiredFieldsValidator::create([
-            'Title',
-        ]);
+        $validator = parent::getCMSCompositeValidator();
+        $validator->addValidator(
+            RequiredFieldsValidator::create([
+                'Title',
+            ]),
+        );
+
+        return $validator;
     }
 
     public function validate(): ValidationResult

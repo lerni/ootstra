@@ -1,0 +1,23 @@
+# Normalize all text files to LF on commit
+* text=auto eol=lf
+
+# Explicit binary declarations – prevents CRLF conversion and text diffs
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.gif    binary
+*.ico    binary
+*.webp   binary
+*.pdf    binary
+*.woff   binary
+*.woff2  binary
+*.ttf    binary
+*.eot    binary
+*.otf    binary
+*.avif   binary
+
+# Treat built theme assets as generated/binary so diffs and PRs don't
+# get flooded by Vite's content-hashed filenames on every build.
+themes/default/dist/**           binary
+themes/default/dist/**           linguist-generated=true
+themes/default/dist/manifest.json merge=ours

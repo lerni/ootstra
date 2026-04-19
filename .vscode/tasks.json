@@ -323,6 +323,22 @@
       "icon": {
         "color": "terminal.ansiCyan"
       }
+    },
+    {
+      "label": "cloudflare tunnel",
+      "type": "shell",
+      "command": "cloudflared tunnel --url http://localhost",
+      "group": "build",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true
+      },
+      "problemMatcher": [],
+      "icon": {
+        "color": "terminal.ansiCyan"
+      }
     }
   ]
 }

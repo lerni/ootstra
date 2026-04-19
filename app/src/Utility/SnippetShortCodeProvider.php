@@ -8,20 +8,14 @@ class SnippetShortCodeProvider
 {
     public static function SnippetShortCodeProvider($arguments, $content = null, $parser = null, $titleName = null)
     {
-        if (ShortCodeSnippet::get()->count()) {
-
-            $text = '';
-            if (isset($arguments['title'])) {
-                $title = $arguments['title'];
-                $snippet = ShortCodeSnippet::get()->filter(['Title' => $title])->first();
-                if ($snippet) {
-                    $text = $snippet->RenderCode($arguments);
-                }
-            }
-
-            return $text;
+        if (!ShortCodeSnippet::get()->count()) {
+            return false;
         }
 
-        return false;
+        if (!isset($arguments['title'])) {
+            return '';
+        }
+
+        return ShortCodeSnippet::RenderCode($arguments) ?: '';
     }
 }

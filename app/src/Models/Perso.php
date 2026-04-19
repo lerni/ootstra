@@ -16,6 +16,7 @@ use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\View\Parsers\URLSegmentFilter;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
 use SilverStripe\Forms\GridField\GridFieldEditButton;
+use SilverStripe\Forms\Validation\CompositeValidator;
 use SilverStripe\Forms\GridField\GridFieldConfig_Base;
 use SilverStripe\Forms\GridField\GridFieldDataColumns;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
@@ -155,7 +156,7 @@ class Perso extends DataObject
 
     public function DepartmentsString()
     {
-        return implode(', ', $this->Departments()->Column('Title'));
+        return implode(', ', $this->Departments()->column('Title'));
     }
 
     public function Anchor()
@@ -199,8 +200,8 @@ class Perso extends DataObject
             $schemaPerson->image($this->Portrait()->AbsoluteLink());
         }
 
-        if ($this->SocialLinks()->filter('sameAs', 1)->Count()) {
-            $sameAsLinks = $this->SocialLinks()->filter('sameAs', 1)->Column('Url');
+        if ($this->SocialLinks()->filter('sameAs', 1)->count()) {
+            $sameAsLinks = $this->SocialLinks()->filter('sameAs', 1)->column('Url');
             $schemaPerson->sameAs($sameAsLinks);
         }
 
@@ -214,11 +215,16 @@ class Perso extends DataObject
         }
     }
 
-    public function getCMSValidator()
+    public function getCMSCompositeValidator(): CompositeValidator
     {
-        return RequiredFieldsValidator::create([
-            'Firstname',
-            'Lastname',
-        ]);
+        $validator = parent::getCMSCompositeValidator();
+        $validator->addValidator(
+            RequiredFieldsValidator::create([
+                'Firstname',
+                'Lastname',
+            ]),
+        );
+
+        return $validator;
     }
 }

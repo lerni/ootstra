@@ -8,6 +8,7 @@ use SilverStripe\View\ViewLayerData;
 use SilverStripe\View\TemplateEngine;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Core\Validation\ValidationResult;
+use SilverStripe\Forms\Validation\CompositeValidator;
 use SilverStripe\Forms\Validation\RequiredFieldsValidator;
 
 class ShortCodeSnippet extends DataObject
@@ -58,11 +59,16 @@ class ShortCodeSnippet extends DataObject
         return '';
     }
 
-    public function getCMSValidator()
+    public function getCMSCompositeValidator(): CompositeValidator
     {
-        return RequiredFieldsValidator::create([
-            'Title',
-        ]);
+        $validator = parent::getCMSCompositeValidator();
+        $validator->addValidator(
+            RequiredFieldsValidator::create([
+                'Title',
+            ]),
+        );
+
+        return $validator;
     }
 
     public function validate(): ValidationResult
@@ -78,7 +84,19 @@ class ShortCodeSnippet extends DataObject
 
     public static function RenderCode($arg = [])
     {
-        $snippet = ShortCodeSnippet::get()->filter(['Title' => $arg['title']])->first();
+        if (empty($arg['title'])) {
+            return false;
+        }
+
+        $title = (string) $arg['title'];
+        $decodedTitle = html_entity_decode($title, ENT_QUOTES | ENT_HTML5);
+
+        $snippet = ShortCodeSnippet::get()
+            ->filterAny([
+                'Title' => [$title, $decodedTitle],
+            ])
+            ->first();
+
         if ($snippet) {
             $engine = Injector::inst()->get(TemplateEngine::class);
 

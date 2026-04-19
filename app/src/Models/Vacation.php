@@ -103,7 +103,7 @@ class Vacation extends DataObject implements PermissionProvider
 
     public function LocationsString()
     {
-        return implode(', ', $this->Locations()->Column('Title'));
+        return implode(', ', $this->Locations()->column('Title'));
     }
 
     public function validate(): ValidationResult

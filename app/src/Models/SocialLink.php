@@ -6,6 +6,7 @@ use SilverStripe\ORM\DataObject;
 use SilverStripe\Control\Director;
 use SilverStripe\VendorPlugin\Util;
 use SilverStripe\Forms\DropdownField;
+use SilverStripe\Forms\Validation\CompositeValidator;
 use SilverStripe\Forms\Validation\RequiredFieldsValidator;
 
 class SocialLink extends DataObject
@@ -134,11 +135,16 @@ class SocialLink extends DataObject
         return "/_resources/vendor/simple-icons/simple-icons/icons/{$iconName}.svg";
     }
 
-    public function getCMSValidator()
+    public function getCMSCompositeValidator(): CompositeValidator
     {
-        return RequiredFieldsValidator::create([
-            'Title',
-            'IconName',
-        ]);
+        $validator = parent::getCMSCompositeValidator();
+        $validator->addValidator(
+            RequiredFieldsValidator::create([
+                'Title',
+                'IconName',
+            ]),
+        );
+
+        return $validator;
     }
 }

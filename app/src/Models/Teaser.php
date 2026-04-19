@@ -8,6 +8,7 @@ use SilverStripe\ORM\DataObject;
 use SilverStripe\LinkField\Models\Link;
 use SilverStripe\LinkField\Form\LinkField;
 use SilverStripe\Versioned\GridFieldArchiveAction;
+use SilverStripe\Forms\Validation\CompositeValidator;
 use SilverStripe\Forms\GridField\GridFieldDataColumns;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
@@ -117,10 +118,15 @@ class Teaser extends DataObject
         return $fields;
     }
 
-    public function getCMSValidator()
+    public function getCMSCompositeValidator(): CompositeValidator
     {
-        return RequiredFieldsValidator::create([
-            'Title',
-        ]);
+        $validator = parent::getCMSCompositeValidator();
+        $validator->addValidator(
+            RequiredFieldsValidator::create([
+                'Title',
+            ]),
+        );
+
+        return $validator;
     }
 }

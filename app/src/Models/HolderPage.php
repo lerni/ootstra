@@ -125,7 +125,7 @@ class HolderPage extends Page
                 $tagsURLEnc[] = $filter->filter($tag);
             }
 
-            $allTags = $this->PageCategories()->Column('Title');
+            $allTags = $this->PageCategories()->column('Title');
             $AllTagsURLEnc = [];
             foreach ($allTags as $key => $tag) {
                 $filter = URLSegmentFilter::create();

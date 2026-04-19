@@ -137,7 +137,7 @@ class UrlifyExtension extends Extension
         }
 
         if ($owner->ClassName == 'Kraftausdruck\Models\JobPosting') {
-            $locations = implode(', ', $owner->JobLocations()->Column('Town'));
+            $locations = implode(', ', $owner->JobLocations()->column('Town'));
 
             return implode(', ', array_filter([$owner->Title, $locations]));
         }

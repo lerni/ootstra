@@ -67,13 +67,13 @@ class Page extends SiteTree
             if ($MetaTitleField = $MetaToggle->fieldByName('MetaTitle')) {
                 $MetaTitleField->setTargetLength(60, 50, 60);
                 $MetaTitleField->setAttribute('placeholder', $this->DefaultMetaTitle());
-                $MetaTitleField->setRightTitle(_t('\Page.MetaTitleRightTitle', 'Used as a title in the browser and for search engine results. Important for SEO!'));
+                $MetaTitleField->setRightTitle(_t(self::class . '.MetaTitleRightTitle', 'Used as a title in the browser and for search engine results. Important for SEO!'));
             }
 
             if (($MetaDescriptionField = $MetaToggle->fieldByName('MetaDescription')) && !$MetaDescriptionField->isReadonly()) {
                 $MetaDescriptionField->setTargetLength(150, 100, 160);
                 $MetaDescriptionField->setAttribute('placeholder', $this->DefaultMetaDescription());
-                $MetaDescriptionField->setRightTitle(_t('\Page.MetaDescriptionRightTitle', 'Used in search engine results when length fits and relevance is given; hardly affects SEO position. Appealing meta-descriptions (especially the first ~ 55 characters -> sitelinks) have a strong influence on the click rate.'));
+                $MetaDescriptionField->setRightTitle(_t(self::class . '.MetaDescriptionRightTitle', 'Used in search engine results when length fits and relevance is given; hardly affects SEO position. Appealing meta-descriptions (especially the first ~ 55 characters -> sitelinks) have a strong influence on the click rate.'));
             }
 
             $fields->removeByName('Metadata');
@@ -143,7 +143,7 @@ class Page extends SiteTree
     {
         $descreturn = null;
 
-        // In case of BlogPost use Summary is set
+        // In case of BlogPost use Summary if set
         if ($this->ClassName == BlogPost::class) {
             $description = trim($this->obj('Summary')->Summary($limitWordCount, $summarySuffix));
             if (!empty($description)) {
@@ -272,14 +272,14 @@ class Page extends SiteTree
     public function hasHero()
     {
         if ($this->hasExtension(ElementalPageExtension::class)) {
-            if ($this->ElementalArea()->Elements()->Count() && $this->ElementalArea()->Elements()->first()->ClassName == ElementHero::class) {
+            if ($this->ElementalArea()->Elements()->count() && $this->ElementalArea()->Elements()->first()->ClassName == ElementHero::class) {
                 return true;
             }
-            if ($this->ElementalArea()->Elements()->Count() && $this->ElementalArea()->Elements()->first()->ClassName == ElementVirtual::class && $this->ElementalArea()->Elements()->first()->LinkedElement()->ClassName == ElementHero::class) {
+            if ($this->ElementalArea()->Elements()->count() && $this->ElementalArea()->Elements()->first()->ClassName == ElementVirtual::class && $this->ElementalArea()->Elements()->first()->LinkedElement()->ClassName == ElementHero::class) {
                 return true;
             }
         } elseif ($this->ClassName == VirtualPage::class && $this->CopyContentFrom()->hasExtension(ElementalPageExtension::class)) {
-            if ($this->CopyContentFrom()->ElementalArea()->Elements()->Count() && $this->CopyContentFrom()->ElementalArea()->Elements()->first()->ClassName == ElementHero::class) {
+            if ($this->CopyContentFrom()->ElementalArea()->Elements()->count() && $this->CopyContentFrom()->ElementalArea()->Elements()->first()->ClassName == ElementHero::class) {
                 return true;
             }
         }
@@ -294,7 +294,7 @@ class Page extends SiteTree
 
         if ($this->ClassName == BlogPost::class) {
             $Categories = $this->Parent()->Categories();
-            $currentCategories = $this->Categories()->Column('ID');
+            $currentCategories = $this->Categories()->column('ID');
         } elseif ($this->ClassName == Blog::class) {
             $Categories = $this->Categories();
             if (method_exists(Controller::curr(), 'getCurrentCategory') && Controller::curr()->getCurrentCategory()) {

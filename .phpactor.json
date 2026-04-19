@@ -1,7 +1,6 @@
 {
-    "$schema": "/phpactor.schema.json",
     "worse_reflection.additive_stubs": [
-        "%project_root%/.phpactor/stubs/silverstripe_globals.php"
+        "/var/www/html/.phpactor/stubs/silverstripe_globals.php"
     ],
     "indexer.include_patterns": [
         "/**/*.php",
@@ -19,7 +18,7 @@
     "composer.autoloader_path": "%project_root%/vendor/autoload.php",
     "language_server.diagnostics_on_update": true,
     "language_server.diagnostics_on_save": true,
-    "language_server_code_transform.import_globals": true,
+    "language_server_code_transform.import_globals": false,
     "language_server_phpstan.enabled": false,
     "language_server_psalm.enabled": false,
     "language_server_php_cs_fixer.enabled": false,

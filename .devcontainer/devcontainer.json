@@ -55,6 +55,7 @@
         "php-cs-fixer.executablePath": "${workspaceFolder}/vendor/bin/php-cs-fixer",
         "php-cs-fixer.onsave": true,
         "php-cs-fixer.rules": "@PSR12",
+        "php-cs-fixer.pathMode": "intersection",
 
         // Biome is installed globally in devcontainer web-image -> .ddev/web-build/Dockerfile
         // VS Code Biome extension resolves the binary early on startup and
@@ -121,5 +122,5 @@
   },
 
   // Run commands after container is created/started
-  "postCreateCommand": "bash -c 'cd themes/default && npm install && mkdir -p $HOME/.local/share/phpactor'"
+  "postCreateCommand": "bash .devcontainer/post-create.sh"
 }

@@ -133,11 +133,11 @@ class ElementFeedTeaser extends BaseElement
         $result = null;
 
         if ($this->FeedTeaserParents()->count()) {
-            $parentIDs = (array)$this->FeedTeaserParents()->Column('ID');
+            $parentIDs = (array)$this->FeedTeaserParents()->column('ID');
 
             $categoryFilter = [];
-            if ($this->Categories()->Count()) {
-                $categoryFilter = $this->Categories()->Column('ID');
+            if ($this->Categories()->count()) {
+                $categoryFilter = $this->Categories()->column('ID');
             }
 
             $blogSorting = Config::inst()->get(BlogPost::class, 'default_sort');
@@ -171,7 +171,7 @@ class ElementFeedTeaser extends BaseElement
 
             // fill up to CountMax if less than
             if ($childrens->count() < $this->CountMax) {
-                $exclude = $childrens->Column('ID');
+                $exclude = $childrens->column('ID');
                 $padfill = $this->CountMax - $childrens->count();
 
                 $additionalPosts = SiteTree::get()->filter(['ParentID' => $parentIDs])
@@ -213,7 +213,7 @@ class ElementFeedTeaser extends BaseElement
                 $tagsURLEnc[] = $filter->filter($tag);
             }
 
-            $allTags = $this->Categories()->Column('Title');
+            $allTags = $this->Categories()->column('Title');
             $AllTagsURLEnc = [];
             foreach ($allTags as $key => $tag) {
                 $filter = URLSegmentFilter::create();
