@@ -1,7 +1,7 @@
 {
     "$schema": "/phpactor.schema.json",
     "worse_reflection.additive_stubs": [
-        "%project_root%/.phpactor/stubs/silverstripe_globals.php"
+        "/var/www/html/.phpactor/stubs/silverstripe_globals.php"
     ],
     "indexer.include_patterns": [
         "/**/*.php",

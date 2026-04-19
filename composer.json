@@ -5,7 +5,6 @@
 	"license": "BSD-3-Clause",
 	"repositories": [
 		{
-			"name": "indexnow",
 			"type": "vcs",
 			"url": "https://github.com/lerni/silverstripe-indexnow.git"
 		},
@@ -23,30 +22,22 @@
 		},
 		{
 			"type": "vcs",
-			"url": "https://github.com/lerni/silverstripe-betternavigator"
-		},
-		{
-			"type": "vcs",
-			"url": "https://github.com/lerni/silverstripe-someconfig"
-		},
-		{
-			"type": "vcs",
 			"url": "https://github.com/lerni/cms-task"
 		}
 	],
 	"require": {
-		"php": ">=8.0 <=8.5",
+		"php": ">=8.0 <=8.6",
 		"silverstripe/recipe-plugin": "^2",
 		"silverstripe/recipe-core": "^6",
 		"silverstripe/cms": "^6",
 		"silverstripe/asset-admin": "^3",
+		"silverstripe/htmleditor-tinymce": "^1",
 		"bigfork/htmleditorsrcset": "^4",
 		"bigfork/silverstripe-fail-whale": "^4",
-		"firebrandhq/silverstripe-phonelink": "4.x-dev",
 		"kinglozzer/metatitle": "^4",
 		"symbiote/silverstripe-gridfieldextensions": "^5",
 		"wilr/silverstripe-googlesitemaps": "^4",
-		"jonom/silverstripe-betternavigator": "dev-silverstripe-cms-target as 7.0.1",
+		"jonom/silverstripe-betternavigator": "^7",
 		"jonom/focuspoint": "^6",
 		"silverstripe/userforms": "^7",
 		"silverstripe/blog": "^5",
@@ -75,7 +66,7 @@
 		"lerni/klaro-cookie-consent": "6.x-dev",
 		"league/commonmark": "^2",
 		"eluceo/ical": "^2",
-		"jonom/silverstripe-someconfig": "dev-breadcrumbs-namespaced-classes as 2.0.1",
+		"jonom/silverstripe-someconfig": "^2",
 		"nathancox/embedfield": "dev-attrquerystring-6",
 		"lerni/folderindex": "db-ready-61-dev",
 		"simple-icons/simple-icons": "^15",

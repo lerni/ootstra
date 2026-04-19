@@ -29,6 +29,7 @@ SilverStripe\Core\Manifest\ModuleManifest:
   project: app
 
 SilverStripe\View\SSViewer:
+  enable_base_tag: false
   # global_key: '$CurrentReadingMode, $Locale'
   rewrite_hash_links: false
 
