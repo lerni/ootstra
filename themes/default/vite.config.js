@@ -1,6 +1,15 @@
 import {defineConfig} from 'vite';
 import laravel from 'laravel-vite-plugin';
 import {ViteImageOptimizer} from 'vite-plugin-image-optimizer';
+import {readdirSync} from 'node:fs';
+import {join} from 'node:path';
+
+// Auto-include every SVG under src/images/svg/ as a Vite input so that
+// `viteAsset('src/images/svg/<name>.svg')` calls in .ss templates resolve
+// via the manifest. Drop a new SVG in the folder and it just works.
+const svgInputs = readdirSync(join(import.meta.dirname, 'src/images/svg'))
+  .filter((f) => f.endsWith('.svg'))
+  .map((f) => `src/images/svg/${f}`);
 
 export default defineConfig({
   base: '/_resources/themes/default/dist/',
@@ -26,10 +35,11 @@ export default defineConfig({
         'src/css/metaoverviewpage.css',
         'src/css/perso.css',
         'src/css/persocfa.css',
-//          // 'src/css/perso-simple.css',
+//        'src/css/perso-simple.css',
         'src/css/cards.css',
-//          // 'src/css/jobs.css',
+//        'src/css/jobs.css',
 //        'src/css/counter.css',
+//        'src/css/instafeed.css',
         'src/css/textimage.css',
         'src/css/localvideo.css',
         'src/js/app.js',
@@ -39,6 +49,9 @@ export default defineConfig({
         'src/js/flip.js',
         'src/js/infiniteGrid.js',
         'src/js/userform-url-params.js',
+        // SVGs referenced from .ss templates via viteAsset() — auto-globbed
+        // so any new file in src/images/svg/ is emitted with a manifest entry.
+        ...svgInputs,
       ],
       publicDirectory: '../default',
       buildDirectory: 'dist',

@@ -60,7 +60,7 @@
 			}
 		}
 	}
-	.swiper-container {
+	.swiper {
 		overflow-x: hidden;
 		.swiper-wrapper {
 			transition-timing-function: linear;

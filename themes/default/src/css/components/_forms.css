@@ -422,6 +422,7 @@ form input.holder-required {
 
 form .file {
 	color: var(--text-color);
+	max-width: 100%; /* help safari ios */
 }
 
 .Actions {

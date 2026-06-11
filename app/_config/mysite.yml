@@ -56,6 +56,7 @@ SilverStripe\Admin\LeftAndMain:
   extra_requirements_css:
     - app/css/cms.css
 
+SilverStripe\TinyMCE\TinyMCEConfig:
   image_size_presets:
     - width: 1223
 
@@ -368,10 +369,6 @@ TractorCow\OpenGraph\OpenGraph:
     # https://github.com/lerni/silverstripe-opengraph/commit/7db9c653de05b1631234f3bd44261e0ee6482652
   application_id: ''
   admin_id: ''
-
-# TractorCow\OpenGraph\ObjectBuilders\OpenGraphBuilder:
-#   extensions:
-#     - App\Extensions\OpengraphBuilderExtension
 
 # ---
 # Name: mygooglemapfield

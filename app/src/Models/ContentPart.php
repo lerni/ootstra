@@ -68,6 +68,7 @@ class ContentPart extends DataObject
 
         $fields->removeByName([
             'ElementContentSection',
+            'ShowTitle',
         ]);
 
         $fields->replaceField(

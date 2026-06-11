@@ -71,6 +71,7 @@ class UrlifyExtension extends Extension
             'Sort',
             'MetaTitle',
             'MetaDescription',
+            'Metadata',
         ]);
 
         $MetaToggle = ToggleCompositeField::create(
@@ -84,11 +85,11 @@ class UrlifyExtension extends Extension
 
         $MetaTitleField->setTargetLength(60, 50, 60);
         $MetaTitleField->setAttribute('placeholder', $this->getOwner()->DefaultMetaTitle());
-        $MetaTitleField->setRightTitle(_t('\Page.MetaTitleRightTitle', 'Used as a title in the browser and for search engine results. Important for SEO!'));
+        $MetaTitleField->setRightTitle(_t('Page.MetaTitleRightTitle', 'Used as a title in the browser and for search engine results. Important for SEO!'));
 
         $MetaDescriptionField->setTargetLength(160, 100, 160);
         $MetaDescriptionField->setAttribute('placeholder', $this->getOwner()->DefaultMetaDescription());
-        $MetaDescriptionField->setRightTitle(_t('\Page.MetaDescriptionRightTitle', 'Used in search engine results when length fits and relevance is given; hardly affects SEO position. Appealing meta-descriptions (especially the first ~ 55 characters -> sitelinks) have a strong influence on the click rate.'));
+        $MetaDescriptionField->setRightTitle(_t('Page.MetaDescriptionRightTitle', 'Used in search engine results when length fits and relevance is given; hardly affects SEO position. Appealing meta-descriptions (especially the first ~ 55 characters -> sitelinks) have a strong influence on the click rate.'));
 
         $fields->insertAfter(
             'Title',

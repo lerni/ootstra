@@ -20,8 +20,7 @@ div.swiper-slide {
 }
 
 /* try to prevent FOUC */
-.swiper-container:not(.swiper-initialized) {
-	overflow: hidden;
+.swiper:not(.swiper-initialized) {
 	.swiper-wrapper {
 		display: block;
 	}
@@ -116,12 +115,15 @@ div.swiper-slide {
   }
 
   .swiper-pagination {
-    right: 0;
-    width: -2em;
+    right: auto;
+    width: 2rem;
     height: 100%;
-    left: auto;
+    left: 0;
     bottom: 0;
     flex-direction: column;
+	span {
+		margin-inline: auto !important;
+	}
   }
 }
 

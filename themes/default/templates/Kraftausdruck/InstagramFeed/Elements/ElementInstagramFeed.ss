@@ -5,31 +5,31 @@
 <% if isFullWidth %></div><% end_if %>
 <% if $HTML %><div class="typography">{$HTML}</div><% end_if %>
 <% if $InstagramFeed.Media %>
-	<div class="instafeed swiper-container" data-id="{$ID}" id="multiple-swiper-{$ID}">
+	<div class="instafeed swiper" data-id="{$ID}" id="multiple-swiper-{$ID}">
 		<div class="swiper-wrapper multiple">
 			<% loop $InstagramFeed.Media %>
 				<% if $media_type == "CAROUSEL_ALBUM" %>
 					<% if $Children.Count >= 1 %>
 						<div class="swiper-slide">
-							<div class="swiper-container swiper-v" data-id="{$Pos}" id="insta-swiper-{$Pos}">
+							<div class="swiper swiper-vertical" data-id="{$Pos}" id="insta-swiper-{$Pos}">
 								<div class="swiper-wrapper">
 					<% end_if %>
 					<% loop $Children %><%-- per default we show just one - may just incrase limit? --%>
-						<a class="swiper-slide $media_type.LowerCase" href="$permalink?img_index={$Pos}" target="_blank" rel="noopener">
+						<div class="swiper-slide $media_type.LowerCase">
 							<figure>
 								<% if $media_type == "VIDEO" %>
-									<video muted poster="$thumbnail_url" autoplay loop playsinline style="width:100%">
+									<video muted poster="$thumbnail_url" autoplay loop playsinline>
 										<source src="$media_url" type="video/mp4">
 									</video>
 								<% else_if $media_type == "IMAGE" %>
 									<img loading="lazy" src="$media_url" alt="$Up.caption" />
 								<% end_if %>
 								<figcaption>
-									{$Up.caption}
-									<span data-icon="instagram"></span>
+									<span class="caption-text">{$Up.caption}</span>
+									<a href="$permalink?img_index={$Pos}" target="_blank" rel="noopener" aria-label="<%t Kraftausdruck\InstagramFeed\Elements\ElementInstagramFeed.OpenOnInstagram 'Open on Instagram' %>"><span data-icon="instagram"></span></a>
 								</figcaption>
 							</figure>
-						</a>
+						</div>
 					<% end_loop %>
 					<% if $Children.Count >= 1 %>
 								</div>
@@ -38,18 +38,18 @@
 						</div>
 					<% end_if %>
 				<% else %>
-					<a class="swiper-slide $media_type.LowerCase" href="$permalink" target="_blank" rel="noopener">
+					<div class="swiper-slide $media_type.LowerCase">
 						<figure>
 							<% if $media_type == "VIDEO" %>
-								<video muted poster="$thumbnail_url" autoplay loop playsinline style="width:100%">
+								<video muted poster="$thumbnail_url" autoplay loop playsinline>
 									<source src="$media_url" type="video/mp4">
 								</video>
 							<% else_if $media_type == "IMAGE" %>
 								<img loading="lazy" src="$media_url" alt="$caption" />
 							<% end_if %>
-							<figcaption>{$caption}<span data-icon="instagram"></span></figcaption>
+							<figcaption><span class="caption-text">{$caption}</span><a href="$permalink" target="_blank" rel="noopener" aria-label="<%t Kraftausdruck\InstagramFeed\Elements\ElementInstagramFeed.OpenOnInstagram 'Open on Instagram' %>"><span data-icon="instagram"></span></a></figcaption>
 						</figure>
-					</a>
+					</div>
 				<% end_if %>
 			<% end_loop %>
 		</div>

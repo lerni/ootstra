@@ -33,7 +33,7 @@ class PageSchemaExtension extends Extension
     {
         $siteConfig = SiteConfig::current_site_config();
         $schemaTypes = static::AvailableSchemaTypes();
-        $schemaType = $siteConfig->SchemaType;
+        $schemaType = (string) $siteConfig->SchemaType;
         $schemaOrganisation = $schemaTypes[$schemaType] ?? Schema::organization();
 
         $schemaOrganisation
@@ -65,9 +65,9 @@ class PageSchemaExtension extends Extension
                     ->postOfficeBoxNumber($location->PostOfficeBoxNumber)
                     ->telephone($location->dbObject('Telephone')->TelEnc())
                     ->addressRegion($location->AddressRegion)
-                    ->addressCountry(Schema::Country()->name($country));
+                    ->addressCountry(Schema::country()->name($country));
 
-                $locations[$i] = Schema::Place()
+                $locations[$i] = Schema::place()
                     ->name($location->Title)
                     ->address($PushLocation);
 

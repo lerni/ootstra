@@ -1,8 +1,8 @@
 <?php
 
+use SilverStripe\Core\CoreKernel;
 use SilverStripe\Control\HTTPApplication;
 use SilverStripe\Control\HTTPRequestBuilder;
-use SilverStripe\Core\CoreKernel;
 
 // Find autoload.php
 if (file_exists(__DIR__ . '/../vendor/autoload.php')) {

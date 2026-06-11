@@ -71,7 +71,7 @@ class ElementExtension extends Extension
         }
 
         if (($ElementAnchorLinkField = $fields->dataFieldByName('AnchorLink')) && $this->getOwner()->Parent()->getOwnerPage()) {
-            if ($desc = $this->getOwner()->ElementAnchor()) {
+            if ($desc = $this->getOwner()->getAnchor()) {
                 $anchorlink = $this->getOwner()->Parent()->getOwnerPage()->AbsoluteLink() . '#' . $desc;
                 $ElementAnchorLinkField->setDescription($anchorlink);
             } else {
@@ -122,22 +122,9 @@ class ElementExtension extends Extension
         return null;
     }
 
-    public function ElementAnchor()
+    public function getAnchorTitle(): string
     {
-        $filter = URLSegmentFilter::create();
-        $StringTitle = $this->getOwner()->TitleOrAnchor();
-        $AnchorCandidate = $filter->filter($StringTitle);
-        $Sibelings = $this->getOwner()->Parent()->Elements()->exclude('ID', $this->getOwner()->ID);
-
-        $STitles = [];
-        foreach ($Sibelings as $s) {
-            $STitles[] = $s->TitleOrAnchor();
-        }
-        if (in_array($StringTitle, $STitles) && $AnchorCandidate != '') {
-            return $AnchorCandidate . '-' . $this->getOwner()->ID;
-        }
-
-        return $AnchorCandidate;
+        return $this->getOwner()->TitleOrAnchor();
     }
 
     public function TitleOrAnchor()
@@ -182,36 +169,8 @@ class ElementExtension extends Extension
         );
     }
 
-    public function updateLink(string &$link)
-    {
-        if ($this->getOwner()->ElementAnchor() && $link) {
-            $paresedLink = parse_url($link);
-            $paresedLink['fragment'] = $this->getOwner()->ElementAnchor();
-            $link = $this->unparse_url($paresedLink);
-        }
-    }
-
-    public function unparse_url($parsed_url)
-    {
-        $scheme = isset($parsed_url['scheme']) ? $parsed_url['scheme'] . '://' : '';
-        $host = $parsed_url['host'] ?? '';
-        $port = isset($parsed_url['port']) ? ':' . $parsed_url['port'] : '';
-        $user = $parsed_url['user'] ?? '';
-        $pass = isset($parsed_url['pass']) ? ':' . $parsed_url['pass'] : '';
-        $pass = ($user || $pass) ? $pass . '@' : '';
-        $path = $parsed_url['path'] ?? '';
-        $query = isset($parsed_url['query']) ? '?' . $parsed_url['query'] : '';
-        $fragment = isset($parsed_url['fragment']) ? '#' . $parsed_url['fragment'] : '';
-
-        return $scheme . $user . $pass . $host . $port . $path . $query . $fragment;
-    }
-
     public function updateAnchorsInContent(array &$anchors)
     {
-        if ($this->getOwner()->ElementAnchor()) {
-            $anchors = array_diff($anchors, ['e' . $this->getOwner()->ID]);
-            $anchors[] = $this->getOwner()->ElementAnchor();
-        }
         if ($this->getOwner()->hasMethod('ContentParts') && $this->getOwner()->ContentParts()->count()) {
             foreach ($this->getOwner()->ContentParts() as $part) {
                 $filter = URLSegmentFilter::create();
@@ -245,18 +204,6 @@ class ElementExtension extends Extension
                 'Title',
             ]),
         );
-    }
-
-    public function updatePreviewLink(&$link)
-    {
-        if ($link) {
-            $parts = parse_url($link);
-            if (isset($parts['fragment'])) {
-                unset($parts['fragment']);
-            }
-            $parts['fragment'] = $this->ElementAnchor();
-            $link = $this->unparse_url($parts);
-        }
     }
 
     public function NextElement()

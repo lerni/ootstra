@@ -8,7 +8,7 @@
 		<% if $isHero && $Page.SiteConfig.GlobalAlert %>global-alert<% end_if %>
 		<% if $AfterHero %>after-hero<% end_if %>
 		<% if $BackgroundColor %> background--{$BackgroundColor}<% end_if %>"
-		<% if $ElementAnchor %>id="$ElementAnchor"<% end_if %>>
+		<% if $Anchor %>id="$Anchor"<% end_if %>
 	$Element
-	<% if not $Page.IsPreview && $canEdit %><a class="preview-edit {$CurrentStage}" href="{$BaseHref}/{$CMSEditLink}" target="silverstripe-cms"><span>✎</span></a><% end_if %>
+	<% if not $Page.IsPreview && $canEdit %><a class="preview-edit {$CurrentStage}" href="{$BaseHref}{$CMSEditLink}" target="silverstripe-cms"><span>✎</span></a><% end_if %>
 </article><% end_if %>

@@ -122,6 +122,6 @@ class BlogExtension extends Extension
             }
         }
 
-        return $archive->Sort('Title DESC');
+        return $archive->Sort(['Title' => 'DESC']);
     }
 }

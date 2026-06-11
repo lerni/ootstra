@@ -365,7 +365,7 @@ nav.cat-tag {
 		&:not(.full-width) {
 			max-width: calc(var(--inner-width) + 300px);
 		}
-		.swiper-container {
+		.swiper {
 			width: 100%;
 		}
 		figure {
@@ -614,7 +614,7 @@ nav.cat-tag {
 		.embed-hero.playing-mode + figure {
 			display: none;
 		}
-		.swiper-container.hero {
+		.swiper.hero {
 			overflow: hidden;
 			&.hero--fullscreen {
 				height: calc(100vh - var(--headerheight));
@@ -649,8 +649,8 @@ nav.cat-tag {
 				}
 			}
 		}
-		.swiper-container.do-not-crop.hero--small,
-		.swiper-container.do-not-crop.hero--medium {
+		.swiper.do-not-crop.hero--small,
+		.swiper.do-not-crop.hero--medium {
 			max-height: initial;
 			figure {
 				img {
@@ -695,7 +695,7 @@ nav.cat-tag {
 		}
 		#header:not(.headroom--unpinned)
 			+ &
-			.swiper-container.fullscreen
+			.swiper.fullscreen
 			.scroll {
 			display: block;
 			animation: bounce 1.6s ease-in-out infinite;
@@ -717,7 +717,7 @@ nav.cat-tag {
 		}
 	}
 	&.elementtestimonial {
-		.swiper-container .swiper-wrapper {
+		.swiper .swiper-wrapper {
 			.swiper-slide {
 				width: 100%;
 			}
@@ -801,7 +801,7 @@ nav.cat-tag {
 			max-width: var(--inner-width--reduced);
 			padding-bottom: 1lh;
 		}
-		div.swiper-container .swiper-wrapper {
+		div.swiper .swiper-wrapper {
 			margin: 0;
 		}
 		.card {

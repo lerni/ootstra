@@ -86,7 +86,7 @@ class ElementPersoController extends ElementController
             // return vcard as a string
             // return $vcard->getOutput();
 
-            $this->getResponse()->addHeader('Content-Type', 'text/x-vcard; charset=' . $charset);
+            $this->getResponse()->addHeader('Content-Type', "text/x-vcard; charset={$charset}");
             $this->getResponse()->addHeader('X-Robots-Tag', 'noindex');
 
             // return vcard as a download

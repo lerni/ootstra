@@ -23,16 +23,7 @@ class HeritageExtension extends Extension
             $component = $this->getOwner()->$componentName();
         }
 
-        /**
-         * Check if component has content:
-         * - For SS_List (ManyManyList, DataList, etc.): check count()
-         * - For other values: check if not empty
-         */
-        if ($component instanceof SS_List) {
-            if ($component->count() > 0) {
-                return $component;
-            }
-        } elseif (!empty($component)) {
+        if ($component instanceof SS_List ? $component->count() > 0 : !empty($component)) {
             return $component;
         }
 

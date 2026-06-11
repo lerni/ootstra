@@ -277,7 +277,7 @@
 	}
 
 	/* case slider */
-	.swiper-container {
+	.swiper {
 		@media (--cm-xl-neg) {
 			overflow-x: hidden;
 		}

@@ -119,7 +119,6 @@ task('pkill', function (): void {
 desc('Run dev/build');
 task('silverstripe:dev_build', function (): void {
     run('cd {{release_or_current_path}} && {{bin/php}} ./vendor/bin/sake db:build --flush');
-    // run("php {{release_path}}/vendor/bin/sake dev/build flush");
 });
 
 
@@ -137,13 +136,6 @@ task('silverstripe:htaccessperstage', function (): void {
         ]);
     }
 })->desc('upload/replace .htaccess stage specific');
-
-
-desc('Running Task Hydrate the focuspoint extension image size cache');
-task('silverstripe:focu_hydrate', function (): void {
-    // run('cd {{release_path}} && {{bin/php}} ./vendor/silverstripe/framework/cli-script.php dev/tasks/HydrateFocusPointTask "flush=1"');
-    run('cd {{release_path}} && ./vendor/bin/sake dev/tasks/HydrateFocusPointTask "flush=1"');
-});
 
 
 desc('Create directory for dumps');

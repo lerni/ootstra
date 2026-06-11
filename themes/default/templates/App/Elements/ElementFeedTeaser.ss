@@ -6,7 +6,7 @@
 	<% if $Items %>
 		<% if $ShowAsSlider %>
 			<% vite 'src/css/swiper.css', 'src/js/swiper.js' %>
-			<div class="swiper-container cards multiple" id="general-swiper-{$ID}" data-id="{$ID}">
+			<div class="swiper cards multiple" id="general-swiper-{$ID}" data-id="{$ID}">
 				<div class="swiper-wrapper cards {$Layout}">
 		<% else %>
 			<div class="cards {$Layout}">

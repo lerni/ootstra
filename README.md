@@ -177,7 +177,7 @@ Don't forget to restart the container and update packages `composer u` after cha
 
 # Hosting & Deployment
 
-Deployment is based on [Deployer](https://deployer.org/), a php based cli-tool, which is included as dev-requirement per `composer.json`. It uses symlinks to the current release. It's easy to use, offers zero downtime deployments and rollback. `public/assets`, `.env` are shared resources, this means they are symlinked into each release-folder. On remote servers you'll need [SSH](https://de.wikipedia.org/wiki/Secure_Shell) & git, composer, same php-version on CLI as httpd, ln, readlink, realpath, rsync, sed & xargs.
+Deployment is based on [Deployer](https://deployer.org/), a php based cli-tool, which is included as dev-requirement per `composer.json`. It uses symlinks to the current release. It's easy to use, offers zero downtime deployments and rollback. `public/assets`, `.env` are shared resources, this means they are symlinked into each release-folder. On remote servers you'll need [SSH](https://de.wikipedia.org/wiki/Secure_Shell) & git, composer, same php-version on CLI as httpd, ln, readlink, realpath, rsync & sed.
 
 ```
 /var/www/html

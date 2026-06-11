@@ -5,7 +5,7 @@
 <% if $Items %>
 	<% if $Layout == "slider" %>
 		<% vite 'src/css/swiper.css', 'src/js/swiper.js' %>
-		<div class="swiper-container logo" data-id="{$ID}" id="logo-swiper-{$ID}">
+		<div class="swiper logo" data-id="{$ID}" id="logo-swiper-{$ID}">
 			<ul class="swiper-wrapper logos<% if $Greyscale %> greyscale<% end_if %>">
 				<% loop $Items %>
 					<li class="logo swiper-slide<% if $Link %> has-link<% end_if %>">

@@ -69,7 +69,7 @@
     {
       "label": "npm watch",
       "type": "shell",
-      "command": "npm --prefix themes/default run dev",
+      "command": "cd themes/default && node_modules/.bin/vite",
       "group": "build",
       "isBackground": true,
       "presentation": {

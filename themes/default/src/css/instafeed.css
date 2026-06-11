@@ -92,7 +92,7 @@
 			}
 		}
 	}
-	.swiper-container {
+	.swiper {
 		.swiper-wrapper {
 			transition-timing-function: linear;
 		}

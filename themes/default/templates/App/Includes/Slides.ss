@@ -1,5 +1,5 @@
 <% if $Items %>
-	<div class="swiper-container hero hero--{$HeroSize}<% if $DoNotCrop %> do-not-crop<% end_if %>" data-id="{$ID}" id="hero-swiper-{$ID}">
+	<div class="swiper hero hero--{$HeroSize}<% if $DoNotCrop %> do-not-crop<% end_if %>" data-id="{$ID}" id="hero-swiper-{$ID}">
 		<div class="swiper-wrapper hero">
 			<% loop $Items %>
 				<% if $SlideImage || $EmbedVideo %>

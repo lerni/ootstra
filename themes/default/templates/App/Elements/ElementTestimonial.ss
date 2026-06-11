@@ -7,7 +7,7 @@
 <div class="typography">
 	<div class="inner">
 		<% if $Items %>
-		<div class="swiper-container testimonial" data-id="{$ID}" id="testimonial-swiper-{$ID}">
+		<div class="swiper testimonial" data-id="{$ID}" id="testimonial-swiper-{$ID}">
 			<div class="swiper-wrapper testimonial">
 				<% loop $Items %>
 					<div class="swiper-slide">

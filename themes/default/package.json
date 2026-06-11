@@ -15,24 +15,24 @@
     "@biomejs/biome": "2",
     "@csstools/postcss-global-data": "^4.0.0",
     "autoprefixer": "^10.4.21",
-    "cssnano": "^7.1.1",
-    "laravel-vite-plugin": "^2.0.1",
+    "cssnano": "^8.0.1",
+    "laravel-vite-plugin": "^2.1.0",
     "postcss": "^8.5.6",
-    "postcss-custom-media": "^11.0.6",
+    "postcss-custom-media": "^12.0.1",
     "postcss-inline-svg": "^6.0.0",
     "postcss-mixins": "^12.1.2",
-    "postcss-nesting": "^13.0.2",
+    "postcss-nesting": "^14.0.0",
     "sass": "^1.89.2",
-    "svgo": "^3.3.2",
-    "vite": "^7.1.7",
-    "vite-plugin-image-optimizer": "^1.1.9"
+    "svgo": "^4.0.1",
+    "vite": "^7.3.3",
+    "vite-plugin-image-optimizer": "^2.0.3"
   },
   "browserslist": [
     "defaults"
   ],
   "dependencies": {
     "@egjs/infinitegrid": "4.13.0",
-    "@fancyapps/ui": "^5.0.17",
+    "@fancyapps/ui": "^6.1.14",
     "countup.js": "^2.3.2",
     "headroom.js": "^0.12.0",
     "hoverintent": "^2.2.1",

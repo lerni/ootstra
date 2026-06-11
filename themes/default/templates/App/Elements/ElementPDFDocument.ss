@@ -6,7 +6,7 @@
 	<% if $PDFDocs %>
 		<% if $ShowAsSlider %>
 			<% vite 'src/css/swiper.css', 'src/js/swiper.js' %>
-			<div class="swiper-container teaser" id="general-swiper-{$ID}">
+			<div class="swiper teaser" id="general-swiper-{$ID}">
 				<div class="swiper-wrapper cards {$Layout}">
 		<% else %>
 			<div class="cards {$Layout}">

@@ -38,7 +38,6 @@
 	figure.Image {
 		@container (min-width: calc(640px + 1lh)) {
 			order: 0;
-
 		}
 	}
 }

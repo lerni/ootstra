@@ -243,7 +243,7 @@ class Page extends SiteTree
 
         if (is_array($conf)) {
             if ($set != '' && array_key_exists($set, $conf)) {
-                $exclude = $conf[$set];
+                $exclude = $conf["{$set}"];
             } elseif (array_key_exists('default', $conf)) {
                 $exclude = $conf['default'];
             }

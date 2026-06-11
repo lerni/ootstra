@@ -10,7 +10,13 @@ export default {
       mixinsFiles: ['./src/css/_mixins.css'],
     },
     'postcss-custom-media': {},
-    'postcss-nesting': {},
+    'postcss-nesting': {
+      // Use the 2021 edition so simple descendant nesting unrolls flat
+      // (the 2024-02 spec mandates :is() wrapping for & semantics).
+      // Combined with noIsPseudoSelector, output is plain flat CSS.
+      edition: '2021',
+      noIsPseudoSelector: true,
+    },
     'autoprefixer': {},
     'postcss-inline-svg': {
       paths: ['./src/images/svg/']

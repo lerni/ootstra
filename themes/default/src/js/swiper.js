@@ -5,15 +5,16 @@ import Swiper from "swiper/core";
 import {
   Autoplay,
   EffectFade,
+  FreeMode,
   Keyboard,
   Navigation,
   Pagination
   // Thumbs
 } from "swiper/modules";
 
-Swiper.use([Autoplay, EffectFade, Keyboard, Navigation, Pagination]);
+Swiper.use([Autoplay, EffectFade, FreeMode, Keyboard, Navigation, Pagination]);
 
-const heroSwiper = document.querySelectorAll(".swiper-container.hero");
+const heroSwiper = document.querySelectorAll(".swiper.hero");
 Array.prototype.forEach.call(heroSwiper, function (slider) {
   const sliderID = slider.getAttribute("id");
   const sliderPrev = "#hero-swiper-prev" + slider.getAttribute("data-id");
@@ -23,9 +24,7 @@ Array.prototype.forEach.call(heroSwiper, function (slider) {
   const heroSwiperInstance = new Swiper("#" + sliderID, {
     spaceBetween: 0,
     direction: "horizontal",
-    // CSSWidthAndHeight: true,
     speed: 2000,
-    // height: "auto",
     keyboard: {
       enabled: true,
       onlyInViewport: true,
@@ -63,7 +62,7 @@ Array.prototype.forEach.call(heroSwiper, function (slider) {
 // });
 
 const multipleSwiper = document.querySelectorAll(
-  ".swiper-container.multiple, .swiper-container.perso-cfa"
+  ".swiper.multiple, .swiper.perso-cfa"
 );
 Array.prototype.forEach.call(multipleSwiper, function (slider) {
   const sliderID = slider.getAttribute("id");
@@ -117,7 +116,7 @@ Array.prototype.forEach.call(multipleSwiper, function (slider) {
 });
 
 const testimonialSwiper = document.querySelectorAll(
-  ".swiper-container.testimonial"
+  ".swiper.testimonial"
 );
 Array.prototype.forEach.call(testimonialSwiper, function (slider) {
   const sliderID = slider.getAttribute("id");
@@ -126,7 +125,6 @@ Array.prototype.forEach.call(testimonialSwiper, function (slider) {
     spaceBetween: 100, // $text-size times $lineheight
     slidesPerView: 1, // Change to 1 when using fade effect
     speed: 1600,
-    // loop: true,
     autoplay: {
       delay: 6000,
       disableOnInteraction: true,
@@ -166,7 +164,7 @@ Array.prototype.forEach.call(testimonialSwiper, function (slider) {
   }
 });
 
-const instafeedSwiper = document.querySelectorAll(".swiper-container.instafeed");
+const instafeedSwiper = document.querySelectorAll(".swiper.instafeed");
 Array.prototype.forEach.call(instafeedSwiper, function (slider) {
   const sliderID = slider.getAttribute("id");
   const sliderPrev = "#insta-swiper-prev" + slider.getAttribute("data-id");
@@ -174,12 +172,11 @@ Array.prototype.forEach.call(instafeedSwiper, function (slider) {
   const gap = parseFloat(window.getComputedStyle(slider).lineHeight);
   const instafeedSwiperInstance = new Swiper("#" + sliderID, {
     spaceBetween: gap,
-    freeMode: true,
     slidesPerView: "auto",
     speed: 1000,
-    // loop: true,
+    freeMode: false,
     autoplay: {
-      delay: 1000,
+      delay: 2000,
       disableOnInteraction: true,
     },
     keyboard: {
@@ -214,7 +211,7 @@ Array.prototype.forEach.call(instafeedSwiper, function (slider) {
 });
 
 const instafeedVerticalSwiper = document.querySelectorAll(
-  ".swiper-container.swiper-v"
+  ".swiper.swiper-vertical"
 );
 Array.prototype.forEach.call(instafeedVerticalSwiper, function (slider) {
   const sliderID = slider.getAttribute("id");
@@ -236,7 +233,7 @@ Array.prototype.forEach.call(instafeedVerticalSwiper, function (slider) {
   });
 });
 
-const logoSwiper = document.querySelectorAll('.swiper-container.logo');
+const logoSwiper = document.querySelectorAll('.swiper.logo');
 Array.prototype.forEach.call(logoSwiper, function (slider) {
   const sliderID = slider.getAttribute('id');
   const logoSwiperInstance = new Swiper ('#'+sliderID, {

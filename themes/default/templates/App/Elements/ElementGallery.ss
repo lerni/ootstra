@@ -5,7 +5,7 @@
 <% if $Items %>
 	<% if $Layout == "slider" %>
 		<% vite 'src/css/swiper.css', 'src/js/swiper.js' %>
-		<div class="swiper-container multiple" id="general-swiper-{$ID}">
+		<div class="swiper multiple" id="general-swiper-{$ID}">
 			<div class="swiper-wrapper multiple">
 				<% loop $Items %>
 					<a href="$ScaleMaxWidth(1224).Convert('webp').URL"

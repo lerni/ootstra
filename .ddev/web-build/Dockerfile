@@ -3,4 +3,5 @@ RUN curl -sLo /usr/local/bin/phpactor https://github.com/phpactor/phpactor/relea
     && chmod +x /usr/local/bin/phpactor \
     && (phpactor --version || true)
 RUN npm i -g @biomejs/biome@2
-RUN apt-get install -y codespell
+RUN curl -sLo /usr/local/bin/cloudflared https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 \
+    && chmod +x /usr/local/bin/cloudflared

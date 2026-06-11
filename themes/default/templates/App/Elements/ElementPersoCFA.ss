@@ -3,7 +3,7 @@
 	<div class="persos">
 		<% if $Items.Count > 1 %>
 			<% vite 'src/css/swiper.css', 'src/js/swiper.js' %>
-			<div class="swiper-container perso-cfa" id="general-swiper-{$ID}" data-id="{$ID}">
+			<div class="swiper perso-cfa" id="general-swiper-{$ID}" data-id="{$ID}">
 				<div class="swiper-wrapper perso-cfa">
 		<% end_if %>
 		<% loop $Items %>
