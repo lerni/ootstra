@@ -6,7 +6,6 @@ use SilverStripe\Admin\CMSMenu;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Environment;
 use SilverStripe\Admin\LeftAndMain;
-use Kraftausdruck\Models\JobPosting;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Control\Email\Email;
 use Wilr\GoogleSitemaps\GoogleSitemap;
@@ -193,7 +192,6 @@ URLSegmentFilter::config()->default_replacements = [
 ];
 
 // GoogleSitemap::register_dataobjects(['App\Models\Perso'], 'weekly', '1');
-// GoogleSitemap::register_dataobjects([JobPosting::class], 'weekly', '1');
 
 ShortcodeParser::get('default')->register('Location', [LocationShortCodeProvider::class, 'parseLocationShortCodeProvider']);
 ShortcodeParser::get('default')->register('Vacation', [VacationShortCodeProvider::class, 'parseVacationShortCodeProvider']);

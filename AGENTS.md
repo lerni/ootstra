@@ -65,14 +65,14 @@ This project uses a devcontainer that runs inside DDEV's web container:
 - `ddev xdebug on/off` - Enable/disable Xdebug
 
 #### Silverstripe Development (blue tasks)
-- `dev/build` - Rebuild database schema (runs `sake db:build` in devcontainer, `ddev sake db:build` from host)
+- `db:build` - Rebuild database schema (runs `sake db:build` in devcontainer, `ddev sake db:build` from host)
 - `ssshell` - Interactive Silverstripe REPL (Psy Shell) for database queries and debugging
 - `composer install` - Install PHP dependencies
 - `composer update` - Update PHP dependencies
 - `composer vendor-expose` - Expose vendor assets
 
 #### Frontend Development (green tasks)
-- `npm install & update update-browserslist-db` - Install npm packages
+- `npm install & update browser data` - Install npm packages
 - `npm watch` - Start Vite watcher
 - `npm prod` - Production build
 
@@ -123,27 +123,22 @@ This project uses a devcontainer that runs inside DDEV's web container:
 - Built files output to `themes/default/dist/`
 - PostCSS processing (`themes/default/postcss.config.js`), JavaScript bundling, asset optimization
 
-### CSS Architecture & Patterns
+### CSS Architecture & Patterns & Best Practices
 - **Modern CSS approach**: Uses CSS custom properties (variables), custom media queries, and PostCSS mixins
 - **Color system**: OKLCH color format for better perceptual uniformity and alpha support
 - **Responsive design**: Custom media queries defined in `custom-media.css` (e.g., `--cm-l-plus`, `--cm-xl-neg`)
-- **Typography**: Modular scale using `--lh` (line-height) units for consistent vertical rhythm
+- **Typography**: Modular scale using `--lh` (line-height) units for consistent vertical rhythm and spacing in generall, for horyzontal spacing see also --spacing in `themes/default/src/css/variables.css`
 - **CSS Reset**: Custom reset based on Andy Bell's modern CSS reset (`uni-sani-reset.css`)
 - **Accessibility**: Focus-visible outlines, prefers-reduced-motion support, visually-hidden utility class
 - **PostCSS mixins**: Reusable patterns for buttons, dropdowns, sliders, and arrow decorations in `mixins.css`
-
-### CSS Best Practices
+- Leverage `color-mix()` and follow OKLCH color format `oklch(from ...)` for dynamic color variations
 - Use `var(--variable-name)` for colors, spacing, and typography
-- Follow OKLCH color format: `oklch(lightness chroma hue)` for better color manipulation
-- Use custom media queries: `@media (--cm-l-plus)` instead of raw pixel values
-- Maintain consistent spacing with `calc(var(--lh) * N * 1em)` pattern or `clamp()` for horyzontal spacing see --spacing in `themes/default/src/css/variables.css`
-- Leverage `color-mix()` and `oklch(from ...)` for dynamic color variations
 - Use semantic CSS custom properties (e.g., `--link-color`, `--text-color`) over direct color values
 
 ## File Conventions
 
 ### PHP Files
-- Follow PSR-12 coding standards
+- Follow Silverstripe conventions and PSR-12 standards
 - Namespace: `App\` for application code
 - Controllers in `app/src/Controller/`
 - Models in `app/src/Models/`
@@ -151,6 +146,7 @@ This project uses a devcontainer that runs inside DDEV's web container:
 - Elements in `app/src/Elements/`
 - Tasks in `app/src/Tasks/`
 - ModelAdmin in `app/src/Admin/`
+- Utilities in `app/src/Util/`
 
 ### Templates
 - Silverstripe `.ss` template format
@@ -166,10 +162,9 @@ This project uses a devcontainer that runs inside DDEV's web container:
 ## Common Patterns
 
 ### Code Changes:
-- Follow Silverstripe conventions and PSR-12 standards
 - Include proper error handling and validation
-- Run `dev/build` after schema changes (new classes, database fields, config changes)
-- New methods don't require dev/build - they're discovered automatically
+- Run `db:build` after schema changes (new classes, database fields, config changes)
+- New methods don't require db:build - they're discovered automatically
 - Use SSShell for testing ORM queries
 
 ### Frontend Changes:
@@ -258,9 +253,9 @@ Add these to any URL during development:
 - `?debugfailover=1` - Show failover methods from extended classes
 
 **Dev URLs:**
-- `/dev/build` - Rebuild database and manifest
-- `/dev/build?flush&quiet=1` - Rebuild silently
-- `/dev/build?no-populate=1` - Build tables without running requireDefaultRecords()
+- `/db:build` - Rebuild database and manifest
+- `/db:build?flush&quiet=1` - Rebuild silently
+- `/db:build?no-populate=1` - Build tables without running requireDefaultRecords()
 - `/dev/config` - Output Config manifest properties
 - `/dev/config/audit` - Audit Config for missing PHP definitions
 - `/dev/tasks` - List all available tasks

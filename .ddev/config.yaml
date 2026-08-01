@@ -42,6 +42,7 @@ web_environment:
     - SS_ADMIN_EMAIL=test@example.org
     - SS_MANIFESTCACHE=Symfony\\Component\\Cache\\Adapter\\PhpFilesAdapter
     # - SS_DEPRECATION_ENABLED=true
+# disable_settings_management: true
 corepack_enable: false
 nodejs_version: "22"
 web_extra_exposed_ports:

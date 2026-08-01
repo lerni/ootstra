@@ -1,10 +1,8 @@
-body {
-	margin: 0;
-}
-
 /*
-Andy Bell
-https://piccalil.li/blog/a-more-modern-css-reset/ */
+CSS reset adapted from various sources
+https://piccalil.li/blog/a-more-modern-css-reset/
+https://www.joshwcomeau.com/css/custom-css-reset/
+https://github.com/fokus-dev/uaplus */
 
 /* Box sizing rules */
 *,
@@ -13,13 +11,31 @@ https://piccalil.li/blog/a-more-modern-css-reset/ */
 	box-sizing: border-box;
 }
 
+body {
+	margin: 0;
+	text-size-adjust: 100%;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	scrollbar-gutter: stable;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
 ul[role='list'],
 ol[role='list'] {
 	list-style: none;
 }
 
-/* Balance text wrapping on headings */
+/* Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+
 h1,
 h2,
 h3,
@@ -49,7 +65,7 @@ select {
 
 /* Make sure textareas without a rows attribute are not tiny */
 textarea:not([rows]) {
-	min-height: 7em;
+	min-height: 5lh;
 }
 
 /* Anything that has been anchored to should have extra scroll margin */
@@ -118,5 +134,6 @@ a[href^="x-apple-data-detectors:"] {
 		animation-duration: 0.01ms !important;
 		animation-iteration-count: 1 !important;
 		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
 	}
 }

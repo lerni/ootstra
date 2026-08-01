@@ -7,9 +7,9 @@
 		<menu id="menu1" class="menu1" data-hx-boost="true" data-hx-swap="outerHTML show:no-scroll">
 			<% loop $Menu(1) %>
 				<li data-linkingmode="$ID" class="<% if not $HideSubNavi && $Childrenexcluded %> has-children<% end_if %>">
-					<a href="$Link"<% if $NewWindow %> target="_blank" rel="noopener"<% end_if %> data-hx-boost="<% if $ClassName == SilverStripe\CMS\Model\RedirectorPage %>false<% else %>true<% end_if %>">$MenuTitle.NormalizedXML</a>
-					<% if not $HideSubNavi && $Childrenexcluded %><span class="trigger"><span></span></span>
-						<menu class="menu2">
+					<a href="$Link"<% if not $HideSubNavi && $Childrenexcluded %> aria-expanded="false" aria-controls="submenu-$ID"<% end_if %><% if $NewWindow %> target="_blank" rel="noopener"<% end_if %> data-hx-boost="<% if $ClassName == SilverStripe\CMS\Model\RedirectorPage %>false<% else %>true<% end_if %>">$MenuTitle.NormalizedXML</a>
+					<% if not $HideSubNavi && $Childrenexcluded %><button type="button" class="trigger" aria-expanded="false" aria-controls="submenu-$ID" aria-label="<%t Page.SUBMENU_TOGGLE 'Show submenu of {title}' title=$MenuTitle %>"><span></span></button>
+						<menu id="submenu-$ID" class="menu2">
 							<% loop $Childrenexcluded %>
 								<li data-linkingmode="$ID">
 									<a href="$Link"<% if $NewWindow %> target="_blank" rel="noopener"<% end_if %> data-hx-boost="<% if $ClassName == SilverStripe\CMS\Model\RedirectorPage %>false<% else %>true<% end_if %>">$MenuTitle.NormalizedXML</a>

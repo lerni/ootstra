@@ -38,7 +38,10 @@
 			"FormData",
 			"HTMLElement",
 			"Event",
-			"CustomEvent"
+			"CustomEvent",
+			"jQuery",
+			"$",
+			"htmx"
 		]
 	},
 	"assist": {

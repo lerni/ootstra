@@ -47,7 +47,7 @@ This project supports **VSCode with devcontainer** (recommended). VSCode extensi
 - All other VSCode extensions are automatically installed inside the container
 
 **How it works:**
-- Open the workspace in VS Code and use Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`) → **"Dev Containers: Reopen in Container"**
+- Open the workspace in in VS Code and use the Command Palette or click on the **"Reopen in Container"** notification (see [step 2](#2-open-in-devcontainer))
 - The devcontainer automatically (re)starts DDEV (`ddev start` via `initializeCommand`) and runs `npm install` in `themes/default` (`postCreateCommand`)
 - All extensions and in-container settings are configured in `.devcontainer/devcontainer.json` (PHP tools, log viewer, debug config, etc.)
 - `.vscode/settings.json` contains minimal workspace settings (search exclusions, terminal profiles for non-devcontainer use)
@@ -64,8 +64,7 @@ The folder name is used as project name (recommended because `.vscode/launch.jso
 cd "PROJECT"
 code .
 ```
-In VS Code, open the Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`) and run:
-**"Dev Containers: Reopen in Container"**
+In VS Code, open the Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`) and run **"Dev Containers: Reopen in Container"**, or click the suggested **"Reopen in Container"** notification in the lower-right corner.
 
 ### 3. Install PHP dependencies (inside the container)
 All commands now run inside the devcontainer terminal:
@@ -93,38 +92,6 @@ This provides:
 - Mailpit at [https://PROJECTNAME.ddev.site:8026/](https://PROJECTNAME.ddev.site:8026/)
 
 Default CMS-Login at [/admin](https://PROJECTNAME.ddev.site/admin) is `admin` & `password`.
-
-### ssh forwarding, ddev-ssh-agent
-This setup omits `ddev-ssh-agent` and exposes `SSH_AUTH_SOCK` from the host system into the web container in order to use local SSH keys. To make that work, key files from `~/.ssh` or the whole directories must be exposed into ddev by creating symlinks in `~/.ddev/homeadditions`. On macOS, the option `IgnoreUnknown UseKeychain` in `~/.ssh/config` causes `Bad configuration option` in the container, so symlinking individual files from `~/.ssh/` into `~/.ddev/homeadditions` and having a separate/copy of `~/.ddev/homeadditions/.ssh/config` worked for me ;)
-For more information, refer to the [ddev documentation](https://ddev.readthedocs.io/en/stable/users/extend/in-container-configuration/) & [OpenSSH updates in macOS](https://developer.apple.com/library/archive/technotes/tn2449/_index.html), [DDEV issue](https://github.com/ddev/ddev/issues/1904)
-
-**Container `.ddev/homeadditions/.ssh/config`:**
-```ssh-config
-UserKnownHostsFile=~/.ssh/known_hosts
-StrictHostKeyChecking=accept-new
-Host *
-    ForwardAgent yes
-```
-
-**MacOS**
-SSH keys must be explicitly added to the keychain once. This may also be needed after macOS updates:
-```zsh
-# Add your SSH key(s) to the keychain (replace with your actual key filename)
-ssh-add --apple-use-keychain ~/.ssh/id_ed25519
-
-# Verify keys are loaded
-ssh-add -l
-```
-
-The `--apple-use-keychain` flag stores the passphrase in macOS Keychain, so you won't be prompted again after reboots. The `UseKeychain yes` setting in `~/.ssh/config` allows SSH to automatically retrieve keys from the keychain.
-
-To use `ddev-ssh-agent` instead, following configuration in `.ddev/config.yaml` can be removed and `.ddev/docker-compose.sshagent.yaml` can be deleted.
-```yaml
-omit_containers: [ddev-ssh-agent]
-webimage_extra_packages: [openssh-client]
-web_environment:
-    - SSH_AUTH_SOCK=/run/host-services/ssh-auth.sock
-```
 
 ### npm, Vite watch & build etc.
 [Laravel's Vite components](https://laravel.com/docs/12.x/vite) are used as the frontend build environment.
@@ -251,6 +218,38 @@ Deployment is based on [Deployer](https://deployer.org/), a php based cli-tool, 
 
 ## SSH Key Setup
 Public SSH keys [must be added to the remote servers](https://www.google.com/search?q=add+public+key+to+server) in `~/.ssh/authorized_keys`. On nix-based systems, use [ssh-copy-id](https://www.ssh.com/ssh/copy-id).
+
+### ssh forwarding, ddev-ssh-agent
+This setup omits `ddev-ssh-agent` and exposes `SSH_AUTH_SOCK` from the host system into the web container in order to use local SSH keys. To make that work, key files from `~/.ssh` or the whole directories must be exposed into ddev by creating symlinks in `~/.ddev/homeadditions`. On macOS, the option `IgnoreUnknown UseKeychain` in `~/.ssh/config` causes `Bad configuration option` in the container, so symlinking individual files from `~/.ssh/` into `~/.ddev/homeadditions` and having a separate/copy of `~/.ddev/homeadditions/.ssh/config` worked for me ;)
+For more information, refer to the [ddev documentation](https://ddev.readthedocs.io/en/stable/users/extend/in-container-configuration/) & [OpenSSH updates in macOS](https://developer.apple.com/library/archive/technotes/tn2449/_index.html), [DDEV issue](https://github.com/ddev/ddev/issues/1904)
+
+**Container `.ddev/homeadditions/.ssh/config`:**
+```ssh-config
+UserKnownHostsFile=~/.ssh/known_hosts
+StrictHostKeyChecking=accept-new
+Host *
+    ForwardAgent yes
+```
+
+**MacOS**
+SSH keys must be explicitly added to the keychain once. This may also be needed after macOS updates:
+```zsh
+# Add your SSH key(s) to the keychain (replace with your actual key filename)
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+
+# Verify keys are loaded
+ssh-add -l
+```
+
+The `--apple-use-keychain` flag stores the passphrase in macOS Keychain, so you won't be prompted again after reboots. The `UseKeychain yes` setting in `~/.ssh/config` allows SSH to automatically retrieve keys from the keychain.
+
+To use `ddev-ssh-agent` instead, following configuration in `.ddev/config.yaml` can be removed and `.ddev/docker-compose.sshagent.yaml` can be deleted.
+```yaml
+omit_containers: [ddev-ssh-agent]
+webimage_extra_packages: [openssh-client]
+web_environment:
+    - SSH_AUTH_SOCK=/run/host-services/ssh-auth.sock
+```
 
 ## Configuration
 Rename `deploy/config.example.php` to `deploy/config.php` and configure as needed. The `.htaccess` file in `/public` is typically used, but can be overridden with stage-specific versions by creating `./deploy/test.htaccess` or `./deploy/live.htaccess`.

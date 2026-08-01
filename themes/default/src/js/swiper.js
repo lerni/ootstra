@@ -8,7 +8,7 @@ import {
   FreeMode,
   Keyboard,
   Navigation,
-  Pagination
+  Pagination,
   // Thumbs
 } from "swiper/modules";
 
@@ -23,7 +23,6 @@ Array.prototype.forEach.call(heroSwiper, function (slider) {
 
   const heroSwiperInstance = new Swiper("#" + sliderID, {
     spaceBetween: 0,
-    direction: "horizontal",
     speed: 2000,
     keyboard: {
       enabled: true,
@@ -174,7 +173,6 @@ Array.prototype.forEach.call(instafeedSwiper, function (slider) {
     spaceBetween: gap,
     slidesPerView: "auto",
     speed: 1000,
-    freeMode: false,
     autoplay: {
       delay: 2000,
       disableOnInteraction: true,
@@ -242,7 +240,6 @@ Array.prototype.forEach.call(logoSwiper, function (slider) {
     speed: 5000,
     loop: true,
     spaceBetween: 0,
-    direction: 'horizontal',
     autoplay: {
       delay: 0,
       disableOnInteraction: true,

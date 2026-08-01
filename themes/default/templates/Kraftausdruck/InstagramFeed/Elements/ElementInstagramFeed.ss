@@ -1,7 +1,7 @@
 <% vite 'src/css/instafeed.css', 'src/css/swiper.css', 'src/js/swiper.js' %>
 <%-- $InstagramFeed.Profile.username --%>
 <% if $isFullWidth && $ShowTitle %><div class="typography inner"><% end_if %>
-	<% include App/Includes/ElementTitle %>
+	<a rel="noopener" target="_blank" href="https://www.instagram.com/{$InstagramFeed.Profile.username}/?hl={$ContentLocaleShort}"><% include App/Includes/ElementTitle %></a>
 <% if isFullWidth %></div><% end_if %>
 <% if $HTML %><div class="typography">{$HTML}</div><% end_if %>
 <% if $InstagramFeed.Media %>

@@ -1,4 +1,4 @@
-@import "../../node_modules/@fancyapps/ui/dist/fancybox/fancybox.css";
+@import "@fancyapps/ui/dist/fancybox/fancybox.css";
 
 .fancybox__dialog {
 	z-index: 9001;

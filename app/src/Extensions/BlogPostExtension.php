@@ -50,7 +50,13 @@ class BlogPostExtension extends Extension
 
     public function PrevNext($Mode = 'next')
     {
-        $list = $this->getOwner()->Parent()->getBlogPosts();
+        $parent = $this->getOwner()->Parent();
+
+        if (!$parent instanceof Blog) {
+            return null;
+        }
+
+        $list = $parent->getBlogPosts();
 
         if ($Mode == 'next') {
             return $list->filter(["Sort:GreaterThan" => $this->getOwner()->Sort])->sort("Sort ASC")->limit(1)->first();

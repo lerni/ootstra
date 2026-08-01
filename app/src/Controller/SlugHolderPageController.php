@@ -58,6 +58,34 @@ class SlugHolderPageController extends PageController
         return $this->currentItem;
     }
 
+    /**
+     * Delegate meta fields to the current item so each detail page gets its own
+     * title/description rather than inheriting the generic holder page values.
+     */
+    public function MetaTitle()
+    {
+        return $this->currentItem ? $this->currentItem->MetaTitle : $this->data()->MetaTitle;
+    }
+
+    public function DefaultMetaTitle()
+    {
+        return $this->currentItem
+            ? $this->currentItem->DefaultMetaTitle()
+            : $this->data()->DefaultMetaTitle();
+    }
+
+    public function MetaDescription()
+    {
+        return $this->currentItem ? $this->currentItem->MetaDescription : $this->data()->MetaDescription;
+    }
+
+    public function DefaultMetaDescription()
+    {
+        return $this->currentItem
+            ? $this->currentItem->DefaultMetaDescription()
+            : $this->data()->DefaultMetaDescription();
+    }
+
     public function getPageLevel()
     {
         $level = 0;

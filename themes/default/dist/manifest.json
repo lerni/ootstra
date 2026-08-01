@@ -18,7 +18,7 @@
     ]
   },
   "src/css/contentsections.css": {
-    "file": "assets/contentsections-C_aCzphq.css",
+    "file": "assets/contentsections-BIU07JZl.css",
     "src": "src/css/contentsections.css",
     "isEntry": true,
     "name": "contentsections",
@@ -27,7 +27,7 @@
     ]
   },
   "src/css/editor.css": {
-    "file": "assets/editor-BGA8tQoH.css",
+    "file": "assets/editor-yWtiCW4_.css",
     "src": "src/css/editor.css",
     "isEntry": true,
     "name": "editor",
@@ -36,7 +36,7 @@
     ]
   },
   "src/css/fancy.css": {
-    "file": "assets/fancy-DOEpoOs_.css",
+    "file": "assets/fancy-CTBq1BGb.css",
     "src": "src/css/fancy.css",
     "isEntry": true,
     "name": "fancy",
@@ -63,7 +63,7 @@
     ]
   },
   "src/css/localvideo.css": {
-    "file": "assets/localvideo-OBd7A352.css",
+    "file": "assets/localvideo-DWNBq6yp.css",
     "src": "src/css/localvideo.css",
     "isEntry": true,
     "name": "localvideo",
@@ -81,7 +81,7 @@
     ]
   },
   "src/css/metaoverviewpage.css": {
-    "file": "assets/metaoverviewpage-BgmpMI48.css",
+    "file": "assets/metaoverviewpage-BotHOt-E.css",
     "src": "src/css/metaoverviewpage.css",
     "isEntry": true,
     "name": "metaoverviewpage",
@@ -108,7 +108,7 @@
     ]
   },
   "src/css/style.css": {
-    "file": "assets/style-Ctxxqd9M.css",
+    "file": "assets/style-BfEEeRD6.css",
     "src": "src/css/style.css",
     "isEntry": true,
     "name": "style",
@@ -117,7 +117,7 @@
     ]
   },
   "src/css/swiper.css": {
-    "file": "assets/swiper-DPD2Thv_.css",
+    "file": "assets/swiper-Coi7L4iJ.css",
     "src": "src/css/swiper.css",
     "isEntry": true,
     "name": "swiper",
@@ -383,7 +383,7 @@
     "src": "src/images/transparent.png"
   },
   "src/js/app.js": {
-    "file": "assets/app-Bf12eYro.js",
+    "file": "assets/app-5S1vZSzn.js",
     "name": "app",
     "src": "src/js/app.js",
     "isEntry": true
@@ -413,7 +413,7 @@
     "isEntry": true
   },
   "src/js/swiper.js": {
-    "file": "assets/swiper-4J0x9-1j.js",
+    "file": "assets/swiper-BhNBXAOq.js",
     "name": "swiper",
     "src": "src/js/swiper.js",
     "isEntry": true

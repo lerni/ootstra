@@ -75,6 +75,9 @@ nathancox\EmbedField\Model\EmbedObject:
     - controls: 1
     - showinfo: 0
 
+Kraftausdruck\Admin\TaskRunnerAdmin:
+  ignore_menuitem: true
+
 Page:
   extensions:
     - App\Extensions\PageExtension

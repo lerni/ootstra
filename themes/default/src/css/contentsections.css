@@ -37,10 +37,11 @@
 						display: flex;
 						width: 100%;
 						padding-bottom: 1rlh;
+						transition: color 0.3s ease;
 						.trigger {
-							width: calc(var(--trigger-size) * 2 * 1em); /* calc(var(--trigger-size) * 1 * 1em) */
+							width: calc(var(--trigger-size) * 2 * 1em); /* calc(var(--trigger-size) * sqrt(2) * 1em) */
 							height: calc(var(--trigger-size) * 1 * 1em);
-							flex: 0 0 calc(var(--trigger-size) * 2 * 1em);
+							flex: 0 0 calc(var(--trigger-size) * 2 * 1em);  /* calc(var(--trigger-size) * sqrt(2) * 1em) */
 							margin: auto 0 auto auto;
 							transform: scale(1);
 							transform-origin: center center;
@@ -69,14 +70,23 @@
 				.content {
 					padding: 0 2lh 0.5lh 0;
 					margin-left: 0;
-					/* is it selector-specificity that stops in & out animation - just in right now? */
-					font-size: 0;
-					line-height: 0em;
-					opacity: 0;
-					transition: opacity 0.3s ease 0.1s, line-height 0.2s ease, font-size 0.2s ease;
 					> p:last-child {
 						margin-bottom: 0;
 					}
+				}
+				&::details-content {
+					interpolate-size: allow-keywords;
+					overflow: hidden;
+					height: 0;
+					opacity: 0;
+					transition:
+						height 0.3s ease,
+						opacity 0.3s ease 0.1s,
+						content-visibility 0.3s allow-discrete;
+				}
+				&[open]::details-content {
+					height: auto;
+					opacity: 1;
 				}
 				&[open] {
 					summary {
@@ -95,11 +105,6 @@
 								}
 							}
 						}
-					}
-					.content {
-						font-size: inherit;
-						line-height: calc(var(--line-height) * 1em);
-						opacity: 1;
 					}
 				}
 			}

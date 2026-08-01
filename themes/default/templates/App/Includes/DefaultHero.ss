@@ -1,5 +1,5 @@
-<% if not $PreventHero && $Siteconfig.DefaultHeaderSlides.Count %><article class="element elementhero default full-width spacing-bottom-2<% if $Top.ClassName == 'App\Models\ElementPage' && $Top.ParentID != 0 %> breadcrumbs<% end_if %><% if $SiteConfig.GlobalAlert %> global-alert<% end_if %><% if $ClassName == 'SilverStripe\Blog\Model\Blog' || $ClassName == 'SilverStripe\Blog\Model\BlogPost' %> breadcrumbs<% end_if %>">
-	<% include App/Includes/Slides Items=$Siteconfig.DefaultHeaderSlides, HeroSize=$Siteconfig.DefaultHeroSize, Page=$Me, SpacingBottom=2, DefaultHero=1 %>
+<% if not $PreventHero && $SiteConfig.DefaultHeaderSlides.Count %><article class="element elementhero default full-width spacing-bottom-2<% if $Top.ClassName == 'App\Models\ElementPage' && $Top.ParentID != 0 %> breadcrumbs<% end_if %><% if $SiteConfig.GlobalAlert %> global-alert<% end_if %><% if $ClassName == 'SilverStripe\Blog\Model\Blog' || $ClassName == 'SilverStripe\Blog\Model\BlogPost' %> breadcrumbs<% end_if %>">
+	<% include App/Includes/Slides Items=$SiteConfig.DefaultHeaderSlides, HeroSize=$SiteConfig.DefaultHeroSize, Page=$Me, SpacingBottom=2, DefaultHero=1 %>
 </article><% end_if %>
 <% if $SiteConfig.GlobalAlert %><article class="global-alert">
 	<div class="typography inner">{$SiteConfig.GlobalAlert}</div>

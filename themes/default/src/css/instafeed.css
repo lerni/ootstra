@@ -1,5 +1,6 @@
 .element.elementinstagramfeed {
 	.element-title {
+		color: var(--text-color);
 		&::before {
 			content: "";
 			display: inline-block;
@@ -12,17 +13,21 @@
 			background-size: 90%;
 		}
 	}
+	> a {
+		text-decoration: initial;
+	}
 	.instafeed {
 		display: flex;
 		flex-wrap: wrap;
 		margin-left: -1px;
 		margin-right: -1px;
 		width: calc(100% + 2px);
-		a {
+		overflow: initial;
+		div.swiper-slide {
 			/* outline: none; */
-			overflow: hidden;
-			position: relative;
-			display: block;
+/* overflow: hidden;
+position: relative;
+display: block; */
 			width: auto;
 			height: 500px;
 			@media (--cm-l-neg) {
@@ -31,61 +36,108 @@
 			@media (--cm-s-neg) {
 				height: 300px;
 			}
-			figure {
+			.swiper-vertical {
 				height: 100%;
-				margin: 0;
-				img {
-					/* object-fit: cover; */
-					margin-bottom: 0;
-					max-width: none;
-					width: auto;
+				div.swiper-slide {
 					height: 100%;
-				}
-				figcaption {
-					position: absolute;
-					inset: 0;
-					opacity: 0;
-					transition: opacity 120ms linear;
-					z-index: 1;
-					color: var(--white);
-					font-size: var(--font-size--small);
-					padding: 1lh;
-					display: flex;
-					flex-direction: column;
-					background-color: rgba(0,0,0,.8);
-					span[data-icon="instagram"] {
-						transition: transform 120ms linear;
-						transform: scale(.4);
-						width: 1lh;
-						height: 1lh;
-						background-image: svg-load("instagram.svg", stroke=#fff);
-						margin: auto auto 0 auto;
+					figure figcaption {
+						padding: 0.5rem 0.5rem 0 2rem;
+					}
+					figcaption a span[data-icon="instagram"] {
+						/* compensate padding-left for vertical-swiper-pagination */
+						margin-right: 1rem;
 					}
 				}
-				@media (hover: hover) {
-					&:hover {
-						figcaption {
-							opacity: 1;
+			}
+			&.image, &.video {
+				overflow: hidden;
+				position: relative;
+				display: block;
+				figure {
+					height: 100%;
+					margin: 0;
+					img {
+						/* object-fit: cover; */
+						margin-bottom: 0;
+						max-width: none;
+						width: auto;
+						height: 100%;
+					}
+					figcaption {
+						position: absolute;
+						inset: 0;
+						opacity: 0;
+						transition: opacity 120ms linear;
+						z-index: 1;
+						color: var(--white);
+						font-size: var(--font-size--small);
+						padding: 0.5rem 0.5rem 0 0.5rem;
+						display: flex;
+						flex-direction: column;
+						background-color: rgba(0,0,0,.8);
+						overflow-wrap: break-word;
+						word-wrap: break-word;
+						.caption-text {
+							flex: 1;
+							min-height: 0;
+							overflow: hidden;
+							overflow-wrap: break-word;
+							word-wrap: break-word;
+							user-select: none;
+						}
+						a {
+							flex: 0 0 3.6em;
+							display: flex;
+							align-items: center;
+							justify-content: center;
 							span[data-icon="instagram"] {
-								transform: scale(1);
+								transition: transform 120ms linear;
+								transform: scale(.4);
+								display: block;
+								width: 1lh;
+								height: 1lh;
+								background-image: svg-load("instagram.svg", stroke=#fff);
+							}
+						}
+					}
+					@media (hover: hover) {
+						&:hover {
+							figcaption {
+								opacity: 1;
+								a span[data-icon="instagram"] {
+									transform: scale(1);
+								}
 							}
 						}
 					}
 				}
-			}
-			video {
-				height: 100%;
-				width: 100%;
-			}
-			@media (hover: none) {
-				&:focus,
-				&:focus-within,
-				&:active {
-					figure figcaption {
+				video {
+					height: 100%;
+					width: auto;
+					object-fit: cover;
+				}
+				@media (hover: none) {
+					figure {
+						-webkit-touch-callout: none;
+						img {
+							pointer-events: none;
+							-webkit-user-drag: none;
+							user-select: none;
+						}
+					}
+					video {
 						pointer-events: none;
-						opacity: 1;
-						span[data-icon="instagram"] {
-							transform: scale(1);
+						user-select: none;
+					}
+					&:focus,
+					&:focus-within,
+					&:active {
+						figure figcaption {
+							pointer-events: none;
+							opacity: 1;
+							a span[data-icon="instagram"] {
+								transform: scale(1);
+							}
 						}
 					}
 				}

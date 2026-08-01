@@ -2,7 +2,6 @@
 
 namespace App\Extensions;
 
-use App\Models\Perso;
 use Spatie\SchemaOrg\Schema;
 use App\Models\SlugHolderPage;
 use SilverStripe\View\SSViewer;
@@ -125,33 +124,6 @@ class UrlifyExtension extends Extension
         }
     }
 
-    public function DefaultMetaTitle()
-    {
-        if ($this->getOwner()->MetaTitle) {
-            return $this->getOwner()->MetaTitle;
-        }
-
-        $owner = $this->getOwner();
-
-        if ($owner->ClassName == 'Kraftausdruck\Models\PodcastEpisode') {
-            return implode(' - ', array_filter([$owner->Title, $owner->Subtitle]));
-        }
-
-        if ($owner->ClassName == 'Kraftausdruck\Models\JobPosting') {
-            $locations = implode(', ', $owner->JobLocations()->column('Town'));
-
-            return implode(', ', array_filter([$owner->Title, $locations]));
-        }
-
-        if ($owner->ClassName == Perso::class) {
-            $name = implode(' ', array_filter([$owner->Firstname, $owner->Lastname]));
-
-            return implode(' - ', array_filter([$name, $owner->Position]));
-        }
-
-        return $owner->Title;
-    }
-
     public function DefaultMetaDescription()
     {
         $dmd = '';
@@ -162,6 +134,11 @@ class UrlifyExtension extends Extension
         }
 
         return $dmd;
+    }
+
+    public function DefaultMetaTitle()
+    {
+        return $this->getOwner()->MetaTitle ?: $this->getOwner()->Title;
     }
 
     // Returns the SlugHolderPage managing this model type
@@ -318,6 +295,18 @@ class UrlifyExtension extends Extension
     public function getGooglePriority()
     {
         return 1;
+    }
+
+    /**
+     * Applies item-specific meta tags to the given tag array, in the same
+     * format as SiteTree::MetaComponents(). Extensions hook in via updateMetaComponents
+     * and receive the full array — they can add, override, or unset any key.
+     */
+    public function getMetaComponents(array $tags = []): array
+    {
+        $this->getOwner()->extend('updateMetaComponents', $tags);
+
+        return $tags;
     }
 
     public function getMenuTitle()

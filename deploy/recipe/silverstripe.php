@@ -97,6 +97,37 @@ task('silverstripe:installtools', function (): void {
 });
 
 
+set('restic_version', '0.19.0');
+desc('Install restic binary in ~/bin (x86_64 Linux)');
+task('silverstripe:installrestic', function (): void {
+    $version = get('restic_version');
+    $bin = '~/bin/restic';
+
+    $installedVersion = run("if [ -x {$bin} ]; then {$bin} version 2>/dev/null || true; fi");
+    if (str_contains($installedVersion, $version)) {
+        writeln("restic {$version} already installed.");
+
+        return;
+    }
+
+    // Static Go binary
+    // Check https://github.com/restic/restic/releases for updated version on bump.
+    $url = "https://github.com/restic/restic/releases/download/v{$version}/restic_{$version}_linux_amd64.bz2";
+    run('mkdir -p ~/bin');
+    run("curl -fsSL {$url} | bunzip2 > {$bin}");
+    run("chmod +x {$bin}");
+    writeln('Installed: ' . run("{$bin} version"));
+});
+
+
+desc('Deploy backup script');
+task('silverstripe:deploy_backup_script', function (): void {
+    upload('deploy/backup.sh', '{{deploy_path}}/backup.sh');
+    run('chmod +x {{deploy_path}}/backup.sh');
+    writeln('Deployed: {{deploy_path}}/backup.sh');
+});
+
+
 desc('Run composer vendor-expose');
 task('silverstripe:vendor_expose', function (): void {
     run('cd {{release_path}} && {{bin/composer}} vendor-expose');
@@ -263,7 +294,8 @@ function getExportDatabaseCommand($envPath, $destination)
     $hostArg = '--host=$SS_DATABASE_SERVER';
     $databaseArg = '$SS_DATABASE_PREFIX$SS_DATABASE_NAME';
 
-    $loadEnvCmd = "export $(grep -v '^#' {$envPath} | xargs)";
+    // Source env file only if it exists; fall back to already-exported vars (e.g. DDEV web_environment)
+    $loadEnvCmd = "[ -f {$envPath} ] && { set -a && . {$envPath} && set +a; } || true";
 
     $exportDbCmd = "mysqldump {{mysqldump_args}} {$usernameArg} {$passwordArg} {$hostArg} {$databaseArg} | gzip > {$destination}";
 
@@ -278,7 +310,8 @@ function getImportDatabaseCommand($envPath, $source)
     $hostArg = '--host=$SS_DATABASE_SERVER';
     $databaseArg = '$SS_DATABASE_PREFIX$SS_DATABASE_NAME';
 
-    $loadEnvCmd = "export $(grep -v '^#' {$envPath} | xargs)";
+    // Source env file only if it exists; fall back to already-exported vars (e.g. DDEV web_environment)
+    $loadEnvCmd = "[ -f {$envPath} ] && { set -a && . {$envPath} && set +a; } || true";
 
     $createDbArg = "--execute='create database if not exists `'{$databaseArg}'`;'";
     $createDbCmd = "mysql {{mysql_args}} {$usernameArg} {$passwordArg} {$hostArg} {$createDbArg}";

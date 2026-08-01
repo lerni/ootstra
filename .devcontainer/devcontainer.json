@@ -27,8 +27,10 @@
         "phpactor.vscode-phpactor",
         "junstyle.php-cs-fixer",
         "xdebug.php-debug",
+
         // SilverStripe
-        "adrian.silverstripe",
+        "lerni.silverstripe-actor",
+
         // JavaScript/TypeScript
         "biomejs.biome",
 

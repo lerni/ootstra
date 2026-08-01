@@ -79,10 +79,10 @@ set('git_tty', true);
 // Shared files/dirs between deploys
 set('shared_files', [
     '.env',
-    'silverstripe.log'
+    'silverstripe.log',
 ]);
 set('shared_dirs', [
-    'public/assets'
+    'public/assets',
 ]);
 
 // Writable dirs by web server
@@ -90,7 +90,7 @@ set('writable_dirs', [
     'public/assets',
     'public/_graphql',
     'silverstripe-cache',
-    'graphql-generated/'
+    'graphql-generated/',
 ]);
 
 set('clear_paths', [
@@ -100,7 +100,7 @@ set('clear_paths', [
     '.gitignore',
     '.vscode/',
     'deploy.php',
-    'deploy/'
+    'deploy/',
 ]);
 
 // prevent sending usage statistics

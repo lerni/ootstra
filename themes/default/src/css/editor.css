@@ -7,6 +7,8 @@ body.mce-content-body {
 	font-size: var(--font-size);
 	font-family: var(--font-family);
 	line-height: var(--lh);
+	margin-inline: calc(1lh / 3);
+	margin-block: calc(1lh / 6);
 	color: var(--text-color);
 	font-weight: var(--font-weight--normal);
 	letter-spacing: 0.02em;

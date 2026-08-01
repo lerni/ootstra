@@ -174,6 +174,8 @@ class SlugHolderPage extends Page
         }
 
         if ($item) {
+            $tags = $item->getMetaComponents($tags);
+
             if ($link = $item->AbsoluteLink()) {
                 $tags['canonical'] = [
                     'tag' => 'link',
@@ -194,7 +196,15 @@ class SlugHolderPage extends Page
             }
 
             if ($desc = ($item->MetaDescription ?: $item->DefaultMetaDescription())) {
-                $tags['description']['attributes']['content'] = $desc;
+                // Only emit a name="description" tag when the item has its own
+                // MetaDescription; the DefaultMetaDescription fallback is rendered
+                // by the template (mirrors SiteTree behaviour, avoids duplicates).
+                if ($item->MetaDescription) {
+                    $tags['description'] = [
+                        'tag' => 'meta',
+                        'attributes' => ['name' => 'description', 'content' => $item->MetaDescription],
+                    ];
+                }
                 $tags['og:description'] = [
                     'tag' => 'meta',
                     'attributes' => ['property' => 'og:description', 'content' => $desc],

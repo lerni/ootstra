@@ -132,19 +132,19 @@ class ElementExtension extends Extension
         $TitleOrAnchor = '';
         // set $TitleOrAnchor if there is AnchorLink
         if ($this->getOwner()->ClassName == ElementVirtual::class) {
-            if (isset($this->getOwner()->LinkedElement()->AnchorLink)) {
+            if ($this->getOwner()->LinkedElement()->AnchorLink) {
                 $TitleOrAnchor = $this->getOwner()->LinkedElement()->AnchorLink;
             }
-        } elseif ($this->getOwner()->AnchorLink && isset($this->getOwner()->AnchorLink)) {
+        } elseif ($this->getOwner()->AnchorLink) {
             $TitleOrAnchor = $this->getOwner()->AnchorLink;
         }
         // or use just Title if above fails
         if (!$TitleOrAnchor) {
             if ($this->getOwner()->ClassName == ElementVirtual::class) {
-                if (isset($this->getOwner()->LinkedElement()->Title)) {
+                if ($this->getOwner()->LinkedElement()->Title) {
                     $TitleOrAnchor = $this->getOwner()->LinkedElement()->Title;
                 }
-            } elseif ($this->getOwner()->Title && isset($this->getOwner()->Title)) {
+            } elseif ($this->getOwner()->Title) {
                 $TitleOrAnchor = $this->getOwner()->Title;
             }
         }

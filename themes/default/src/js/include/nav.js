@@ -19,38 +19,76 @@ function init() {
   }
 
   // toggle expanded-class
-  // open and do not navigate on collapsed:not(.expanded) navi-items on mobile nav (touch)
+  // 1st click on a parent opens its submenu, 2nd click navigates (desktop + mobile)
   const menu1 = document.querySelector(".menu1");
   if (menu1) {
+    const collapseAll = (except) => {
+      menu1.querySelectorAll("li.has-children.expanded").forEach((li) => {
+        if (li !== except) collapse(li);
+      });
+    };
+
+    const expand = (li) => {
+      li.classList.add("expanded");
+      li.querySelectorAll("[aria-controls]").forEach((el) =>
+        el.setAttribute("aria-expanded", "true")
+      );
+    };
+
+    const collapse = (li) => {
+      li.classList.remove("expanded");
+      li.querySelectorAll("[aria-controls]").forEach((el) =>
+        el.setAttribute("aria-expanded", "false")
+      );
+    };
+
     menu1.addEventListener("click", (event) => {
-      if (event.target.closest("li.has-children.expanded >a")) {
-        window.location = event.target.getAttribute("href");
-      } else if (
-        document.querySelector("html").classList.contains("mobile-nav--active") &&
-        event.target.closest("li.has-children >a")
-      ) {
+      // toggle button: open/close without navigating
+      const trigger = event.target.closest("button.trigger");
+      if (trigger) {
         event.preventDefault();
-        event.target.parentElement.classList.toggle("expanded");
+        const li = trigger.closest("li");
+        if (li.classList.contains("expanded")) {
+          collapse(li);
+        } else {
+          collapseAll(li);
+          expand(li);
+        }
+        return;
+      }
+      // parent link: open on first click, navigate on second
+      const parentLink = event.target.closest("li.has-children > a");
+      if (parentLink) {
+        const li = parentLink.closest("li");
+        if (!li.classList.contains("expanded")) {
+          event.preventDefault();
+          collapseAll(li);
+          expand(li);
+        }
       }
     });
 
-    menu1.addEventListener("mouseleave", (event) => {
-      if (!document.querySelector("html").classList.contains("mobile-nav--active")) {
-        const items = document.querySelectorAll(".menu1 li");
-        items.forEach((i) => {
-          i.classList.remove("expanded");
-        });
+    // Escape closes the open submenu and returns focus to its parent link
+    menu1.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        const li = event.target.closest("li.has-children.expanded");
+        if (li) {
+          collapse(li);
+          li.querySelector(":scope > a").focus();
+        }
+      }
+    });
+
+    // click outside the header closes any open submenu (desktop only)
+    document.addEventListener("click", (event) => {
+      if (
+        !event.target.closest("#header") &&
+        !document.querySelector("html").classList.contains("mobile-nav--active")
+      ) {
+        collapseAll();
       }
     });
   }
-
-  // collapse/expand navi per .trigger
-  const triggers = document.querySelectorAll("span.trigger");
-  triggers.forEach((trigger) => {
-    trigger.addEventListener("click", (event) => {
-      event.target.closest("li").classList.toggle("expanded");
-    });
-  });
 
   // Arrow key navigation
   const topLevelMenuItems = Array.prototype.slice.call(

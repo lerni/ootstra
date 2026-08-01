@@ -389,6 +389,40 @@ form {
 			margin: 0.2em 0.3em 0 0;
 		}
 	}
+	.filepond {
+		.filepond--root {
+			font-family: inherit;
+			margin-bottom: 0;
+		}
+		filepond-input {
+			margin-bottom: 0 !important;
+		}
+		.filepond--panel-root {
+			background-color: var(--gray--light);
+			border-radius: 0;
+		}
+		[data-filepond-item-state="processing-complete"] .filepond--item-panel {
+			background-color: var(--link-color);
+		}
+		button svg {
+			fill: var(--white);
+			color: var(--white);
+		}
+		.filepond--file-action-button {
+			min-block-size: 1lh;
+			&:hover {
+				box-shadow: none;
+				filter: invert(95%);
+			}
+		}
+		s
+		.filepond--drop-label.filepond--drop-label label {
+			font-size: var(--font-size--small);
+			padding: 0;
+			margin: 0;
+			color: var(--text-color);
+		}
+	}
 }
 
 label.error,

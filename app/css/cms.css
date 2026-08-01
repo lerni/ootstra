@@ -183,3 +183,8 @@ ul#Form_ItemEditForm_BackgroundColor li label[for$="transparent"] {
 .grecaptcha-badge {
 	visibility: hidden;
 }
+
+/* avoid wrapping with a vertical scrollbar on sitetree */
+.toolbar--content, .toolbar--south {
+  padding-right: calc(var(--bs-gutter-x)*.3);
+}

@@ -29,7 +29,8 @@
 	min-block-size: 1.5lh;
 	line-height: 1;
 	padding-inline: 0.75lh;
-	padding-block: 0.5lh;
+	padding-block: 0.25lh;
+	margin-top: 0.5lh;
 	text-wrap: balance;
 	display: inline-flex;
 	align-items: center;
