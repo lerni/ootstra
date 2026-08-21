@@ -53,6 +53,20 @@
       }
     },
     {
+      "label": "npm audit fix",
+      "type": "shell",
+      "command": "npm --prefix themes/default audit fix",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "focus": true
+      },
+      "icon": {
+        "color": "terminal.ansiGreen"
+      }
+    },
+    {
       "label": "npm prod",
       "type": "shell",
       "command": "npm --prefix themes/default run build",

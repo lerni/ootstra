@@ -13,4 +13,3 @@ elif [ $1 = "prod" ] || [ $1 = "build" ]; then
 else
     npm --prefix themes/default "$@"
 fi
-

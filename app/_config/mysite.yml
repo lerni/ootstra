@@ -284,6 +284,10 @@ UndefinedOffset\NoCaptcha\Forms\NocaptchaField:
   proxy_auth: "" #Your proxy server authentication information (optional)
 
 SilverStripe\Core\Injector\Injector:
+  Intervention\Image\ImageManager:
+    factory: '%$App\Util\ImageManagerFactory'
+  SilverStripe\Assets\Conversion\InterventionImageFileConverter:
+    class: App\Conversion\AvifFileConverter
   UndefinedOffset\NoCaptcha\Forms\NocaptchaField:
     properties:
       SiteKey: '`SS_NOCAPTCHA_SITE_KEY`'
@@ -304,7 +308,9 @@ SilverStripe\Core\Injector\Injector:
       defaultLifetime: 3600
 
 TractorCow\Robots\Robots:
-  disallowed_urls: []
+  disallowed_urls:
+    - '/_vc'
+    - '/_pqr'
   sitemap: '/sitemap.xml'
   disallow_unsearchable: true
 
@@ -323,6 +329,9 @@ App\Models\Perso:
 
 App\Controller\PersovCardController:
   expose_vcards: true
+
+App\Conversion\AvifFileConverter:
+  avif_quality: 60
 
 Axllent\ScaledUploads\ScaledUploads:
   max_width: 4000

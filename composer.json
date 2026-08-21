@@ -82,7 +82,8 @@
 		"pstaender/ssshell": "^0",
 		"phpunit/phpunit": "^11.3",
 		"friendsofphp/php-cs-fixer": "^3",
-		"wernerkrauss/silverstripe-rector": "^1"
+		"wernerkrauss/silverstripe-rector": "^1",
+		"silverstripe/developer-docs": "^6"
 	},
 	"extra": {
 		"expose": [
@@ -120,6 +121,10 @@
 	},
 	"minimum-stability": "dev",
 	"prefer-stable": true,
+	"scripts": {
+		"post-install-cmd": "@php -r \"@touch('vendor/composer/_manifest_exclude');\"",
+		"post-update-cmd": "@php -r \"@touch('vendor/composer/_manifest_exclude');\""
+	},
 	"config": {
 		"allow-plugins": {
 			"composer/installers": true,

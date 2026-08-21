@@ -180,7 +180,9 @@ class Page extends SiteTree
                         if (!$isTitle && !$obj instanceof DBText) {
                             continue;
                         }
-                        $value = trim(strip_tags($obj->getValue() ?? ''));
+                        // strip_tags alone merges adjacent block elements without a space (e.g. "</p><p>" → "")
+                        $raw = preg_replace('/<\/?(p|br|div|h[1-6]|li|blockquote)[^>]*>/i', ' ', $obj->getValue() ?? '');
+                        $value = trim(preg_replace('/\s+/', ' ', strip_tags($raw)));
                         if ($value) {
                             $parts[] = $value;
                         }

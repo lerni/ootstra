@@ -75,6 +75,7 @@ This project uses a devcontainer that runs inside DDEV's web container:
 - `npm install & update browser data` - Install npm packages
 - `npm watch` - Start Vite watcher
 - `npm prod` - Production build
+- If `npm watch` is already running, changes are picked up automatically - no need to run `npm prod`
 
 #### Deployment (cyan tasks)
 - `deploy test/live` - Deploy to test/live environment
@@ -98,6 +99,7 @@ This project uses a devcontainer that runs inside DDEV's web container:
 - Default locale: `de_CH` (set in `app/_config.php`)
 - Logging to `silverstripe.log`
 - Block-based page building with Elemental
+- **Module discovery**: Silverstripe's `ManifestFileFinder` treats *any* top-level directory containing a `_config/` folder (or `_config.php`) as a module — independent of whether it's `require`d in composer.json. Useful for bootstrapping new modules: drop a directory with a `_config/` folder at project root and it's live after `db:build --flush`, no composer wiring needed until you're ready to extract it as a proper package
 
 ### Internationalization (i18n) Guidelines
 - **Always use `_t()` in PHP and `<%t ... %>` in templates** for user-facing strings, never hardcode text
@@ -123,15 +125,14 @@ This project uses a devcontainer that runs inside DDEV's web container:
 - Built files output to `themes/default/dist/`
 - PostCSS processing (`themes/default/postcss.config.js`), JavaScript bundling, asset optimization
 
-### CSS Architecture & Patterns & Best Practices
+### CSS Architecture & Patterns
 - **Modern CSS approach**: Uses CSS custom properties (variables), custom media queries, and PostCSS mixins
-- **Color system**: OKLCH color format for better perceptual uniformity and alpha support
+- **Color system**: OKLCH color format `oklch(lightness chroma hue)` for better perceptual uniformity and alpha support, use `color-mix()` and follow OKLCH color format `oklch(from ...)` for dynamic color variations
 - **Responsive design**: Custom media queries defined in `custom-media.css` (e.g., `--cm-l-plus`, `--cm-xl-neg`)
-- **Typography**: Modular scale using `--lh` (line-height) units for consistent vertical rhythm and spacing in generall, for horyzontal spacing see also --spacing in `themes/default/src/css/variables.css`
+- **Typography**: Modular scale using `--lh` (line-height) units for consistent vertical rhythm and spacing in generall, for horyzontal spacing see also --spacing or `clamp()` in `themes/default/src/css/variables.css`
 - **CSS Reset**: Custom reset based on Andy Bell's modern CSS reset (`uni-sani-reset.css`)
 - **Accessibility**: Focus-visible outlines, prefers-reduced-motion support, visually-hidden utility class
 - **PostCSS mixins**: Reusable patterns for buttons, dropdowns, sliders, and arrow decorations in `mixins.css`
-- Leverage `color-mix()` and follow OKLCH color format `oklch(from ...)` for dynamic color variations
 - Use `var(--variable-name)` for colors, spacing, and typography
 - Use semantic CSS custom properties (e.g., `--link-color`, `--text-color`) over direct color values
 
@@ -372,7 +373,8 @@ When helping with this project, prioritize Silverstripe best practices, DDEV wor
   - Blank lines before: `break`, `continue`, `declare`, `return`, `throw`, `try`
   - Single trait insert per statement
   - Method arguments ensure fully multiline when multiline
-- **IMPORTANT — After editing PHP files**: Always run `php ./vendor/bin/php-cs-fixer fix <file>` on each modified PHP file to ensure formatting compliance. This is the same fixer that runs on save in VSCode. Run it after all edits to a file are complete, not between individual edits.
+- **IMPORTANT — After editing PHP files**: Always run `php ./vendor/bin/php-cs-fixer fix <file>` on each modified PHP file to ensure formatting compliance. This is the same fixer that runs on save in VSCode. Run it after all edits to a file are complete, not between individual edits. Run it only on project code. Never run it against files under `vendor/` (e.g. when preparing a PR for a third-party module). Respect the excludes in `.php-cs-fixer.dist.php`.
+
 - **EditorConfig** (`.editorconfig`) enforces consistent coding styles across editors:
   - UTF-8 encoding, LF line endings
   - 4 spaces for PHP, tabs for templates/CSS/SCSS
@@ -380,6 +382,10 @@ When helping with this project, prioritize Silverstripe best practices, DDEV wor
   - Trailing whitespace removal, final newline insertion
 - Use PHPUnit for testing (configured in `phpunit.xml.dist`)
 - PHPCS configuration available in `phpcs.xml.dist`)
+- **Biome** (`themes/default/biome.json` enforces JS/TS/JSON formatting & linting:
+  - Tab indentation, single quotes, semicolons always
+  - Recommended linter rules enabled
+- **IMPORTANT — After editing JS/TS/JSON files** in `themes/default/src/` always run `biome check --write <file>` on each modified file to ensure formatting/lint compliance. This is the same tool that runs on save in VSCode. Run it after all edits to a file are complete, not between individual edits.
 
 ## Performance Considerations
 - Images use FocusPoint for smart cropping and responsive srcsets

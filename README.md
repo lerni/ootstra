@@ -72,7 +72,7 @@ All commands now run inside the devcontainer terminal:
 composer install
 ```
 ### 4. Build the database
-On dev/build, database structure will be generated. With fluent (Multilingual-Setup), comment out the locale setting as fluent handles language configuration:
+On dev/build, database structure will be generated. Tweak the locale to your needs — with fluent (Multilingual-Setup), comment it out, as it handles language configuration dynamically. Be aware there is also LANG & TZ in `.ddev/config.yaml`.
 ```php
 i18n::set_locale('de_CH');
 ```
@@ -83,7 +83,7 @@ Or use the VS Code task: `Command+Shift+B` → `dev/build - local`
 
 ### 5. Populate default content
 ```bash
-php ./vendor/bin/sake dev/tasks/PopulateTask
+php ./vendor/bin/sake tasks:PopulateTask
 ```
 
 This provides:
@@ -117,6 +117,7 @@ Common tasks include:
 - `npm watch` - Vite dev server
 - `npm prod` - production build
 - `npm install & update update-browserslist-db`
+- `npm audit fix` - production build
 - `clean '/hot' (Vite watcher)` - remove hot reload file
 
 **DDEV/Debugging (magenta):**

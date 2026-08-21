@@ -12,6 +12,7 @@ set('alias', function () {
         writeln("<error>Please define DEP_SERVER in deploy/config.php</error>");
         exit;
     }
+
     return DEP_SERVER;
 });
 
@@ -21,6 +22,7 @@ set('application', function () {
         writeln("<error>Please define DEP_APPLICATION in deploy/config.php</error>");
         exit;
     }
+
     return DEP_APPLICATION;
 });
 
@@ -30,6 +32,7 @@ set('repository', function () {
         writeln("<error>Please define DEP_REPOSITORY in deploy/config.php</error>");
         exit;
     }
+
     return DEP_REPOSITORY;
 });
 
@@ -39,6 +42,7 @@ set('bin/php', function () {
         writeln("<error>Please define DEP_PHP_PATH in deploy/config.php</error>");
         exit;
     }
+
     return DEP_PHP_PATH;
 });
 
@@ -48,6 +52,7 @@ set('bin/composer', function () {
         writeln("<error>Please define DEP_COMPOSER_PATH in deploy/config.php</error>");
         exit;
     }
+
     // also set specified php version for composer
     // https://stackoverflow.com/a/65850204/1938738
     return '{{bin/php}} ' . DEP_COMPOSER_PATH;
@@ -58,6 +63,7 @@ set('php_process', function () {
     if (!defined('DEP_PHP_PROCESS')) {
         return 'lsphp';
     }
+
     return DEP_PHP_PROCESS;
 });
 
@@ -67,6 +73,7 @@ set('remote_user', function () {
         writeln("<error>Please define DEP_SERVER_USER in deploy/config.php</error>");
         exit;
     }
+
     return DEP_SERVER_USER;
 });
 
