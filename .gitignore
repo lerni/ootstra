@@ -23,3 +23,4 @@
 /app/todo**
 **/.phpunit.result.cache
 **/.php-cs-fixer.cache
+.prompts/tasks/_**.md

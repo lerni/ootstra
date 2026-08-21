@@ -1,0 +1,40 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "lmstudio": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "LM Studio (local, via host.docker.internal)",
+      "options": {
+        "baseURL": "http://host.docker.internal:1234/v1",
+        "streamOptions": {
+          "includeUsage": true
+        }
+      },
+      "models": {
+        "qwen3.8-27b-mlx": {
+          "name": "Qwen3.8 27B MLX (local)",
+          "limit": {
+            "context": 65536,
+            "output": 8192
+          }
+        }
+      }
+    }
+  },
+  "lsp": {
+    "phpactor": {
+      "command": ["phpactor", "language-server"],
+      "extensions": [".php"]
+    },
+    "biome": {
+      "command": ["biome", "lsp-proxy"],
+      "extensions": [".js", ".ts", ".jsx", ".tsx", ".json"]
+    }
+  },
+  "formatter": {
+    "php-cs-fixer": {
+      "command": ["php", "./vendor/bin/php-cs-fixer", "fix", "$FILE"],
+      "extensions": [".php"]
+    }
+  }
+}

@@ -35,7 +35,6 @@
         "biomejs.biome",
 
         // Utilities
-        "mehedidracula.php-namespace-resolver",
         "berublan.vscode-log-viewer",
         "editorconfig.editorconfig",
         "mikestead.dotenv",
@@ -52,6 +51,11 @@
         // Phpactor
         "phpactor.enable": true,
         "phpactor.path": "/usr/local/bin/phpactor",
+        // Suppress E_DEPRECATED noise from PHPActor's phar on PHP 8.5 (corrupts JSON-RPC stdio)
+        // box/src/Printer.php uses null as an array offset (a PHP 8.1+ deprecation)
+        "phpactor.php.ini": {
+          "error_reporting": "E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED"
+        },
 
         // PHP CS Fixer
         "php-cs-fixer.executablePath": "${workspaceFolder}/vendor/bin/php-cs-fixer",

@@ -86,6 +86,13 @@ Kraftausdruck\Models\CookieEntry:
     - 'OnAcceptCallback'
     - 'OnDeclineCallback'
 
+# linkfield's Link is edited via a React modal, not a CMS tree page, so the
+# "Locales" GridField tab FluentExtension adds is unusable there - strip it.
+SilverStripe\LinkField\Models\Link:
+  extensions:
+    - 'TractorCow\Fluent\Extension\FluentExtension'
+    - 'App\Extensions\LinkFluentCleanupExtension'
+
 # Note: If you are applying this via an Extension, be sure to apply it after the FluentExtension.
 TractorCow\Fluent\Extension\FluentExtension:
   frontend_publish_required: true

@@ -14,10 +14,6 @@
 		},
 		{
 			"type": "vcs",
-			"url": "https://github.com/lerni/silverstripe-selectupload"
-		},
-		{
-			"type": "vcs",
 			"url": "https://github.com/lerni/silverstripe-opengraph"
 		},
 		{
@@ -61,7 +57,7 @@
 		"innoweb/silverstripe-googlemapfield": "^3",
 		"giggsey/libphonenumber-for-php": "^8",
 		"jeroendesloovere/vcard": "^1",
-		"silverstripe/selectupload": "3.x-dev",
+		"silverstripe/selectupload": "^3",
 		"endroid/qr-code": "^6",
 		"lerni/klaro-cookie-consent": "6.x-dev",
 		"league/commonmark": "^2",
@@ -82,7 +78,8 @@
 		"pstaender/ssshell": "^0",
 		"phpunit/phpunit": "^11.3",
 		"friendsofphp/php-cs-fixer": "^3",
-		"wernerkrauss/silverstripe-rector": "^1"
+		"wernerkrauss/silverstripe-rector": "^1",
+		"silverstripe/developer-docs": "^6"
 	},
 	"extra": {
 		"expose": [
@@ -120,6 +117,10 @@
 	},
 	"minimum-stability": "dev",
 	"prefer-stable": true,
+	"scripts": {
+		"post-install-cmd": "@php -r \"@touch('vendor/composer/_manifest_exclude');\"",
+		"post-update-cmd": "@php -r \"@touch('vendor/composer/_manifest_exclude');\""
+	},
 	"config": {
 		"allow-plugins": {
 			"composer/installers": true,

@@ -24,10 +24,6 @@
 		width: calc(100% + 2px);
 		overflow: initial;
 		div.swiper-slide {
-			/* outline: none; */
-/* overflow: hidden;
-position: relative;
-display: block; */
 			width: auto;
 			height: 500px;
 			@media (--cm-l-neg) {
@@ -50,7 +46,7 @@ display: block; */
 				}
 			}
 			&.image, &.video {
-				overflow: hidden;
+				overflow: clip;
 				position: relative;
 				display: block;
 				figure {

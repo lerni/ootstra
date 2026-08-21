@@ -64,6 +64,7 @@ strong {
 		display: grid;
 		grid-template-rows: 1.2lh 1fr;
 		grid-template-columns: auto 1fr;
+		column-gap: 1lh;
 		/* max-width: calc(var(--inner-width) + 200px); */
 		@media (--cm-l-neg) {
 			/* min-height: 100vh; */
@@ -241,7 +242,7 @@ nav.cat-tag {
 		padding-inline: 0;
 	}
 	&:not(.full-width) {
-		max-width: var(--inner-width);
+		max-width: calc(var(--inner-width) + var(--spacing) * 2);
 	}
 	width: 100%;
 	margin-inline: auto;

@@ -211,8 +211,20 @@ class SlugHolderPage extends Page
                 ];
             }
 
-            if (Permission::check('CMS_ACCESS_CMSMain') && $item->hasMethod('CMSEditLink')) {
-                $tags['cmsEditLink']['attributes']['content'] = $item->CMSEditLink();
+            // Point the CMS preview's x-page-id/x-cms-edit-link at the displayed item (not this
+            // holder page), so navigating the preview follows into the item's own edit form.
+            if (
+                Permission::check('CMS_ACCESS_CMSMain')
+                && $item->exists()
+                && $item->hasMethod('getCMSEditLink')
+                && ($editLink = $item->getCMSEditLink())
+            ) {
+                $tags['pageId'] = [
+                    'attributes' => ['name' => 'x-page-id', 'content' => $item->ID],
+                ];
+                $tags['cmsEditLink'] = [
+                    'attributes' => ['name' => 'x-cms-edit-link', 'content' => $editLink],
+                ];
             }
         }
 

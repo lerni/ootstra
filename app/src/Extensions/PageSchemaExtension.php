@@ -113,7 +113,7 @@ class PageSchemaExtension extends Extension
         }
 
         // Set @id so other schemas can reference this organization
-        $schemaOrganisation->setProperty('@id', Director::absoluteBaseURL() . '#organization');
+        $schemaOrganisation->setProperty('@id', Director::absoluteBaseURL() . '/#organization');
 
         return $schemaOrganisation;
     }
