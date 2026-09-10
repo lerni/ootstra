@@ -1,317 +1,171 @@
-/* Person/Staff grid component with expandable details
- * Based on Google Images search layout pattern
- * https://www.sitepoint.com/recreating-google-images-search-layout-css/
- * https://codepen.io/SitePoint/pen/bNYBZX
- */
-
 .element.elementperso {
-	/* Grid configuration variables */
-	--pad: 28px; /* desired padding between images */
-	--img-width: 305px; /* max-width of images */
-	--min-per-row: 1; /* minimum items per row */
-	--max-per-row: 4; /* maximum items per row */
-	--transition-time: 0.3s;
 
-	&,
-	.typography {
-		display: flex;
-		flex-wrap: wrap;
-		width: 100%;
+	display: grid;
 
-		> h2 {
-			flex: 0 0 100%;
-		}
-	}
-
-	/* Prevent vertical scrollbars */
-	.expandable-grid {
-		width: 100%;
-		float: left;
-	}
-
-	.expandable__cell {
-		float: left;
+	.cat-tag {
 		position: relative;
-		z-index: 0;
-		margin: 0 var(--pad) 0 0;
+		padding-block: 1lh 1.5lh;
+		justify-content: flex-start;
+		/* @media (--cm-l-plus) {
+			font-size: var(--font-size--small);
+		} */
+	}
+
+	.persos {
+		display: grid;
+		column-gap: 1lh;
+		row-gap: 1.5lh;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		grid-template-rows: repeat(auto-fit, minmax(1lh, 1fr));
+		margin-bottom: 2lh;
+		position: relative;
+	}
+
+	.perso {
+		position: relative;
+		z-index: 1;
+		margin: 0;
+		width: 100%;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
 		scroll-margin-top: var(--headerheight);
-
-		/* Responsive grid calculations for 4 items per row */
-		@media screen and (min-width: calc(var(--img-width) * 3 + var(--pad) * 4 + 1px)) {
-			width: calc(25% - calc(3 * var(--pad) / 4));
-
-			&:nth-of-type(4n + 5) {
-				clear: left;
-			}
-
-			&:nth-of-type(4n + 2) .item--expand {
-				margin-left: calc(-100% - var(--pad));
-			}
-
-			&:nth-of-type(4n + 3) .item--expand {
-				margin-left: calc(-200% - calc(2 * var(--pad)));
-			}
-
-			&:nth-of-type(4n + 4) .item--expand {
-				margin-left: calc(-300% - calc(3 * var(--pad)));
-			}
-
-			&:nth-of-type(4n) {
-				margin-right: 0;
-			}
+		transition: opacity 0.1s ease, transform 0.1s ease, display 0.1s allow-discrete;
+		&.hidden {
+			opacity: 0;
+			transform: scale(0.85);
+			pointer-events: none;
+			display: none;
 		}
-
-		/* Responsive grid calculations for 3 items per row */
-		@media screen and (min-width: calc(var(--img-width) * 2 + var(--pad) * 3 + 1px)) and (max-width: calc(var(--img-width) * 3 + var(--pad) * 4)) {
-			width: calc(33.333333% - calc(2 * var(--pad) / 3));
-
-			&:nth-of-type(3n + 4) {
-				clear: left;
-			}
-
-			&:nth-of-type(3n + 2) .item--expand {
-				margin-left: calc(-100% - var(--pad));
-			}
-
-			&:nth-of-type(3n + 3) .item--expand {
-				margin-left: calc(-200% - calc(2 * var(--pad)));
-			}
-
-			&:nth-of-type(3n) {
-				margin-right: 0;
-			}
-		}
-
-		/* Responsive grid calculations for 2 items per row */
-		@media screen and (min-width: calc(var(--img-width) * 1 + var(--pad) * 2 + 1px)) and (max-width: calc(var(--img-width) * 2 + var(--pad) * 3)) {
-			width: calc(50% - calc(1 * var(--pad) / 2));
-
-			&:nth-of-type(2n + 3) {
-				clear: left;
-			}
-
-			&:nth-of-type(2n + 2) .item--expand {
-				margin-left: calc(-100% - var(--pad));
-			}
-
-			&:nth-of-type(2n) {
-				margin-right: 0;
-			}
-		}
-
-		/* Responsive grid calculations for 1 item per row */
-		@media screen and (max-width: calc(var(--img-width) * 1 + var(--pad) * 2)) {
-			width: 100%;
-
-			&:nth-of-type(1n + 2) {
-				clear: left;
-			}
-
-			&:nth-of-type(1n) {
-				margin-right: 0;
-			}
-		}
-
-		&.is--collapsed {
-			cursor: pointer;
-			overflow: hidden;
-
-			.item--basic {
-				overflow: hidden;
-				height: 0px;
-			}
-
-			&:hover .txt {
-				transform: translateY(0);
-				visibility: visible;
+		@starting-style {
+			&.hidden {
 				opacity: 1;
+				transform: scale(1);
 			}
 		}
-
-		&.is--expanded {
-			z-index: 1;
-
-			.arrow--up {
-				opacity: 1;
-				height: var(--pad);
-				width: var(--pad);
-				left: calc(50% - calc(var(--pad) / 2));
+		figure {
+			margin: 0;
+			position: relative;
+			img {
+				width: 100%;
+				margin-bottom: 0;
+				display: flex;
+				/* padding-bottom: 1lh; */
+				&.default {
+					background-color: var(--gray--light);
+				}
 			}
-
-			.item--expand {
-				height: auto;
-				max-height: 2000px;
-				margin-top: var(--pad);
-				visibility: visible;
-				padding: calc(var(--pad) * 2.5) 0 var(--pad);
+			.qr-code {
+				position: absolute;
+				inset: auto 0 0 auto;
+				width: 2.5lh;
+				height: 2.5lh;
+				z-index: 1;
+				border-left: .1em solid var(--white);
+				border-top: .1em solid var(--white);
 			}
 		}
 
 		.txt {
-			position: absolute;
-			z-index: 0;
-			left: -1px;
-			right: -1px;
-			bottom: -3px;
-			top: -1px;
-			transform: translateY(100%);
-			padding: 0.1em;
-			background-color: oklch(from var(--white) l c h / 0.92);
-			opacity: 0;
-			margin-bottom: -0.25em;
-			will-change: transform;
-			transition: all 320ms ease-out;
-			visibility: hidden;
+			padding: 0.5em 0;
 			display: flex;
 			flex-direction: column;
+			border-top: none;
+			flex-grow: 1;
 
 			h2 {
-				flex: 0 0 auto;
-				margin-bottom: auto;
+				margin: 0;
 				font-size: 1em;
-				letter-spacing: 0.06em;
 			}
-
+			.position {
+				margin: 0 0 calc(1lh / 2) 0;
+				@media (--cm-l-plus) {
+					font-size: var(--font-size--small);
+				}
+			}
 			p {
-				flex: 0 0 auto;
 				margin-bottom: 0;
-				font-size: var(--font-size--small);
-			}
-
-			> span {
-				flex: 0 0 auto;
 			}
 		}
 	}
 
-	.arrow--up {
-		position: absolute;
-		top: 100%;
-		opacity: 0;
-		border-bottom: calc(var(--pad) - calc(var(--pad) / 4)) solid var(--gray--light);
-		border-left: calc(var(--pad) - calc(var(--pad) / 4)) solid transparent;
-		border-right: calc(var(--pad) - calc(var(--pad) / 4)) solid transparent;
-		height: 0;
-		width: 0;
-		padding-top: calc(var(--pad) / 4);
-		margin: 0 auto 0;
-		transition: opacity calc(var(--transition-time) * 0.75);
-		transition-delay: var(--transition-time);
-	}
-
-	.item--basic {
-		display: table;
-		margin: 0;
-		position: relative;
+	.coordinates {
+		display: flex;
+		flex-direction: column;
 		width: 100%;
-
-		img {
-			float: left;
-			width: 100%;
-			margin-bottom: 0;
-
-			&.default {
-				background-color: var(--gray--light);
+		margin: auto auto 0 0;
+		font-style: normal; /* adderss is italice by default */
+		@media (--cm-l-plus) {
+			font-size: var(--font-size--small);
+		}
+		a {
+			color: var(--text-color);
+			&[href^="mailto:"],
+			&[href^="tel:"],
+			&[class] {
+				padding-left: 1lh;
+				background-repeat: no-repeat;
+				background-position: left 50%;
+				background-size: auto 1em;
+				text-decoration: none;
+				&:not(:last-of-type) {
+					margin-right: 0.5lh;
+				}
 			}
 		}
-	}
 
-	.item--expand {
-		position: relative;
-		box-sizing: content-box;
-		overflow-y: visible;
-		overflow-x: initial;
-		visibility: hidden;
-		height: 0;
-		max-height: 0;
-		transition: max-height var(--transition-time) ease-in-out;
-		margin-bottom: var(--pad);
-
-		h2 {
-			color: var(--black);
-			font-size: 1.6em;
-			margin-bottom: 0;
-
-			& + p {
-				font-size: 1.6em;
-				font-weight: var(--font-weight--normal);
-			}
+		a + a {
+			margin-top: 0.5lh;
 		}
 
 		a.vcard {
-			padding-left: 1.4em;
-			display: inline-block;
-			background-repeat: no-repeat;
-			background-size: auto 0.86em;
-			background-position: left 15%;
-			color: var(--text-color);
-			background-image: url("../images/svg/vcard.svg");
+			background-image: svg-load('vcard.svg', fill=#000, stroke=#000);
+			background-size: auto .8em;
 		}
-
-		.columned {
-			display: flex;
-			flex-wrap: wrap;
-			padding-bottom: 1lh;
+		a[href^="mailto:"] {
+			background-image: svg-load('mail.svg', stroke=#000);
 		}
-
-		.col {
-			flex: 0 0 50%;
-			padding: 0 1lh 0 0;
-
-			@media (--cm-l-neg) {
-				flex: 0 0 100%;
-				padding: 0;
-			}
+		a[href^="tel:"] {
+			background-image: svg-load('phone.svg', stroke=#000);
 		}
-
-		/* Background with an overflowing pseudo */
-		&::after {
-			overflow-y: visible;
-			overflow-x: initial;
-			content: "";
-			position: absolute;
-			width: 300%;
-			height: 100%;
-			left: -100%;
-			right: -100%;
-			top: 0;
-			bottom: 0;
-			background-color: var(--gray--light);
-			pointer-events: none;
-			z-index: -1;
+		a.qrcode {
+			background-image: svg-load('qr-code-outline.svg', fill=#000, stroke=#000);
 		}
-
-		/* Expand width calculations for different grid layouts */
-		@media screen and (min-width: calc(var(--img-width) * 3 + var(--pad) * 4 + 1px)) {
-			width: calc(400% + calc(3 * var(--pad)));
+		a.qrcode {
+			background-image: svg-load('qr-code-outline.svg', fill=#000, stroke=#000);
 		}
-
-		@media screen and (min-width: calc(var(--img-width) * 2 + var(--pad) * 3 + 1px)) and (max-width: calc(var(--img-width) * 3 + var(--pad) * 4)) {
-			width: calc(300% + calc(2 * var(--pad)));
-		}
-
-		@media screen and (min-width: calc(var(--img-width) * 1 + var(--pad) * 2 + 1px)) and (max-width: calc(var(--img-width) * 2 + var(--pad) * 3)) {
-			width: calc(200% + var(--pad));
-		}
-
-		@media screen and (max-width: calc(var(--img-width) * 1 + var(--pad) * 2)) {
-			width: 100%;
+		a:not([class]) {
+			margin: 0 0 0 auto;
 		}
 	}
 
-	.expand__close {
-		position: absolute;
-		top: calc(var(--pad) * 2.5);
-		right: 0;
-		width: var(--pad);
-		height: var(--pad);
-		background-image: url("../images/svg/close.svg");
-		background-repeat: no-repeat;
-		background-size: var(--pad) var(--pad);
-		cursor: pointer;
-
-		&:hover {
-			opacity: 0.7;
+	&.details {
+		hgroup {
+			margin-block: 2lh 2lh;
+			h1 {
+				margin: 0;
+			}
+			p {
+				font-size: clamp(1.2em, 4vw, 1.41em);
+				margin-block: 0 0.5lh;
+			}
+		}
+		.column {
+			display: grid;
+			grid-template-columns: minmax(300px, 1fr) 2fr;
+			gap: 1lh;
+			margin-bottom: 2lh;
+			.coordinates {
+				display: flex;
+				flex-direction: column;
+				gap: 0.5lh;
+				a {
+					text-decoration: none;
+				}
+			}
+		}
+		.link.back {
+			text-decoration: none;
 		}
 	}
 }

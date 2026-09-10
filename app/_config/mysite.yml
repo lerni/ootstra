@@ -129,18 +129,18 @@ SilverStripe\Blog\Model\BlogPost:
     - App\Elements\ElementHero
     - App\Elements\ElementMaps
     - App\Elements\ElementPerso
-    - App\Elements\ElementPersoCFA
+    # - App\Elements\ElementPersoCFA
     # - Kraftausdruck\Elements\ElementJobs
     - App\Elements\ElementContentSection
-    - App\Elements\ElementCounter
+    # - App\Elements\ElementCounter
     - App\Elements\ElementLogo
     - App\Elements\ElementGallery
-    - App\Elements\ElementTeaser
-    - App\Elements\ElementFeedTeaser
+    # - App\Elements\ElementTeaser
+    # - App\Elements\ElementFeedTeaser
     - App\Elements\ElementTextImage
-    - App\Elements\ElementPDFDocument
+    # - App\Elements\ElementPDFDocument
     - App\Elements\ElementLocalVideo
-    - App\Elements\ElementTestimonial
+    # - App\Elements\ElementTestimonial
     - App\Elements\ElementDownloads
     # - Kraftausdruck\InstagramFeed\Elements\ElementInstagramFeed
     # - App\Elements\ElementIframe # We may should encourage SnippetShortCodeProvider and drop this?
@@ -161,18 +161,18 @@ App\Models\ElementPage:
     - App\Elements\ElementHero
     - App\Elements\ElementMaps
     - App\Elements\ElementPerso
-    - App\Elements\ElementPersoCFA
+    # - App\Elements\ElementPersoCFA
     # - Kraftausdruck\Elements\ElementJobs
     - App\Elements\ElementContentSection
-    - App\Elements\ElementCounter
+    # - App\Elements\ElementCounter
     - App\Elements\ElementLogo
     - App\Elements\ElementGallery
-    - App\Elements\ElementTeaser
-    - App\Elements\ElementFeedTeaser
+    # - App\Elements\ElementTeaser
+    # - App\Elements\ElementFeedTeaser
     - App\Elements\ElementTextImage
-    - App\Elements\ElementPDFDocument
+    # - App\Elements\ElementPDFDocument
     - App\Elements\ElementLocalVideo
-    - App\Elements\ElementTestimonial
+    # - App\Elements\ElementTestimonial
     - App\Elements\ElementDownloads
     # - Kraftausdruck\InstagramFeed\Elements\ElementInstagramFeed
     # - App\Elements\ElementIframe # We may should encourage SnippetShortCodeProvider and drop this?

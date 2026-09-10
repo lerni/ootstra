@@ -1,0 +1,20 @@
+---
+Name: app-mcp-server-poc
+---
+Kraftausdruck\Controller\McpTaskController:
+  allowed_tasks:
+    - import-persos
+    - ai-transform-images
+
+Kraftausdruck\Controller\McpReadController:
+  allowed_classes:
+    - App\Elements\ElementContentSection
+    - App\Models\Department
+    - App\Models\ElementPage
+    - App\Models\Perso
+    - App\Models\Teaser
+    - DNADesign\Elemental\Models\ElementContent
+    - Kraftausdruck\Models\JobPosting
+    - SilverStripe\Assets\Image
+    - SilverStripe\Blog\Model\BlogPost
+    - SilverStripe\SiteConfig\SiteConfig

@@ -4,11 +4,12 @@
 		<div class="column coord">
 			<% if $SiteConfig.Locations.Count %>
 				<% with $SiteConfig.Locations.First() %>
-					<span><strong>$Title</strong></span>
-					<span>$Address</span>
-					<span>$PostalCode $Town</span>
-					<% if $Telephone %><a href="tel:{$Telephone.TelEnc}"><%-- t Page.TELEPHONE "T" &nbsp;--%>$Telephone</a><% end_if %>
-					<% if $EMail %><a href="mailto:{$EMail}">$EMail</a><% end_if %>
+					<span><strong>S2 Hub</strong></span>
+					<span>The European Silverstripe<br/>
+						community & Silverstripe Ltd.</span>
+					<%-- <span>$PostalCode $Town</span>
+					<% if $Telephone %><a href="tel:{$Telephone.TelEnc}">$Telephone</a><% end_if %>
+					<% if $EMail %><a href="mailto:{$EMail}">$EMail</a><% end_if %> --%>
 				<% end_with %>
 			<% end_if %>
 		</div>

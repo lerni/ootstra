@@ -43,6 +43,7 @@ export default defineConfig({
         'src/css/textimage.css',
         'src/css/localvideo.css',
         'src/js/app.js',
+        'src/js/perso.js',
         'src/js/fancy.js',
         'src/js/swiper.js',
         'src/js/countup.js',

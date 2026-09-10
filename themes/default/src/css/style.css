@@ -64,6 +64,7 @@ strong {
 		display: grid;
 		grid-template-rows: 1.2lh 1fr;
 		grid-template-columns: auto 1fr;
+		column-gap: 1lh;
 		/* max-width: calc(var(--inner-width) + 200px); */
 		@media (--cm-l-neg) {
 			/* min-height: 100vh; */
@@ -175,19 +176,17 @@ nav.cat-tag {
 	@media (--cm-m-neg) {
 		gap: 0.5lh;
 	}
-	> span,
-	> a {
+	> a,
+	> button {
 		display: inline-block;
-		padding: calc(0.25lh - 2px) calc(0.5lh - 2px); /* same spacing as button style */
-		border-width: 2px;
+		padding: calc(0.25lh - 3px) calc(0.5lh - 3px); /* same spacing as button style */
+		border-width: 3px;
 		border-style: solid;
 		border-color: var(--text-color);
 		color: var(--text-color);
 		font-weight: var(--font-weight--bold);
 		text-decoration: none;
-		&:last-child {
-			margin-right: 0;
-		}
+		margin: 0;
 		&.current {
 			color: var(--white);
 			background-color: var(--text-color);
@@ -197,27 +196,28 @@ nav.cat-tag {
 		}
 	}
 	a {
+		&:not(.current) {
+			&:hover {
+				color: var(--text-color);
+			}
+		}
 		@media (--cm-m-neg) {
 			flex-basis: 100%;
 		}
 	}
-	> a.all:not(.current) {
-		border-color: transparent;
-		padding-left: 0;
-		padding-right: 0;
-		&::before {
-			display: inline-block;
-			content: "";
-			width: 0.6lh;
-			height: 1em;
-			background-size: auto 0.6em;
-			background-repeat: no-repeat;
-			background-position: right 0 center;
-			background-image: svg-load("arrow-outline.svg", fill=currentColor);
-			transform: rotate(180deg);
-			margin-right: 0.25lh;
-			vertical-align: -0.1em;
-			color: var(--text-color);
+	> button {
+		font: inherit;
+		cursor: pointer;
+		font-weight: var(--font-weight--bold);
+		letter-spacing: inherit;
+		text-transform: inherit;
+	}
+	> button.all {
+		&:not(.current) {
+			border-color: transparent;
+			&:hover {
+				background-color: var(--green);
+			}
 		}
 	}
 }
@@ -241,7 +241,7 @@ nav.cat-tag {
 		padding-inline: 0;
 	}
 	&:not(.full-width) {
-		max-width: var(--inner-width);
+		max-width: calc(var(--inner-width) + var(--spacing) * 2);
 	}
 	width: 100%;
 	margin-inline: auto;

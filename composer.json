@@ -14,16 +14,16 @@
 		},
 		{
 			"type": "vcs",
-			"url": "https://github.com/lerni/silverstripe-selectupload"
-		},
-		{
-			"type": "vcs",
 			"url": "https://github.com/lerni/silverstripe-opengraph"
 		},
-		{
-			"type": "vcs",
-			"url": "https://github.com/lerni/cms-task"
-		}
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:kraftausdruck/jobpostings.git"
+		},
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:kraftausdruck/mcp-server-poc.git"
+        }
 	],
 	"require": {
 		"php": ">=8.0 <=8.6",
@@ -74,7 +74,8 @@
 		"bigfork/silverstripe-vitesse": "^2",
 		"axllent/silverstripe-scaled-uploads": "^2",
 		"pixelpoems/silverstripe-indexnow": "show-in-search-dev",
-		"lerni/cms-task": "dev-master"
+		"lerni/cms-task": "dev-master",
+		"lerni/mcp-server-poc": "dev-master"
 	},
 	"require-dev": {
 		"deployer/deployer": "^7",

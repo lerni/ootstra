@@ -27,7 +27,7 @@
     ]
   },
   "src/css/editor.css": {
-    "file": "assets/editor-yWtiCW4_.css",
+    "file": "assets/editor-SF-hj5oq.css",
     "src": "src/css/editor.css",
     "isEntry": true,
     "name": "editor",
@@ -90,7 +90,7 @@
     ]
   },
   "src/css/perso.css": {
-    "file": "assets/perso-DH9jdiQi.css",
+    "file": "assets/perso-CWe8BH7P.css",
     "src": "src/css/perso.css",
     "isEntry": true,
     "name": "perso",
@@ -108,7 +108,7 @@
     ]
   },
   "src/css/style.css": {
-    "file": "assets/style-BfEEeRD6.css",
+    "file": "assets/style-CcS4rFCT.css",
     "src": "src/css/style.css",
     "isEntry": true,
     "name": "style",
@@ -254,12 +254,8 @@
     "file": "assets/grid-Drd_seu3.svg",
     "src": "src/images/svg/grid.svg"
   },
-  "src/images/svg/icon-mask.svg": {
-    "file": "assets/icon-mask-C5t0uXnx.svg",
-    "src": "src/images/svg/icon-mask.svg"
-  },
   "src/images/svg/icon.svg": {
-    "file": "assets/icon-BePsTSAx.svg",
+    "file": "assets/icon-B56jMEGr.svg",
     "src": "src/images/svg/icon.svg"
   },
   "src/images/svg/instagram.svg": {
@@ -354,6 +350,10 @@
     "file": "assets/search-DQQForGq.svg",
     "src": "src/images/svg/search.svg"
   },
+  "src/images/svg/stripecon-26.svg": {
+    "file": "assets/stripecon-26-BtHvUhGY.svg",
+    "src": "src/images/svg/stripecon-26.svg"
+  },
   "src/images/svg/trash.svg": {
     "file": "assets/trash-XDYQSJyQ.svg",
     "src": "src/images/svg/trash.svg"
@@ -410,6 +410,12 @@
     "file": "assets/infiniteGrid-CPeprutE.js",
     "name": "infiniteGrid",
     "src": "src/js/infiniteGrid.js",
+    "isEntry": true
+  },
+  "src/js/perso.js": {
+    "file": "assets/perso-B9bz1ZiQ.js",
+    "name": "perso",
+    "src": "src/js/perso.js",
     "isEntry": true
   },
   "src/js/swiper.js": {

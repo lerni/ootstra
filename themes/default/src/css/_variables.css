@@ -10,9 +10,10 @@
 	--lh: var(--line-height);
 
 	/* Colors - OKLCH format with built-in alpha support */
-	--blue: oklch(0.27 0.15 260);
+	--blue: oklab(22.497% -0.0106 -0.14565);
 	/* rgb(26, 41, 90) */
-	--red: oklch(0.55 0.22 15);
+	--red: oklab(67.48% 0.17066 0.136);
+	--red--light: oklab(67.48% 0.17066 0.136);
 	/* rgb(225, 40, 92) */
 	--gold: oklch(0.75 0.15 85);
 	/* rgb(227, 168, 9) */
@@ -41,9 +42,9 @@
 	--headerheight--smaller: 100px;
 
 	/* Container widths */
-	--inner-width: 1280px;
+	--inner-width: 1380px;
 	--inner-width--reduced: 940px;
-	--inner-width--extended: 1480px;
+	--inner-width--extended: 1560px;
 
 	/* Spacing */
 	/*--spacing: clamp(0.5lh, 3vw, 2lh);

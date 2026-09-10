@@ -1,4 +1,6 @@
 DNADesign\Populate\Populate:
+  extensions:
+    - App\Extensions\PopulatePublishRelationsExtension
   truncate_objects:
     - App\Models\ElementPage
     - DNADesign\Elemental\Models\ElementalArea
@@ -6,5 +8,9 @@ DNADesign\Populate\Populate:
     - App\Models\Point
     - App\Models\Location
     - SilverStripe\SiteConfig\SiteConfig
+    - App\Models\Department
+    - App\Models\SocialLink
+    - App\Models\Perso
+    - App\Elements\ElementPerso
   include_yaml_fixtures:
     - 'app/fixtures/populate.yml'
