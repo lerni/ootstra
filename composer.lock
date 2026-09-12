@@ -4151,12 +4151,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/lerni/cms-task.git",
-                "reference": "8e34dfcd2b44cdffae0ad6b40c51f8b44cd9b9cf"
+                "reference": "3e75fd044aa462daf1351c1f4640236bd5d8c2a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lerni/cms-task/zipball/8e34dfcd2b44cdffae0ad6b40c51f8b44cd9b9cf",
-                "reference": "8e34dfcd2b44cdffae0ad6b40c51f8b44cd9b9cf",
+                "url": "https://api.github.com/repos/lerni/cms-task/zipball/3e75fd044aa462daf1351c1f4640236bd5d8c2a6",
+                "reference": "3e75fd044aa462daf1351c1f4640236bd5d8c2a6",
                 "shasum": ""
             },
             "require": {
@@ -4204,7 +4204,7 @@
                 "issues": "https://github.com/lerni/cms-task/issues",
                 "source": "https://github.com/lerni/cms-task/tree/master"
             },
-            "time": "2026-06-23T18:00:21+00:00"
+            "time": "2026-09-12T14:16:02+00:00"
         },
         {
             "name": "lerni/folderindex",
@@ -4322,7 +4322,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:kraftausdruck/mcp-server-poc.git",
-                "reference": "6e66df273589ac63ab8598a0912a5ba6986bfbe2"
+                "reference": "ac5e9ccd9c957c1775d4d19c7b1fb2c1cfbf5d06"
             },
             "require": {
                 "guzzlehttp/guzzle": "^7.9",
@@ -4348,7 +4348,7 @@
                 }
             ],
             "description": "MCP server POC for Silverstripe — exposes BuildTasks and restricted ORM reads as MCP tools via stdio",
-            "time": "2026-09-12T07:22:41+00:00"
+            "time": "2026-09-12T14:23:01+00:00"
         },
         {
             "name": "lerni/silverstripe-tracking",

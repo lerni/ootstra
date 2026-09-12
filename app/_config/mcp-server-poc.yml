@@ -6,6 +6,9 @@ Kraftausdruck\Controller\McpTaskController:
     - import-persos
     - ai-transform-images
 
+Kraftausdruck\Services\BackgroundTaskService:
+  start_rate_limit: 0
+
 Kraftausdruck\Controller\McpReadController:
   allowed_classes:
     - App\Elements\ElementContentSection
