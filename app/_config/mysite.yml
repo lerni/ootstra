@@ -113,7 +113,7 @@ SilverStripe\Blog\Model\BlogCategory:
 SilverStripe\Blog\Model\Blog:
   extensions:
     - App\Extensions\BlogExtension
-    - App\Extensions\SingletonExtension
+    - App\Extensions\LimitCreateExtension(1)
 
 SilverStripe\Blog\Model\BlogPost:
   show_in_sitetree: false
@@ -208,7 +208,7 @@ DNADesign\ElementalUserForms\Model\ElementForm:
 
 SilverStripe\UserForms\Model\UserDefinedForm:
   extensions:
-    - App\Extensions\CannotCreateExtension
+    - App\Extensions\LimitCreateExtension
 
 SilverStripe\UserForms\Model\EditableFormField:
   extensions:
@@ -284,8 +284,12 @@ UndefinedOffset\NoCaptcha\Forms\NocaptchaField:
   proxy_auth: "" #Your proxy server authentication information (optional)
 
 SilverStripe\Core\Injector\Injector:
+  # extensions are cached as singletons keyed by class name only, so without
+  # this, all owners of this extension would share one instance/limit value
+  App\Extensions\LimitCreateExtension:
+    type: prototype
   Intervention\Image\ImageManager:
-    factory: '%$App\Util\ImageManagerFactory'
+    factory: '%$App\Utility\ImageManagerFactory'
   SilverStripe\Assets\Conversion\InterventionImageFileConverter:
     class: App\Conversion\AvifFileConverter
   UndefinedOffset\NoCaptcha\Forms\NocaptchaField:

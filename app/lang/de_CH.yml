@@ -253,6 +253,8 @@ de_CH:
     MetaDescriptionRightTitle: 'Wird in Suchmaschinen-Ergebnissen verwendet, wenn Länge passt und Relevanz gegeben ist; beeinflusst die SEO-Position kaum. Ansprechende Meta-Descripton (besonders die ersten ~55 Zeichen -> Sitelinks) beeinflussen die Klickrate jedoch stark.'
     NavAriaLabel: 'Hauptnavigation'
     HIDESUBNAVI: 'Subnavigation nicht anzeigen'
+    SubNaviHiddenByParent: 'Diese Seite wird nicht in der Navigation angezeigt, da bei "{title}" "Subnavigation nicht anzeigen" aktiviert ist.'
+    SubNaviExcludedType: 'Seiten vom Typ "{type}" werden nicht in der Navigation angezeigt.'
     SUBMENU_TOGGLE: 'Untermenü von {title} anzeigen'
   SilverStripe\CMS\Model\RedirectorPage:
     NewWindowLabel: 'URL in einem neuen Fenster öffnen'
@@ -316,6 +318,9 @@ de_CH:
   App\Models\ShortCodeSnippet:
     Duplicate: 'Titel darf nur einmal verwendet werden.'
     ShortCodeDescription: 'Shortcodes können auch Variablen wie "{$Text}" aus Parametern verwenden [Snippet title="Titel" Text="Text"]'
+  App\Utility\RetentionPeriodShortCodeProvider:
+    Days: '{count} Tagen'
+    Months: '{count} Monaten'
   SilverStripe\Admin\LeftAndMain:
     AddNew: '{name}'
   SilverStripe\CMS\Controllers\CMSPageHistoryController:

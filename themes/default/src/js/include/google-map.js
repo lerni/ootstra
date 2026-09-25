@@ -32,7 +32,7 @@ function init() {
     fullscreenControl: $Fullscreen,
     fullscreenControlOptions: {
       position: google.maps.ControlPosition.LEFT_TOP,
-    },
+    }
   };
 
   if ($ShowZoom) {
@@ -100,7 +100,7 @@ function createMarker(latlng, PointURL, type) {
 		});
 	}
   if (PointURL) {
-    google.maps.event.addListener(marker, "click", function () {
+    marker.addListener("click", function () {
       // Check if URL is external (different domain)
       var isExternal = false;
       try {

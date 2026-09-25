@@ -353,6 +353,21 @@
       "icon": {
         "color": "terminal.ansiCyan"
       }
+    },
+    {
+      "label": "opencode",
+      "type": "shell",
+      "command": "opencode",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true,
+        "close": true
+      },
+      "icon": {
+        "color": "terminal.ansiBlue"
+      }
     }
   ]
 }

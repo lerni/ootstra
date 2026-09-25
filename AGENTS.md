@@ -158,7 +158,7 @@ This project uses a devcontainer that runs inside DDEV's web container:
 - Elements in `app/src/Elements/`
 - Tasks in `app/src/Tasks/`
 - ModelAdmin in `app/src/Admin/`
-- Utilities in `app/src/Util/`
+- Utilities in `app/src/Utility/` (namespace `App\Utility`)
 
 ### Templates
 - Silverstripe `.ss` template format

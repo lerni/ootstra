@@ -43,13 +43,18 @@ class EditableCheckboxTerms extends EditableFormField
         return $id;
     }
 
-    public function onAfterPopulateDefaults()
+    /**
+     * DataObject::populateDefaults() (not the onAfterPopulateDefaults extension hook) is
+     * the real overridable lifecycle method for setting defaults on the object itself.
+     */
+    public function populateDefaults()
     {
+        parent::populateDefaults();
+
         $id = $this->getKlaroConfigID();
         $this->Name = 'TermsAndConditions';
         $this->Title = _t(self::class . '.DefaultTitle', 'I accept <a rel="noopener noreferrer" href="[sitetree_link,id={id}]" target="_blank">Terms & Conditions and Privacy Policy</a>.', ['id' => $id]);
         $this->Required = true;
-        parent::onAfterPopulateDefaults();
     }
 
     public function getCMSFields()

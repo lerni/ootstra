@@ -1,6 +1,6 @@
 {
     "worse_reflection.additive_stubs": [
-        "/var/www/html/.phpactor/stubs/silverstripe_globals.php"
+        "/.phpactor/stubs/silverstripe_globals.php"
     ],
     "indexer.include_patterns": [
         "/**/*.php",
@@ -23,5 +23,7 @@
     "language_server_phpstan.enabled": false,
     "language_server_psalm.enabled": false,
     "language_server_php_cs_fixer.enabled": false,
-    "file_path_resolver.enable_cache": true
+    "file_path_resolver.enable_cache": true,
+    "php_code_sniffer.enabled": true,
+    "behat.enabled": true
 }

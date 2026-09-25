@@ -242,6 +242,11 @@ ssh-add --apple-use-keychain ~/.ssh/id_ed25519
 ssh-add -l
 ```
 
+After macOS update, re-accept the license terms:
+```zsh
+sudo xcodebuild -license accept
+```
+
 The `--apple-use-keychain` flag stores the passphrase in macOS Keychain, so you won't be prompted again after reboots. The `UseKeychain yes` setting in `~/.ssh/config` allows SSH to automatically retrieve keys from the keychain.
 
 To use `ddev-ssh-agent` instead, following configuration in `.ddev/config.yaml` can be removed and `.ddev/docker-compose.sshagent.yaml` can be deleted.
@@ -311,6 +316,12 @@ SCRIPT_FILENAME=''
 Without setting `MAILER_DSN`, `sendmail` is used by default, typically using `SS_ADMIN_EMAIL` as sender. Sendmail transport requires `proc_open` and `proc_close` PHP functions to be enabled.
 
 To use SMTP or other mailers, the `MAILER_DSN` variable should be set in the `.env`. When `MAILER_DSN` is configured, setting `SS_SEND_ALL_EMAILS_FROM` may also be appropriate. Silverstripe utilizes [Symfony Mailer](https://symfony.com/doc/current/mailer.html), which supports a variety of transport methods. With `php ./vendor/bin/sake tasks:test-email --to=user@domain.tld` a Test-Mail can be sent. Be aware, Mailpit catches all emails for local development with DDEV.
+
+## Composer Audit Task
+`php ./vendor/bin/sake tasks:composer-audit` runs `composer audit` to check production dependencies for security advisories (CVEs) and abandoned/end-of-life packages, emailing a report (to `SS_ERROR_EMAIL`/`admin_email` by default) if anything is found. Options: `--to`, `--dry-run`, `--include-dev`, `--abandoned=ignore|report|fail`, `--ignore-severity=low|medium|high|critical` (repeatable). Consider scheduling it as a cron job, e.g.:
+```bash
+php ./vendor/bin/sake tasks:composer-audit  --abandoned=ignore --ignore-severity=low --ignore-severity=medium
+```
 
 ## Deploy a branch/tag/revision
 

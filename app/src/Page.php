@@ -1,6 +1,7 @@
 <?php
 
 use App\Elements\ElementHero;
+use SilverStripe\Core\Convert;
 use App\Elements\ElementGallery;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Blog\Model\Blog;
@@ -11,6 +12,7 @@ use SilverStripe\TagField\TagField;
 use JonoM\ShareCare\ShareCareFields;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Control\Controller;
+use SilverStripe\Forms\LiteralField;
 use SilverStripe\Blog\Model\BlogPost;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Security\Permission;
@@ -134,9 +136,49 @@ class Page extends SiteTree
                 ),
                 'ShowInSearch',
             );
+
+            if ($notice = $this->getSubNaviNotice()) {
+                $fields->addFieldToTab(
+                    'Root.Settings',
+                    LiteralField::create('SubNaviNotice', sprintf('<p class="alert alert-info">%s</p>', $notice)),
+                    'Visibility',
+                );
+            }
         });
 
         return parent::getSettingsFields();
+    }
+
+    // Explains why a sub-page is missing from the navigation (mirrors Navigation.ss)
+    private function getSubNaviNotice(): ?string
+    {
+        $parent = $this->getParent();
+        if (!$parent) {
+            return null;
+        }
+
+        $ancestor = $parent;
+        while ($ancestor) {
+            if ($ancestor->HideSubNavi) {
+                return _t(
+                    self::class . '.SubNaviHiddenByParent',
+                    'This page is not shown in the navigation because "Hide sub navigation" is enabled on "{title}".',
+                    ['title' => Convert::raw2xml($ancestor->MenuTitle)],
+                );
+            }
+            $ancestor = $ancestor->getParent();
+        }
+
+        $exclude = $parent->config()->get('childrenexcluded')['default'] ?? [];
+        if (in_array($this->ClassName, $exclude, true)) {
+            return _t(
+                self::class . '.SubNaviExcludedType',
+                'Pages of type "{type}" are not shown in the navigation.',
+                ['type' => Convert::raw2xml($this->i18n_singular_name())],
+            );
+        }
+
+        return null;
     }
 
     public function getDefaultOGDescription($limitChar = null, $limitWordCount = 25, $summarySuffix = '...')

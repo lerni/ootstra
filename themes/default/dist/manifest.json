@@ -1,6 +1,6 @@
 {
   "src/css/blog.css": {
-    "file": "assets/blog-ExOi5H4p.css",
+    "file": "assets/blog-D3t88Nry.css",
     "src": "src/css/blog.css",
     "isEntry": true,
     "name": "blog",
@@ -54,12 +54,21 @@
     ]
   },
   "src/css/gallery.css": {
-    "file": "assets/gallery-Bh7OuZX6.css",
+    "file": "assets/gallery-CcQgHlAw.css",
     "src": "src/css/gallery.css",
     "isEntry": true,
     "name": "gallery",
     "names": [
       "gallery.css"
+    ]
+  },
+  "src/css/jobs.css": {
+    "file": "assets/jobs-BQcVur97.css",
+    "src": "src/css/jobs.css",
+    "isEntry": true,
+    "name": "jobs",
+    "names": [
+      "jobs.css"
     ]
   },
   "src/css/localvideo.css": {
@@ -90,7 +99,7 @@
     ]
   },
   "src/css/perso.css": {
-    "file": "assets/perso-DH9jdiQi.css",
+    "file": "assets/perso-CXW7nyUX.css",
     "src": "src/css/perso.css",
     "isEntry": true,
     "name": "perso",
@@ -108,7 +117,7 @@
     ]
   },
   "src/css/style.css": {
-    "file": "assets/style-BfEEeRD6.css",
+    "file": "assets/style-2OdNxCvn.css",
     "src": "src/css/style.css",
     "isEntry": true,
     "name": "style",
@@ -319,7 +328,7 @@
     "src": "src/images/svg/pdf_doc.svg"
   },
   "src/images/svg/perso-defalut.svg": {
-    "file": "assets/perso-defalut-CSuR6oSa.svg",
+    "file": "assets/perso-defalut-Bs1ijYrY.svg",
     "src": "src/images/svg/perso-defalut.svg"
   },
   "src/images/svg/phone.svg": {
@@ -383,7 +392,7 @@
     "src": "src/images/transparent.png"
   },
   "src/js/app.js": {
-    "file": "assets/app-5S1vZSzn.js",
+    "file": "assets/app-BnGtaIjb.js",
     "name": "app",
     "src": "src/js/app.js",
     "isEntry": true
@@ -410,6 +419,12 @@
     "file": "assets/infiniteGrid-CPeprutE.js",
     "name": "infiniteGrid",
     "src": "src/js/infiniteGrid.js",
+    "isEntry": true
+  },
+  "src/js/perso.js": {
+    "file": "assets/perso-JHb6riBI.js",
+    "name": "perso",
+    "src": "src/js/perso.js",
     "isEntry": true
   },
   "src/js/swiper.js": {

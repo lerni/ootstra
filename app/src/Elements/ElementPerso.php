@@ -139,17 +139,38 @@ class ElementPerso extends BaseElement
         return $fields;
     }
 
+    public function getCacheKey(): string
+    {
+        $persos = $this->Persos();
+        $departments = $this->Departments();
+
+        $parts = [
+            $this->LastEdited,
+            $persos->max('LastEdited'),
+            $persos->count(),
+            $departments->max('LastEdited'),
+            $departments->count(),
+        ];
+
+        if ($this->Sorting == 'random') {
+            // rotate every 20 minutes - workaround to still shuffle items, but not on every request
+            $parts[] = (int) floor(time() / 60 / 20);
+        }
+
+        return implode('-', $parts);
+    }
+
     public function Everybody()
     {
         $all = $this->Persos();
-//         if ($this->Departments()->count() && $this->JustListedDepartments) {
-//             $departmentIDs = $this->Departments()->column('ID');
-//             // -> distinct() is a bitch
-//             $all->filter('Departments.ID', $departmentIDs)
-//                 ->alterDataQuery(function ($query) {
-//                     $query->groupby('"Perso"."ID"');
-//                 });
-//         }
+        // if ($this->Departments()->count() && $this->JustListedDepartments) {
+        //     $departmentIDs = $this->Departments()->column('ID');
+        //     // -> distinct() is a bitch
+        //     $all->filter('Departments.ID', $departmentIDs)
+        //         ->alterDataQuery(function ($query) {
+        //             $query->groupby('"Perso"."ID"');
+        //         });
+        // }
         if ($this->Sorting == 'random') {
             $all = $all->shuffle();
         }

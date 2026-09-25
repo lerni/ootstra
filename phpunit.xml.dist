@@ -21,6 +21,10 @@ It is safe to remove this file for normal website operation.
          bootstrap="vendor/silverstripe/framework/tests/bootstrap.php"
          colors="true"
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.3/phpunit.xsd">
+    <php>
+        <!-- The web-built manifest cache excludes tests/ dirs, so module test classes aren't found without a flush -->
+        <env name="SS_PHPUNIT_FLUSH" value="1"/>
+    </php>
     <testsuites>
         <testsuite name="app">
             <!-- Add your app tests here when you create them -->

@@ -68,6 +68,7 @@ class ElementMaps extends BaseElement
         $fields->removeByName([
             'BackgroundColor',
             'Points',
+            'isFullWidth',
             'WidthReduced',
         ]);
 

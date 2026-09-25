@@ -16,10 +16,14 @@
 			"type": "vcs",
 			"url": "https://github.com/lerni/silverstripe-opengraph"
 		},
-		{
-			"type": "vcs",
-			"url": "https://github.com/lerni/cms-task"
-		}
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:kraftausdruck/jobpostings.git"
+		},
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:kraftausdruck/mcp-server-poc.git"
+        }
 	],
 	"require": {
 		"php": ">=8.0 <=8.6",
@@ -69,8 +73,12 @@
 		"silverstripe/linkfield": "^5",
 		"bigfork/silverstripe-vitesse": "^2",
 		"axllent/silverstripe-scaled-uploads": "^2",
-		"pixelpoems/silverstripe-indexnow": "show-in-search-dev",
-		"lerni/cms-task": "dev-master"
+		"pixelpoems/silverstripe-indexnow": "2.x-dev",
+		"lerni/jobpostings": "6.x-dev",
+		"lerni/cms-task": "dev-master",
+		"lerni/silverstripe-google-indexing": "dev-master",
+		"lerni/mcp-server-poc": "dev-master",
+		"purplespider/silverstripe-visual-block-picker": "^2"
 	},
 	"require-dev": {
 		"deployer/deployer": "^7",
@@ -79,7 +87,8 @@
 		"phpunit/phpunit": "^11.3",
 		"friendsofphp/php-cs-fixer": "^3",
 		"wernerkrauss/silverstripe-rector": "^1",
-		"silverstripe/developer-docs": "^6"
+		"silverstripe/developer-docs": "^6",
+		"silverstripe/behat-extension": "^6.1"
 	},
 	"extra": {
 		"expose": [
@@ -117,10 +126,6 @@
 	},
 	"minimum-stability": "dev",
 	"prefer-stable": true,
-	"scripts": {
-		"post-install-cmd": "@php -r \"@touch('vendor/composer/_manifest_exclude');\"",
-		"post-update-cmd": "@php -r \"@touch('vendor/composer/_manifest_exclude');\""
-	},
 	"config": {
 		"allow-plugins": {
 			"composer/installers": true,

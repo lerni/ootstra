@@ -1,0 +1,88 @@
+.element.elementjobs,
+.element.jobs-hero {
+	&.aslant {
+		&::after {
+			clip-path: polygon(0 0,100% 0,100% calc(100% - 4vw),0 100%);
+		}
+	}
+	.jobs {
+		display: flex;
+		flex-direction: column;
+		gap: 1lh;
+		.job {
+			border: 3px solid;
+			padding: 0.5lh;
+			position: relative;
+			color: var(--text-color);
+			background-color: var(--white);
+			border-left-width: var(--spacing);
+			transition: border-left-width ease-out .1s;
+			text-decoration: none;
+			&:hover {
+				box-shadow: 0 0 1em oklch(from var(--black) l c h / 0.1);
+				border-left-width: 1.5lh;
+			}
+			h1, h2, h3 {
+				margin: 0;
+			}
+			p {
+				display: inline-block;
+				margin-bottom: 0;
+			}
+			.forth {
+				color: var(--text-color);
+				float: right;
+				&::after {
+					display: none;
+				}
+			}
+		}
+	}
+}
+
+.element.form {
+	fieldset {
+		h3 {
+			flex: 0 0 100%;
+			margin-bottom: 1lh;
+		}
+	}
+}
+.element.pdf-download {
+	.swiper {
+		overflow: visible;
+		padding-bottom: 1lh;
+		.swiper-wrapper {
+			.swiper-slide {
+				width: auto;
+				height: 540px;
+				@media (--cm-l-neg) {
+					height: 400px;
+				}
+				@media (--cm-m-neg) {
+					height: 300px;
+				}
+				>img {
+					height: 100%;
+					width: auto;
+				}
+			}
+		}
+	}
+
+}
+.jobs-hero {
+	&::after {
+		background-color: var(--section-color);
+	}
+	.typography > * {
+		color: var(--white);
+	}
+}
+
+.pdf-download,
+.elementpersocfa {
+	&::after {
+		background-color: oklch(from var(--section-color) l c h / 0.25);
+	}
+}

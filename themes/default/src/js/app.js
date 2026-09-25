@@ -12,4 +12,3 @@ import.meta.glob([
 // import './include/htmx';
 import './include/nav';
 import './include/headroom';
-import './include/expandable-grid';

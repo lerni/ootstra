@@ -16,6 +16,7 @@ use App\Utility\VacationShortCodeProvider;
 use SilverStripe\Core\Manifest\ModuleLoader;
 use SilverStripe\View\Parsers\ShortcodeParser;
 use SilverStripe\View\Parsers\URLSegmentFilter;
+use App\Utility\RetentionPeriodShortCodeProvider;
 use SilverStripe\Core\Manifest\ModuleResourceLoader;
 
 Email::config()->set('admin_email', Environment::getEnv('SS_ADMIN_EMAIL'));
@@ -196,3 +197,4 @@ URLSegmentFilter::config()->default_replacements = [
 ShortcodeParser::get('default')->register('Location', [LocationShortCodeProvider::class, 'parseLocationShortCodeProvider']);
 ShortcodeParser::get('default')->register('Vacation', [VacationShortCodeProvider::class, 'parseVacationShortCodeProvider']);
 ShortcodeParser::get('default')->register('Snippet', [SnippetShortCodeProvider::class, 'SnippetShortCodeProvider']);
+ShortcodeParser::get('default')->register('RetentionPeriod', [RetentionPeriodShortCodeProvider::class, 'parseRetentionPeriodShortCodeProvider']);

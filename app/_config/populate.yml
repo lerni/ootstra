@@ -1,11 +1,23 @@
 DNADesign\Populate\Populate:
+  # Without this, Populate uses publishSingle() per record, which does not cascade
+  # to $owns has_many relations (e.g. SiteConfig -> Link.Owner), leaving those
+  # relations linked on Draft but not Live.
+  enable_publish_recursive: true
+  extensions:
+    - App\Extensions\EditableFormFieldExtension
+    - App\Extensions\PopulatePublishRelationsExtension
   truncate_objects:
     - App\Models\ElementPage
     - DNADesign\Elemental\Models\ElementalArea
     - DNADesign\Elemental\Models\ElementContent
+    - App\Elements\ElementMaps
     - App\Models\Point
     - App\Models\Location
     - SilverStripe\SiteConfig\SiteConfig
     - App\Models\SocialLink
+    - App\Models\Slide
+    - SilverStripe\LinkField\Models\Link
+    - DNADesign\ElementalUserForms\Model\ElementForm
+    - SilverStripe\UserForms\Model\EditableFormField
   include_yaml_fixtures:
     - 'app/fixtures/populate.yml'

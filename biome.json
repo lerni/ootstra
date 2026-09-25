@@ -1,0 +1,6 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.5.12/schema.json",
+	"files": {
+		"includes": ["themes/default/**"]
+	}
+}
