@@ -18,7 +18,7 @@
 			<% end_if %>
 		</h2>
 		<% if $Summary && $Summary.CountLink < 1 %>
-			$Summary
+			$Summary.Markdowned
 		<% else_if $DefaultOGDescription %>
 			<p>$DefaultOGDescription</p>
 		<% end_if %>

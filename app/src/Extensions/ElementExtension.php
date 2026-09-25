@@ -6,6 +6,7 @@ use App\Elements\ElementHero;
 use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\FieldGroup;
+use SilverStripe\Core\Config\Config;
 use SilverStripe\ORM\FieldType\DBField;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\View\Parsers\URLSegmentFilter;
@@ -29,6 +30,13 @@ class ElementExtension extends Extension
         'SpacingTop' => 0,
         'SpacingBottom' => 2, // this or similar is also in DefaultHero
         'BackgroundColor' => 'transparent',
+    ];
+
+    /** @config Single source of truth for the BackgroundColor ColorPaletteField options — read this instead of duplicating the palette. */
+    private static array $background_colors = [
+        'transparent' => 'rgba(255, 255, 255, 0)',
+        'white' => 'rgb(255, 255, 255)',
+        'gray--lighter' => 'rgb(246, 246, 246)',
     ];
 
     public function updateCMSFields(FieldList $fields)
@@ -82,11 +90,7 @@ class ElementExtension extends Extension
 
         $fields->addFieldToTab(
             'Root.Settings',
-            ColorPaletteField::create('BackgroundColor', _t('DNADesign\Elemental\Models\BaseElement.BACKGROUNDCOLOR', 'Element background colour'), [
-                'transparent' => 'rgba(255, 255, 255, 0)',
-                'white' => 'rgb(255, 255, 255)',
-                'gray--lighter' => 'rgb(246, 246, 246)',
-            ]),
+            ColorPaletteField::create('BackgroundColor', _t('DNADesign\Elemental\Models\BaseElement.BACKGROUNDCOLOR', 'Element background colour'), Config::inst()->get(static::class, 'background_colors')),
         );
     }
 

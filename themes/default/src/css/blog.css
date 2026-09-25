@@ -36,6 +36,7 @@ body.blog {
 		color: var(--text-color);
 		transition: filter linear .3s;
 		filter: grayscale(0%);
+		text-decoration: none;
 		@media (--cm-l-neg) {
 			flex: 0 0 calc(50% - 1lh);
 		}
@@ -75,8 +76,12 @@ body.blog {
 				margin: 0.5lh 0;
 				&.pre {
 					font-size: var(--font-size--small);
-					margin: 0;
+					margin-block: 0 0.5lh;
 				}
+			}
+			.link.forth {
+				display: block;
+				margin-block: auto 0;
 			}
 		}
 
@@ -100,6 +105,7 @@ body.blog {
 			display: flex;
 			width: 100%;
 			background-color: var(--gray--lighter);
+			text-decoration: none;
 			/* min-width: 300px; */
 			> img {
 				width: 3lh;

@@ -53,6 +53,7 @@
 		}
 	}
 	.swiper.multiple {
+		overflow: visible;
 		@media (--cm-xl-neg) {
 			overflow-x: hidden;
 		}

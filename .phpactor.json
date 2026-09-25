@@ -1,6 +1,6 @@
 {
     "worse_reflection.additive_stubs": [
-        "/var/www/html/.phpactor/stubs/silverstripe_globals.php"
+      "/.phpactor/stubs/silverstripe_globals.php"
     ],
     "indexer.include_patterns": [
         "/**/*.php",

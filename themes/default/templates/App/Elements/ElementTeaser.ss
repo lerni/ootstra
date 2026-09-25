@@ -19,7 +19,7 @@
 						<% if $Title %><{$Up.ChildTitleLevel}>$Title</{$Up.ChildTitleLevel}><% end_if %>
 						<% if $Text %>$Text.Markdowned<% end_if %>
 					</div>
-					<% if $Link %><span class="link forth"><% with $Link %><% if $Title %>{$Title}<% else %><%t App\Models\Teaser.MORE "Learn more" %></span><% end_if %>
+					<% if $Link %><span class="link forth"><% with $Link %><% if $Title %>{$Title}<% else %><%t App\Models\Teaser.MORE "Learn more" %><% end_if %><% end_with %></span><% end_if %>
 				<% if $Link %></a><% else %></div><% end_if %>
 			<% end_loop %>
 		<% end_if %>

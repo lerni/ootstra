@@ -83,7 +83,7 @@ class PDFDoc extends DataObject
         if ($this->Image()->exists()) {
             $img = $this->Image();
         } elseif ($this->Document()->exists()) {
-            $img = $this->Document()->PDFImage();
+            $img = $this->Document()->PDFImage('webp');
         }
 
         return $img;

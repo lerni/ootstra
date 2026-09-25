@@ -1,0 +1,33 @@
+---
+Name: app-mcp-server-poc
+---
+Kraftausdruck\Controller\McpTaskController:
+  allowed_tasks:
+    - manage-blog
+    - manage-hero
+    - manage-persos
+    - manage-content
+    - ai-transform-images
+    - manage-job-postings
+    - manage-element-pages
+
+Kraftausdruck\Services\BackgroundTaskService:
+  start_rate_limit: 0
+
+Kraftausdruck\Controller\McpReadController:
+  allowed_classes:
+    - App\Models\Perso
+    - App\Models\Teaser
+    - App\Models\Location
+    - App\Models\Department
+    - App\Models\ElementPage
+    - SilverStripe\Assets\Image
+    - SilverStripe\Blog\Model\Blog
+    - Kraftausdruck\Models\JobPosting
+    - SilverStripe\Blog\Model\BlogTag
+    - Kraftausdruck\Models\JobDefaults
+    - SilverStripe\Blog\Model\BlogPost
+    - SilverStripe\Blog\Model\BlogCategory
+    - App\Elements\ElementContentSection
+    - SilverStripe\SiteConfig\SiteConfig
+    - DNADesign\Elemental\Models\ElementContent

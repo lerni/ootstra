@@ -176,19 +176,17 @@ nav.cat-tag {
 	@media (--cm-m-neg) {
 		gap: 0.5lh;
 	}
-	> span,
-	> a {
+	> a,
+	> button {
 		display: inline-block;
-		padding: calc(0.25lh - 2px) calc(0.5lh - 2px); /* same spacing as button style */
-		border-width: 2px;
+		padding: calc(0.25lh - 3px) calc(0.5lh - 3px); /* same spacing as button style */
+		border-width: 3px;
 		border-style: solid;
 		border-color: var(--text-color);
 		color: var(--text-color);
 		font-weight: var(--font-weight--bold);
 		text-decoration: none;
-		&:last-child {
-			margin-right: 0;
-		}
+		margin: 0;
 		&.current {
 			color: var(--white);
 			background-color: var(--text-color);
@@ -198,27 +196,28 @@ nav.cat-tag {
 		}
 	}
 	a {
+		&:not(.current) {
+			&:hover {
+				color: var(--text-color);
+			}
+		}
 		@media (--cm-m-neg) {
 			flex-basis: 100%;
 		}
 	}
-	> a.all:not(.current) {
-		border-color: transparent;
-		padding-left: 0;
-		padding-right: 0;
-		&::before {
-			display: inline-block;
-			content: "";
-			width: 0.6lh;
-			height: 1em;
-			background-size: auto 0.6em;
-			background-repeat: no-repeat;
-			background-position: right 0 center;
-			background-image: svg-load("arrow-outline.svg", fill=currentColor);
-			transform: rotate(180deg);
-			margin-right: 0.25lh;
-			vertical-align: -0.1em;
-			color: var(--text-color);
+	> button {
+		font: inherit;
+		cursor: pointer;
+		font-weight: var(--font-weight--bold);
+		letter-spacing: inherit;
+		text-transform: inherit;
+	}
+	> button.all {
+		&:not(.current) {
+			border-color: transparent;
+			&:hover {
+				background-color: var(--green);
+			}
 		}
 	}
 }
@@ -299,13 +298,15 @@ nav.cat-tag {
 		z-index: -1;
 		inset: 0;
 		pointer-events: none;
-		width: 100%;
-		overflow: hidden;
+		left: -50vw;
+		right: -50vw;
 		/* prevents horizontal overflow on ios */
-		/* @media (--cm-xl-neg) {
-			left: 0;
-			right: 0;
-		} */
+		@media (--cm-xl-neg) {
+			left: auto;
+			right: auto;
+			width: 100%;
+			overflow-x: hidden;
+		}
 	}
 	&.background--transparent {
 		&::after {
@@ -779,17 +780,22 @@ nav.cat-tag {
 			box-sizing: unset;
 			width: 100%;
 			flex: 0 0 100%;
-			aspect-ratio: 20 / 9; /* 45% = 9/20 aspect ratio */
+			aspect-ratio: 1 / 1;
 			&.has-txt {
 				@media (--cm-l-plus) {
 					flex: 0 0 calc(50% - 0.5lh);
 				}
 			}
-			@media (--cm-l-neg) {
-				aspect-ratio: 5 / 3; /* 60% = 3/5 aspect ratio */
-			}
-			@media (--cm-m-neg) {
-				aspect-ratio: 1 / 1; /* 100% = 1/1 square aspect ratio */
+		}
+		&:not(:has(> .txt)) {
+			#map_canvas {
+				aspect-ratio: 20 / 9;
+				@media (--cm-l-neg) {
+					aspect-ratio: 5 / 3; /* 60% = 3/5 aspect ratio */
+				}
+				@media (--cm-m-neg) {
+					aspect-ratio: 1 / 1; /* 100% = 1/1 square aspect ratio */
+				}
 			}
 		}
 	}
@@ -982,17 +988,23 @@ nav.cat-tag {
 		border-color: var(--red);
 	}
 }
-
+/* What do we want?
+There is more or less the same in _typography.css with .forth & .back? */
 .link.forth {
 	display: inline-block;
-	color: var(--link-color);
-	/* TODO: @include arrow-after($link-color) - needs mixin conversion */
+	@mixin arrow-after #d30046, 2em, 1.1em;
+	&:hover,
+	a:hover > & {
+		&::after {
+			width: 1em;
+		}
+	}
 }
 
 .parent-link.back {
 	display: inline-block;
 	color: var(--link-color);
-	/* TODO: @include arrow-before($link-color) - needs mixin conversion */
+	@mixin arrow-before #d30046, 2em, 1.1em;
 }
 
 .global-alert:not(.elementhero) {
