@@ -88,7 +88,7 @@
 		"friendsofphp/php-cs-fixer": "^3",
 		"wernerkrauss/silverstripe-rector": "^1",
 		"silverstripe/developer-docs": "^6",
-		"silverstripe/behat-extension": "^6.1"
+		"silverstripe/behat-extension": "^6"
 	},
 	"extra": {
 		"expose": [

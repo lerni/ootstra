@@ -7,6 +7,7 @@ use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\FieldGroup;
 use SilverStripe\Core\Config\Config;
+use SilverStripe\Versioned\Versioned;
 use SilverStripe\ORM\FieldType\DBField;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\View\Parsers\URLSegmentFilter;
@@ -17,6 +18,9 @@ use SilverStripe\Forms\Validation\RequiredFieldsValidator;
 
 class ElementExtension extends Extension
 {
+    // protected (not private) so it isn't picked up as config
+    protected static array $firstTwoElementsCache = [];
+
     private static $db = [
         'isFullWidth' => 'Boolean',
         'AnchorLink' => 'Varchar',
@@ -97,15 +101,17 @@ class ElementExtension extends Extension
     // second element after ElementHero
     public function AfterHero()
     {
-        if ($this->getOwner()->isInDB() && $firstTwo = BaseElement::get()->filter(['ParentID' => $this->getOwner()->ParentID])->sort(['Sort' => 'ASC'])->limit(2)) {
-            if ($firstTwo->first()->ClassName == ElementHero::class) {
-                if ($firstTwo->count() == 2 && $firstTwo->last()->ID == $this->getOwner()->ID) {
-                    return true;
-                }
-            } elseif ($firstTwo->first()->ID == $this->getOwner()->ID && $this->getOwner()->getPage()->PreventHero == 0) {
-                // we assume default Hero
+        if (!$this->getOwner()->isInDB() || !$firstTwo = $this->firstTwoElements()) {
+            return null;
+        }
+        $ownerID = (int) $this->getOwner()->ID;
+        if ($firstTwo[0]['ClassName'] == ElementHero::class) {
+            if (count($firstTwo) == 2 && $firstTwo[1]['ID'] == $ownerID) {
                 return true;
             }
+        } elseif ($firstTwo[0]['ID'] == $ownerID && $this->getOwner()->getPage()->PreventHero == 0) {
+            // we assume default Hero
+            return true;
         }
 
         return null;
@@ -113,17 +119,38 @@ class ElementExtension extends Extension
 
     public function IsHero()
     {
-        if (!$first = BaseElement::get()->filter(['ParentID' => $this->getOwner()->ParentID])->sort(['Sort' => 'ASC'])->first()) {
+        if (!$firstTwo = $this->firstTwoElements()) {
             return null;
         }
-        if ($first->ClassName != ElementHero::class) {
-            return null;
-        }
-        if ($first->ID == $this->getOwner()->ID) {
+        if ($firstTwo[0]['ClassName'] == ElementHero::class && $firstTwo[0]['ID'] == $this->getOwner()->ID) {
             return true;
         }
 
         return null;
+    }
+
+    /**
+     * ID & ClassName of the first two elements in the owner's ElementalArea. Memoised per
+     * stage & area, since AfterHero()/IsHero() are evaluated for every rendered element.
+     *
+     * @return array<int,array{ID:int,ClassName:string}>
+     */
+    private function firstTwoElements(): array
+    {
+        $key = Versioned::get_stage() . '-' . (int) $this->getOwner()->ParentID;
+        if (!array_key_exists($key, static::$firstTwoElementsCache)) {
+            $rows = [];
+            $elements = BaseElement::get()
+                ->filter(['ParentID' => $this->getOwner()->ParentID])
+                ->sort(['Sort' => 'ASC'])
+                ->limit(2);
+            foreach ($elements as $element) {
+                $rows[] = ['ID' => (int) $element->ID, 'ClassName' => $element->ClassName];
+            }
+            static::$firstTwoElementsCache[$key] = $rows;
+        }
+
+        return static::$firstTwoElementsCache[$key];
     }
 
     public function getAnchorTitle(): string

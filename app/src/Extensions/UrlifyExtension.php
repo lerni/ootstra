@@ -2,7 +2,6 @@
 
 namespace App\Extensions;
 
-use Spatie\SchemaOrg\Schema;
 use App\Models\SlugHolderPage;
 use SilverStripe\View\SSViewer;
 use SilverStripe\Core\Extension;
@@ -194,55 +193,37 @@ class UrlifyExtension extends Extension
         return null;
     }
 
-    public function BreadcrumbListSchema(): string
+    /**
+     * Breadcrumb trail from the root down to this item, based on the slug holder
+     * page. Shared by the HTML breadcrumbs and the schema.org BreadcrumbList.
+     *
+     * @return array<int, \SilverStripe\ORM\DataObject>
+     */
+    public function getBreadcrumbItems($maxDepth = 20, $stopAtPageType = false, $showHidden = false): array
     {
-        $pageObjs = [];
-        $i = 1;
-
-        $page = Controller::curr()->data();
-        if ($page && $page->hasMethod('getBreadcrumbItems')) {
-            foreach ($page->getBreadcrumbItems() as $item) {
-                $pageObjs[] = Schema::ListItem()
-                    ->position($i++)
-                    ->name($item->Title)
-                    ->item(
-                        Schema::Thing()->setProperty('@id', $item->AbsoluteLink()),
-                    );
+        $items = [$this->getOwner()];
+        $page = $this->getOwner()->Parent();
+        while ($page
+            && $page->exists()
+            && (!$maxDepth || count($items) < $maxDepth)
+            && (!$stopAtPageType || $page->ClassName != $stopAtPageType)
+        ) {
+            if ($showHidden || $page->ShowInMenus) {
+                $items[] = $page;
             }
+            $page = $page->Parent();
         }
 
-        if ($this->getOwner()->Link()) {
-            $pageObjs[] = Schema::ListItem()
-                ->position($i)
-                ->name($this->getOwner()->Title)
-                ->item(
-                    Schema::Thing()->setProperty('@id', $this->getOwner()->AbsoluteLink()),
-                );
-        }
-
-        return Schema::BreadcrumbList()
-            ->itemListElement($pageObjs)
-            ->toScript();
+        return array_reverse($items);
     }
 
     public function Breadcrumbs($maxDepth = 20, $unlinked = false, $stopAtPageType = false, $showHidden = false)
     {
-        $page = Controller::curr();
-        $pages = [];
-        $pages[] = $this->getOwner();
-        while ($page
-            && (!$maxDepth || count($pages) < $maxDepth)
-            && (!$stopAtPageType || $page->ClassName != $stopAtPageType)
-        ) {
-            if ($showHidden || $page->ShowInMenus || ($page->ID == $this->getOwner()->ID)) {
-                $pages[] = $page;
-            }
-            $page = $page->Parent;
-        }
         $template = SSViewer::create('BreadcrumbsTemplate');
 
         return $template->process($this->getOwner()->customise(ArrayData::create([
-            'Pages' => ArrayList::create(array_reverse($pages)),
+            'Pages' => ArrayList::create($this->getBreadcrumbItems($maxDepth, $stopAtPageType, $showHidden)),
+            'Unlinked' => $unlinked,
         ])));
     }
 

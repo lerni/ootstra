@@ -55,4 +55,3 @@
 	<% end_if %>
 </div>
 <% end_if %>
-<% if $FAQParts %>$FAQSchema.RAW<% end_if %>

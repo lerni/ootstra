@@ -3,7 +3,11 @@
 namespace App\Extensions;
 
 use SilverStripe\ORM\DB;
+use Spatie\SchemaOrg\Schema;
+use App\Schema\SchemaBuilder;
+use SilverStripe\Assets\Image;
 use SilverStripe\Core\Extension;
+use App\Schema\SchemaIdentifiers;
 use SilverStripe\Blog\Model\Blog;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\LiteralField;
@@ -46,6 +50,78 @@ class BlogPostExtension extends Extension
         if (is_object($this->getOwner()->getDefaultOGImage(1)) && $this->getOwner()->getDefaultOGImage(1)->exists()) {
             return $this->getOwner()->getDefaultOGImage(1)->CMSThumbnail();
         }
+    }
+
+    // OGArticle tag builder calls all of these on the owner
+    public function getOGArticlePublishedTime()
+    {
+        return $this->getOwner()->PublishDate;
+    }
+
+    public function getOGArticleModifiedTime()
+    {
+        return $this->getOwner()->LastEdited;
+    }
+
+    public function getOGArticleExpirationTime()
+    {
+        return null;
+    }
+
+    public function getOGArticleSection()
+    {
+        return $this->getOwner()->Categories()->first()?->Title;
+    }
+
+    public function getOGAuthors()
+    {
+        return $this->authorNames() ?: null;
+    }
+
+    // Authors (Members) and AuthorNames are hidden in the CMS but may be set in some cases
+    private function authorNames(): array
+    {
+        return array_values(array_filter(array_unique($this->getOwner()->getCredits()->column('Name'))));
+    }
+
+    public function getOGTags()
+    {
+        return $this->getOwner()->Categories()->column('Title');
+    }
+
+    public function provideSchemaEntities(): array
+    {
+        $owner = $this->getOwner();
+        $url = $owner->AbsoluteLink();
+        $organization = Schema::organization()->setProperty('@id', SchemaIdentifiers::organizationId());
+        $authors = array_map(fn (string $name) => Schema::person()->name($name), $this->authorNames());
+
+        $posting = Schema::blogPosting()
+            ->setProperty('@id', SchemaIdentifiers::articleId($url))
+            ->headline($owner->Title)
+            ->description($owner->DefaultMetaDescription() ?: null)
+            ->inLanguage(SchemaBuilder::language())
+            ->author($authors ?: $organization)
+            ->publisher($organization)
+            ->mainEntityOfPage(Schema::webPage()->setProperty('@id', SchemaIdentifiers::webPageId($url)));
+
+        if ($published = $owner->PublishDate ?: $owner->Created) {
+            $posting->datePublished(date('c', strtotime($published)));
+        }
+        if ($owner->LastEdited) {
+            $posting->dateModified(date('c', strtotime($owner->LastEdited)));
+        }
+
+        $image = $owner->getDefaultOGImage(1);
+        if ($image instanceof Image && $image->exists()) {
+            $posting->image($image->getAbsoluteURL());
+        }
+
+        if ($sections = $owner->Categories()->column('Title')) {
+            $posting->articleSection($sections);
+        }
+
+        return [$posting];
     }
 
     public function PrevNext($Mode = 'next')

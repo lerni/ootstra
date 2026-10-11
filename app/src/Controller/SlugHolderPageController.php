@@ -30,6 +30,7 @@ class SlugHolderPageController extends PageController
                 if ($item->hasExtension(UrlifyExtension::class)) {
                     $item->setSlugActive(true);
                 }
+                $this->registerSchemaForItem($item, $this->data());
                 $shortName = ClassInfo::shortName($class);
 
                 return $this->customise(['CurrentItem' => $item])->renderWith([

@@ -8,7 +8,7 @@ use Spatie\SchemaOrg\Schema;
 use SilverStripe\Assets\Image;
 use SilverStripe\ORM\DataObject;
 use App\Elements\ElementPersoCFA;
-use SilverStripe\Control\Director;
+use App\Schema\SchemaIdentifiers;
 use SilverStripe\Forms\EmailField;
 use SilverStripe\TagField\TagField;
 use SilverStripe\Forms\LiteralField;
@@ -181,11 +181,11 @@ class Perso extends DataObject
         return null;
     }
 
-    public function PersoSchema()
+    public function provideSchemaEntities(): array
     {
         $schemaPerson = Schema::person();
         $schemaPerson
-            ->setProperty('@id', $this->AbsoluteLink() . '#person')
+            ->setProperty('@id', SchemaIdentifiers::forUrl($this->AbsoluteLink(), 'person'))
             ->name($this->getTitle())
             ->jobTitle($this->Position)
             ->email($this->EMail)
@@ -193,7 +193,7 @@ class Perso extends DataObject
             ->url($this->AbsoluteLink())
             ->worksFor(
                 Schema::organization()
-                    ->setProperty('@id', Director::absoluteBaseURL() . '#organization'),
+                    ->setProperty('@id', SchemaIdentifiers::organizationId()),
             );
 
         if ($this->Portrait()->exists()) {
@@ -205,7 +205,7 @@ class Perso extends DataObject
             $schemaPerson->sameAs($sameAsLinks);
         }
 
-        return $schemaPerson->toScript();
+        return [$schemaPerson];
     }
 
     public function QRURL()

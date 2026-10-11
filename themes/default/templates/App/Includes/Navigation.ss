@@ -12,7 +12,7 @@
 						<menu id="submenu-$ID" class="menu2">
 							<% loop $Childrenexcluded %>
 								<li data-linkingmode="$ID">
-									<a href="$Link"<% if $NewWindow %> target="_blank" rel="noopener"<% end_if %> data-hx-boost="<% if $ClassName == SilverStripe\CMS\Model\RedirectorPage %>false<% else %>true<% end_if %>">$MenuTitle.NormalizedXML</a>
+									<a href="{$Link}<% if not $NewWindow && $ClassName != SilverStripe\CMS\Model\RedirectorPage %>?expand={$Up.ID}<% end_if %>"<% if $NewWindow %> target="_blank" rel="noopener"<% end_if %> data-hx-boost="<% if $ClassName == SilverStripe\CMS\Model\RedirectorPage %>false<% else %>true<% end_if %>">$MenuTitle.NormalizedXML</a>
 								</li>
 							<% end_loop %>
 						</menu>

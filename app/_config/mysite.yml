@@ -81,13 +81,16 @@ Kraftausdruck\Admin\TaskRunnerAdmin:
 Page:
   extensions:
     - App\Extensions\PageExtension
-    - App\Extensions\PageSchemaExtension
   childrenexcluded:
     default:
       - SilverStripe\Blog\Model\BlogPost
       - App\Models\MetaOverviewPage
     metaoverview:
       - App\Models\MetaOverviewPage
+
+SilverStripe\CMS\Controllers\ContentController:
+  extensions:
+    - App\Extensions\SchemaControllerExtension
 
 PageController:
   extensions:
@@ -284,6 +287,8 @@ UndefinedOffset\NoCaptcha\Forms\NocaptchaField:
   proxy_auth: "" #Your proxy server authentication information (optional)
 
 SilverStripe\Core\Injector\Injector:
+  SilverStripe\View\Requirements_Backend:
+    class: App\Schema\SchemaRequirementsBackend
   # extensions are cached as singletons keyed by class name only, so without
   # this, all owners of this extension would share one instance/limit value
   App\Extensions\LimitCreateExtension:

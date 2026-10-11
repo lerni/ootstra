@@ -2,7 +2,7 @@
 <% include App/Includes/Header %>
 <% include App/Includes/Navigation %>
 <main class="typography">
-	<nav class="breadcrumbs"><div class="inner">{$Breadcrumbs}</div></nav>
+	<% with $CurrentItem %><nav class="breadcrumbs"><div class="inner">{$Breadcrumbs}</div></nav><% end_with %>
 	<article class="element elementperso details horizontal-spacing spacing-top-0 spacing-bottom-2 after-hero">
 		<div class="typography">
 			<% with $CurrentItem %>
@@ -35,7 +35,6 @@
 							<% end_if %>
 						</div>
 					</div>
-					$PersoSchema.RAW
 				</div>
 				<% if $Motiation %><div class="motivation">{$Motivation}</div><% end_if %>
 				<a class="parent-link back" href="$Top.Link">$Top.MenuTitle</a>

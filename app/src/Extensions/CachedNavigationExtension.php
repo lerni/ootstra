@@ -56,14 +56,21 @@ class CachedNavigationExtension extends Extension
             $element->removeAttribute('data-linkingmode');
         }
 
-        // Mark parent pages as section
+        // Mark parent pages as section; only expand the one requested via ?expand=<ID>
+        $expandId = (int)$request->getVar('expand');
         $count = 0;
         while ($current->ParentID != 0 && $count++ < 20) {
+            $isExpanded = $expandId && $expandId === (int)$current->ParentID;
             $sectionElements = $xpath->query("//*[@data-linkingmode='{$current->ParentID}']");
             foreach ($sectionElements as $element) {
                 $classes = $element->getAttribute('class');
-                $element->setAttribute('class', trim($classes . ' section expanded'));
+                $element->setAttribute('class', trim($classes . ' section' . ($isExpanded ? ' expanded' : '')));
                 $element->removeAttribute('data-linkingmode');
+                if ($isExpanded) {
+                    foreach ($xpath->query('.//*[@aria-controls]', $element) as $control) {
+                        $control->setAttribute('aria-expanded', 'true');
+                    }
+                }
             }
             $current = $current->Parent();
         }

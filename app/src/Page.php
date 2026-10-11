@@ -9,6 +9,7 @@ use SilverStripe\Forms\FieldList;
 use SilverStripe\Control\Director;
 use SilverStripe\Security\Security;
 use SilverStripe\TagField\TagField;
+use TractorCow\OpenGraph\OpenGraph;
 use JonoM\ShareCare\ShareCareFields;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Control\Controller;
@@ -22,6 +23,7 @@ use SilverStripe\CMS\Model\VirtualPage;
 use TractorCow\Fluent\State\FluentState;
 use SilverStripe\Blog\Model\BlogCategory;
 use SilverStripe\CMS\Model\RedirectorPage;
+use TractorCow\OpenGraph\Constants\OGTypes;
 use SilverStripe\CMS\Controllers\RootURLController;
 use DNADesign\ElementalVirtual\Model\ElementVirtual;
 use SilverStripe\Core\Manifest\ModuleResourceLoader;
@@ -123,6 +125,16 @@ class Page extends SiteTree
         }
 
         return $metaDescription;
+    }
+
+    // Native method so it deterministically wins over OpenGraphObjectExtension::getOGType()
+    public function getOGType()
+    {
+        if ($this instanceof BlogPost) {
+            return OGTypes::ARTICLE;
+        }
+
+        return OpenGraph::get_object_type($this) ?: OGTypes::DEFAULT_TYPE;
     }
 
     public function getSettingsFields()
@@ -258,9 +270,10 @@ class Page extends SiteTree
         // OGImageCustom
         if ($this->hasExtension(ShareCareFields::class) && $this->OGImageCustom->exists()) {
             $i = $this->OGImageCustom;
-        } elseif ($this->ImagesForSitemap() && $this->ImagesForSitemap()->count()) {
+        } else {
             // first image on page, allowed to be indexed
-            $firstImage = $this->ImagesForSitemap()->first();
+            $sitemapImages = $this->ImagesForSitemap();
+            $firstImage = $sitemapImages ? $sitemapImages->first() : null;
             if ($firstImage && $firstImage->exists()) {
                 $i = $firstImage;
             }

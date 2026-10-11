@@ -1,20 +1,25 @@
 <?php
 
-namespace App\Extensions;
+namespace App\Schema;
 
-use Page;
+use SilverStripe\i18n\i18n;
 use Spatie\SchemaOrg\Schema;
-use SilverStripe\Core\Extension;
+use Spatie\SchemaOrg\WebPage;
+use Spatie\SchemaOrg\WebSite;
+use SilverStripe\ORM\DataObject;
 use SilverStripe\Control\Director;
-use SilverStripe\Model\List\ArrayList;
+use Spatie\SchemaOrg\BreadcrumbList;
 use SilverStripe\SiteConfig\SiteConfig;
-use SilverStripe\CMS\Model\RedirectorPage;
 use SilverStripe\Core\Manifest\ModuleResourceLoader;
 
-class PageSchemaExtension extends Extension
+/**
+ * Builds the site-wide baseline entities (Organization, WebSite) and the
+ * per-page ones (WebPage, BreadcrumbList) from data we already have.
+ */
+class SchemaBuilder
 {
     // options in SiteConfig
-    public static function AvailableSchemaTypes()
+    public static function availableTypes(): array
     {
         return [
             'Corporation' => Schema::corporation(),
@@ -29,10 +34,10 @@ class PageSchemaExtension extends Extension
         ];
     }
 
-    public static function buildOrganisationSchemaObject()
+    public static function organization()
     {
         $siteConfig = SiteConfig::current_site_config();
-        $schemaTypes = static::AvailableSchemaTypes();
+        $schemaTypes = static::availableTypes();
         $schemaType = (string) $siteConfig->SchemaType;
         $schemaOrganisation = $schemaTypes[$schemaType] ?? Schema::organization();
 
@@ -50,11 +55,10 @@ class PageSchemaExtension extends Extension
             );
 
         if ($siteConfig->Locations()->count()) {
-
             $locations = [];
+            $areasServed = [];
             $i = 0;
             foreach ($siteConfig->Locations() as $location) {
-
                 $country = strtoupper($location->Country ?? '');
 
                 $PushLocation = Schema::postalAddress()
@@ -89,17 +93,23 @@ class PageSchemaExtension extends Extension
                 }
 
                 if ($location->PointURL) {
-                    // $locations[$i]->hasMap($location->GMapLatLngLink);
                     $locations[$i]->hasMap($location->PointURL);
                 }
-                // if ($siteConfig->DefaultHeaderSlides()->count() && $siteConfig->DefaultHeaderSlides()->sort('SortOrder ASC')->first()->SlideImage()->exists()) {
-                //     $locations[$i]->image(rtrim(Director::absoluteBaseURL(), '/') . $siteConfig->DefaultHeaderSlides()->sort('SortOrder ASC')->first()->SlideImage()->Link());
-                // }
+
+                // Region of each location, town as fallback; deduped by name
+                if ($location->AddressRegion) {
+                    $areasServed[$location->AddressRegion] ??= Schema::administrativeArea()->name($location->AddressRegion);
+                } elseif ($location->Town) {
+                    $areasServed[$location->Town] ??= Schema::city()->name($location->Town);
+                }
 
                 ++$i;
             }
 
             $schemaOrganisation->location($locations);
+            if ($areasServed) {
+                $schemaOrganisation->areaServed(array_values($areasServed));
+            }
         }
 
         // Add sameAs links from SocialLinks
@@ -113,41 +123,76 @@ class PageSchemaExtension extends Extension
         }
 
         // Set @id so other schemas can reference this organization
-        $schemaOrganisation->setProperty('@id', Director::absoluteBaseURL() . '/#organization');
+        $schemaOrganisation->setProperty('@id', SchemaIdentifiers::organizationId());
 
         return $schemaOrganisation;
     }
 
-    public function OrganisationSchema()
+    public static function website(): WebSite
     {
-        return static::buildOrganisationSchemaObject()->toScript();
+        $siteConfig = SiteConfig::current_site_config();
+
+        return Schema::webSite()
+            ->setProperty('@id', SchemaIdentifiers::websiteId())
+            ->name($siteConfig->Title)
+            ->url(SchemaIdentifiers::siteUrl())
+            ->inLanguage(static::language())
+            ->publisher(Schema::organization()->setProperty('@id', SchemaIdentifiers::organizationId()));
     }
 
-    public function BreadcrumbListSchema()
+    /**
+     * @param array<int, array{name: string, url: string}> $breadcrumbs
+     */
+    public static function webPage(DataObject $subject, string $url, array $breadcrumbs = []): WebPage
     {
-        $pageObjs = [];
-        $i = 0;
-        $breadcrumbs = $this->getOwner()->getBreadcrumbItems();
-        if ($breadcrumbs instanceof ArrayList) {
-            foreach ($breadcrumbs as $item) {
-                if ($item instanceof RedirectorPage) {
-                    continue;
-                }
+        $siteConfig = SiteConfig::current_site_config();
 
-                $pageObjs[$i] = Schema::ListItem()
-                    ->position($i + 1)
-                    ->name($item->Title)
-                    ->item(
-                        Schema::Thing()
-                            ->setProperty('@id', $item->AbsoluteLink()),
-                    );
-                ++$i;
-            }
+        $description = $subject->MetaDescription
+            ?: ($subject->hasMethod('DefaultMetaDescription') ? $subject->DefaultMetaDescription() : null)
+            ?: $siteConfig->MetaDescription;
+
+        $webPage = Schema::webPage()
+            ->setProperty('@id', SchemaIdentifiers::webPageId($url))
+            ->url($url)
+            ->name($subject->MetaTitle ?: $subject->Title)
+            ->description($description ?: null)
+            ->inLanguage(static::language())
+            ->isPartOf(Schema::webSite()->setProperty('@id', SchemaIdentifiers::websiteId()))
+            ->about(Schema::organization()->setProperty('@id', SchemaIdentifiers::organizationId()));
+
+        if ($published = $subject->PublishDate ?: $subject->Created) {
+            $webPage->datePublished(date('c', strtotime($published)));
+        }
+        if ($subject->LastEdited) {
+            $webPage->dateModified(date('c', strtotime($subject->LastEdited)));
+        }
+        if ($breadcrumbs) {
+            $webPage->breadcrumb(Schema::breadcrumbList()->setProperty('@id', SchemaIdentifiers::breadcrumbId($url)));
         }
 
-        $breadcrumbList = Schema::BreadcrumbList()
-            ->itemListElement($pageObjs);
+        return $webPage;
+    }
 
-        return $breadcrumbList->toScript();
+    /**
+     * @param array<int, array{name: string, url: string}> $breadcrumbs
+     */
+    public static function breadcrumbList(string $url, array $breadcrumbs): BreadcrumbList
+    {
+        $items = [];
+        foreach (array_values($breadcrumbs) as $i => $crumb) {
+            $items[] = Schema::listItem()
+                ->position($i + 1)
+                ->name($crumb['name'])
+                ->item(Schema::thing()->setProperty('@id', $crumb['url']));
+        }
+
+        return Schema::breadcrumbList()
+            ->setProperty('@id', SchemaIdentifiers::breadcrumbId($url))
+            ->itemListElement($items);
+    }
+
+    public static function language(): string
+    {
+        return str_replace('_', '-', i18n::get_locale());
     }
 }

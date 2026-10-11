@@ -13,19 +13,18 @@
 
 		<nav class="breadcrumbs"><div class="inner">{$Breadcrumbs}</div></nav>
 
-		<article id="$URLSegment" class="element elementjobs horizontal-spacing width-reduced spacing-top-1 spacing-bottom-2">
+		<article id="$URLSegment" class="element elementjobs horizontal-spacing width-reduced spacing-bottom-2">
 			<div class="typography">
 				<% if not $LastFor %>
 					<div class="alert alert-warning"><%t Kraftausdruck\Models\JobPosting.expired 'expired' %></div>
 				<% end_if %>
 				<h1 class="element-title">{$Title}</h1>
 				$Description
-				$JobPostingSchema.RAW
 			</div>
 		</article>
 
 		<% if $Inserat %><article class="element pdf-download background--section horizontal-spacing spacing-top-2 spacing-bottom-2">
-			<div class="swiper multiple" data-id="{$ID}" id="hero-swiper-{$ID}">
+			<div class="swiper multiple" data-id="{$ID}" id="job-inserat-swiper-{$ID}">
 				<div class="swiper-wrapper">
 					<% if $Inserat.PDFImage('webp', 1000, 1) %>
 						<a href="{$Inserat.URL}" class="swiper-slide" target="_blank" rel="noopener noreferrer">
@@ -107,7 +106,6 @@
 								<% end_if %>
 								</div>
 							</figure>
-
 							<div class="txt">
 								<% with $Up %>
 									<h3>{$JobDefaults.CFA}</h3>

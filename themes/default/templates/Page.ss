@@ -19,7 +19,5 @@
 <body class="{$ShortClassName($this, true)}">
 	{$Layout}
 	<% include App/Includes/Footer %>
-	<% if $isHomePage %>$OrganisationSchema.RAW<% end_if %>
-	$BreadcrumbListSchema.RAW
 </body>
 </html>

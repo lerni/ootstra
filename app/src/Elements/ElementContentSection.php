@@ -4,6 +4,7 @@ namespace App\Elements;
 
 use App\Models\ContentPart;
 use Spatie\SchemaOrg\Schema;
+use App\Schema\SchemaIdentifiers;
 use SilverStripe\Forms\LiteralField;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Forms\GridField\GridField;
@@ -76,37 +77,28 @@ class ElementContentSection extends BaseElement
         return $this->ContentParts()->filter(['FAQSchema' => 1]);
     }
 
-    public function FAQSchema()
+    public function provideSchemaEntities(): array
     {
-
-        $FAQParts = $this->getFAQParts();
-
-        $schemaFAQ = Schema::fAQPage();
-
-        if ($FAQParts->count()) {
-
-            $faqs = [];
-            $i = 0;
-            foreach ($FAQParts as $faq) {
-
-                $PushFAQ = Schema::question()
-                    ->acceptedAnswer(
-                        Schema::Answer()
-                            ->text($faq->Text),
-                    );
-
-                if ($faq->FAQTitle) {
-                    $PushFAQ->name($faq->FAQTitle);
-                } else {
-                    $PushFAQ->name($faq->Title);
-                }
-
-                $faqs[$i] = $PushFAQ;
-                ++$i;
-            }
-
-            return $schemaFAQ->mainEntity($faqs)->toScript();
+        $faqs = [];
+        foreach ($this->getFAQParts() as $faq) {
+            $faqs[] = Schema::question()
+                ->name($faq->FAQTitle ?: $faq->Title)
+                ->acceptedAnswer(
+                    Schema::Answer()
+                        ->text($faq->Text),
+                );
         }
+
+        if (!$faqs) {
+            return [];
+        }
+
+        $schemaFAQ = Schema::fAQPage()->mainEntity($faqs);
+        if ($pageUrl = $this->getPage()?->AbsoluteLink()) {
+            $schemaFAQ->setProperty('@id', SchemaIdentifiers::forUrl($pageUrl, 'faq-' . $this->ID));
+        }
+
+        return [$schemaFAQ];
     }
 
     public function getType()

@@ -7,6 +7,7 @@ use App\Models\Location;
 use App\Models\Vacation;
 use App\Models\SocialLink;
 use SilverStripe\Forms\Tab;
+use App\Schema\SchemaBuilder;
 use App\Models\ShortCodeSnippet;
 use SilverStripe\Core\Extension;
 use SilverStripe\Forms\DateField;
@@ -86,7 +87,7 @@ class SiteConfigExtension extends Extension
         $fields->addFieldToTab('Root.Main', $legalNameField = TextField::create('legalName', _t('SilverStripe\SiteConfig\SiteConfig.LEGALNAME', 'Official name (legal)')));
         $fields->addFieldToTab('Root.Main', $foundingDateField = DateField::create('foundingDate', _t('SilverStripe\SiteConfig\SiteConfig.FOUNDINGDATE', 'Date of foundation'))->setHTML5(true));
 
-        $schemaTypeKeys = array_keys(PageSchemaExtension::AvailableSchemaTypes());
+        $schemaTypeKeys = array_keys(SchemaBuilder::availableTypes());
         $schemaTypes = array_combine($schemaTypeKeys, $schemaTypeKeys);
         $fields->addFieldToTab('Root.Main', $schmeTypeField = DropdownField::create('SchemaType', _t('SilverStripe\SiteConfig\SiteConfig.SCHEMATYPE', 'Schema Type'), $schemaTypes));
 
