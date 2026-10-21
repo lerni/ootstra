@@ -130,7 +130,7 @@ task('silverstripe:deploy_backup_script', function (): void {
 
 desc('Run composer vendor-expose');
 task('silverstripe:vendor_expose', function (): void {
-    run('cd {{release_path}} && {{bin/composer}} vendor-expose');
+    run('cd {{release_or_current_path}} && {{bin/composer}} vendor-expose');
 });
 
 
@@ -158,7 +158,7 @@ task('silverstripe:htaccessperstage', function (): void {
     // upload htaccess, if a specific version for the current stage exist
     if (file_exists('deploy/' . $stage . '.htaccess')) {
         writeln('Overwriting .htaccess with deploy/' . $stage . '.htaccess');
-        upload('deploy/' . $stage . '.htaccess', "{{release_path}}/public/.htaccess", [
+        upload('deploy/' . $stage . '.htaccess', "{{release_or_current_path}}/public/.htaccess", [
             'options' => [
                 "--perms",
                 "--delete",
@@ -330,7 +330,7 @@ task('silverstripe:remote_dump', function ($prefix = 'auto'): void {
 
     invoke('silverstripe:create_dump_dir');
 
-    $releaseNo = basename(get('release_path'));
+    $releaseNo = basename(run('realpath {{release_or_current_path}}'));
     if ($releaseNo) {
 
         $filename = get('application') . '-' . $stage . '-' . $releaseNo . '-db-' . date('Y-m-d-H-i-s') . '.sql.gz';

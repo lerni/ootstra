@@ -31,7 +31,7 @@ class FieldExtension extends Extension
             return false;
         }
         $dom = new DOMDocument();
-        @$dom->loadHTML($stringwithnoemptylines);
+        $dom->loadHTML($stringwithnoemptylines, LIBXML_NOERROR);
 
         return $dom->getElementsByTagName("a")->length;
     }
@@ -121,9 +121,19 @@ class FieldExtension extends Extension
     {
         if ($this->getOwner()->value) {
             $converter = new GithubFlavoredMarkdownConverter();
-            $html = $converter->convertToHtml($this->getOwner()->value);
+            $html = $converter->convertToHtml($this->getOwner()->value)->getContent();
 
-            return DBHTMLText::create()->setValue($html->getContent());
+            // CommonMark escapes quotes, which breaks shortcode arguments like [Vacation MonthsInAdvance="3"]
+            $html = preg_replace_callback(
+                '/\[[A-Za-z_][^\[\]]*\]/',
+                fn (array $m) => str_replace(['&quot;', '&#039;'], ['"', "'"], $m[0]),
+                $html,
+            );
+
+            $field = DBHTMLText::create()->setValue($html);
+            $field->setProcessShortcodes(true);
+
+            return $field;
         }
 
         return null;
@@ -136,8 +146,11 @@ class FieldExtension extends Extension
         if ($vidSrc = $this->getOwner()->value) {
 
             $dom = new DOMDocument();
-            $dom->loadHTML($vidSrc);
+            $dom->loadHTML($vidSrc, LIBXML_NOERROR);
             $iframe = $dom->getElementsByTagName("iframe");
+            if (!$iframe->length) {
+                return null;
+            }
             $iFrameSrc = $iframe->item(0)->getAttribute('src');
 
             // lazy load anyways

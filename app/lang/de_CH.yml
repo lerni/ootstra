@@ -27,7 +27,9 @@ de_CH:
     OneOrTheOther: 'Bilder per Ordner (alle enthaltenen) oder einzeln wählen & sortieren'
   App\Elements\ElementHero:
     BlockType: Hero
+    COUNTMAX: 'Zeige maximal'
     CountMaxFieldDescription: '"0" bedeutet keine Begrenzung'
+    SHUFFLE: 'Reihenfolge zufällig'
     SITEMAPIMAGEEXPOSE: 'Bilder in sitemap.xml zeigen'
     DONOTCROP: 'Höhe nicht begrenzen'
     DoNotCropDescription: 'Keine maximale Höhe für breite viewports → "small" & "medium"'
@@ -142,9 +144,44 @@ de_CH:
     TELEPHONE: Telefon
     TOWN: Ort
     COUNTRY: Land
-    OPENINGHOURS: Öffnungszeiten
+    OPENINGHOURS: 'Öffnungszeiten (Freitext, veraltet)'
+    OPENINGHOURSLEGACY: 'Wird nicht für strukturierte Daten verwendet. Ersetzt durch die strukturierten Öffnungszeiten unten.'
+    OPENINGTIMES: Öffnungszeiten
+    ADDOPENINGTIME: 'Öffnungszeit hinzufügen'
+    OPENINGHOURSSUFFIX: ' Uhr'
+    OPENINGHOURSAND: und
+    OPENINGTIMESSAVEFIRST: 'Standort zuerst speichern, um Öffnungszeiten hinzuzufügen.'
+    OPENINGTIMESDESCRIPTION: 'Eine Zeile pro Zeitraum, z.B. eine Mittagspause ergibt zwei Zeilen. Zeiten leer lassen, um Tage als geschlossen zu markieren. Ferien & Feiertage werden unter «Ferien & Feiertage» verwaltet.'
     DescriptionGeoPointField: 'Koordinaten aus ElementMap verknüpfen'
     Duplicate: '{FieldName} muss einzigartig sein!'
+  App\Models\OpeningHour:
+    SINGULARNAME: Öffnungszeit
+    PLURALNAME: Öffnungszeiten
+    DAYFROM: 'Tag von'
+    DAYTO: 'Tag bis (optional)'
+    OPENS: Öffnet
+    CLOSES: Schliesst
+    NOTE: Notiz
+    DAYS: Tage
+    HOURS: Zeiten
+    CLOSED: Geschlossen
+    DAY_MONDAY: Montag
+    DAY_TUESDAY: Dienstag
+    DAY_WEDNESDAY: Mittwoch
+    DAY_THURSDAY: Donnerstag
+    DAY_FRIDAY: Freitag
+    DAY_SATURDAY: Samstag
+    DAY_SUNDAY: Sonntag
+    DAYSHORT_MONDAY: Mo
+    DAYSHORT_TUESDAY: Di
+    DAYSHORT_WEDNESDAY: Mi
+    DAYSHORT_THURSDAY: Do
+    DAYSHORT_FRIDAY: Fr
+    DAYSHORT_SATURDAY: Sa
+    DAYSHORT_SUNDAY: So
+    DAYVALIDATION: 'Der letzte Tag darf nicht vor dem ersten Tag liegen.'
+    TIMEPAIRVALIDATION: 'Bitte Öffnungs- und Schliesszeit angeben oder beide leer lassen für «geschlossen».'
+    TIMEVALIDATION: 'Die Schliesszeit muss nach der Öffnungszeit liegen.'
   App\Models\Testimonial:
     CategoriesDescription: 'Tippe "%" um alle Datensätze anzuzeigen.'
   App\Models\Vacation:
@@ -154,6 +191,7 @@ de_CH:
     LOCATIONS: Standorte
     SINGULARNAME: Ferien
     PLURALNAME: Ferien
+    PERMISSIONCATEGORY: Ferien
     DATEVALIDATION: 'Enddatum muss nach oder am selben Tag wie das Startdatum liegen.'
     LOCATIONVALIDATION: 'Es muss mindestens ein Standort ausgewählt werden.'
   App\Models\Logo:
@@ -224,6 +262,8 @@ de_CH:
     TITLE: Titel
     ICONNAME: 'Icon Name'
     IconNameDescription: 'Icon Name von <a href="{link}" target="_blank">{link}</a>!'
+    IsUsedOnComment: '"{name}" wird verwendet in'
+    UsedByType: Typ
     SAMEAS: '"sameAs" in schema verwenden'
     TitleRequired: 'Titel ist erforderlich!'
   App\Models\Teaser:

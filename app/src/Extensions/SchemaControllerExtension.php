@@ -14,7 +14,7 @@ use SilverStripe\CMS\Controllers\ContentController;
 
 /**
  * Collects all schema.org entities of a request into {@see SchemaRegistry}.
- * Emission as a single JSON-LD `@graph` happens in {@see \App\Schema\SchemaRequirementsBackend}.
+ * Emission as a single JSON-LD `@graph` happens in {@see \App\Schema\SchemaResponseMiddleware}.
  *
  * Any DataObject/element may contribute by implementing
  * `provideSchemaEntities(): iterable` returning spatie/schema-org types (or arrays).
@@ -39,6 +39,7 @@ class SchemaControllerExtension extends Extension
             return;
         }
 
+        SchemaRegistry::setHookOwner($owner);
         SchemaRegistry::add(SchemaBuilder::organization());
         SchemaRegistry::add(SchemaBuilder::website());
 

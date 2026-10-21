@@ -73,8 +73,8 @@ class ElementHero extends BaseElement
         $labels['HeroSize'] = _t(self::class . '.HEROSIZE', 'Size / height header');
         $labels['DoNotCrop'] = _t(self::class . '.DONOTCROP', 'Do not limit height with wide viewport → "small" & "medium".');
         $labels['SitemapImageExpose'] = _t(self::class . '.SITEMAPIMAGEEXPOSE', 'expose images in sitemap.xml');
-        $labels['CountMax'] = _t(self::class . '.TITLE', 'Zeige maximal');
-        $labels['Shuffle'] = _t(self::class . '.TITLE', 'Reihenfolge zufällig');
+        $labels['CountMax'] = _t(self::class . '.COUNTMAX', 'Show maximum');
+        $labels['Shuffle'] = _t(self::class . '.SHUFFLE', 'Random order');
 
         return $labels;
     }

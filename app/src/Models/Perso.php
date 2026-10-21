@@ -24,6 +24,7 @@ use SilverStripe\Forms\GridField\GridFieldDeleteAction;
 use SilverStripe\Forms\GridField\GridFieldFilterHeader;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 use SilverStripe\Forms\Validation\RequiredFieldsValidator;
+use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
 class Perso extends DataObject
 {
@@ -109,7 +110,10 @@ class Perso extends DataObject
         // hack around unsaved relations
         if ($this->isInDB()) {
 
-            $fields->removeByName('Departments');
+            $fields->removeByName([
+                'Departments',
+                'SocialLinks',
+            ]);
             $DepartmentsField = TagField::create(
                 'Departments',
                 _t('SilverStripe\Blog\Model\Blog.Departments', 'Departments'),
@@ -125,10 +129,14 @@ class Perso extends DataObject
             $SocialConf->addComponents(
                 GridFieldEditButton::create(),
                 GridFieldDeleteAction::create(false),
+                GridFieldDeleteAction::create(true),
                 GridFieldDetailForm::create(),
                 GridFieldAddNewButton::create('toolbar-header-left'),
+                GridFieldAddExistingAutocompleter::create('toolbar-header-right'),
                 GridFieldOrderableRows::create('SortOrder'),
             );
+            $SocialGridField = GridField::create('SocialLinks', 'SocialLinks', $this->SocialLinks(), $SocialConf);
+            $fields->addFieldToTab('Root.Main', $SocialGridField);
 
             // show where associated per CFAElement
             $persoOnCFAElementConfig = GridFieldConfig_Base::create(20);
@@ -210,7 +218,7 @@ class Perso extends DataObject
 
     public function QRURL()
     {
-        if ($this->Departments()->count && $this->Departments()->first()->PersoElement()) {
+        if ($this->Departments()->count() && $this->Departments()->first()->PersoElement()->count()) {
             return $this->Departments()->first()->PersoElement()->first()->getController()->qrvc($this->ID);
         }
     }

@@ -249,7 +249,7 @@ SilverStripe\CMS\Model\SiteTree:
     - App\Extensions\HeritageExtension
     - DorsetDigital\SilverStripeCanonical\SiteTreeCanonicalExtension
   meta_generator: ''
-  show_meta_generator_version: false
+  # show_meta_generator_version: false # not needed when meta_generator is empty
 
 SilverStripe\SiteConfig\SiteConfig:
   extensions:
@@ -287,8 +287,11 @@ UndefinedOffset\NoCaptcha\Forms\NocaptchaField:
   proxy_auth: "" #Your proxy server authentication information (optional)
 
 SilverStripe\Core\Injector\Injector:
-  SilverStripe\View\Requirements_Backend:
-    class: App\Schema\SchemaRequirementsBackend
+  # Response middleware instead of a Requirements_Backend subclass, so it survives other backend swaps
+  SilverStripe\Control\Director:
+    properties:
+      Middlewares:
+        SchemaResponseMiddleware: '%$App\Schema\SchemaResponseMiddleware'
   # extensions are cached as singletons keyed by class name only, so without
   # this, all owners of this extension would share one instance/limit value
   App\Extensions\LimitCreateExtension:

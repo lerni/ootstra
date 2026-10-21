@@ -3,10 +3,18 @@
 namespace App\Models;
 
 use SilverStripe\ORM\DataObject;
+use SilverStripe\Model\ArrayData;
 use SilverStripe\Control\Director;
 use SilverStripe\VendorPlugin\Util;
 use SilverStripe\Forms\DropdownField;
+use SilverStripe\Model\List\ArrayList;
+use SilverStripe\SiteConfig\SiteConfig;
+use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\Validation\CompositeValidator;
+use SilverStripe\Forms\GridField\GridFieldConfig_Base;
+use SilverStripe\Forms\GridField\GridFieldDataColumns;
+use SilverStripe\Forms\GridField\GridFieldFilterHeader;
+use SilverStripe\Forms\GridField\GridFieldSortableHeader;
 use SilverStripe\Forms\Validation\RequiredFieldsValidator;
 
 class SocialLink extends DataObject
@@ -30,6 +38,11 @@ class SocialLink extends DataObject
     // marker lat/lng	l,s
 
     private static $has_one = [];
+
+    private static $belongs_many_many = [
+        'Persos' => Perso::class . '.SocialLinks',
+        'SiteConfigs' => SiteConfig::class . '.SocialLinks',
+    ];
 
     private static $table_name = 'SocialLink';
 
@@ -68,11 +81,12 @@ class SocialLink extends DataObject
     {
         $fields = parent::getCMSFields();
 
-        if ($TitleField = $fields->dataFieldByName('IconName')) {
-            $iconURL = 'https://simpleicons.org/';
-            $TitleField->setDescription(_t(self::class . '.IconNameDescription', 'Icon names from <a href="{link}" target="_blank">{link}</a>!', [ 'link' => $iconURL ]));
-        }
+        $fields->removeByName([
+            'Persos',
+            'SiteConfigs',
+        ]);
 
+        $iconURL = 'https://simpleicons.org/';
         $valueArray = $this->getAvailableIconNames();
 
         $iconNameField = DropdownField::create(
@@ -80,8 +94,44 @@ class SocialLink extends DataObject
             _t(self::class . '.ICONNAME', 'Icon name'),
             $valueArray,
         );
-        $iconNameField->setDescription(_t(self::class . '.IconName', 'Icon names from <a href="{link}" target="_blank">{link}</a>!', [ 'link' => $iconURL ]));
+        $iconNameField->setDescription(_t(self::class . '.IconNameDescription', 'Icon names from <a href="{link}" target="_blank">{link}</a>!', ['link' => $iconURL]));
         $fields->replaceField('IconName', $iconNameField);
+
+        if ($this->isInDB()) {
+            $usedBy = ArrayList::create();
+            foreach ($this->SiteConfigs() as $siteConfig) {
+                $usedBy->push(ArrayData::create([
+                    'Type' => $siteConfig->i18n_singular_name(),
+                    'Title' => $siteConfig->Title,
+                ]));
+            }
+            foreach ($this->Persos() as $perso) {
+                $usedBy->push(ArrayData::create([
+                    'Type' => $perso->i18n_singular_name(),
+                    'Title' => $perso->getTitle(),
+                ]));
+            }
+
+            if ($usedBy->count() > 1) {
+                $usedConfig = GridFieldConfig_Base::create(20);
+                $usedConfig->removeComponentsByType([
+                    GridFieldFilterHeader::class,
+                    GridFieldSortableHeader::class,
+                ]);
+                $usedConfig->getComponentByType(GridFieldDataColumns::class)
+                    ->setDisplayFields([
+                        'Type' => _t(self::class . '.UsedByType', 'Type'),
+                        'Title' => _t(self::class . '.TITLE', 'Title'),
+                    ]);
+                $usedGridField = GridField::create(
+                    'SocialLinkUsedOn',
+                    _t(self::class . '.IsUsedOnComment', '"{name}" is associated on', ['name' => $this->Title]),
+                    $usedBy,
+                    $usedConfig,
+                );
+                $fields->addFieldToTab('Root.Main', $usedGridField);
+            }
+        }
 
         return $fields;
     }
@@ -133,6 +183,15 @@ class SocialLink extends DataObject
 
         // Default simple-icons path
         return "/_resources/vendor/simple-icons/simple-icons/icons/{$iconName}.svg";
+    }
+
+    public function canDelete($member = null)
+    {
+        if (($this->Persos()->count() + $this->SiteConfigs()->count()) > 1) {
+            return false;
+        }
+
+        return parent::canDelete($member);
     }
 
     public function getCMSCompositeValidator(): CompositeValidator

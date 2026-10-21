@@ -36,5 +36,13 @@
       "command": ["php", "./vendor/bin/php-cs-fixer", "fix", "$FILE"],
       "extensions": [".php"]
     }
+  },
+  "mcp": {
+    "silverstripe-local": {
+      "type": "local",
+      "command": ["php", "vendor/lerni/mcp-server-poc/bin/mcp-server.php"],
+      "cwd": ".",
+      "environment": { "MCP_TARGET": "local" }
+    }
   }
 }

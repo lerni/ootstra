@@ -59,7 +59,7 @@ class CachedNavigationExtension extends Extension
         // Mark parent pages as section; only expand the one requested via ?expand=<ID>
         $expandId = (int)$request->getVar('expand');
         $count = 0;
-        while ($current->ParentID != 0 && $count++ < 20) {
+        while ($current && $current->ParentID != 0 && $count++ < 20) {
             $isExpanded = $expandId && $expandId === (int)$current->ParentID;
             $sectionElements = $xpath->query("//*[@data-linkingmode='{$current->ParentID}']");
             foreach ($sectionElements as $element) {

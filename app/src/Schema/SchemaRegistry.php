@@ -15,6 +15,8 @@ class SchemaRegistry
      */
     protected static array $entities = [];
 
+    protected static ?object $hookOwner = null;
+
     /**
      * Add an entity. Entities sharing an `@id` are merged, later values win.
      * Entities without an `@id` are appended as-is.
@@ -31,9 +33,41 @@ class SchemaRegistry
             return;
         }
 
-        static::$entities[$id] = isset(static::$entities[$id])
-            ? array_replace_recursive(static::$entities[$id], $data)
-            : $data;
+        if (isset(static::$entities[$id])) {
+            // FAQ sections of one page share an @id; their questions are appended, not overwritten
+            if (($data['@type'] ?? null) === 'FAQPage' && isset($data['mainEntity'], static::$entities[$id]['mainEntity'])) {
+                $data['mainEntity'] = [
+                    ...static::asList(static::$entities[$id]['mainEntity']),
+                    ...static::asList($data['mainEntity']),
+                ];
+            }
+            $data = array_replace_recursive(static::$entities[$id], $data);
+        }
+
+        static::$entities[$id] = $data;
+    }
+
+    protected static function asList(mixed $value): array
+    {
+        return is_array($value) && array_is_list($value) ? $value : [$value];
+    }
+
+    /**
+     * Object whose `updateSchemaGraph(array &$graph)` hook runs before output (usually the page controller).
+     */
+    public static function setHookOwner(?object $owner): void
+    {
+        static::$hookOwner = $owner;
+    }
+
+    public static function getFinalGraph(): array
+    {
+        $graph = static::getGraph();
+        if (static::$hookOwner && method_exists(static::$hookOwner, 'extend')) {
+            static::$hookOwner->extend('updateSchemaGraph', $graph);
+        }
+
+        return $graph;
     }
 
     /**
@@ -69,6 +103,7 @@ class SchemaRegistry
     public static function flush(): void
     {
         static::$entities = [];
+        static::$hookOwner = null;
     }
 
     public static function getJSON(?array $graph = null): string

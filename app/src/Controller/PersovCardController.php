@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Models\Perso;
-use SilverStripe\i18n\i18n;
 use App\Elements\ElementPerso;
 use JeroenDesloovere\VCard\VCard;
 use SilverStripe\Control\Director;
@@ -33,19 +32,17 @@ class PersovCardController extends Controller
         $charset = 'utf-8';
         $vcard->setCharset($charset);
 
-        $vcard->addName($perso->Lastname, $perso->AcademicTitle, $perso->Firstname);
+        $vcard->addName($perso->Lastname, $perso->Firstname);
         $vcard->addCompany(SiteConfig::current_site_config()->Title);
         $vcard->addJobtitle($perso->Position);
         $vcard->addEmail($perso->EMail);
         $vcard->addPhoneNumber($perso->Telephone, 'PREF;WORK');
 
         if ($location = SiteConfig::current_site_config()->Locations()->first()) {
-            $countryCode = $location->Country;
-            $AllCountries = i18n::getData()->getCountries();
-            $country = $AllCountries[$countryCode];
+            $country = $location->CountryName() ?? '';
 
             $vcard->addAddress(null, null, $location->Address, $location->Town, null, $location->PostalCode, $country);
-            $vcard->addLabel("$location->Address, $location->Town, $location->PostalCode $country");
+            $vcard->addLabel(trim("$location->Address, $location->Town, $location->PostalCode $country"));
         }
 
         $element = ElementPerso::get()->filter(['Persos.ID' => $ID])->first();

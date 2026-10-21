@@ -23,6 +23,9 @@ class LocationShortCodeProvider
                 if ($arguments['Field'] == 'EMailLink') {
                     return '<a href="mailto:' . $loc->EMail . '">' . $loc->EMail . '</a>';
                 }
+                if ($arguments['Field'] == 'OpeningHours' && $openingHours = $loc->OpeningHoursHTML()) {
+                    return $openingHours;
+                }
                 if ($loc->hasField($arguments['Field']) &&
                     $loc->dbObject($arguments['Field'])::class == DBText::class) {
                     return nl2br($loc->{$arguments['Field']});

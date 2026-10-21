@@ -75,11 +75,8 @@ class SchemaBuilder
                     ->name($location->Title)
                     ->address($PushLocation);
 
-                if ($location->OpeningHours) {
-                    // remove empty newlines
-                    $ohString = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $location->OpeningHours);
-                    $openingHoursLines = explode(PHP_EOL, $ohString);
-                    $locations[$i]->openingHours($openingHoursLines);
+                if ($openingHoursSpecs = $location->OpeningHoursSpecifications()) {
+                    $locations[$i]->openingHoursSpecification($openingHoursSpecs);
                 }
 
                 if ($location->GeoPoint()->exists()) {

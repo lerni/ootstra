@@ -1,0 +1,14 @@
+{
+	"mcpServers": {
+		"silverstripe-local": {
+			"type": "stdio",
+			"command": "php",
+			"args": [
+				"vendor/lerni/mcp-server-poc/bin/mcp-server.php"
+			],
+			"env": {
+				"MCP_TARGET": "local"
+			}
+		}
+	}
+}

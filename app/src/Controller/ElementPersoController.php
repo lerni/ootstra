@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Models\Perso;
 use Endroid\QrCode\QrCode;
-use SilverStripe\i18n\i18n;
 use SilverStripe\Assets\File;
 use Endroid\QrCode\Color\Color;
 use JeroenDesloovere\VCard\VCard;
@@ -60,12 +59,10 @@ class ElementPersoController extends ElementController
             $vcard->addPhoneNumber($perso->Telephone, 'PREF;WORK');
 
             if ($location = SiteConfig::current_site_config()->Locations()->first()) {
-                $countryCode = $location->Country;
-                $AllCountries = i18n::getData()->getCountries();
-                $country = $AllCountries[$countryCode];
+                $country = $location->CountryName() ?? '';
 
                 $vcard->addAddress(null, null, $location->Address, $location->Town, null, $location->PostalCode, $country);
-                $vcard->addLabel("$location->Address, $location->Town, $location->PostalCode {$country}");
+                $vcard->addLabel(trim("$location->Address, $location->Town, $location->PostalCode {$country}"));
             }
             $vcard->addURL(Director::protocolAndHost() . Director::get_current_page()->Link() . '#' . $perso->Anchor());
 
@@ -93,7 +90,7 @@ class ElementPersoController extends ElementController
             return $vcard->download();
         }
 
-        return $this->getOwner()->httpError(404, _t(self::class . '.NotFound', "vCard couldn't be found."));
+        return $this->httpError(404, _t(self::class . '.NotFound', "vCard couldn't be found."));
     }
 
     public function qrvc($ID)
@@ -101,7 +98,7 @@ class ElementPersoController extends ElementController
 
         $perso = Perso::get()->byID($ID);
 
-        if ($perso->exists()) {
+        if ($perso && $perso->exists()) {
             // if a current-folder exists, we assume a symlinked baseFolder like with PHP deployer
             $base = Director::baseFolder();
             $current = dirname($base, 2) . '/current';
@@ -127,10 +124,11 @@ class ElementPersoController extends ElementController
                 if (filemtime($absolute_filepath) < ((int)strtotime($perso->LastEdited) - 3)) {
                     // the file should be deleted
                     // unlink($absolute_filepath);
-                    $obsoletRecord = File::get()->filter(['FileFilename' => 'qr/' . $perso->ID . '.svg'])->first();
-                    $obsoletRecord->delete();
-                    $obsoletRecord->revokeFile();
-                    $obsoletRecord->deleteFile(true);
+                    if ($obsoletRecord = File::get()->filter(['FileFilename' => 'qr/' . $perso->ID . '.svg'])->first()) {
+                        $obsoletRecord->delete();
+                        $obsoletRecord->revokeFile();
+                        $obsoletRecord->deleteFile(true);
+                    }
                 } else {
                     $file = File::get()->filter(['FileFilename' => $relative_filepath])->first();
                 }

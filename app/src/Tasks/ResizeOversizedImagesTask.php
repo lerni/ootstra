@@ -1,6 +1,6 @@
 <?php
 
-namespace Bummzack\Tasks;
+namespace App\Tasks;
 
 use SilverStripe\Assets\Image;
 use SilverStripe\Dev\BuildTask;

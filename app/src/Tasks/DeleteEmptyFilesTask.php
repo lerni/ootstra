@@ -35,7 +35,7 @@ class DeleteEmptyFilesTask extends BuildTask
             // we also need to delete from the versions table
             $query = SQLDelete::create()
                 ->setFrom('"File_Versions"')
-                ->setWhere("RecordID", $file->ID);
+                ->setWhere(['"RecordID"' => $file->ID]);
 
             $result = $query->execute();
         }

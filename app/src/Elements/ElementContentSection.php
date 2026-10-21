@@ -5,6 +5,7 @@ namespace App\Elements;
 use App\Models\ContentPart;
 use Spatie\SchemaOrg\Schema;
 use App\Schema\SchemaIdentifiers;
+use SilverStripe\Control\Director;
 use SilverStripe\Forms\LiteralField;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Forms\GridField\GridField;
@@ -94,8 +95,15 @@ class ElementContentSection extends BaseElement
         }
 
         $schemaFAQ = Schema::fAQPage()->mainEntity($faqs);
-        if ($pageUrl = $this->getPage()?->AbsoluteLink()) {
-            $schemaFAQ->setProperty('@id', SchemaIdentifiers::forUrl($pageUrl, 'faq-' . $this->ID));
+        // Current page first: a virtual (linked) element belongs to the page rendering it
+        $page = Director::get_current_page();
+        $pageUrl = ($page && $page->hasMethod('AbsoluteLink') ? $page->AbsoluteLink() : null)
+            ?: $this->getPage()?->AbsoluteLink();
+        if ($pageUrl) {
+            // One FAQPage per page; SchemaRegistry merges the questions of all sections
+            $schemaFAQ
+                ->setProperty('@id', SchemaIdentifiers::forUrl($pageUrl, 'faq'))
+                ->isPartOf(Schema::webPage()->setProperty('@id', SchemaIdentifiers::webPageId($pageUrl)));
         }
 
         return [$schemaFAQ];

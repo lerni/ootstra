@@ -40,25 +40,25 @@ class Vacation extends DataObject implements PermissionProvider
         return [
             'VACATION_VIEW' => [
                 'name' => 'View Vacations',
-                'category' => 'Basket Orders',
+                'category' => _t(self::class . '.PERMISSIONCATEGORY', 'Vacations'),
                 'help' => 'Allow viewing of vacations',
                 'sort' => 100,
             ],
             'VACATION_EDIT' => [
                 'name' => 'Edit Vacations',
-                'category' => 'Basket Orders',
+                'category' => _t(self::class . '.PERMISSIONCATEGORY', 'Vacations'),
                 'help' => 'Allow editing of vacations',
                 'sort' => 200,
             ],
             'VACATION_DELETE' => [
                 'name' => 'Delete Vacations',
-                'category' => 'Basket Orders',
+                'category' => _t(self::class . '.PERMISSIONCATEGORY', 'Vacations'),
                 'help' => 'Allow deletion of vacations',
                 'sort' => 300,
             ],
             'VACATION_CREATE' => [
                 'name' => 'Create Vacations',
-                'category' => 'Basket Orders',
+                'category' => _t(self::class . '.PERMISSIONCATEGORY', 'Vacations'),
                 'help' => 'Allow creation of vacations',
                 'sort' => 400,
             ],

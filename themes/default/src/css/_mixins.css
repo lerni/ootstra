@@ -134,12 +134,12 @@
 @define-mixin arrow-after $color: var(--link-color), $arrow-width-hover: 2em, $arrow-width-small: 1.1em {
 	&::after {
 		@mixin arrow $(color), $(arrow-width-hover), $(arrow-width-small);
-		&:hover {
-			filter: contrast(110%) saturate(110%);
-			&::after {
-				margin-right: 0;
-				width: $arrow-width-hover;
-			}
+	}
+	&:hover {
+		filter: contrast(110%) saturate(110%);
+		&::after {
+			margin-right: 0;
+			width: $arrow-width-hover;
 		}
 	}
 }
