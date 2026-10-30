@@ -144,14 +144,8 @@ de_CH:
     TELEPHONE: Telefon
     TOWN: Ort
     COUNTRY: Land
-    OPENINGHOURS: 'Öffnungszeiten (Freitext, veraltet)'
-    OPENINGHOURSLEGACY: 'Wird nicht für strukturierte Daten verwendet. Ersetzt durch die strukturierten Öffnungszeiten unten.'
-    OPENINGTIMES: Öffnungszeiten
-    ADDOPENINGTIME: 'Öffnungszeit hinzufügen'
-    OPENINGHOURSSUFFIX: ' Uhr'
-    OPENINGHOURSAND: und
-    OPENINGTIMESSAVEFIRST: 'Standort zuerst speichern, um Öffnungszeiten hinzuzufügen.'
-    OPENINGTIMESDESCRIPTION: 'Eine Zeile pro Zeitraum, z.B. eine Mittagspause ergibt zwei Zeilen. Zeiten leer lassen, um Tage als geschlossen zu markieren. Ferien & Feiertage werden unter «Ferien & Feiertage» verwaltet.'
+    SHORTCODEBLOCK: 'Shortcodes Adressblock'
+    SHORTCODEBLOCKDESCRIPTION: 'In einen beliebigen Text kopieren, um Titel, Adresse, Telefon und E-Mail dieses Standorts anzuzeigen.'
     DescriptionGeoPointField: 'Koordinaten aus ElementMap verknüpfen'
     Duplicate: '{FieldName} muss einzigartig sein!'
   App\Models\OpeningHour:
@@ -165,35 +159,19 @@ de_CH:
     DAYS: Tage
     HOURS: Zeiten
     CLOSED: Geschlossen
-    DAY_MONDAY: Montag
-    DAY_TUESDAY: Dienstag
-    DAY_WEDNESDAY: Mittwoch
-    DAY_THURSDAY: Donnerstag
-    DAY_FRIDAY: Freitag
-    DAY_SATURDAY: Samstag
-    DAY_SUNDAY: Sonntag
-    DAYSHORT_MONDAY: Mo
-    DAYSHORT_TUESDAY: Di
-    DAYSHORT_WEDNESDAY: Mi
-    DAYSHORT_THURSDAY: Do
-    DAYSHORT_FRIDAY: Fr
-    DAYSHORT_SATURDAY: Sa
-    DAYSHORT_SUNDAY: So
     DAYVALIDATION: 'Der letzte Tag darf nicht vor dem ersten Tag liegen.'
     TIMEPAIRVALIDATION: 'Bitte Öffnungs- und Schliesszeit angeben oder beide leer lassen für «geschlossen».'
-    TIMEVALIDATION: 'Die Schliesszeit muss nach der Öffnungszeit liegen.'
+    TIMEVALIDATION: 'Die Schliesszeit muss sich von der Öffnungszeit unterscheiden.'
   App\Models\Testimonial:
     CategoriesDescription: 'Tippe "%" um alle Datensätze anzuzeigen.'
   App\Models\Vacation:
     TITLE: Titel
     STARTDATE: Startdatum
     ENDDATE: Enddatum
-    LOCATIONS: Standorte
     SINGULARNAME: Ferien
     PLURALNAME: Ferien
     PERMISSIONCATEGORY: Ferien
     DATEVALIDATION: 'Enddatum muss nach oder am selben Tag wie das Startdatum liegen.'
-    LOCATIONVALIDATION: 'Es muss mindestens ein Standort ausgewählt werden.'
   App\Models\Logo:
     TITLE: 'Titel'
     LOGOIMAGE: 'Logo Datei'
@@ -324,6 +302,14 @@ de_CH:
     TermsNavigationItemsDescription: 'Footer (AGB, Datenschutz, Impressum etc.)'
     TITLE: 'Title / Name'
     VacationsHolidays: 'Ferien & Feiertage'
+    VACATIONSDESCRIPTION: 'Listet kommende Ferien & Feiertage auf. MonthsInAdvance begrenzt, wie viele Monate im Voraus angezeigt werden (Standard 6).'
+    OpeningHoursVacations: 'Öffnungszeiten & Ferien'
+    OpeningHoursSchemaTypeOk: 'Öffnungszeiten und Ferien werden in die strukturierten Daten übernommen (Schema-Typ "{type}").'
+    OpeningHoursSchemaTypeWarning: 'Der Schema-Typ "{type}" unterstützt keine Öffnungszeiten, daher werden sie nicht in die strukturierten Daten übernommen. Im Tab "Main" "LocalBusiness" oder einen Untertyp wählen.'
+    OPENINGHOURS: Öffnungszeiten
+    OPENINGHOURSSUFFIX: ' Uhr'
+    ADDOPENINGTIME: 'Öffnungszeit hinzufügen'
+    OPENINGHOURSDESCRIPTION: 'Eine Zeile pro Zeitspanne, z. B. ergibt eine Mittagspause zwei Zeilen. Ohne Zeiten gelten die Tage als geschlossen. Ferien & Feiertage unten werden als "geschlossen" interpretiert.'
   JonoM\ShareCare\ShareCare:
     TabName: 'Feed & Share'
   JonoM\ShareCare\ShareCareFields:

@@ -93,6 +93,7 @@ SilverStripe\SiteConfig\SiteConfig:
     DefaultHeroSize: 'medium'
     CookieLinkPrivacyID: 3
     legalName: 'kraftausdruck GmbH'
+    SchemaType: 'LocalBusiness'
     foundingDate: '2012-01-27'
     MetaDescription: 'Build Silverstripe websites fast with ootstra - complete CMS from dev, to deploy. Blog, Elemental, Schema.org, GDPR compliance & tracking, multilingual ready.'
     CanonicalDomain: 'https://ootstra.org/'
@@ -116,7 +117,7 @@ App\Elements\ElementMaps:
     Title: 'Komm vorbei'
     MapType: 'hybrid'
     ParentID: =>DNADesign\Elemental\Models\ElementalArea.kontaktArea
-    HTML: '<p>Kraftausdruck ist einfach zu finden. Parkplätze gibts direkt vor dem Eingang.</p><p>Wir freuen uns auf dich.</p><p>[Location, Title="1", Field="Title"]<br>[Location, Title="1", Field="Address"]<br>[Location, Title="1", Field="PostalCode"] [Location, Title="1", Field="Town"]</p><p>[Location Title="1" Field="TelLink"]</p><p>&nbsp;</p>'
+    HTML: '<p>Kraftausdruck ist einfach zu finden. Parkplätze gibts direkt vor dem Eingang.</p><p>Wir freuen uns auf dich.</p><p>[Location, Title="1", Field="Title"]<br>[Location, Title="1", Field="Address"]<br>[Location, Title="1", Field="PostalCode"] [Location, Title="1", Field="Town"]</p><p>[Location Title="1" Field="TelLink"]</p><p>[OpeningHours Days="cccc"]</p><p>[Vacation MonthsInAdvance="6"]</p><p>&nbsp;</p>'
     Points:
       - =>App\Models\Point.point1
 # SiteConfig (incl. CookieLinkPrivacyID) must exist before ElementForm, cos
@@ -178,3 +179,18 @@ App\Models\Location:
     EMail: 'le@kraftausdruck.ch'
     SiteConfigID: 1
     GeoPointID: =>App\Models\Point.point1
+App\Models\OpeningHour:
+  openingMorningWeek:
+    DayFrom: 'Monday'
+    DayTo: 'Friday'
+    Opens: '08:00:00'
+    Closes: '12:00:00'
+    Sort: 1
+    SiteConfigID: 1
+  openingAfternoonWeek:
+    DayFrom: 'Monday'
+    DayTo: 'Friday'
+    Opens: '13:30:00'
+    Closes: '17:00:00'
+    Sort: 2
+    SiteConfigID: 1

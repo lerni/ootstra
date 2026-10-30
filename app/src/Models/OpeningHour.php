@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
-use App\Models\Location;
 use Spatie\SchemaOrg\Schema;
 use Spatie\SchemaOrg\DayOfWeek;
 use SilverStripe\ORM\DataObject;
+use SilverStripe\ORM\FieldType\DBDate;
+use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\Core\Validation\ValidationResult;
 
 /**
- * One opening time range of a Location, e.g. "Monday - Friday, 08:00 - 12:00".
+ * One opening time range of the site, e.g. "Monday - Friday, 08:00 - 12:00".
  * A lunch break is modelled as two ranges. A range without times means "closed" on those days.
  */
 class OpeningHour extends DataObject
@@ -24,7 +25,7 @@ class OpeningHour extends DataObject
     ];
 
     private static $has_one = [
-        'Location' => Location::class,
+        'SiteConfig' => SiteConfig::class,
     ];
 
     private static $table_name = 'OpeningHour';
@@ -76,15 +77,7 @@ class OpeningHour extends DataObject
      */
     public static function dayOptions(): array
     {
-        return [
-            'Monday' => _t(self::class . '.DAY_MONDAY', 'Monday'),
-            'Tuesday' => _t(self::class . '.DAY_TUESDAY', 'Tuesday'),
-            'Wednesday' => _t(self::class . '.DAY_WEDNESDAY', 'Wednesday'),
-            'Thursday' => _t(self::class . '.DAY_THURSDAY', 'Thursday'),
-            'Friday' => _t(self::class . '.DAY_FRIDAY', 'Friday'),
-            'Saturday' => _t(self::class . '.DAY_SATURDAY', 'Saturday'),
-            'Sunday' => _t(self::class . '.DAY_SUNDAY', 'Sunday'),
-        ];
+        return self::localisedDays('cccc');
     }
 
     /** The time input submits 00:00:00 when left untouched, which is treated like empty */
@@ -98,15 +91,25 @@ class OpeningHour extends DataObject
      */
     public static function shortDayOptions(): array
     {
-        return [
-            'Monday' => _t(self::class . '.DAYSHORT_MONDAY', 'Mon'),
-            'Tuesday' => _t(self::class . '.DAYSHORT_TUESDAY', 'Tue'),
-            'Wednesday' => _t(self::class . '.DAYSHORT_WEDNESDAY', 'Wed'),
-            'Thursday' => _t(self::class . '.DAYSHORT_THURSDAY', 'Thu'),
-            'Friday' => _t(self::class . '.DAYSHORT_FRIDAY', 'Fri'),
-            'Saturday' => _t(self::class . '.DAYSHORT_SATURDAY', 'Sat'),
-            'Sunday' => _t(self::class . '.DAYSHORT_SUNDAY', 'Sun'),
-        ];
+        return self::localisedDays('ccc');
+    }
+
+    /**
+     * Day names from ICU/CLDR via the framework's date formatting, using the current i18n locale.
+     *
+     * @return array<string,string>
+     */
+    protected static function localisedDays(string $pattern): array
+    {
+        $date = DBDate::create();
+        $days = [];
+        // 2024-01-01 is a Monday
+        foreach (array_keys(self::config()->get('schema_days')) as $i => $day) {
+            $date->setValue(sprintf('2024-01-%02d', $i + 1));
+            $days[$day] = $date->Format($pattern);
+        }
+
+        return $days;
     }
 
     public function isClosed(): bool
@@ -141,9 +144,16 @@ class OpeningHour extends DataObject
         return array_slice($days, $from, $to - $from + 1);
     }
 
-    public function getDayLabel(bool $short = false): string
+    /**
+     * @param bool|string $short true for short names, or an ICU weekday pattern (e.g. "ccc" Mo, "cccc" Montag, "ccccc" M, "cccccc" Mo)
+     */
+    public function getDayLabel(bool|string $short = false): string
     {
-        $options = $short ? self::shortDayOptions() : self::dayOptions();
+        $options = match (true) {
+            is_string($short) => self::localisedDays($short),
+            $short => self::shortDayOptions(),
+            default => self::dayOptions(),
+        };
         $label = $options[$this->DayFrom] ?? '';
         if ($this->DayTo && $this->DayTo !== $this->DayFrom) {
             $label .= ' - ' . ($options[$this->DayTo] ?? '');
@@ -214,8 +224,9 @@ class OpeningHour extends DataObject
 
         if (!$this->Opens || !$this->Closes) {
             $result->addError(_t(self::class . '.TIMEPAIRVALIDATION', 'Please set both opening and closing time, or leave both empty for "closed".'));
-        } elseif ($this->Opens >= $this->Closes) {
-            $result->addFieldError('Closes', _t(self::class . '.TIMEVALIDATION', 'Closing time must be after opening time.'));
+        } elseif ($this->Opens === $this->Closes) {
+            // Closes < Opens is allowed: closing after midnight, as schema.org's OpeningHoursSpecification does
+            $result->addFieldError('Closes', _t(self::class . '.TIMEVALIDATION', 'Closing time must differ from opening time.'));
         }
 
         return $result;

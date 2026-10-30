@@ -11,11 +11,11 @@ use Symfony\Component\Console\Input\InputInterface;
 
 class RegenerateThumbnails extends BuildTask
 {
-    protected string $title = 'Regenerate image thumnbnails';
+    protected static string $commandName = 'regenerate-thumbnails';
 
-    protected static string $description = 'Run per CLI to regenerate thumbnails for all images.';
+    protected string $title = 'Regenerate image thumbnails';
 
-    protected $enabled = true;
+    protected static string $description = 'Run per CLI to regenerate thumbnails for all images. Use php ./vendor/bin/sake tasks:regenerate-thumbnails';
 
     protected function execute(InputInterface $input, PolyOutput $output): int
     {

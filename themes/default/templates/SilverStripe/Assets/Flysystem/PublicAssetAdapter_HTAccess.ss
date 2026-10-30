@@ -16,8 +16,8 @@ AddHandler default-handler php phtml php3 php4 php5 inc
 # Set correct MIME types for media files
 <IfModule mod_mime.c>
 	AddType image/webp .webp
-	AddType image/avif                                  avif
-	AddType image/avif-sequence                         avifs
+	AddType image/avif                                  .avif
+	AddType image/avif-sequence                         .avifs
 	AddCharset utf-8 .svg .svgz .webp
 </IfModule>
 
@@ -44,7 +44,7 @@ AddHandler default-handler php phtml php3 php4 php5 inc
 
 # Add immutable to Cache-Control for static assets with long cache lifetimes
 <IfModule mod_headers.c>
-	<FilesMatch "\.(avif|gif|ico|jpe?g|jxl|a?png|svgz?|webp|css|js)$">
+	<FilesMatch "\\.(avif|gif|ico|jpe?g|jxl|a?png|svgz?|webp|css|js)$">
 		Header merge Cache-Control "immutable"
 	</FilesMatch>
 </IfModule>

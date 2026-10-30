@@ -23,7 +23,15 @@
         {
             "type": "vcs",
             "url": "git@bitbucket.org:kraftausdruck/mcp-server-poc.git"
-        }
+        },
+		{
+			"type": "vcs",
+			"url": "https://github.com/lerni/silverstripe-assets-intervention4"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/lerni/silverstripe-scaled-uploads"
+		}
 	],
 	"require": {
 		"php": ">=8.0 <=8.6",
@@ -72,12 +80,14 @@
 		"simple-icons/simple-icons": "^15",
 		"silverstripe/linkfield": "^5",
 		"bigfork/silverstripe-vitesse": "^2",
-		"axllent/silverstripe-scaled-uploads": "^2",
+		"axllent/silverstripe-scaled-uploads": "dev-fix/read-source-from-asset-store as 2.3.99",
 		"pixelpoems/silverstripe-indexnow": "2.x-dev",
 		"lerni/jobpostings": "6.x-dev",
 		"lerni/cms-task": "dev-master",
 		"lerni/silverstripe-google-indexing": "dev-master",
 		"lerni/mcp-server-poc": "dev-master",
+		"lerni/silverstripe-assets-intervention4": "^3.2",
+		"intervention/image-driver-vips": "^4.2",
 		"purplespider/silverstripe-visual-block-picker": "^2"
 	},
 	"require-dev": {
@@ -131,7 +141,8 @@
 			"composer/installers": true,
 			"silverstripe/vendor-plugin": true,
 			"silverstripe/recipe-plugin": true,
-			"php-http/discovery": true
+			"php-http/discovery": true,
+			"cweagans/composer-patches": true
 		}
 	}
 }

@@ -13,6 +13,8 @@ DNADesign\Populate\Populate:
     - App\Elements\ElementMaps
     - App\Models\Point
     - App\Models\Location
+    - App\Models\OpeningHour
+    - App\Models\Vacation
     - SilverStripe\SiteConfig\SiteConfig
     - App\Models\SocialLink
     - App\Models\Slide

@@ -1,0 +1,47 @@
+{
+    "_hash": "08aa2660bf5ed85de8421285995b9980e80b2e09a21c160e38ac145a33aba07c",
+    "patches": {
+        "silverstripe/assets": [
+            {
+                "package": "silverstripe/assets",
+                "description": "Read image resource from stream instead of temp file (silverstripe-assets 3.4, upstream PR #716)",
+                "url": "https://raw.githubusercontent.com/lerni/silverstripe-assets-intervention4/3.2.1/patches/0001-stream-read-no-tempfile.patch",
+                "sha256": "60c8796ae75230f0f62b8df321398f5ab43425c856d8fe54ae87623449922c76",
+                "depth": 1,
+                "extra": {
+                    "provenance": "dependency:silverstripe/assets"
+                }
+            },
+            {
+                "package": "silverstripe/assets",
+                "description": "Port InterventionBackend, factory, converter and tests to Intervention Image 4",
+                "url": "https://raw.githubusercontent.com/lerni/silverstripe-assets-intervention4/3.2.1/patches/0002-intervention-image-4.patch",
+                "sha256": "1377b5530fb7691263950f61c5188a4923febfc226d0f0ad850043ad38a5ae29",
+                "depth": 1,
+                "extra": {
+                    "provenance": "dependency:silverstripe/assets"
+                }
+            },
+            {
+                "package": "silverstripe/assets",
+                "description": "Unload image resource after warming dimension cache on cache miss",
+                "url": "https://raw.githubusercontent.com/lerni/silverstripe-assets-intervention4/3.2.1/patches/0003-unload-resource-after-dimension-cache-miss.patch",
+                "sha256": "4b0b5df787840ee7ffdb9e8e2ef7bc092d6c3d0d59dbd68c377963477b5107df",
+                "depth": 1,
+                "extra": {
+                    "provenance": "dependency:silverstripe/assets"
+                }
+            },
+            {
+                "package": "silverstripe/assets",
+                "description": "Render sequential libvips pipelines to memory before encoding or cloning",
+                "url": "https://raw.githubusercontent.com/lerni/silverstripe-assets-intervention4/3.2.1/patches/0004-vips-ensure-in-memory.patch",
+                "sha256": "d3cab30425485c99565095f9c7965bfa8e418224c8e12873634daec25e684cce",
+                "depth": 1,
+                "extra": {
+                    "provenance": "dependency:silverstripe/assets"
+                }
+            }
+        ]
+    }
+}

@@ -11,6 +11,7 @@
 					<% if $EMail %><a href="mailto:{$EMail}">$EMail</a><% end_if %>
 				<% end_with %>
 			<% end_if %>
+			<% if $SiteConfig.OpeningHoursHTML %><span class="opening-hours">$SiteConfig.OpeningHoursHTML</span><% end_if %>
 		</div>
 		<div class="column social">
 			<% include App/Includes/Social %>

@@ -3,10 +3,10 @@
 namespace App\Tasks;
 
 use Exception;
+use SilverStripe\Core\Convert;
 use SilverStripe\Dev\BuildTask;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Environment;
-use SilverStripe\Control\Controller;
 use SilverStripe\Control\Email\Email;
 use Symfony\Component\Process\Process;
 use SilverStripe\ORM\FieldType\DBDatetime;
@@ -48,20 +48,11 @@ class ComposerAuditTask extends BuildTask
             return Command::FAILURE;
         }
 
-        if (Director::is_cli()) {
-            $dryRun = (bool) $input->getOption('dry-run');
-            $includeDev = (bool) $input->getOption('include-dev');
-            $abandonedMode = (string) $input->getOption('abandoned');
-            $ignoreSeverities = (array) $input->getOption('ignore-severity');
-            $to = $input->getOption('to');
-        } else {
-            $request = Controller::curr()->getRequest();
-            $dryRun = (bool) $request->getVar('dry-run');
-            $includeDev = (bool) $request->getVar('include-dev');
-            $abandonedMode = $request->getVar('abandoned') ?: 'report';
-            $ignoreSeverities = (array) ($request->getVar('ignore-severity') ?: []);
-            $to = $request->getVar('to');
-        }
+        $dryRun = (bool) $input->getOption('dry-run');
+        $includeDev = (bool) $input->getOption('include-dev');
+        $abandonedMode = (string) $input->getOption('abandoned');
+        $ignoreSeverities = (array) $input->getOption('ignore-severity');
+        $to = $input->getOption('to');
 
         if (!in_array($abandonedMode, self::ABANDONED_MODES, true)) {
             $abandonedMode = 'report';
@@ -109,6 +100,7 @@ class ComposerAuditTask extends BuildTask
         }
 
         $domain = Director::absoluteBaseURL();
+        $host = parse_url($domain, PHP_URL_HOST) ?: $domain;
         $body = $this->buildReportBody($domain, DBDatetime::now()->Nice(), $advisories, $abandoned);
 
         $output->writeln("Found {$advisoryCount} advisory/advisories and {$abandonedCount} abandoned package(s).");
@@ -141,7 +133,7 @@ class ComposerAuditTask extends BuildTask
         $email = Email::create()
             ->setBody($body)
             ->setTo($to)
-            ->setSubject("Composer Audit: {$advisoryCount} advisories, {$abandonedCount} abandoned packages on {$domain}");
+            ->setSubject("[{$host}] Composer Audit: {$advisoryCount} advisories, {$abandonedCount} abandoned");
 
         try {
             $email->send();
@@ -189,8 +181,8 @@ class ComposerAuditTask extends BuildTask
     private function buildReportBody(string $domain, string $checkedAt, array $advisories, array $abandoned): string
     {
         $lines = [
-            "Composer audit report for {$domain}.",
-            "Checked at: {$checkedAt}<br>",
+            'Composer audit report for ' . Convert::raw2xml($domain) . '.',
+            'Checked at: ' . Convert::raw2xml($checkedAt) . '<br>',
         ];
 
         if ($advisories !== []) {
@@ -199,14 +191,15 @@ class ComposerAuditTask extends BuildTask
             foreach ($advisories as $package => $packageAdvisories) {
                 foreach ($packageAdvisories as $advisory) {
                     $cve = $advisory['cve'] ?? null;
-                    $severity = $advisory['severity'] ?? 'unknown';
-                    $title = $advisory['title'] ?? 'Untitled advisory';
+                    $severity = Convert::raw2xml($advisory['severity'] ?? 'unknown');
+                    $title = Convert::raw2xml($advisory['title'] ?? 'Untitled advisory');
                     $link = $advisory['link'] ?? null;
+                    $packageName = Convert::raw2xml($package);
 
-                    $line = "- {$package} [{$severity}]" . ($cve ? " ({$cve})" : '') . ": {$title}";
+                    $line = "- {$packageName} [{$severity}]" . ($cve ? ' (' . Convert::raw2xml($cve) . ')' : '') . ": {$title}";
 
                     if ($link) {
-                        $line .= " ({$link})";
+                        $line .= ' (' . Convert::raw2xml($link) . ')';
                     }
 
                     $lines[] = $line . '<br>';
@@ -218,8 +211,8 @@ class ComposerAuditTask extends BuildTask
             $lines[] = '<br><strong>Abandoned packages:</strong><br>';
 
             foreach ($abandoned as $package => $replacement) {
-                $replacementText = is_string($replacement) ? "replaced by {$replacement}" : 'no replacement suggested';
-                $lines[] = "- {$package}: {$replacementText}<br>";
+                $replacementText = is_string($replacement) ? 'replaced by ' . Convert::raw2xml($replacement) : 'no replacement suggested';
+                $lines[] = '- ' . Convert::raw2xml($package) . ": {$replacementText}<br>";
             }
         }
 

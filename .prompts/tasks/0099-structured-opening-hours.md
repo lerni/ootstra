@@ -12,22 +12,25 @@ Goal: the CMS is the single source of truth for regular hours and closures, emit
 `OpeningHoursSpecification` and usable on the frontend.
 
 ## Decisions
-- New `App\Models\OpeningHour` (has_one `Location`, relation `Location.OpeningTimes`, cascade delete):
+- New `App\Models\OpeningHour` (has_one `SiteConfig`, relation `SiteConfig.OpeningHours`):
   `DayFrom`, optional `DayTo` (range), `Opens`, `Closes` (Time), `Note`, `Sort`.
   Lunch break = two rows; row without times = "closed" (shown on frontend, omitted from schema).
-- Edited inline in the Location via `GridFieldEditableColumns` + orderable rows.
-- `Location::OpeningHoursSpecifications()` = regular ranges + one closure per current/upcoming `Vacation`
+- Hours and `Vacation` are site-wide (synced from sigi), edited in the SiteConfig tab "Opening hours & Vacations"
+  via `GridFieldEditableColumns` + orderable rows. `Vacation` has no location relation.
+- `SiteConfig::OpeningHoursSpecifications()` = regular ranges + one closure per current/upcoming `Vacation`
   (`opens=closes=00:00`, `validFrom`/`validThrough`, no `dayOfWeek`). Closures are only emitted when regular hours exist.
-- `SchemaBuilder` uses `openingHoursSpecification()` instead of `openingHours()`.
-- `Location::OpeningHoursHTML()` renders escaped lines; shortcode `[Location Title=".." Field="OpeningHours"]`
-  returns them when structured hours exist, otherwise falls back to the legacy text.
-- **No data migration.** The legacy `OpeningHours` Text column stays (existing shortcode content keeps working),
-  is only shown in the CMS when non-empty, labelled legacy and never used for schema.
+- `SchemaBuilder::organization()` emits `openingHoursSpecification()` on the Organization, only for `LocalBusiness`
+  schema types (`SchemaBuilder::supportsOpeningHours()`); the SiteConfig tab shows a notice about that.
+- `SiteConfig::OpeningHoursHTML()` renders escaped lines; shortcode `[OpeningHours Days="cccc"]`.
+  `[Location ... Field="OpeningHours"]` forwards to it (legacy). Location shortcodes also accept `ID="..."`
+  (plus a read-only shortcode block in the Location CMS form); numeric `Title="1"` still works.
+- **No data migration.** The legacy `Location.OpeningHours` text column and the `OpeningHour.LocationID` /
+  `Vacation_Locations` leftovers stay orphaned in the DB.
 
 ## Out of scope / later
 - Push to Google Business Profile (opt-in per project, OAuth).
-- Midnight-crossing ranges (closes after 00:00), "by appointment" ranges.
-- Dropping the legacy column once all sites are converted.
+- "By appointment" ranges.
+- Per-location opening hours (dropped with the SiteConfig model).
 
 ## System Constraints
 - Follow conventions in `AGENTS.md` and `.prompts/system/silverstripe-conventions.md`
@@ -36,4 +39,5 @@ Goal: the CMS is the single source of truth for regular hours and closures, emit
 ## Execution Log
 - Agent: GitHub Copilot (Claude)
 - Verified via a throwaway transaction script: schema JSON output, HTML lines, validation; db:build created `OpeningHour`.
+- Ported the SiteConfig-wide model from sigi; fixtures (hours, vacation, `[OpeningHours]`/`[Vacation]` in Kontakt) and footer added.
 - Result Commit(s): _pending_

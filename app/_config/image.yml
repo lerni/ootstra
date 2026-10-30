@@ -1,0 +1,11 @@
+---
+Name: app-image-backend
+After:
+  - '#assetsimage'
+  - '#assetsimage-imagick'
+---
+# libvips instead of GD/Imagick. Must come after '#assetsimage-imagick', otherwise
+# silverstripe/assets' conditional imagick block wins when ext-imagick is loaded.
+SilverStripe\Core\Injector\Injector:
+  InterventionImageDriver:
+    class: 'Intervention\Image\Drivers\Vips\Driver'

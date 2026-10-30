@@ -14,6 +14,7 @@ use App\Utility\SnippetShortCodeProvider;
 use App\Utility\LocationShortCodeProvider;
 use App\Utility\VacationShortCodeProvider;
 use SilverStripe\Core\Manifest\ModuleLoader;
+use App\Utility\OpeningHoursShortCodeProvider;
 use SilverStripe\View\Parsers\ShortcodeParser;
 use SilverStripe\View\Parsers\URLSegmentFilter;
 use App\Utility\RetentionPeriodShortCodeProvider;
@@ -196,5 +197,6 @@ URLSegmentFilter::config()->default_replacements = [
 
 ShortcodeParser::get('default')->register('Location', [LocationShortCodeProvider::class, 'parseLocationShortCodeProvider']);
 ShortcodeParser::get('default')->register('Vacation', [VacationShortCodeProvider::class, 'parseVacationShortCodeProvider']);
+ShortcodeParser::get('default')->register('OpeningHours', [OpeningHoursShortCodeProvider::class, 'parseOpeningHoursShortCodeProvider']);
 ShortcodeParser::get('default')->register('Snippet', [SnippetShortCodeProvider::class, 'SnippetShortCodeProvider']);
 ShortcodeParser::get('default')->register('RetentionPeriod', [RetentionPeriodShortCodeProvider::class, 'parseRetentionPeriodShortCodeProvider']);

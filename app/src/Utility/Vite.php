@@ -13,13 +13,12 @@ class Vite extends VitesseVite
     {
         $entrypoints = new Collection($entrypoints);
 
-        // Use a stable key per unique set of entrypoints so Requirements deduplicates
-        $key = 'vite:' . $entrypoints->sort()->implode(',');
-
         $html = (string) parent::__invoke($entrypoints->all(), $buildDirectory);
 
-        if ($html) {
-            Requirements::insertHeadTags($html, $key);
+        // Key per tag so shared chunks are deduplicated across differently grouped vite calls
+        preg_match_all('#<script\b[^>]*>.*?</script>|<link\b[^>]*>#is', $html, $matches);
+        foreach ($matches[0] as $tag) {
+            Requirements::insertHeadTags($tag, 'vite:' . md5($tag));
         }
 
         // Return empty – assets are injected into <head> via Requirements

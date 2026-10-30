@@ -11,7 +11,7 @@
 					<li class="logo swiper-slide<% if $Link %> has-link<% end_if %>">
 						<% if $Link %><a title="<% if $Title %>$Title<% else %>$LogoImage.Title<% end_if %>" href="$Link" target="_blank" rel="noopener"><% end_if %>
 							<figure>
-								<img<% if not $IsFirst %> loading="lazy"<% end_if %> height="$LogoImage.ScaleMaxHeight(75).Height()" width="$LogoImage.ScaleMaxHeight(75).Width()" src="$LogoImage.ScaleMaxHeight(75).Convert('webp').URL" srcset="$LogoImage.ScaleMaxHeight(75).Convert('webp').URL 1x, $LogoImage.ScaleMaxHeight(150).Convert('webp').URL 2x" alt="<% if $Title %>$Title<% else %>$LogoImage.Title<% end_if %>" />
+								<img<% if not $IsFirst %> loading="lazy"<% end_if %> height="$LogoImage.ScaleMaxHeight(75).Height()" width="$LogoImage.ScaleMaxHeight(75).Width()" src="$LogoImage.ScaleMaxHeight(75).Convert('avif').URL" srcset="$LogoImage.ScaleMaxHeight(75).Convert('avif').URL 1x, $LogoImage.ScaleMaxHeight(150).Convert('avif').URL 2x" alt="<% if $Title %>$Title<% else %>$LogoImage.Title<% end_if %>" />
 							</figure>
 							<% if $Link %></a>
 						<% end_if %>
@@ -26,7 +26,7 @@
 					<li class="logo<% if $Link %> has-link<% end_if %>">
 						<% if $Link %><a class="prevent-hover" title="<% if $Title %>$Title<% else %>$LogoImage.Title<% end_if %>" href="$Link" target="_blank" rel="noopener"><% end_if %>
 						<figure>
-							<img<% if not $IsFirst %> loading="lazy"<% end_if %> height="$LogoImage.ScaleMaxHeight(80).Height()" width="$LogoImage.ScaleMaxHeight(80).Width()" src="$LogoImage.ScaleMaxHeight(80).Convert('webp').URL" srcset="$LogoImage.ScaleMaxHeight(80).Convert('webp').URL 1x, $LogoImage.ScaleMaxHeight(160).Convert('webp').URL 2x" alt="<% if $Title %>$Title<% else %>$LogoImage.Title<% end_if %>" />
+							<img<% if not $IsFirst %> loading="lazy"<% end_if %> height="$LogoImage.ScaleMaxHeight(80).Height()" width="$LogoImage.ScaleMaxHeight(80).Width()" src="$LogoImage.ScaleMaxHeight(80).Convert('avif').URL" srcset="$LogoImage.ScaleMaxHeight(80).Convert('avif').URL 1x, $LogoImage.ScaleMaxHeight(160).Convert('avif').URL 2x" alt="<% if $Title %>$Title<% else %>$LogoImage.Title<% end_if %>" />
 						</figure>
 						<% if $Link %></a><% end_if %>
 					</li>

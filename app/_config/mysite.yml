@@ -304,8 +304,6 @@ SilverStripe\Core\Injector\Injector:
     properties:
       SiteKey: '`SS_NOCAPTCHA_SITE_KEY`'
       SecretKey: '`SS_NOCAPTCHA_SECRET_KEY`'
-  InterventionImageDriver:
-    class: 'Intervention\Image\Drivers\Imagick\Driver'
   SilverStripe\Assets\Image_Backend:
     properties:
       Quality: 84
@@ -347,7 +345,7 @@ App\Controller\PersovCardController:
   expose_vcards: true
 
 App\Conversion\AvifFileConverter:
-  avif_quality: 60
+  avif_quality: 50
 
 Axllent\ScaledUploads\ScaledUploads:
   max_width: 4000

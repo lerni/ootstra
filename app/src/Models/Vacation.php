@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Location;
 use SilverStripe\ORM\DataObject;
-use SilverStripe\TagField\TagField;
 use SilverStripe\Security\Permission;
 use SilverStripe\ORM\FieldType\DBDate;
 use SilverStripe\Security\PermissionProvider;
@@ -22,13 +20,6 @@ class Vacation extends DataObject implements PermissionProvider
         'Title' => 'Title',
         'StartDate' => 'Start Date',
         'EndDate' => 'End Date',
-        'LocationsString' => 'Standorte',
-    ];
-
-    private static $has_one = [];
-
-    private static $many_many = [
-        'Locations' => Location::class,
     ];
 
     private static $default_sort = 'StartDate ASC';
@@ -85,27 +76,6 @@ class Vacation extends DataObject implements PermissionProvider
         return $labels;
     }
 
-    public function getCMSFields()
-    {
-        $fields = parent::getCMSFields();
-
-        $fields->removeByName('Locations');
-        $LocationsField = TagField::create(
-            'Locations',
-            _t('SilverStripe\Blog\Model\Blog.Departments',  _t(self::class . '.LOCATIONS', 'Locations')),
-            Location::get(),
-            $this->Locations(),
-        );
-        $fields->addFieldToTab('Root.Main', $LocationsField);
-
-        return $fields;
-    }
-
-    public function LocationsString()
-    {
-        return implode(', ', $this->Locations()->column('Title'));
-    }
-
     public function validate(): ValidationResult
     {
         $result = parent::validate();
@@ -116,10 +86,6 @@ class Vacation extends DataObject implements PermissionProvider
 
         if ($this->StartDate && $this->EndDate && $this->StartDate > $this->EndDate) {
             $result->addError(_t(self::class . '.DATEVALIDATION', 'Enddate must be after or on the same day as the start date.'));
-        }
-
-        if (!$this->Locations()->exists()) {
-            $result->addError(_t(self::class . '.LOCATIONVALIDATION', 'One or more locations must be selected.'));
         }
 
         return $result;

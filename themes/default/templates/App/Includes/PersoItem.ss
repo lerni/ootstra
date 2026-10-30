@@ -1,7 +1,7 @@
 <article id="$Anchor" class="perso" data-departments="<% loop $Departments %>$Title.URLEnc <% end_loop %>">
 	<figure>
 		<% if $Portrait %>
-			<img loading="lazy" height="$Portrait.FocusFillMax(400,400).Height()" width="$Portrait.FocusFillMax(400,400).Width()" src="$Portrait.FocusFillMax(400,400).Convert('webp').URL" srcset="$Portrait.FocusFillMax(400,400).Convert('webp').URL 1x, $Portrait.FocusFillMax(800,800).Convert('webp').URL 2x" alt="{$Firstname} {$Lastname}" />
+			<img loading="lazy" height="$Portrait.FocusFillMax(400,400).Height()" width="$Portrait.FocusFillMax(400,400).Width()" src="$Portrait.FocusFillMax(400,400).Convert('avif').URL" srcset="$Portrait.FocusFillMax(400,400).Convert('avif').URL 1x, $Portrait.FocusFillMax(800,800).Convert('avif').URL 2x" alt="{$Firstname} {$Lastname}" />
 		<% else %>
 			<img class="default" src="{$viteAsset('src/images/svg/perso-defalut.svg')}" alt="" />
 		<% end_if %>

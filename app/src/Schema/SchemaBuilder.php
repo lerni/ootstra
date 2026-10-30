@@ -8,6 +8,7 @@ use Spatie\SchemaOrg\WebPage;
 use Spatie\SchemaOrg\WebSite;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Control\Director;
+use Spatie\SchemaOrg\LocalBusiness;
 use Spatie\SchemaOrg\BreadcrumbList;
 use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\Core\Manifest\ModuleResourceLoader;
@@ -32,6 +33,12 @@ class SchemaBuilder
             'SportsOrganization' => Schema::sportsOrganization(),
             'GovernmentOrganization' => Schema::governmentOrganization(),
         ];
+    }
+
+    /** Only LocalBusiness types (e.g. Restaurant) define openingHoursSpecification */
+    public static function supportsOpeningHours(SiteConfig $siteConfig): bool
+    {
+        return (static::availableTypes()[(string) $siteConfig->SchemaType] ?? null) instanceof LocalBusiness;
     }
 
     public static function organization()
@@ -75,10 +82,6 @@ class SchemaBuilder
                     ->name($location->Title)
                     ->address($PushLocation);
 
-                if ($openingHoursSpecs = $location->OpeningHoursSpecifications()) {
-                    $locations[$i]->openingHoursSpecification($openingHoursSpecs);
-                }
-
                 if ($location->GeoPoint()->exists()) {
                     $PushGeo = Schema::geoCoordinates()
                         ->latitude($location->GeoPoint()->Latitude)
@@ -107,6 +110,11 @@ class SchemaBuilder
             if ($areasServed) {
                 $schemaOrganisation->areaServed(array_values($areasServed));
             }
+        }
+
+        // Google reads opening hours on the business itself, and only LocalBusiness types define the property
+        if (static::supportsOpeningHours($siteConfig) && $openingHoursSpecs = $siteConfig->OpeningHoursSpecifications()) {
+            $schemaOrganisation->openingHoursSpecification($openingHoursSpecs);
         }
 
         // Add sameAs links from SocialLinks
@@ -140,7 +148,7 @@ class SchemaBuilder
     /**
      * @param array<int, array{name: string, url: string}> $breadcrumbs
      */
-    public static function webPage(DataObject $subject, string $url, array $breadcrumbs = []): WebPage
+    public static function webPage(DataObject $subject, string $url, array $breadcrumbs = [], ?string $name = null): WebPage
     {
         $siteConfig = SiteConfig::current_site_config();
 
@@ -151,7 +159,7 @@ class SchemaBuilder
         $webPage = Schema::webPage()
             ->setProperty('@id', SchemaIdentifiers::webPageId($url))
             ->url($url)
-            ->name($subject->MetaTitle ?: $subject->Title)
+            ->name($name ?: $subject->MetaTitle ?: $subject->Title)
             ->description($description ?: null)
             ->inLanguage(static::language())
             ->isPartOf(Schema::webSite()->setProperty('@id', SchemaIdentifiers::websiteId()))

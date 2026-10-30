@@ -15,13 +15,14 @@ use Symfony\Component\Console\Input\InputInterface;
 
 class DeleteEmptyFilesTask extends BuildTask
 {
+    protected static string $commandName = 'delete-empty-files';
+
     protected string $title = 'Delete all empty Files';
 
-    protected static string $description = 'This task removes all entries from `File` table where `FileFilename IS NULL and not a folder. This task might timeout, if it does; then simply refresh the page to rerun it.';
+    protected static string $description = 'This task removes all entries from `File` table where `FileFilename IS NULL and not a folder. This task might timeout, if it does; then simply refresh the page to rerun it. Use php ./vendor/bin/sake tasks:delete-empty-files';
 
     protected function execute(InputInterface $input, PolyOutput $output): int
     {
-
         $files = File::get()->filter(['ClassName:not' => Folder::class, 'FileFilename' => null])->sort(['ID' => 'ASC']);
 
         foreach ($files as $file) {

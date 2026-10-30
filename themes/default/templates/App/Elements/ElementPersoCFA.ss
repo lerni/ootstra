@@ -13,8 +13,8 @@
 						<% with $Portrait %>
 							<img loading="lazy" alt="$Title" width="{$FocusFillMax(600,600).Width()}" height="{$FocusFillMax(600,600).Height()}"
 								<% if $FocusPoint.PercentageX != 50 || $FocusPoint.PercentageY != 50 %>style="object-position: {$FocusFillMax(600,600).FocusPoint.PercentageX}% {$FocusFillMax(600,600).FocusPoint.PercentageY}%;"<% end_if %>
-								src="$FocusFillMax(600,600).Convert('webp').URL"
-								srcset="$FocusFillMax(600,600).Convert('webp').URL 1x, $FocusFillMax(1200,1200).Convert('webp').URL 2x" />
+								src="$FocusFillMax(600,600).Convert('avif').URL"
+								srcset="$FocusFillMax(600,600).Convert('avif').URL 1x, $FocusFillMax(1200,1200).Convert('avif').URL 2x" />
 						<% end_with %>
 					<% else %>
 						<img class="default" src="{$viteAsset('src/images/svg/perso-defalut.svg')}" alt="" />

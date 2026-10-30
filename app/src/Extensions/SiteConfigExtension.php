@@ -6,14 +6,20 @@ use App\Models\Slide;
 use App\Models\Location;
 use App\Models\Vacation;
 use App\Models\SocialLink;
+use App\Models\OpeningHour;
 use SilverStripe\Forms\Tab;
+use SilverStripe\i18n\i18n;
+use Spatie\SchemaOrg\Schema;
 use App\Schema\SchemaBuilder;
+use SilverStripe\Core\Convert;
 use App\Models\ShortCodeSnippet;
 use SilverStripe\Core\Extension;
 use SilverStripe\Forms\DateField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TextField;
+use SilverStripe\Forms\TimeField;
 use SilverStripe\Forms\HeaderField;
+use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\TextareaField;
 use SilverStripe\ORM\FieldType\DBDate;
@@ -21,14 +27,19 @@ use SilverStripe\LinkField\Models\Link;
 use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\LinkField\Form\MultiLinkField;
+use SilverStripe\Forms\GridField\GridFieldConfig;
 use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
+use SilverStripe\Forms\GridField\GridFieldButtonRow;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
 use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\GridField\GridFieldConfig_Base;
+use Symbiote\GridFieldExtensions\GridFieldTitleHeader;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
 use SilverStripe\Forms\GridField\GridFieldFilterHeader;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
+use Symbiote\GridFieldExtensions\GridFieldEditableColumns;
+use Symbiote\GridFieldExtensions\GridFieldAddNewInlineButton;
 use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
 class SiteConfigExtension extends Extension
@@ -48,7 +59,11 @@ class SiteConfigExtension extends Extension
         'Locations' => Location::class,
         'ServiceNavigationItems' => Link::class . '.Owner',
         'TermsNavigationItems' => Link::class . '.Owner',
-        'Vacation' => Vacation::class,
+        'OpeningHours' => OpeningHour::class,
+    ];
+
+    private static $casting = [
+        'OpeningHoursHTML' => 'HTMLFragment',
     ];
 
     private static $many_many = [
@@ -190,12 +205,122 @@ class SiteConfigExtension extends Extension
             GridFieldDetailForm::create(),
             GridFieldAddNewButton::create('toolbar-header-left'),
         );
-        $vacationString = _t('SilverStripe\SiteConfig\SiteConfig.VacationsHolidays', 'Vacations & Holidays');
-        $VacttionGridField = GridField::create('Vacation', $vacationString, Vacation::get(), $VacationGFConf);
+        $vacationString = _t('SilverStripe\SiteConfig\SiteConfig.OpeningHoursVacations', 'Opening hours & Vacations');
+        $VacationGridField = GridField::create('Vacations', _t('SilverStripe\SiteConfig\SiteConfig.VacationsHolidays', 'Vacations & Holidays'), Vacation::get(), $VacationGFConf);
+        $VacationGridField->setDescription('<p>[Vacation MonthsInAdvance="6"]</p>' . _t('SilverStripe\SiteConfig\SiteConfig.VACATIONSDESCRIPTION', 'Lists upcoming vacations & holidays. MonthsInAdvance limits how many months ahead are shown (default 6).'));
         $fields->addFieldToTab('Root', Tab::create(
             $vacationString,
             $vacationString,
-            $VacttionGridField,
+            ...[...$this->getSchemaTypeNotice(), $this->getOpeningHoursGridField(), $VacationGridField],
         ));
+    }
+
+    /**
+     * @return LiteralField[]
+     */
+    protected function getSchemaTypeNotice(): array
+    {
+        $type = $this->getOwner()->SchemaType ?: 'Organisation';
+        if (SchemaBuilder::supportsOpeningHours($this->getOwner())) {
+            $class = 'alert-success';
+            $message = _t(
+                'SilverStripe\SiteConfig\SiteConfig.OpeningHoursSchemaTypeOk',
+                'Opening hours and vacations are included in the structured data (schema type "{type}").',
+                ['type' => $type],
+            );
+        } else {
+            $class = 'alert-warning';
+            $message = _t(
+                'SilverStripe\SiteConfig\SiteConfig.OpeningHoursSchemaTypeWarning',
+                'The schema type "{type}" does not support opening hours, so they are not included in the structured data. Choose "LocalBusiness" or a subtype in the main tab.',
+                ['type' => $type],
+            );
+        }
+
+        return [LiteralField::create('OpeningHoursSchemaTypeNotice', sprintf('<p class="alert %s">%s</p>', $class, Convert::raw2xml($message)))];
+    }
+
+    protected function getOpeningHoursGridField(): GridField
+    {
+        $days = OpeningHour::dayOptions();
+        $label = fn (string $field) => OpeningHour::singleton()->fieldLabel($field);
+        $config = GridFieldConfig::create()->addComponents(
+            GridFieldButtonRow::create('before'),
+            GridFieldTitleHeader::create(),
+            GridFieldEditableColumns::create()->setDisplayFields([
+                'DayFrom' => ['title' => $label('DayFrom'), 'callback' => fn () => DropdownField::create('DayFrom', '', $days)->setAttribute('style', 'min-width: 9em')],
+                'DayTo' => ['title' => $label('DayTo'), 'callback' => fn () => DropdownField::create('DayTo', '', $days)->setEmptyString('–')->setAttribute('style', 'min-width: 9em')],
+                'Opens' => ['title' => $label('Opens'), 'callback' => fn () => TimeField::create('Opens', '')->setAttribute('step', 60)],
+                'Closes' => ['title' => $label('Closes'), 'callback' => fn () => TimeField::create('Closes', '')->setAttribute('step', 60)],
+                'Note' => ['title' => $label('Note'), 'callback' => fn () => TextField::create('Note', '')->setAttribute('style', 'min-width: 14em')],
+            ]),
+            GridFieldAddNewInlineButton::create('buttons-before-left')->setTitle(_t(SiteConfig::class . '.ADDOPENINGTIME', 'Add opening hours')),
+            GridFieldDeleteAction::create(),
+            GridFieldOrderableRows::create('Sort'),
+        );
+        $grid = GridField::create('OpeningHours', _t(SiteConfig::class . '.OPENINGHOURS', 'Opening hours'), $this->getOwner()->OpeningHours(), $config);
+        $grid->setDescription(
+            '<p>[OpeningHours]</p>' . _t(SiteConfig::class . '.OPENINGHOURSDESCRIPTION', 'One row per time range, e.g. a lunch break means two rows. Leave times empty to mark days as closed. Vacations & Holidays below are interpreted as "closed".'),
+        );
+
+        return $grid;
+    }
+
+    /**
+     * Opening hours as escaped HTML, one line per day span with its time ranges combined,
+     * e.g. "Mon – Fri: 08:00 – 12:00 and 13:30 – 17:00"; null if none are maintained.
+     *
+     * @param string $dayFormat ICU weekday pattern: ccc (Mo), cccc (Montag), ccccc (M), cccccc (Mo)
+     */
+    public function OpeningHoursHTML(string $dayFormat = 'ccc'): ?string
+    {
+        $groups = [];
+        foreach ($this->getOwner()->OpeningHours() as $range) {
+            $key = $range->DayFrom . '|' . $range->DayTo;
+            $groups[$key]['days'] ??= $range->getDayLabel($dayFormat);
+            $groups[$key]['times'][] = Convert::raw2xml($range->getTimeLabel());
+            $groups[$key]['closed'] = ($groups[$key]['closed'] ?? false) || $range->isClosed();
+        }
+
+        $suffix = _t(SiteConfig::class . '.OPENINGHOURSSUFFIX', '');
+        $listFormatter = new \IntlListFormatter(i18n::get_locale(), \IntlListFormatter::TYPE_AND, \IntlListFormatter::WIDTH_WIDE);
+        $lines = [];
+        foreach ($groups as $group) {
+            $lines[] = Convert::raw2xml($group['days']) . ': ' . $listFormatter->format($group['times']) . ($group['closed'] ? '' : $suffix);
+        }
+
+        return $lines ? implode('<br>', $lines) : null;
+    }
+
+    /**
+     * schema.org OpeningHoursSpecification list: regular hours plus one closure per current or upcoming Vacation.
+     *
+     * @return \Spatie\SchemaOrg\OpeningHoursSpecification[]
+     */
+    public function OpeningHoursSpecifications(): array
+    {
+        $specs = [];
+        foreach ($this->getOwner()->OpeningHours() as $range) {
+            if ($spec = $range->toSchema()) {
+                $specs[] = $spec;
+            }
+        }
+
+        // Closures without regular hours would be meaningless
+        if (!$specs) {
+            return [];
+        }
+
+        // A closure is an all-day range (00:00 - 00:00) limited by validFrom/validThrough
+        $vacations = Vacation::get()->filter('EndDate:GreaterThanOrEqual', date('Y-m-d'))->sort('StartDate ASC');
+        foreach ($vacations as $vacation) {
+            $specs[] = Schema::openingHoursSpecification()
+                ->opens('00:00')
+                ->closes('00:00')
+                ->validFrom($vacation->StartDate)
+                ->validThrough($vacation->EndDate);
+        }
+
+        return $specs;
     }
 }

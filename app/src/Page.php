@@ -24,6 +24,7 @@ use TractorCow\Fluent\State\FluentState;
 use SilverStripe\Blog\Model\BlogCategory;
 use SilverStripe\CMS\Model\RedirectorPage;
 use TractorCow\OpenGraph\Constants\OGTypes;
+use SilverStripe\View\Parsers\ShortcodeParser;
 use SilverStripe\CMS\Controllers\RootURLController;
 use DNADesign\ElementalVirtual\Model\ElementVirtual;
 use SilverStripe\Core\Manifest\ModuleResourceLoader;
@@ -235,8 +236,8 @@ class Page extends SiteTree
                             continue;
                         }
                         // strip_tags alone merges adjacent block elements without a space (e.g. "</p><p>" → "")
-                        $raw = preg_replace('/<\/?(p|br|div|h[1-6]|li|blockquote)[^>]*>/i', ' ', $obj->getValue() ?? '');
-                        $value = trim(preg_replace('/\s+/', ' ', strip_tags($raw)));
+                        $raw = preg_replace('/<\/?(p|br|div|h[1-6]|li|blockquote)[^>]*>/i', ' ', ShortcodeParser::get_active()->parse($obj->getValue() ?? ''));
+                        $value = trim(preg_replace('/[\s\x{00A0}]+/u', ' ', html_entity_decode(strip_tags($raw), ENT_QUOTES | ENT_HTML5, 'UTF-8')));
                         if ($value) {
                             $parts[] = $value;
                         }

@@ -10,6 +10,7 @@ use SilverStripe\Core\Environment;
 use SilverStripe\PolyExecution\PolyOutput;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class PhpInfo extends BuildTask
 {
@@ -21,13 +22,16 @@ class PhpInfo extends BuildTask
 
     private bool $isCli = false;
 
+    private PolyOutput $output;
+
     protected function execute(InputInterface $input, PolyOutput $output): int
     {
-        $this->isCli = Director::is_cli();
+        $this->output = $output;
+        $this->isCli = $output->getOutputFormat() === PolyOutput::FORMAT_ANSI;
 
         // Start center wrapper for web output
         if (!$this->isCli) {
-            echo '<center>';
+            $this->write('<center>');
         }
 
         // Environment Overview
@@ -57,7 +61,7 @@ class PhpInfo extends BuildTask
 
         // End center wrapper for web output
         if (!$this->isCli) {
-            echo '</center>';
+            $this->write('</center>');
         }
 
         // PHP Info with options
@@ -66,14 +70,19 @@ class PhpInfo extends BuildTask
         return Command::SUCCESS;
     }
 
+    private function write(string $message): void
+    {
+        $this->output->write($message, false, OutputInterface::OUTPUT_RAW);
+    }
+
     private function outputHeader(string $title): void
     {
         if ($this->isCli) {
-            echo "\n" . str_repeat('=', 60) . "\n";
-            echo strtoupper($title) . "\n";
-            echo str_repeat('=', 60) . "\n";
+            $this->write("\n" . str_repeat('=', 60) . "\n");
+            $this->write(strtoupper($title) . "\n");
+            $this->write(str_repeat('=', 60) . "\n");
         } else {
-            echo "<h2>{$title}</h2>";
+            $this->write("<h2>{$title}</h2>");
         }
     }
 
@@ -85,16 +94,16 @@ class PhpInfo extends BuildTask
             foreach ($data as $row) {
                 $key = str_pad($row[0], $maxKeyLength);
                 $value = strip_tags($row[1]); // Remove HTML tags for CLI
-                echo "{$key}: {$value}\n";
+                $this->write("{$key}: {$value}\n");
             }
-            echo "\n";
+            $this->write("\n");
         } else {
-            echo '<table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse;">';
-            echo '<tr><th>Setting</th><th>Value</th></tr>';
+            $this->write('<table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse;">');
+            $this->write('<tr><th>Setting</th><th>Value</th></tr>');
             foreach ($data as $row) {
-                echo "<tr><td class=\"e\">{$row[0]}</td><td>{$row[1]}</td></tr>";
+                $this->write("<tr><td class=\"e\">{$row[0]}</td><td>{$row[1]}</td></tr>");
             }
-            echo '</table>';
+            $this->write('</table>');
         }
     }
 
@@ -107,8 +116,8 @@ class PhpInfo extends BuildTask
         // todo: add comment about parameter like ?info=modules
 
         if ($this->isCli) {
-            echo "Available info types: all, general, credits, configuration, modules, environment, variables, license\n";
-            echo "Current type: {$infoType}\n\n";
+            $this->write("Available info types: all, general, credits, configuration, modules, environment, variables, license\n");
+            $this->write("Current type: {$infoType}\n\n");
         }
 
         // Map string parameters to phpinfo constants
@@ -135,9 +144,11 @@ class PhpInfo extends BuildTask
             $phpinfo = strip_tags($phpinfo);
             $phpinfo = html_entity_decode($phpinfo);
 
-            echo $phpinfo;
+            $this->write($phpinfo);
         } else {
-            echo phpinfo($phpinfoType);
+            ob_start();
+            phpinfo($phpinfoType);
+            $this->write(ob_get_clean());
         }
     }
 
