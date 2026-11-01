@@ -3,11 +3,14 @@
 namespace App\Extensions;
 
 use App\Elements\ElementHero;
+use App\Elements\ElementPerso;
 use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\FieldGroup;
+use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Versioned\Versioned;
+use App\Elements\ElementContentSection;
 use SilverStripe\ORM\FieldType\DBField;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\View\Parsers\URLSegmentFilter;
@@ -16,6 +19,9 @@ use DNADesign\ElementalVirtual\Model\ElementVirtual;
 use SilverStripe\Forms\Validation\CompositeValidator;
 use SilverStripe\Forms\Validation\RequiredFieldsValidator;
 
+/**
+ * @extends Extension<BaseElement>
+ */
 class ElementExtension extends Extension
 {
     // protected (not private) so it isn't picked up as config
@@ -82,14 +88,17 @@ class ElementExtension extends Extension
             $fields->fieldByName('Root.Main')->unshift($TitleFieldGroup);
         }
 
-        if (($ElementAnchorLinkField = $fields->dataFieldByName('AnchorLink')) && $this->getOwner()->Parent()->getOwnerPage()) {
-            if ($desc = $this->getOwner()->getAnchor()) {
-                $anchorlink = $this->getOwner()->Parent()->getOwnerPage()->AbsoluteLink() . '#' . $desc;
-                $ElementAnchorLinkField->setDescription($anchorlink);
-            } else {
-                $ElementAnchorLinkField->setDescription(_t('DNADesign\Elemental\Models\BaseElement.AnchorLinkDescription', 'No valid anchor'));
+        if ($ElementAnchorLinkField = $fields->dataFieldByName('AnchorLink')) {
+            $ownerPage = $this->getOwner()->Parent()->getOwnerPage();
+            if ($ownerPage instanceof SiteTree) {
+                if ($desc = $this->getOwner()->getAnchor()) {
+                    $anchorlink = $ownerPage->AbsoluteLink() . '#' . $desc;
+                    $ElementAnchorLinkField->setDescription($anchorlink);
+                } else {
+                    $ElementAnchorLinkField->setDescription(_t('DNADesign\Elemental\Models\BaseElement.AnchorLinkDescription', 'No valid anchor'));
+                }
+                $fields->addFieldToTab('Root.Settings', $ElementAnchorLinkField);
             }
-            $fields->addFieldToTab('Root.Settings', $ElementAnchorLinkField);
         }
 
         $fields->addFieldToTab(
@@ -160,23 +169,24 @@ class ElementExtension extends Extension
 
     public function TitleOrAnchor()
     {
+        $owner = $this->getOwner();
         $TitleOrAnchor = '';
         // set $TitleOrAnchor if there is AnchorLink
-        if ($this->getOwner()->ClassName == ElementVirtual::class) {
-            if ($this->getOwner()->LinkedElement()->AnchorLink) {
-                $TitleOrAnchor = $this->getOwner()->LinkedElement()->AnchorLink;
+        if ($owner instanceof ElementVirtual) {
+            if ($owner->LinkedElement()->AnchorLink) {
+                $TitleOrAnchor = $owner->LinkedElement()->AnchorLink;
             }
-        } elseif ($this->getOwner()->AnchorLink) {
-            $TitleOrAnchor = $this->getOwner()->AnchorLink;
+        } elseif ($owner->AnchorLink) {
+            $TitleOrAnchor = $owner->AnchorLink;
         }
         // or use just Title if above fails
         if (!$TitleOrAnchor) {
-            if ($this->getOwner()->ClassName == ElementVirtual::class) {
-                if ($this->getOwner()->LinkedElement()->Title) {
-                    $TitleOrAnchor = $this->getOwner()->LinkedElement()->Title;
+            if ($owner instanceof ElementVirtual) {
+                if ($owner->LinkedElement()->Title) {
+                    $TitleOrAnchor = $owner->LinkedElement()->Title;
                 }
-            } elseif ($this->getOwner()->Title) {
-                $TitleOrAnchor = $this->getOwner()->Title;
+            } elseif ($owner->Title) {
+                $TitleOrAnchor = $owner->Title;
             }
         }
 
@@ -185,14 +195,13 @@ class ElementExtension extends Extension
 
     public function getTypeBreadcrumb()
     {
-        if ($this->getOwner()->Title) {
-            $description = $this->getOwner()->Title;
-        } elseif ($this->getOwner()->hasMethod('getDescription')) {
-            $description = $this->getOwner()->getDescription();
+        $owner = $this->getOwner();
+        if ($owner->Title) {
+            $description = $owner->Title;
         } else {
-            $description = $this->getOwner()->config()->get('description') ?: $this->getOwner()->getType();
+            $description = $owner->config()->get('description') ?: $owner->getType();
         }
-        $pageTitle = $this->getOwner()->getPageTitle();
+        $pageTitle = $owner->getPageTitle();
 
         return DBField::create_field(
             'HTMLVarchar',
@@ -202,14 +211,15 @@ class ElementExtension extends Extension
 
     public function updateAnchorsInContent(array &$anchors)
     {
-        if ($this->getOwner()->hasMethod('ContentParts') && $this->getOwner()->ContentParts()->count()) {
-            foreach ($this->getOwner()->ContentParts() as $part) {
+        $owner = $this->getOwner();
+        if ($owner instanceof ElementContentSection && $owner->ContentParts()->count()) {
+            foreach ($owner->ContentParts() as $part) {
                 $filter = URLSegmentFilter::create();
                 $anchors[] = $filter->filter($part->Title);
             }
         }
-        if ($this->getOwner()->hasMethod('Everybody') && $this->getOwner()->Everybody()->count()) {
-            foreach ($this->getOwner()->Everybody() as $perso) {
+        if ($owner instanceof ElementPerso && $owner->Everybody()->count()) {
+            foreach ($owner->Everybody() as $perso) {
                 $filter = URLSegmentFilter::create();
                 $anchors[] = $filter->filter($perso->Anchor());
             }

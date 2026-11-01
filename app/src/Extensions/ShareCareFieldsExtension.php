@@ -5,6 +5,9 @@ namespace App\Extensions;
 use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
 
+/**
+ * @extends Extension<\Page>
+ */
 class ShareCareFieldsExtension extends Extension
 {
     public function updateCMSFields(FieldList $fields)

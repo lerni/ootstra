@@ -6,6 +6,9 @@ use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Security\Permission;
 
+/**
+ * @extends Extension<\SilverStripe\Security\Member>
+ */
 class MemberExtension extends Extension
 {
     public function updateCMSFields(FieldList $fields)

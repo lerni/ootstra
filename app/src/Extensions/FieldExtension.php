@@ -16,6 +16,9 @@ use nathancox\EmbedField\Model\EmbedObject;
 use SilverStripe\View\Parsers\URLSegmentFilter;
 use League\CommonMark\GithubFlavoredMarkdownConverter;
 
+/**
+ * @extends Extension<\SilverStripe\ORM\FieldType\DBField>
+ */
 class FieldExtension extends Extension
 {
     private static $casting = [

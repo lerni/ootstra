@@ -5,6 +5,9 @@ namespace App\Extensions;
 use SilverStripe\Core\Extension;
 use SilverStripe\Control\ContentNegotiator;
 
+/**
+ * @extends Extension<\Page>
+ */
 class PageExtension extends Extension
 {
     public function updateMetaComponents(array &$tags)

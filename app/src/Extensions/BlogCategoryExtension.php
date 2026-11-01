@@ -6,6 +6,9 @@ use Page;
 use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
 
+/**
+ * @extends Extension<\SilverStripe\Blog\Model\BlogCategory>
+ */
 class BlogCategoryExtension extends Extension
 {
     private static $db = [

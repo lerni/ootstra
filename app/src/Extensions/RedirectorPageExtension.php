@@ -7,6 +7,9 @@ use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\FieldGroup;
 use SilverStripe\Forms\CheckboxField;
 
+/**
+ * @extends Extension<\SilverStripe\CMS\Model\RedirectorPage>
+ */
 class RedirectorPageExtension extends Extension
 {
     private static array $db = [

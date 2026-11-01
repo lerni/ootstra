@@ -2,6 +2,7 @@
 
 namespace App\Extensions;
 
+use PageController;
 use SilverStripe\Forms\Form;
 use SilverStripe\Core\Convert;
 use SilverStripe\Core\Extension;
@@ -11,6 +12,9 @@ use SilverStripe\Forms\FormAction;
 use SilverStripe\Core\Injector\Injector;
 use Wilr\SilverStripe\Algolia\Service\AlgoliaQuerier;
 
+/**
+ * @extends Extension<PageController>
+ */
 class AlgoliaControllerExtension extends Extension
 {
     private static $allowed_actions = [

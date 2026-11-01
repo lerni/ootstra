@@ -6,7 +6,6 @@
 **/*.map
 /*.log
 /.env
-/.devdbrc
 /.idea/
 /.vscode/*
 !/.vscode/launch.json

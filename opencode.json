@@ -1,10 +1,10 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "provider": {
+  "providers": {
     "lmstudio": {
-      "npm": "@ai-sdk/openai-compatible",
+      "package": "aisdk:@ai-sdk/openai-compatible",
       "name": "LM Studio (local, via host.docker.internal)",
-      "options": {
+      "settings": {
         "baseURL": "http://host.docker.internal:1234/v1",
         "streamOptions": {
           "includeUsage": true
@@ -38,11 +38,13 @@
     }
   },
   "mcp": {
-    "silverstripe-local": {
-      "type": "local",
-      "command": ["php", "vendor/lerni/mcp-server-poc/bin/mcp-server.php"],
-      "cwd": ".",
-      "environment": { "MCP_TARGET": "local" }
+    "servers": {
+      "silverstripe-local": {
+        "type": "local",
+        "command": ["php", "vendor/lerni/mcp-server-poc/bin/mcp-server.php"],
+        "cwd": ".",
+        "environment": { "MCP_TARGET": "local" }
+      }
     }
   }
 }

@@ -7,6 +7,9 @@ use SilverStripe\Forms\FieldList;
 use App\Models\EditableFormField\EditableCheckboxTerms;
 use SilverStripe\SpamProtection\EditableSpamProtectionField;
 
+/**
+ * @extends Extension<\DNADesign\ElementalUserForms\Model\ElementForm>
+ */
 class ElementUserFormsExtension extends Extension
 {
     public function updateCMSFields(FieldList $fields)

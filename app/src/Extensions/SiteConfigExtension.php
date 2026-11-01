@@ -42,6 +42,9 @@ use Symbiote\GridFieldExtensions\GridFieldEditableColumns;
 use Symbiote\GridFieldExtensions\GridFieldAddNewInlineButton;
 use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
+/**
+ * @extends Extension<SiteConfig>
+ */
 class SiteConfigExtension extends Extension
 {
     private static $db = [

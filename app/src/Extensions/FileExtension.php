@@ -5,6 +5,9 @@ namespace App\Extensions;
 use SilverStripe\Assets\Image;
 use SilverStripe\Core\Extension;
 
+/**
+ * @extends Extension<\SilverStripe\Assets\File>
+ */
 class FileExtension extends Extension
 {
     private static $db = [

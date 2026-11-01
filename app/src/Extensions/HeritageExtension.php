@@ -3,8 +3,12 @@
 namespace App\Extensions;
 
 use SilverStripe\Core\Extension;
+use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Model\List\SS_List;
 
+/**
+ * @extends Extension<SiteTree>
+ */
 class HeritageExtension extends Extension
 {
     public function Heritage($componentName)
@@ -28,7 +32,10 @@ class HeritageExtension extends Extension
         }
 
         if ($this->getOwner()->ParentID != 0) {
-            return $this->getOwner()->Parent()->Heritage($componentName);
+            $parent = $this->getOwner()->Parent();
+            if ($parent instanceof SiteTree) {
+                return $parent->Heritage($componentName);
+            }
         }
 
         return false;

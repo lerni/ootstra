@@ -15,6 +15,8 @@ use SilverStripe\Assets\FilenameParsing\AbstractFileIDHelper;
 
 /**
  * Extension to add a method to convert a PDF to an image.
+ *
+ * @extends Extension<\SilverStripe\Assets\File>
  */
 class PDFImageExtension extends Extension
 {

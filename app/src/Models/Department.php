@@ -113,7 +113,7 @@ class Department extends DataObject
     public function PersoString()
     {
         if ($this->Persos()->count()) {
-            $dep = $this->Persos()->Sort('SortOrder ASC')->map()->toArray();
+            $dep = $this->Persos()->sort('SortOrder ASC')->map()->toArray();
 
             return implode(", ", $dep);
         }

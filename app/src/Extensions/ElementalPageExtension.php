@@ -7,6 +7,9 @@ use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\CheckboxField;
 
+/**
+ * @extends Extension<\Page>
+ */
 class ElementalPageExtension extends Extension
 {
     private static $db = [

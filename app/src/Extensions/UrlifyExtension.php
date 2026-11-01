@@ -5,6 +5,7 @@ namespace App\Extensions;
 use App\Models\SlugHolderPage;
 use SilverStripe\View\SSViewer;
 use SilverStripe\Core\Extension;
+use SilverStripe\ORM\DataObject;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Model\ArrayData;
@@ -19,8 +20,11 @@ use SilverStripe\View\Parsers\URLSegmentFilter;
 use SilverStripe\CMS\Controllers\RootURLController;
 use SilverStripe\CMS\Forms\SiteTreeURLSegmentField;
 
-// Unifies URL management for DataObjects that are managed via a SlugHolderPage in the CMS.
-
+/**
+ * Unifies URL management for DataObjects that are managed via a SlugHolderPage in the CMS.
+ *
+ * @extends Extension<DataObject>
+ */
 class UrlifyExtension extends Extension
 {
     private static array $slugHolderCache = [];

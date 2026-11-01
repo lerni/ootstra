@@ -12,6 +12,9 @@ use SilverStripe\Versioned\Versioned;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\ORM\FieldType\DBHTMLText;
 
+/**
+ * @extends Extension<\PageController>
+ */
 class CachedNavigationExtension extends Extension
 {
     public function CachedNavigation()

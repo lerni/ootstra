@@ -4,11 +4,14 @@ namespace App\Extensions;
 
 use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
+use SilverStripe\LinkField\Models\Link;
 
 /**
  * Link records are edited inline via the LinkField React modal, not on a CMS tree page, so
  * FluentExtension's "Locales" GridField tab has no working CMSEditLink to navigate to and just
  * clutters/breaks the modal - remove it.
+ *
+ * @extends Extension<Link>
  */
 class LinkFluentCleanupExtension extends Extension
 {

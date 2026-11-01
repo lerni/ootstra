@@ -8,6 +8,8 @@ use SilverStripe\Forms\GridField\GridFieldDetailForm;
 
 /**
  * Adds pagination (prev/next) to elements
+ *
+ * @extends Extension<\DNADesign\Elemental\Forms\ElementalAreaConfig>
  */
 class ElementalAreaConfigExtension extends Extension
 {

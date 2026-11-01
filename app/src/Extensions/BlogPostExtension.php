@@ -14,6 +14,9 @@ use SilverStripe\Forms\LiteralField;
 use SilverStripe\Blog\Model\BlogPost;
 use SilverStripe\Forms\CompositeField;
 
+/**
+ * @extends Extension<BlogPost>
+ */
 class BlogPostExtension extends Extension
 {
     private static $db = [];

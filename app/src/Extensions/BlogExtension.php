@@ -22,6 +22,9 @@ use SilverStripe\Forms\GridField\GridFieldDeleteAction;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
+/**
+ * @extends Extension<\SilverStripe\Blog\Model\Blog>
+ */
 class BlogExtension extends Extension
 {
     private static $db = [

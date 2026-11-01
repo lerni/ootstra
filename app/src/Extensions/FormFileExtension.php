@@ -6,6 +6,9 @@ use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TextareaField;
 
+/**
+ * @extends Extension<\SilverStripe\AssetAdmin\Forms\ImageFormFactory>
+ */
 class FormFileExtension extends Extension
 {
     // public function updateForm(Form &$form)

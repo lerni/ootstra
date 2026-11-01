@@ -14,6 +14,6 @@ printf '{\n    "/var/www/html": true\n}\n' > "$HOME/.local/share/phpactor/trust.
 
 # opencode CLI has no apt/Debian package - install via npm instead of webimage_extra_packages
 echo "Installing opencode CLI..."
-npm install -g opencode-ai
+npm install -g @opencode/cli
 
 echo "=== Post-create script completed successfully ==="

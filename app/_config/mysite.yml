@@ -108,6 +108,10 @@ SilverStripe\ORM\DataObject:
   extensions:
     - App\Extensions\DataObjectExtension
 
+SilverStripe\Dev\Command\DbBuild:
+  extensions:
+    - App\Extensions\DbBuildIdeHelperExtension
+
 SilverStripe\Blog\Model\BlogCategory:
   allow_urlsegment_multibyte: true
   extensions:
@@ -345,7 +349,7 @@ App\Controller\PersovCardController:
   expose_vcards: true
 
 App\Conversion\AvifFileConverter:
-  avif_quality: 50
+  avif_quality: 60
 
 Axllent\ScaledUploads\ScaledUploads:
   max_width: 4000

@@ -5,6 +5,9 @@ namespace App\Extensions;
 use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
 
+/**
+ * @extends Extension<\DNADesign\Elemental\Models\ElementContent>
+ */
 class ElementContentExtension extends Extension
 {
     private static $db = [

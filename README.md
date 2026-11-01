@@ -134,6 +134,17 @@ Common tasks include:
 
 Database, credentials etc. are provided as environment-variables from `.ddev/config.yaml` and are populated in `/.env` during DDEV-start. Project specific / sensitive env-vars should be set in `/.env` and won't land in GIT. For example you do not have to setup DB credentials for local dev environment to work, but you need to set `APP_GOOGLE_MAPS_KEY`, `SS_NOCAPTCHA_SITE_KEY` & `SS_NOCAPTCHA_SECRET_KEY` in `.env` to make Google Maps & reCaptcha work.
 
+### Code quality & static analysis
+Tooling is installed and configured inside the devcontainer (`.devcontainer/devcontainer.json`, `.ddev/web-build/Dockerfile`) and runs in the editor, so findings show up in VSCode's Problems panel.
+
+- **[Phpactor](https://phpactor.readthedocs.io/)** – PHP language server (completion, navigation, diagnostics). Installed as PHAR to `/usr/local/bin/phpactor`, configured in `.phpactor.json`. Global functions like `_t()` are indexed from `vendor/silverstripe/framework/src/includes/functions.php` via `indexer.include_patterns`, no stubs needed. ORM relation and extension methods are generated into a stub on `db:build`, see [ORM & Extension stubs](#orm--extension-stubs-for-phpactor) below.
+- **[PHP-CS-Fixer](https://cs.symfony.com/)** – PSR-12 formatting (`.php-cs-fixer.dist.php`), runs on save. Manually: `php ./vendor/bin/php-cs-fixer fix app/src/Path/To/File.php`
+- **[Biome](https://biomejs.dev/)** – lints & formats JS/TS/JSON in `themes/default/src/` (`themes/default/biome.json`), installed globally in the web image and used by the VSCode extension [`biomejs.biome`](https://marketplace.visualstudio.com/items?itemName=biomejs.biome) (auto-installed in the devcontainer). Manually: `biome check --write themes/default/src/js/file.js`
+- **Silverstripe templates (`.ss`)** – Phpactor only analyzes `.php`. For `.ss` files see the [ss-vscode-actor](ss-vscode-actor/README.md) extension.
+
+#### ORM & Extension stubs for Phpactor
+In dev mode, `DbBuildIdeHelperExtension` hooks into `sake db:build` (`onAfterBuild`) and writes `silverstripe-cache/ide-helper.stub` with all ORM relation methods (`HasManyList<T>`, `ManyManyList<T>`, etc.) and extension-injected methods across `DataObject` subclasses and extended classes. Phpactor merges this file into existing class definitions via `worse_reflection.additive_stubs` in `.phpactor.json` (using the `.stub` extension so the file is never indexed as canonical source), keeping `app/src` free of generated `@method` boilerplate. On `Extension` classes themselves, add `@extends Extension<Owner>` so `$this->getOwner()` is typed.
+
 ## PHP Version
 Currently 8.5.x is used. It's set in following places:
 - `.ddev/config.yaml`
@@ -257,6 +268,8 @@ web_environment:
     - SSH_AUTH_SOCK=/run/host-services/ssh-auth.sock
 ```
 
+**Alternative since DDEV 1.25.5:** `ddev config global --ssh-agent-upstream=host` makes the built-in `ddev-ssh-agent` relay your host agent. It replaces `docker-compose.sshagent.yaml`, `omit_containers` and the `SSH_AUTH_SOCK` override above, so remove those when switching. `ForwardAgent yes` is still needed for Deployer. The current setup relies on `/run/host-services/ssh-auth.sock`, which only exists with Docker Desktop and OrbStack on macOS. On Linux or WSL2, use the new setting or change the bind-mount source in `.ddev/docker-compose.sshagent.yaml` to `${SSH_AUTH_SOCK}`. See the [DDEV docs](https://docs.ddev.com/en/stable/users/usage/cli/#using-an-existing-ssh-agent).
+
 ## Configuration
 Rename `deploy/config.example.php` to `deploy/config.php` and configure as needed. The `.htaccess` file in `/public` is typically used, but can be overridden with stage-specific versions by creating `./deploy/test.htaccess` or `./deploy/live.htaccess`.
 
@@ -315,7 +328,7 @@ SCRIPT_FILENAME=''
 ## Mailer Setup
 Without setting `MAILER_DSN`, `sendmail` is used by default, typically using `SS_ADMIN_EMAIL` as sender. Sendmail transport requires `proc_open` and `proc_close` PHP functions to be enabled.
 
-To use SMTP or other mailers, the `MAILER_DSN` variable should be set in the `.env`. When `MAILER_DSN` is configured, setting `SS_SEND_ALL_EMAILS_FROM` may also be appropriate. Silverstripe utilizes [Symfony Mailer](https://symfony.com/doc/current/mailer.html), which supports a variety of transport methods. With `php ./vendor/bin/sake tasks:test-email --to=user@domain.tld` a Test-Mail can be sent. Be aware, Mailpit catches all emails for local development with DDEV.
+To use SMTP or other mailers, the `MAILER_DSN` variable should be set in `.env`. When `MAILER_DSN` is configured, setting `SS_SEND_ALL_EMAILS_FROM` may also be appropriate. Silverstripe utilizes [Symfony Mailer](https://symfony.com/doc/current/mailer.html), which supports a variety of transport methods. With `php ./vendor/bin/sake tasks:test-email --to=user@domain.tld` a Test-Mail can be sent. Be aware, Mailpit catches all emails for local development with DDEV.
 
 ## Composer Audit Task
 `php ./vendor/bin/sake tasks:composer-audit` runs `composer audit` to check production dependencies for security advisories (CVEs) and abandoned/end-of-life packages, emailing a report (to `SS_ERROR_EMAIL`/`admin_email` by default) if anything is found. Options: `--to`, `--dry-run`, `--include-dev`, `--abandoned=ignore|report|fail`, `--ignore-severity=low|medium|high|critical` (repeatable). Consider scheduling it as a cron job, e.g.:

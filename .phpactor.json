@@ -21,6 +21,9 @@
     "language_server_psalm.enabled": false,
     "language_server_php_cs_fixer.enabled": false,
     "file_path_resolver.enable_cache": true,
+    "worse_reflection.additive_stubs": [
+        "silverstripe-cache/ide-helper.stub"
+    ],
     "php_code_sniffer.enabled": true,
     "behat.enabled": true
 }
