@@ -32,6 +32,11 @@ class DbBuildIdeHelperExtension extends Extension
 
     private static $restart_phpactor_language_server = false;
 
+    /**
+     * @var array<string, array<string, string>>
+     */
+    private array $importCache = [];
+
     private const RELATION_CONFIG = [
         'has_one',
         'belongs_to',
@@ -240,6 +245,7 @@ class DbBuildIdeHelperExtension extends Extension
                     || $rm->isConstructor()
                     || $rm->isDestructor()
                     || str_starts_with($name, '__')
+                    || preg_match('/^(update|on)[A-Z]/', $name) === 1
                     || in_array($name, $baseMethods, true)
                     || method_exists($class, $name);
 
@@ -262,7 +268,7 @@ class DbBuildIdeHelperExtension extends Extension
             $piece = '';
 
             if ($param->hasType()) {
-                $typeStr = $this->formatType($param->getType());
+                $typeStr = $this->formatType($param->getType(), $rm->getDeclaringClass()->getName());
                 $needsNullable = $param->isOptional()
                     && !$param->isVariadic()
                     && !$param->getType()->allowsNull()
@@ -294,7 +300,9 @@ class DbBuildIdeHelperExtension extends Extension
             $params[] = $piece;
         }
 
-        $return = $rm->hasReturnType() ? ': ' . $this->formatType($rm->getReturnType()) : '';
+        $return = $rm->hasReturnType()
+            ? ': ' . $this->formatType($rm->getReturnType(), $rm->getDeclaringClass()->getName())
+            : '';
         $doc = $this->extractDocReturn($rm);
         $prefix = $doc ? "        {$doc}\n" : '';
         $signature = $rm->getName() . '(' . implode(', ', $params) . ')' . $return;
@@ -302,12 +310,19 @@ class DbBuildIdeHelperExtension extends Extension
         return $prefix . '        public function ' . $signature . ' {}';
     }
 
-    private function formatType(?\ReflectionType $type): string
+    private function formatType(?\ReflectionType $type, string $declaringClass): string
     {
         if ($type instanceof ReflectionNamedType) {
             $name = $type->getName();
 
-            if (!$type->isBuiltin() && !in_array($name, ['self', 'static', 'parent'], true)) {
+            // In the stub, self/static/parent would resolve against the owner instead of the extension.
+            $name = match ($name) {
+                'self', 'static' => $declaringClass,
+                'parent' => get_parent_class($declaringClass) ?: 'mixed',
+                default => $name,
+            };
+
+            if (!$type->isBuiltin() && $name !== 'mixed') {
                 $name = '\\' . ltrim($name, '\\');
             }
 
@@ -315,11 +330,11 @@ class DbBuildIdeHelperExtension extends Extension
         }
 
         if ($type instanceof ReflectionUnionType) {
-            return implode('|', array_map(fn ($t) => $this->formatType($t), $type->getTypes()));
+            return implode('|', array_map(fn ($t) => $this->formatType($t, $declaringClass), $type->getTypes()));
         }
 
         if ($type instanceof ReflectionIntersectionType) {
-            return implode('&', array_map(fn ($t) => $this->formatType($t), $type->getTypes()));
+            return implode('&', array_map(fn ($t) => $this->formatType($t, $declaringClass), $type->getTypes()));
         }
 
         return '';
@@ -329,27 +344,119 @@ class DbBuildIdeHelperExtension extends Extension
     {
         $doc = $rm->getDocComment();
 
-        if (!$doc || !preg_match('/@return\s+([^\s*]+)/', $doc, $m)) {
+        if (!$doc || !preg_match('/@return\s+(\S.*)$/m', $doc, $m)) {
             return null;
         }
 
-        $type = $m[1];
+        $type = $this->readDocType(preg_replace('#\s*\*/$#', '', $m[1]));
 
-        if (str_contains($type, '$this') || str_contains($type, 'self') || str_contains($type, 'static')) {
+        if ($type === '' || preg_match('/\$this|\b(self|static|parent)\b/', $type)) {
             return null;
         }
 
-        if (preg_match('/^[A-Z][A-Za-z0-9_]*$/', $type)) {
-            $ns = $rm->getDeclaringClass()->getNamespaceName();
-            $candidate = $ns ? "{$ns}\\{$type}" : $type;
+        $class = $rm->getDeclaringClass();
+        $unresolved = false;
+        $resolved = preg_replace_callback(
+            '/\\\\?[A-Za-z_][A-Za-z0-9_\\\\-]*/',
+            function (array $match) use ($class, &$unresolved): string {
+                $name = $match[0];
 
-            if (!class_exists($candidate) && !interface_exists($candidate)) {
-                return null;
+                // Lowercase identifiers are builtin/pseudo types (string, array, class-string, ...).
+                if ($name[0] === '\\' || preg_match('/^[a-z][a-z0-9_-]*$/', $name)) {
+                    return $name;
+                }
+
+                $fqcn = $this->resolveDocClass($name, $class);
+
+                if ($fqcn === null) {
+                    $unresolved = true;
+
+                    return $name;
+                }
+
+                return '\\' . $fqcn;
+            },
+            $type,
+        );
+
+        return $unresolved || $resolved === null ? null : "/** @return {$resolved} */";
+    }
+
+    /**
+     * Reads a PHPDoc type up to the first whitespace outside of <>, {}, () and [].
+     */
+    private function readDocType(string $text): string
+    {
+        $depth = 0;
+        $length = strlen($text);
+
+        for ($i = 0; $i < $length; $i++) {
+            $char = $text[$i];
+
+            if (str_contains('<{([', $char)) {
+                $depth++;
+            } elseif (str_contains('>})]', $char)) {
+                $depth--;
+            } elseif ($depth <= 0 && ctype_space($char)) {
+                break;
+            }
+        }
+
+        return substr($text, 0, $i);
+    }
+
+    /**
+     * @param ReflectionClass<object> $context
+     */
+    private function resolveDocClass(string $name, ReflectionClass $context): ?string
+    {
+        $first = strstr($name, '\\', true) ?: $name;
+        $rest = substr($name, strlen($first));
+        $imports = $this->importsFor($context);
+
+        $candidates = isset($imports[$first])
+            ? [$imports[$first] . $rest]
+            : array_filter([$context->getNamespaceName() ? $context->getNamespaceName() . '\\' . $name : null, $name]);
+
+        foreach ($candidates as $candidate) {
+            if (class_exists($candidate) || interface_exists($candidate)) {
+                return ltrim($candidate, '\\');
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param ReflectionClass<object> $class
+     * @return array<string, string> alias => FQCN from top-level `use` statements
+     */
+    private function importsFor(ReflectionClass $class): array
+    {
+        $file = $class->getFileName();
+
+        if (!$file) {
+            return [];
+        }
+
+        if (!isset($this->importCache[$file])) {
+            $imports = [];
+            preg_match_all(
+                '/^use\s+([^\s;{]+?)(?:\s+as\s+(\w+))?;/m',
+                (string) file_get_contents($file),
+                $matches,
+                PREG_SET_ORDER,
+            );
+
+            foreach ($matches as $match) {
+                $fqcn = ltrim($match[1], '\\');
+                $alias = $match[2] ?? substr(strrchr('\\' . $fqcn, '\\'), 1);
+                $imports[$alias] = $fqcn;
             }
 
-            $type = '\\' . $candidate;
+            $this->importCache[$file] = $imports;
         }
 
-        return "/** @return {$type} */";
+        return $this->importCache[$file];
     }
 }

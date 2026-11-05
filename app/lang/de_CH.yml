@@ -264,6 +264,12 @@ de_CH:
     SpacingDescription: 'Anzahl Zeilen Lauftext (1 - 6)'
     TITLELEVEL: 'H1, H2, H3'
     WIDTHREDUCED: 'Breite reduziert'
+  App\Controller\LlmsTxtController:
+    GROUP_BLOGPOSTS: 'Blogbeiträge'
+    GROUP_PAGES: 'Seiten'
+    SITEMAP: 'XML-Sitemap'
+    SITEMAPALL: 'Vollständige Liste aller URLs, u.a. {groups}'
+    SITEMAPONLY: 'Vollständige Liste aller URLs'
   Page:
     MENU: Menu
     OGDescriptionCustomDescription: 'Defaultwert ist Meta-Description oder Summary bei einem Blog-Post'

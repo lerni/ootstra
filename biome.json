@@ -1,6 +1,23 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.5.12/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.6.4/schema.json",
 	"files": {
-		"includes": ["themes/default/**"]
+		"includes": ["themes/default/**", "app/**/*.yml", "app/**/*.yaml"]
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"nursery": {
+				"noDuplicateMapKeys": "error",
+				"noYamlBooleanKeys": "warn"
+			}
+		}
+	},
+	"yaml": {
+		"formatter": {
+			"enabled": false
+		},
+		"linter": {
+			"enabled": true
+		}
 	}
 }

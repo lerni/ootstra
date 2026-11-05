@@ -82,7 +82,6 @@
 		"bigfork/silverstripe-vitesse": "^2",
 		"axllent/silverstripe-scaled-uploads": "dev-fix/read-source-from-asset-store as 2.3.99",
 		"pixelpoems/silverstripe-indexnow": "2.x-dev",
-		"lerni/cms-task": "dev-master",
 		"lerni/silverstripe-assets-intervention4": "^3.3",
 		"intervention/image-driver-vips": "^4.2",
 		"purplespider/silverstripe-visual-block-picker": "^2"

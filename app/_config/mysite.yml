@@ -4,9 +4,6 @@ After:
   - 'mysharecare'
   - 'blogconfig'
 ---
-SilverStripe\Assets\InterventionBackend:
-  flush_enabled: false
-
 SilverStripe\Assets\File:
   extensions:
     - App\Extensions\FileExtension
@@ -311,6 +308,11 @@ SilverStripe\Core\Injector\Injector:
   SilverStripe\Assets\Image_Backend:
     properties:
       Quality: 84
+  Psr\SimpleCache\CacheInterface.LlmsTxt:
+    factory: SilverStripe\Core\Cache\CacheFactory
+    constructor:
+      defaultLifetime: 86400
+      namespace: "LlmsTxt"
   Psr\SimpleCache\CacheInterface.cacheblock:
     constructor:
       namespace: 'cacheblock'
@@ -336,6 +338,7 @@ SilverStripe\Control\Director:
   rules:
     '_vc/$ID': 'App\Controller\PersovCardController'
     '_pqr/$ID': 'App\Controller\PersoQRController'
+    'llms.txt': 'App\Controller\LlmsTxtController'
 
 App\Models\Perso:
   extensions:

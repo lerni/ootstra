@@ -64,7 +64,6 @@
         // (postCreate) and can cause a race where the binary isn’t found.
         "biome.enabled": true,
         "biome.lsp.bin": "biome",
-        "biome.configurationPath": "${workspaceFolder}/themes/default/biome.json",
 
         // Editor
         "[php]": {

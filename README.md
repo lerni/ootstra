@@ -117,7 +117,7 @@ Common tasks include:
 - `npm watch` - Vite dev server
 - `npm prod` - production build
 - `npm install & update update-browserslist-db`
-- `npm audit fix` - production build
+- `npm audit fix`
 - `clean '/hot' (Vite watcher)` - remove hot reload file
 
 **DDEV/Debugging (magenta):**

@@ -1,29 +1,5 @@
 /* CMS tweaks
 -------------------------------------------------------------------------------- */
-/* @font-face {
-	font-family: "icons";
-	src: url("/_resources/app/fonts/icons.woff2") format("woff2");
-	font-weight: normal;
-	font-style: normal;
-}
-
-[action*="SocialLinks/item"] #Form_ItemEditForm_Icon_Holder ul.chosen-results li,
-[action*="SocialLinks/item"] #Form_ItemEditForm_Icon_chosen a span {
-	line-height: 1.4;
-	font-size: 18px;
-	font-family: "icons" !important;
-	font-style: light !important;
-	font-weight: light !important;
-	font-variant: light !important;
-	text-transform: none !important;
-	speak: none;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-[action*="SocialLinks/item"] #Form_ItemEditForm_Icon_chosen a span {
-	vertical-align: -6px;
-	display: inline;
-} */
 
 .cms-edit-form .form-group.htmleditor.stacked .form__field-holder,
 .form--inline .form-group.htmleditor.stacked .form__field-holder,
