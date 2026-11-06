@@ -114,11 +114,13 @@ class LlmsTxtController extends Controller
                 continue;
             }
 
-            foreach ($sitemap->getItems($className, (int) $sitemapPage->Page) as $record) {
-                if ($record->hasMethod('AbsoluteLink') && $record->AbsoluteLink()) {
-                    yield $record;
-                }
+            $items = $sitemap->getItems($className, (int) $sitemapPage->Page);
+            // Links resolve per class (e.g. UrlifyExtension without a SlugHolderPage), so the first record decides
+            if (!$items->first()?->AbsoluteLink()) {
+                continue;
             }
+
+            yield from $items;
         }
     }
 
