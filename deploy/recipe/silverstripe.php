@@ -153,6 +153,13 @@ task('silverstripe:dev_build', function (): void {
 });
 
 
+desc('Regenerate static error pages if missing or referencing outdated hashed assets');
+task('silverstripe:regenerate_error_pages', function (): void {
+    // vendor/bin/sake is a shell proxy on the server, so it must be executed, not passed to php
+    run('cd {{release_or_current_path}} && {{bin/php}} ./vendor/bin/sake tasks:regenerate-error-documents');
+});
+
+
 task('silverstripe:htaccessperstage', function (): void {
     $stage = get('labels')['stage'];
     // upload htaccess, if a specific version for the current stage exist
@@ -190,6 +197,7 @@ task('silverstripe:upload_assets', function (): void {
     ]);
 });
 // after('silverstripe:upload_assets', 'deploy:writable');
+after('silverstripe:upload_assets', 'silverstripe:regenerate_error_pages');
 
 
 desc('Download assets');

@@ -223,6 +223,11 @@ App\Tasks\CleanUpObjects:
   objects_to_clean_up:
     - 'SilverStripe\UserForms\Model\Submission\SubmittedForm'
 
+App\Tasks\RegenerateErrorDocumentsTask:
+  default_error_codes:
+    - 404
+    - 500
+
 SilverStripe\UserForms\Model\Recipient\EmailRecipient:
   extensions:
     - App\Extensions\EmailRecipientExtension

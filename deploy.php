@@ -168,6 +168,7 @@ task('deploy', function () {
     invoke('deploy:clear_paths');
     invoke('deploy:symlink');
     invoke('silverstripe:set_script_filename');
+    invoke('silverstripe:regenerate_error_pages');
     invoke('pkill');
     invoke('deploy:unlock');
     invoke('deploy:cleanup');
