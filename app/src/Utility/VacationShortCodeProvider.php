@@ -3,13 +3,14 @@
 namespace App\Utility;
 
 use DateTime;
-use App\Models\Vacation;
+use SilverStripe\SiteConfig\SiteConfig;
 
 class VacationShortCodeProvider
 {
     public static function parseVacationShortCodeProvider($arguments, $content = null, $parser = null, $tagName = null)
     {
-        if (Vacation::get()->count()) {
+        $siteVacations = SiteConfig::current_site_config()->Vacations();
+        if ($siteVacations->exists()) {
             $start = (new DateTime('today'))->format('Y-m-d');
             if (array_key_exists('MonthsInAdvance', $arguments)) {
                 $endString = '+' . $arguments['MonthsInAdvance'] . ' months';
@@ -17,7 +18,7 @@ class VacationShortCodeProvider
                 $endString = '+' . 6 . ' months';
             }
             $end = (new DateTime($endString))->format('Y-m-d');
-            $vacations = Vacation::get()->filter([
+            $vacations = $siteVacations->filter([
                 'StartDate:LessThanOrEqual' => $end,
                 'EndDate:GreaterThanOrEqual' => $start,
             ]);

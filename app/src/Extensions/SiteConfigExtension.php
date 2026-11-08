@@ -63,6 +63,7 @@ class SiteConfigExtension extends Extension
         'ServiceNavigationItems' => Link::class . '.Owner',
         'TermsNavigationItems' => Link::class . '.Owner',
         'OpeningHours' => OpeningHour::class,
+        'Vacations' => Vacation::class,
     ];
 
     private static $casting = [
@@ -209,7 +210,7 @@ class SiteConfigExtension extends Extension
             GridFieldAddNewButton::create('toolbar-header-left'),
         );
         $vacationString = _t('SilverStripe\SiteConfig\SiteConfig.OpeningHoursVacations', 'Opening hours & Vacations');
-        $VacationGridField = GridField::create('Vacations', _t('SilverStripe\SiteConfig\SiteConfig.VacationsHolidays', 'Vacations & Holidays'), Vacation::get(), $VacationGFConf);
+        $VacationGridField = GridField::create('Vacations', _t('SilverStripe\SiteConfig\SiteConfig.VacationsHolidays', 'Vacations & Holidays'), $this->getOwner()->Vacations(), $VacationGFConf);
         $VacationGridField->setDescription('<p>[Vacation MonthsInAdvance="6"]</p>' . _t('SilverStripe\SiteConfig\SiteConfig.VACATIONSDESCRIPTION', 'Lists upcoming vacations & holidays. MonthsInAdvance limits how many months ahead are shown (default 6).'));
         $fields->addFieldToTab('Root', Tab::create(
             $vacationString,
@@ -315,7 +316,7 @@ class SiteConfigExtension extends Extension
         }
 
         // A closure is an all-day range (00:00 - 00:00) limited by validFrom/validThrough
-        $vacations = Vacation::get()->filter('EndDate:GreaterThanOrEqual', date('Y-m-d'))->sort('StartDate ASC');
+        $vacations = $this->getOwner()->Vacations()->filter('EndDate:GreaterThanOrEqual', date('Y-m-d'))->sort('StartDate ASC');
         foreach ($vacations as $vacation) {
             $specs[] = Schema::openingHoursSpecification()
                 ->opens('00:00')

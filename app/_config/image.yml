@@ -9,3 +9,13 @@ After:
 SilverStripe\Core\Injector\Injector:
   InterventionImageDriver:
     class: 'Intervention\Image\Drivers\Vips\Driver'
+  Intervention\Image\ImageManager:
+    factory: '%$App\Utility\ImageManagerFactory'
+  SilverStripe\Assets\Conversion\InterventionImageFileConverter:
+    class: App\Conversion\AvifFileConverter
+  SilverStripe\Assets\Image_Backend:
+    properties:
+      Quality: 84
+
+App\Conversion\AvifFileConverter:
+  avif_quality: 60

@@ -5,6 +5,7 @@ namespace App\Models;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Permission;
 use SilverStripe\ORM\FieldType\DBDate;
+use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\Security\PermissionProvider;
 use SilverStripe\Core\Validation\ValidationResult;
 
@@ -14,6 +15,14 @@ class Vacation extends DataObject implements PermissionProvider
         'Title' => 'Varchar',
         'StartDate' => DBDate::class,
         'EndDate' => DBDate::class,
+    ];
+
+    private static $has_one = [
+        'SiteConfig' => SiteConfig::class,
+    ];
+
+    private static $scaffold_cms_fields_settings = [
+        'ignoreFields' => ['SiteConfig'],
     ];
 
     private static $summary_fields = [

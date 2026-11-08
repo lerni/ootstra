@@ -49,7 +49,12 @@ class ElementDownloads extends BaseElement
 
     public function fieldLabels($includerelations = true)
     {
-        return parent::fieldLabels($includerelations);
+        $labels = parent::fieldLabels($includerelations);
+        $labels['DownloadFolderID'] = _t(self::class . '.FOLDER', 'Folder');
+        $labels['DownloadFiles'] = _t(self::class . '.Documents', 'Documents');
+        $labels['WidthReduced'] = _t('DNADesign\Elemental\Models\BaseElement.WIDTHREDUCED', 'reduce width');
+
+        return $labels;
     }
 
     public function getCMSFields(): FieldList
@@ -65,7 +70,7 @@ class ElementDownloads extends BaseElement
 
         $FolderField = FolderDropdownField::create(
             'DownloadFolderID',
-            _t(self::class . '.FOLDER', 'Folder'),
+            $this->fieldLabel('DownloadFolderID'),
             Folder::class,
         );
         $fields->addFieldToTab('Root.Main', $FolderField);
@@ -73,7 +78,7 @@ class ElementDownloads extends BaseElement
         $fields->removeByName('DownloadFiles');
         $fields->addFieldToTab(
             'Root.Main',
-            $uploadField = SortableUploadField::create($name = 'DownloadFiles', $title = _t(self::class . '.Documents', 'Documents')),
+            $uploadField = SortableUploadField::create('DownloadFiles', $this->fieldLabel('DownloadFiles')),
         );
 
         // Set allowed extensions
@@ -86,7 +91,7 @@ class ElementDownloads extends BaseElement
         $uploadField->setSortColumn('SortOrder');
 
         if ($WidthReducedBox = $fields->dataFieldByName('WidthReduced')) {
-            $WidthReducedBox->setTitle(_t('DNADesign\Elemental\Models\BaseElement.WIDTHREDUCED', 'reduce width'));
+            $WidthReducedBox->setTitle($this->fieldLabel('WidthReduced'));
             $fields->addFieldToTab('Root.Settings', $WidthReducedBox);
         }
 

@@ -297,17 +297,10 @@ SilverStripe\Core\Injector\Injector:
   # this, all owners of this extension would share one instance/limit value
   App\Extensions\LimitCreateExtension:
     type: prototype
-  Intervention\Image\ImageManager:
-    factory: '%$App\Utility\ImageManagerFactory'
-  SilverStripe\Assets\Conversion\InterventionImageFileConverter:
-    class: App\Conversion\AvifFileConverter
   UndefinedOffset\NoCaptcha\Forms\NocaptchaField:
     properties:
       SiteKey: '`SS_NOCAPTCHA_SITE_KEY`'
       SecretKey: '`SS_NOCAPTCHA_SECRET_KEY`'
-  SilverStripe\Assets\Image_Backend:
-    properties:
-      Quality: 84
   Psr\SimpleCache\CacheInterface.LlmsTxt:
     factory: SilverStripe\Core\Cache\CacheFactory
     constructor:
@@ -350,9 +343,6 @@ SilverStripe\Forms\GridField\GridFieldDetailForm_ItemRequest:
 
 App\Controller\PersovCardController:
   expose_vcards: true
-
-App\Conversion\AvifFileConverter:
-  avif_quality: 60
 
 Axllent\ScaledUploads\ScaledUploads:
   max_width: 4000
