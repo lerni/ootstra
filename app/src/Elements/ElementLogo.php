@@ -3,17 +3,10 @@
 namespace App\Elements;
 
 use App\Models\Logo;
-use SilverStripe\Forms\LiteralField;
+use App\Utility\GridFieldHelper;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Forms\GridField\GridField;
-use SilverStripe\Forms\GridField\GridFieldDetailForm;
-use SilverStripe\Forms\GridField\GridFieldEditButton;
-use SilverStripe\Forms\GridField\GridFieldConfig_Base;
-use SilverStripe\Forms\GridField\GridFieldAddNewButton;
-use SilverStripe\Forms\GridField\GridFieldDeleteAction;
-use SilverStripe\Forms\GridField\GridFieldFilterHeader;
-use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
-use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
+use App\GridField\GridFieldConfig_SortableRelation;
 
 class ElementLogo extends BaseElement
 {
@@ -59,24 +52,7 @@ class ElementLogo extends BaseElement
             $fields->addFieldToTab('Root.Settings', $GreyscaleField);
         }
 
-        // hack around unsaved relations
-        if ($this->isInDB()) {
-            $LogosGridFieldConfig = GridFieldConfig_Base::create(100);
-            $LogosGridFieldConfig->addComponents(
-                GridFieldEditButton::create(),
-                GridFieldDeleteAction::create(false),
-                GridFieldDeleteAction::create(true),
-                GridFieldDetailForm::create(),
-                GridFieldAddNewButton::create('toolbar-header-left'),
-                GridFieldOrderableRows::create('SortOrder'),
-                GridFieldAddExistingAutocompleter::create('toolbar-header-right'),
-            );
-            $LogosGridFieldConfig->removeComponentsByType(GridFieldFilterHeader::class);
-            $GridField = GridField::create('Logos', 'Logos', $this->Logos(), $LogosGridFieldConfig);
-            $fields->addFieldToTab('Root.Main', $GridField);
-        } else {
-            $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
-        }
+        GridFieldHelper::addIfSaved($fields, $this, fn () => GridField::create('Logos', 'Logos', $this->Logos(), GridFieldConfig_SortableRelation::create('SortOrder', 100)));
 
         return $fields;
     }

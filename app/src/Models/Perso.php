@@ -14,17 +14,12 @@ use SilverStripe\TagField\TagField;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\View\Parsers\URLSegmentFilter;
-use SilverStripe\Forms\GridField\GridFieldDetailForm;
-use SilverStripe\Forms\GridField\GridFieldEditButton;
+use App\GridField\GridFieldConfig_SortableRelation;
 use SilverStripe\Forms\Validation\CompositeValidator;
 use SilverStripe\Forms\GridField\GridFieldConfig_Base;
 use SilverStripe\Forms\GridField\GridFieldDataColumns;
-use SilverStripe\Forms\GridField\GridFieldAddNewButton;
-use SilverStripe\Forms\GridField\GridFieldDeleteAction;
 use SilverStripe\Forms\GridField\GridFieldFilterHeader;
-use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 use SilverStripe\Forms\Validation\RequiredFieldsValidator;
-use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
 class Perso extends DataObject
 {
@@ -122,20 +117,7 @@ class Perso extends DataObject
             );
             $fields->addFieldToTab('Root.Main', $DepartmentsField);
 
-            $SocialConf = GridFieldConfig_Base::create(20);
-            $SocialConf->removeComponentsByType([
-                GridFieldFilterHeader::class,
-            ]);
-            $SocialConf->addComponents(
-                GridFieldEditButton::create(),
-                GridFieldDeleteAction::create(false),
-                GridFieldDeleteAction::create(true),
-                GridFieldDetailForm::create(),
-                GridFieldAddNewButton::create('toolbar-header-left'),
-                GridFieldAddExistingAutocompleter::create('toolbar-header-right'),
-                GridFieldOrderableRows::create('SortOrder'),
-            );
-            $SocialGridField = GridField::create('SocialLinks', 'SocialLinks', $this->SocialLinks(), $SocialConf);
+            $SocialGridField = GridField::create('SocialLinks', 'SocialLinks', $this->SocialLinks(), GridFieldConfig_SortableRelation::create('SortOrder'));
             $fields->addFieldToTab('Root.Main', $SocialGridField);
 
             // show where associated per CFAElement

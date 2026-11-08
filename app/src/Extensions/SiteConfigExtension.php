@@ -26,21 +26,17 @@ use SilverStripe\ORM\FieldType\DBDate;
 use SilverStripe\LinkField\Models\Link;
 use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\Forms\GridField\GridField;
+use App\GridField\GridFieldConfig_OwnRecords;
 use SilverStripe\LinkField\Form\MultiLinkField;
 use SilverStripe\Forms\GridField\GridFieldConfig;
 use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
+use App\GridField\GridFieldConfig_SortableRelation;
 use SilverStripe\Forms\GridField\GridFieldButtonRow;
-use SilverStripe\Forms\GridField\GridFieldDetailForm;
-use SilverStripe\Forms\GridField\GridFieldEditButton;
-use SilverStripe\Forms\GridField\GridFieldConfig_Base;
 use Symbiote\GridFieldExtensions\GridFieldTitleHeader;
-use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
-use SilverStripe\Forms\GridField\GridFieldFilterHeader;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 use Symbiote\GridFieldExtensions\GridFieldEditableColumns;
 use Symbiote\GridFieldExtensions\GridFieldAddNewInlineButton;
-use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
 /**
  * @extends Extension<SiteConfig>
@@ -120,18 +116,7 @@ class SiteConfigExtension extends Extension
         $GlobalAlertField->setEditorConfig('inlite'); // we need to use a different config, otherwise the "body_class" is overwritten also for editors with bigfork/silverstripe-fail-whale
         $GlobalAlertField->getEditorConfig()->setOption('body_class', 'typography global-alert');
 
-        $SlideGridFieldConfig = GridFieldConfig_Base::create(20);
-        $SlideGridFieldConfig->addComponents(
-            GridFieldEditButton::create(),
-            GridFieldDeleteAction::create(false),
-            GridFieldDeleteAction::create(true),
-            GridFieldDetailForm::create(),
-            GridFieldAddNewButton::create('toolbar-header-left'),
-            GridFieldAddExistingAutocompleter::create('toolbar-header-right'),
-            GridFieldOrderableRows::create('SortOrder'),
-        );
-        $SlideGridFieldConfig->removeComponentsByType(GridFieldFilterHeader::class);
-        $gridField = GridField::create('DefaultHeaderSlides', _t('SilverStripe\SiteConfig\SiteConfig.DEFAULTHEADERSLIDES'), $this->getOwner()->DefaultHeaderSlides(), $SlideGridFieldConfig);
+        $gridField = GridField::create('DefaultHeaderSlides', _t('SilverStripe\SiteConfig\SiteConfig.DEFAULTHEADERSLIDES'), $this->getOwner()->DefaultHeaderSlides(), GridFieldConfig_SortableRelation::create('SortOrder'));
         $gridField->setDescription(_t('SilverStripe\SiteConfig\SiteConfig.DEFAULTHEADERSLIDESDESCRIPTION', 'Displayed on Pages without Hero'));
         $fields->addFieldToTab('Root.Main', $gridField, 'GlobalAlert');
 
@@ -149,68 +134,22 @@ class SiteConfigExtension extends Extension
             ],
         );
 
-        $LocationConf = GridFieldConfig_Base::create(20);
-        $LocationConf->removeComponentsByType([
-            GridFieldFilterHeader::class,
-        ]);
-        $LocationConf->addComponents(
-            GridFieldEditButton::create(),
-            GridFieldDeleteAction::create(false),
-            GridFieldDetailForm::create(),
-            GridFieldOrderableRows::create('Sort'),
-            GridFieldAddNewButton::create('toolbar-header-left'),
-        );
-
-        $LocationGridField = GridField::create('Locations', 'Locations', $this->getOwner()->Locations(), $LocationConf);
+        $LocationGridField = GridField::create('Locations', 'Locations', $this->getOwner()->Locations(), GridFieldConfig_OwnRecords::create('Sort'));
         $LocationGridField->setDescription(_t('SilverStripe\SiteConfig\SiteConfig.SortImpact', 'The "Location" in 1st place is displayed in the footer.'));
         $fields->addFieldToTab('Root.Main', $LocationGridField);
 
-
-        $SnippetGFConf = GridFieldConfig_Base::create(20);
-        $SnippetGFConf->removeComponentsByType([
-            GridFieldFilterHeader::class,
-        ]);
-        $SnippetGFConf->addComponents(
-            GridFieldEditButton::create(),
-            GridFieldDeleteAction::create(false),
-            GridFieldDetailForm::create(),
-            GridFieldAddNewButton::create('toolbar-header-left'),
-        );
-        $SnippetGridField = GridField::create('Snipped', 'Snippets', ShortCodeSnippet::get(), $SnippetGFConf);
+        $SnippetGridField = GridField::create('Snipped', 'Snippets', ShortCodeSnippet::get(), GridFieldConfig_OwnRecords::create());
         $fields->addFieldToTab('Root', Tab::create(
             'Snippets',
             'Snippets',
             $SnippetGridField,
         ));
 
-
-        $SocialConf = GridFieldConfig_Base::create(20);
-        $SocialConf->removeComponentsByType([
-            GridFieldFilterHeader::class,
-        ]);
-        $SocialConf->addComponents(
-            GridFieldEditButton::create(),
-            GridFieldDeleteAction::create(false),
-            GridFieldDetailForm::create(),
-            GridFieldOrderableRows::create('SortOrder'),
-            GridFieldAddNewButton::create('toolbar-header-left'),
-        );
-
-        $SocialGridField = GridField::create('SocialLinks', 'SocialLinks', $this->getOwner()->SocialLinks(), $SocialConf);
+        $SocialGridField = GridField::create('SocialLinks', 'SocialLinks', $this->getOwner()->SocialLinks(), GridFieldConfig_OwnRecords::create('SortOrder'));
         $fields->addFieldToTab('Root.Main', $SocialGridField);
 
-        $VacationGFConf = GridFieldConfig_Base::create(20);
-        $VacationGFConf->removeComponentsByType([
-            GridFieldFilterHeader::class,
-        ]);
-        $VacationGFConf->addComponents(
-            GridFieldEditButton::create(),
-            GridFieldDeleteAction::create(false),
-            GridFieldDetailForm::create(),
-            GridFieldAddNewButton::create('toolbar-header-left'),
-        );
         $vacationString = _t('SilverStripe\SiteConfig\SiteConfig.OpeningHoursVacations', 'Opening hours & Vacations');
-        $VacationGridField = GridField::create('Vacations', _t('SilverStripe\SiteConfig\SiteConfig.VacationsHolidays', 'Vacations & Holidays'), $this->getOwner()->Vacations(), $VacationGFConf);
+        $VacationGridField = GridField::create('Vacations', _t('SilverStripe\SiteConfig\SiteConfig.VacationsHolidays', 'Vacations & Holidays'), $this->getOwner()->Vacations(), GridFieldConfig_OwnRecords::create());
         $VacationGridField->setDescription('<p>[Vacation MonthsInAdvance="6"]</p>' . _t('SilverStripe\SiteConfig\SiteConfig.VACATIONSDESCRIPTION', 'Lists upcoming vacations & holidays. MonthsInAdvance limits how many months ahead are shown (default 6).'));
         $fields->addFieldToTab('Root', Tab::create(
             $vacationString,

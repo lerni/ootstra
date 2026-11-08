@@ -3,20 +3,13 @@
 namespace App\Elements;
 
 use App\Models\Point;
+use App\Utility\GridFieldHelper;
 use SilverStripe\Forms\HeaderField;
-use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\DropdownField;
 use App\Controller\ElementMapsController;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Forms\GridField\GridField;
-use SilverStripe\Forms\GridField\GridFieldDetailForm;
-use SilverStripe\Forms\GridField\GridFieldEditButton;
-use SilverStripe\Forms\GridField\GridFieldConfig_Base;
-use SilverStripe\Forms\GridField\GridFieldAddNewButton;
-use SilverStripe\Forms\GridField\GridFieldDeleteAction;
-use SilverStripe\Forms\GridField\GridFieldFilterHeader;
-use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
-use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
+use App\GridField\GridFieldConfig_SortableRelation;
 
 class ElementMaps extends BaseElement
 {
@@ -99,24 +92,7 @@ class ElementMaps extends BaseElement
         $fields->addFieldToTab('Root.Main', $ZoomField = DropdownField::create('Zoom', 'Zoom', $ZoomLevels));
         $ZoomField->setDescription(_t(self::class . '.ZoomDescription', 'Zoom level adjusts to show all markers. A minimum value can be configured here.'));
 
-        // hack around unsaved relations
-        if ($this->isInDB()) {
-            $PointGridFieldConfig = GridFieldConfig_Base::create(20);
-            $PointGridFieldConfig->addComponents(
-                GridFieldEditButton::create(),
-                GridFieldDeleteAction::create(false),
-                GridFieldDeleteAction::create(true),
-                GridFieldDetailForm::create(),
-                GridFieldAddNewButton::create('toolbar-header-left'),
-                GridFieldAddExistingAutocompleter::create('toolbar-header-right'),
-                GridFieldOrderableRows::create('SortOrder'),
-            );
-            $PointGridFieldConfig->removeComponentsByType(GridFieldFilterHeader::class);
-            $gridField = GridField::create('Points', 'Points', $this->Points(), $PointGridFieldConfig);
-            $fields->addFieldToTab('Root.Main', $gridField);
-        } else {
-            $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
-        }
+        GridFieldHelper::addIfSaved($fields, $this, fn () => GridField::create('Points', 'Points', $this->Points(), GridFieldConfig_SortableRelation::create('SortOrder')));
 
         return $fields;
     }

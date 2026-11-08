@@ -13,14 +13,9 @@ use SilverStripe\Forms\DropdownField;
 use SilverStripe\Model\List\ArrayList;
 use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\Forms\GridField\GridField;
+use App\GridField\GridFieldConfig_SortableRelation;
 use SilverStripe\Forms\GridField\GridFieldPaginator;
-use SilverStripe\Forms\GridField\GridFieldDetailForm;
-use SilverStripe\Forms\GridField\GridFieldEditButton;
-use SilverStripe\Forms\GridField\GridFieldConfig_Base;
-use SilverStripe\Forms\GridField\GridFieldAddNewButton;
-use SilverStripe\Forms\GridField\GridFieldDeleteAction;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
-use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 
 /**
  * @extends Extension<\SilverStripe\Blog\Model\Blog>
@@ -66,18 +61,7 @@ class BlogExtension extends Extension
 
         // hack around unsaved relations
         if ($this->getOwner()->isInDB()) {
-            $SlideGridFieldConfig = GridFieldConfig_Base::create(20);
-            $SlideGridFieldConfig->addComponents(
-                GridFieldEditButton::create(),
-                GridFieldDeleteAction::create(false),
-                GridFieldDeleteAction::create(true),
-                GridFieldDetailForm::create(),
-                GridFieldAddNewButton::create('toolbar-header-left'),
-                GridFieldAddExistingAutocompleter::create('toolbar-header-right'),
-                GridFieldOrderableRows::create('SortOrder'),
-            );
-
-            $gridField = GridField::create('Slides', 'Slides', $this->getOwner()->Slides(), $SlideGridFieldConfig);
+            $gridField = GridField::create('Slides', 'Slides', $this->getOwner()->Slides(), GridFieldConfig_SortableRelation::create('SortOrder'));
             $fields->addFieldToTab('Root.Main', $gridField, 'Content');
 
             // HeroSize is respected if slides are present, otherwise default of SiteConfig is used

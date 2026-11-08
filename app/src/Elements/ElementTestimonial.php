@@ -3,16 +3,13 @@
 namespace App\Elements;
 
 use App\Models\Testimonial;
+use App\Utility\GridFieldHelper;
 use App\Models\TestimonialCategory;
 use SilverStripe\TagField\TagField;
-use SilverStripe\Forms\LiteralField;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Forms\GridField\GridField;
-use SilverStripe\Forms\GridField\GridFieldDetailForm;
-use SilverStripe\Forms\GridField\GridFieldEditButton;
+use App\GridField\GridFieldConfig_OwnRecords;
 use SilverStripe\Forms\GridField\GridFieldConfig_Base;
-use SilverStripe\Forms\GridField\GridFieldAddNewButton;
-use SilverStripe\Forms\GridField\GridFieldDeleteAction;
 use SilverStripe\Forms\GridField\GridFieldFilterHeader;
 
 class ElementTestimonial extends BaseElement
@@ -74,17 +71,12 @@ class ElementTestimonial extends BaseElement
         // Filter testimonials by selected categories
         $testimonials_selected = $this->getItems();
         if ($testimonials_selected->count()) {
-            // hack around unsaved relations
-            if ($this->isInDB()) {
-                $TestimonialsSelectedGridFieldConfig = GridFieldConfig_Base::create(20);
-                $TestimonialsSelectedGridFieldConfig->removeComponentsByType([
-                    GridFieldFilterHeader::class,
-                ]);
-                $gridField = GridField::create('TestimonialsSelected', _t(self::class . '.TESTIMONIALSSELECTED', 'Testimonials (filtered by categories)'), $testimonials_selected, $TestimonialsSelectedGridFieldConfig);
-                $fields->addFieldToTab('Root.Main', $gridField);
-            } else {
-                $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
-            }
+            GridFieldHelper::addIfSaved($fields, $this, fn () => GridField::create(
+                'TestimonialsSelected',
+                _t(self::class . '.TESTIMONIALSSELECTED', 'Testimonials (filtered by categories)'),
+                $testimonials_selected,
+                GridFieldConfig_Base::create(20)->removeComponentsByType(GridFieldFilterHeader::class),
+            ));
         }
 
         if ($count_max_field = $fields->dataFieldByName('CountMax')) {
@@ -92,23 +84,7 @@ class ElementTestimonial extends BaseElement
         }
 
         $testimonials_all = Testimonial::get();
-        // hack around unsaved relations
-        if ($this->isInDB()) {
-            $TestimonialsAllGridFieldConfig = GridFieldConfig_Base::create(20);
-            $TestimonialsAllGridFieldConfig->removeComponentsByType([
-                GridFieldFilterHeader::class,
-            ]);
-            $TestimonialsAllGridFieldConfig->addComponents(
-                GridFieldEditButton::create(),
-                GridFieldDeleteAction::create(false),
-                GridFieldDetailForm::create(),
-                GridFieldAddNewButton::create('toolbar-header-right'),
-            );
-            $gridField = GridField::create('TestimonialsAll', _t(self::class . '.TESTIMONIALSALL', 'Testimonials (all)'), $testimonials_all, $TestimonialsAllGridFieldConfig);
-            $fields->addFieldToTab('Root.Main', $gridField);
-        } else {
-            $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
-        }
+        GridFieldHelper::addIfSaved($fields, $this, fn () => GridField::create('TestimonialsAll', _t(self::class . '.TESTIMONIALSALL', 'Testimonials (all)'), $testimonials_all, GridFieldConfig_OwnRecords::create()));
 
         return $fields;
     }

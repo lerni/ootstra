@@ -3,17 +3,10 @@
 namespace App\Elements;
 
 use App\Models\PDFDoc;
-use SilverStripe\Forms\LiteralField;
+use App\Utility\GridFieldHelper;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Forms\GridField\GridField;
-use SilverStripe\Forms\GridField\GridFieldDetailForm;
-use SilverStripe\Forms\GridField\GridFieldEditButton;
-use SilverStripe\Forms\GridField\GridFieldConfig_Base;
-use SilverStripe\Forms\GridField\GridFieldAddNewButton;
-use SilverStripe\Forms\GridField\GridFieldDeleteAction;
-use SilverStripe\Forms\GridField\GridFieldFilterHeader;
-use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
-use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
+use App\GridField\GridFieldConfig_SortableRelation;
 
 class ElementPDFDocument extends BaseElement
 {
@@ -66,26 +59,12 @@ class ElementPDFDocument extends BaseElement
             $TextEditorField->setRows(10);
         }
 
-        // hack around unsaved relations
-        if ($this->isInDB()) {
-            $DocumentGridFieldConfig = GridFieldConfig_Base::create(20);
-            $DocumentGridFieldConfig->addComponents(
-                GridFieldEditButton::create(),
-                GridFieldDeleteAction::create(false),
-                GridFieldDeleteAction::create(true),
-                GridFieldDetailForm::create(),
-                (GridFieldAddNewButton::create('toolbar-header-left'))->setButtonName(_t(self::class . '.AddDocument', 'Add document...')),
-                GridFieldAddExistingAutocompleter::create('toolbar-header-right'),
-                GridFieldOrderableRows::create('PDFSortOrder'),
-            );
-            $gridField = GridField::create('PDFDocs', '', $this->PDFDocs(), $DocumentGridFieldConfig);
-            $fields->addFieldToTab('Root.Main', $gridField);
-            $DocumentGridFieldConfig->removeComponentsByType([
-                GridFieldFilterHeader::class,
-            ]);
-        } else {
-            $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
-        }
+        GridFieldHelper::addIfSaved($fields, $this, fn () => GridField::create(
+            'PDFDocs',
+            '',
+            $this->PDFDocs(),
+            GridFieldConfig_SortableRelation::create('PDFSortOrder')->setAddNewLabel(_t(self::class . '.AddDocument', 'Add document...')),
+        ));
 
         return $fields;
     }

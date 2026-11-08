@@ -3,17 +3,10 @@
 namespace App\Elements;
 
 use App\Models\Teaser;
-use SilverStripe\Forms\LiteralField;
+use App\Utility\GridFieldHelper;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Forms\GridField\GridField;
-use SilverStripe\Forms\GridField\GridFieldDetailForm;
-use SilverStripe\Forms\GridField\GridFieldEditButton;
-use SilverStripe\Forms\GridField\GridFieldConfig_Base;
-use SilverStripe\Forms\GridField\GridFieldAddNewButton;
-use SilverStripe\Forms\GridField\GridFieldDeleteAction;
-use SilverStripe\Forms\GridField\GridFieldFilterHeader;
-use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
-use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
+use App\GridField\GridFieldConfig_SortableRelation;
 
 class ElementTeaser extends BaseElement
 {
@@ -59,24 +52,7 @@ class ElementTeaser extends BaseElement
             'isFullWidth',
         ]);
 
-        // hack around unsaved relations
-        if ($this->isInDB()) {
-            $TeaserGridFieldConfig = GridFieldConfig_Base::create(20);
-            $TeaserGridFieldConfig->addComponents(
-                GridFieldEditButton::create(),
-                GridFieldDeleteAction::create(false),
-                GridFieldDeleteAction::create(true),
-                GridFieldDetailForm::create(),
-                GridFieldAddNewButton::create('toolbar-header-left'),
-                GridFieldAddExistingAutocompleter::create('toolbar-header-right'),
-                GridFieldOrderableRows::create('TeaserSortOrder'),
-            );
-            $TeaserGridFieldConfig->removeComponentsByType(GridFieldFilterHeader::class);
-            $gridField = GridField::create('Teasers', 'Teasers', $this->Teasers(), $TeaserGridFieldConfig);
-            $fields->addFieldToTab('Root.Main', $gridField);
-        } else {
-            $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
-        }
+        GridFieldHelper::addIfSaved($fields, $this, fn () => GridField::create('Teasers', 'Teasers', $this->Teasers(), GridFieldConfig_SortableRelation::create('TeaserSortOrder')));
 
         return $fields;
     }

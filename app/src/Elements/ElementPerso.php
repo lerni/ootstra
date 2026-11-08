@@ -4,18 +4,11 @@ namespace App\Elements;
 
 use App\Models\Perso;
 use App\Models\Department;
-use SilverStripe\Forms\LiteralField;
+use App\Utility\GridFieldHelper;
 use App\Controller\ElementPersoController;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Forms\GridField\GridField;
-use SilverStripe\Forms\GridField\GridFieldDetailForm;
-use SilverStripe\Forms\GridField\GridFieldEditButton;
-use SilverStripe\Forms\GridField\GridFieldConfig_Base;
-use SilverStripe\Forms\GridField\GridFieldAddNewButton;
-use SilverStripe\Forms\GridField\GridFieldDeleteAction;
-use SilverStripe\Forms\GridField\GridFieldFilterHeader;
-use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
-use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
+use App\GridField\GridFieldConfig_SortableRelation;
 
 class ElementPerso extends BaseElement
 {
@@ -88,45 +81,19 @@ class ElementPerso extends BaseElement
             $AvailableGloballyField->setDisabled(true);
         }
 
-        // hack around unsaved relations
-        if ($this->isInDB()) {
-            $DepGFConfig = GridFieldConfig_Base::create(20);
-            $DepGFConfig->addComponents(
-                GridFieldEditButton::create(),
-                GridFieldDeleteAction::create(false),
-                GridFieldDetailForm::create(),
-                GridFieldAddNewButton::create('toolbar-header-left'),
-                GridFieldAddExistingAutocompleter::create('toolbar-header-right'),
-                GridFieldOrderableRows::create('DepartmentsSortOrder'),
-            );
-            $DepGFConfig->removeComponentsByType(GridFieldFilterHeader::class);
-            $GFDep = GridField::create('Departments', 'Abteilungen', $this->Departments(), $DepGFConfig);
+        GridFieldHelper::addIfSaved($fields, $this, function () {
+            $GFDep = GridField::create('Departments', 'Abteilungen', $this->Departments(), GridFieldConfig_SortableRelation::create('DepartmentsSortOrder')->withoutUnlink());
             $GFDep->setDescription('<p><strong>' . _t(self::class . '.CanDeleteExplanation', 'Only departments without people can be deleted!') . '</strong></p>');
-            $fields->addFieldToTab('Root.Main', $GFDep);
-        } else {
-            $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
-        }
 
-        // hack around unsaved relations
-        if ($this->isInDB()) {
-            $PersoGFConfig = GridFieldConfig_Base::create(100);
-            $PersoGFConfig->addComponents(
-                GridFieldEditButton::create(),
-                GridFieldDeleteAction::create(false),
-                GridFieldDeleteAction::create(true),
-                GridFieldDetailForm::create(),
-                GridFieldAddNewButton::create('toolbar-header-left'),
-                GridFieldAddExistingAutocompleter::create('toolbar-header-right'),
-            );
-            if ($this->Sorting == 'manual' && $this->GroupByDepartment == 0) {
-                $PersoGFConfig->addComponent(GridFieldOrderableRows::create('PersosSortOrder'));
-            }
-            $PersoGFConfig->removeComponentsByType(GridFieldFilterHeader::class);
-            $GFPerso = GridField::create('Persos', _t(self::class . '.PERSOS', 'Employees'), $this->Everybody(), $PersoGFConfig);
-            $fields->addFieldToTab('Root.Main', $GFPerso);
-        } else {
-            $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
-        }
+            return $GFDep;
+        });
+
+        GridFieldHelper::addIfSaved($fields, $this, fn () => GridField::create(
+            'Persos',
+            _t(self::class . '.PERSOS', 'Employees'),
+            $this->Everybody(),
+            GridFieldConfig_SortableRelation::create($this->Sorting == 'manual' && $this->GroupByDepartment == 0 ? 'PersosSortOrder' : null, 100),
+        ));
 
         if ($GroupByDepartmentField = $fields->dataFieldByName('GroupByDepartment')) {
             $GroupByDepartmentField->setDescription(_t(self::class . '.GroupByDepartmentDescription', 'If checked, adjust sorting in department'));

@@ -3,17 +3,11 @@
 namespace App\Elements;
 
 use App\Models\Slide;
-use SilverStripe\Forms\LiteralField;
+use App\Utility\GridFieldHelper;
 use SilverStripe\SiteConfig\SiteConfig;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Forms\GridField\GridField;
-use SilverStripe\Forms\GridField\GridFieldDetailForm;
-use SilverStripe\Forms\GridField\GridFieldEditButton;
-use SilverStripe\Forms\GridField\GridFieldConfig_Base;
-use SilverStripe\Forms\GridField\GridFieldAddNewButton;
-use SilverStripe\Forms\GridField\GridFieldDeleteAction;
-use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
-use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
+use App\GridField\GridFieldConfig_SortableRelation;
 
 class ElementHero extends BaseElement
 {
@@ -99,23 +93,7 @@ class ElementHero extends BaseElement
             $HeroSizeField->setDescription(_t(self::class . '.HeroSizeDescription', '{aspectRatios} - "fullscreen" requires "full width"!', ['aspectRatios' => $availableHeroAspectRatios]));
         }
 
-        // hack around unsaved relations
-        if ($this->isInDB()) {
-            $SlideGridFieldConfig = GridFieldConfig_Base::create(20);
-            $SlideGridFieldConfig->addComponents(
-                GridFieldEditButton::create(),
-                GridFieldDeleteAction::create(false),
-                GridFieldDeleteAction::create(true),
-                GridFieldDetailForm::create(),
-                GridFieldAddNewButton::create('toolbar-header-left'),
-                GridFieldAddExistingAutocompleter::create('toolbar-header-right'),
-            );
-            $SlideGridFieldConfig->addComponent(GridFieldOrderableRows::create('SortOrder'));
-            $gridField = GridField::create('Slides', 'Slides', $this->Slides(), $SlideGridFieldConfig);
-            $fields->addFieldToTab('Root.Main', $gridField);
-        } else {
-            $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
-        }
+        GridFieldHelper::addIfSaved($fields, $this, fn () => GridField::create('Slides', 'Slides', $this->Slides(), GridFieldConfig_SortableRelation::create('SortOrder')));
 
         if ($DoNotCropField = $fields->dataFieldByName('DoNotCrop')) {
             $DoNotCropField->setDescription(_t(self::class . '.DoNotCropDescription', 'No maximum height for "small" and "medium" size.'));

@@ -4,8 +4,8 @@ namespace App\Models;
 
 use App\Models\Perso;
 use App\Elements\ElementPerso;
+use App\Utility\GridFieldHelper;
 use SilverStripe\ORM\DataObject;
-use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\View\Parsers\URLSegmentFilter;
 use SilverStripe\Forms\Validation\CompositeValidator;
@@ -75,8 +75,7 @@ class Department extends DataObject
             'PersoElement',
         ]);
 
-        // hack around unsaved relations
-        if ($this->isInDB()) {
+        GridFieldHelper::addIfSaved($fields, $this, function () {
             $PersoGFConfig = GridFieldConfig_Base::create(100);
             $PersoGFConfig->addComponents(
                 GridFieldDeleteAction::create(true),
@@ -84,11 +83,9 @@ class Department extends DataObject
                 GridFieldOrderableRows::create('SortOrder'),
             );
             $PersoGFConfig->removeComponentsByType(GridFieldFilterHeader::class);
-            $GFPerso = GridField::create('Persos', _t(self::class . '.PERSOS', 'Employees'), $this->Persos(), $PersoGFConfig);
-            $fields->addFieldToTab('Root.Main', $GFPerso);
-        } else {
-            $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
-        }
+
+            return GridField::create('Persos', _t(self::class . '.PERSOS', 'Employees'), $this->Persos(), $PersoGFConfig);
+        });
 
         return $fields;
     }

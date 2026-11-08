@@ -4,19 +4,12 @@ namespace App\Elements;
 
 use App\Models\ContentPart;
 use Spatie\SchemaOrg\Schema;
+use App\Utility\GridFieldHelper;
 use App\Schema\SchemaIdentifiers;
 use SilverStripe\Control\Director;
-use SilverStripe\Forms\LiteralField;
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Forms\GridField\GridField;
-use SilverStripe\Forms\GridField\GridFieldDetailForm;
-use SilverStripe\Forms\GridField\GridFieldEditButton;
-use SilverStripe\Forms\GridField\GridFieldConfig_Base;
-use SilverStripe\Forms\GridField\GridFieldAddNewButton;
-use SilverStripe\Forms\GridField\GridFieldDeleteAction;
-use SilverStripe\Forms\GridField\GridFieldFilterHeader;
-use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
-use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
+use App\GridField\GridFieldConfig_SortableRelation;
 
 class ElementContentSection extends BaseElement
 {
@@ -51,24 +44,7 @@ class ElementContentSection extends BaseElement
             'ContentParts',
         ]);
 
-        // hack around unsaved relations
-        if ($this->isInDB()) {
-            $ContentPartsGridFieldConfig = GridFieldConfig_Base::create(20);
-            $ContentPartsGridFieldConfig->addComponents(
-                GridFieldEditButton::create(),
-                GridFieldDeleteAction::create(false),
-                GridFieldDeleteAction::create(true),
-                GridFieldDetailForm::create(),
-                GridFieldAddNewButton::create('toolbar-header-left'),
-                GridFieldAddExistingAutocompleter::create('toolbar-header-right'),
-                GridFieldOrderableRows::create('SortOrder'),
-            );
-            $ContentPartsGridFieldConfig->removeComponentsByType(GridFieldFilterHeader::class);
-            $GridField = GridField::create('ContentParts', 'Content Parts', $this->ContentParts(), $ContentPartsGridFieldConfig);
-            $fields->addFieldToTab('Root.Main', $GridField);
-        } else {
-            $fields->addFieldToTab('Root.Main', LiteralField::create('firstsave', '<p style="font-weight:bold; color:#555;">' . _t('SilverStripe\CMS\Controllers\CMSMain.SaveFirst', 'none') . '</p>'));
-        }
+        GridFieldHelper::addIfSaved($fields, $this, fn () => GridField::create('ContentParts', 'Content Parts', $this->ContentParts(), GridFieldConfig_SortableRelation::create('SortOrder')));
 
         return $fields;
     }
