@@ -44,7 +44,8 @@
       "settings": {
 
         // VS Code PHP
-        "vscode.php-language-features": false,
+        // "vscode.php-language-features": false,
+        "php.suggest.basic": false,
         // PHP Settings (now running IN container)
         "php.validate.executablePath": "/usr/bin/php",
 

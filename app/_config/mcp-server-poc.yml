@@ -11,9 +11,6 @@ Kraftausdruck\Controller\McpTaskController:
     - manage-job-postings
     - manage-element-pages
 
-Kraftausdruck\Services\BackgroundTaskService:
-  start_rate_limit: 0
-
 Kraftausdruck\Controller\McpReadController:
   allowed_classes:
     - App\Models\Perso
@@ -31,3 +28,10 @@ Kraftausdruck\Controller\McpReadController:
     - App\Elements\ElementContentSection
     - SilverStripe\SiteConfig\SiteConfig
     - DNADesign\Elemental\Models\ElementContent
+
+---
+Only:
+  environment: dev
+---
+Kraftausdruck\Services\BackgroundTaskService:
+  start_rate_limit: 0

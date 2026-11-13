@@ -57,13 +57,19 @@ class DbBuildIdeHelperExtension extends Extension
 
         if ($changed) {
             file_put_contents($path, $stub);
-            $output->writeln('<options=bold>' . _t(
-                self::class . '.IdeHelperUpdated',
-                'IDE helper updated. Phpactor must reload to use the changes.',
-            ) . '</>');
 
             if (Config::inst()->get(self::class, 'restart_phpactor_language_server') === true) {
                 $this->restartPhpactorLanguageServer();
+                $output->writeln('<options=bold>' . _t(
+                    self::class . '.IdeHelperUpdatedRestarted',
+                    'IDE helper updated. Phpactor language server restarted.',
+                ) . '</>');
+            } else {
+                $output->writeln('<options=bold>' . _t(
+                    self::class . '.IdeHelperUpdated',
+                    'IDE helper updated. Phpactor must reload to use the changes. Set {config}: true to restart it automatically.',
+                    ['config' => self::class . '.restart_phpactor_language_server'],
+                ) . '</>');
             }
         }
 

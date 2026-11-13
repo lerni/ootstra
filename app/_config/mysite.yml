@@ -109,6 +109,9 @@ SilverStripe\Dev\Command\DbBuild:
   extensions:
     - App\Extensions\DbBuildIdeHelperExtension
 
+App\Extensions\DbBuildIdeHelperExtension:
+  restart_phpactor_language_server: true
+
 SilverStripe\Blog\Model\BlogCategory:
   allow_urlsegment_multibyte: true
   extensions:
