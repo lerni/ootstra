@@ -9,7 +9,7 @@ use Netwerkstatt\SilverstripeRector\Set\SilverstripeLevelSetList;
 use Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector;
 use Rector\CodingStyle\Rector\ClassMethod\NewlineBeforeNewAssignSetRector;
 use Rector\TypeDeclaration\Rector\StmtsAwareInterface\DeclareStrictTypesRector;
-use Netwerkstatt\SilverstripeRector\Rector\Misc\RenameAddFieldsToTabWithoutArrayParamRector;
+use Netwerkstatt\SilverstripeRector\Rector\Misc\RenameFieldListMethodsWithoutArrayParamRector;
 
 return RectorConfig::configure()
     ->withPaths([
@@ -37,5 +37,5 @@ return RectorConfig::configure()
         NewlineAfterStatementRector::class,
         DeclareStrictTypesRector::class,
         EncapsedStringsToSprintfRector::class,
-        RenameAddFieldsToTabWithoutArrayParamRector::class,
+        RenameFieldListMethodsWithoutArrayParamRector::class,
     ]);

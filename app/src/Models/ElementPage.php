@@ -15,6 +15,8 @@ class ElementPage extends Page
 
     private static $owns = [];
 
+    private static array $allowed_elements = [];
+
     private static $controller_name = ElementPageController::class;
 
     private static $table_name = 'ElementPage';

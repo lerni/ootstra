@@ -44,6 +44,8 @@ class Page extends SiteTree
 
     private static $table_name = 'Page';
 
+    private static array $childrenexcluded = [];
+
     // $controller_name 'll make blog fail - so don't!
     // private static $controller_name  = PageController::class;
 

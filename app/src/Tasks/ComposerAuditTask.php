@@ -15,6 +15,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Process\Exception\ExceptionInterface as ProcessExceptionInterface;
 
 class ComposerAuditTask extends BuildTask
 {
@@ -26,6 +27,9 @@ class ComposerAuditTask extends BuildTask
 
     /** Valid values accepted by composer's own `--abandoned` option. */
     private const ABANDONED_MODES = ['ignore', 'report', 'fail'];
+
+    /** Valid values accepted by composer's own `--ignore-severity` option. */
+    private const SEVERITIES = ['low', 'medium', 'high', 'critical'];
 
     public function getOptions(): array
     {
@@ -54,6 +58,21 @@ class ComposerAuditTask extends BuildTask
         $ignoreSeverities = (array) $input->getOption('ignore-severity');
         $to = $input->getOption('to');
 
+        if ($to !== null && $to !== '' && !Email::is_valid_address($to)) {
+            $output->writeln("Error: Invalid --to email address: {$to}");
+
+            return Command::FAILURE;
+        }
+
+        $ignoreSeverities = array_filter(array_map(static fn ($severity) => strtolower(trim((string) $severity)), $ignoreSeverities), static fn ($severity) => $severity !== '');
+        $invalidSeverities = array_diff($ignoreSeverities, self::SEVERITIES);
+
+        if ($invalidSeverities !== []) {
+            $output->writeln('Error: Invalid --ignore-severity value(s): ' . implode(', ', $invalidSeverities) . '. Allowed: ' . implode(', ', self::SEVERITIES) . '.');
+
+            return Command::FAILURE;
+        }
+
         if (!in_array($abandonedMode, self::ABANDONED_MODES, true)) {
             $abandonedMode = 'report';
         }
@@ -67,16 +86,19 @@ class ComposerAuditTask extends BuildTask
         $args[] = '--abandoned=' . $abandonedMode;
 
         foreach ($ignoreSeverities as $severity) {
-            $severity = trim((string) $severity);
-
-            if ($severity !== '') {
-                $args[] = '--ignore-severity=' . $severity;
-            }
+            $args[] = '--ignore-severity=' . $severity;
         }
 
         $process = new Process($args, BASE_PATH);
         $process->setTimeout(120);
-        $process->run();
+
+        try {
+            $process->run();
+        } catch (ProcessExceptionInterface $e) {
+            $output->writeln('Error: Could not run "composer audit". ' . $e->getMessage());
+
+            return Command::FAILURE;
+        }
 
         // composer audit exits 1 merely because it found something to report, not because it failed to run
         $data = json_decode($process->getOutput(), true);
@@ -94,7 +116,7 @@ class ComposerAuditTask extends BuildTask
         $abandonedCount = count($abandoned);
 
         if ($advisoryCount === 0 && $abandonedCount === 0) {
-            $output->writeln('No security advisories or abandoned packages found.');
+            $output->writeln('No findings.');
 
             return Command::SUCCESS;
         }
@@ -112,7 +134,7 @@ class ComposerAuditTask extends BuildTask
             return Command::SUCCESS;
         }
 
-        if (!$to || !Email::is_valid_address($to)) {
+        if (!$to) {
             $to = Environment::getEnv('SS_ERROR_EMAIL');
         }
 

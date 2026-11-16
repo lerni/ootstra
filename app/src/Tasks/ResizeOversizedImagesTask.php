@@ -196,11 +196,8 @@ class ResizeOversizedImagesTask extends BuildTask
             $oldHash = $image->FileHash;
 
             $image->setFromLocalFile($tmpImage, $image->FileName);
-            // Clear stale cached dimensions — FocusPoint doesn't recalculate them on write().
-            if (class_exists(DBFocusPoint::class)) {
-                $image->FocusPointWidth = 0;
-                $image->FocusPointHeight = 0;
-            }
+            // Cached backend still holds the original; FocusPoint's onBeforeWrite would cache its size.
+            $image->setImageBackend($transformed);
             $image->write();
             // Publish to File_Live; without this the live site still serves the old file.
             $image->publishSingle();

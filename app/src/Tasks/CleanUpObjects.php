@@ -20,6 +20,8 @@ class CleanUpObjects extends BuildTask
 
     private static $days_retention = 180;
 
+    private static array $objects_to_clean_up = [];
+
     protected function execute(InputInterface $input, PolyOutput $output): int
     {
         $iThresholdDate = strtotime('-' . $this->config()->get('days_retention') . ' days');
