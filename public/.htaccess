@@ -570,9 +570,22 @@ AddDefaultCharset utf-8
         DirectorySlash On
     </IfModule>
 
-    # RewriteCond %{HTTPS} !=on [OR]
-    # RewriteCond %{HTTP_HOST} !^www\.domain\.tld$ [NC]
-    # RewriteRule ^(.*)$ https://www.domain.tld/$1 [R=301,L]
+    # Live only: in deploy/live.htaccess uncomment this line and set the canonical host (the only difference between both files).
+    # RewriteRule ^ - [E=CANONICAL_HOST:www.domain.tld]
+
+    # Single redirect for canonical host + HTTPS and trailing slash. CANONICAL_ORIGIN stays empty (same host) unless CANONICAL_HOST is set.
+    RewriteCond %{ENV:CANONICAL_HOST} !^$
+    RewriteCond %{HTTP_HOST}@@%{ENV:CANONICAL_HOST} !^([^@]+)@@\1$ [NC,OR]
+    RewriteCond %{HTTPS} !=on
+    RewriteRule ^ - [E=CANONICAL_ORIGIN:https://%{ENV:CANONICAL_HOST}]
+
+    RewriteCond %{REQUEST_URI} !^/(admin|dev|Security|mcp)(/|$) [NC]
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^.+/$ - [E=STRIP_SLASH:1]
+
+    RewriteCond %{ENV:CANONICAL_ORIGIN} !^$ [OR]
+    RewriteCond %{ENV:STRIP_SLASH} =1
+    RewriteRule ^(.*?)/?$ %{ENV:CANONICAL_ORIGIN}/$1 [R=301,L]
 
     # Process through SilverStripe if no file with the requested name exists.
     # Pass through the original path as a query parameter, and retain the existing parameters.

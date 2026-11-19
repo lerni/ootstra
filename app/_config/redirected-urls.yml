@@ -1,0 +1,19 @@
+---
+Name: app-redirected-urls
+After:
+  - 'silverstripe-redirectedurls'
+  - '#requestprocessors'
+  - '#canonicalurls'
+---
+SilverStripe\Core\Injector\Injector:
+  SilverStripe\RedirectedURLs\Service\RedirectedURLInterface:
+    class: App\Service\UmlautRedirectedURLService
+  SilverStripe\RedirectedURLs\Service\RedirectedURLService:
+    class: App\Service\UmlautRedirectedURLService
+  SilverStripe\Control\Middleware\CanonicalURLMiddleware:
+    class: App\Middleware\TrailingSlashRedirectMiddleware
+    properties:
+      EnforceTrailingSlashConfigIgnorePaths:
+        - 'admin/'
+        - 'dev/'
+        - 'mcp/'

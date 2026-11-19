@@ -12,6 +12,7 @@ use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Model\List\ArrayList;
 use SilverStripe\SiteConfig\SiteConfig;
+use SilverStripe\Blog\Model\BlogController;
 use SilverStripe\Forms\GridField\GridField;
 use App\GridField\GridFieldConfig_SortableRelation;
 use SilverStripe\Forms\GridField\GridFieldPaginator;
@@ -86,6 +87,53 @@ class BlogExtension extends Extension
                 GridFieldOrderableRows::create('Sort'),
             );
         }
+    }
+
+    // Filtered pages (category, tag, author, archive, paging) prefix the holder's description with the filter,
+    // so the text stays editable in the CMS but is no longer identical on every filtered page
+    public function updateMetaComponents(array &$tags): void
+    {
+        $controller = Controller::curr();
+        if (!$controller instanceof BlogController) {
+            return;
+        }
+
+        $filter = $controller->getFilterDescription();
+        $base = trim((string) $this->getOwner()->MetaDescription);
+        if (!$filter || $base === '') {
+            return;
+        }
+
+        $description = $this->truncate($filter . ': ' . $base);
+
+        $tags['description'] = [
+            'attributes' => [
+                'name' => 'description',
+                'content' => $description,
+            ],
+        ];
+        $tags['og:description'] = [
+            'attributes' => [
+                'property' => 'og:description',
+                'content' => $description,
+            ],
+        ];
+    }
+
+    // Cuts at a word boundary
+    private function truncate(string $text, int $max = 160): string
+    {
+        if (mb_strlen($text) <= $max) {
+            return $text;
+        }
+
+        $cut = mb_substr($text, 0, $max - 1);
+        $lastSpace = mb_strrpos($cut, ' ');
+        if ($lastSpace !== false && $lastSpace > $max / 2) {
+            $cut = mb_substr($cut, 0, $lastSpace);
+        }
+
+        return rtrim($cut, " ,.;:-–") . '…';
     }
 
     public function YearlyArchive()

@@ -345,8 +345,8 @@ de_CH:
     ReCaptchaPrivacyPolicy: 'Datenschutzerklärung'
     ReCaptchaTermsOfService: 'Nutzungsbedingungen'
   App\Models\EditableFormField\EditableCheckboxTerms:
-    DefaultDescription: 'Ich akzeptiere &lt;a rel=&quot;noopener noreferrer&quot; href=&quot;[sitetree_link,id={id}]&quot; target=&quot;_blank&quot;&gt;AGBs und Datenschutzbestimmungen.<br/><strong>{id}</strong> ist die PageID welche Klaro linkt.'
-    DefaultTitle: 'Ich akzeptiere <a rel="noopener noreferrer" href="[sitetree_link,id={id}]" target="_blank">AGBs und Datenschutzbestimmungen</a>.'
+    DefaultDescription: 'Ich akzeptiere &lt;a rel=&quot;noopener noreferrer&quot; href=&quot;[sitetree_link,id={id}]&quot; target=&quot;_blank&quot;&gt;AGB und Datenschutzbestimmungen.<br/><strong>{id}</strong> ist die PageID welche Klaro linkt.'
+    DefaultTitle: 'Ich akzeptiere <a rel="noopener noreferrer" href="[sitetree_link,id={id}]" target="_blank">AGB und Datenschutzbestimmungen</a>.'
   App\Models\ShortCodeSnippet:
     Duplicate: 'Titel darf nur einmal verwendet werden.'
     ShortCodeDescription: 'Shortcodes können auch Variablen wie "{$Text}" aus Parametern verwenden [Snippet title="Titel" Text="Text"]'

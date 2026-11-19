@@ -198,6 +198,6 @@ class SchemaBuilder
 
     public static function language(): string
     {
-        return str_replace('_', '-', i18n::get_locale());
+        return i18n::convert_rfc1766(i18n::get_locale());
     }
 }

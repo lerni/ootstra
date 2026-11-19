@@ -6,6 +6,7 @@ use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\View\Parsers\ShortcodeParser;
+use App\Models\Submission\SubmittedCheckboxTerms;
 use SilverStripe\UserForms\Model\EditableFormField;
 use Kraftausdruck\Extensions\KlaroSiteConfigExtension;
 
@@ -55,6 +56,8 @@ class EditableCheckboxTerms extends EditableFormField
         $this->Name = 'TermsAndConditions';
         $this->Title = _t(self::class . '.DefaultTitle', 'I accept <a rel="noopener noreferrer" href="[sitetree_link,id={id}]" target="_blank">Terms & Conditions and Privacy Policy</a>.', ['id' => $id]);
         $this->Required = true;
+
+        return $this;
     }
 
     public function getCMSFields()
@@ -78,6 +81,11 @@ class EditableCheckboxTerms extends EditableFormField
     public function showInReports()
     {
         return !$this->HideFromReports;
+    }
+
+    public function getSubmittedFormField()
+    {
+        return SubmittedCheckboxTerms::create();
     }
 
     public function TitleParsed()

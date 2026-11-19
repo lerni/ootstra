@@ -28,6 +28,8 @@ class SchemaResponseMiddleware implements HTTPMiddleware
             return $response;
         }
 
+        VideoSchemaBuilder::register($body);
+
         $json = SchemaRegistry::getJSON(SchemaRegistry::getFinalGraph());
         $script = '<script type="application/ld+json">' . $json . "</script>\n";
         // substr_replace, not preg_replace: JSON may contain "$1"-like sequences

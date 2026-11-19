@@ -323,6 +323,11 @@ SilverStripe\Core\Injector\Injector:
     constructor:
       namespace: 'ElementFeedTeaser'
       defaultLifetime: 3600
+  Psr\SimpleCache\CacheInterface.VideoSchema:
+    factory: SilverStripe\Core\Cache\CacheFactory
+    constructor:
+      defaultLifetime: 2592000
+      namespace: "VideoSchema"
 
 TractorCow\Robots\Robots:
   disallowed_urls:

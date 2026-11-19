@@ -23,7 +23,11 @@ class ComposerAuditTask extends BuildTask
 
     protected string $title = 'Composer Audit (Security Advisories & Abandoned Packages)';
 
-    protected static string $description = 'Runs "composer audit" to check for security advisories (CVEs) and abandoned/end-of-life packages, emailing a report if any are found. Use php ./vendor/bin/sake tasks:composer-audit or https://domain.tld/dev/tasks/composer-audit. Options: --to, --dry-run, --include-dev, --abandoned=ignore|report|fail, --ignore-severity=low|medium|high|critical (repeatable).';
+    protected static string $description = 'Runs "composer audit" to check for security advisories (CVEs) and '
+        . 'abandoned/end-of-life packages, emailing a report if any are found. '
+        . 'Use php ./vendor/bin/sake tasks:composer-audit or https://domain.tld/dev/tasks/composer-audit. '
+        . 'Options: --to, --dry-run, --include-dev, --abandoned=ignore|report|fail, '
+        . '--ignore-severity=low|medium|high|critical (repeatable).';
 
     /** Valid values accepted by composer's own `--abandoned` option. */
     private const ABANDONED_MODES = ['ignore', 'report', 'fail'];
@@ -35,10 +39,31 @@ class ComposerAuditTask extends BuildTask
     {
         return [
             new InputOption('to', null, InputOption::VALUE_REQUIRED, 'Override the recipient email address'),
-            new InputOption('dry-run', null, InputOption::VALUE_NONE, 'Build and print the report without sending an email'),
-            new InputOption('include-dev', null, InputOption::VALUE_NONE, 'Also audit require-dev packages (default: production only)'),
-            new InputOption('abandoned', null, InputOption::VALUE_REQUIRED, 'Behavior for abandoned packages: ignore, report, or fail', 'report'),
-            new InputOption('ignore-severity', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Advisory severity to ignore: low, medium, high, or critical (repeatable)'),
+            new InputOption(
+                'dry-run',
+                null,
+                InputOption::VALUE_NONE,
+                'Build and print the report without sending an email',
+            ),
+            new InputOption(
+                'include-dev',
+                null,
+                InputOption::VALUE_NONE,
+                'Also audit require-dev packages (default: production only)',
+            ),
+            new InputOption(
+                'abandoned',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'Behavior for abandoned packages: ignore, report, or fail',
+                'report',
+            ),
+            new InputOption(
+                'ignore-severity',
+                null,
+                InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
+                'Advisory severity to ignore: low, medium, high, or critical (repeatable)',
+            ),
         ];
     }
 
@@ -47,7 +72,9 @@ class ComposerAuditTask extends BuildTask
         $composerBin = $this->resolveComposerBinary();
 
         if ($composerBin === null) {
-            $output->writeln('Error: Could not find a composer executable (checked "which composer" and ~/bin/composer.phar).');
+            $output->writeln(
+                'Error: Could not find a composer executable (checked "which composer" and ~/bin/composer.phar).',
+            );
 
             return Command::FAILURE;
         }
@@ -64,17 +91,28 @@ class ComposerAuditTask extends BuildTask
             return Command::FAILURE;
         }
 
-        $ignoreSeverities = array_filter(array_map(static fn ($severity) => strtolower(trim((string) $severity)), $ignoreSeverities), static fn ($severity) => $severity !== '');
+        $ignoreSeverities = array_filter(
+            array_map(static fn ($s) => strtolower(trim((string) $s)), $ignoreSeverities),
+            static fn ($s) => $s !== '',
+        );
         $invalidSeverities = array_diff($ignoreSeverities, self::SEVERITIES);
 
         if ($invalidSeverities !== []) {
-            $output->writeln('Error: Invalid --ignore-severity value(s): ' . implode(', ', $invalidSeverities) . '. Allowed: ' . implode(', ', self::SEVERITIES) . '.');
+            $output->writeln(
+                'Error: Invalid --ignore-severity value(s): ' . implode(', ', $invalidSeverities)
+                . '. Allowed: ' . implode(', ', self::SEVERITIES) . '.',
+            );
 
             return Command::FAILURE;
         }
 
         if (!in_array($abandonedMode, self::ABANDONED_MODES, true)) {
-            $abandonedMode = 'report';
+            $output->writeln(
+                "Error: Invalid --abandoned value: {$abandonedMode}. Allowed: "
+                . implode(', ', self::ABANDONED_MODES) . '.',
+            );
+
+            return Command::FAILURE;
         }
 
         $args = array_merge($composerBin, ['audit', '--format=json', '--no-interaction']);
@@ -134,7 +172,7 @@ class ComposerAuditTask extends BuildTask
             return Command::SUCCESS;
         }
 
-        if (!$to) {
+        if (!$to || !Email::is_valid_address($to)) {
             $to = Environment::getEnv('SS_ERROR_EMAIL');
         }
 
@@ -146,7 +184,9 @@ class ComposerAuditTask extends BuildTask
             } elseif (is_string($adminEmail) && Email::is_valid_address($adminEmail)) {
                 $to = $adminEmail;
             } else {
-                $output->writeln('Error: No valid recipient email address specified. Configure SS_ERROR_EMAIL or admin_email.');
+                $output->writeln(
+                    'Error: No valid recipient email address specified. Configure SS_ERROR_EMAIL or admin_email.',
+                );
 
                 return Command::FAILURE;
             }
@@ -179,9 +219,14 @@ class ComposerAuditTask extends BuildTask
     private function resolveComposerBinary(): ?array
     {
         $which = new Process(['which', 'composer']);
-        $which->run();
-        $lines = explode("\n", trim($which->getOutput()));
-        $path = $lines[0] ?? '';
+
+        try {
+            $which->run();
+            $lines = explode("\n", trim($which->getOutput()));
+            $path = $lines[0];
+        } catch (ProcessExceptionInterface) {
+            $path = '';
+        }
 
         if ($path !== '' && is_executable($path)) {
             return [$path];
@@ -200,8 +245,16 @@ class ComposerAuditTask extends BuildTask
         return null;
     }
 
-    private function buildReportBody(string $domain, string $checkedAt, array $advisories, array $abandoned): string
-    {
+    /**
+     * @param array<string, list<array<string, mixed>>> $advisories
+     * @param array<string, string|null> $abandoned
+     */
+    private function buildReportBody(
+        string $domain,
+        string $checkedAt,
+        array $advisories,
+        array $abandoned,
+    ): string {
         $lines = [
             'Composer audit report for ' . Convert::raw2xml($domain) . '.',
             'Checked at: ' . Convert::raw2xml($checkedAt) . '<br>',
@@ -218,7 +271,8 @@ class ComposerAuditTask extends BuildTask
                     $link = $advisory['link'] ?? null;
                     $packageName = Convert::raw2xml($package);
 
-                    $line = "- {$packageName} [{$severity}]" . ($cve ? ' (' . Convert::raw2xml($cve) . ')' : '') . ": {$title}";
+                    $cveText = $cve ? ' (' . Convert::raw2xml($cve) . ')' : '';
+                    $line = "- {$packageName} [{$severity}]{$cveText}: {$title}";
 
                     if ($link) {
                         $line .= ' (' . Convert::raw2xml($link) . ')';
@@ -233,7 +287,9 @@ class ComposerAuditTask extends BuildTask
             $lines[] = '<br><strong>Abandoned packages:</strong><br>';
 
             foreach ($abandoned as $package => $replacement) {
-                $replacementText = is_string($replacement) ? 'replaced by ' . Convert::raw2xml($replacement) : 'no replacement suggested';
+                $replacementText = is_string($replacement)
+                    ? 'replaced by ' . Convert::raw2xml($replacement)
+                    : 'no replacement suggested';
                 $lines[] = '- ' . Convert::raw2xml($package) . ": {$replacementText}<br>";
             }
         }

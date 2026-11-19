@@ -58,6 +58,8 @@
         "php-cs-fixer.onsave": true,
         "php-cs-fixer.rules": "@PSR12",
         "php-cs-fixer.pathMode": "intersection",
+        // Skip third-party vendor code on save, keep own modules (negated glob, anymatch syntax)
+        "php-cs-fixer.exclude": ["**/vendor/**", "!**/vendor/lerni/**"],
 
         // Biome is installed globally in devcontainer web-image -> .ddev/web-build/Dockerfile
         // VS Code Biome extension resolves the binary early on startup and

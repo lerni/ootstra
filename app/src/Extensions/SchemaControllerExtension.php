@@ -8,8 +8,10 @@ use Spatie\SchemaOrg\BaseType;
 use SilverStripe\Core\Extension;
 use SilverStripe\ORM\DataObject;
 use App\Schema\SchemaIdentifiers;
+use SilverStripe\Control\Director;
 use SilverStripe\ErrorPage\ErrorPage;
 use SilverStripe\CMS\Model\RedirectorPage;
+use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\CMS\Controllers\ContentController;
 
 /**
@@ -28,6 +30,10 @@ class SchemaControllerExtension extends Extension
 {
     public function onBeforeInit(): void
     {
+        if ($this->wrapsElement()) {
+            return;
+        }
+
         SchemaRegistry::flush();
     }
 
@@ -35,7 +41,7 @@ class SchemaControllerExtension extends Extension
     {
         $owner = $this->getOwner();
         $page = $owner->hasMethod('data') ? $owner->data() : null;
-        if ($page instanceof ErrorPage) {
+        if ($page instanceof ErrorPage || $this->wrapsElement()) {
             return;
         }
 
@@ -43,7 +49,7 @@ class SchemaControllerExtension extends Extension
         SchemaRegistry::add(SchemaBuilder::organization());
         SchemaRegistry::add(SchemaBuilder::website());
 
-        if (!$page instanceof DataObject || !$page->hasMethod('AbsoluteLink')) {
+        if (!$page instanceof DataObject || !$page->exists() || !$page->hasMethod('AbsoluteLink')) {
             return;
         }
 
@@ -57,22 +63,38 @@ class SchemaControllerExtension extends Extension
     }
 
     /**
+     * Elemental inits a controller per element while the page renders (UserDefinedFormController for ElementForm);
+     * those must neither flush the registry nor register the element as a page.
+     */
+    protected function wrapsElement(): bool
+    {
+        $owner = $this->getOwner();
+
+        return $owner->hasMethod('data') && $owner->data() instanceof BaseElement;
+    }
+
+    /**
      * Registers WebPage, BreadcrumbList and contributed entities of a managed item
      * (e.g. Perso) that is rendered below a holder page.
+     *
+     * @param array<int, array{name: string, url: string}>|null $breadcrumbs Explicit trail, if the item has no getBreadcrumbItems()
      */
-    public function registerSchemaForItem(DataObject $item, DataObject $holder): void
+    public function registerSchemaForItem(DataObject $item, DataObject $holder, ?array $breadcrumbs = null, ?string $name = null): void
     {
-        $url = $item->hasMethod('AbsoluteLink') ? $item->AbsoluteLink() : null;
+        // Items without AbsoluteLink() (e.g. shop nodes) only know their relative Link()
+        $url = $item->hasMethod('AbsoluteLink')
+            ? $item->AbsoluteLink()
+            : ($item->hasMethod('Link') && $item->Link() ? Director::absoluteURL($item->Link()) : null);
         if (!$url) {
             return;
         }
 
         // Same trail as the rendered breadcrumbs; fall back to holder + item
-        $breadcrumbs = $item->hasMethod('getBreadcrumbItems')
+        $breadcrumbs ??= $item->hasMethod('getBreadcrumbItems')
             ? $this->pageBreadcrumbs($item)
             : [...$this->pageBreadcrumbs($holder), ['name' => (string) $item->getTitle(), 'url' => $url]];
 
-        $this->registerSubject($item, $url, $breadcrumbs);
+        $this->registerSubject($item, $url, $breadcrumbs, $name);
         $this->registerSubjectEntities($item, $url);
     }
 
@@ -101,9 +123,9 @@ class SchemaControllerExtension extends Extension
         SchemaRegistry::addAll($entities);
     }
 
-    protected function registerSubject(DataObject $subject, string $url, array $breadcrumbs): void
+    protected function registerSubject(DataObject $subject, string $url, array $breadcrumbs, ?string $name = null): void
     {
-        SchemaRegistry::add(SchemaBuilder::webPage($subject, $url, $breadcrumbs));
+        SchemaRegistry::add(SchemaBuilder::webPage($subject, $url, $breadcrumbs, $name));
         if ($breadcrumbs) {
             SchemaRegistry::add(SchemaBuilder::breadcrumbList($url, $breadcrumbs));
         }
@@ -120,7 +142,9 @@ class SchemaControllerExtension extends Extension
             if ($item instanceof RedirectorPage) {
                 continue;
             }
-            $breadcrumbs[] = ['name' => (string) ($item->MenuTitle ?: $item->Title), 'url' => $item->AbsoluteLink()];
+            // ArrayData items (e.g. ShopPage) only expose a relative Link
+            $url = $item->hasMethod('AbsoluteLink') ? $item->AbsoluteLink() : Director::absoluteURL((string) $item->Link);
+            $breadcrumbs[] = ['name' => (string) ($item->MenuTitle ?: $item->Title), 'url' => $url];
         }
 
         return $breadcrumbs;
